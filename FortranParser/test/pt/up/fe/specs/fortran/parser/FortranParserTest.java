@@ -116,4 +116,16 @@ public class FortranParserTest {
     void testBinaryOperator() {
         testJson("binary_operator.json");
     }
+
+    @Test
+    void testIfNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("conditionalstmt/if.f90");
+        }
+    }
+
+    @Test
+    void testIf() {
+        testJson("conditionalstmt/if.json");
+    }
 }
