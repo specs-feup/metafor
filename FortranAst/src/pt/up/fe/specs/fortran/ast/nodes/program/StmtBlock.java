@@ -16,5 +16,13 @@ public class StmtBlock extends FortranNode {
     public List<Stmt> getStatements() {
         return getChildren(Stmt.class);
     }
-    
+
+    @Override
+    public String getCode() {
+        var code = new StringBuilder();
+        for (var stmt : getStatements()) {
+            code.append(stmt.getCode()).append(ln());
+        }
+        return code.toString();
+    }
 }

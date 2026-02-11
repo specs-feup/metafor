@@ -34,6 +34,9 @@ public enum FlangName implements StringProvider {
     TYPE_DECLARATION_STMT,
     ASSIGNMENT_STMT,
 
+    /// Conditional Statements
+    IF_STMT,
+
     // Variables
     VARIABLE,
     DESIGNATOR,

@@ -3,7 +3,12 @@ package pt.up.fe.specs.fortran.ast;
 public enum FortranKeyword {
     END,
     PROGRAM,
-    PRINT;
+    PRINT,
+
+    // Conditional statements
+    IF,
+    THEN,
+    ELSE;
 
     public String getKeyword(boolean lowercase) {
         var keyword = name();
