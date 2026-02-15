@@ -8,7 +8,7 @@ import pt.up.fe.specs.fortran.ast.nodes.loops.enums.DoKind;
 import java.util.Collection;
 import java.util.Optional;
 
-public class DoStmt extends Stmt {
+public class DoStmt extends ExecutableStmt {
 
     public DoStmt(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
@@ -21,6 +21,6 @@ public class DoStmt extends Stmt {
     public DoKind getKind() {
         return getControl()
                 .map(LoopControl::getKind)
-                .orElse(DoKind.WHILE);
+                .orElse(DoKind.While);
     }
 }

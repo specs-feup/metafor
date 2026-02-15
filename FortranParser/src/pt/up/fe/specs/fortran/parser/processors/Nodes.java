@@ -5,14 +5,13 @@ import pt.up.fe.specs.fortran.ast.nodes.decl.EntityDecl;
 import pt.up.fe.specs.fortran.ast.nodes.expr.IntLiteral;
 import pt.up.fe.specs.fortran.ast.nodes.expr.LogicalLiteral;
 import pt.up.fe.specs.fortran.ast.nodes.expr.StringLiteral;
+import pt.up.fe.specs.fortran.ast.nodes.loops.LoopBounds;
+import pt.up.fe.specs.fortran.ast.nodes.loops.LoopControl;
 import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
 import pt.up.fe.specs.fortran.ast.nodes.program.FortranFile;
 import pt.up.fe.specs.fortran.ast.nodes.program.MainProgram;
 import pt.up.fe.specs.fortran.ast.nodes.program.Specification;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.AssignmentStmt;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.FormatStmt;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.PrintStmt;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.TypeDeclarationStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.type.IntegerType;
 import pt.up.fe.specs.fortran.ast.nodes.type.LogicalType;
 import pt.up.fe.specs.fortran.ast.nodes.utils.Format;
@@ -50,6 +49,7 @@ public class Nodes {
         processors.put(FormatStmt.class, s::formatStmt);
         processors.put(TypeDeclarationStmt.class, s::typeDeclarationStmt);
         processors.put(AssignmentStmt.class, s::assignmentStmt);
+        processors.put(DoStmt.class, s::doStmt);
 
         var e = new ExprProcessors(data);
         processors.put(StringLiteral.class, e::stringLiteral);
@@ -63,6 +63,10 @@ public class Nodes {
         var u = new UtilsProcessors(data);
         processors.put(Star.class, u::star);
         processors.put(Format.class, u::format);
+
+        var l = new LoopProcessors(data);
+        processors.put(LoopControl.class, l::loopControl);
+        processors.put(LoopBounds.class, l::loopBounds);
     }
 
     public void process(FortranNode node) {

@@ -33,6 +33,8 @@ public enum FlangName implements StringProvider {
     OUTPUT_ITEM,
     TYPE_DECLARATION_STMT,
     ASSIGNMENT_STMT,
+    NON_LABEL_DO_STMT,
+    DO_CONSTRUCT,
 
     // Variables
     VARIABLE,
@@ -51,6 +53,10 @@ public enum FlangName implements StringProvider {
     DECLARATION_TYPE_SPEC,
     INTEGER_TYPE_SPEC,
     LOGICAL,
+
+    /// LOOP
+    LOOP_BOUNDS,
+    LOOP_CONTROL,
 
     // OTHER
     INITIALIZATION;

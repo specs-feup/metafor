@@ -4,6 +4,8 @@ import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 
+import java.util.Optional;
+
 public class StmtProcessors extends ANodeProcessor {
 
 
@@ -54,5 +56,11 @@ public class StmtProcessors extends ANodeProcessor {
         var expression = getChild(assignmentStmt, FlangName.EXPR);
         assignmentStmt.addChild(variable);
         assignmentStmt.addChild(expression);
+    }
+
+    public void doStmt(DoStmt doStmt) {
+        Optional<String> control = attributes().getOptionalString(doStmt, "id", FlangName.NON_LABEL_DO_STMT, FlangName.LOOP_CONTROL);
+
+        control.ifPresent(s -> doStmt.addChild(getChild(s)));
     }
 }

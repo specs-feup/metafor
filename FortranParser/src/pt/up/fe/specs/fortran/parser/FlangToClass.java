@@ -5,6 +5,8 @@ import pt.up.fe.specs.fortran.ast.nodes.decl.EntityDecl;
 import pt.up.fe.specs.fortran.ast.nodes.expr.IntLiteral;
 import pt.up.fe.specs.fortran.ast.nodes.expr.LogicalLiteral;
 import pt.up.fe.specs.fortran.ast.nodes.expr.StringLiteral;
+import pt.up.fe.specs.fortran.ast.nodes.loops.LoopBounds;
+import pt.up.fe.specs.fortran.ast.nodes.loops.LoopControl;
 import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
 import pt.up.fe.specs.fortran.ast.nodes.program.FortranFile;
 import pt.up.fe.specs.fortran.ast.nodes.program.MainProgram;
@@ -40,6 +42,7 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.FORMAT_STMT, FormatStmt.class);
         NAME_TO_CLASS.put(FlangName.TYPE_DECLARATION_STMT, TypeDeclarationStmt.class);
         NAME_TO_CLASS.put(FlangName.ASSIGNMENT_STMT, AssignmentStmt.class);
+        NAME_TO_CLASS.put(FlangName.DO_CONSTRUCT, DoStmt.class);
 
         /// Variables
         NAME_TO_CLASS.put(FlangName.DATA_REF, DataRef.class);
@@ -54,6 +57,10 @@ public class FlangToClass {
         /// TYPEs
         NAME_TO_CLASS.put(FlangName.INTEGER_TYPE_SPEC, IntegerType.class);
         NAME_TO_CLASS.put(FlangName.LOGICAL, LogicalType.class);
+
+        ///  LOOP
+        NAME_TO_CLASS.put(FlangName.LOOP_BOUNDS, LoopBounds.class);
+        NAME_TO_CLASS.put(FlangName.LOOP_CONTROL, LoopControl.class);
     }
 
     public static boolean isClass(String type) {
