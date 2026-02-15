@@ -3,7 +3,8 @@ package pt.up.fe.specs.fortran.ast;
 public enum FortranKeyword {
     END,
     PROGRAM,
-    PRINT;
+    PRINT,
+    DO;
 
     public String getKeyword(boolean lowercase) {
         var keyword = name();

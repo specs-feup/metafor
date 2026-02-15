@@ -29,4 +29,19 @@ public class LoopControl extends FortranNode {
     public DoKind getKind() {
         return get(KIND);
     }
+
+    @Override
+    public String getCode() {
+        switch (getKind()) {
+            case Range -> {
+                return getBounds().map(LoopBounds::getCode).orElse("");
+            }
+            case While -> {
+                return "(" + getCond().get().getCode() + ")";
+            }
+        }
+
+        //TODO throw?
+        return "";
+    }
 }

@@ -1,6 +1,6 @@
 package pt.up.fe.specs.fortran.parser.processors;
 
-import pt.up.fe.specs.fortran.ast.nodes.program.StmtBlock;
+import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
@@ -64,7 +64,7 @@ public class StmtProcessors extends ANodeProcessor {
 
         control.ifPresent(s -> doStmt.addChild(getChild(s)));
 
-        StmtBlock body = factory().newNode(StmtBlock.class, getChildren(doStmt, FlangName.EXECUTION_PART_CONSTRUCT));
+        Execution body = factory().newNode(Execution.class, getChildren(doStmt, FlangName.EXECUTION_PART_CONSTRUCT));
         doStmt.addChild(body);
     }
 }
