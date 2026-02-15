@@ -12,8 +12,6 @@ import java.util.Optional;
 
 public class LoopBounds extends FortranNode {
 
-    public final static DataKey<String> NAME = KeyFactory.string("name");
-
     public LoopBounds(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
     }
@@ -24,8 +22,8 @@ public class LoopBounds extends FortranNode {
     }
     */
 
-    public String getVar() {
-        return get(NAME);
+    public DataRef getVar() {
+        return getChild(DataRef.class);
     }
 
     public Expr getLower() {

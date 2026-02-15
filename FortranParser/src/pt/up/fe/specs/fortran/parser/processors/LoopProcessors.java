@@ -21,9 +21,9 @@ public class LoopProcessors extends ANodeProcessor {
     }
 
     public void loopBounds(LoopBounds loopBounds) {
-        //String varName = attributes().getString(loopBounds, "source", FlangName.NAME);
         String varName = attributes().getAttrs(attributes().getString(loopBounds, "var")).getString("source");
-        loopBounds.set(LoopBounds.NAME, varName);
+        DataRef varRef = factory().newNode(DataRef.class);
+        varRef.set(DataRef.NAME, varName);
 
         loopBounds.addChild(getChild(loopBounds, "lower"));
         loopBounds.addChild(getChild(loopBounds, "upper"));
