@@ -16,10 +16,12 @@ package pt.up.fe.specs.fortran.weaver;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.program.Application;
 import pt.up.fe.specs.fortran.ast.nodes.program.FortranFile;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.Stmt;
 import pt.up.fe.specs.fortran.weaver.abstracts.AFortranWeaverJoinPoint;
 import pt.up.fe.specs.fortran.weaver.abstracts.joinpoints.AJoinPoint;
 import pt.up.fe.specs.fortran.weaver.joinpoints.FFile;
 import pt.up.fe.specs.fortran.weaver.joinpoints.FProgram;
+import pt.up.fe.specs.fortran.weaver.joinpoints.FStatement;
 import pt.up.fe.specs.fortran.weaver.joinpoints.GenericFortranJoinpoint;
 import pt.up.fe.specs.util.SpecsCollections;
 import pt.up.fe.specs.util.SpecsLogs;
@@ -36,6 +38,7 @@ public class FortranJoinpoints {
 
         JOINPOINT_FACTORY.put(Application.class, FProgram::new);
         JOINPOINT_FACTORY.put(FortranFile.class, FFile::new);
+        JOINPOINT_FACTORY.put(Stmt.class, FStatement::new);
         JOINPOINT_FACTORY.put(FortranNode.class, FortranJoinpoints::defaultFactory);
     }
 

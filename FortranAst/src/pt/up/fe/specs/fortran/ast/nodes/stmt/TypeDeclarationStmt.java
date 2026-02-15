@@ -40,7 +40,6 @@ public class TypeDeclarationStmt extends SpecificationStmt {
         var declsCode = decls.stream().map(decl -> decl.getCode())
                 .collect(Collectors.joining(", "));
         code.append(declsCode);
-        code.append(";");
 
         return code.toString();
     }

@@ -19,7 +19,10 @@ import org.suikasoft.jOptions.Interfaces.DataStore;
 import org.suikasoft.jOptions.treenode.DataNode;
 import pt.up.fe.specs.fortran.ast.FortranContext;
 import pt.up.fe.specs.fortran.ast.FortranKeyword;
+import pt.up.fe.specs.fortran.ast.FortranNodeFactory;
 import pt.up.fe.specs.fortran.ast.FortranNodes;
+import pt.up.fe.specs.fortran.ast.utils.Position;
+import pt.up.fe.specs.util.treenode.NodeInsertUtils;
 import pt.up.fe.specs.util.utilities.PrintOnce;
 
 import java.util.Collection;
@@ -121,5 +124,28 @@ public abstract class FortranNode extends DataNode<FortranNode> {
 
     protected String keyword(FortranKeyword keyword) {
         return get(CONTEXT).get(FortranContext.FORTRAN_KEYWORDS).get(keyword);
+    }
+
+    public FortranNodeFactory getFactory() {
+        return get(FortranNode.CONTEXT).get(FortranContext.FACTORY);
+    }
+
+
+    public FortranNode insert(Position position, FortranNode newNode) {
+        switch (position) {
+            case BEFORE -> NodeInsertUtils.insertBefore(this, newNode);
+            case AFTER -> NodeInsertUtils.insertAfter(this, newNode);
+            case REPLACE -> NodeInsertUtils.replace(this, newNode);
+        }
+
+        return newNode;
+    }
+
+    public FortranNode insert(Position position, String code) {
+        // By default, transforms code into a literal statement.
+        // This might need to evolve in the future, depending on where the code is inserted
+        var literalStmt = getFactory().literalExecutionStmt(code);
+
+        return insert(position, literalStmt);
     }
 }

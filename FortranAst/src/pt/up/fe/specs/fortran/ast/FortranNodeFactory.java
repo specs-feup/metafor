@@ -8,6 +8,7 @@ import pt.up.fe.specs.fortran.ast.nodes.expr.Literal;
 import pt.up.fe.specs.fortran.ast.nodes.expr.StringLiteral;
 import pt.up.fe.specs.fortran.ast.nodes.program.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ExecutableStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.LiteralExecutionStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.PrintStmt;
 import pt.up.fe.specs.fortran.ast.nodes.utils.Format;
 import pt.up.fe.specs.fortran.ast.nodes.utils.LabelRef;
@@ -134,6 +135,13 @@ public class FortranNodeFactory {
         DataStore data = newDataStore(PrintStmt.class);
 
         return new PrintStmt(data, SpecsCollections.concat(format, outputItems));
+    }
+
+    public LiteralExecutionStmt literalExecutionStmt(String code) {
+        DataStore data = newDataStore(LiteralExecutionStmt.class);
+        data.set(LiteralExecutionStmt.LITERAL_CODE, code);
+
+        return new LiteralExecutionStmt(data, Collections.emptyList());
     }
 
     // DECL

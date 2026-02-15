@@ -11,8 +11,15 @@
         <attribute name="parent" type="joinpoint"
                    tooltip="Returns the parent node in the AST, or undefined if it is the root node"/>
         <attribute name="code" type="String" tooltip="String with the code represented by this node"/>
+        <!-- TODO: TEMP FIX WHILE GENERATOR DOES NOT ADD THIS BASE ATTRIBUTE AUTOMATICALLY -->
         <attribute name="children" type="joinpoint[]"
-                   tooltip="Returns an array with the children of the node, ignoring null nodes"/>
+                   tooltip="Returns an array with the children of the node"/>
+        <!-- TODO: TEMP FIX WHILE GENERATOR DOES NOT ADD THIS BASE ATTRIBUTE AUTOMATICALLY -->
+        <attribute name="descendants" type="joinpoint[]"
+                   tooltip="Returns an array with the descendants of the node"/>
+        <!-- TODO: TEMP FIX WHILE GENERATOR DOES NOT ADD THIS BASE ATTRIBUTE AUTOMATICALLY -->
+        <attribute name="scopeNodes" type="joinpoint[]"
+                   tooltip="the nodes of the scope of the current join point. If this node has a body (e.g., loop, function) corresponds to the children of the body. Otherwise, returns an empty array"/>
     </global>
 
     <!-- PROGRAM -->

@@ -32,18 +32,25 @@ public enum FlangName implements StringProvider {
     FORMAT,
     OUTPUT_ITEM,
     TYPE_DECLARATION_STMT,
+    ASSIGNMENT_STMT,
 
+    // Variables
+    VARIABLE,
+    DESIGNATOR,
+    DATA_REF,
 
     /// EXPRs
     EXPR,
     LITERAL_CONSTANT,
     CHAR_LITERAL_CONSTANT,
     INT_LITERAL_CONSTANT,
+    LOGICAL_LITERAL_CONSTANT,
     STAR,
 
     /// TYPEs
     DECLARATION_TYPE_SPEC,
     INTEGER_TYPE_SPEC,
+    LOGICAL,
 
     // OTHER
     INITIALIZATION;

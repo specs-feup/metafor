@@ -9,11 +9,29 @@
 			"children": [
 					{
 						"type": "attribute",
+						"tooltip": "Returns an array with the children of the node",
+						"children": [
+									{
+										"type": "joinpoint[]",
+										"name": "children"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "String with the code represented by this node",
 						"children": [
 									{
 										"type": "String",
 										"name": "code"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "Returns an array with the descendants of the node",
+						"children": [
+									{
+										"type": "joinpoint[]",
+										"name": "descendants"
 									}]
 					},
 					{
@@ -32,6 +50,15 @@
 									{
 										"type": "program",
 										"name": "root"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "the nodes of the scope of the current join point. If this node has a body (e.g., loop, function) corresponds to the children of the body. Otherwise, returns an empty array",
+						"children": [
+									{
+										"type": "joinpoint[]",
+										"name": "scopeNodes"
 									}]
 					},
 					{
@@ -58,6 +85,15 @@
 			"children": [
 					{
 						"type": "attribute",
+						"tooltip": "the name of the folder",
+						"children": [
+									{
+										"type": "String",
+										"name": "foldername"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "the name of the file",
 						"children": [
 									{
@@ -67,11 +103,29 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "Returns an array with the children of the node",
+						"children": [
+									{
+										"type": "joinpoint[]",
+										"name": "children"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "String with the code represented by this node",
 						"children": [
 									{
 										"type": "String",
 										"name": "code"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "Returns an array with the descendants of the node",
+						"children": [
+									{
+										"type": "joinpoint[]",
+										"name": "descendants"
 									}]
 					},
 					{
@@ -90,6 +144,15 @@
 									{
 										"type": "program",
 										"name": "root"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "the nodes of the scope of the current join point. If this node has a body (e.g., loop, function) corresponds to the children of the body. Otherwise, returns an empty array",
+						"children": [
+									{
+										"type": "joinpoint[]",
+										"name": "scopeNodes"
 									}]
 					},
 					{
@@ -115,11 +178,29 @@
 			"children": [
 					{
 						"type": "attribute",
+						"tooltip": "Returns an array with the children of the node",
+						"children": [
+									{
+										"type": "joinpoint[]",
+										"name": "children"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "String with the code represented by this node",
 						"children": [
 									{
 										"type": "String",
 										"name": "code"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "Returns an array with the descendants of the node",
+						"children": [
+									{
+										"type": "joinpoint[]",
+										"name": "descendants"
 									}]
 					},
 					{
@@ -138,6 +219,15 @@
 									{
 										"type": "program",
 										"name": "root"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "the nodes of the scope of the current join point. If this node has a body (e.g., loop, function) corresponds to the children of the body. Otherwise, returns an empty array",
+						"children": [
+									{
+										"type": "joinpoint[]",
+										"name": "scopeNodes"
 									}]
 					},
 					{
@@ -179,11 +269,29 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "Returns an array with the children of the node",
+						"children": [
+									{
+										"type": "joinpoint[]",
+										"name": "children"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "String with the code represented by this node",
 						"children": [
 									{
 										"type": "String",
 										"name": "code"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "Returns an array with the descendants of the node",
+						"children": [
+									{
+										"type": "joinpoint[]",
+										"name": "descendants"
 									}]
 					},
 					{
@@ -202,6 +310,15 @@
 									{
 										"type": "program",
 										"name": "root"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "the nodes of the scope of the current join point. If this node has a body (e.g., loop, function) corresponds to the children of the body. Otherwise, returns an empty array",
+						"children": [
+									{
+										"type": "joinpoint[]",
+										"name": "scopeNodes"
 									}]
 					},
 					{

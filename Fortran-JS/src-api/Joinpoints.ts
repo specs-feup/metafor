@@ -28,9 +28,17 @@ export class Joinpoint extends LaraJoinPoint {
     name: null,
   };
   /**
+   * Returns an array with the children of the node
+   */
+  get children(): Joinpoint[] { return wrapJoinPoint(this._javaObject.getChildren()) }
+  /**
    * String with the code represented by this node
    */
   get code(): string { return wrapJoinPoint(this._javaObject.getCode()) }
+  /**
+   * Returns an array with the descendants of the node
+   */
+  get descendants(): Joinpoint[] { return wrapJoinPoint(this._javaObject.getDescendants()) }
   /**
    * Returns the parent node in the AST, or undefined if it is the root node
    */
@@ -39,6 +47,10 @@ export class Joinpoint extends LaraJoinPoint {
    * Returns the 'program' join point
    */
   get root(): Program { return wrapJoinPoint(this._javaObject.getRoot()) }
+  /**
+   * The nodes of the scope of the current join point. If this node has a body (e.g., loop, function) corresponds to the children of the body. Otherwise, returns an empty array
+   */
+  get scopeNodes(): Joinpoint[] { return wrapJoinPoint(this._javaObject.getScopeNodes()) }
   /**
    * Replaces this node with the given node
    */
@@ -55,6 +67,10 @@ export class FileJp extends Joinpoint {
   static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
     name: "name",
   };
+  /**
+   * The name of the folder
+   */
+  get foldername(): string { return wrapJoinPoint(this._javaObject.getFoldername()) }
   /**
    * The name of the file
    */
