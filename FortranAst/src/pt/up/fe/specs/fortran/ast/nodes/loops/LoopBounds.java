@@ -14,12 +14,6 @@ public class LoopBounds extends FortranNode {
         super(data, children);
     }
 
-    /*
-    public DataRef getVar() {
-        return getChild(DataRef.class);
-    }
-    */
-
     public DataRef getVar() {
         return getChild(DataRef.class, 0);
     }
