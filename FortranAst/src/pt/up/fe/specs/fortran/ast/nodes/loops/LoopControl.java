@@ -38,7 +38,8 @@ public class LoopControl extends FortranNode {
                 return getBounds().map(LoopBounds::getCode).orElse("");
             }
             case While -> {
-                return keyword(FortranKeyword.WHILE) + " (" + getCond().get().getCode() + ")";
+                return keyword(FortranKeyword.WHILE)
+                        + getCond().map(expr -> " (" + expr.getCode() + ")").orElse("");
             }
         }
 

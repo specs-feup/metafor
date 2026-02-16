@@ -5,11 +5,16 @@ program simple_loop
     !$OMP PARALLEL DO
     do i = 1, 5
         dummy = 3
+        dummy = 4
     end do
     !$OMP END PARALLEL DO
 
     do while (2 > 0)
         dummy = 2
+    end do
+
+    do
+        dummy = 4
     end do
 
 end program simple_loop
