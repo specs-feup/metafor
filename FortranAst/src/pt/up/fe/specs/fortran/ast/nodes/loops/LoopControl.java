@@ -3,6 +3,7 @@ package pt.up.fe.specs.fortran.ast.nodes.loops;
 import org.suikasoft.jOptions.Datakey.DataKey;
 import org.suikasoft.jOptions.Datakey.KeyFactory;
 import org.suikasoft.jOptions.Interfaces.DataStore;
+import pt.up.fe.specs.fortran.ast.FortranKeyword;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.expr.Expr;
 import pt.up.fe.specs.fortran.ast.nodes.loops.enums.DoKind;
@@ -37,7 +38,7 @@ public class LoopControl extends FortranNode {
                 return getBounds().map(LoopBounds::getCode).orElse("");
             }
             case While -> {
-                return "(" + getCond().get().getCode() + ")";
+                return keyword(FortranKeyword.WHILE) + " (" + getCond().get().getCode() + ")";
             }
         }
 

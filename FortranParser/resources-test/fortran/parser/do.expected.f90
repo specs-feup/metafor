@@ -1,15 +1,12 @@
-program simple_loop
-    !use omp_lib
+PROGRAM simple_loop
     integer :: i, dummy
 
-    !$OMP PARALLEL DO
-    do i = 1, 5
+    DO i = 1, 5
         dummy = 3
-    end do
-    !$OMP END PARALLEL DO
+    END DO
 
-    do while (2 > 0)
+    DO WHILE (2 > 0)
         dummy = 2
-    end do
+    END DO
 
-end program simple_loop
+END PROGRAM simple_loop

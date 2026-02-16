@@ -4,7 +4,8 @@ public enum FortranKeyword {
     END,
     PROGRAM,
     PRINT,
-    DO;
+    DO,
+    WHILE;
 
     public String getKeyword(boolean lowercase) {
         var keyword = name();
