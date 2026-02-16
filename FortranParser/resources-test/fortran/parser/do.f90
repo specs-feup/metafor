@@ -1,9 +1,9 @@
 program simple_loop
     !use omp_lib
-    integer :: i, dummy
+    integer :: i, dummy, a = 2
 
     !$OMP PARALLEL DO
-    do i = 1, 5
+    do i = 1, 5, a
         dummy = 3
         dummy = 4
     end do

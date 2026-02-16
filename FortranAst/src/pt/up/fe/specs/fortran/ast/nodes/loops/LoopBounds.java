@@ -21,7 +21,7 @@ public class LoopBounds extends FortranNode {
     */
 
     public DataRef getVar() {
-        return getChild(DataRef.class);
+        return getChild(DataRef.class, 0);
     }
 
     public Expr getLower() {

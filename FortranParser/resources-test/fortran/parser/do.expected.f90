@@ -1,7 +1,7 @@
 PROGRAM simple_loop
-    integer :: i, dummy
+    integer :: i, dummy, a = 2
 
-    DO i = 1, 5
+    DO i = 1, 5, a
         dummy = 3
         dummy = 4
     END DO
