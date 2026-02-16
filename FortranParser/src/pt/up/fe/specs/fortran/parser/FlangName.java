@@ -48,6 +48,17 @@ public enum FlangName implements StringProvider {
     INT_LITERAL_CONSTANT,
     LOGICAL_LITERAL_CONSTANT,
     STAR,
+    ADD,
+    SUBTRACT,
+    MULTIPLY,
+    DIVIDE,
+    EQ("EQ"),
+    NE("NE"),
+    LT("LT"),
+    LE("LE"),
+    GT("GT"),
+    GE("GE"),
+
 
     /// TYPEs
     DECLARATION_TYPE_SPEC,
@@ -67,6 +78,10 @@ public enum FlangName implements StringProvider {
 
     FlangName() {
         this.string = SpecsStrings.toCamelCase(name());
+    }
+
+    FlangName(String string) {
+        this.string = string;
     }
 
     @Override
