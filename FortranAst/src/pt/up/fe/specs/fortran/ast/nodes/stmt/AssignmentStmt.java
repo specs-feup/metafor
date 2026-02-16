@@ -3,7 +3,7 @@ package pt.up.fe.specs.fortran.ast.nodes.stmt;
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.expr.Expr;
-import pt.up.fe.specs.fortran.ast.nodes.variable.Variable;
+import pt.up.fe.specs.fortran.ast.nodes.expr.DataRef;
 
 import java.util.Collection;
 
@@ -12,8 +12,8 @@ public class AssignmentStmt extends ActionStmt {
         super(data, children);
     }
 
-    public Variable getVariable() {
-        return getChild(Variable.class, 0);
+    public DataRef getVariable() {
+        return getChild(DataRef.class, 0);
     }
 
     public Expr getExpression() {

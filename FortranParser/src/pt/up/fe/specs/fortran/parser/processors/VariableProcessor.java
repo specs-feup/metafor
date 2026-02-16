@@ -1,6 +1,6 @@
 package pt.up.fe.specs.fortran.parser.processors;
 
-import pt.up.fe.specs.fortran.ast.nodes.variable.DataRef;
+import pt.up.fe.specs.fortran.ast.nodes.expr.DataRef;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 
 public class VariableProcessor extends ANodeProcessor {
