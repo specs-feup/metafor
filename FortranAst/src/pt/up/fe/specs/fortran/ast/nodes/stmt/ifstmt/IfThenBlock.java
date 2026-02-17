@@ -5,13 +5,11 @@ import pt.up.fe.specs.fortran.ast.FortranKeyword;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.expr.Expr;
 import pt.up.fe.specs.fortran.ast.nodes.program.StmtBlock;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.ExecutableStmt;
 
 import java.util.Collection;
-import java.util.List;
 
-public class IfThenStmt extends FortranNode {
-    public IfThenStmt(DataStore data, Collection<? extends FortranNode> children) {
+public class IfThenBlock extends FortranNode {
+    public IfThenBlock(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
     }
 

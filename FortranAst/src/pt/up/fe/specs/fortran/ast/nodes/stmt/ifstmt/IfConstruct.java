@@ -6,6 +6,7 @@ import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ExecutableStmt;
 
 import java.util.Collection;
+import java.util.Optional;
 
 /**
  * R1134 if-construct
@@ -15,17 +16,26 @@ public class IfConstruct extends ExecutableStmt {
         super(data, children);
     }
 
-    public IfThenStmt getIfThenBlock() {
-        return getChild(IfThenStmt.class, 0);
+    public IfThenBlock getIfThenBlock() {
+        return getChild(IfThenBlock.class, 0);
+    }
+
+    public Optional<ElseBlock> getElseBlock() {
+        return getChildTry(ElseBlock.class, getNumChildren() - 1);
     }
 
     @Override
     public String getCode() {
         var ifThenBlock = getIfThenBlock();
+        var elseBlock = getElseBlock();
+
+        System.out.println(getChildren());
 
         var code = new StringBuilder();
 
-        code.append(ifThenBlock.getCode()).append(ln());
+        code.append(ifThenBlock.getCode());
+
+        elseBlock.ifPresent(block -> code.append(block.getCode()));
 
         code.append(keyword(FortranKeyword.END))
                 .append(" ")
