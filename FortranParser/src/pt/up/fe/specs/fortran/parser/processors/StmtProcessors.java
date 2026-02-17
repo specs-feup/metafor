@@ -1,8 +1,13 @@
 package pt.up.fe.specs.fortran.parser.processors;
 
+import pt.up.fe.specs.fortran.ast.nodes.program.StmtBlock;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.IfConstruct;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.IfThenStmt;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
+
+import static pt.up.fe.specs.util.SpecsStrings.toCamelCase;
 
 public class StmtProcessors extends ANodeProcessor {
 
@@ -48,11 +53,28 @@ public class StmtProcessors extends ANodeProcessor {
         typeDeclarationStmt.setChildren(entityDecls);
     }
 
-
     public void assignmentStmt(AssignmentStmt assignmentStmt) {
         var variable = getChild(assignmentStmt, FlangName.VARIABLE);
         var expression = getChild(assignmentStmt, FlangName.EXPR);
         assignmentStmt.addChild(variable);
         assignmentStmt.addChild(expression);
+    }
+
+    public void stmtBlock(StmtBlock stmtBlock) {
+        stmtBlock.setChildren(getChildren(stmtBlock, FlangName.EXECUTION_PART_CONSTRUCT));
+    }
+
+    public void ifConstruct(IfConstruct ifConstruct) {
+        var ifThenStmt = getChild(ifConstruct, "Statement<" + toCamelCase(FlangName.IF_THEN_STMT.name()) + ">");
+        var block = getChildren(ifConstruct, FlangName.EXECUTION_PART_CONSTRUCT);
+
+        ifConstruct.addChild(ifThenStmt);
+        ifThenStmt.addChildren(block);
+    }
+
+    public void ifThenBlock(IfThenStmt ifThenBlock) {
+        var condition = getChild(ifThenBlock, FlangName.SCALAR);
+
+        ifThenBlock.addChild(0, condition);
     }
 }

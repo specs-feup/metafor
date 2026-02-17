@@ -4,12 +4,13 @@ import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.FortranKeyword;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.expr.Expr;
-import pt.up.fe.specs.fortran.ast.nodes.program.StmtBlock;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.ExecutableStmt;
 
 import java.util.Collection;
+import java.util.List;
 
-public class IfThenBlock extends FortranNode {
-    public IfThenBlock(DataStore data, Collection<? extends FortranNode> children) {
+public class IfThenStmt extends FortranNode {
+    public IfThenStmt(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
     }
 
@@ -17,8 +18,8 @@ public class IfThenBlock extends FortranNode {
         return getChild(Expr.class, 0);
     }
 
-    public StmtBlock getThenBlock() {
-        return getChild(StmtBlock.class, 1);
+    public List<ExecutableStmt> getExecutableStmts() {
+        return getChildren(ExecutableStmt.class, 1);
     }
 
     @Override
@@ -26,7 +27,7 @@ public class IfThenBlock extends FortranNode {
         var code = new StringBuilder();
 
         var condition = getCondition();
-        var thenBlock = getThenBlock();
+        var executableStmts = getExecutableStmts();
 
         code.append(keyword(FortranKeyword.IF))
                 .append(" (")
@@ -35,7 +36,9 @@ public class IfThenBlock extends FortranNode {
                 .append(FortranKeyword.THEN)
                 .append(ln());
 
-        code.append(thenBlock.getCode());
+        for (var stmt : executableStmts) {
+            code.append(stmt.getCode()).append(ln());
+        }
 
         return code.toString();
     }

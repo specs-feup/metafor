@@ -15,8 +15,8 @@ public class IfConstruct extends ExecutableStmt {
         super(data, children);
     }
 
-    public IfThenBlock getIfThenBlock() {
-        return getChild(IfThenBlock.class, 0);
+    public IfThenStmt getIfThenBlock() {
+        return getChild(IfThenStmt.class, 0);
     }
 
     @Override
@@ -24,7 +24,8 @@ public class IfConstruct extends ExecutableStmt {
         var ifThenBlock = getIfThenBlock();
 
         var code = new StringBuilder();
-        code.append(ifThenBlock.getCode());
+
+        code.append(ifThenBlock.getCode()).append(ln());
 
         code.append(keyword(FortranKeyword.END))
                 .append(" ")

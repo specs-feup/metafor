@@ -35,7 +35,8 @@ public enum FlangName implements StringProvider {
     ASSIGNMENT_STMT,
 
     /// Conditional Statements
-    IF_STMT,
+    IF_CONSTRUCT,
+    IF_THEN_STMT,
 
     // Variables
     VARIABLE,
@@ -60,6 +61,7 @@ public enum FlangName implements StringProvider {
     LE("LE"),
     GT("GT"),
     GE("GE"),
+    SCALAR,
 
 
     /// TYPEs
