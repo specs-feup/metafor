@@ -1,10 +1,8 @@
-program if
-  implicit none
-
+PROGRAM if
   logical :: cond
   cond = .false.
 
-  if (cond) then
-    print *, "cond is true"
-  end if
-end program if
+  IF (cond) THEN
+    PRINT *, "cond is true"
+  END IF
+END PROGRAM if

@@ -1,15 +1,13 @@
-program if
-  implicit none
-
+PROGRAM if
   logical :: cond1, cond2
   cond1 = .false.
   cond2 = .true.
 
-  if (cond1) then
-    print *, "cond1 is true"
-  else if (cond2) then
-    print *, "cond2 is true"
-  else
-    print *, "both conditions are false"
-  end if
-end program if
+  IF (cond1) THEN
+    PRINT *, "cond1 is true"
+  ELSE IF (cond2) THEN
+    PRINT *, "cond2 is true"
+  ELSE
+    PRINT *, "both conditions are false"
+  END IF
+END PROGRAM if

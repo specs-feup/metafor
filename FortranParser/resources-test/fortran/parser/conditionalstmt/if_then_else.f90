@@ -1,6 +1,4 @@
 program if
-  implicit none
-
   logical :: cond
   cond = .false.
 
