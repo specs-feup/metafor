@@ -37,7 +37,7 @@ public enum FlangName implements StringProvider {
     /// Conditional Statements
     IF_CONSTRUCT,
     IF_THEN_STMT,
-    IF_ELSE_BLOCK,
+    ELSE_IF_BLOCK,
     ELSE_BLOCK,
 
     // Variables

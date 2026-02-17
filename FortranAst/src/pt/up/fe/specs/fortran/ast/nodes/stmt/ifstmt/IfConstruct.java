@@ -6,6 +6,7 @@ import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ExecutableStmt;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -20,6 +21,10 @@ public class IfConstruct extends ExecutableStmt {
         return getChild(IfThenBlock.class, 0);
     }
 
+    public List<ElseIfBlock> getElseIfBlocks() {
+        return getChildrenOf(ElseIfBlock.class);
+    }
+
     public Optional<ElseBlock> getElseBlock() {
         return getChildTry(ElseBlock.class, getNumChildren() - 1);
     }
@@ -27,6 +32,7 @@ public class IfConstruct extends ExecutableStmt {
     @Override
     public String getCode() {
         var ifThenBlock = getIfThenBlock();
+        var elseIfBlocks = getElseIfBlocks();
         var elseBlock = getElseBlock();
 
         System.out.println(getChildren());
@@ -34,7 +40,7 @@ public class IfConstruct extends ExecutableStmt {
         var code = new StringBuilder();
 
         code.append(ifThenBlock.getCode());
-
+        elseIfBlocks.forEach(block -> code.append(block.getCode()));
         elseBlock.ifPresent(block -> code.append(block.getCode()));
 
         code.append(keyword(FortranKeyword.END))

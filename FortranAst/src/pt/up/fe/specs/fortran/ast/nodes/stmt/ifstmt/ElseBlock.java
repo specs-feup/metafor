@@ -7,7 +7,7 @@ import pt.up.fe.specs.fortran.ast.nodes.program.StmtBlock;
 
 import java.util.Collection;
 
-public class ElseBlock extends StmtBlock {
+public class ElseBlock extends FortranNode {
     public ElseBlock(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
     }

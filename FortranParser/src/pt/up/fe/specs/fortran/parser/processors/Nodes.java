@@ -13,6 +13,7 @@ import pt.up.fe.specs.fortran.ast.nodes.stmt.FormatStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.PrintStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.TypeDeclarationStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.ElseBlock;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.ElseIfBlock;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.IfConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.IfThenBlock;
 import pt.up.fe.specs.fortran.ast.nodes.type.IntegerType;
@@ -55,6 +56,7 @@ public class Nodes {
         processors.put(StmtBlock.class, s::stmtBlock);
         processors.put(IfConstruct.class, s::ifConstruct);
         processors.put(IfThenBlock.class, s::ifThenBlock);
+        processors.put(ElseIfBlock.class, s::elseIfBlock);
         processors.put(ElseBlock.class, s::elseBlock);
 
         var e = new ExprProcessors(data);

@@ -13,6 +13,7 @@ import pt.up.fe.specs.fortran.ast.nodes.program.MainProgram;
 import pt.up.fe.specs.fortran.ast.nodes.program.Specification;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.ElseBlock;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.ElseIfBlock;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.IfConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.IfThenBlock;
 import pt.up.fe.specs.fortran.ast.nodes.type.IntegerType;
@@ -45,6 +46,7 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.ASSIGNMENT_STMT, AssignmentStmt.class);
         NAME_TO_CLASS.put(FlangName.IF_CONSTRUCT, IfConstruct.class);
         NAME_TO_CLASS.put(FlangName.IF_THEN_STMT, IfThenBlock.class);
+        NAME_TO_CLASS.put(FlangName.ELSE_IF_BLOCK, ElseIfBlock.class);
         NAME_TO_CLASS.put(FlangName.ELSE_BLOCK, ElseBlock.class);
 
         /// Variables
