@@ -76,8 +76,10 @@ public class StmtProcessors extends ANodeProcessor {
 
         ifConstruct.addChild(ifThenStmt);
 
-        var elseIfBlocks = getChildren(ifConstruct, FlangName.ELSE_IF_BLOCK);
-        elseIfBlocks.forEach(ifConstruct::addChild);
+        if (attributes(ifConstruct).has(FlangName.ELSE_IF_BLOCK)) {
+             var elseIfBlocks = getChildren(ifConstruct, FlangName.ELSE_IF_BLOCK);
+             elseIfBlocks.forEach(ifConstruct::addChild);
+        }
 
         if (attributes(ifConstruct).has(FlangName.ELSE_BLOCK)) {
             var elseBlock = getChild(ifConstruct, FlangName.ELSE_BLOCK);
