@@ -19,11 +19,20 @@ import java.util.function.Function;
 
 public class FortranNativeParser {
 
+    private static final boolean USE_RELEASE = false;
+
     private static final boolean SAVE_JSON = true;
 
-    private static final WebResourceProvider LINUX_DUMPER =
-            WebResourceProvider.newInstance("https://github.com/specs-feup/flang-dumper/releases/download/plugin_dump_ast_v1.0.3/",
-                    "DumpASTPlugin.so", "v1.0.3");
+    private static final String BASE_URL = "https://github.com/specs-feup/flang-dumper/releases/download/";
+    private static final String CURRENT_VERSION = "v1.0.3";
+
+    private static final WebResourceProvider LINUX_DUMPER_NIGHTLY =
+            WebResourceProvider.newInstance(BASE_URL + "nightly/",
+                    "DumpASTPlugin.so");
+
+    private static final WebResourceProvider LINUX_DUMPER_RELEASE =
+            WebResourceProvider.newInstance(BASE_URL + "plugin_dump_ast_" + CURRENT_VERSION + "/",
+                    "DumpASTPlugin.so", CURRENT_VERSION);
 
     private static final Lazy<File> FLANG_DUMPER = Lazy.newInstance(FortranNativeParser::prepareDumper);
     private static final Lazy<File> TEMP_FOLDER = Lazy.newInstance(() -> SpecsIo.getTempFolder("metafor"));
@@ -103,18 +112,20 @@ public class FortranNativeParser {
 
 
         // Resolve filename (taking into account versioning)
-        var resourceWithVersion = LINUX_DUMPER.createResourceVersion("_" + LINUX_DUMPER.version());
-        var pluginFile = new File(TEMP_FOLDER.get(), resourceWithVersion.getFilename());
+        var resource = USE_RELEASE ? LINUX_DUMPER_RELEASE.createResourceVersion("_" + LINUX_DUMPER_RELEASE.version())
+                : LINUX_DUMPER_NIGHTLY;
+
+        var pluginFile = new File(TEMP_FOLDER.get(), resource.getFilename());
 
 
         // Check if file is in place
-        // If donwload failed previously, size might be zero
+        // If download failed previously, size might be zero
         if (pluginFile.isFile() && pluginFile.length() != 0) {
             return pluginFile;
         }
 
         // If file does not exist, create file and return
-        return resourceWithVersion.write(TEMP_FOLDER.get());
+        return resource.write(TEMP_FOLDER.get());
     }
 }
 
