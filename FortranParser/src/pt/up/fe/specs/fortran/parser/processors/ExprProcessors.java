@@ -1,9 +1,11 @@
 package pt.up.fe.specs.fortran.parser.processors;
 
+import pt.up.fe.specs.fortran.ast.nodes.expr.BinaryOperator;
 import pt.up.fe.specs.fortran.ast.nodes.expr.IntLiteral;
 import pt.up.fe.specs.fortran.ast.nodes.expr.LogicalLiteral;
 import pt.up.fe.specs.fortran.ast.nodes.expr.ParenExpr;
 import pt.up.fe.specs.fortran.ast.nodes.expr.StringLiteral;
+import pt.up.fe.specs.fortran.ast.nodes.expr.enums.BinaryOperatorKind;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 
@@ -28,6 +30,15 @@ public class ExprProcessors extends ANodeProcessor {
 
     public void parenExpr(ParenExpr parenExpr) {
         parenExpr.addChild(getChild(parenExpr, FlangName.EXPR));
+    }
+
+    public void binaryOperator(BinaryOperator binaryOperator) {
+        binaryOperator.addChild(getChild(binaryOperator, "left"));
+        binaryOperator.addChild(getChild(binaryOperator, "right"));
+
+        String opName = attributes().getString(binaryOperator, "op");
+
+        binaryOperator.set(BinaryOperator.OP, BinaryOperatorKind.valueOf(opName));
     }
 
 }
