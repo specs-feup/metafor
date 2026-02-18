@@ -56,6 +56,9 @@ public enum FlangName implements StringProvider {
     LE("LE"),
     GT("GT"),
     GE("GE"),
+    NOT("NOT"),
+    UNARY_PLUS,
+    NEGATE,
 
 
     /// TYPEs

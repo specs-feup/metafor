@@ -2,10 +2,7 @@ package pt.up.fe.specs.fortran.parser;
 
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.decl.EntityDecl;
-import pt.up.fe.specs.fortran.ast.nodes.expr.BinaryOperator;
-import pt.up.fe.specs.fortran.ast.nodes.expr.IntLiteral;
-import pt.up.fe.specs.fortran.ast.nodes.expr.LogicalLiteral;
-import pt.up.fe.specs.fortran.ast.nodes.expr.StringLiteral;
+import pt.up.fe.specs.fortran.ast.nodes.expr.*;
 import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
 import pt.up.fe.specs.fortran.ast.nodes.program.FortranFile;
 import pt.up.fe.specs.fortran.ast.nodes.program.MainProgram;
@@ -15,7 +12,6 @@ import pt.up.fe.specs.fortran.ast.nodes.type.IntegerType;
 import pt.up.fe.specs.fortran.ast.nodes.type.LogicalType;
 import pt.up.fe.specs.fortran.ast.nodes.utils.Format;
 import pt.up.fe.specs.fortran.ast.nodes.utils.Star;
-import pt.up.fe.specs.fortran.ast.nodes.expr.DataRef;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -59,6 +55,9 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.LE, BinaryOperator.class);
         NAME_TO_CLASS.put(FlangName.GT, BinaryOperator.class);
         NAME_TO_CLASS.put(FlangName.GE, BinaryOperator.class);
+        NAME_TO_CLASS.put(FlangName.NOT, UnaryOperator.class);
+        NAME_TO_CLASS.put(FlangName.UNARY_PLUS, UnaryOperator.class);
+        NAME_TO_CLASS.put(FlangName.NEGATE, UnaryOperator.class);
 
         /// TYPEs
         NAME_TO_CLASS.put(FlangName.INTEGER_TYPE_SPEC, IntegerType.class);
