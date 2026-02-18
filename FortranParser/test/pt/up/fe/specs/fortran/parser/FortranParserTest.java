@@ -111,4 +111,9 @@ public class FortranParserTest {
     void testBinaryOperator() {
         testJson("binary_operator.json");
     }
+
+    @Test
+    void testUnaryOperator() {
+        testJson("unary_operator.json");
+    }
 }
