@@ -15,6 +15,8 @@ import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.type.IntegerType;
 import pt.up.fe.specs.fortran.ast.nodes.type.LogicalType;
+import pt.up.fe.specs.fortran.ast.nodes.type.attributes.ArraySpecifier;
+import pt.up.fe.specs.fortran.ast.nodes.type.shapes.ExplicitShapeSpecification;
 import pt.up.fe.specs.fortran.ast.nodes.utils.Format;
 import pt.up.fe.specs.fortran.ast.nodes.utils.Star;
 import pt.up.fe.specs.fortran.ast.nodes.expr.DataRef;
@@ -77,6 +79,12 @@ public class FlangToClass {
         /// TYPEs
         NAME_TO_CLASS.put(FlangName.INTEGER_TYPE_SPEC, IntegerType.class);
         NAME_TO_CLASS.put(FlangName.LOGICAL, LogicalType.class);
+
+        ///  ATTRIBUTES
+        NAME_TO_CLASS.put(FlangName.ARRAY_SPEC, ArraySpecifier.class);
+
+        ///  SHAPES
+        NAME_TO_CLASS.put(FlangName.EXPLICIT_SHAPE_SPEC, ExplicitShapeSpecification.class);
     }
 
     public static boolean isClass(String type) {

@@ -79,6 +79,13 @@ public enum FlangName implements StringProvider {
     INTEGER_TYPE_SPEC,
     LOGICAL,
 
+    // ATTRIBUTES
+    SPECIFICATION_EXPR,
+    ATTR_SPEC,
+    ARRAY_SPEC,
+    EXPLICIT_SHAPE_SPEC,
+
+
     // OTHER
     INITIALIZATION;
 

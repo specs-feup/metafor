@@ -45,7 +45,12 @@ public class StmtProcessors extends ANodeProcessor {
 
         entityDecls.stream().forEach(entityDecl -> entityDecl.addChild(0, type));
 
-        typeDeclarationStmt.setChildren(entityDecls);
+        typeDeclarationStmt.addChildren(entityDecls);
+
+        if (attributes(typeDeclarationStmt).has(FlangName.ATTR_SPEC)) {
+            var attributes = getChildren(typeDeclarationStmt, FlangName.ATTR_SPEC);
+            typeDeclarationStmt.addChildren(attributes);
+        }
     }
 
     public void assignmentStmt(AssignmentStmt assignmentStmt) {
