@@ -20,9 +20,9 @@ public class EndIfStmt extends FortranNode {
 
         var code = new StringBuilder();
 
-        code.append(FortranKeyword.END)
+        code.append(keyword(FortranKeyword.END))
                 .append(" ")
-                .append(FortranKeyword.IF);
+                .append(keyword(FortranKeyword.IF));
 
         nameOpt.ifPresent(name -> code.append(" ").append(name));
 
