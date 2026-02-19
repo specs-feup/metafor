@@ -21,6 +21,10 @@ public class IfConstruct extends ExecutableStmt {
         super(data, children);
     }
 
+    public Optional<String> getName() {
+        return get(NAME);
+    }
+
     public IfThenBlock getIfThenBlock() {
         return getChild(IfThenBlock.class, 0);
     }

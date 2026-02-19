@@ -18,13 +18,20 @@ public class ElseIfStmt extends FortranNode {
 
     public String getCode() {
         var condition = getCondition();
+        var nameOpt = ((IfConstruct) getParent().getParent()).getName();
 
-        return String.format(
-                "%s %s (%s) %s",
-                keyword(FortranKeyword.ELSE),
-                keyword(FortranKeyword.IF),
-                condition.getCode(),
-                keyword(FortranKeyword.THEN)
-        );
+        var code = new StringBuilder();
+
+        code.append(keyword(FortranKeyword.ELSE))
+                .append(" ")
+                .append(keyword(FortranKeyword.IF))
+                .append(" (")
+                .append(condition.getCode())
+                .append(") ")
+                .append(keyword(FortranKeyword.THEN));
+
+        nameOpt.ifPresent(name -> code.append(" ").append(name));
+
+        return code.toString();
     }
 }

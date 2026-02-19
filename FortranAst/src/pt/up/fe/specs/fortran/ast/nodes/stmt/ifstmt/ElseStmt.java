@@ -12,6 +12,14 @@ public class ElseStmt extends FortranNode {
     }
 
     public String getCode() {
-        return keyword(FortranKeyword.ELSE);
+        var nameOpt = ((IfConstruct) getParent().getParent()).getName();
+
+        var code = new StringBuilder();
+
+        code.append(keyword(FortranKeyword.ELSE));
+
+        nameOpt.ifPresent(name -> code.append(" ").append(name));
+
+        return code.toString();
     }
 }

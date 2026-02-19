@@ -18,13 +18,19 @@ public class IfThenStmt extends FortranNode {
 
     @Override
     public String getCode() {
+        var nameOpt = ((IfConstruct) getParent().getParent()).getName();
         var condition = getCondition();
 
-        return String.format(
-                "%s (%s) %s",
-                keyword(FortranKeyword.IF),
-                condition.getCode(),
-                keyword(FortranKeyword.THEN)
-        );
+        var code = new StringBuilder();
+
+        nameOpt.ifPresent(name -> code.append(name).append(": "));
+
+        code.append(keyword(FortranKeyword.IF))
+                .append(" (")
+                .append(condition.getCode())
+                .append(") ")
+                .append(keyword(FortranKeyword.THEN));
+
+        return code.toString();
     }
 }

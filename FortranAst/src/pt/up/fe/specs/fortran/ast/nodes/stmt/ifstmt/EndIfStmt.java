@@ -13,6 +13,16 @@ public class EndIfStmt extends FortranNode {
 
     @Override
     public String getCode() {
-        return keyword(FortranKeyword.END) + " " + keyword(FortranKeyword.IF);
+        var nameOpt = ((IfConstruct) getParent()).getName();
+
+        var code = new StringBuilder();
+
+        code.append(FortranKeyword.END)
+                .append(" ")
+                .append(FortranKeyword.IF);
+
+        nameOpt.ifPresent(name -> code.append(" ").append(name));
+
+        return code.toString();
     }
 }

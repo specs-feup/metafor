@@ -9,8 +9,6 @@ import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 import static pt.up.fe.specs.util.SpecsStrings.toCamelCase;
 
 public class StmtProcessors extends ANodeProcessor {
-
-
     public StmtProcessors(FortranJsonResult data) {
         super(data);
     }
@@ -92,6 +90,13 @@ public class StmtProcessors extends ANodeProcessor {
         // Add end if statement
         var endIfStmt = getChild(ifConstruct, "Statement<" + toCamelCase(FlangName.END_IF_STMT.name()) + ">");
         ifConstruct.addChild(endIfStmt);
+
+        // Assign name if present
+        var nameId = attributes(ifThenStmt).getOptionalString(toCamelCase(FlangName.NAME.name()));
+        if (nameId.isPresent()) {
+            var name = attributes().get(nameId.get()).getString("source");
+            ifConstruct.setOptional(IfConstruct.NAME, name);
+        }
     }
 
     public void ifThenStmt(IfThenStmt ifThenStmt) {
