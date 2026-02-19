@@ -6,8 +6,6 @@ import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.*;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 
-import static pt.up.fe.specs.util.SpecsStrings.toCamelCase;
-
 public class StmtProcessors extends ANodeProcessor {
     public StmtProcessors(FortranJsonResult data) {
         super(data);
@@ -77,8 +75,8 @@ public class StmtProcessors extends ANodeProcessor {
 
         // Add else-if blocks
         if (attributes(ifConstruct).has(FlangName.ELSE_IF_BLOCK)) {
-             var elseIfBlocks = getChildren(ifConstruct, FlangName.ELSE_IF_BLOCK);
-             elseIfBlocks.forEach(ifConstruct::addChild);
+            var elseIfBlocks = getChildren(ifConstruct, FlangName.ELSE_IF_BLOCK);
+            elseIfBlocks.forEach(ifConstruct::addChild);
         }
 
         // Add else block
