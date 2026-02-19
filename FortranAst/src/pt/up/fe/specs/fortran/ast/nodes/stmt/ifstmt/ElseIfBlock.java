@@ -13,8 +13,8 @@ public class ElseIfBlock extends FortranNode {
          super(data, children);
      }
 
-    public Expr getCondition() {
-        return getChild(Expr.class, 0);
+    public ElseIfStmt getElseIfStmt() {
+        return getChild(ElseIfStmt.class, 0);
     }
 
     public StmtBlock getBlock() {
@@ -23,22 +23,9 @@ public class ElseIfBlock extends FortranNode {
 
     @Override
     public String getCode() {
-        var code = new StringBuilder();
-
-        var condition = getCondition();
+        var elseIfStmt = getElseIfStmt();
         var block = getBlock();
 
-        code.append(keyword(FortranKeyword.ELSE))
-                .append(" ")
-                .append(keyword(FortranKeyword.IF))
-                .append(" (")
-                .append(condition.getCode())
-                .append(") ")
-                .append(FortranKeyword.THEN)
-                .append(ln());
-
-        code.append(block.getCode());
-
-        return code.toString();
+        return elseIfStmt.getCode() + ln() + block.getCode();
     }
 }

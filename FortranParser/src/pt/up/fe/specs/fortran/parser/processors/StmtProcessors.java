@@ -2,10 +2,7 @@ package pt.up.fe.specs.fortran.parser.processors;
 
 import pt.up.fe.specs.fortran.ast.nodes.program.StmtBlock;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.ElseBlock;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.ElseIfBlock;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.IfConstruct;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.IfThenBlock;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.*;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 
@@ -67,35 +64,45 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void ifConstruct(IfConstruct ifConstruct) {
+        // Add if-then block
         var ifThenStmt = getChild(ifConstruct, "Statement<" + toCamelCase(FlangName.IF_THEN_STMT.name()) + ">");
         var blockStatements = getChildren(ifConstruct, FlangName.EXECUTION_PART_CONSTRUCT);
 
         var thenBlock = factory().newNode(StmtBlock.class);
         thenBlock.addChildren(blockStatements);
-        ifThenStmt.addChild(thenBlock);
 
-        ifConstruct.addChild(ifThenStmt);
+        var ifThenBlock = factory().newNode(IfThenBlock.class);
+        ifThenBlock.addChild(ifThenStmt);
+        ifThenBlock.addChild(thenBlock);
 
+        ifConstruct.addChild(ifThenBlock);
+
+        // Add else-if blocks
         if (attributes(ifConstruct).has(FlangName.ELSE_IF_BLOCK)) {
              var elseIfBlocks = getChildren(ifConstruct, FlangName.ELSE_IF_BLOCK);
              elseIfBlocks.forEach(ifConstruct::addChild);
         }
 
+        // Add else block
         if (attributes(ifConstruct).has(FlangName.ELSE_BLOCK)) {
             var elseBlock = getChild(ifConstruct, FlangName.ELSE_BLOCK);
             ifConstruct.addChild(elseBlock);
         }
+
+        // Add end if statement
+        var endIfStmt = getChild(ifConstruct, "Statement<" + toCamelCase(FlangName.END_IF_STMT.name()) + ">");
+        ifConstruct.addChild(endIfStmt);
     }
 
-    public void ifThenBlock(IfThenBlock ifThenBlock) {
-        var condition = getChild(ifThenBlock, FlangName.SCALAR);
+    public void ifThenStmt(IfThenStmt ifThenStmt) {
+        var condition = getChild(ifThenStmt, FlangName.SCALAR);
 
-        ifThenBlock.addChild(0, condition);
+        ifThenStmt.addChild(0, condition);
     }
 
     public void elseIfBlock(ElseIfBlock ifElseBlock) {
-        var condition = getChild(ifElseBlock, "condition");
-        ifElseBlock.addChild(condition);
+        var elseIfStmt = getChild(ifElseBlock, "Statement<" + toCamelCase(FlangName.ELSE_IF_STMT.name()) + ">");
+        ifElseBlock.addChild(elseIfStmt);
 
         var blockStatements = getChildren(ifElseBlock, FlangName.EXECUTION_PART_CONSTRUCT);
         var block = factory().newNode(StmtBlock.class);
@@ -103,11 +110,26 @@ public class StmtProcessors extends ANodeProcessor {
         ifElseBlock.addChild(block);
     }
 
-    public void elseBlock(ElseBlock elseBlock) {
-        var blockStatements = getChildren(elseBlock, FlangName.EXECUTION_PART_CONSTRUCT);
+    public void elseIfStmt(ElseIfStmt elseIfStmt) {
+        var condition = getChild(elseIfStmt, FlangName.SCALAR);
+        elseIfStmt.addChild(condition);
+    }
 
+    public void elseBlock(ElseBlock elseBlock) {
+        var elseStmt = getChild(elseBlock, "Statement<" + toCamelCase(FlangName.ELSE_STMT.name()) + ">");
+        elseBlock.addChild(elseStmt);
+
+        var blockStatements = getChildren(elseBlock, FlangName.EXECUTION_PART_CONSTRUCT);
         var block = factory().newNode(StmtBlock.class);
         block.addChildren(blockStatements);
         elseBlock.addChild(block);
+    }
+
+    public void elseStmt(ElseStmt elseStmt) {
+        // Nothing to do
+    }
+
+    public void endIfStmt(EndIfStmt endIfStmt) {
+        // Nothing to do
     }
 }

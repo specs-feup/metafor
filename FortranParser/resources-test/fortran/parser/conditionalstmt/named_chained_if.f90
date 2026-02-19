@@ -5,9 +5,9 @@ program if
 
   named_if: if (cond1) then
     print *, "cond1 is true"
-  else if (cond2) then named_if
+  else if (cond2) then
     print *, "cond2 is true"
-  else named_if
+  else
     print *, "both conditions are false"
   end if named_if
 end program if
