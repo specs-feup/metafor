@@ -69,6 +69,11 @@ public enum FlangName implements StringProvider {
     GE("GE"),
     SCALAR,
 
+    // ARRAYs
+    ARRAY_CONSTRUCTOR,
+    AC_SPEC,
+    AC_VALUE,
+
     /// TYPEs
     DECLARATION_TYPE_SPEC,
     INTEGER_TYPE_SPEC,

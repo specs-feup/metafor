@@ -41,4 +41,14 @@ public class ExprProcessors extends ANodeProcessor {
         binaryOperator.set(BinaryOperator.OP, BinaryOperatorKind.valueOf(opName));
     }
 
+    public void arrayConstructor(ArrayConstructor arrayConstructor) {
+        var acSpec = getChild(arrayConstructor, FlangName.AC_SPEC);
+        arrayConstructor.addChild(acSpec);
+    }
+
+    public void acSpecification(AcSpecification acSpecification) {
+        var acValueList = getChildren(acSpecification, "values");
+        acSpecification.addChildren(acValueList);
+    }
+
 }

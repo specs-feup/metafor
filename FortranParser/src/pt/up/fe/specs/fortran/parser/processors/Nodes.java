@@ -62,6 +62,8 @@ public class Nodes {
         processors.put(LogicalLiteral.class, e::logicalLiteral);
         processors.put(ParenExpr.class, e::parenExpr);
         processors.put(BinaryOperator.class, e::binaryOperator);
+        processors.put(ArrayConstructor.class, e::arrayConstructor);
+        processors.put(AcSpecification.class, e::acSpecification);
 
         var t = new TypeProcessors(data);
         processors.put(IntegerType.class, t::integerType);

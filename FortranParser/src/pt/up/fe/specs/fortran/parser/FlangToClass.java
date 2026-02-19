@@ -71,6 +71,8 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.LE, BinaryOperator.class);
         NAME_TO_CLASS.put(FlangName.GT, BinaryOperator.class);
         NAME_TO_CLASS.put(FlangName.GE, BinaryOperator.class);
+        NAME_TO_CLASS.put(FlangName.ARRAY_CONSTRUCTOR, ArrayConstructor.class);
+        NAME_TO_CLASS.put(FlangName.AC_SPEC, AcSpecification.class);
 
         /// TYPEs
         NAME_TO_CLASS.put(FlangName.INTEGER_TYPE_SPEC, IntegerType.class);

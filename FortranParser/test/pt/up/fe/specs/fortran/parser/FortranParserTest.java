@@ -178,4 +178,10 @@ public class FortranParserTest {
     void testLogicalIf() {
         testJson("conditionalstmt/logical_if.json");
     }
+
+    @Test
+    void testArrayAssignment() {
+        testJson("array_declaration.json");
+    }
+
 }
