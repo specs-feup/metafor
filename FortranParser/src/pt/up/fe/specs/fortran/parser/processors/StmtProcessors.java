@@ -63,7 +63,7 @@ public class StmtProcessors extends ANodeProcessor {
 
     public void ifConstruct(IfConstruct ifConstruct) {
         // Add if-then block
-        var ifThenStmt = getChild(ifConstruct, "Statement<" + toCamelCase(FlangName.IF_THEN_STMT.name()) + ">");
+        var ifThenStmt = getChild(ifConstruct, FlangName.IF_THEN_STMT);
         var blockStatements = getChildren(ifConstruct, FlangName.EXECUTION_PART_CONSTRUCT);
 
         var thenBlock = factory().newNode(StmtBlock.class);
@@ -88,11 +88,11 @@ public class StmtProcessors extends ANodeProcessor {
         }
 
         // Add end if statement
-        var endIfStmt = getChild(ifConstruct, "Statement<" + toCamelCase(FlangName.END_IF_STMT.name()) + ">");
+        var endIfStmt = getChild(ifConstruct, FlangName.END_IF_STMT);
         ifConstruct.addChild(endIfStmt);
 
         // Assign name if present
-        var nameId = attributes(ifThenStmt).getOptionalString(toCamelCase(FlangName.NAME.name()));
+        var nameId = attributes(ifThenStmt).getOptionalString(FlangName.NAME.getString());
         if (nameId.isPresent()) {
             var name = attributes().get(nameId.get()).getString("source");
             ifConstruct.setOptional(IfConstruct.NAME, name);
@@ -106,7 +106,7 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void elseIfBlock(ElseIfBlock ifElseBlock) {
-        var elseIfStmt = getChild(ifElseBlock, "Statement<" + toCamelCase(FlangName.ELSE_IF_STMT.name()) + ">");
+        var elseIfStmt = getChild(ifElseBlock, FlangName.ELSE_IF_STMT);
         ifElseBlock.addChild(elseIfStmt);
 
         var blockStatements = getChildren(ifElseBlock, FlangName.EXECUTION_PART_CONSTRUCT);
@@ -121,7 +121,7 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void elseBlock(ElseBlock elseBlock) {
-        var elseStmt = getChild(elseBlock, "Statement<" + toCamelCase(FlangName.ELSE_STMT.name()) + ">");
+        var elseStmt = getChild(elseBlock, FlangName.ELSE_STMT);
         elseBlock.addChild(elseStmt);
 
         var blockStatements = getChildren(elseBlock, FlangName.EXECUTION_PART_CONSTRUCT);

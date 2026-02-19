@@ -111,4 +111,7 @@ public enum FlangName implements StringProvider {
         return false;
     }
 
+    public String getStmtAttr() {
+        return "Statement<" + getString() + ">";
+    }
 }
