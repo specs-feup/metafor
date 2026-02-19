@@ -6,6 +6,9 @@ import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 
 import java.util.Collection;
 
+/**
+ * R1138 end-if-stmt
+ */
 public class EndIfStmt extends FortranNode {
     public EndIfStmt(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);

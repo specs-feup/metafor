@@ -7,6 +7,9 @@ import pt.up.fe.specs.fortran.ast.nodes.expr.Expr;
 
 import java.util.Collection;
 
+/**
+ * R1135 if-then-stmt
+ */
 public class IfThenStmt extends FortranNode {
     public IfThenStmt(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);

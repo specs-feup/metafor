@@ -8,7 +8,6 @@ import pt.up.fe.specs.fortran.ast.nodes.program.StmtBlock;
 
 import java.util.Collection;
 
-/// TODO: Document if-construct classes
 public class ElseBlock extends FortranNode {
     public ElseBlock(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
