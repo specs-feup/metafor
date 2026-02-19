@@ -100,7 +100,7 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void ifThenStmt(IfThenStmt ifThenStmt) {
-        var condition = getChild(ifThenStmt, FlangName.SCALAR);
+        var condition = getChild(ifThenStmt, "value");
 
         ifThenStmt.addChild(0, condition);
     }
@@ -116,7 +116,7 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void elseIfStmt(ElseIfStmt elseIfStmt) {
-        var condition = getChild(elseIfStmt, FlangName.SCALAR);
+        var condition = getChild(elseIfStmt, "value");
         elseIfStmt.addChild(condition);
     }
 
