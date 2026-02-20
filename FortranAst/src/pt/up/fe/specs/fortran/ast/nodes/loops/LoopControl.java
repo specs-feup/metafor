@@ -5,8 +5,8 @@ import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 
 import java.util.Collection;
 
-public abstract class ALoopControl extends FortranNode {
-    public ALoopControl(DataStore data, Collection<? extends FortranNode> children) {
+public abstract class LoopControl extends FortranNode {
+    public LoopControl(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
     }
 }

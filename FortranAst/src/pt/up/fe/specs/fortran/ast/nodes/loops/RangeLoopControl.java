@@ -8,7 +8,7 @@ import pt.up.fe.specs.fortran.ast.nodes.expr.Expr;
 import java.util.Collection;
 import java.util.Optional;
 
-public class RangeLoopControl extends ALoopControl {
+public class RangeLoopControl extends LoopControl {
     public RangeLoopControl(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
     }

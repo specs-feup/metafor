@@ -8,7 +8,7 @@ import pt.up.fe.specs.fortran.ast.nodes.expr.Expr;
 import java.util.Collection;
 import java.util.Optional;
 
-public class WhileLoopControl extends ALoopControl {
+public class WhileLoopControl extends LoopControl {
 
     public WhileLoopControl(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
