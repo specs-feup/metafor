@@ -28,6 +28,7 @@ public abstract class ProgramUnit extends FortranNode {
         */
         return getChildren().stream()
                 .map(FortranNode::getCode)
+                .filter(code -> !code.isEmpty())
                 .map(this::indent)
                 .collect(Collectors.joining(ln()));
 
