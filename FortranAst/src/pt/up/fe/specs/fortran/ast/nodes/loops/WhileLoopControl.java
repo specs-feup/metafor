@@ -20,7 +20,8 @@ public class WhileLoopControl extends ALoopControl {
 
     @Override
     public String getCode() {
-        return keyword(FortranKeyword.WHILE)
-                + getCond().map(expr -> " (" + expr.getCode() + ")").orElse("");
+        return getCond().map(
+                expr -> keyword(FortranKeyword.WHILE) + " (" + expr.getCode() + ")"
+        ).orElse("");
     }
 }
