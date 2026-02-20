@@ -2,7 +2,7 @@ package pt.up.fe.specs.fortran.ast.nodes.stmt;
 
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
-import pt.up.fe.specs.fortran.ast.nodes.loops.LoopControl;
+import pt.up.fe.specs.fortran.ast.nodes.loops.ALoopControl;
 import pt.up.fe.specs.fortran.ast.nodes.loops.enums.DoKind;
 import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
 
@@ -18,8 +18,8 @@ public class DoStmt extends ExecutableStmt {
         super(data, children);
     }
 
-    public Optional<LoopControl> getControl() {
-        return getChildTry(LoopControl.class);
+    public Optional<ALoopControl> getControl() {
+        return getChildTry(ALoopControl.class);
     }
 
     public Execution getBody() {
@@ -28,13 +28,13 @@ public class DoStmt extends ExecutableStmt {
 
     public DoKind getKind() {
         return getControl()
-                .map(LoopControl::getKind)
+                .map(DoKind::getKindFromControl)
                 .orElse(DoKind.While);
     }
 
     private String getControlCode() {
         return getControl()
-                .map(LoopControl::getCode)
+                .map(ALoopControl::getCode)
                 .orElse("");
     }
 
