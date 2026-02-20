@@ -29,7 +29,7 @@ public abstract class ProgramUnit extends FortranNode {
         return getChildren().stream()
                 .map(FortranNode::getCode)
                 .map(this::indent)
-                .collect(Collectors.joining(ln(), "", ln()));
+                .collect(Collectors.joining(ln()));
 
         //return code.toString();
     }

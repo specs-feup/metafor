@@ -53,13 +53,13 @@ public class IfConstruct extends ExecutableStmt {
         code.append(ifThenBlock.getCode());
 
         // else-if blocks
-        elseIfBlocks.forEach(elseIfBlock -> code.append(elseIfBlock.getCode()));
+        elseIfBlocks.forEach(elseIfBlock -> code.append(ln()).append(elseIfBlock.getCode()));
 
         // else block
-        elseBlock.ifPresent(block -> code.append(block.getCode()));
+        elseBlock.ifPresent(block -> code.append(ln()).append(block.getCode()));
 
         // end if statement
-        code.append(endIfStmt.getCode());
+        code.append(ln()).append(endIfStmt.getCode());
 
         return code.toString();
     }

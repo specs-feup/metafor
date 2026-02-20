@@ -6,6 +6,7 @@ import pt.up.fe.specs.fortran.ast.nodes.stmt.Stmt;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class StmtBlock extends FortranNode {
 
@@ -19,10 +20,8 @@ public class StmtBlock extends FortranNode {
 
     @Override
     public String getCode() {
-        var code = new StringBuilder();
-        for (var stmt : getStatements()) {
-            code.append(stmt.getCode()).append(ln());
-        }
-        return code.toString();
+        return getStatements().stream()
+                .map(Stmt::getCode)
+                .collect(Collectors.joining(ln()));
     }
 }

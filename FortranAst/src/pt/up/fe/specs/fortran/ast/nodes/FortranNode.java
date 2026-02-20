@@ -153,6 +153,6 @@ public abstract class FortranNode extends DataNode<FortranNode> {
     public String indent(String code) {
         return StringLines.getLines(code).stream()
             .map(line -> tab() + line)
-            .collect(Collectors.joining(ln(), tab(), ln()));
+            .collect(Collectors.joining(ln()));
     }
 }
