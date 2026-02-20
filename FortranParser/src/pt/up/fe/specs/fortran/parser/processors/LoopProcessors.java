@@ -1,6 +1,6 @@
 package pt.up.fe.specs.fortran.parser.processors;
 
-import pt.up.fe.specs.fortran.ast.nodes.loops.LoopRange;
+import pt.up.fe.specs.fortran.ast.nodes.loops.RangeLoopControl;
 import pt.up.fe.specs.fortran.ast.nodes.expr.DataRef;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 
@@ -9,17 +9,17 @@ public class LoopProcessors extends ANodeProcessor {
         super(data);
     }
 
-    public void loopRange(LoopRange loopRange) {
-        String varName = attributes().getAttrs(attributes().getString(loopRange, "var")).getString("source");
+    public void loopRange(RangeLoopControl rangeLoopControl) {
+        String varName = attributes().getAttrs(attributes().getString(rangeLoopControl, "var")).getString("source");
         DataRef varRef = factory().newNode(DataRef.class);
         varRef.set(DataRef.NAME, varName);
-        loopRange.addChild(varRef);
+        rangeLoopControl.addChild(varRef);
 
-        loopRange.addChild(getChild(loopRange, "lower"));
-        loopRange.addChild(getChild(loopRange, "upper"));
+        rangeLoopControl.addChild(getChild(rangeLoopControl, "lower"));
+        rangeLoopControl.addChild(getChild(rangeLoopControl, "upper"));
 
-        attributes().getOptionalString(loopRange, "step").ifPresent(
-                s -> loopRange.addChild(getChild(loopRange, "step"))
+        attributes().getOptionalString(rangeLoopControl, "step").ifPresent(
+                s -> rangeLoopControl.addChild(getChild(rangeLoopControl, "step"))
         );
     }
 }
