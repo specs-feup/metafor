@@ -3,7 +3,6 @@ package pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt;
 import org.suikasoft.jOptions.Datakey.DataKey;
 import org.suikasoft.jOptions.Datakey.KeyFactory;
 import org.suikasoft.jOptions.Interfaces.DataStore;
-import pt.up.fe.specs.fortran.ast.FortranKeyword;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ExecutableStmt;
 
@@ -54,13 +53,13 @@ public class IfConstruct extends ExecutableStmt {
         code.append(ifThenBlock.getCode());
 
         // else-if blocks
-        elseIfBlocks.forEach(elseIfBlock -> code.append(ln()).append(elseIfBlock.getCode()));
+        elseIfBlocks.forEach(elseIfBlock -> code.append(elseIfBlock.getCode()));
 
         // else block
-        elseBlock.ifPresent(block -> code.append(ln()).append(block.getCode()));
+        elseBlock.ifPresent(block -> code.append(block.getCode()));
 
         // end if statement
-        code.append(ln()).append(endIfStmt.getCode());
+        code.append(endIfStmt.getCode());
 
         return code.toString();
     }

@@ -57,7 +57,7 @@ public class FortranParserTest {
         var rootNode = new FortranAstBuilder(parseResult).build();
         //System.out.println(parseResult);
         System.out.println("AST: " + rootNode.toTree());
-        //System.out.println("CODE:\n" + rootNode.getCode());
+        System.out.println("CODE:\n" + rootNode.getCode());
 
         var code = rootNode.getCode();
 
