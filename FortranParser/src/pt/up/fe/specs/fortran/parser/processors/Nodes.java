@@ -6,8 +6,7 @@ import pt.up.fe.specs.fortran.ast.nodes.expr.BinaryOperator;
 import pt.up.fe.specs.fortran.ast.nodes.expr.IntLiteral;
 import pt.up.fe.specs.fortran.ast.nodes.expr.LogicalLiteral;
 import pt.up.fe.specs.fortran.ast.nodes.expr.StringLiteral;
-import pt.up.fe.specs.fortran.ast.nodes.loops.LoopBounds;
-import pt.up.fe.specs.fortran.ast.nodes.loops.LoopControl;
+import pt.up.fe.specs.fortran.ast.nodes.loops.LoopRange;
 import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
 import pt.up.fe.specs.fortran.ast.nodes.program.FortranFile;
 import pt.up.fe.specs.fortran.ast.nodes.program.MainProgram;
@@ -67,8 +66,7 @@ public class Nodes {
         processors.put(Format.class, u::format);
 
         var l = new LoopProcessors(data);
-        processors.put(LoopControl.class, l::loopControl);
-        processors.put(LoopBounds.class, l::loopBounds);
+        processors.put(LoopRange.class, l::loopRange);
     }
 
     public void process(FortranNode node) {
