@@ -1,8 +1,6 @@
 package pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt;
 
-import org.suikasoft.jOptions.Datakey.DataKey;
 import org.suikasoft.jOptions.Interfaces.DataStore;
-import pt.up.fe.specs.fortran.ast.FortranKeyword;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.program.StmtBlock;
 
@@ -26,6 +24,6 @@ public class ElseBlock extends FortranNode {
         var elseStmt = getElseStmt();
         var block = getBlock();
 
-        return elseStmt.getCode() + ln() + block.getCode();
+        return elseStmt.getCode() + ln() + indent(block.getCode());
     }
 }

@@ -24,8 +24,10 @@ import pt.up.fe.specs.fortran.ast.FortranNodes;
 import pt.up.fe.specs.fortran.ast.utils.Position;
 import pt.up.fe.specs.util.treenode.NodeInsertUtils;
 import pt.up.fe.specs.util.utilities.PrintOnce;
+import pt.up.fe.specs.util.utilities.StringLines;
 
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 /**
  * Represents a node of the Fortran AST.
@@ -33,7 +35,6 @@ import java.util.Collection;
  * @author JoaoBispo
  */
 public abstract class FortranNode extends DataNode<FortranNode> {
-
     // DATAKEYS BEGIN
 
     /**
@@ -147,5 +148,11 @@ public abstract class FortranNode extends DataNode<FortranNode> {
         var literalStmt = getFactory().literalExecutionStmt(code);
 
         return insert(position, literalStmt);
+    }
+
+    public String indent(String code) {
+        return StringLines.getLines(code).stream()
+            .map(line -> tab() + line)
+            .collect(Collectors.joining(ln(), tab(), ln()));
     }
 }

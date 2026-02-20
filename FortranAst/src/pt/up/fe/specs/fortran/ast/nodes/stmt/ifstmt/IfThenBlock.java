@@ -26,6 +26,6 @@ public class IfThenBlock extends FortranNode {
         var ifThenStmt = getIfThenStmt();
         var block = getBlock();
 
-        return ifThenStmt.getCode() + ln() + block.getCode();
+        return ifThenStmt.getCode() + ln() + indent(block.getCode());
     }
 }

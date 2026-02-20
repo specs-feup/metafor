@@ -26,6 +26,6 @@ public class ElseIfBlock extends FortranNode {
         var elseIfStmt = getElseIfStmt();
         var block = getBlock();
 
-        return elseIfStmt.getCode() + ln() + block.getCode();
+        return elseIfStmt.getCode() + ln() + indent(block.getCode());
     }
 }
