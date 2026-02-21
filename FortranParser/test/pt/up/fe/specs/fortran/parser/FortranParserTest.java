@@ -166,4 +166,16 @@ public class FortranParserTest {
     void testNamedChainedIf() {
         testJson("conditionalstmt/named_chained_if.json");
     }
+
+    @Test
+    void testLogicalIfNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("conditionalstmt/logical_if.f90");
+        }
+    }
+
+    @Test
+    void testLogicalIf() {
+        testJson("conditionalstmt/logical_if.json");
+    }
 }
