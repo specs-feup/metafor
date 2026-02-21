@@ -2,6 +2,7 @@ package pt.up.fe.specs.fortran.ast.nodes.type.attributes;
 
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.TypeDeclarationStmt;
 import pt.up.fe.specs.fortran.ast.nodes.type.shapes.ShapeSpecification;
 
 import java.util.Collection;
@@ -17,11 +18,20 @@ public class ArraySpecifier extends AttributeSpecifier {
         return getChildren(ShapeSpecification.class);
     }
 
+    private boolean isTypeDeclarationParen() {
+        return getParent() instanceof TypeDeclarationStmt;
+    }
+
     @Override
     public String getCode() {
         var shapes = getShapes();
         var code = new StringBuilder();
-        code.append("dimension");
+
+        if (isTypeDeclarationParen()) {
+            // That means that the array specifier is part of a type attributed as dimension(5) etc.
+            code.append("dimension");
+        }
+
         code.append("(");
         var shapesCode = shapes.stream().map(ShapeSpecification::getCode).collect(Collectors.joining(", "));
         code.append(shapesCode);

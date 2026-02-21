@@ -80,10 +80,13 @@ public enum FlangName implements StringProvider {
     LOGICAL,
 
     // ATTRIBUTES
+    DEFERRED_SHAPE_SPEC_LIST,
     SPECIFICATION_EXPR,
     ATTR_SPEC,
     ARRAY_SPEC,
     EXPLICIT_SHAPE_SPEC,
+    ALLOCATABLE,
+    ASYNCHRONOUS,
 
 
     // OTHER

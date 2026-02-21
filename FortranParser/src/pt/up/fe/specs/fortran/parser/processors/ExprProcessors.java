@@ -48,6 +48,10 @@ public class ExprProcessors extends ANodeProcessor {
 
     public void acSpecification(AcSpecification acSpecification) {
         var acValueList = getChildren(acSpecification, "values");
+        if (attributes(acSpecification).has("type")) {
+            var type = getChild(acSpecification, "type");
+            acSpecification.addChild(type);
+        }
         acSpecification.addChildren(acValueList);
     }
 

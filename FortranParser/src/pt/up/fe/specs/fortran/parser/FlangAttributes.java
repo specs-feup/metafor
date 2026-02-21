@@ -93,9 +93,12 @@ public class FlangAttributes {
     }
 
     public <T> List<T> getList(String key, Function<Object, T> converter) {
-        var list = (List<Object>) attributes.get(key);
-        Objects.requireNonNull(list, () -> "Attrs do not have a value for key '" + key + "': " + attributes);
-        return list.stream().map(obj -> converter.apply(obj)).toList();
+        var value = attributes.get(key);
+        Objects.requireNonNull(value, () -> "Attrs do not have a value for key '" + key + "': " + attributes);
+        if (value instanceof List<?> list) {
+            return list.stream().map(o -> converter.apply(o)).toList();
+        }
+        return List.of(converter.apply(value));
     }
 
     public Optional<Object> getOptional(String key) {
@@ -139,6 +142,10 @@ public class FlangAttributes {
 
     public boolean has(FlangName key) {
         return has(key.getString());
+    }
+
+    public boolean has(String key) {
+        return getKeys().contains(key);
     }
 
     public boolean has(String key) {

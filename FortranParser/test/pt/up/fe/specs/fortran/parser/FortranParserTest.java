@@ -181,7 +181,13 @@ public class FortranParserTest {
 
     @Test
     void testArrayAssignment() {
-        testJson("array_declaration.json");
+        testJson("arrays/array_declaration.json");
     }
 
+    @Test
+    void testArrayAssignmentNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("arrays/array_declaration.json");
+        }
+    }
 }

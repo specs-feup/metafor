@@ -13,6 +13,6 @@ public class ArrayConstructor extends Expr {
     @Override
     public String getCode() {
         var acSpecification = getChild(AcSpecification.class, 0);
-        return "(/" + acSpecification.getCode() + "/)";
+        return "[" + acSpecification.getCode() + "]";
     }
 }
