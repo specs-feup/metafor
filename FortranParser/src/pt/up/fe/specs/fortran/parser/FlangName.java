@@ -68,6 +68,10 @@ public enum FlangName implements StringProvider {
     /// LOOP
     LOOP_BOUNDS,
     LOOP_CONTROL,
+    CONCURRENT,
+    CONCURRENT_HEADER,
+    CONCURRENT_CONTROL,
+    LOCALITY_SPEC,
 
     // OTHER
     INITIALIZATION;

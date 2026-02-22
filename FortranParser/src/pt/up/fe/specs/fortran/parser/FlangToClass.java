@@ -6,6 +6,8 @@ import pt.up.fe.specs.fortran.ast.nodes.expr.BinaryOperator;
 import pt.up.fe.specs.fortran.ast.nodes.expr.IntLiteral;
 import pt.up.fe.specs.fortran.ast.nodes.expr.LogicalLiteral;
 import pt.up.fe.specs.fortran.ast.nodes.expr.StringLiteral;
+import pt.up.fe.specs.fortran.ast.nodes.loops.ConcurrentLoopControl;
+import pt.up.fe.specs.fortran.ast.nodes.loops.ConcurrentRange;
 import pt.up.fe.specs.fortran.ast.nodes.loops.RangeLoopControl;
 import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
 import pt.up.fe.specs.fortran.ast.nodes.program.FortranFile;
@@ -68,6 +70,8 @@ public class FlangToClass {
 
         ///  LOOP
         NAME_TO_CLASS.put(FlangName.LOOP_BOUNDS, RangeLoopControl.class);
+        NAME_TO_CLASS.put(FlangName.CONCURRENT, ConcurrentLoopControl.class);
+        NAME_TO_CLASS.put(FlangName.CONCURRENT_CONTROL, ConcurrentRange.class);
     }
 
     public static boolean isClass(String type) {
