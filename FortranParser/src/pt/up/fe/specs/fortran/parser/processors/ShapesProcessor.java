@@ -11,8 +11,12 @@ public class ShapesProcessor extends ANodeProcessor {
     }
 
     public void explicitShapeSpec(ExplicitShapeSpecification explicitShapeSpec) {
-        var bound = getChild(explicitShapeSpec, FlangName.SPECIFICATION_EXPR);
-        explicitShapeSpec.addChild(bound);
+        if (attributes(explicitShapeSpec).has("lower_bound")) {
+            var lower_bound = getChild(explicitShapeSpec, "lower_bound");
+            explicitShapeSpec.addChild(lower_bound);
+        }
+        var upper_bound = getChild(explicitShapeSpec, "upper_bound");
+        explicitShapeSpec.addChild(upper_bound);
     }
 
     public void deferredShapeSpecLis(DeferredShapeSpecList deferredShapeSpecList) {
