@@ -34,6 +34,16 @@ public enum FlangName implements StringProvider {
     TYPE_DECLARATION_STMT,
     ASSIGNMENT_STMT,
 
+    /// Conditional Statements
+    IF_CONSTRUCT,
+    IF_THEN_STMT,
+    ELSE_IF_BLOCK,
+    ELSE_IF_STMT,
+    ELSE_BLOCK,
+    ELSE_STMT,
+    END_IF_STMT,
+    IF_STMT,
+
     // Variables
     VARIABLE,
     DESIGNATOR,
@@ -57,7 +67,7 @@ public enum FlangName implements StringProvider {
     LE("LE"),
     GT("GT"),
     GE("GE"),
-
+    SCALAR,
 
     /// TYPEs
     DECLARATION_TYPE_SPEC,
@@ -102,4 +112,11 @@ public enum FlangName implements StringProvider {
         return false;
     }
 
+    public String getStmtAttr() {
+        return "Statement<" + getString() + ">";
+    }
+
+    public String getUnlabeledStmtAttr() {
+        return "UnlabeledStatement<" + getString() + ">";
+    }
 }
