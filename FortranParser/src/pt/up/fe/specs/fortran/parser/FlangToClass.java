@@ -49,6 +49,7 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.ELSE_BLOCK, ElseBlock.class);
         NAME_TO_CLASS.put(FlangName.ELSE_STMT, ElseStmt.class);
         NAME_TO_CLASS.put(FlangName.END_IF_STMT, EndIfStmt.class);
+        NAME_TO_CLASS.put(FlangName.IF_STMT, IfStmt.class);
 
         /// Variables
         NAME_TO_CLASS.put(FlangName.DATA_REF, DataRef.class);

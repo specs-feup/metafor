@@ -42,6 +42,7 @@ public enum FlangName implements StringProvider {
     ELSE_BLOCK,
     ELSE_STMT,
     END_IF_STMT,
+    IF_STMT,
 
     // Variables
     VARIABLE,

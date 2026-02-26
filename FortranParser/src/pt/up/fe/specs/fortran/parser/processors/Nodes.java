@@ -2,11 +2,7 @@ package pt.up.fe.specs.fortran.parser.processors;
 
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.decl.EntityDecl;
-import pt.up.fe.specs.fortran.ast.nodes.expr.BinaryOperator;
-import pt.up.fe.specs.fortran.ast.nodes.expr.IntLiteral;
-import pt.up.fe.specs.fortran.ast.nodes.expr.LogicalLiteral;
-import pt.up.fe.specs.fortran.ast.nodes.expr.ParenExpr;
-import pt.up.fe.specs.fortran.ast.nodes.expr.StringLiteral;
+import pt.up.fe.specs.fortran.ast.nodes.expr.*;
 import pt.up.fe.specs.fortran.ast.nodes.program.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.AssignmentStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.FormatStmt;
@@ -58,6 +54,7 @@ public class Nodes {
         processors.put(ElseBlock.class, s::elseBlock);
         processors.put(ElseStmt.class, s::elseStmt);
         processors.put(EndIfStmt.class, s::endIfStmt);
+        processors.put(IfStmt.class, s::ifStmt);
 
         var e = new ExprProcessors(data);
         processors.put(StringLiteral.class, e::stringLiteral);

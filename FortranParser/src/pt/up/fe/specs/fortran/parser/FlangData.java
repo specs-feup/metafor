@@ -71,7 +71,7 @@ public class FlangData {
         }
 
         // Calculate key to the next level
-        var key = id.endsWith("-Statement") ? REGEX_STMT : REGEX_VALUE;
+        var key = id.endsWith("-Statement") || id.endsWith("-UnlabeledStatement") ? REGEX_STMT : REGEX_VALUE;
         var attrs = getAttrs(id);
         var keys = attrs.getKeys();
 
