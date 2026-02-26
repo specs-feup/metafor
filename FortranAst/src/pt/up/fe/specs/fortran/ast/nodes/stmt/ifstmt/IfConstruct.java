@@ -33,11 +33,11 @@ public class IfConstruct extends ExecutableStmt {
     }
 
     public Optional<ElseBlock> getElseBlock() {
-        return getChildTry(ElseBlock.class, getNumChildren() - 2);
+        return getChildOf(ElseBlock.class);
     }
 
     public EndIfStmt getEndIfStmt() {
-        return getChild(EndIfStmt.class, getNumChildren() - 1);
+        return getChildOf(EndIfStmt.class).orElseThrow();
     }
 
     @Override

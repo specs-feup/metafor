@@ -21,7 +21,7 @@ public class IfThenStmt extends FortranNode {
 
     @Override
     public String getCode() {
-        var nameOpt = ((IfConstruct) getParent().getParent()).getName();
+        var nameOpt = getAncestor(IfConstruct.class).getName();
         var condition = getCondition();
 
         var code = new StringBuilder();
