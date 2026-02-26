@@ -18,19 +18,10 @@ public class ArraySpecifier extends AttributeSpecifier {
         return getChildren(ShapeSpecification.class);
     }
 
-    private boolean isTypeDeclarationParen() {
-        return getParent() instanceof TypeDeclarationStmt;
-    }
-
     @Override
     public String getCode() {
         var shapes = getShapes();
         var code = new StringBuilder();
-
-        if (isTypeDeclarationParen()) {
-            // That means that the array specifier is part of a type attributed as dimension(5) etc.
-            code.append("dimension");
-        }
 
         code.append("(");
         var shapesCode = shapes.stream().map(ShapeSpecification::getCode).collect(Collectors.joining(","));

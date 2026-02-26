@@ -12,7 +12,11 @@ public class ArrayConstructor extends Expr {
 
     @Override
     public String getCode() {
-        var acSpecification = getChild(AcSpecification.class, 0);
+        var acSpecification = getAcSpecification();
         return "[" + acSpecification.getCode() + "]";
+    }
+
+    private AcSpecification getAcSpecification() {
+        return getChild(AcSpecification.class, 0);
     }
 }

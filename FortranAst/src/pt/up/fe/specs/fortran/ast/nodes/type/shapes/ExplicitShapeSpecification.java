@@ -5,6 +5,7 @@ import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.expr.IntLiteral;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class ExplicitShapeSpecification extends ShapeSpecification {
@@ -14,7 +15,11 @@ public class ExplicitShapeSpecification extends ShapeSpecification {
 
     @Override
     public String getCode() {
-        var bounds = getChildren(IntLiteral.class);
+        var bounds = getBounds();
         return bounds.stream().map(IntLiteral::getCode).collect(Collectors.joining(":"));
+    }
+
+    private List<IntLiteral> getBounds() {
+        return getChildren(IntLiteral.class);
     }
 }

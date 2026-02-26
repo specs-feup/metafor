@@ -5,6 +5,8 @@ import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.type.IntrinsicType;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class AcSpecification extends FortranNode {
@@ -14,10 +16,11 @@ public class AcSpecification extends FortranNode {
 
     @Override
     public String getCode() {
+
         var code = new StringBuilder();
 
-        var acValues = getChildrenOf(Expr.class);
-        var typeTry = getChildTry(IntrinsicType.class);
+        var acValues = getAcValues();
+        var typeTry = getType();
         typeTry.ifPresent(type -> code.append(type.getCode()).append(" ::"));
 
         if (!acValues.isEmpty() && typeTry.isPresent()) {
@@ -28,5 +31,14 @@ public class AcSpecification extends FortranNode {
                 .collect(Collectors.joining(", ")));
 
         return code.toString();
+    }
+
+    private Optional<IntrinsicType> getType() {
+        return getChildTry(IntrinsicType.class);
+    }
+
+
+    private List<Expr> getAcValues() {
+        return getChildrenOf(Expr.class);
     }
 }

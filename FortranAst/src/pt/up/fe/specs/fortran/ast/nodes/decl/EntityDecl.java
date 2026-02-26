@@ -33,18 +33,10 @@ public class EntityDecl extends FortranDecl {
     }
 
     public Optional<Expr> getInitialization() {
-        if (getNumChildren() < 2) {
-            return Optional.empty();
-        }
-
         return getChildOf(Expr.class);
     }
 
     public Optional<ArraySpecifier> getArraySpec() {
-        if (getNumChildren() < 2) {
-            return Optional.empty();
-        }
-
         return getChildOf(ArraySpecifier.class);
     }
 

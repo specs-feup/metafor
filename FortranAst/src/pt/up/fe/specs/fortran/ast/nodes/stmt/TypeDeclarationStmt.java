@@ -3,6 +3,7 @@ package pt.up.fe.specs.fortran.ast.nodes.stmt;
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.decl.EntityDecl;
+import pt.up.fe.specs.fortran.ast.nodes.type.attributes.ArraySpecifier;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.AttributeSpecifier;
 import pt.up.fe.specs.util.SpecsCheck;
 
@@ -42,8 +43,7 @@ public class TypeDeclarationStmt extends SpecificationStmt {
 
         code.append(type.getCode());
         if (!attributes.isEmpty()) {
-            var attributesCode = attributes.stream().map(FortranNode::getCode)
-                    .collect(Collectors.joining(", "));
+            var attributesCode = getAttributesCode(attributes);
             code.append(", ").append(attributesCode);
         }
         code.append(" :: ");
@@ -53,5 +53,15 @@ public class TypeDeclarationStmt extends SpecificationStmt {
         code.append(declsCode);
 
         return code.toString();
+    }
+
+    private static String getAttributesCode(List<AttributeSpecifier> attributes) {
+        return attributes.stream().map(attributeSpecifier -> {
+                    if (attributeSpecifier instanceof ArraySpecifier) {
+                        return "dimension" + attributeSpecifier.getCode();
+                    }
+                    return attributeSpecifier.getCode();
+                })
+                .collect(Collectors.joining(", "));
     }
 }
