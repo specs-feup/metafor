@@ -138,7 +138,7 @@ public class StmtProcessors extends ANodeProcessor {
 
     public void ifStmt(IfStmt ifStmt) {
         var condition = getChild(ifStmt, "value");
-        var thenStmt = getChild(ifStmt, "UnlabeledStatement<ActionStmt>");  // TODO(Process-ing): Solve problem with statement keys in dumper
+        var thenStmt = getChild(ifStmt, FlangName.ACTION_STMT.getUnlabeledStmtAttr());
 
         ifStmt.addChild(condition);
         ifStmt.addChild(thenStmt);

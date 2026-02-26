@@ -115,4 +115,8 @@ public enum FlangName implements StringProvider {
     public String getStmtAttr() {
         return "Statement<" + getString() + ">";
     }
+
+    public String getUnlabeledStmtAttr() {
+        return "UnlabeledStatement<" + getString() + ">";
+    }
 }
