@@ -5,6 +5,7 @@ import pt.up.fe.specs.fortran.ast.nodes.decl.EntityDecl;
 import pt.up.fe.specs.fortran.ast.nodes.expr.BinaryOperator;
 import pt.up.fe.specs.fortran.ast.nodes.expr.IntLiteral;
 import pt.up.fe.specs.fortran.ast.nodes.expr.LogicalLiteral;
+import pt.up.fe.specs.fortran.ast.nodes.expr.ParenExpr;
 import pt.up.fe.specs.fortran.ast.nodes.expr.StringLiteral;
 import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
 import pt.up.fe.specs.fortran.ast.nodes.program.FortranFile;
@@ -49,6 +50,7 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.LOGICAL_LITERAL_CONSTANT, LogicalLiteral.class);
         NAME_TO_CLASS.put(FlangName.FORMAT, Format.class);
         NAME_TO_CLASS.put(FlangName.STAR, Star.class);
+        NAME_TO_CLASS.put(FlangName.PARENTHESES, ParenExpr.class);
         NAME_TO_CLASS.put(FlangName.ADD, BinaryOperator.class);
         NAME_TO_CLASS.put(FlangName.SUBTRACT, BinaryOperator.class);
         NAME_TO_CLASS.put(FlangName.MULTIPLY, BinaryOperator.class);

@@ -108,6 +108,11 @@ public class FortranParserTest {
     }
 
     @Test
+    void testParenExpr() {
+        testJson("parenexpr.json");
+    }
+
+    @Test
     void testBinaryOperator() {
         testJson("binary_operator.json");
     }
