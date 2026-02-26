@@ -61,7 +61,7 @@ public class StmtProcessors extends ANodeProcessor {
 
     public void ifConstruct(IfConstruct ifConstruct) {
         // Add if-then block
-        var ifThenStmt = getChild(ifConstruct, FlangName.IF_THEN_STMT);
+        var ifThenStmt = getChild(ifConstruct, FlangName.IF_THEN_STMT.getStmtAttr());
         var blockStatements = getChildren(ifConstruct, FlangName.EXECUTION_PART_CONSTRUCT);
 
         var thenBlock = factory().newNode(StmtBlock.class);
@@ -86,7 +86,7 @@ public class StmtProcessors extends ANodeProcessor {
         }
 
         // Add end if statement
-        var endIfStmt = getChild(ifConstruct, FlangName.END_IF_STMT);
+        var endIfStmt = getChild(ifConstruct, FlangName.END_IF_STMT.getStmtAttr());
         ifConstruct.addChild(endIfStmt);
 
         // Assign name if present
@@ -104,7 +104,7 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void elseIfBlock(ElseIfBlock ifElseBlock) {
-        var elseIfStmt = getChild(ifElseBlock, FlangName.ELSE_IF_STMT);
+        var elseIfStmt = getChild(ifElseBlock, FlangName.ELSE_IF_STMT.getStmtAttr());
         ifElseBlock.addChild(elseIfStmt);
 
         var blockStatements = getChildren(ifElseBlock, FlangName.EXECUTION_PART_CONSTRUCT);
@@ -119,7 +119,7 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void elseBlock(ElseBlock elseBlock) {
-        var elseStmt = getChild(elseBlock, FlangName.ELSE_STMT);
+        var elseStmt = getChild(elseBlock, FlangName.ELSE_STMT.getStmtAttr());
         elseBlock.addChild(elseStmt);
 
         var blockStatements = getChildren(elseBlock, FlangName.EXECUTION_PART_CONSTRUCT);
