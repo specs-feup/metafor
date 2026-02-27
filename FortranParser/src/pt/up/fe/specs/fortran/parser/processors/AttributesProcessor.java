@@ -1,6 +1,6 @@
 package pt.up.fe.specs.fortran.parser.processors;
 
-import pt.up.fe.specs.fortran.ast.nodes.type.attributes.ArraySpecifier;
+import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.KeywordAttributeSpecifier;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
@@ -20,9 +20,9 @@ public class AttributesProcessor extends ANodeProcessor {
     }
 
 
-    public void arraySpecifier(ArraySpecifier arraySpecifier) {
-        var shapes = getChildren(arraySpecifier, "value");
-        arraySpecifier.addChildren(shapes);
+    public void arraySpecification(ArraySpecification arraySpecification) {
+        var shapes = getChildren(arraySpecification, "value");
+        arraySpecification.addChildren(shapes);
     }
 
     public void keywordSpecifier(KeywordAttributeSpecifier keywordSpecifier) {

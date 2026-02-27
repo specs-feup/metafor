@@ -1,16 +1,15 @@
-package pt.up.fe.specs.fortran.ast.nodes.type.attributes;
+package pt.up.fe.specs.fortran.ast.nodes.specification;
 
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.TypeDeclarationStmt;
 import pt.up.fe.specs.fortran.ast.nodes.type.shapes.ShapeSpecification;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ArraySpecifier extends AttributeSpecifier {
-    public ArraySpecifier(DataStore data, Collection<? extends FortranNode> children) {
+public class ArraySpecification extends FortranNode {
+    public ArraySpecification(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
     }
 

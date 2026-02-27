@@ -3,7 +3,7 @@ package pt.up.fe.specs.fortran.ast.nodes.stmt;
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.decl.EntityDecl;
-import pt.up.fe.specs.fortran.ast.nodes.type.attributes.ArraySpecifier;
+import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.AttributeSpecifier;
 import pt.up.fe.specs.util.SpecsCheck;
 
@@ -56,12 +56,7 @@ public class TypeDeclarationStmt extends SpecificationStmt {
     }
 
     private static String getAttributesCode(List<AttributeSpecifier> attributes) {
-        return attributes.stream().map(attributeSpecifier -> {
-                    if (attributeSpecifier instanceof ArraySpecifier) {
-                        return "dimension" + attributeSpecifier.getCode();
-                    }
-                    return attributeSpecifier.getCode();
-                })
+        return attributes.stream().map(FortranNode::getCode)
                 .collect(Collectors.joining(", "));
     }
 }

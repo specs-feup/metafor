@@ -16,7 +16,7 @@ import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.type.IntegerType;
 import pt.up.fe.specs.fortran.ast.nodes.type.LogicalType;
-import pt.up.fe.specs.fortran.ast.nodes.type.attributes.ArraySpecifier;
+import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.KeywordAttributeSpecifier;
 import pt.up.fe.specs.fortran.ast.nodes.type.shapes.DeferredShapeSpecList;
 import pt.up.fe.specs.fortran.ast.nodes.type.shapes.ExplicitShapeSpecification;
@@ -83,7 +83,7 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.LOGICAL, LogicalType.class);
 
         ///  ATTRIBUTES
-        NAME_TO_CLASS.put(FlangName.ARRAY_SPEC, ArraySpecifier.class);
+        NAME_TO_CLASS.put(FlangName.ARRAY_SPEC, ArraySpecification.class);
         NAME_TO_CLASS.put(FlangName.ALLOCATABLE, KeywordAttributeSpecifier.class);
 
         ///  SHAPES

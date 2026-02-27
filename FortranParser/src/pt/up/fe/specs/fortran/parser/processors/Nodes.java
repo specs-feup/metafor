@@ -16,7 +16,7 @@ import pt.up.fe.specs.fortran.ast.nodes.stmt.TypeDeclarationStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.type.IntegerType;
 import pt.up.fe.specs.fortran.ast.nodes.type.LogicalType;
-import pt.up.fe.specs.fortran.ast.nodes.type.attributes.ArraySpecifier;
+import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.KeywordAttributeSpecifier;
 import pt.up.fe.specs.fortran.ast.nodes.type.shapes.DeferredShapeSpecList;
 import pt.up.fe.specs.fortran.ast.nodes.type.shapes.ExplicitShapeSpecification;
@@ -78,7 +78,7 @@ public class Nodes {
         processors.put(LogicalType.class, t::logicalType);
 
         var a = new AttributesProcessor(data);
-        processors.put(ArraySpecifier.class, a::arraySpecifier);
+        processors.put(ArraySpecification.class, a::arraySpecification);
         processors.put(KeywordAttributeSpecifier.class, a::keywordSpecifier);
 
         var shapes = new ShapesProcessor(data);
