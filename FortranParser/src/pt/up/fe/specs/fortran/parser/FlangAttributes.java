@@ -147,8 +147,4 @@ public class FlangAttributes {
     public boolean has(String key) {
         return getKeys().contains(key);
     }
-
-    public boolean has(String key) {
-        return getKeys().contains(key);
-    }
 }
