@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class AcSpecification extends FortranNode {
     public AcSpecification(DataStore data, Collection<? extends FortranNode> children) {
@@ -16,21 +17,17 @@ public class AcSpecification extends FortranNode {
 
     @Override
     public String getCode() {
+        var typeStr = getType()
+                .map(type -> type.getCode() + " ::")
+                .orElse("");
 
-        var code = new StringBuilder();
+        var acValuesStr = getAcValues().stream()
+                .map(FortranNode::getCode)
+                .collect(Collectors.joining(", "));
 
-        var acValues = getAcValues();
-        var typeTry = getType();
-        typeTry.ifPresent(type -> code.append(type.getCode()).append(" ::"));
-
-        if (!acValues.isEmpty() && typeTry.isPresent()) {
-            code.append(" ");
-        }
-
-        code.append(acValues.stream().map(FortranNode::getCode)
-                .collect(Collectors.joining(", ")));
-
-        return code.toString();
+        return Stream.of(typeStr, acValuesStr)
+                .filter(s -> !s.isEmpty())
+                .collect(Collectors.joining(" "));
     }
 
     private Optional<IntrinsicType> getType() {
