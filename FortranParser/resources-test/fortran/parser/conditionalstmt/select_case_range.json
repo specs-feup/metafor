@@ -1,0 +1,1007 @@
+{
+  "nodes": [
+    {
+      "id": "0x62e3418cecb0-Program",
+      "ProgramUnit": [
+        "0x62e3418f9020-ProgramUnit"
+      ]
+    },
+    {
+      "id": "0x62e3418f9020-ProgramUnit",
+      "value": "0x62e3418f8860-MainProgram"
+    },
+    {
+      "id": "0x62e3418f8860-MainProgram",
+      "Statement<ProgramStmt>": "0x62e3418f89a8-Statement",
+      "SpecificationPart": "0x62e3418f8900-SpecificationPart",
+      "ExecutionPart": "0x62e3418f88e8-ExecutionPart",
+      "Statement<EndProgramStmt>": "0x62e3418f8860-Statement"
+    },
+    {
+      "id": "0x62e3418f89a8-Statement",
+      "statement": "0x62e3418f89b8-ProgramStmt",
+      "label": "null",
+      "source": "program select_case_range"
+    },
+    {
+      "id": "0x62e3418f89b8-ProgramStmt",
+      "Name": "0x62e3418f89b8-Name"
+    },
+    {
+      "id": "0x62e3418f89b8-Name",
+      "source": "select_case_range"
+    },
+    {
+      "id": "0x62e3418f8900-SpecificationPart",
+      "ImplicitPart": "0x62e3418f8918-ImplicitPart",
+      "DeclarationConstruct": [
+        "0x62e3418d55a0-DeclarationConstruct"
+      ]
+    },
+    {
+      "id": "0x62e3418f8918-ImplicitPart"
+    },
+    {
+      "id": "0x62e3418d55a0-DeclarationConstruct",
+      "value": "0x62e3418d55a0-SpecificationConstruct"
+    },
+    {
+      "id": "0x62e3418d55a0-SpecificationConstruct",
+      "value<TypeDeclarationStmt>": "0x62e3418d55a0-Statement"
+    },
+    {
+      "id": "0x62e3418d55a0-Statement",
+      "statement": "0x62e3418dd240-TypeDeclarationStmt",
+      "label": "null",
+      "source": "integer :: val, result"
+    },
+    {
+      "id": "0x62e3418dd240-TypeDeclarationStmt",
+      "DeclarationTypeSpec": "0x62e3418dd270-DeclarationTypeSpec",
+      "EntityDecl": [
+        "0x62e3418f9610-EntityDecl",
+        "0x62e3418f9520-EntityDecl"
+      ]
+    },
+    {
+      "id": "0x62e3418dd270-DeclarationTypeSpec",
+      "value": "0x62e3418dd270-IntrinsicTypeSpec"
+    },
+    {
+      "id": "0x62e3418dd270-IntrinsicTypeSpec",
+      "value": "0x62e3418dd270-IntegerTypeSpec"
+    },
+    {
+      "id": "0x62e3418dd270-IntegerTypeSpec"
+    },
+    {
+      "id": "0x62e3418f9610-EntityDecl",
+      "Name": "0x62e3418f96c8-Name"
+    },
+    {
+      "id": "0x62e3418f96c8-Name",
+      "source": "val"
+    },
+    {
+      "id": "0x62e3418f9520-EntityDecl",
+      "Name": "0x62e3418f95d8-Name"
+    },
+    {
+      "id": "0x62e3418f95d8-Name",
+      "source": "result"
+    },
+    {
+      "id": "0x62e3418f88e8-ExecutionPart",
+      "ExecutionPartConstruct": [
+        "0x62e3418fa000-ExecutionPartConstruct",
+        "0x62e3418fae60-ExecutionPartConstruct",
+        "0x62e3418fc390-ExecutionPartConstruct"
+      ]
+    },
+    {
+      "id": "0x62e3418f88e8-ExecutionPartConstruct"
+    },
+    {
+      "id": "0x62e3418fa000-ExecutionPartConstruct",
+      "value": "0x62e3418fa000-ExecutableConstruct"
+    },
+    {
+      "id": "0x62e3418fa000-ExecutableConstruct",
+      "value<ActionStmt>": "0x62e3418fa000-Statement"
+    },
+    {
+      "id": "0x62e3418fa000-Statement",
+      "statement": "0x62e3418fa010-ActionStmt",
+      "label": "null",
+      "source": "val = 5"
+    },
+    {
+      "id": "0x62e3418fa010-ActionStmt",
+      "value": "0x62e3418f9360-AssignmentStmt"
+    },
+    {
+      "id": "0x62e3418f9360-AssignmentStmt",
+      "Variable": "0x62e3418f9440-Variable",
+      "Expr": "0x62e3418f9370-Expr"
+    },
+    {
+      "id": "0x62e3418f9440-Variable",
+      "value": "0x62e3418d5220-Designator"
+    },
+    {
+      "id": "0x62e3418d5220-Designator",
+      "value": "0x62e3418d5230-DataRef"
+    },
+    {
+      "id": "0x62e3418d5230-DataRef",
+      "value": "0x62e3418d5230-Name"
+    },
+    {
+      "id": "0x62e3418d5230-Name",
+      "source": "val"
+    },
+    {
+      "id": "0x62e3418f9370-Expr",
+      "value": "0x62e3418f9390-LiteralConstant"
+    },
+    {
+      "id": "0x62e3418f9390-LiteralConstant",
+      "value": "0x62e3418f9390-IntLiteralConstant"
+    },
+    {
+      "id": "0x62e3418f9390-IntLiteralConstant",
+      "CharBlock": "5"
+    },
+    {
+      "id": "0x62e3418fae60-ExecutionPartConstruct",
+      "value": "0x62e3418fae60-ExecutableConstruct"
+    },
+    {
+      "id": "0x62e3418fae60-ExecutableConstruct",
+      "value": "0x62e3418f83d0-CaseConstruct"
+    },
+    {
+      "id": "0x62e3418f83d0-CaseConstruct",
+      "Statement<SelectCaseStmt>": "0x62e3418f8428-Statement",
+      "Case": [
+        "0x62e3418f9170-Case",
+        "0x62e3418fa440-Case",
+        "0x62e3418fa3b0-Case",
+        "0x62e3418fa290-Case"
+      ],
+      "Statement<EndSelectStmt>": "0x62e3418f83d0-Statement"
+    },
+    {
+      "id": "0x62e3418f8428-Statement",
+      "statement": "0x62e3418f8438-SelectCaseStmt",
+      "label": "null",
+      "source": "select case(val)"
+    },
+    {
+      "id": "0x62e3418f8438-SelectCaseStmt",
+      "value": "0x62e3418f8438-Expr"
+    },
+    {
+      "id": "0x62e3418f8438-Expr",
+      "value": "0x62e3418f9f90-Designator"
+    },
+    {
+      "id": "0x62e3418f9f90-Designator",
+      "value": "0x62e3418f9fa0-DataRef"
+    },
+    {
+      "id": "0x62e3418f9fa0-DataRef",
+      "value": "0x62e3418f9fa0-Name"
+    },
+    {
+      "id": "0x62e3418f9fa0-Name",
+      "source": "val"
+    },
+    {
+      "id": "0x62e3418f9170-Case",
+      "Statement<CaseStmt>": "0x62e3418f9188-Statement",
+      "ExecutionPartConstruct": [
+        "0x62e3418fafd0-ExecutionPartConstruct"
+      ]
+    },
+    {
+      "id": "0x62e3418f9188-Statement",
+      "statement": "0x62e3418f9198-CaseStmt",
+      "label": "null",
+      "source": "case(:3)"
+    },
+    {
+      "id": "0x62e3418f9198-CaseStmt",
+      "CaseSelector": "0x62e3418f91b8-CaseSelector"
+    },
+    {
+      "id": "0x62e3418f91b8-CaseSelector",
+      "value": [
+        "0x62e3418f7960-CaseValueRange"
+      ]
+    },
+    {
+      "id": "0x62e3418f7960-CaseValueRange",
+      "value": "0x62e3418f7960-Range"
+    },
+    {
+      "id": "0x62e3418f7960-Range"
+    },
+    {
+      "id": "0x62e3418f7970-Constant",
+      "value": "0x62e3418fad90-LiteralConstant"
+    },
+    {
+      "id": "0x62e3418fad70-Expr",
+      "value": "0x62e3418fad90-LiteralConstant"
+    },
+    {
+      "id": "0x62e3418fad90-LiteralConstant",
+      "value": "0x62e3418fad90-IntLiteralConstant"
+    },
+    {
+      "id": "0x62e3418fad90-IntLiteralConstant",
+      "CharBlock": "3"
+    },
+    {
+      "id": "0x62e3418f9170-ExecutionPartConstruct"
+    },
+    {
+      "id": "0x62e3418fafd0-ExecutionPartConstruct",
+      "value": "0x62e3418fafd0-ExecutableConstruct"
+    },
+    {
+      "id": "0x62e3418fafd0-ExecutableConstruct",
+      "value<ActionStmt>": "0x62e3418fafd0-Statement"
+    },
+    {
+      "id": "0x62e3418fafd0-Statement",
+      "statement": "0x62e3418fafe0-ActionStmt",
+      "label": "null",
+      "source": "result = 10"
+    },
+    {
+      "id": "0x62e3418fafe0-ActionStmt",
+      "value": "0x62e3418faeb0-AssignmentStmt"
+    },
+    {
+      "id": "0x62e3418faeb0-AssignmentStmt",
+      "Variable": "0x62e3418faf90-Variable",
+      "Expr": "0x62e3418faec0-Expr"
+    },
+    {
+      "id": "0x62e3418faf90-Variable",
+      "value": "0x62e3418fa310-Designator"
+    },
+    {
+      "id": "0x62e3418fa310-Designator",
+      "value": "0x62e3418fa320-DataRef"
+    },
+    {
+      "id": "0x62e3418fa320-DataRef",
+      "value": "0x62e3418fa320-Name"
+    },
+    {
+      "id": "0x62e3418fa320-Name",
+      "source": "result"
+    },
+    {
+      "id": "0x62e3418faec0-Expr",
+      "value": "0x62e3418faee0-LiteralConstant"
+    },
+    {
+      "id": "0x62e3418faee0-LiteralConstant",
+      "value": "0x62e3418faee0-IntLiteralConstant"
+    },
+    {
+      "id": "0x62e3418faee0-IntLiteralConstant",
+      "CharBlock": "10"
+    },
+    {
+      "id": "0x62e3418fa440-Case",
+      "Statement<CaseStmt>": "0x62e3418fa458-Statement",
+      "ExecutionPartConstruct": [
+        "0x62e3418fb360-ExecutionPartConstruct"
+      ]
+    },
+    {
+      "id": "0x62e3418fa458-Statement",
+      "statement": "0x62e3418fa468-CaseStmt",
+      "label": "null",
+      "source": "case(4:6)"
+    },
+    {
+      "id": "0x62e3418fa468-CaseStmt",
+      "CaseSelector": "0x62e3418fa488-CaseSelector"
+    },
+    {
+      "id": "0x62e3418fa488-CaseSelector",
+      "value": [
+        "0x62e3418f79f0-CaseValueRange"
+      ]
+    },
+    {
+      "id": "0x62e3418f79f0-CaseValueRange",
+      "value": "0x62e3418f79f0-Range"
+    },
+    {
+      "id": "0x62e3418f79f0-Range"
+    },
+    {
+      "id": "0x62e3418f79f0-Constant",
+      "value": "0x62e3418fb120-LiteralConstant"
+    },
+    {
+      "id": "0x62e3418fb100-Expr",
+      "value": "0x62e3418fb120-LiteralConstant"
+    },
+    {
+      "id": "0x62e3418fb120-LiteralConstant",
+      "value": "0x62e3418fb120-IntLiteralConstant"
+    },
+    {
+      "id": "0x62e3418fb120-IntLiteralConstant",
+      "CharBlock": "4"
+    },
+    {
+      "id": "0x62e3418f7a00-Constant",
+      "value": "0x62e3418fb040-LiteralConstant"
+    },
+    {
+      "id": "0x62e3418fb020-Expr",
+      "value": "0x62e3418fb040-LiteralConstant"
+    },
+    {
+      "id": "0x62e3418fb040-LiteralConstant",
+      "value": "0x62e3418fb040-IntLiteralConstant"
+    },
+    {
+      "id": "0x62e3418fb040-IntLiteralConstant",
+      "CharBlock": "6"
+    },
+    {
+      "id": "0x62e3418fa440-ExecutionPartConstruct"
+    },
+    {
+      "id": "0x62e3418fb360-ExecutionPartConstruct",
+      "value": "0x62e3418fb360-ExecutableConstruct"
+    },
+    {
+      "id": "0x62e3418fb360-ExecutableConstruct",
+      "value<ActionStmt>": "0x62e3418fb360-Statement"
+    },
+    {
+      "id": "0x62e3418fb360-Statement",
+      "statement": "0x62e3418fb370-ActionStmt",
+      "label": "null",
+      "source": "result = 20"
+    },
+    {
+      "id": "0x62e3418fb370-ActionStmt",
+      "value": "0x62e3418fb240-AssignmentStmt"
+    },
+    {
+      "id": "0x62e3418fb240-AssignmentStmt",
+      "Variable": "0x62e3418fb320-Variable",
+      "Expr": "0x62e3418fb250-Expr"
+    },
+    {
+      "id": "0x62e3418fb320-Variable",
+      "value": "0x62e3418fad10-Designator"
+    },
+    {
+      "id": "0x62e3418fad10-Designator",
+      "value": "0x62e3418fad20-DataRef"
+    },
+    {
+      "id": "0x62e3418fad20-DataRef",
+      "value": "0x62e3418fad20-Name"
+    },
+    {
+      "id": "0x62e3418fad20-Name",
+      "source": "result"
+    },
+    {
+      "id": "0x62e3418fb250-Expr",
+      "value": "0x62e3418fb270-LiteralConstant"
+    },
+    {
+      "id": "0x62e3418fb270-LiteralConstant",
+      "value": "0x62e3418fb270-IntLiteralConstant"
+    },
+    {
+      "id": "0x62e3418fb270-IntLiteralConstant",
+      "CharBlock": "20"
+    },
+    {
+      "id": "0x62e3418fa3b0-Case",
+      "Statement<CaseStmt>": "0x62e3418fa3c8-Statement",
+      "ExecutionPartConstruct": [
+        "0x62e3418fb990-ExecutionPartConstruct"
+      ]
+    },
+    {
+      "id": "0x62e3418fa3c8-Statement",
+      "statement": "0x62e3418fa3d8-CaseStmt",
+      "label": "null",
+      "source": "case(7:)"
+    },
+    {
+      "id": "0x62e3418fa3d8-CaseStmt",
+      "CaseSelector": "0x62e3418fa3f8-CaseSelector"
+    },
+    {
+      "id": "0x62e3418fa3f8-CaseSelector",
+      "value": [
+        "0x62e3418f8590-CaseValueRange"
+      ]
+    },
+    {
+      "id": "0x62e3418f8590-CaseValueRange",
+      "value": "0x62e3418f8590-Range"
+    },
+    {
+      "id": "0x62e3418f8590-Range"
+    },
+    {
+      "id": "0x62e3418f8590-Constant",
+      "value": "0x62e3418fb750-LiteralConstant"
+    },
+    {
+      "id": "0x62e3418fb730-Expr",
+      "value": "0x62e3418fb750-LiteralConstant"
+    },
+    {
+      "id": "0x62e3418fb750-LiteralConstant",
+      "value": "0x62e3418fb750-IntLiteralConstant"
+    },
+    {
+      "id": "0x62e3418fb750-IntLiteralConstant",
+      "CharBlock": "7"
+    },
+    {
+      "id": "0x62e3418fa3b0-ExecutionPartConstruct"
+    },
+    {
+      "id": "0x62e3418fb990-ExecutionPartConstruct",
+      "value": "0x62e3418fb990-ExecutableConstruct"
+    },
+    {
+      "id": "0x62e3418fb990-ExecutableConstruct",
+      "value<ActionStmt>": "0x62e3418fb990-Statement"
+    },
+    {
+      "id": "0x62e3418fb990-Statement",
+      "statement": "0x62e3418fb9a0-ActionStmt",
+      "label": "null",
+      "source": "result = 30"
+    },
+    {
+      "id": "0x62e3418fb9a0-ActionStmt",
+      "value": "0x62e3418fb870-AssignmentStmt"
+    },
+    {
+      "id": "0x62e3418fb870-AssignmentStmt",
+      "Variable": "0x62e3418fb950-Variable",
+      "Expr": "0x62e3418fb880-Expr"
+    },
+    {
+      "id": "0x62e3418fb950-Variable",
+      "value": "0x62e3418ceae0-Designator"
+    },
+    {
+      "id": "0x62e3418ceae0-Designator",
+      "value": "0x62e3418ceaf0-DataRef"
+    },
+    {
+      "id": "0x62e3418ceaf0-DataRef",
+      "value": "0x62e3418ceaf0-Name"
+    },
+    {
+      "id": "0x62e3418ceaf0-Name",
+      "source": "result"
+    },
+    {
+      "id": "0x62e3418fb880-Expr",
+      "value": "0x62e3418fb8a0-LiteralConstant"
+    },
+    {
+      "id": "0x62e3418fb8a0-LiteralConstant",
+      "value": "0x62e3418fb8a0-IntLiteralConstant"
+    },
+    {
+      "id": "0x62e3418fb8a0-IntLiteralConstant",
+      "CharBlock": "30"
+    },
+    {
+      "id": "0x62e3418fa290-Case",
+      "Statement<CaseStmt>": "0x62e3418fa2a8-Statement",
+      "ExecutionPartConstruct": [
+        "0x62e3418fbe70-ExecutionPartConstruct"
+      ]
+    },
+    {
+      "id": "0x62e3418fa2a8-Statement",
+      "statement": "0x62e3418fa2b8-CaseStmt",
+      "label": "null",
+      "source": "case default"
+    },
+    {
+      "id": "0x62e3418fa2b8-CaseStmt",
+      "CaseSelector": "0x62e3418fa2d8-CaseSelector"
+    },
+    {
+      "id": "0x62e3418fa2d8-CaseSelector",
+      "value": "0x62e3418fa2d8-Default"
+    },
+    {
+      "id": "0x62e3418fa2d8-Default"
+    },
+    {
+      "id": "0x62e3418fa290-ExecutionPartConstruct"
+    },
+    {
+      "id": "0x62e3418fbe70-ExecutionPartConstruct",
+      "value": "0x62e3418fbe70-ExecutableConstruct"
+    },
+    {
+      "id": "0x62e3418fbe70-ExecutableConstruct",
+      "value<ActionStmt>": "0x62e3418fbe70-Statement"
+    },
+    {
+      "id": "0x62e3418fbe70-Statement",
+      "statement": "0x62e3418fbe80-ActionStmt",
+      "label": "null",
+      "source": "result = -1"
+    },
+    {
+      "id": "0x62e3418fbe80-ActionStmt",
+      "value": "0x62e3418fbd50-AssignmentStmt"
+    },
+    {
+      "id": "0x62e3418fbd50-AssignmentStmt",
+      "Variable": "0x62e3418fbe30-Variable",
+      "Expr": "0x62e3418fbd60-Expr"
+    },
+    {
+      "id": "0x62e3418fbe30-Variable",
+      "value": "0x62e3418fb810-Designator"
+    },
+    {
+      "id": "0x62e3418fb810-Designator",
+      "value": "0x62e3418fb820-DataRef"
+    },
+    {
+      "id": "0x62e3418fb820-DataRef",
+      "value": "0x62e3418fb820-Name"
+    },
+    {
+      "id": "0x62e3418fb820-Name",
+      "source": "result"
+    },
+    {
+      "id": "0x62e3418fbd60-Expr",
+      "value": "0x62e3418fbd80-Negate"
+    },
+    {
+      "id": "0x62e3418fbd80-Negate",
+      "Expr": "0x62e3418fbc70-Expr"
+    },
+    {
+      "id": "0x62e3418fbc70-Expr",
+      "value": "0x62e3418fbc90-LiteralConstant"
+    },
+    {
+      "id": "0x62e3418fbc90-LiteralConstant",
+      "value": "0x62e3418fbc90-IntLiteralConstant"
+    },
+    {
+      "id": "0x62e3418fbc90-IntLiteralConstant",
+      "CharBlock": "1"
+    },
+    {
+      "id": "0x62e3418f83d0-Statement",
+      "statement": "0x62e3418f83e0-EndSelectStmt",
+      "label": "null",
+      "source": "end select"
+    },
+    {
+      "id": "0x62e3418f83e0-EndSelectStmt"
+    },
+    {
+      "id": "0x62e3418fc390-ExecutionPartConstruct",
+      "value": "0x62e3418fc390-ExecutableConstruct"
+    },
+    {
+      "id": "0x62e3418fc390-ExecutableConstruct",
+      "value<ActionStmt>": "0x62e3418fc390-Statement"
+    },
+    {
+      "id": "0x62e3418fc390-Statement",
+      "statement": "0x62e3418fc3a0-ActionStmt",
+      "label": "null",
+      "source": "print *, 'Result:', result"
+    },
+    {
+      "id": "0x62e3418fc3a0-ActionStmt",
+      "value": "0x62e3418fc280-PrintStmt"
+    },
+    {
+      "id": "0x62e3418fc280-PrintStmt",
+      "Format": "0x62e3418fc298-Format",
+      "OutputItem": [
+        "0x62e3418fc1a0-OutputItem",
+        "0x62e3418fc0b0-OutputItem"
+      ]
+    },
+    {
+      "id": "0x62e3418fc298-Format",
+      "value": "0x62e3418fc298-Star"
+    },
+    {
+      "id": "0x62e3418fc298-Star"
+    },
+    {
+      "id": "0x62e3418fc1a0-OutputItem",
+      "value": "0x62e3418fc1a0-Expr"
+    },
+    {
+      "id": "0x62e3418fc1a0-Expr",
+      "value": "0x62e3418fc1c0-LiteralConstant"
+    },
+    {
+      "id": "0x62e3418fc1c0-LiteralConstant",
+      "value": "0x62e3418fc1c0-CharLiteralConstant"
+    },
+    {
+      "id": "0x62e3418fc1c0-CharLiteralConstant",
+      "string": "Result:"
+    },
+    {
+      "id": "0x62e3418fc0b0-OutputItem",
+      "value": "0x62e3418fc0b0-Expr"
+    },
+    {
+      "id": "0x62e3418fc0b0-Expr",
+      "value": "0x62e3418fc040-Designator"
+    },
+    {
+      "id": "0x62e3418fc040-Designator",
+      "value": "0x62e3418fc050-DataRef"
+    },
+    {
+      "id": "0x62e3418fc050-DataRef",
+      "value": "0x62e3418fc050-Name"
+    },
+    {
+      "id": "0x62e3418fc050-Name",
+      "source": "result"
+    },
+    {
+      "id": "0x62e3418f8860-Statement",
+      "statement": "0x62e3418f8870-EndProgramStmt",
+      "label": "null",
+      "source": "end program select_case_range"
+    },
+    {
+      "id": "0x62e3418f8870-EndProgramStmt",
+      "Name": "0x62e3418f8870-Name"
+    },
+    {
+      "id": "0x62e3418f8870-Name",
+      "source": "select_case_range"
+    }
+  ],
+  "enums": {
+    "Fortran::common::CUDADataAttr": [
+      "Constant",
+      "Device",
+      "Managed",
+      "Pinned",
+      "Shared",
+      "Texture",
+      "Unified"
+    ],
+    "Fortran::common::CUDASubprogramAttrs": [
+      "Host",
+      "Device",
+      "HostDevice",
+      "Global",
+      "Grid_Global"
+    ],
+    "Fortran::common::OpenACCDeviceType": [
+      "Star",
+      "Default",
+      "Nvidia",
+      "Radeon",
+      "Host",
+      "Multicore",
+      "None"
+    ],
+    "Fortran::parser::AccDataModifier::Modifier": [
+      "ReadOnly",
+      "Zero"
+    ],
+    "Fortran::parser::AccessSpec::Kind": [
+      "Public",
+      "Private"
+    ],
+    "Fortran::parser::BindEntity::Kind": [
+      "Object",
+      "Common"
+    ],
+    "Fortran::parser::ConnectSpec::CharExpr::Kind": [
+      "Access",
+      "Action",
+      "Asynchronous",
+      "Blank",
+      "Decimal",
+      "Delim",
+      "Encoding",
+      "Form",
+      "Pad",
+      "Position",
+      "Round",
+      "Sign",
+      "Carriagecontrol",
+      "Convert",
+      "Dispose"
+    ],
+    "Fortran::parser::DefinedOperator::IntrinsicOperator": [
+      "Power",
+      "Multiply",
+      "Divide",
+      "Add",
+      "Subtract",
+      "Concat",
+      "LT",
+      "LE",
+      "EQ",
+      "NE",
+      "GE",
+      "GT",
+      "NOT",
+      "AND",
+      "OR",
+      "EQV",
+      "NEQV"
+    ],
+    "Fortran::parser::ImplicitStmt::ImplicitNoneNameSpec": [
+      "External",
+      "Type"
+    ],
+    "Fortran::parser::InquireSpec::CharVar::Kind": [
+      "Access",
+      "Action",
+      "Asynchronous",
+      "Blank",
+      "Decimal",
+      "Delim",
+      "Direct",
+      "Encoding",
+      "Form",
+      "Formatted",
+      "Iomsg",
+      "Name",
+      "Pad",
+      "Position",
+      "Read",
+      "Readwrite",
+      "Round",
+      "Sequential",
+      "Sign",
+      "Stream",
+      "Status",
+      "Unformatted",
+      "Write",
+      "Carriagecontrol",
+      "Convert",
+      "Dispose"
+    ],
+    "Fortran::parser::InquireSpec::IntVar::Kind": [
+      "Iostat",
+      "Nextrec",
+      "Number",
+      "Pos",
+      "Recl",
+      "Size"
+    ],
+    "Fortran::parser::InquireSpec::LogVar::Kind": [
+      "Exist",
+      "Named",
+      "Opened",
+      "Pending"
+    ],
+    "Fortran::parser::IntentSpec::Intent": [
+      "In",
+      "Out",
+      "InOut"
+    ],
+    "Fortran::parser::IoControlSpec::CharExpr::Kind": [
+      "Advance",
+      "Blank",
+      "Decimal",
+      "Delim",
+      "Pad",
+      "Round",
+      "Sign"
+    ],
+    "Fortran::parser::ReductionOperator::Operator": [
+      "Plus",
+      "Multiply",
+      "Max",
+      "Min",
+      "Iand",
+      "Ior",
+      "Ieor",
+      "And",
+      "Or",
+      "Eqv",
+      "Neqv"
+    ],
+    "Fortran::parser::OmpTraitSelectorName::Value": [
+      "Arch",
+      "Atomic_Default_Mem_Order",
+      "Condition",
+      "Device_Num",
+      "Extension",
+      "Isa",
+      "Kind",
+      "Requires",
+      "Simd",
+      "Uid",
+      "Vendor"
+    ],
+    "Fortran::parser::OmpTraitSetSelectorName::Value": [
+      "Construct",
+      "Device",
+      "Implementation",
+      "Target_Device",
+      "User"
+    ],
+    "Fortran::parser::OmpMapType::Value": [
+      "Alloc",
+      "Delete",
+      "From",
+      "Release",
+      "To",
+      "Tofrom"
+    ],
+    "Fortran::parser::OmpMapTypeModifier::Value": [
+      "Always",
+      "Close",
+      "Present",
+      "Ompx_Hold"
+    ],
+    "Fortran::parser::OmpAtClause::ActionTime": [
+      "Compilation",
+      "Execution"
+    ],
+    "Fortran::parser::OmpSeverityClause::Severity": [
+      "Fatal",
+      "Warning"
+    ],
+    "Fortran::parser::OmpCancelType::Type": [
+      "Parallel",
+      "Sections",
+      "Do",
+      "Taskgroup"
+    ],
+    "Fortran::parser::OmpDefaultClause::DataSharingAttribute": [
+      "Private",
+      "Firstprivate",
+      "Shared",
+      "None"
+    ],
+    "Fortran::parser::OmpVariableCategory::Value": [
+      "Aggregate",
+      "All",
+      "Allocatable",
+      "Pointer",
+      "Scalar"
+    ],
+    "Fortran::parser::OmpDefaultmapClause::ImplicitBehavior": [
+      "Alloc",
+      "To",
+      "From",
+      "Tofrom",
+      "Firstprivate",
+      "None",
+      "Default"
+    ],
+    "Fortran::parser::OmpDependenceType::Value": [
+      "Sink",
+      "Source"
+    ],
+    "Fortran::parser::OmpTaskDependenceType::Value": [
+      "In",
+      "Out",
+      "Inout",
+      "Inoutset",
+      "Mutexinoutset",
+      "Depobj"
+    ],
+    "Fortran::parser::OmpExpectation::Value": [
+      "Present"
+    ],
+    "Fortran::parser::OmpLastprivateModifier::Value": [
+      "Conditional"
+    ],
+    "Fortran::parser::OmpLinearModifier::Value": [
+      "Ref",
+      "Uval",
+      "Val"
+    ],
+    "Fortran::parser::OmpOrderClause::Ordering": [
+      "Concurrent"
+    ],
+    "Fortran::parser::OmpOrderModifier::Value": [
+      "Reproducible",
+      "Unconstrained"
+    ],
+    "Fortran::parser::OmpPrescriptiveness::Value": [
+      "Strict"
+    ],
+    "Fortran::parser::OmpBindClause::Binding": [
+      "Parallel",
+      "Teams",
+      "Thread"
+    ],
+    "Fortran::parser::OmpProcBindClause::AffinityPolicy": [
+      "Close",
+      "Master",
+      "Spread",
+      "Primary"
+    ],
+    "Fortran::parser::OmpReductionModifier::Value": [
+      "Default",
+      "Inscan",
+      "Task"
+    ],
+    "Fortran::parser::OmpScheduleClause::Kind": [
+      "Static",
+      "Dynamic",
+      "Guided",
+      "Auto",
+      "Runtime"
+    ],
+    "Fortran::parser::OmpDeviceModifier::Value": [
+      "Ancestor",
+      "Device_Num"
+    ],
+    "Fortran::parser::OmpDeviceTypeClause::DeviceTypeDescription": [
+      "Any",
+      "Host",
+      "Nohost"
+    ],
+    "Fortran::parser::OmpChunkModifier::Value": [
+      "Simd"
+    ],
+    "Fortran::parser::OmpOrderingModifier::Value": [
+      "Monotonic",
+      "Nonmonotonic",
+      "Simd"
+    ],
+    "Fortran::common::OmpAtomicDefaultMemOrderType": [
+      "SeqCst",
+      "AcqRel",
+      "Relaxed"
+    ],
+    "Fortran::parser::ProcedureStmt::Kind": [
+      "ModuleProcedure",
+      "Procedure"
+    ],
+    "Fortran::parser::SavedEntity::Kind": [
+      "Entity",
+      "Common"
+    ],
+    "Fortran::parser::StopStmt::Kind": [
+      "Stop",
+      "ErrorStop"
+    ],
+    "Fortran::parser::UseStmt::ModuleNature": [
+      "Intrinsic",
+      "Non_Intrinsic"
+    ]
+  }
+}
