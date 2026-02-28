@@ -205,5 +205,10 @@ public class FlangData {
                 .toList();
     }
 
+    public List<String> getChildrenIds(String key, FlangName attribute) {
+        return getAttrs(key).getStringList(attribute).stream()
+                .map(this::getChildId)
+                .toList();
+    }
 
 }

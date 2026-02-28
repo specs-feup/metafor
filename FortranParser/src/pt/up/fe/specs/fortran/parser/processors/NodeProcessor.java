@@ -53,6 +53,12 @@ public interface NodeProcessor {
                 .toList();
     }
 
+    default List<FortranNode> getChildren(String key, FlangName attribute) {
+        return attributes().getChildrenIds(key, attribute).stream()
+                .map(this::getNode)
+                .toList();
+    }
+
 
     /*
         default FlangAttributes getAttrs(FortranNode node) {
