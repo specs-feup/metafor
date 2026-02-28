@@ -6,7 +6,12 @@ public enum FortranKeyword {
     PRINT,
     DO,
     WHILE,
-    CONCURRENT;
+    CONCURRENT,
+
+    // Conditional statements
+    IF,
+    THEN,
+    ELSE;
 
     public String getKeyword(boolean lowercase) {
         var keyword = name();

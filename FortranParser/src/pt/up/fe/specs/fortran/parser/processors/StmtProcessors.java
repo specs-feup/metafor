@@ -4,15 +4,15 @@ import pt.up.fe.specs.fortran.ast.nodes.expr.Expr;
 import pt.up.fe.specs.fortran.ast.nodes.loops.WhileLoopControl;
 import pt.up.fe.specs.fortran.ast.nodes.loops.enums.DoKind;
 import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
+import pt.up.fe.specs.fortran.ast.nodes.program.StmtBlock;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.*;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 
 import java.util.Optional;
 
 public class StmtProcessors extends ANodeProcessor {
-
-
     public StmtProcessors(FortranJsonResult data) {
         super(data);
     }
@@ -54,12 +54,100 @@ public class StmtProcessors extends ANodeProcessor {
         typeDeclarationStmt.setChildren(entityDecls);
     }
 
-
     public void assignmentStmt(AssignmentStmt assignmentStmt) {
         var variable = getChild(assignmentStmt, FlangName.VARIABLE);
         var expression = getChild(assignmentStmt, FlangName.EXPR);
         assignmentStmt.addChild(variable);
         assignmentStmt.addChild(expression);
+    }
+
+    public void stmtBlock(StmtBlock stmtBlock) {
+        stmtBlock.setChildren(getChildren(stmtBlock, FlangName.EXECUTION_PART_CONSTRUCT));
+    }
+
+    public void ifConstruct(IfConstruct ifConstruct) {
+        // Add if-then block
+        var ifThenStmt = getChild(ifConstruct, FlangName.IF_THEN_STMT.getStmtAttr());
+        var blockStatements = getChildren(ifConstruct, FlangName.EXECUTION_PART_CONSTRUCT);
+
+        var thenBlock = factory().newNode(StmtBlock.class);
+        thenBlock.addChildren(blockStatements);
+
+        var ifThenBlock = factory().newNode(IfThenBlock.class);
+        ifThenBlock.addChild(ifThenStmt);
+        ifThenBlock.addChild(thenBlock);
+
+        ifConstruct.addChild(ifThenBlock);
+
+        // Add else-if blocks
+        if (attributes(ifConstruct).has(FlangName.ELSE_IF_BLOCK)) {
+            var elseIfBlocks = getChildren(ifConstruct, FlangName.ELSE_IF_BLOCK);
+            elseIfBlocks.forEach(ifConstruct::addChild);
+        }
+
+        // Add else block
+        if (attributes(ifConstruct).has(FlangName.ELSE_BLOCK)) {
+            var elseBlock = getChild(ifConstruct, FlangName.ELSE_BLOCK);
+            ifConstruct.addChild(elseBlock);
+        }
+
+        // Add end if statement
+        var endIfStmt = getChild(ifConstruct, FlangName.END_IF_STMT.getStmtAttr());
+        ifConstruct.addChild(endIfStmt);
+
+        // Assign name if present
+        var nameId = attributes(ifThenStmt).getOptionalString(FlangName.NAME.getString());
+        if (nameId.isPresent()) {
+            var name = attributes().get(nameId.get()).getString("source");
+            ifConstruct.setOptional(IfConstruct.NAME, name);
+        }
+    }
+
+    public void ifThenStmt(IfThenStmt ifThenStmt) {
+        var condition = getChild(ifThenStmt, "value");
+
+        ifThenStmt.addChild(0, condition);
+    }
+
+    public void elseIfBlock(ElseIfBlock ifElseBlock) {
+        var elseIfStmt = getChild(ifElseBlock, FlangName.ELSE_IF_STMT.getStmtAttr());
+        ifElseBlock.addChild(elseIfStmt);
+
+        var blockStatements = getChildren(ifElseBlock, FlangName.EXECUTION_PART_CONSTRUCT);
+        var block = factory().newNode(StmtBlock.class);
+        block.addChildren(blockStatements);
+        ifElseBlock.addChild(block);
+    }
+
+    public void elseIfStmt(ElseIfStmt elseIfStmt) {
+        var condition = getChild(elseIfStmt, "value");
+        elseIfStmt.addChild(condition);
+    }
+
+    public void elseBlock(ElseBlock elseBlock) {
+        var elseStmt = getChild(elseBlock, FlangName.ELSE_STMT.getStmtAttr());
+        elseBlock.addChild(elseStmt);
+
+        var blockStatements = getChildren(elseBlock, FlangName.EXECUTION_PART_CONSTRUCT);
+        var block = factory().newNode(StmtBlock.class);
+        block.addChildren(blockStatements);
+        elseBlock.addChild(block);
+    }
+
+    public void elseStmt(ElseStmt elseStmt) {
+        // Nothing to do
+    }
+
+    public void endIfStmt(EndIfStmt endIfStmt) {
+        // Nothing to do
+    }
+
+    public void ifStmt(IfStmt ifStmt) {
+        var condition = getChild(ifStmt, "value");
+        var thenStmt = getChild(ifStmt, FlangName.ACTION_STMT.getUnlabeledStmtAttr());
+
+        ifStmt.addChild(condition);
+        ifStmt.addChild(thenStmt);
     }
 
     public void doStmt(DoStmt doStmt) {

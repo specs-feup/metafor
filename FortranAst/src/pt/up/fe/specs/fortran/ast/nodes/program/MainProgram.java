@@ -4,11 +4,9 @@ import org.suikasoft.jOptions.Datakey.DataKey;
 import org.suikasoft.jOptions.Datakey.KeyFactory;
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
-import pt.up.fe.specs.util.utilities.StringLines;
 
 import java.util.Collection;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static pt.up.fe.specs.fortran.ast.FortranKeyword.END;
 import static pt.up.fe.specs.fortran.ast.FortranKeyword.PROGRAM;
@@ -45,7 +43,7 @@ public class MainProgram extends ProgramUnit {
                     .append(" " + programName).append(ln());
         }
 
-        code.append(getBodyCode());
+        code.append(getBodyCode()).append(ln());
 
         // Write closing
         code.append(keyword(END));

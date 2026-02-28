@@ -57,7 +57,7 @@ public class FortranParserTest {
         var rootNode = new FortranAstBuilder(parseResult).build();
         //System.out.println(parseResult);
         System.out.println("AST: " + rootNode.toTree());
-        //System.out.println("CODE:\n" + rootNode.getCode());
+        System.out.println("CODE:\n" + rootNode.getCode());
 
         var code = rootNode.getCode();
 
@@ -108,6 +108,11 @@ public class FortranParserTest {
     }
 
     @Test
+    void testParenExpr() {
+        testJson("parenexpr.json");
+    }
+
+    @Test
     void testDo() {
         testJson("do.json");
     }
@@ -120,5 +125,67 @@ public class FortranParserTest {
     @Test
     void testDoConcurrent() {
         testJson("concurrent.json");
+    }
+
+    // Conditional statements
+
+    @Test
+    void testIfThenNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("conditionalstmt/if_then.f90");
+        }
+    }
+
+    @Test
+    void testIfThenElseNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("conditionalstmt/if_then_else.f90");
+        }
+    }
+
+    @Test
+    void testChainedIfNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("conditionalstmt/chained_if.f90");
+        }
+    }
+
+    @Test
+    void testNamedChainedIfNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("conditionalstmt/named_chained_if.f90");
+        }
+    }
+
+    @Test
+    void testIfThen() {
+        testJson("conditionalstmt/if_then.json");
+    }
+
+    @Test
+    void testIfThenElse() {
+        testJson("conditionalstmt/if_then_else.json");
+    }
+
+    @Test
+    void testChainedIf() {
+        testJson("conditionalstmt/chained_if.json");
+    }
+
+    @Test
+    void testNamedChainedIf() {
+        testJson("conditionalstmt/named_chained_if.json");
+    }
+
+    @Test
+    void testLogicalIfNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("conditionalstmt/logical_if.f90");
+        }
+    }
+
+    @Test
+    void testLogicalIf() {
+        testJson("conditionalstmt/logical_if.json");
     }
 }

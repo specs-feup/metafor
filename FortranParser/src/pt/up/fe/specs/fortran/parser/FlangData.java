@@ -71,7 +71,7 @@ public class FlangData {
         }
 
         // Calculate key to the next level
-        var key = id.endsWith("-Statement") ? REGEX_STMT : REGEX_VALUE;
+        var key = id.endsWith("-Statement") || id.endsWith("-UnlabeledStatement") ? REGEX_STMT : REGEX_VALUE;
         var attrs = getAttrs(id);
         var keys = attrs.getKeys();
 
@@ -136,10 +136,6 @@ public class FlangData {
     }
 
 
-    public String getStmtAttr(FlangName flangName) {
-        return "Statement<" + flangName.getString() + ">";
-    }
-
     public String getString(FortranNode node, String key, FlangName... path) {
         return getOptionalString(node, key, path).orElseThrow(() -> new RuntimeException("Could not find key '" + key + "' in node '" + node.getNodeName() + "' using the path " + Arrays.toString(path)));
     }
@@ -160,7 +156,7 @@ public class FlangData {
         for (var nodeName : path) {
             if (nodeName.isStmt()) {
                 // Decode kind to statement attribute
-                var firstKey = getStmtAttr(nodeName);
+                var firstKey = nodeName.getStmtAttr();
                 // Get id to stmt
                 var stmtId = currentAttrs.getOptionalString(firstKey);
                 if (stmtId.isEmpty()) {

@@ -36,6 +36,16 @@ public enum FlangName implements StringProvider {
     NON_LABEL_DO_STMT,
     DO_CONSTRUCT,
 
+    /// Conditional Statements
+    IF_CONSTRUCT,
+    IF_THEN_STMT,
+    ELSE_IF_BLOCK,
+    ELSE_IF_STMT,
+    ELSE_BLOCK,
+    ELSE_STMT,
+    END_IF_STMT,
+    IF_STMT,
+
     // Variables
     VARIABLE,
     DESIGNATOR,
@@ -48,6 +58,7 @@ public enum FlangName implements StringProvider {
     INT_LITERAL_CONSTANT,
     LOGICAL_LITERAL_CONSTANT,
     STAR,
+    PARENTHESES,
     ADD,
     SUBTRACT,
     MULTIPLY,
@@ -58,7 +69,7 @@ public enum FlangName implements StringProvider {
     LE("LE"),
     GT("GT"),
     GE("GE"),
-
+    SCALAR,
 
     /// TYPEs
     DECLARATION_TYPE_SPEC,
@@ -111,4 +122,11 @@ public enum FlangName implements StringProvider {
         return false;
     }
 
+    public String getStmtAttr() {
+        return "Statement<" + getString() + ">";
+    }
+
+    public String getUnlabeledStmtAttr() {
+        return "UnlabeledStatement<" + getString() + ">";
+    }
 }
