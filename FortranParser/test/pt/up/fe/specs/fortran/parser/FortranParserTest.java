@@ -116,4 +116,9 @@ public class FortranParserTest {
     void testBinaryOperator() {
         testJson("binary_operator.json");
     }
+
+    @Test
+    void testDoConcurrent() {
+        testJson("concurrent.json");
+    }
 }

@@ -71,7 +71,7 @@ public class StmtProcessors extends ANodeProcessor {
                     String value = attributes().getAttrs(s).getString("value");
 
                     switch (kind) {
-                        case Range -> {
+                        case Range, Concurrent -> {
                             doStmt.addChild(getChild(value));
                         }
                         case While -> {
