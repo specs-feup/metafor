@@ -26,12 +26,8 @@ public class AttributesProcessor extends ANodeProcessor {
     }
 
     public void keywordSpecifier(KeywordAttributeSpecifier keywordSpecifier) {
-        var keywordNodeId = attributes(keywordSpecifier).getString("id");
-        var match = KEYWORD_ATTRIBUTES.stream()
-                .filter(fName -> Pattern.compile(".*-" + fName.getString() + "$").matcher(keywordNodeId).matches())
-                .findFirst()
-                .orElseThrow(() -> new RuntimeException("Unexpected keyword attribute with id '" + keywordNodeId + "'"));
+        var keyword = attributes(keywordSpecifier).getString("keyword");
 
-        keywordSpecifier.set(KeywordAttributeSpecifier.KEYWORD, match.name());
+        keywordSpecifier.set(KeywordAttributeSpecifier.KEYWORD, keyword);
     }
 }

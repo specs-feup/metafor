@@ -7,7 +7,7 @@ import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 
 import java.util.Collection;
 
-public class KeywordAttributeSpecifier extends AttributeSpecifier {
+public abstract class KeywordAttributeSpecifier extends AttributeSpecifier {
     // DATAKEYS BEGIN
 
     /**
@@ -24,6 +24,6 @@ public class KeywordAttributeSpecifier extends AttributeSpecifier {
 
     @Override
     public String getCode() {
-        return get(KEYWORD);
+        return get(KEYWORD).toUpperCase();
     }
 }
