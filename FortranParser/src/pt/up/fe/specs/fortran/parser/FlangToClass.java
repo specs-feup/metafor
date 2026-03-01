@@ -7,6 +7,7 @@ import pt.up.fe.specs.fortran.ast.nodes.expr.IntLiteral;
 import pt.up.fe.specs.fortran.ast.nodes.expr.LogicalLiteral;
 import pt.up.fe.specs.fortran.ast.nodes.expr.ParenExpr;
 import pt.up.fe.specs.fortran.ast.nodes.expr.StringLiteral;
+import pt.up.fe.specs.fortran.ast.nodes.expr.*;
 import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
 import pt.up.fe.specs.fortran.ast.nodes.program.FortranFile;
 import pt.up.fe.specs.fortran.ast.nodes.program.MainProgram;
@@ -15,9 +16,13 @@ import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.type.IntegerType;
 import pt.up.fe.specs.fortran.ast.nodes.type.LogicalType;
+import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
+import pt.up.fe.specs.fortran.ast.nodes.type.attributes.AllocatableKeyword;
+import pt.up.fe.specs.fortran.ast.nodes.type.attributes.KeywordAttributeSpecifier;
+import pt.up.fe.specs.fortran.ast.nodes.type.shapes.DeferredShapeSpecList;
+import pt.up.fe.specs.fortran.ast.nodes.type.shapes.ExplicitShapeSpecification;
 import pt.up.fe.specs.fortran.ast.nodes.utils.Format;
 import pt.up.fe.specs.fortran.ast.nodes.utils.Star;
-import pt.up.fe.specs.fortran.ast.nodes.expr.DataRef;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -71,10 +76,20 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.LE, BinaryOperator.class);
         NAME_TO_CLASS.put(FlangName.GT, BinaryOperator.class);
         NAME_TO_CLASS.put(FlangName.GE, BinaryOperator.class);
+        NAME_TO_CLASS.put(FlangName.ARRAY_CONSTRUCTOR, ArrayConstructor.class);
+        NAME_TO_CLASS.put(FlangName.AC_SPEC, AcSpecification.class);
 
         /// TYPEs
         NAME_TO_CLASS.put(FlangName.INTEGER_TYPE_SPEC, IntegerType.class);
         NAME_TO_CLASS.put(FlangName.LOGICAL, LogicalType.class);
+
+        ///  ATTRIBUTES
+        NAME_TO_CLASS.put(FlangName.ARRAY_SPEC, ArraySpecification.class);
+        NAME_TO_CLASS.put(FlangName.ALLOCATABLE, AllocatableKeyword.class);
+
+        ///  SHAPES
+        NAME_TO_CLASS.put(FlangName.EXPLICIT_SHAPE_SPEC, ExplicitShapeSpecification.class);
+        NAME_TO_CLASS.put(FlangName.DEFERRED_SHAPE_SPEC_LIST, DeferredShapeSpecList.class);
     }
 
     public static boolean isClass(String type) {

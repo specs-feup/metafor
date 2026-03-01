@@ -83,15 +83,22 @@ public class FlangAttributes {
         return getList(key, Object::toString);
     }
 
+    public List<String> getStringList(String key) {
+        return getList(key, Object::toString);
+    }
+
 
     public <T> List<T> getList(StringProvider key, Function<Object, T> converter) {
         return getList(key.getString(), converter);
     }
 
     public <T> List<T> getList(String key, Function<Object, T> converter) {
-        var list = (List<Object>) attributes.get(key);
-        Objects.requireNonNull(list, () -> "Attrs do not have a value for key '" + key + "': " + attributes);
-        return list.stream().map(obj -> converter.apply(obj)).toList();
+        var value = attributes.get(key);
+        Objects.requireNonNull(value, () -> "Attrs do not have a value for key '" + key + "': " + attributes);
+        if (value instanceof List<?> list) {
+            return list.stream().map(o -> converter.apply(o)).toList();
+        }
+        return List.of(converter.apply(value));
     }
 
     public Optional<Object> getOptional(String key) {

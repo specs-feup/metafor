@@ -4,6 +4,11 @@ import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.decl.EntityDecl;
 import pt.up.fe.specs.fortran.ast.nodes.expr.*;
 import pt.up.fe.specs.fortran.ast.nodes.program.*;
+import pt.up.fe.specs.fortran.ast.nodes.expr.*;
+import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
+import pt.up.fe.specs.fortran.ast.nodes.program.FortranFile;
+import pt.up.fe.specs.fortran.ast.nodes.program.MainProgram;
+import pt.up.fe.specs.fortran.ast.nodes.program.Specification;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.AssignmentStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.FormatStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.PrintStmt;
@@ -11,9 +16,12 @@ import pt.up.fe.specs.fortran.ast.nodes.stmt.TypeDeclarationStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.type.IntegerType;
 import pt.up.fe.specs.fortran.ast.nodes.type.LogicalType;
+import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
+import pt.up.fe.specs.fortran.ast.nodes.type.attributes.KeywordAttributeSpecifier;
+import pt.up.fe.specs.fortran.ast.nodes.type.shapes.DeferredShapeSpecList;
+import pt.up.fe.specs.fortran.ast.nodes.type.shapes.ExplicitShapeSpecification;
 import pt.up.fe.specs.fortran.ast.nodes.utils.Format;
 import pt.up.fe.specs.fortran.ast.nodes.utils.Star;
-import pt.up.fe.specs.fortran.ast.nodes.expr.DataRef;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 import pt.up.fe.specs.util.classmap.ConsumerClassMap;
 import pt.up.fe.specs.util.exceptions.NotImplementedException;
@@ -62,10 +70,20 @@ public class Nodes {
         processors.put(LogicalLiteral.class, e::logicalLiteral);
         processors.put(ParenExpr.class, e::parenExpr);
         processors.put(BinaryOperator.class, e::binaryOperator);
+        processors.put(ArrayConstructor.class, e::arrayConstructor);
+        processors.put(AcSpecification.class, e::acSpecification);
 
         var t = new TypeProcessors(data);
         processors.put(IntegerType.class, t::integerType);
         processors.put(LogicalType.class, t::logicalType);
+
+        var a = new AttributesProcessor(data);
+        processors.put(ArraySpecification.class, a::arraySpecification);
+        processors.put(KeywordAttributeSpecifier.class, a::keywordSpecifier);
+
+        var shapes = new ShapesProcessor(data);
+        processors.put(ExplicitShapeSpecification.class, shapes::explicitShapeSpec);
+        processors.put(DeferredShapeSpecList.class, shapes::deferredShapeSpecLis);
 
         var u = new UtilsProcessors(data);
         processors.put(Star.class, u::star);

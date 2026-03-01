@@ -5,6 +5,8 @@ import pt.up.fe.specs.fortran.ast.nodes.expr.IntLiteral;
 import pt.up.fe.specs.fortran.ast.nodes.expr.LogicalLiteral;
 import pt.up.fe.specs.fortran.ast.nodes.expr.ParenExpr;
 import pt.up.fe.specs.fortran.ast.nodes.expr.StringLiteral;
+import pt.up.fe.specs.fortran.ast.nodes.expr.ArrayConstructor;
+import pt.up.fe.specs.fortran.ast.nodes.expr.AcSpecification;
 import pt.up.fe.specs.fortran.ast.nodes.expr.enums.BinaryOperatorKind;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
@@ -39,6 +41,20 @@ public class ExprProcessors extends ANodeProcessor {
         String opName = attributes().getString(binaryOperator, "op");
 
         binaryOperator.set(BinaryOperator.OP, BinaryOperatorKind.valueOf(opName));
+    }
+
+    public void arrayConstructor(ArrayConstructor arrayConstructor) {
+        var acSpec = getChild(arrayConstructor, FlangName.AC_SPEC);
+        arrayConstructor.addChild(acSpec);
+    }
+
+    public void acSpecification(AcSpecification acSpecification) {
+        var acValueList = getChildren(acSpecification, "values");
+        if (attributes(acSpecification).has("type")) {
+            var type = getChild(acSpecification, "type");
+            acSpecification.addChild(type);
+        }
+        acSpecification.addChildren(acValueList);
     }
 
 }

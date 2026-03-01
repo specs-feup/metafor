@@ -1,10 +1,14 @@
 package pt.up.fe.specs.fortran.parser.processors;
 
 import pt.up.fe.specs.fortran.ast.nodes.program.StmtBlock;
+import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.*;
+import pt.up.fe.specs.fortran.ast.nodes.type.attributes.DimensionSpec;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
+
+import java.util.List;
 
 public class StmtProcessors extends ANodeProcessor {
     public StmtProcessors(FortranJsonResult data) {
@@ -45,7 +49,17 @@ public class StmtProcessors extends ANodeProcessor {
 
         entityDecls.stream().forEach(entityDecl -> entityDecl.addChild(0, type));
 
-        typeDeclarationStmt.setChildren(entityDecls);
+        typeDeclarationStmt.addChildren(entityDecls);
+
+        if (attributes(typeDeclarationStmt).has(FlangName.ATTR_SPEC)) {
+            var attributes = getChildren(typeDeclarationStmt, FlangName.ATTR_SPEC);
+            var processedAttributes = attributes.stream()
+                    .map(attr -> attr instanceof ArraySpecification
+                            ? factory().newNode(DimensionSpec.class, List.of(attr))
+                            : attr)
+                    .toList();
+            typeDeclarationStmt.addChildren(processedAttributes);
+        }
     }
 
     public void assignmentStmt(AssignmentStmt assignmentStmt) {
