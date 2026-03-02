@@ -17,6 +17,10 @@ public class DeclProcessors extends ANodeProcessor {
 
         entityDecl.set(EntityDecl.NAME, name);
 
+        if (attributes(entityDecl).has(FlangName.ARRAY_SPEC)) {
+            var arraySpec = getChild(entityDecl, FlangName.ARRAY_SPEC);
+            entityDecl.addChild(arraySpec);
+        }
         if (attributes(entityDecl).has(FlangName.INITIALIZATION)) {
             var init = getChild(entityDecl, FlangName.INITIALIZATION);
             entityDecl.addChild(init);

@@ -188,4 +188,16 @@ public class FortranParserTest {
     void testLogicalIf() {
         testJson("conditionalstmt/logical_if.json");
     }
+
+    @Test
+    void testArrayAssignment() {
+        testJson("arrays/array_declaration.json");
+    }
+
+    @Test
+    void testArrayAssignmentNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("arrays/array_declaration.f90");
+        }
+    }
 }

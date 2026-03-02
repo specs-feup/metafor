@@ -6,6 +6,7 @@ import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.expr.Expr;
 import pt.up.fe.specs.fortran.ast.nodes.type.FortranType;
+import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -32,11 +33,11 @@ public class EntityDecl extends FortranDecl {
     }
 
     public Optional<Expr> getInitialization() {
-        if (getNumChildren() < 2) {
-            return Optional.empty();
-        }
+        return getChildOf(Expr.class);
+    }
 
-        return Optional.of(getChild(Expr.class, 1));
+    public Optional<ArraySpecification> getArraySpec() {
+        return getChildOf(ArraySpecification.class);
     }
 
 
@@ -45,6 +46,8 @@ public class EntityDecl extends FortranDecl {
         var code = new StringBuilder();
 
         code.append(get(NAME));
+
+        getArraySpec().ifPresent(arraySpec -> code.append(arraySpec.getCode()));
 
         getInitialization().ifPresent(init -> code.append(" = ").append(init.getCode()));
 

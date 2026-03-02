@@ -71,6 +71,11 @@ public enum FlangName implements StringProvider {
     GE("GE"),
     SCALAR,
 
+    // ARRAYs
+    ARRAY_CONSTRUCTOR,
+    AC_SPEC,
+    AC_VALUE,
+
     /// TYPEs
     DECLARATION_TYPE_SPEC,
     INTEGER_TYPE_SPEC,
@@ -83,6 +88,16 @@ public enum FlangName implements StringProvider {
     CONCURRENT_HEADER,
     CONCURRENT_CONTROL,
     LOCALITY_SPEC,
+
+    // ATTRIBUTES
+    DEFERRED_SHAPE_SPEC_LIST,
+    SPECIFICATION_EXPR,
+    ATTR_SPEC,
+    ARRAY_SPEC,
+    EXPLICIT_SHAPE_SPEC,
+    ALLOCATABLE,
+    ASYNCHRONOUS,
+
 
     // OTHER
     INITIALIZATION;
