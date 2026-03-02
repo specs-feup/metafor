@@ -10,8 +10,8 @@ PROGRAM simple_loop
         dummy = 2
     END DO
 
-    DO
+    name: DO
         dummy = 4
-    END DO
+    END DO name
 
 END PROGRAM simple_loop

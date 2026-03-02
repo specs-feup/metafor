@@ -13,8 +13,8 @@ program simple_loop
         dummy = 2
     end do
 
-    do
+    name: do
         dummy = 4
-    end do
+    end do name
 
 end program simple_loop

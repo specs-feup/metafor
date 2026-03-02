@@ -152,6 +152,9 @@ public class StmtProcessors extends ANodeProcessor {
 
     public void doStmt(DoStmt doStmt) {
         Optional<String> control = attributes().getOptionalString(doStmt, "id", FlangName.NON_LABEL_DO_STMT, FlangName.LOOP_CONTROL);
+        Optional<String> name = attributes().getOptionalString(doStmt, "source", FlangName.NON_LABEL_DO_STMT, FlangName.NAME);
+
+        name.ifPresent(str -> doStmt.setOptional(DoStmt.NAME, str));
 
         control.ifPresentOrElse(
                 s -> {
