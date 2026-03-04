@@ -1,0 +1,17 @@
+PROGRAM named_select_case
+    INTEGER :: val, result
+
+    val = 2
+    named_select : SELECT CASE (val)
+    CASE (1) named_select
+        result = 10
+    CASE (2) named_select
+        result = 20
+    CASE (3) named_select
+        result = 30
+    CASE DEFAULT named_select
+        result = -1
+    END SELECT named_select
+
+    PRINT *, 'Result:', result
+END PROGRAM named_select_case

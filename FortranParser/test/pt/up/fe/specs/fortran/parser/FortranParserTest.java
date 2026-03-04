@@ -226,4 +226,16 @@ public class FortranParserTest {
     void testSelectCaseRange() {
         testJson("conditionalstmt/select_case_range.json");
     }
+
+    @Test
+    void testNamedSelectCaseNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("conditionalstmt/named_select_case.f90");
+        }
+    }
+
+    @Test
+    void testNamedSelectCase() {
+        testJson("conditionalstmt/named_select_case.json");
+    }
 }
