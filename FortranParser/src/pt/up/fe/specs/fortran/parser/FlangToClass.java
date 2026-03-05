@@ -2,18 +2,17 @@ package pt.up.fe.specs.fortran.parser;
 
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.decl.EntityDecl;
-import pt.up.fe.specs.fortran.ast.nodes.expr.BinaryOperator;
-import pt.up.fe.specs.fortran.ast.nodes.expr.IntLiteral;
-import pt.up.fe.specs.fortran.ast.nodes.expr.LogicalLiteral;
-import pt.up.fe.specs.fortran.ast.nodes.expr.ParenExpr;
-import pt.up.fe.specs.fortran.ast.nodes.expr.StringLiteral;
 import pt.up.fe.specs.fortran.ast.nodes.expr.*;
 import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
 import pt.up.fe.specs.fortran.ast.nodes.program.FortranFile;
 import pt.up.fe.specs.fortran.ast.nodes.program.MainProgram;
 import pt.up.fe.specs.fortran.ast.nodes.program.Specification;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.AssignmentStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.FormatStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.PrintStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.TypeDeclarationStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.*;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.*;
 import pt.up.fe.specs.fortran.ast.nodes.type.IntegerType;
 import pt.up.fe.specs.fortran.ast.nodes.type.LogicalType;
 import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
@@ -55,6 +54,15 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.ELSE_STMT, ElseStmt.class);
         NAME_TO_CLASS.put(FlangName.END_IF_STMT, EndIfStmt.class);
         NAME_TO_CLASS.put(FlangName.IF_STMT, IfStmt.class);
+
+        NAME_TO_CLASS.put(FlangName.CASE_CONSTRUCT, CaseConstruct.class);
+        NAME_TO_CLASS.put(FlangName.SELECT_CASE_STMT, SelectCaseStmt.class);
+        NAME_TO_CLASS.put(FlangName.CASE_STMT, CaseStmt.class);
+        NAME_TO_CLASS.put(FlangName.CASE_SELECTOR, CaseSelector.class);
+        NAME_TO_CLASS.put(FlangName.CASE_VALUE_RANGE, CaseValueRange.class);
+        NAME_TO_CLASS.put(FlangName.CASE_VALUE, CaseValue.class);
+        NAME_TO_CLASS.put(FlangName.RANGE, CaseValueRange.class);
+        NAME_TO_CLASS.put(FlangName.DEFAULT, Default.class);
 
         /// Variables
         NAME_TO_CLASS.put(FlangName.DATA_REF, DataRef.class);

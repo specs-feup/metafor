@@ -44,6 +44,15 @@ public enum FlangName implements StringProvider {
     END_IF_STMT,
     IF_STMT,
 
+    CASE_CONSTRUCT,
+    SELECT_CASE_STMT,
+    CASE_STMT,
+    CASE_SELECTOR,
+    CASE_VALUE_RANGE,
+    CASE_VALUE,
+    RANGE,
+    DEFAULT,
+
     // Variables
     VARIABLE,
     DESIGNATOR,
