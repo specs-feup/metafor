@@ -8,7 +8,7 @@ PROGRAM select_case_list
     CASE (2, 4, 6)
         result = 20
     CASE DEFAULT
-        result = -1
+        result = 0
     END SELECT
 
     PRINT *, 'Result:', result

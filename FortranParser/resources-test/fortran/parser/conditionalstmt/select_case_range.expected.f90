@@ -10,7 +10,7 @@ PROGRAM select_case_range
     CASE (7:)
         result = 30
     CASE DEFAULT
-        result = -1
+        result = 0
     END SELECT
 
     PRINT *, 'Result:', result

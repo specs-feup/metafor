@@ -10,7 +10,7 @@ program select_case_range
     case (7:)
         result = 30
     case default
-        result = -1
+        result = 0
     end select
 
     print *, 'Result:', result

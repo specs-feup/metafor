@@ -10,7 +10,7 @@ PROGRAM named_select_case
     CASE (3) named_select
         result = 30
     CASE DEFAULT named_select
-        result = -1
+        result = 0
     END SELECT named_select
 
     PRINT *, 'Result:', result

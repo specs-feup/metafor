@@ -8,7 +8,7 @@ program select_case_list
     case (2, 4, 6)
         result = 20
     case default
-        result = -1
+        result = 0
     end select
 
     print *, 'Result:', result

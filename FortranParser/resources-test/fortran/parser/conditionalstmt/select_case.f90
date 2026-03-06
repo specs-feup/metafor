@@ -10,7 +10,7 @@ program select_case
     case (3)
         result = 30
     case default
-        result = -1
+        result = 0
     end select
 
     print *, 'Result:', result
