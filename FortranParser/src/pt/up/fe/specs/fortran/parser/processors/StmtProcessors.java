@@ -172,14 +172,14 @@ public class StmtProcessors extends ANodeProcessor {
 
         control.ifPresentOrElse(
                 s -> {
-                    DoKind kind = DoKind.valueOf(attributes().getAttrs(s).getString("kind"));
+                    DoKind kind = DoKind.convertTry(attributes().getAttrs(s).getString("kind")).get();
                     String value = attributes().getAttrs(s).getString("value");
 
                     switch (kind) {
-                        case Range, Concurrent -> {
+                        case RANGE, CONCURRENT -> {
                             doStmt.addChild(getChild(value));
                         }
-                        case While -> {
+                        case WHILE -> {
                             Expr cond = (Expr) getChild(value);
                             WhileLoopControl middleman = factory().newNode(WhileLoopControl.class);
 
