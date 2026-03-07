@@ -8,6 +8,7 @@ import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.*;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.DimensionSpec;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
+import pt.up.fe.specs.util.SpecsCheck;
 
 import java.util.List;
 
@@ -202,6 +203,11 @@ public class StmtProcessors extends ANodeProcessor {
                     .map(Object::toString)
                     .map(this::buildCaseValueRange)
                     .toList();
+
+            SpecsCheck.checkArgument(
+                    !caseValueRanges.isEmpty(),
+                    () -> "Expected at least one case value range for case selector with id '" + id + "', but got 0"
+            );
 
             var caseSelector = factory().newNode(CaseValueRangeList.class);
             caseSelector.addChildren(caseValueRanges);
