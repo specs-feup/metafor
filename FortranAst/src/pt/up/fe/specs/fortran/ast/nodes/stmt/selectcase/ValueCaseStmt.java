@@ -1,14 +1,15 @@
 package pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase;
 
 import org.suikasoft.jOptions.Interfaces.DataStore;
+import pt.up.fe.specs.fortran.ast.FortranKeyword;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CaseValueRangeList extends CaseSelector {
-    public CaseValueRangeList(DataStore data, Collection<? extends FortranNode> children) {
+public class ValueCaseStmt extends CaseStmt {
+    public ValueCaseStmt(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
     }
 
@@ -20,8 +21,10 @@ public class CaseValueRangeList extends CaseSelector {
     public String getCode() {
         var caseValueRanges = getCaseValueRanges();
 
-        return caseValueRanges.stream()
+        var caseListCode = caseValueRanges.stream()
                 .map(CaseValueRange::getCode)
-                .collect(Collectors.joining(", ", "(", ")"));
+                .collect(Collectors.joining(", "));
+
+        return keyword(FortranKeyword.CASE) + " (" + caseListCode + ")";
     }
 }

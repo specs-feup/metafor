@@ -58,8 +58,6 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.CASE_CONSTRUCT, CaseConstruct.class);
         NAME_TO_CLASS.put(FlangName.SELECT_CASE_STMT, SelectCaseStmt.class);
         NAME_TO_CLASS.put(FlangName.CASE, CaseBlock.class);
-        NAME_TO_CLASS.put(FlangName.CASE_STMT, CaseStmt.class);
-        NAME_TO_CLASS.put(FlangName.DEFAULT, Default.class);
         NAME_TO_CLASS.put(FlangName.END_SELECT_STMT, EndSelectStmt.class);
 
         /// Variables

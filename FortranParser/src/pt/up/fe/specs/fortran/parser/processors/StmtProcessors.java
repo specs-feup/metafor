@@ -177,27 +177,28 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void caseBlock(CaseBlock caseBlock) {
-        var caseStmt = getChild(caseBlock, FlangName.CASE_STMT.getStmtAttr());
-        caseBlock.addChild(caseStmt);
+        var caseStmtWrapperId = attributes(caseBlock).getString(FlangName.CASE_STMT.getStmtAttr());
+        var caseStmtId = attributes().get(caseStmtWrapperId).getString("statement");  // TODO(Process-ing): Improve this logic
+        var caseStmt = buildCaseStmt(caseStmtId);
 
         var blockStatements = getChildren(caseBlock, FlangName.EXECUTION_PART_CONSTRUCT);
         var block = factory().newNode(StmtBlock.class);
         block.addChildren(blockStatements);
+
+        caseBlock.addChild(caseStmt);
         caseBlock.addChild(block);
     }
 
-    public void caseStmt(CaseStmt caseStmt) {
-        var caseSelectorId = attributes(caseStmt).getString(FlangName.CASE_SELECTOR);
-        var caseSelector = buildCaseSelector(caseSelectorId);
+    public CaseStmt buildCaseStmt(String id) {
+        var caseStmtAttrs = attributes().get(id);
 
-        caseStmt.addChild(caseSelector);
-    }
+        var caseSelectorId = caseStmtAttrs.getString(FlangName.CASE_SELECTOR);
+        var caseSelectorAttrs = attributes().get(caseSelectorId);
 
-    public CaseSelector buildCaseSelector(String id) {
-        var caseSelectorAttrs = attributes().get(id);
-        var value = caseSelectorAttrs.getString("value");
+        var caseSelectorValue = caseSelectorAttrs.getString("value");
 
-        if (value.startsWith("[")) {  // TODO(Process-ing): Improve this
+        // If the case selector is a list of values, they are a list of CaseValueRange instances
+        if (caseSelectorValue.startsWith("[")) {  // TODO(Process-ing): Improve this
             var caseValueRangeIds = caseSelectorAttrs.getStringList(() -> "value");
             var caseValueRanges = caseValueRangeIds.stream()
                     .map(Object::toString)
@@ -209,13 +210,14 @@ public class StmtProcessors extends ANodeProcessor {
                     () -> "Expected at least one case value range for case selector with id '" + id + "', but got 0"
             );
 
-            var caseSelector = factory().newNode(CaseValueRangeList.class);
-            caseSelector.addChildren(caseValueRanges);
+            var valueCaseStmt = factory().newNode(ValueCaseStmt.class);
+            valueCaseStmt.addChildren(caseValueRanges);
 
-            return caseSelector;
+            return valueCaseStmt;
         }
 
-        return (Default) getNode(value);
+        // Otherwise, it's a default case
+        return factory().newNode(DefaultCaseStmt.class);
     }
 
     public CaseValueRange buildCaseValueRange(String id) {
@@ -226,10 +228,6 @@ public class StmtProcessors extends ANodeProcessor {
         caseValue.addChild(expr);
 
         return caseValue;
-    }
-
-    public void defaultNode(Default ignoredDefaultNode) {
-        // Nothing to do
     }
 
     public void endSelectStmt(EndSelectStmt ignoredEndSelectStmt) {
