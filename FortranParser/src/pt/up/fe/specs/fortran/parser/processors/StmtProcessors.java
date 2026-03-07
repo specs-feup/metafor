@@ -8,7 +8,6 @@ import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.*;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.DimensionSpec;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
-import pt.up.fe.specs.util.SpecsCheck;
 
 import java.util.List;
 
@@ -114,7 +113,7 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void ifThenStmt(IfThenStmt ifThenStmt) {
-        var condition = getChild(ifThenStmt, "value");
+        var condition = getChild(ifThenStmt, FlangName.EXPR);
 
         ifThenStmt.addChild(0, condition);
     }
@@ -130,7 +129,7 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void elseIfStmt(ElseIfStmt elseIfStmt) {
-        var condition = getChild(elseIfStmt, "value");
+        var condition = getChild(elseIfStmt, FlangName.EXPR);
         elseIfStmt.addChild(condition);
     }
 
@@ -153,7 +152,7 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void ifStmt(IfStmt ifStmt) {
-        var condition = getChild(ifStmt, "value");
+        var condition = getChild(ifStmt, FlangName.EXPR);
         var thenStmt = getChild(ifStmt, FlangName.ACTION_STMT.getUnlabeledStmtAttr());
 
         ifStmt.addChild(condition);
@@ -171,7 +170,7 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void selectCaseStmt(SelectCaseStmt selectCaseStmt) {
-        var expr = getChild(selectCaseStmt, "value");
+        var expr = getChild(selectCaseStmt, FlangName.EXPR);
 
         selectCaseStmt.addChild(expr);
     }
@@ -204,11 +203,6 @@ public class StmtProcessors extends ANodeProcessor {
                     .map(Object::toString)
                     .map(this::buildCaseValueRange)
                     .toList();
-
-            SpecsCheck.checkArgument(
-                    !caseValueRanges.isEmpty(),
-                    () -> "Expected at least one case value range for case selector with id '" + id + "', but got 0"
-            );
 
             var valueCaseStmt = factory().newNode(ValueCaseStmt.class);
             valueCaseStmt.addChildren(caseValueRanges);
