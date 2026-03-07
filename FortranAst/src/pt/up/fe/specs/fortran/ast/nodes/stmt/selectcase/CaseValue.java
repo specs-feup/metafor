@@ -14,4 +14,9 @@ public class CaseValue extends CaseValueRange {
     public Literal getValue() {
         return getChild(Literal.class, 0);
     }
+
+    @Override
+    public String getCode() {
+        return getValue().getCode();
+    }
 }

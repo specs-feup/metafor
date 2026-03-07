@@ -13,5 +13,5 @@ program select_case
         result = 0
     end select
 
-    print *, 'Result:', result
+    print *, "Result:", result
 end program select_case

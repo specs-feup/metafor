@@ -18,4 +18,12 @@ public class CaseBlock extends FortranNode {
     public StmtBlock getStmtBlock() {
         return getChild(StmtBlock.class, 1);
     }
+
+    @Override
+    public String getCode() {
+        var caseStmt = getCaseStmt();
+        var stmtBlock = getStmtBlock();
+
+        return caseStmt.getCode() + ln() + indent(stmtBlock.getCode());
+    }
 }

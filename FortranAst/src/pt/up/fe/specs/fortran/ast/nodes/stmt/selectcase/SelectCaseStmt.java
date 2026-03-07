@@ -1,6 +1,7 @@
 package pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase;
 
 import org.suikasoft.jOptions.Interfaces.DataStore;
+import pt.up.fe.specs.fortran.ast.FortranKeyword;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.expr.Expr;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.Stmt;
@@ -14,5 +15,12 @@ public class SelectCaseStmt extends Stmt {
 
     public Expr getExpr() {
         return getChild(Expr.class, 0);
+    }
+
+    @Override
+    public String getCode() {
+        var expr = getExpr();
+
+        return keyword(FortranKeyword.SELECT) + " " + keyword(FortranKeyword.CASE) + " (" + expr.getCode() + ")";
     }
 }

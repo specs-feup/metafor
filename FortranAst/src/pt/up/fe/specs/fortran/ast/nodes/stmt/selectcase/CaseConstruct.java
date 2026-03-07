@@ -23,4 +23,19 @@ public class CaseConstruct extends ExecutableStmt {
     public EndSelectStmt getEndSelectStmt() {
         return getChild(EndSelectStmt.class);
     }
+
+    @Override
+    public String getCode() {
+        var selectCaseStmt = getSelectCaseStmt();
+        var caseBlocks = getCaseBlocks();
+        var endSelectStmt = getEndSelectStmt();
+
+        var code = new StringBuilder();
+
+        code.append(selectCaseStmt.getCode()).append("\n");
+        caseBlocks.forEach(block -> code.append(block.getCode()).append("\n"));
+        code.append(endSelectStmt.getCode());
+
+        return code.toString();
+    }
 }

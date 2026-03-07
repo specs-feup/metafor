@@ -13,5 +13,5 @@ PROGRAM select_case
         result = 0
     END SELECT
 
-    PRINT *, 'Result:', result
+    PRINT *, "Result:", result
 END PROGRAM select_case

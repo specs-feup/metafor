@@ -11,5 +11,5 @@ PROGRAM select_case_list
         result = 0
     END SELECT
 
-    PRINT *, 'Result:', result
+    PRINT *, "Result:", result
 END PROGRAM select_case_list
