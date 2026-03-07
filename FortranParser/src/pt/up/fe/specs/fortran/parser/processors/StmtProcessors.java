@@ -169,6 +169,13 @@ public class StmtProcessors extends ANodeProcessor {
         caseConstruct.addChild(selectCaseStmt);
         caseConstruct.addChildren(caseBlocks);
         caseConstruct.addChild(endSelectStmt);
+
+        // Assign name if present
+        var nameId = attributes(selectCaseStmt).getOptionalString(FlangName.NAME.getString());
+        if (nameId.isPresent()) {
+            var name = attributes().get(nameId.get()).getString("source");
+            caseConstruct.setOptional(CaseConstruct.NAME, name);
+        }
     }
 
     public void selectCaseStmt(SelectCaseStmt selectCaseStmt) {
