@@ -1,5 +1,6 @@
 package pt.up.fe.specs.fortran.parser.processors;
 
+import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.program.StmtBlock;
 import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
@@ -9,6 +10,7 @@ import pt.up.fe.specs.fortran.ast.nodes.type.attributes.DimensionSpec;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 
+import java.util.Optional;
 import java.util.List;
 
 public class StmtProcessors extends ANodeProcessor {
@@ -216,13 +218,59 @@ public class StmtProcessors extends ANodeProcessor {
 
     public CaseValueRange buildCaseValueRange(String id) {
         var childId = attributes().get(id).getString("value");
-        var exprId = attributes().getChildId(childId);
-        var expr = getNode(exprId);
 
-        var caseValue = factory().newNode(CaseValue.class);
-        caseValue.addChild(expr);
+        // If child is an instance of Range, build an appropriate range
+        if (childId.endsWith("Range")) {
+            var rangeAttrs = attributes().get(childId);
+            var lowerBoundId = rangeAttrs.getString("lower");
+            var upperBoundId = rangeAttrs.getString("upper");
 
-        return caseValue;
+            Optional<FortranNode> lowerBound = lowerBoundId.equals("null")
+                    ? Optional.empty()
+                    : Optional.of(getNode(attributes().getChildId(lowerBoundId)));
+
+            Optional<FortranNode> upperBound = upperBoundId.equals("null")
+                    ? Optional.empty()
+                    : Optional.of(getNode(attributes().getChildId(upperBoundId)));
+
+            if (lowerBound.isPresent()) {
+                if (upperBound.isPresent()) {
+                    var fullRange = factory().newNode(CaseFullRange.class);
+                    fullRange.addChild(lowerBound.get());
+                    fullRange.addChild(upperBound.get());
+
+                    return fullRange;
+
+                } else {
+                    var lowerBoundRange = factory().newNode(CaseLowerRange.class);
+                    lowerBoundRange.addChild(lowerBound.get());
+
+                    return lowerBoundRange;
+                }
+
+            } else if (upperBound.isPresent()) {
+                var upperBoundRange = factory().newNode(CaseUpperRange.class);
+                upperBoundRange.addChild(upperBound.get());
+
+                return upperBoundRange;
+
+            } else {
+                throw new RuntimeException("Range must have at least a lower or an upper bound");
+            }
+        }
+
+        // If child is an instance of Expr, build a single case value
+        if (childId.endsWith("Expr")) {
+            var exprId = attributes().getChildId(childId);
+            var expr = getNode(exprId);
+
+            var caseValue = factory().newNode(CaseValue.class);
+            caseValue.addChild(expr);
+
+            return caseValue;
+        }
+
+        throw new RuntimeException("Unknown case selector child: " + childId);
     }
 
     public void endSelectStmt(EndSelectStmt ignoredEndSelectStmt) {
