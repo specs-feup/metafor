@@ -19,8 +19,20 @@ public class SelectCaseStmt extends Stmt {
 
     @Override
     public String getCode() {
+        var nameOpt = getAncestor(CaseConstruct.class).getName();
         var expr = getExpr();
 
-        return keyword(FortranKeyword.SELECT) + " " + keyword(FortranKeyword.CASE) + " (" + expr.getCode() + ")";
+        var code = new StringBuilder();
+
+        nameOpt.ifPresent(name -> code.append(name).append(": "));
+
+        code.append(keyword(FortranKeyword.SELECT))
+                .append(" ")
+                .append(keyword(FortranKeyword.CASE))
+                .append(" (")
+                .append(expr.getCode())
+                .append(")");
+
+        return code.toString();
     }
 }

@@ -13,6 +13,16 @@ public class DefaultCaseStmt extends CaseStmt {
 
     @Override
     public String getCode() {
-        return keyword(FortranKeyword.CASE) + " " + keyword(FortranKeyword.DEFAULT);
+        var nameOpt = getAncestor(CaseConstruct.class).getName();
+
+        var code = new StringBuilder();
+
+        code.append(keyword(FortranKeyword.CASE))
+                .append(" ")
+                .append(keyword(FortranKeyword.DEFAULT));
+
+        nameOpt.ifPresent(name -> code.append(" ").append(name));
+
+        return code.toString();
     }
 }

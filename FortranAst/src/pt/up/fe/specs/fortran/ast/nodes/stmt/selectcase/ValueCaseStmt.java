@@ -19,12 +19,22 @@ public class ValueCaseStmt extends CaseStmt {
 
     @Override
     public String getCode() {
+        var nameOpt = getAncestor(CaseConstruct.class).getName();
         var caseValueRanges = getCaseValueRanges();
 
         var caseListCode = caseValueRanges.stream()
                 .map(CaseValueRange::getCode)
                 .collect(Collectors.joining(", "));
 
-        return keyword(FortranKeyword.CASE) + " (" + caseListCode + ")";
+        var code = new StringBuilder();
+
+        code.append(keyword(FortranKeyword.CASE))
+                .append(" (")
+                .append(caseListCode)
+                .append(")");
+
+        nameOpt.ifPresent(name -> code.append(" ").append(name));
+
+        return code.toString();
     }
 }
