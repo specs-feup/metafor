@@ -50,16 +50,16 @@ public class IfConstruct extends ExecutableStmt {
         var code = new StringBuilder();
 
         // if-then block
-        code.append(ifThenBlock.getCode());
+        code.append(ifThenBlock.getCode()).append(ln());
 
         // else-if blocks
-        elseIfBlocks.forEach(elseIfBlock -> code.append(ln()).append(elseIfBlock.getCode()));
+        elseIfBlocks.forEach(elseIfBlock -> code.append(elseIfBlock.getCode()).append(ln()));
 
         // else block
-        elseBlock.ifPresent(block -> code.append(ln()).append(block.getCode()));
+        elseBlock.ifPresent(block -> code.append(block.getCode()).append(ln()));
 
         // end if statement
-        code.append(ln()).append(endIfStmt.getCode());
+        code.append(endIfStmt.getCode());
 
         return code.toString();
     }
