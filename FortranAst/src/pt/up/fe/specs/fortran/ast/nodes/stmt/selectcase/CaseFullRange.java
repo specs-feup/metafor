@@ -11,19 +11,19 @@ public class CaseFullRange extends CaseValueRange {
         super(data, children);
     }
 
-    public Literal getLeftValue() {
+    public Literal getLower() {
         return getChild(Literal.class, 0);
     }
 
-    public Literal getRightValue() {
+    public Literal getUpper() {
         return getChild(Literal.class, 1);
     }
 
     @Override
     public String getCode() {
-        var left = getLeftValue();
-        var right = getRightValue();
+        var lower = getLower();
+        var upper = getUpper();
 
-        return left.getCode() + ":" + right.getCode();
+        return lower.getCode() + ":" + upper.getCode();
     }
 }

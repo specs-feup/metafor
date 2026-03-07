@@ -6,19 +6,19 @@ import pt.up.fe.specs.fortran.ast.nodes.expr.Literal;
 
 import java.util.Collection;
 
-public class CaseRightRange extends CaseValueRange {
-    public CaseRightRange(DataStore data, Collection<? extends FortranNode> children) {
+public class CaseUpperRange extends CaseValueRange {
+    public CaseUpperRange(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
     }
 
-    public Literal getRightValue() {
+    public Literal getUpper() {
         return getChild(Literal.class, 0);
     }
 
     @Override
     public String getCode() {
-        var right = getRightValue();
+        var ùpper = getUpper();
 
-        return ":" + right.getCode();
+        return ":" + ùpper.getCode();
     }
 }

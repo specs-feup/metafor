@@ -215,7 +215,8 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public CaseValueRange buildCaseValueRange(String id) {
-        var exprId = attributes().getChildId(id);
+        var childId = attributes().get(id).getString("value");
+        var exprId = attributes().getChildId(childId);
         var expr = getNode(exprId);
 
         var caseValue = factory().newNode(CaseValue.class);

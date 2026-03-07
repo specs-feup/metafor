@@ -32,8 +32,13 @@ public class CaseConstruct extends ExecutableStmt {
 
         var code = new StringBuilder();
 
+        // select case statement
         code.append(selectCaseStmt.getCode()).append(ln());
+
+        // case blocks
         caseBlocks.forEach(block -> code.append(block.getCode()).append(ln()));
+
+        // end select statement
         code.append(endSelectStmt.getCode());
 
         return code.toString();
