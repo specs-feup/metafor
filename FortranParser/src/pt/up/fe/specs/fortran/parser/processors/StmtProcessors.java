@@ -4,6 +4,7 @@ import pt.up.fe.specs.fortran.ast.nodes.program.StmtBlock;
 import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.*;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.*;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.DimensionSpec;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
@@ -142,11 +143,11 @@ public class StmtProcessors extends ANodeProcessor {
         elseBlock.addChild(block);
     }
 
-    public void elseStmt(ElseStmt elseStmt) {
+    public void elseStmt(ElseStmt ignoredElseStmt) {
         // Nothing to do
     }
 
-    public void endIfStmt(EndIfStmt endIfStmt) {
+    public void endIfStmt(EndIfStmt ignoredEndIfStmt) {
         // Nothing to do
     }
 
@@ -156,5 +157,76 @@ public class StmtProcessors extends ANodeProcessor {
 
         ifStmt.addChild(condition);
         ifStmt.addChild(thenStmt);
+    }
+
+    public void caseConstruct(CaseConstruct caseConstruct) {
+        var selectCaseStmt = getChild(caseConstruct, FlangName.SELECT_CASE_STMT.getStmtAttr());
+        var caseBlocks = getChildren(caseConstruct, FlangName.CASE);
+        var endSelectStmt = getChild(caseConstruct, FlangName.END_SELECT_STMT.getStmtAttr());
+
+        caseConstruct.addChild(selectCaseStmt);
+        caseConstruct.addChildren(caseBlocks);
+        caseConstruct.addChild(endSelectStmt);
+    }
+
+    public void selectCaseStmt(SelectCaseStmt selectCaseStmt) {
+        var expr = getChild(selectCaseStmt, "value");
+
+        selectCaseStmt.addChild(expr);
+    }
+
+    public void caseBlock(CaseBlock caseBlock) {
+        var caseStmt = getChild(caseBlock, FlangName.CASE_STMT.getStmtAttr());
+        caseBlock.addChild(caseStmt);
+
+        var blockStatements = getChildren(caseBlock, FlangName.EXECUTION_PART_CONSTRUCT);
+        var block = factory().newNode(StmtBlock.class);
+        block.addChildren(blockStatements);
+        caseBlock.addChild(block);
+    }
+
+    public void caseStmt(CaseStmt caseStmt) {
+        var caseSelectorId = attributes(caseStmt).getString(FlangName.CASE_SELECTOR);
+        var caseSelector = buildCaseSelector(caseSelectorId);
+
+        caseStmt.addChild(caseSelector);
+    }
+
+    public CaseSelector buildCaseSelector(String id) {
+        var caseSelectorAttrs = attributes().get(id);
+        var value = caseSelectorAttrs.getString("value");
+
+        if (value.startsWith("[")) {  // TODO(Process-ing): Improve this
+            var caseValueRangeIds = caseSelectorAttrs.getStringList(() -> "value");
+            var caseValueRanges = caseValueRangeIds.stream()
+                    .map(Object::toString)
+                    .map(this::buildCaseValueRange)
+                    .toList();
+
+            var caseSelector = factory().newNode(CaseValueRangeList.class);
+            caseSelector.addChildren(caseValueRanges);
+
+            return caseSelector;
+        }
+
+        return (Default) getNode(value);
+    }
+
+    public CaseValueRange buildCaseValueRange(String id) {
+        var exprId = attributes().getChildId(id);
+        var expr = getNode(exprId);
+
+        var caseValue = factory().newNode(CaseValue.class);
+        caseValue.addChild(expr);
+
+        return caseValue;
+    }
+
+    public void defaultNode(Default ignoredDefaultNode) {
+        // Nothing to do
+    }
+
+    public void endSelectStmt(EndSelectStmt ignoredEndSelectStmt) {
+        // Nothing to do
     }
 }
