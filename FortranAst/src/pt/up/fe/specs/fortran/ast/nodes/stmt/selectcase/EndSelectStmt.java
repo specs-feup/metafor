@@ -14,6 +14,16 @@ public class EndSelectStmt extends Stmt {
 
     @Override
     public String getCode() {
-        return keyword(FortranKeyword.END) + " " + keyword(FortranKeyword.SELECT);
+        var nameOpt = getAncestor(CaseConstruct.class).getName();
+
+        var code = new StringBuilder();
+
+        code.append(keyword(FortranKeyword.END))
+                .append(" ")
+                .append(keyword(FortranKeyword.SELECT));
+
+        nameOpt.ifPresent(name -> code.append(" ").append(name));
+
+        return code.toString();
     }
 }
