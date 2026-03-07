@@ -32,8 +32,8 @@ public class CaseConstruct extends ExecutableStmt {
 
         var code = new StringBuilder();
 
-        code.append(selectCaseStmt.getCode()).append("\n");
-        caseBlocks.forEach(block -> code.append(block.getCode()).append("\n"));
+        code.append(selectCaseStmt.getCode()).append(ln());
+        caseBlocks.forEach(block -> code.append(block.getCode()).append(ln()));
         code.append(endSelectStmt.getCode());
 
         return code.toString();
