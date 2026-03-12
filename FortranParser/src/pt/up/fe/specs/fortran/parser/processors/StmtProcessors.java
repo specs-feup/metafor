@@ -29,12 +29,12 @@ public class StmtProcessors extends ANodeProcessor {
     private void executableStmt(ExecutableStmt executableStmt) {
         executableStmt.set(ExecutableStmt.SOURCE, attributes(executableStmt).getString("source"));
 
-        var label = attributes(executableStmt).getString("label");
-        if (!label.equals("null")) {
-            var labelDecl = factory().labelDecl(Integer.valueOf(label));
+        var labelOpt = attributes(executableStmt).getOptionalString("label");
+        labelOpt.ifPresent(label -> {
+            var labelDecl = factory().labelDecl(Integer.parseInt(label));
             data().processorData().addLabelDecl(labelDecl);
             executableStmt.addChild(0, labelDecl);
-        }
+        });
     }
 
 
@@ -240,16 +240,11 @@ public class StmtProcessors extends ANodeProcessor {
         // If child is an instance of Range, build an appropriate range
         if (childId.endsWith("Range")) {
             var rangeAttrs = attributes().get(childId);
-            var lowerBoundId = rangeAttrs.getString("lower");
-            var upperBoundId = rangeAttrs.getString("upper");
 
-            Optional<FortranNode> lowerBound = lowerBoundId.equals("null")
-                    ? Optional.empty()
-                    : Optional.of(getNode(attributes().getChildId(lowerBoundId)));
-
-            Optional<FortranNode> upperBound = upperBoundId.equals("null")
-                    ? Optional.empty()
-                    : Optional.of(getNode(attributes().getChildId(upperBoundId)));
+            Optional<FortranNode> lowerBound = rangeAttrs.getOptionalString("lower")
+                    .map(lowerId -> getNode(attributes().getChildId(lowerId)));
+            Optional<FortranNode> upperBound = rangeAttrs.getOptionalString("upper")
+                    .map(upperId -> getNode(attributes().getChildId(upperId)));
 
             if (lowerBound.isPresent()) {
                 if (upperBound.isPresent()) {
