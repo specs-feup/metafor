@@ -10,8 +10,8 @@ import pt.up.fe.specs.fortran.ast.nodes.type.attributes.DimensionSpec;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 
-import java.util.Optional;
 import java.util.List;
+import java.util.Optional;
 
 public class StmtProcessors extends ANodeProcessor {
     public StmtProcessors(FortranJsonResult data) {
@@ -186,7 +186,7 @@ public class StmtProcessors extends ANodeProcessor {
 
     public void caseBlock(CaseBlock caseBlock) {
         var caseStmtWrapperId = attributes(caseBlock).getString(FlangName.CASE_STMT.getStmtAttr());
-        var caseStmtId = attributes().get(caseStmtWrapperId).getString("statement");  // TODO(Process-ing): Improve this logic
+        var caseStmtId = attributes().get(caseStmtWrapperId).getString("statement");
         var caseStmt = buildCaseStmt(caseStmtId);
 
         var blockStatements = getChildren(caseBlock, FlangName.EXECUTION_PART_CONSTRUCT);
@@ -203,10 +203,10 @@ public class StmtProcessors extends ANodeProcessor {
         var caseSelectorId = caseStmtAttrs.getString(FlangName.CASE_SELECTOR);
         var caseSelectorAttrs = attributes().get(caseSelectorId);
 
-        var caseSelectorValue = caseSelectorAttrs.getString("value");
+        var caseSelectorValues = caseSelectorAttrs.getStringList("value");
 
         // If the case selector is a list of values, they are a list of CaseValueRange instances
-        if (caseSelectorValue.startsWith("[")) {  // TODO(Process-ing): Improve this
+        if (caseSelectorValues.getFirst().endsWith("CaseValueRange")) {
             var caseValueRangeIds = caseSelectorAttrs.getStringList(() -> "value");
             var caseValueRanges = caseValueRangeIds.stream()
                     .map(Object::toString)
