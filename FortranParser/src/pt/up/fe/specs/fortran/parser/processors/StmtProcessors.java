@@ -206,7 +206,7 @@ public class StmtProcessors extends ANodeProcessor {
         var caseSelectorValues = caseSelectorAttrs.getStringList("value");
 
         // If the case selector is a list of values, they are a list of CaseValueRange instances
-        if (caseSelectorValues.getFirst().endsWith("CaseValueRange")) {
+        if (caseSelectorValues.get(0).endsWith("CaseValueRange")) {
             var caseValueRangeIds = caseSelectorAttrs.getStringList(() -> "value");
             var caseValueRanges = caseValueRangeIds.stream()
                     .map(Object::toString)
