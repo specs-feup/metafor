@@ -11,6 +11,7 @@ public enum OmpDirectiveKind implements StringProvider {
 
     public static List<OmpDirectiveKind> getKinds(String directive) {
         return Arrays.stream(directive.split(" "))
+                .map(String::toUpperCase)
                 .map(OmpDirectiveKind::valueOf)
                 .toList();
     }

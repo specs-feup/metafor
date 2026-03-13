@@ -5,11 +5,12 @@ import org.suikasoft.jOptions.Datakey.KeyFactory;
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.omp.enums.OmpDirectiveKind;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.ExecutableStmt;
 
 import java.util.Collection;
 import java.util.List;
 
-abstract public class OmpConstruct extends FortranNode {
+abstract public class OmpConstruct extends ExecutableStmt {
 
     public final static DataKey<List<OmpDirectiveKind>> KINDS = KeyFactory.enumerationMulti("kinds", OmpDirectiveKind.class);
 

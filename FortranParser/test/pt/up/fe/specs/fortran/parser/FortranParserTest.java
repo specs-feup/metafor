@@ -200,4 +200,9 @@ public class FortranParserTest {
             testNative("arrays/array_declaration.f90");
         }
     }
+
+    @Test
+    void testOmpBasic() {
+        testJson("omp/omp_basic.json");
+    }
 }
