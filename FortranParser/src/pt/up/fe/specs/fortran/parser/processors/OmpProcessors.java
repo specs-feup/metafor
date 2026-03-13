@@ -2,8 +2,10 @@ package pt.up.fe.specs.fortran.parser.processors;
 
 import pt.up.fe.specs.fortran.ast.nodes.omp.OmpBlockConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.omp.OmpConstruct;
+import pt.up.fe.specs.fortran.ast.nodes.omp.OmpLoopConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.omp.enums.OmpDirectiveKind;
 import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.DoStmt;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 
@@ -23,5 +25,16 @@ public class OmpProcessors extends ANodeProcessor {
 
         Execution body = factory().newNode(Execution.class, getChildren(ompBlockConstruct, FlangName.EXECUTION_PART_CONSTRUCT));
         ompBlockConstruct.addChild(body);
+    }
+
+    public void ompLoopConstruct(OmpLoopConstruct ompLoopConstruct) {
+        String directive = attributes().getString(ompLoopConstruct, "directive", FlangName.OMP_BEGIN_LOOP_DIRECTIVE, FlangName.OMP_LOOP_DIRECTIVE);
+
+        List<OmpDirectiveKind> kinds = OmpDirectiveKind.getKinds(directive);
+
+        ompLoopConstruct.set(OmpBlockConstruct.KINDS, kinds);
+
+        DoStmt loop = (DoStmt) getChild(ompLoopConstruct, FlangName.DO_CONSTRUCT);
+        ompLoopConstruct.addChild(loop);
     }
 }

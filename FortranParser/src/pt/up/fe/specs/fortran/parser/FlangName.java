@@ -95,6 +95,8 @@ public enum FlangName implements StringProvider {
     OPENMP_LOOP_CONSTRUCT("OpenMPLoopConstruct"),
     OMP_BEGIN_BLOCK_DIRECTIVE,
     OMP_BLOCK_DIRECTIVE,
+    OMP_BEGIN_LOOP_DIRECTIVE,
+    OMP_LOOP_DIRECTIVE,
 
     // ATTRIBUTES
     DEFERRED_SHAPE_SPEC_LIST,

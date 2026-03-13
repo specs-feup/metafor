@@ -10,6 +10,7 @@ import pt.up.fe.specs.fortran.ast.nodes.loops.ConcurrentLoopControl;
 import pt.up.fe.specs.fortran.ast.nodes.loops.ConcurrentRange;
 import pt.up.fe.specs.fortran.ast.nodes.loops.RangeLoopControl;
 import pt.up.fe.specs.fortran.ast.nodes.omp.OmpBlockConstruct;
+import pt.up.fe.specs.fortran.ast.nodes.omp.OmpLoopConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
 import pt.up.fe.specs.fortran.ast.nodes.program.FortranFile;
 import pt.up.fe.specs.fortran.ast.nodes.program.MainProgram;
@@ -110,6 +111,7 @@ public class Nodes {
 
         var omp = new OmpProcessors(data);
         processors.put(OmpBlockConstruct.class, omp::ompBlockConstruct);
+        processors.put(OmpLoopConstruct.class, omp::ompLoopConstruct);
     }
 
     public void process(FortranNode node) {
