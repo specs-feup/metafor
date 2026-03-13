@@ -103,7 +103,7 @@ public class FlangAttributes {
 
     public Optional<Object> getOptional(String key) {
         var value = attributes.get(key);
-        return Optional.ofNullable(value.toString());
+        return Optional.ofNullable(value);
     }
 
     /**

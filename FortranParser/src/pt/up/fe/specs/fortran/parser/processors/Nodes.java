@@ -2,6 +2,18 @@ package pt.up.fe.specs.fortran.parser.processors;
 
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.decl.EntityDecl;
+import pt.up.fe.specs.fortran.ast.nodes.expr.BinaryOperator;
+import pt.up.fe.specs.fortran.ast.nodes.expr.IntLiteral;
+import pt.up.fe.specs.fortran.ast.nodes.expr.LogicalLiteral;
+import pt.up.fe.specs.fortran.ast.nodes.expr.StringLiteral;
+import pt.up.fe.specs.fortran.ast.nodes.loops.ConcurrentLoopControl;
+import pt.up.fe.specs.fortran.ast.nodes.loops.ConcurrentRange;
+import pt.up.fe.specs.fortran.ast.nodes.loops.RangeLoopControl;
+import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
+import pt.up.fe.specs.fortran.ast.nodes.program.FortranFile;
+import pt.up.fe.specs.fortran.ast.nodes.program.MainProgram;
+import pt.up.fe.specs.fortran.ast.nodes.program.Specification;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.expr.*;
 import pt.up.fe.specs.fortran.ast.nodes.program.*;
 import pt.up.fe.specs.fortran.ast.nodes.expr.*;
@@ -68,6 +80,7 @@ public class Nodes {
         processors.put(ElseStmt.class, s::elseStmt);
         processors.put(EndIfStmt.class, s::endIfStmt);
         processors.put(IfStmt.class, s::ifStmt);
+        processors.put(DoStmt.class, s::doStmt);
 
         processors.put(CaseConstruct.class, s::caseConstruct);
         processors.put(SelectCaseStmt.class, s::selectCaseStmt);
@@ -98,6 +111,11 @@ public class Nodes {
         var u = new UtilsProcessors(data);
         processors.put(Star.class, u::star);
         processors.put(Format.class, u::format);
+
+        var l = new LoopProcessors(data);
+        processors.put(RangeLoopControl.class, l::loopRange);
+        processors.put(ConcurrentLoopControl.class, l::concurrentLoopControl);
+        processors.put(ConcurrentRange.class, l::concurrentRange);
     }
 
     public void process(FortranNode node) {

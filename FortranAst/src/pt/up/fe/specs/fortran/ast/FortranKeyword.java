@@ -4,6 +4,9 @@ public enum FortranKeyword {
     END,
     PROGRAM,
     PRINT,
+    DO,
+    WHILE,
+    CONCURRENT,
 
     // Conditional statements
     IF,

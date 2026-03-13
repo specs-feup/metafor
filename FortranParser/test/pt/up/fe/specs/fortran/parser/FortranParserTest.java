@@ -113,8 +113,18 @@ public class FortranParserTest {
     }
 
     @Test
+    void testDo() {
+        testJson("do.json");
+    }
+
+    @Test
     void testBinaryOperator() {
         testJson("binary_operator.json");
+    }
+
+    @Test
+    void testDoConcurrent() {
+        testJson("concurrent.json");
     }
 
     // Conditional statements

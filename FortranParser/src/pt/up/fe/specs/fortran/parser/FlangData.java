@@ -202,6 +202,11 @@ public class FlangData {
                 .toList();
     }
 
+    public List<String> getChildrenIds(String key, FlangName attribute) {
+        return getAttrs(key).getStringList(attribute).stream()
+                .map(this::getChildId)
+                .toList();
+    }
     public List<String> getChildrenIds(FortranNode node, String attribute) {
         return getAttrs(node).getStringList(attribute).stream()
                 .map(this::getChildId)
