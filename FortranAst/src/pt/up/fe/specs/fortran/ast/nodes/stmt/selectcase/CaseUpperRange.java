@@ -17,8 +17,8 @@ public class CaseUpperRange extends CaseValueRange {
 
     @Override
     public String getCode() {
-        var ùpper = getUpper();
+        var upper = getUpper();
 
-        return ":" + ùpper.getCode();
+        return ":" + upper.getCode();
     }
 }
