@@ -11,7 +11,8 @@ public class FlangData {
 
     /// STATIC
 
-    private static final Pattern REGEX_VALUE = Pattern.compile("value(<\\w+>)?");
+    // TODO(Process-ing): Improve dump structure to avoid unintuitive regular expressions for key discovery
+    private static final Pattern REGEX_VALUE = Pattern.compile("(value|Expr)(<\\w+>)?");
     private static final Pattern REGEX_STMT = Pattern.compile("statement");
 
     public static Pattern getRegexValue() {

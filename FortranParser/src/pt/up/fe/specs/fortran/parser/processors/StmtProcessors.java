@@ -1,14 +1,17 @@
 package pt.up.fe.specs.fortran.parser.processors;
 
+import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.program.StmtBlock;
 import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.*;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.*;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.DimensionSpec;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 
 import java.util.List;
+import java.util.Optional;
 
 public class StmtProcessors extends ANodeProcessor {
     public StmtProcessors(FortranJsonResult data) {
@@ -112,7 +115,7 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void ifThenStmt(IfThenStmt ifThenStmt) {
-        var condition = getChild(ifThenStmt, "value");
+        var condition = getChild(ifThenStmt, FlangName.EXPR);
 
         ifThenStmt.addChild(0, condition);
     }
@@ -128,7 +131,7 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void elseIfStmt(ElseIfStmt elseIfStmt) {
-        var condition = getChild(elseIfStmt, "value");
+        var condition = getChild(elseIfStmt, FlangName.EXPR);
         elseIfStmt.addChild(condition);
     }
 
@@ -142,19 +145,142 @@ public class StmtProcessors extends ANodeProcessor {
         elseBlock.addChild(block);
     }
 
-    public void elseStmt(ElseStmt elseStmt) {
+    public void elseStmt(ElseStmt ignoredElseStmt) {
         // Nothing to do
     }
 
-    public void endIfStmt(EndIfStmt endIfStmt) {
+    public void endIfStmt(EndIfStmt ignoredEndIfStmt) {
         // Nothing to do
     }
 
     public void ifStmt(IfStmt ifStmt) {
-        var condition = getChild(ifStmt, "value");
+        var condition = getChild(ifStmt, FlangName.EXPR);
         var thenStmt = getChild(ifStmt, FlangName.ACTION_STMT.getUnlabeledStmtAttr());
 
         ifStmt.addChild(condition);
         ifStmt.addChild(thenStmt);
+    }
+
+    public void caseConstruct(CaseConstruct caseConstruct) {
+        var selectCaseStmt = getChild(caseConstruct, FlangName.SELECT_CASE_STMT.getStmtAttr());
+        var caseBlocks = getChildren(caseConstruct, FlangName.CASE);
+        var endSelectStmt = getChild(caseConstruct, FlangName.END_SELECT_STMT.getStmtAttr());
+
+        caseConstruct.addChild(selectCaseStmt);
+        caseConstruct.addChildren(caseBlocks);
+        caseConstruct.addChild(endSelectStmt);
+
+        // Assign name if present
+        var nameId = attributes(selectCaseStmt).getOptionalString(FlangName.NAME.getString());
+        if (nameId.isPresent()) {
+            var name = attributes().get(nameId.get()).getString("source");
+            caseConstruct.setOptional(CaseConstruct.NAME, name);
+        }
+    }
+
+    public void selectCaseStmt(SelectCaseStmt selectCaseStmt) {
+        var expr = getChild(selectCaseStmt, FlangName.EXPR);
+
+        selectCaseStmt.addChild(expr);
+    }
+
+    public void caseBlock(CaseBlock caseBlock) {
+        var caseStmtWrapperId = attributes(caseBlock).getString(FlangName.CASE_STMT.getStmtAttr());
+        var caseStmtId = attributes().get(caseStmtWrapperId).getString("statement");
+        var caseStmt = buildCaseStmt(caseStmtId);
+
+        var blockStatements = getChildren(caseBlock, FlangName.EXECUTION_PART_CONSTRUCT);
+        var block = factory().newNode(StmtBlock.class);
+        block.addChildren(blockStatements);
+
+        caseBlock.addChild(caseStmt);
+        caseBlock.addChild(block);
+    }
+
+    public CaseStmt buildCaseStmt(String id) {
+        var caseStmtAttrs = attributes().get(id);
+
+        var caseSelectorId = caseStmtAttrs.getString(FlangName.CASE_SELECTOR);
+        var caseSelectorAttrs = attributes().get(caseSelectorId);
+
+        var caseSelectorValues = caseSelectorAttrs.getStringList("value");
+
+        // If the case selector is a list of values, they are a list of CaseValueRange instances
+        if (caseSelectorValues.get(0).endsWith("CaseValueRange")) {
+            var caseValueRangeIds = caseSelectorAttrs.getStringList(() -> "value");
+            var caseValueRanges = caseValueRangeIds.stream()
+                    .map(Object::toString)
+                    .map(this::buildCaseValueRange)
+                    .toList();
+
+            var valueCaseStmt = factory().newNode(ValueCaseStmt.class);
+            valueCaseStmt.addChildren(caseValueRanges);
+
+            return valueCaseStmt;
+        }
+
+        // Otherwise, it's a default case
+        return factory().newNode(DefaultCaseStmt.class);
+    }
+
+    public CaseValueRange buildCaseValueRange(String id) {
+        var childId = attributes().get(id).getString("value");
+
+        // If child is an instance of Range, build an appropriate range
+        if (childId.endsWith("Range")) {
+            var rangeAttrs = attributes().get(childId);
+            var lowerBoundId = rangeAttrs.getString("lower");
+            var upperBoundId = rangeAttrs.getString("upper");
+
+            Optional<FortranNode> lowerBound = lowerBoundId.equals("null")
+                    ? Optional.empty()
+                    : Optional.of(getNode(attributes().getChildId(lowerBoundId)));
+
+            Optional<FortranNode> upperBound = upperBoundId.equals("null")
+                    ? Optional.empty()
+                    : Optional.of(getNode(attributes().getChildId(upperBoundId)));
+
+            if (lowerBound.isPresent()) {
+                if (upperBound.isPresent()) {
+                    var fullRange = factory().newNode(CaseFullRange.class);
+                    fullRange.addChild(lowerBound.get());
+                    fullRange.addChild(upperBound.get());
+
+                    return fullRange;
+
+                } else {
+                    var lowerBoundRange = factory().newNode(CaseLowerRange.class);
+                    lowerBoundRange.addChild(lowerBound.get());
+
+                    return lowerBoundRange;
+                }
+
+            } else if (upperBound.isPresent()) {
+                var upperBoundRange = factory().newNode(CaseUpperRange.class);
+                upperBoundRange.addChild(upperBound.get());
+
+                return upperBoundRange;
+
+            } else {
+                throw new RuntimeException("Range must have at least a lower or an upper bound");
+            }
+        }
+
+        // If child is an instance of Expr, build a single case value
+        if (childId.endsWith("Expr")) {
+            var exprId = attributes().getChildId(childId);
+            var expr = getNode(exprId);
+
+            var caseValue = factory().newNode(CaseValue.class);
+            caseValue.addChild(expr);
+
+            return caseValue;
+        }
+
+        throw new RuntimeException("Unknown case selector child: " + childId);
+    }
+
+    public void endSelectStmt(EndSelectStmt ignoredEndSelectStmt) {
+        // Nothing to do
     }
 }
