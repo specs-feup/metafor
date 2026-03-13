@@ -13,8 +13,10 @@ Outputs
 -------
 - results.csv: per-file status for every stage
 - summary.json: machine-readable metrics for the run
-- history.csv: appended run-level metrics for longitudinal tracking
+- run_metrics.csv: exactly one metrics row for this run, suitable for CI append
+- history.csv: local append-only run-level metrics for ad-hoc longitudinal tracking
 - report.md: human-readable report
+- github_step_summary.md: concise summary ready for GitHub Actions step summary
 - logs/: stdout/stderr for commands that ran
 - artifacts/: copied Stage-3 outputs and LLVM IR files for debugging
 
@@ -33,10 +35,9 @@ import re
 import shutil
 import subprocess
 import sys
-import tempfile
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from dataclasses import dataclass, field, asdict
+from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Iterable, Optional
@@ -331,11 +332,7 @@ class MetaforFujitsuPipeline:
 
         same = self._normalized_ir_equal(original_ir, regenerated_ir)
         res.stage42_ok = same
-        res.stage42_note = (
-            "Normalized LLVM IR match"
-            if same
-            else "Normalized LLVM IR mismatch"
-        )
+        res.stage42_note = "Normalized LLVM IR match" if same else "Normalized LLVM IR mismatch"
 
     def _mark_skipped(self, stage_name: str, res: FileResult) -> None:
         if stage_name == "stage2":
@@ -466,14 +463,19 @@ class MetaforFujitsuPipeline:
         summary_json = self.output_dir / "summary.json"
         report_md = self.output_dir / "report.md"
         history_csv = self.output_dir / "history.csv"
+        run_metrics_csv = self.output_dir / "run_metrics.csv"
+        github_step_summary_md = self.output_dir / "github_step_summary.md"
 
         rows = [asdict(r) for _, r in sorted(self.results.items())]
         write_csv(results_csv, rows)
 
         summary = self._build_summary()
+        metrics_row = self._build_metrics_row(summary)
         summary_json.write_text(json.dumps(summary, indent=2), encoding="utf-8")
-        self._append_history(history_csv, summary)
+        write_csv(run_metrics_csv, [metrics_row])
+        self._append_history(history_csv, metrics_row)
         report_md.write_text(self._build_report(summary), encoding="utf-8")
+        github_step_summary_md.write_text(self._build_github_step_summary(summary), encoding="utf-8")
 
     def _build_summary(self) -> dict:
         total_files = len(self.results)
@@ -482,6 +484,10 @@ class MetaforFujitsuPipeline:
         stage3_pass = sum(r.stage3_ok for r in self.results.values())
         stage41_pass = sum(r.stage41_ok for r in self.results.values())
         stage42_pass = sum(r.stage42_ok for r in self.results.values())
+        complete_successes = sum(
+            r.stage1_ok and r.stage2_ok and r.stage3_ok and r.stage41_ok and r.stage42_ok
+            for r in self.results.values()
+        )
         end_perf = time.perf_counter()
 
         summary = {
@@ -503,11 +509,18 @@ class MetaforFujitsuPipeline:
             "stage3_pass_rate_of_stage2": ratio(stage3_pass, stage2_pass),
             "stage41_pass_rate_of_stage3": ratio(stage41_pass, stage3_pass),
             "stage42_pass_rate_of_stage3": ratio(stage42_pass, stage3_pass),
-            "complete_successes": sum(
-                r.stage1_ok and r.stage2_ok and r.stage3_ok and r.stage41_ok and r.stage42_ok
-                for r in self.results.values()
-            ),
+            "complete_successes": complete_successes,
             "elapsed_s": end_perf - self.run_start_perf,
+            "ci_context": {
+                "run_label": self.args.run_label,
+                "git_sha": self.args.git_sha,
+                "git_ref": self.args.git_ref,
+                "github_repository": self.args.github_repository,
+                "github_run_id": self.args.github_run_id,
+                "github_run_number": self.args.github_run_number,
+                "github_workflow": self.args.github_workflow,
+                "github_actor": self.args.github_actor,
+            },
             "configuration": {
                 "flang": self.args.flang,
                 "dump_ast_plugin": str(Path(self.args.dump_ast_plugin).resolve()),
@@ -524,9 +537,18 @@ class MetaforFujitsuPipeline:
         }
         return summary
 
-    def _append_history(self, history_csv: Path, summary: dict) -> None:
-        row = {
+    def _build_metrics_row(self, summary: dict) -> dict[str, object]:
+        ci = summary["ci_context"]
+        return {
             "timestamp_utc": summary["timestamp_utc"],
+            "run_label": ci["run_label"],
+            "git_sha": ci["git_sha"],
+            "git_ref": ci["git_ref"],
+            "github_repository": ci["github_repository"],
+            "github_run_id": ci["github_run_id"],
+            "github_run_number": ci["github_run_number"],
+            "github_workflow": ci["github_workflow"],
+            "github_actor": ci["github_actor"],
             "total_files": summary["total_files"],
             "stage1_pass": summary["stage1_pass"],
             "stage2_pass": summary["stage2_pass"],
@@ -534,13 +556,19 @@ class MetaforFujitsuPipeline:
             "stage41_pass": summary["stage41_pass"],
             "stage42_pass": summary["stage42_pass"],
             "complete_successes": summary["complete_successes"],
-            "stage1_pass_rate_total": summary["stage1_pass_rate_total"],
-            "stage2_pass_rate_total": summary["stage2_pass_rate_total"],
-            "stage3_pass_rate_total": summary["stage3_pass_rate_total"],
-            "stage41_pass_rate_total": summary["stage41_pass_rate_total"],
-            "stage42_pass_rate_total": summary["stage42_pass_rate_total"],
-            "elapsed_s": summary["elapsed_s"],
+            "stage1_pass_rate_total": round(summary["stage1_pass_rate_total"], 8),
+            "stage2_pass_rate_total": round(summary["stage2_pass_rate_total"], 8),
+            "stage3_pass_rate_total": round(summary["stage3_pass_rate_total"], 8),
+            "stage41_pass_rate_total": round(summary["stage41_pass_rate_total"], 8),
+            "stage42_pass_rate_total": round(summary["stage42_pass_rate_total"], 8),
+            "stage2_pass_rate_of_stage1": round(summary["stage2_pass_rate_of_stage1"], 8),
+            "stage3_pass_rate_of_stage2": round(summary["stage3_pass_rate_of_stage2"], 8),
+            "stage41_pass_rate_of_stage3": round(summary["stage41_pass_rate_of_stage3"], 8),
+            "stage42_pass_rate_of_stage3": round(summary["stage42_pass_rate_of_stage3"], 8),
+            "elapsed_s": round(summary["elapsed_s"], 3),
         }
+
+    def _append_history(self, history_csv: Path, row: dict[str, object]) -> None:
         exists = history_csv.exists()
         with history_csv.open("a", newline="", encoding="utf-8") as fh:
             writer = csv.DictWriter(fh, fieldnames=list(row.keys()))
@@ -552,10 +580,15 @@ class MetaforFujitsuPipeline:
         failures_stage3 = [r.relative_file for r in self.results.values() if r.stage2_ok and not r.stage3_ok][:20]
         failures_stage41 = [r.relative_file for r in self.results.values() if r.stage3_ok and not r.stage41_ok][:20]
         failures_stage42 = [r.relative_file for r in self.results.values() if r.stage3_ok and not r.stage42_ok][:20]
+        ci = summary["ci_context"]
 
         return f"""# Metafor Fujitsu Pipeline Report
 
 Generated: {summary['timestamp_utc']}
+Run label: {ci['run_label']}
+Git SHA: {ci['git_sha']}
+Git ref: {ci['git_ref']}
+GitHub run id: {ci['github_run_id']}
 
 ## Overview
 
@@ -596,7 +629,9 @@ strict idempotence check, while Stage 4.2 is a semantic-preservation proxy using
 
 - `results.csv`: per-file results for all stages
 - `summary.json`: machine-readable metrics for automation
-- `history.csv`: append-only run summary for trend tracking
+- `run_metrics.csv`: single-row CI-friendly metrics output
+- `history.csv`: local append-only run summary for trend tracking
+- `github_step_summary.md`: concise markdown summary for GitHub Actions
 - `logs/`: stdout/stderr for every executed command
 - `artifacts/`: regenerated files and LLVM IR files for debugging
 
@@ -605,6 +640,30 @@ strict idempotence check, while Stage 4.2 is a semantic-preservation proxy using
 1. Stage 1 uses `flang -fsyntax-only` so the check focuses on parsing/syntax acceptance instead of linking.
 2. Stage 4.2 compares normalized LLVM IR and intentionally strips selected non-semantic headers and metadata.
 3. Metafor is executed in a per-file isolated working directory so each `woven_code/` tree is preserved.
+"""
+
+    def _build_github_step_summary(self, summary: dict) -> str:
+        return f"""## Metafor Fujitsu coverage summary
+
+| Metric | Value |
+|---|---:|
+| Total `.f90` files | {summary['total_files']} |
+| Stage 1 pass | {summary['stage1_pass']} ({pct(summary['stage1_pass_rate_total'])}) |
+| Stage 2 pass | {summary['stage2_pass']} ({pct(summary['stage2_pass_rate_total'])}) |
+| Stage 3 pass | {summary['stage3_pass']} ({pct(summary['stage3_pass_rate_total'])}) |
+| Stage 4.1 pass | {summary['stage41_pass']} ({pct(summary['stage41_pass_rate_total'])}) |
+| Stage 4.2 pass | {summary['stage42_pass']} ({pct(summary['stage42_pass_rate_total'])}) |
+| Complete successes | {summary['complete_successes']} |
+| Elapsed time | {summary['elapsed_s']:.2f}s |
+
+### Funnel
+
+| Transition | Rate |
+|---|---:|
+| Stage 2 / Stage 1 | {pct(summary['stage2_pass_rate_of_stage1'])} |
+| Stage 3 / Stage 2 | {pct(summary['stage3_pass_rate_of_stage2'])} |
+| Stage 4.1 / Stage 3 | {pct(summary['stage41_pass_rate_of_stage3'])} |
+| Stage 4.2 / Stage 3 | {pct(summary['stage42_pass_rate_of_stage3'])} |
 """
 
 
@@ -733,6 +792,14 @@ def build_arg_parser() -> argparse.ArgumentParser:
     p.add_argument("--timeout", type=int, default=120, help="Per-command timeout in seconds")
     p.add_argument("--limit", type=int, default=0, help="Optional cap on number of .f90 files to process")
     p.add_argument("--node-path", default="", help="Optional NODE_PATH value")
+    p.add_argument("--run-label", default=os.getenv("GITHUB_WORKFLOW", "manual"), help="Label for this run")
+    p.add_argument("--git-sha", default=os.getenv("GITHUB_SHA", ""), help="Git commit SHA for this run")
+    p.add_argument("--git-ref", default=os.getenv("GITHUB_REF_NAME", os.getenv("GITHUB_REF", "")), help="Git ref for this run")
+    p.add_argument("--github-repository", default=os.getenv("GITHUB_REPOSITORY", ""), help="GitHub repository slug")
+    p.add_argument("--github-run-id", default=os.getenv("GITHUB_RUN_ID", ""), help="GitHub Actions run id")
+    p.add_argument("--github-run-number", default=os.getenv("GITHUB_RUN_NUMBER", ""), help="GitHub Actions run number")
+    p.add_argument("--github-workflow", default=os.getenv("GITHUB_WORKFLOW", ""), help="GitHub Actions workflow name")
+    p.add_argument("--github-actor", default=os.getenv("GITHUB_ACTOR", ""), help="GitHub Actions actor")
     return p
 
 
