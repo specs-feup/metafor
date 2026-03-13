@@ -420,6 +420,7 @@ class MetaforFujitsuPipeline:
         return [
             self.args.npx,
             self.args.metafor_package,
+            "classic",
             str(self.noop_script_path.resolve()),
             "-p",
             str(source_file.resolve()),
