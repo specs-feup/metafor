@@ -21,6 +21,7 @@ import pt.up.fe.specs.fortran.ast.nodes.stmt.PrintStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.TypeDeclarationStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.*;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.DoStmt;
 import pt.up.fe.specs.fortran.ast.nodes.type.IntegerType;
 import pt.up.fe.specs.fortran.ast.nodes.type.LogicalType;
 import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
