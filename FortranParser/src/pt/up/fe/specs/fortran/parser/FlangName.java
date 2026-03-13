@@ -89,6 +89,13 @@ public enum FlangName implements StringProvider {
     CONCURRENT_CONTROL,
     LOCALITY_SPEC,
 
+    /// OPENMP
+    OPENMP_CONSTRUCT("OpenMPConstruct"),
+    OPENMP_BLOCK_CONSTRUCT("OpenMPBlockConstruct"),
+    OPENMP_LOOP_CONSTRUCT("OpenMPLoopConstruct"),
+    OMP_BEGIN_BLOCK_DIRECTIVE,
+    OMP_BLOCK_DIRECTIVE,
+
     // ATTRIBUTES
     DEFERRED_SHAPE_SPEC_LIST,
     SPECIFICATION_EXPR,
