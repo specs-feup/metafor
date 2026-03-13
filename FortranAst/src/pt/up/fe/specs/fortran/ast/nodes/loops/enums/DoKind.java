@@ -17,7 +17,7 @@ public enum DoKind implements StringProvider {
     WHILE,
     CONCURRENT;
 
-    public static DoKind getKindFromControl(LoopControl control) {
+    public static DoKind fromControl(LoopControl control) {
         if (control instanceof RangeLoopControl) {
             return RANGE;
         }
@@ -28,7 +28,7 @@ public enum DoKind implements StringProvider {
             return CONCURRENT;
         }
 
-        return null;
+        throw new RuntimeException("Unknown do loop control type: " + control.getClass());
     }
 
     private static final Lazy<EnumHelper<DoKind>> HELPER = EnumHelper.newLazyHelper(DoKind.class);
