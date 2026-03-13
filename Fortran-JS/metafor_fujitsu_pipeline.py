@@ -13,10 +13,10 @@ Outputs
 -------
 - results.csv: per-file status for every stage
 - summary.json: machine-readable metrics for the run
-- run_metrics.csv: exactly one metrics row for this run, suitable for CI append
-- history.csv: local append-only run-level metrics for ad-hoc longitudinal tracking
+- history.csv: appended run-level metrics for longitudinal tracking
+- run_metrics.csv: single-row metrics file for CI append workflows
 - report.md: human-readable report
-- github_step_summary.md: concise summary ready for GitHub Actions step summary
+- github_step_summary.md: compact Markdown summary for GitHub Actions
 - logs/: stdout/stderr for commands that ran
 - artifacts/: copied Stage-3 outputs and LLVM IR files for debugging
 
@@ -35,6 +35,7 @@ import re
 import shutil
 import subprocess
 import sys
+import threading
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import asdict, dataclass
@@ -43,7 +44,17 @@ from pathlib import Path
 from typing import Iterable, Optional
 
 
-DEFAULT_NOOP_SCRIPT = """// No-op Metafor script used for round-trip testing.\n"""
+print_lock = threading.Lock()
+
+
+def log(msg: str) -> None:
+    """Thread-safe console logging with timestamp."""
+    with print_lock:
+        ts = datetime.now().strftime("%H:%M:%S")
+        print(f"[{ts}] {msg}", flush=True)
+
+
+DEFAULT_NOOP_SCRIPT = "// No-op Metafor script used for round-trip testing.\n"
 
 
 @dataclass
@@ -111,6 +122,9 @@ class MetaforFujitsuPipeline:
         self.results: dict[str, FileResult] = {}
         self.run_started = datetime.now(timezone.utc)
         self.run_start_perf = time.perf_counter()
+        self.progress_lock = threading.Lock()
+        self.progress_total = 0
+        self.progress_completed = 0
 
         if not self.fortran_root.is_dir():
             raise PipelineError(f"Fortran/ directory not found under {self.repo_root}")
@@ -124,9 +138,17 @@ class MetaforFujitsuPipeline:
         return files
 
     def run(self) -> int:
+        log("Starting Metafor Fujitsu pipeline")
+        log(f"Repository root: {self.repo_root}")
+        log(f"Fortran root: {self.fortran_root}")
+        log(f"Output directory: {self.output_dir}")
+        log(f"Parallel jobs: {self.args.jobs}")
+
         files = self.discover_files()
         if not files:
             raise PipelineError(f"No .f90 files found under {self.fortran_root}")
+
+        log(f"Discovered {len(files)} Fortran files")
 
         for path in files:
             rel = path.relative_to(self.repo_root).as_posix()
@@ -137,36 +159,11 @@ class MetaforFujitsuPipeline:
                 sha256=sha256_file(path),
             )
 
-        self._run_stage(
-            stage_name="stage1",
-            items=files,
-            worker=self._stage1,
-            eligible=lambda _res: True,
-        )
-        self._run_stage(
-            stage_name="stage2",
-            items=files,
-            worker=self._stage2,
-            eligible=lambda res: res.stage1_ok,
-        )
-        self._run_stage(
-            stage_name="stage3",
-            items=files,
-            worker=self._stage3,
-            eligible=lambda res: res.stage2_ok,
-        )
-        self._run_stage(
-            stage_name="stage41",
-            items=files,
-            worker=self._stage41,
-            eligible=lambda res: res.stage3_ok,
-        )
-        self._run_stage(
-            stage_name="stage42",
-            items=files,
-            worker=self._stage42,
-            eligible=lambda res: res.stage3_ok,
-        )
+        self._run_stage("stage1", files, self._stage1, lambda _res: True)
+        self._run_stage("stage2", files, self._stage2, lambda res: res.stage1_ok)
+        self._run_stage("stage3", files, self._stage3, lambda res: res.stage2_ok)
+        self._run_stage("stage41", files, self._stage41, lambda res: res.stage3_ok)
+        self._run_stage("stage42", files, self._stage42, lambda res: res.stage3_ok)
 
         for res in self.results.values():
             if res.stage42_ok and res.stage41_ok:
@@ -180,30 +177,51 @@ class MetaforFujitsuPipeline:
             else:
                 res.final_status = "failed"
 
-        self._write_outputs()
+        summary = self._build_summary()
+        self._log_final_summary(summary)
+        self._write_outputs(summary)
         return 0
 
     def _run_stage(self, stage_name: str, items: Iterable[Path], worker, eligible) -> None:
+        eligible_items: list[Path] = []
+        skipped = 0
+        for path in items:
+            res = self.results[path.relative_to(self.repo_root).as_posix()]
+            if not eligible(res):
+                self._mark_skipped(stage_name, res)
+                skipped += 1
+                continue
+            eligible_items.append(path)
+
+        self.progress_total = len(eligible_items)
+        self.progress_completed = 0
+        stage_started = time.perf_counter()
+        log(
+            f"Starting {stage_name}: {self.progress_total} eligible files"
+            + (f", {skipped} skipped" if skipped else "")
+        )
+
         futures = {}
         with ThreadPoolExecutor(max_workers=self.args.jobs) as pool:
-            for path in items:
-                res = self.results[path.relative_to(self.repo_root).as_posix()]
-                if not eligible(res):
-                    self._mark_skipped(stage_name, res)
-                    continue
+            for path in eligible_items:
                 futures[pool.submit(worker, path)] = path
 
             for future in as_completed(futures):
                 path = futures[future]
+                rel = path.relative_to(self.repo_root).as_posix()
+                res = self.results[rel]
                 try:
                     future.result()
                 except Exception as exc:  # noqa: BLE001
-                    rel = path.relative_to(self.repo_root).as_posix()
-                    res = self.results[rel]
                     self._mark_exception(stage_name, res, exc)
+                finally:
+                    self._log_stage_progress(stage_name, res, time.perf_counter() - stage_started)
+
+        log(f"Completed {stage_name} in {time.perf_counter() - stage_started:.1f}s")
 
     def _stage1(self, path: Path) -> None:
         rel = path.relative_to(self.repo_root).as_posix()
+        log(f"Stage1: flang parsing {rel}")
         cmd = [self.args.flang, "-fsyntax-only", str(path)]
         cr = self._run_command(cmd, log_prefix=f"{safe_name(rel)}__stage1")
         res = self.results[rel]
@@ -213,6 +231,7 @@ class MetaforFujitsuPipeline:
 
     def _stage2(self, path: Path) -> None:
         rel = path.relative_to(self.repo_root).as_posix()
+        log(f"Stage2: flang plugin parsing {rel}")
         plugin_path = Path(self.args.dump_ast_plugin).resolve()
         cmd = [
             self.args.flang,
@@ -231,6 +250,7 @@ class MetaforFujitsuPipeline:
 
     def _stage3(self, path: Path) -> None:
         rel = path.relative_to(self.repo_root).as_posix()
+        log(f"Stage3: running Metafor on {rel}")
         res = self.results[rel]
         work_dir = self._stage_work_dir(rel, "stage3")
         work_dir.mkdir(parents=True, exist_ok=True)
@@ -259,6 +279,7 @@ class MetaforFujitsuPipeline:
 
     def _stage41(self, path: Path) -> None:
         rel = path.relative_to(self.repo_root).as_posix()
+        log(f"Stage4.1: re-running Metafor on Stage 3 output for {rel}")
         res = self.results[rel]
         if not res.stage3_output_file:
             res.stage41_ok = False
@@ -295,6 +316,7 @@ class MetaforFujitsuPipeline:
 
     def _stage42(self, path: Path) -> None:
         rel = path.relative_to(self.repo_root).as_posix()
+        log(f"Stage4.2: compiling and comparing LLVM IR for {rel}")
         res = self.results[rel]
         if not res.stage3_output_file:
             res.stage42_ok = False
@@ -343,6 +365,37 @@ class MetaforFujitsuPipeline:
             res.stage41_note = "skipped: Stage 3 failed"
         elif stage_name == "stage42":
             res.stage42_note = "skipped: Stage 3 failed"
+
+    def _log_stage_progress(self, stage_name: str, res: FileResult, elapsed_s: float) -> None:
+        with self.progress_lock:
+            self.progress_completed += 1
+            completed = self.progress_completed
+            total = self.progress_total
+
+        if stage_name == "stage1":
+            ok = res.stage1_ok
+            note = res.stage1_note
+        elif stage_name == "stage2":
+            ok = res.stage2_ok
+            note = res.stage2_note
+        elif stage_name == "stage3":
+            ok = res.stage3_ok
+            note = res.stage3_note
+        elif stage_name == "stage41":
+            ok = res.stage41_ok
+            note = res.stage41_note
+        elif stage_name == "stage42":
+            ok = res.stage42_ok
+            note = res.stage42_note
+        else:
+            ok = False
+            note = "unknown stage"
+
+        status = "OK" if ok else "FAIL"
+        log(
+            f"[{stage_name} {completed}/{total}] {res.relative_file} {status} - {note} "
+            f"(elapsed {elapsed_s:.1f}s)"
+        )
 
     def _mark_exception(self, stage_name: str, res: FileResult, exc: Exception) -> None:
         note = f"internal error: {type(exc).__name__}: {exc}"
@@ -459,7 +512,7 @@ class MetaforFujitsuPipeline:
         b = normalize_llvm_ir(b_path.read_text(encoding="utf-8", errors="replace"))
         return a == b
 
-    def _write_outputs(self) -> None:
+    def _write_outputs(self, summary: Optional[dict] = None) -> None:
         results_csv = self.output_dir / "results.csv"
         summary_json = self.output_dir / "summary.json"
         report_md = self.output_dir / "report.md"
@@ -470,13 +523,21 @@ class MetaforFujitsuPipeline:
         rows = [asdict(r) for _, r in sorted(self.results.items())]
         write_csv(results_csv, rows)
 
-        summary = self._build_summary()
-        metrics_row = self._build_metrics_row(summary)
+        summary = summary or self._build_summary()
         summary_json.write_text(json.dumps(summary, indent=2), encoding="utf-8")
-        write_csv(run_metrics_csv, [metrics_row])
-        self._append_history(history_csv, metrics_row)
+        self._append_history(history_csv, summary)
+        self._write_run_metrics(run_metrics_csv, summary)
         report_md.write_text(self._build_report(summary), encoding="utf-8")
         github_step_summary_md.write_text(self._build_github_step_summary(summary), encoding="utf-8")
+
+    def _log_final_summary(self, summary: dict) -> None:
+        log("Run completed")
+        log(f"Total files: {summary['total_files']}")
+        log(f"Stage1 success: {summary['stage1_pass']}")
+        log(f"Stage2 success: {summary['stage2_pass']}")
+        log(f"Stage3 success: {summary['stage3_pass']}")
+        log(f"Stage4.1 success: {summary['stage41_pass']}")
+        log(f"Stage4.2 success: {summary['stage42_pass']}")
 
     def _build_summary(self) -> dict:
         total_files = len(self.results)
@@ -485,10 +546,6 @@ class MetaforFujitsuPipeline:
         stage3_pass = sum(r.stage3_ok for r in self.results.values())
         stage41_pass = sum(r.stage41_ok for r in self.results.values())
         stage42_pass = sum(r.stage42_ok for r in self.results.values())
-        complete_successes = sum(
-            r.stage1_ok and r.stage2_ok and r.stage3_ok and r.stage41_ok and r.stage42_ok
-            for r in self.results.values()
-        )
         end_perf = time.perf_counter()
 
         summary = {
@@ -510,18 +567,17 @@ class MetaforFujitsuPipeline:
             "stage3_pass_rate_of_stage2": ratio(stage3_pass, stage2_pass),
             "stage41_pass_rate_of_stage3": ratio(stage41_pass, stage3_pass),
             "stage42_pass_rate_of_stage3": ratio(stage42_pass, stage3_pass),
-            "complete_successes": complete_successes,
+            "complete_successes": sum(
+                r.stage1_ok and r.stage2_ok and r.stage3_ok and r.stage41_ok and r.stage42_ok
+                for r in self.results.values()
+            ),
             "elapsed_s": end_perf - self.run_start_perf,
-            "ci_context": {
-                "run_label": self.args.run_label,
-                "git_sha": self.args.git_sha,
-                "git_ref": self.args.git_ref,
-                "github_repository": self.args.github_repository,
-                "github_run_id": self.args.github_run_id,
-                "github_run_number": self.args.github_run_number,
-                "github_workflow": self.args.github_workflow,
-                "github_actor": self.args.github_actor,
-            },
+            "git_sha": os.environ.get("GITHUB_SHA", ""),
+            "git_ref": os.environ.get("GITHUB_REF", ""),
+            "github_run_id": os.environ.get("GITHUB_RUN_ID", ""),
+            "github_run_number": os.environ.get("GITHUB_RUN_NUMBER", ""),
+            "github_workflow": os.environ.get("GITHUB_WORKFLOW", ""),
+            "github_repository": os.environ.get("GITHUB_REPOSITORY", ""),
             "configuration": {
                 "flang": self.args.flang,
                 "dump_ast_plugin": str(Path(self.args.dump_ast_plugin).resolve()),
@@ -538,18 +594,15 @@ class MetaforFujitsuPipeline:
         }
         return summary
 
-    def _build_metrics_row(self, summary: dict) -> dict[str, object]:
-        ci = summary["ci_context"]
+    def _history_row(self, summary: dict) -> dict[str, object]:
         return {
             "timestamp_utc": summary["timestamp_utc"],
-            "run_label": ci["run_label"],
-            "git_sha": ci["git_sha"],
-            "git_ref": ci["git_ref"],
-            "github_repository": ci["github_repository"],
-            "github_run_id": ci["github_run_id"],
-            "github_run_number": ci["github_run_number"],
-            "github_workflow": ci["github_workflow"],
-            "github_actor": ci["github_actor"],
+            "git_sha": summary["git_sha"],
+            "git_ref": summary["git_ref"],
+            "github_run_id": summary["github_run_id"],
+            "github_run_number": summary["github_run_number"],
+            "github_workflow": summary["github_workflow"],
+            "github_repository": summary["github_repository"],
             "total_files": summary["total_files"],
             "stage1_pass": summary["stage1_pass"],
             "stage2_pass": summary["stage2_pass"],
@@ -557,19 +610,20 @@ class MetaforFujitsuPipeline:
             "stage41_pass": summary["stage41_pass"],
             "stage42_pass": summary["stage42_pass"],
             "complete_successes": summary["complete_successes"],
-            "stage1_pass_rate_total": round(summary["stage1_pass_rate_total"], 8),
-            "stage2_pass_rate_total": round(summary["stage2_pass_rate_total"], 8),
-            "stage3_pass_rate_total": round(summary["stage3_pass_rate_total"], 8),
-            "stage41_pass_rate_total": round(summary["stage41_pass_rate_total"], 8),
-            "stage42_pass_rate_total": round(summary["stage42_pass_rate_total"], 8),
-            "stage2_pass_rate_of_stage1": round(summary["stage2_pass_rate_of_stage1"], 8),
-            "stage3_pass_rate_of_stage2": round(summary["stage3_pass_rate_of_stage2"], 8),
-            "stage41_pass_rate_of_stage3": round(summary["stage41_pass_rate_of_stage3"], 8),
-            "stage42_pass_rate_of_stage3": round(summary["stage42_pass_rate_of_stage3"], 8),
-            "elapsed_s": round(summary["elapsed_s"], 3),
+            "stage1_pass_rate_total": summary["stage1_pass_rate_total"],
+            "stage2_pass_rate_total": summary["stage2_pass_rate_total"],
+            "stage3_pass_rate_total": summary["stage3_pass_rate_total"],
+            "stage41_pass_rate_total": summary["stage41_pass_rate_total"],
+            "stage42_pass_rate_total": summary["stage42_pass_rate_total"],
+            "stage2_pass_rate_of_stage1": summary["stage2_pass_rate_of_stage1"],
+            "stage3_pass_rate_of_stage2": summary["stage3_pass_rate_of_stage2"],
+            "stage41_pass_rate_of_stage3": summary["stage41_pass_rate_of_stage3"],
+            "stage42_pass_rate_of_stage3": summary["stage42_pass_rate_of_stage3"],
+            "elapsed_s": summary["elapsed_s"],
         }
 
-    def _append_history(self, history_csv: Path, row: dict[str, object]) -> None:
+    def _append_history(self, history_csv: Path, summary: dict) -> None:
+        row = self._history_row(summary)
         exists = history_csv.exists()
         with history_csv.open("a", newline="", encoding="utf-8") as fh:
             writer = csv.DictWriter(fh, fieldnames=list(row.keys()))
@@ -577,19 +631,21 @@ class MetaforFujitsuPipeline:
                 writer.writeheader()
             writer.writerow(row)
 
+    def _write_run_metrics(self, run_metrics_csv: Path, summary: dict) -> None:
+        row = self._history_row(summary)
+        with run_metrics_csv.open("w", newline="", encoding="utf-8") as fh:
+            writer = csv.DictWriter(fh, fieldnames=list(row.keys()))
+            writer.writeheader()
+            writer.writerow(row)
+
     def _build_report(self, summary: dict) -> str:
         failures_stage3 = [r.relative_file for r in self.results.values() if r.stage2_ok and not r.stage3_ok][:20]
         failures_stage41 = [r.relative_file for r in self.results.values() if r.stage3_ok and not r.stage41_ok][:20]
         failures_stage42 = [r.relative_file for r in self.results.values() if r.stage3_ok and not r.stage42_ok][:20]
-        ci = summary["ci_context"]
 
         return f"""# Metafor Fujitsu Pipeline Report
 
 Generated: {summary['timestamp_utc']}
-Run label: {ci['run_label']}
-Git SHA: {ci['git_sha']}
-Git ref: {ci['git_ref']}
-GitHub run id: {ci['github_run_id']}
 
 ## Overview
 
@@ -630,9 +686,9 @@ strict idempotence check, while Stage 4.2 is a semantic-preservation proxy using
 
 - `results.csv`: per-file results for all stages
 - `summary.json`: machine-readable metrics for automation
-- `run_metrics.csv`: single-row CI-friendly metrics output
-- `history.csv`: local append-only run summary for trend tracking
-- `github_step_summary.md`: concise markdown summary for GitHub Actions
+- `history.csv`: append-only run summary for trend tracking
+- `run_metrics.csv`: single-row summary for CI append workflows
+- `github_step_summary.md`: compact summary for GitHub Actions
 - `logs/`: stdout/stderr for every executed command
 - `artifacts/`: regenerated files and LLVM IR files for debugging
 
@@ -644,27 +700,26 @@ strict idempotence check, while Stage 4.2 is a semantic-preservation proxy using
 """
 
     def _build_github_step_summary(self, summary: dict) -> str:
-        return f"""## Metafor Fujitsu coverage summary
+        return f"""# Metafor Fujitsu Pipeline
 
-| Metric | Value |
-|---|---:|
-| Total `.f90` files | {summary['total_files']} |
-| Stage 1 pass | {summary['stage1_pass']} ({pct(summary['stage1_pass_rate_total'])}) |
-| Stage 2 pass | {summary['stage2_pass']} ({pct(summary['stage2_pass_rate_total'])}) |
-| Stage 3 pass | {summary['stage3_pass']} ({pct(summary['stage3_pass_rate_total'])}) |
-| Stage 4.1 pass | {summary['stage41_pass']} ({pct(summary['stage41_pass_rate_total'])}) |
-| Stage 4.2 pass | {summary['stage42_pass']} ({pct(summary['stage42_pass_rate_total'])}) |
-| Complete successes | {summary['complete_successes']} |
-| Elapsed time | {summary['elapsed_s']:.2f}s |
+- Timestamp (UTC): `{summary['timestamp_utc']}`
+- Repository: `{summary['github_repository'] or 'n/a'}`
+- Commit: `{summary['git_sha'] or 'n/a'}`
+- Total `.f90` files: **{summary['total_files']}**
+- Stage 1 pass: **{summary['stage1_pass']}** ({pct(summary['stage1_pass_rate_total'])})
+- Stage 2 pass: **{summary['stage2_pass']}** ({pct(summary['stage2_pass_rate_total'])})
+- Stage 3 pass: **{summary['stage3_pass']}** ({pct(summary['stage3_pass_rate_total'])})
+- Stage 4.1 pass: **{summary['stage41_pass']}** ({pct(summary['stage41_pass_rate_total'])})
+- Stage 4.2 pass: **{summary['stage42_pass']}** ({pct(summary['stage42_pass_rate_total'])})
+- Complete successes: **{summary['complete_successes']}**
+- Elapsed: **{summary['elapsed_s']:.2f}s**
 
-### Funnel
+## Funnel
 
-| Transition | Rate |
-|---|---:|
-| Stage 2 / Stage 1 | {pct(summary['stage2_pass_rate_of_stage1'])} |
-| Stage 3 / Stage 2 | {pct(summary['stage3_pass_rate_of_stage2'])} |
-| Stage 4.1 / Stage 3 | {pct(summary['stage41_pass_rate_of_stage3'])} |
-| Stage 4.2 / Stage 3 | {pct(summary['stage42_pass_rate_of_stage3'])} |
+- Stage 2 / Stage 1: {pct(summary['stage2_pass_rate_of_stage1'])}
+- Stage 3 / Stage 2: {pct(summary['stage3_pass_rate_of_stage2'])}
+- Stage 4.1 / Stage 3: {pct(summary['stage41_pass_rate_of_stage3'])}
+- Stage 4.2 / Stage 3: {pct(summary['stage42_pass_rate_of_stage3'])}
 """
 
 
@@ -793,14 +848,6 @@ def build_arg_parser() -> argparse.ArgumentParser:
     p.add_argument("--timeout", type=int, default=120, help="Per-command timeout in seconds")
     p.add_argument("--limit", type=int, default=0, help="Optional cap on number of .f90 files to process")
     p.add_argument("--node-path", default="", help="Optional NODE_PATH value")
-    p.add_argument("--run-label", default=os.getenv("GITHUB_WORKFLOW", "manual"), help="Label for this run")
-    p.add_argument("--git-sha", default=os.getenv("GITHUB_SHA", ""), help="Git commit SHA for this run")
-    p.add_argument("--git-ref", default=os.getenv("GITHUB_REF_NAME", os.getenv("GITHUB_REF", "")), help="Git ref for this run")
-    p.add_argument("--github-repository", default=os.getenv("GITHUB_REPOSITORY", ""), help="GitHub repository slug")
-    p.add_argument("--github-run-id", default=os.getenv("GITHUB_RUN_ID", ""), help="GitHub Actions run id")
-    p.add_argument("--github-run-number", default=os.getenv("GITHUB_RUN_NUMBER", ""), help="GitHub Actions run number")
-    p.add_argument("--github-workflow", default=os.getenv("GITHUB_WORKFLOW", ""), help="GitHub Actions workflow name")
-    p.add_argument("--github-actor", default=os.getenv("GITHUB_ACTOR", ""), help="GitHub Actions actor")
     return p
 
 
