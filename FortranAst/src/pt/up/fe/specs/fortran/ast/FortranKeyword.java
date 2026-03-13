@@ -11,7 +11,12 @@ public enum FortranKeyword {
     // Conditional statements
     IF,
     THEN,
-    ELSE;
+    ELSE,
+    SELECT,
+    CASE,
+    DEFAULT,
+
+    ;
 
     public String getKeyword(boolean lowercase) {
         var keyword = name();

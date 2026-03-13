@@ -26,6 +26,10 @@ import pt.up.fe.specs.fortran.ast.nodes.stmt.FormatStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.PrintStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.TypeDeclarationStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.*;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.CaseBlock;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.CaseConstruct;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.EndSelectStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.SelectCaseStmt;
 import pt.up.fe.specs.fortran.ast.nodes.type.IntegerType;
 import pt.up.fe.specs.fortran.ast.nodes.type.LogicalType;
 import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
@@ -67,6 +71,7 @@ public class Nodes {
         processors.put(TypeDeclarationStmt.class, s::typeDeclarationStmt);
         processors.put(AssignmentStmt.class, s::assignmentStmt);
         processors.put(StmtBlock.class, s::stmtBlock);
+
         processors.put(IfConstruct.class, s::ifConstruct);
         processors.put(IfThenStmt.class, s::ifThenStmt);
         processors.put(ElseIfBlock.class, s::elseIfBlock);
@@ -76,6 +81,11 @@ public class Nodes {
         processors.put(EndIfStmt.class, s::endIfStmt);
         processors.put(IfStmt.class, s::ifStmt);
         processors.put(DoStmt.class, s::doStmt);
+
+        processors.put(CaseConstruct.class, s::caseConstruct);
+        processors.put(SelectCaseStmt.class, s::selectCaseStmt);
+        processors.put(CaseBlock.class, s::caseBlock);
+        processors.put(EndSelectStmt.class, s::endSelectStmt);
 
         var e = new ExprProcessors(data);
         processors.put(StringLiteral.class, e::stringLiteral);
