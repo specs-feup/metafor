@@ -2,8 +2,10 @@ package pt.up.fe.specs.fortran.ast.nodes.omp.enums;
 
 import pt.up.fe.specs.util.providers.StringProvider;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public enum OmpDirectiveKind implements StringProvider {
     PARALLEL,
@@ -13,7 +15,7 @@ public enum OmpDirectiveKind implements StringProvider {
         return Arrays.stream(directive.split(" "))
                 .map(String::toUpperCase)
                 .map(OmpDirectiveKind::valueOf)
-                .toList();
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     @Override

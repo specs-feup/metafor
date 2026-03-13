@@ -11,7 +11,8 @@ public enum FortranKeyword {
     // Conditional statements
     IF,
     THEN,
-    ELSE;
+    ELSE,
+    OMP;
 
     public String getKeyword(boolean lowercase) {
         var keyword = name();
