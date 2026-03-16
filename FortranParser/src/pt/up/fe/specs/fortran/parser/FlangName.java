@@ -97,6 +97,11 @@ public enum FlangName implements StringProvider {
     OMP_BLOCK_DIRECTIVE,
     OMP_BEGIN_LOOP_DIRECTIVE,
     OMP_LOOP_DIRECTIVE,
+    PUBLIC,
+    PRIVATE,
+    FIRST_PRIVATE("Firstprivate"),
+    OMP_OBJECT,
+    OMP_OBJECT_LIST,
 
     // ATTRIBUTES
     DEFERRED_SHAPE_SPEC_LIST,

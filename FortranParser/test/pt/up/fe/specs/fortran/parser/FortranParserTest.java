@@ -210,4 +210,9 @@ public class FortranParserTest {
     void testOmpDo() {
         testJson("omp/omp_do.json");
     }
+
+    @Test
+    void testOmpClause() {
+        testJson("omp/omp_clause.json");
+    }
 }

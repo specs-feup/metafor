@@ -1,8 +1,12 @@
 package pt.up.fe.specs.fortran.parser.processors;
 
+import pt.up.fe.specs.fortran.ast.nodes.expr.BinaryOperator;
+import pt.up.fe.specs.fortran.ast.nodes.expr.enums.BinaryOperatorKind;
 import pt.up.fe.specs.fortran.ast.nodes.omp.OmpBlockConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.omp.OmpConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.omp.OmpLoopConstruct;
+import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpDataSharingClause;
+import pt.up.fe.specs.fortran.ast.nodes.omp.enums.OmpClauseKind;
 import pt.up.fe.specs.fortran.ast.nodes.omp.enums.OmpDirectiveKind;
 import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.DoStmt;
@@ -36,5 +40,15 @@ public class OmpProcessors extends ANodeProcessor {
 
         DoStmt loop = (DoStmt) getChild(ompLoopConstruct, FlangName.DO_CONSTRUCT);
         ompLoopConstruct.addChild(loop);
+    }
+
+    public void ompDataSharingClause(OmpDataSharingClause ompDataSharingClause) {
+        ompDataSharingClause.addChildren(
+                getChildren(attributes(ompDataSharingClause).getString(FlangName.OMP_OBJECT_LIST.getString()), FlangName.OMP_OBJECT)
+        );
+
+        String kind = attributes(ompDataSharingClause).getString("kind");
+
+        ompDataSharingClause.set(OmpDataSharingClause.KIND, OmpClauseKind.valueOf(kind));
     }
 }

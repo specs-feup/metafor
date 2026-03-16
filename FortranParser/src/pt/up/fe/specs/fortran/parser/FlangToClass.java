@@ -13,6 +13,7 @@ import pt.up.fe.specs.fortran.ast.nodes.loops.RangeLoopControl;
 import pt.up.fe.specs.fortran.ast.nodes.expr.*;
 import pt.up.fe.specs.fortran.ast.nodes.omp.OmpBlockConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.omp.OmpLoopConstruct;
+import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpDataSharingClause;
 import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
 import pt.up.fe.specs.fortran.ast.nodes.program.FortranFile;
 import pt.up.fe.specs.fortran.ast.nodes.program.MainProgram;
@@ -105,6 +106,9 @@ public class FlangToClass {
         /// OPENMP
         NAME_TO_CLASS.put(FlangName.OPENMP_BLOCK_CONSTRUCT, OmpBlockConstruct.class);
         NAME_TO_CLASS.put(FlangName.OPENMP_LOOP_CONSTRUCT, OmpLoopConstruct.class);
+        NAME_TO_CLASS.put(FlangName.PUBLIC, OmpDataSharingClause.class);
+        NAME_TO_CLASS.put(FlangName.PRIVATE, OmpDataSharingClause.class);
+        NAME_TO_CLASS.put(FlangName.FIRST_PRIVATE, OmpDataSharingClause.class);
 
     }
 
