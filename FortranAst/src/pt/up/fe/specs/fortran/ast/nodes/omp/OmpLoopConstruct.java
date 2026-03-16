@@ -25,7 +25,7 @@ public class OmpLoopConstruct extends OmpConstruct {
                 .map(OmpDirectiveKind::getString)
                 .collect(Collectors.joining(" "));
 
-        code.append("!$").append(FortranKeyword.OMP).append(" ").append(directive);
+        code.append("!$").append(FortranKeyword.OMP).append(" ").append(directive).append(" ").append(getClauseCode());
 
         code.append(ln()).append(getLoop().getCode()).append(ln());
 

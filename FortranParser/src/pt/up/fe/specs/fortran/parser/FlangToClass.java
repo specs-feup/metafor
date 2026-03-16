@@ -106,7 +106,7 @@ public class FlangToClass {
         /// OPENMP
         NAME_TO_CLASS.put(FlangName.OPENMP_BLOCK_CONSTRUCT, OmpBlockConstruct.class);
         NAME_TO_CLASS.put(FlangName.OPENMP_LOOP_CONSTRUCT, OmpLoopConstruct.class);
-        NAME_TO_CLASS.put(FlangName.PUBLIC, OmpDataSharingClause.class);
+        NAME_TO_CLASS.put(FlangName.SHARED, OmpDataSharingClause.class);
         NAME_TO_CLASS.put(FlangName.PRIVATE, OmpDataSharingClause.class);
         NAME_TO_CLASS.put(FlangName.FIRST_PRIVATE, OmpDataSharingClause.class);
 

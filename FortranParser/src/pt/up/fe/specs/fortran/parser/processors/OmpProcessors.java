@@ -22,6 +22,7 @@ public class OmpProcessors extends ANodeProcessor {
 
     public void ompBlockConstruct(OmpBlockConstruct ompBlockConstruct) {
         String directive = attributes().getString(ompBlockConstruct, "directive", FlangName.OMP_BEGIN_BLOCK_DIRECTIVE, FlangName.OMP_BLOCK_DIRECTIVE);
+        String clauseList = attributes().getString(ompBlockConstruct, "id", FlangName.OMP_BEGIN_BLOCK_DIRECTIVE, FlangName.OMP_CLAUSE_LIST);
 
         List<OmpDirectiveKind> kinds = OmpDirectiveKind.getKinds(directive);
 
@@ -29,10 +30,13 @@ public class OmpProcessors extends ANodeProcessor {
 
         Execution body = factory().newNode(Execution.class, getChildren(ompBlockConstruct, FlangName.EXECUTION_PART_CONSTRUCT));
         ompBlockConstruct.addChild(body);
+
+        ompBlockConstruct.addChildren(getChildren(clauseList, FlangName.OMP_CLAUSE));
     }
 
     public void ompLoopConstruct(OmpLoopConstruct ompLoopConstruct) {
         String directive = attributes().getString(ompLoopConstruct, "directive", FlangName.OMP_BEGIN_LOOP_DIRECTIVE, FlangName.OMP_LOOP_DIRECTIVE);
+        String clauseList = attributes().getString(ompLoopConstruct, "id", FlangName.OMP_BEGIN_LOOP_DIRECTIVE, FlangName.OMP_CLAUSE_LIST);
 
         List<OmpDirectiveKind> kinds = OmpDirectiveKind.getKinds(directive);
 
@@ -40,6 +44,8 @@ public class OmpProcessors extends ANodeProcessor {
 
         DoStmt loop = (DoStmt) getChild(ompLoopConstruct, FlangName.DO_CONSTRUCT);
         ompLoopConstruct.addChild(loop);
+
+
     }
 
     public void ompDataSharingClause(OmpDataSharingClause ompDataSharingClause) {
