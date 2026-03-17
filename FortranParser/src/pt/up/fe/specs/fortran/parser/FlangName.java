@@ -85,6 +85,8 @@ public enum FlangName implements StringProvider {
     ARRAY_CONSTRUCTOR,
     AC_SPEC,
     AC_VALUE,
+    AC_IMPLIED_DO,
+    AC_IMPLIED_DO_CONTROL,
 
     /// TYPEs
     DECLARATION_TYPE_SPEC,

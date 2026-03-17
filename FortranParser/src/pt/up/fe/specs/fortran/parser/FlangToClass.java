@@ -92,6 +92,8 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.GE, BinaryOperator.class);
         NAME_TO_CLASS.put(FlangName.ARRAY_CONSTRUCTOR, ArrayConstructor.class);
         NAME_TO_CLASS.put(FlangName.AC_SPEC, AcSpecification.class);
+        NAME_TO_CLASS.put(FlangName.AC_IMPLIED_DO, AcImpliedDo.class);
+        NAME_TO_CLASS.put(FlangName.AC_IMPLIED_DO_CONTROL, AcImpliedDoControl.class);
 
         /// TYPEs
         NAME_TO_CLASS.put(FlangName.INTEGER_TYPE_SPEC, IntegerType.class);

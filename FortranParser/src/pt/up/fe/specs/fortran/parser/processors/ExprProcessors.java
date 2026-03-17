@@ -1,13 +1,8 @@
 package pt.up.fe.specs.fortran.parser.processors;
 
-import pt.up.fe.specs.fortran.ast.nodes.expr.BinaryOperator;
-import pt.up.fe.specs.fortran.ast.nodes.expr.IntLiteral;
-import pt.up.fe.specs.fortran.ast.nodes.expr.LogicalLiteral;
-import pt.up.fe.specs.fortran.ast.nodes.expr.ParenExpr;
-import pt.up.fe.specs.fortran.ast.nodes.expr.StringLiteral;
-import pt.up.fe.specs.fortran.ast.nodes.expr.ArrayConstructor;
-import pt.up.fe.specs.fortran.ast.nodes.expr.AcSpecification;
+import pt.up.fe.specs.fortran.ast.nodes.expr.*;
 import pt.up.fe.specs.fortran.ast.nodes.expr.enums.BinaryOperatorKind;
+import pt.up.fe.specs.fortran.parser.FlangAttributes;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 
@@ -55,6 +50,16 @@ public class ExprProcessors extends ANodeProcessor {
             acSpecification.addChild(type);
         }
         acSpecification.addChildren(acValueList);
+    }
+
+    public void acImpliedDo(AcImpliedDo acImpliedDo) {
+        acImpliedDo.addChild(getChild(acImpliedDo, "AcImpliedDoControl"));
+        acImpliedDo.addChildren(getChildren(acImpliedDo, "AcValue"));
+    }
+
+    public void acImpliedDoControl(AcImpliedDoControl control) {
+        var rangeControl = getChild(control, "value");
+        control.addChild(rangeControl);
     }
 
 }
