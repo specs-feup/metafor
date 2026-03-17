@@ -24,6 +24,6 @@ PROGRAM test_implied_do
     arr6 = [((i + j, i = 1, 3), j = 1, 3)]
 
     ! Multiple values per iteration
-    arr7 = [(i, i * 10, i * 100, i = 1, 5)]
+    c = [(i, i * 10, i * 100, i = 1, 5)]
 
 END PROGRAM test_implied_do
