@@ -1,292 +1,325 @@
 {
   "nodes": [
     {
-      "id": "0x55abf6308cb0-Program",
+      "id": "0x55d61f993cb0-Program",
       "ProgramUnit": [
-        "0x55abf6331540-ProgramUnit"
+        "0x55d61f9bc540-ProgramUnit"
       ]
     },
     {
-      "id": "0x55abf6331540-ProgramUnit",
-      "value": "0x55abf63358e0-MainProgram"
+      "id": "0x55d61f9bc540-ProgramUnit",
+      "variantType": "MainProgram",
+      "MainProgram": "0x55d61f9c08e0-MainProgram"
     },
     {
-      "id": "0x55abf63358e0-MainProgram",
-      "Statement<ProgramStmt>": "0x55abf6335a28-Statement",
-      "SpecificationPart": "0x55abf6335980-SpecificationPart",
-      "ExecutionPart": "0x55abf6335968-ExecutionPart",
-      "Statement<EndProgramStmt>": "0x55abf63358e0-Statement"
+      "id": "0x55d61f9c08e0-MainProgram",
+      "Statement<ProgramStmt>": "0x55d61f9c0a28-Statement",
+      "SpecificationPart": "0x55d61f9c0980-SpecificationPart",
+      "ExecutionPart": "0x55d61f9c0968-ExecutionPart",
+      "Statement<EndProgramStmt>": "0x55d61f9c08e0-Statement"
     },
     {
-      "id": "0x55abf6335a28-Statement",
-      "statement": "0x55abf6335a38-ProgramStmt",
+      "id": "0x55d61f9c0a28-Statement",
+      "statement": "0x55d61f9c0a38-ProgramStmt",
       "source": "program hello"
     },
     {
-      "id": "0x55abf6335a38-ProgramStmt",
-      "Name": "0x55abf6335a38-Name"
+      "id": "0x55d61f9c0a38-ProgramStmt",
+      "Name": "0x55d61f9c0a38-Name"
     },
     {
-      "id": "0x55abf6335a38-Name",
+      "id": "0x55d61f9c0a38-Name",
       "source": "hello"
     },
     {
-      "id": "0x55abf6335980-SpecificationPart",
-      "ImplicitPart": "0x55abf6335998-ImplicitPart"
+      "id": "0x55d61f9c0980-SpecificationPart",
+      "ImplicitPart": "0x55d61f9c0998-ImplicitPart"
     },
     {
-      "id": "0x55abf6335998-ImplicitPart"
+      "id": "0x55d61f9c0998-ImplicitPart"
     },
     {
-      "id": "0x55abf6335968-ExecutionPart",
+      "id": "0x55d61f9c0968-ExecutionPart",
       "ExecutionPartConstruct": [
-        "0x55abf6332f10-ExecutionPartConstruct",
-        "0x55abf6334700-ExecutionPartConstruct",
-        "0x55abf6334840-ExecutionPartConstruct",
-        "0x55abf630f5a0-ExecutionPartConstruct"
+        "0x55d61f9bdf10-ExecutionPartConstruct",
+        "0x55d61f9bf700-ExecutionPartConstruct",
+        "0x55d61f9bf840-ExecutionPartConstruct",
+        "0x55d61f99a5a0-ExecutionPartConstruct"
       ]
     },
     {
-      "id": "0x55abf6335968-ExecutionPartConstruct"
+      "id": "0x55d61f9c0968-ExecutionPartConstruct"
     },
     {
-      "id": "0x55abf6332f10-ExecutionPartConstruct",
-      "value": "0x55abf6332f10-ExecutableConstruct"
+      "id": "0x55d61f9bdf10-ExecutionPartConstruct",
+      "variantType": "ExecutableConstruct",
+      "ExecutableConstruct": "0x55d61f9bdf10-ExecutableConstruct"
     },
     {
-      "id": "0x55abf6332f10-ExecutableConstruct",
-      "value<ActionStmt>": "0x55abf6332f10-Statement"
+      "id": "0x55d61f9bdf10-ExecutableConstruct",
+      "variantType": "Statement",
+      "Statement<ActionStmt>": "0x55d61f9bdf10-Statement"
     },
     {
-      "id": "0x55abf6332f10-Statement",
-      "statement": "0x55abf6332f20-ActionStmt",
+      "id": "0x55d61f9bdf10-Statement",
+      "statement": "0x55d61f9bdf20-ActionStmt",
       "source": "print *, 'Hello, World!'"
     },
     {
-      "id": "0x55abf6332f20-ActionStmt",
-      "value": "0x55abf63342a0-PrintStmt"
+      "id": "0x55d61f9bdf20-ActionStmt",
+      "variantType": "PrintStmt",
+      "PrintStmt": "0x55d61f9bf2a0-PrintStmt"
     },
     {
-      "id": "0x55abf63342a0-PrintStmt",
-      "Format": "0x55abf63342b8-Format",
+      "id": "0x55d61f9bf2a0-PrintStmt",
+      "Format": "0x55d61f9bf2b8-Format",
       "OutputItem": [
-        "0x55abf6334150-OutputItem"
+        "0x55d61f9bf150-OutputItem"
       ]
     },
     {
-      "id": "0x55abf63342b8-Format",
-      "value": "0x55abf63342b8-Star"
+      "id": "0x55d61f9bf2b8-Format",
+      "variantType": "Star",
+      "Star": "0x55d61f9bf2b8-Star"
     },
     {
-      "id": "0x55abf63342b8-Star"
+      "id": "0x55d61f9bf2b8-Star"
     },
     {
-      "id": "0x55abf6334150-OutputItem",
-      "value": "0x55abf6334150-Expr"
+      "id": "0x55d61f9bf150-OutputItem",
+      "variantType": "Expr",
+      "Expr": "0x55d61f9bf150-Expr"
     },
     {
-      "id": "0x55abf6334150-Expr",
-      "value": "0x55abf6334170-LiteralConstant"
+      "id": "0x55d61f9bf150-Expr",
+      "variantType": "LiteralConstant",
+      "LiteralConstant": "0x55d61f9bf170-LiteralConstant"
     },
     {
-      "id": "0x55abf6334170-LiteralConstant",
-      "value": "0x55abf6334170-CharLiteralConstant"
+      "id": "0x55d61f9bf170-LiteralConstant",
+      "variantType": "CharLiteralConstant",
+      "CharLiteralConstant": "0x55d61f9bf170-CharLiteralConstant"
     },
     {
-      "id": "0x55abf6334170-CharLiteralConstant",
+      "id": "0x55d61f9bf170-CharLiteralConstant",
       "string": "Hello, World!"
     },
     {
-      "id": "0x55abf6334700-ExecutionPartConstruct",
-      "value": "0x55abf6334700-ExecutableConstruct"
+      "id": "0x55d61f9bf700-ExecutionPartConstruct",
+      "variantType": "ExecutableConstruct",
+      "ExecutableConstruct": "0x55d61f9bf700-ExecutableConstruct"
     },
     {
-      "id": "0x55abf6334700-ExecutableConstruct",
-      "value<ActionStmt>": "0x55abf6334700-Statement"
+      "id": "0x55d61f9bf700-ExecutableConstruct",
+      "variantType": "Statement",
+      "Statement<ActionStmt>": "0x55d61f9bf700-Statement"
     },
     {
-      "id": "0x55abf6334700-Statement",
-      "statement": "0x55abf6334710-ActionStmt",
+      "id": "0x55d61f9bf700-Statement",
+      "statement": "0x55d61f9bf710-ActionStmt",
       "source": "print 100, 'Hello, World!', 2"
     },
     {
-      "id": "0x55abf6334710-ActionStmt",
-      "value": "0x55abf63345f0-PrintStmt"
+      "id": "0x55d61f9bf710-ActionStmt",
+      "variantType": "PrintStmt",
+      "PrintStmt": "0x55d61f9bf5f0-PrintStmt"
     },
     {
-      "id": "0x55abf63345f0-PrintStmt",
-      "Format": "0x55abf6334608-Format",
+      "id": "0x55d61f9bf5f0-PrintStmt",
+      "Format": "0x55d61f9bf608-Format",
       "OutputItem": [
-        "0x55abf6334510-OutputItem",
-        "0x55abf6334420-OutputItem"
+        "0x55d61f9bf510-OutputItem",
+        "0x55d61f9bf420-OutputItem"
       ]
     },
     {
-      "id": "0x55abf6334608-Format",
-      "value": "100"
+      "id": "0x55d61f9bf608-Format",
+      "variantType": "uint64_t",
+      "uint64_t": "100"
     },
     {
-      "id": "0x55abf6334510-OutputItem",
-      "value": "0x55abf6334510-Expr"
+      "id": "0x55d61f9bf510-OutputItem",
+      "variantType": "Expr",
+      "Expr": "0x55d61f9bf510-Expr"
     },
     {
-      "id": "0x55abf6334510-Expr",
-      "value": "0x55abf6334530-LiteralConstant"
+      "id": "0x55d61f9bf510-Expr",
+      "variantType": "LiteralConstant",
+      "LiteralConstant": "0x55d61f9bf530-LiteralConstant"
     },
     {
-      "id": "0x55abf6334530-LiteralConstant",
-      "value": "0x55abf6334530-CharLiteralConstant"
+      "id": "0x55d61f9bf530-LiteralConstant",
+      "variantType": "CharLiteralConstant",
+      "CharLiteralConstant": "0x55d61f9bf530-CharLiteralConstant"
     },
     {
-      "id": "0x55abf6334530-CharLiteralConstant",
+      "id": "0x55d61f9bf530-CharLiteralConstant",
       "string": "Hello, World!"
     },
     {
-      "id": "0x55abf6334420-OutputItem",
-      "value": "0x55abf6334420-Expr"
+      "id": "0x55d61f9bf420-OutputItem",
+      "variantType": "Expr",
+      "Expr": "0x55d61f9bf420-Expr"
     },
     {
-      "id": "0x55abf6334420-Expr",
-      "value": "0x55abf6334440-LiteralConstant"
+      "id": "0x55d61f9bf420-Expr",
+      "variantType": "LiteralConstant",
+      "LiteralConstant": "0x55d61f9bf440-LiteralConstant"
     },
     {
-      "id": "0x55abf6334440-LiteralConstant",
-      "value": "0x55abf6334440-IntLiteralConstant"
+      "id": "0x55d61f9bf440-LiteralConstant",
+      "variantType": "IntLiteralConstant",
+      "IntLiteralConstant": "0x55d61f9bf440-IntLiteralConstant"
     },
     {
-      "id": "0x55abf6334440-IntLiteralConstant",
+      "id": "0x55d61f9bf440-IntLiteralConstant",
       "CharBlock": "2"
     },
     {
-      "id": "0x55abf6334840-ExecutionPartConstruct",
-      "value<FormatStmt>": "0x55abf6334840-Statement"
+      "id": "0x55d61f9bf840-ExecutionPartConstruct",
+      "variantType": "Statement",
+      "Statement<FormatStmt>": "0x55d61f9bf840-Statement"
     },
     {
-      "id": "0x55abf6334840-Statement",
-      "statement": "0x55abf63316c0-FormatStmt",
+      "id": "0x55d61f9bf840-Statement",
+      "statement": "0x55d61f9bc6c0-FormatStmt",
       "label": "100",
       "source": "100 format(a, i3)"
     },
     {
-      "id": "0x55abf63316c0-FormatStmt",
-      "FormatSpecification": "0x55abf63316c0-FormatSpecification"
+      "id": "0x55d61f9bc6c0-FormatStmt",
+      "FormatSpecification": "0x55d61f9bc6c0-FormatSpecification"
     },
     {
-      "id": "0x55abf63316c0-FormatSpecification",
+      "id": "0x55d61f9bc6c0-FormatSpecification",
       "items": [
-        "0x55abf6333c10-FormatItem",
-        "0x55abf63331e0-FormatItem"
+        "0x55d61f9bec10-FormatItem",
+        "0x55d61f9be1e0-FormatItem"
       ],
       "unlimitedItems": []
     },
     {
-      "id": "0x55abf6333c10-FormatItem",
-      "value": "0x55abf6333c20-IntrinsicTypeDataEditDesc"
+      "id": "0x55d61f9bec10-FormatItem",
+      "variantType": "IntrinsicTypeDataEditDesc",
+      "IntrinsicTypeDataEditDesc": "0x55d61f9bec20-IntrinsicTypeDataEditDesc"
     },
     {
-      "id": "0x55abf6333c20-IntrinsicTypeDataEditDesc",
-      "kind": "0x55abf6333c20-Kind"
+      "id": "0x55d61f9bec20-IntrinsicTypeDataEditDesc",
+      "kind": "0x55d61f9bec20-Kind"
     },
     {
-      "id": "0x55abf6333c20-Kind"
+      "id": "0x55d61f9bec20-Kind"
     },
     {
-      "id": "0x55abf63331e0-FormatItem",
-      "value": "0x55abf63331f0-IntrinsicTypeDataEditDesc"
+      "id": "0x55d61f9be1e0-FormatItem",
+      "variantType": "IntrinsicTypeDataEditDesc",
+      "IntrinsicTypeDataEditDesc": "0x55d61f9be1f0-IntrinsicTypeDataEditDesc"
     },
     {
-      "id": "0x55abf63331f0-IntrinsicTypeDataEditDesc",
-      "kind": "0x55abf63331f0-Kind",
+      "id": "0x55d61f9be1f0-IntrinsicTypeDataEditDesc",
+      "kind": "0x55d61f9be1f0-Kind",
       "width": "3"
     },
     {
-      "id": "0x55abf63331f0-Kind"
+      "id": "0x55d61f9be1f0-Kind"
     },
     {
-      "id": "0x55abf630f5a0-ExecutionPartConstruct",
-      "value": "0x55abf630f5a0-ExecutableConstruct"
+      "id": "0x55d61f99a5a0-ExecutionPartConstruct",
+      "variantType": "ExecutableConstruct",
+      "ExecutableConstruct": "0x55d61f99a5a0-ExecutableConstruct"
     },
     {
-      "id": "0x55abf630f5a0-ExecutableConstruct",
-      "value<ActionStmt>": "0x55abf630f5a0-Statement"
+      "id": "0x55d61f99a5a0-ExecutableConstruct",
+      "variantType": "Statement",
+      "Statement<ActionStmt>": "0x55d61f99a5a0-Statement"
     },
     {
-      "id": "0x55abf630f5a0-Statement",
-      "statement": "0x55abf630f5b0-ActionStmt",
+      "id": "0x55d61f99a5a0-Statement",
+      "statement": "0x55d61f99a5b0-ActionStmt",
       "label": "20",
       "source": "20 print '(A, F6.3)', 'Value = ', 3"
     },
     {
-      "id": "0x55abf630f5b0-ActionStmt",
-      "value": "0x55abf6335750-PrintStmt"
+      "id": "0x55d61f99a5b0-ActionStmt",
+      "variantType": "PrintStmt",
+      "PrintStmt": "0x55d61f9c0750-PrintStmt"
     },
     {
-      "id": "0x55abf6335750-PrintStmt",
-      "Format": "0x55abf6335768-Format",
+      "id": "0x55d61f9c0750-PrintStmt",
+      "Format": "0x55d61f9c0768-Format",
       "OutputItem": [
-        "0x55abf6335670-OutputItem",
-        "0x55abf6335580-OutputItem"
+        "0x55d61f9c0670-OutputItem",
+        "0x55d61f9c0580-OutputItem"
       ]
     },
     {
-      "id": "0x55abf6335768-Format",
-      "value": "0x55abf6335768-Expr"
+      "id": "0x55d61f9c0768-Format",
+      "variantType": "Expr",
+      "Expr": "0x55d61f9c0768-Expr"
     },
     {
-      "id": "0x55abf6335768-Expr",
-      "value": "0x55abf6335788-LiteralConstant"
+      "id": "0x55d61f9c0768-Expr",
+      "variantType": "LiteralConstant",
+      "LiteralConstant": "0x55d61f9c0788-LiteralConstant"
     },
     {
-      "id": "0x55abf6335788-LiteralConstant",
-      "value": "0x55abf6335788-CharLiteralConstant"
+      "id": "0x55d61f9c0788-LiteralConstant",
+      "variantType": "CharLiteralConstant",
+      "CharLiteralConstant": "0x55d61f9c0788-CharLiteralConstant"
     },
     {
-      "id": "0x55abf6335788-CharLiteralConstant",
+      "id": "0x55d61f9c0788-CharLiteralConstant",
       "string": "(A, F6.3)"
     },
     {
-      "id": "0x55abf6335670-OutputItem",
-      "value": "0x55abf6335670-Expr"
+      "id": "0x55d61f9c0670-OutputItem",
+      "variantType": "Expr",
+      "Expr": "0x55d61f9c0670-Expr"
     },
     {
-      "id": "0x55abf6335670-Expr",
-      "value": "0x55abf6335690-LiteralConstant"
+      "id": "0x55d61f9c0670-Expr",
+      "variantType": "LiteralConstant",
+      "LiteralConstant": "0x55d61f9c0690-LiteralConstant"
     },
     {
-      "id": "0x55abf6335690-LiteralConstant",
-      "value": "0x55abf6335690-CharLiteralConstant"
+      "id": "0x55d61f9c0690-LiteralConstant",
+      "variantType": "CharLiteralConstant",
+      "CharLiteralConstant": "0x55d61f9c0690-CharLiteralConstant"
     },
     {
-      "id": "0x55abf6335690-CharLiteralConstant",
+      "id": "0x55d61f9c0690-CharLiteralConstant",
       "string": "Value = "
     },
     {
-      "id": "0x55abf6335580-OutputItem",
-      "value": "0x55abf6335580-Expr"
+      "id": "0x55d61f9c0580-OutputItem",
+      "variantType": "Expr",
+      "Expr": "0x55d61f9c0580-Expr"
     },
     {
-      "id": "0x55abf6335580-Expr",
-      "value": "0x55abf63355a0-LiteralConstant"
+      "id": "0x55d61f9c0580-Expr",
+      "variantType": "LiteralConstant",
+      "LiteralConstant": "0x55d61f9c05a0-LiteralConstant"
     },
     {
-      "id": "0x55abf63355a0-LiteralConstant",
-      "value": "0x55abf63355a0-IntLiteralConstant"
+      "id": "0x55d61f9c05a0-LiteralConstant",
+      "variantType": "IntLiteralConstant",
+      "IntLiteralConstant": "0x55d61f9c05a0-IntLiteralConstant"
     },
     {
-      "id": "0x55abf63355a0-IntLiteralConstant",
+      "id": "0x55d61f9c05a0-IntLiteralConstant",
       "CharBlock": "3"
     },
     {
-      "id": "0x55abf63358e0-Statement",
-      "statement": "0x55abf63358f0-EndProgramStmt",
+      "id": "0x55d61f9c08e0-Statement",
+      "statement": "0x55d61f9c08f0-EndProgramStmt",
       "source": "end program hello"
     },
     {
-      "id": "0x55abf63358f0-EndProgramStmt",
-      "Name": "0x55abf63358f0-Name"
+      "id": "0x55d61f9c08f0-EndProgramStmt",
+      "Name": "0x55d61f9c08f0-Name"
     },
     {
-      "id": "0x55abf63358f0-Name",
+      "id": "0x55d61f9c08f0-Name",
       "source": "hello"
     }
   ],

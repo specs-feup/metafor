@@ -1,1042 +1,1178 @@
 {
   "nodes": [
     {
-      "id": "0x5568af26ccb0-Program",
+      "id": "0x558852c6ccb0-Program",
       "ProgramUnit": [
-        "0x5568af299040-ProgramUnit"
+        "0x558852c99040-ProgramUnit"
       ]
     },
     {
-      "id": "0x5568af299040-ProgramUnit",
-      "value": "0x5568af29bf80-MainProgram"
+      "id": "0x558852c99040-ProgramUnit",
+      "variantType": "MainProgram",
+      "MainProgram": "0x558852c9bf80-MainProgram"
     },
     {
-      "id": "0x5568af29bf80-MainProgram",
-      "Statement<ProgramStmt>": "0x5568af29c0c8-Statement",
-      "SpecificationPart": "0x5568af29c020-SpecificationPart",
-      "ExecutionPart": "0x5568af29c008-ExecutionPart",
-      "Statement<EndProgramStmt>": "0x5568af29bf80-Statement"
+      "id": "0x558852c9bf80-MainProgram",
+      "Statement<ProgramStmt>": "0x558852c9c0c8-Statement",
+      "SpecificationPart": "0x558852c9c020-SpecificationPart",
+      "ExecutionPart": "0x558852c9c008-ExecutionPart",
+      "Statement<EndProgramStmt>": "0x558852c9bf80-Statement"
     },
     {
-      "id": "0x5568af29c0c8-Statement",
-      "statement": "0x5568af29c0d8-ProgramStmt",
+      "id": "0x558852c9c0c8-Statement",
+      "statement": "0x558852c9c0d8-ProgramStmt",
       "source": "program test_array_assign"
     },
     {
-      "id": "0x5568af29c0d8-ProgramStmt",
-      "Name": "0x5568af29c0d8-Name"
+      "id": "0x558852c9c0d8-ProgramStmt",
+      "Name": "0x558852c9c0d8-Name"
     },
     {
-      "id": "0x5568af29c0d8-Name",
+      "id": "0x558852c9c0d8-Name",
       "source": "test_array_assign"
     },
     {
-      "id": "0x5568af29c020-SpecificationPart",
-      "ImplicitPart": "0x5568af29c038-ImplicitPart",
+      "id": "0x558852c9c020-SpecificationPart",
+      "ImplicitPart": "0x558852c9c038-ImplicitPart",
       "DeclarationConstruct": [
-        "0x5568af273230-DeclarationConstruct",
-        "0x5568af297fe0-DeclarationConstruct",
-        "0x5568af298660-DeclarationConstruct",
-        "0x5568af2982e0-DeclarationConstruct"
+        "0x558852c73230-DeclarationConstruct",
+        "0x558852c97fe0-DeclarationConstruct",
+        "0x558852c98660-DeclarationConstruct",
+        "0x558852c982e0-DeclarationConstruct"
       ]
     },
     {
-      "id": "0x5568af29c038-ImplicitPart"
+      "id": "0x558852c9c038-ImplicitPart"
     },
     {
-      "id": "0x5568af273230-DeclarationConstruct",
-      "value": "0x5568af273230-SpecificationConstruct"
+      "id": "0x558852c73230-DeclarationConstruct",
+      "variantType": "SpecificationConstruct",
+      "SpecificationConstruct": "0x558852c73230-SpecificationConstruct"
     },
     {
-      "id": "0x5568af273230-SpecificationConstruct",
-      "value<TypeDeclarationStmt>": "0x5568af273230-Statement"
+      "id": "0x558852c73230-SpecificationConstruct",
+      "variantType": "Statement",
+      "Statement<TypeDeclarationStmt>": "0x558852c73230-Statement"
     },
     {
-      "id": "0x5568af273230-Statement",
-      "statement": "0x5568af27b240-TypeDeclarationStmt",
+      "id": "0x558852c73230-Statement",
+      "statement": "0x558852c7b240-TypeDeclarationStmt",
       "source": "integer, dimension(5) :: arr, arr2, arr3"
     },
     {
-      "id": "0x5568af27b240-TypeDeclarationStmt",
-      "DeclarationTypeSpec": "0x5568af27b270-DeclarationTypeSpec",
+      "id": "0x558852c7b240-TypeDeclarationStmt",
+      "DeclarationTypeSpec": "0x558852c7b270-DeclarationTypeSpec",
       "AttrSpec": [
-        "0x5568af2957d0-AttrSpec"
+        "0x558852c957d0-AttrSpec"
       ],
       "EntityDecl": [
-        "0x5568af297af0-EntityDecl",
-        "0x5568af297910-EntityDecl",
-        "0x5568af297a00-EntityDecl"
+        "0x558852c97af0-EntityDecl",
+        "0x558852c97910-EntityDecl",
+        "0x558852c97a00-EntityDecl"
       ]
     },
     {
-      "id": "0x5568af27b270-DeclarationTypeSpec",
-      "value": "0x5568af27b270-IntrinsicTypeSpec"
+      "id": "0x558852c7b270-DeclarationTypeSpec",
+      "variantType": "IntrinsicTypeSpec",
+      "IntrinsicTypeSpec": "0x558852c7b270-IntrinsicTypeSpec"
     },
     {
-      "id": "0x5568af27b270-IntrinsicTypeSpec",
-      "value": "0x5568af27b270-IntegerTypeSpec"
+      "id": "0x558852c7b270-IntrinsicTypeSpec",
+      "variantType": "IntegerTypeSpec",
+      "IntegerTypeSpec": "0x558852c7b270-IntegerTypeSpec"
     },
     {
-      "id": "0x5568af27b270-IntegerTypeSpec"
+      "id": "0x558852c7b270-IntegerTypeSpec"
     },
     {
-      "id": "0x5568af2957d0-AttrSpec",
-      "value": "0x5568af2957d0-ArraySpec"
+      "id": "0x558852c957d0-AttrSpec",
+      "variantType": "ArraySpec",
+      "ArraySpec": "0x558852c957d0-ArraySpec"
     },
     {
-      "id": "0x5568af2957d0-ArraySpec",
-      "value": [
-        "0x5568af295650-ExplicitShapeSpec"
+      "id": "0x558852c957d0-ArraySpec",
+      "variantType": "ExplicitShapeSpec",
+      "ExplicitShapeSpec": [
+        "0x558852c95650-ExplicitShapeSpec"
       ]
     },
     {
-      "id": "0x5568af295650-ExplicitShapeSpec",
-      "upper_bound": "0x5568af295650-SpecificationExpr"
+      "id": "0x558852c95650-ExplicitShapeSpec",
+      "upper_bound": "0x558852c95650-SpecificationExpr"
     },
     {
-      "id": "0x5568af295650-SpecificationExpr",
-      "Expr": "0x5568af297820-Expr"
+      "id": "0x558852c95650-SpecificationExpr",
+      "Expr": "0x558852c97820-Expr"
     },
     {
-      "id": "0x5568af297820-Expr",
-      "value": "0x5568af297840-LiteralConstant"
+      "id": "0x558852c97820-Expr",
+      "variantType": "LiteralConstant",
+      "LiteralConstant": "0x558852c97840-LiteralConstant"
     },
     {
-      "id": "0x5568af297840-LiteralConstant",
-      "value": "0x5568af297840-IntLiteralConstant"
+      "id": "0x558852c97840-LiteralConstant",
+      "variantType": "IntLiteralConstant",
+      "IntLiteralConstant": "0x558852c97840-IntLiteralConstant"
     },
     {
-      "id": "0x5568af297840-IntLiteralConstant",
+      "id": "0x558852c97840-IntLiteralConstant",
       "CharBlock": "5"
     },
     {
-      "id": "0x5568af297af0-EntityDecl",
-      "Name": "0x5568af297ba8-Name"
+      "id": "0x558852c97af0-EntityDecl",
+      "Name": "0x558852c97ba8-Name"
     },
     {
-      "id": "0x5568af297ba8-Name",
+      "id": "0x558852c97ba8-Name",
       "source": "arr"
     },
     {
-      "id": "0x5568af297910-EntityDecl",
-      "Name": "0x5568af2979c8-Name"
+      "id": "0x558852c97910-EntityDecl",
+      "Name": "0x558852c979c8-Name"
     },
     {
-      "id": "0x5568af2979c8-Name",
+      "id": "0x558852c979c8-Name",
       "source": "arr2"
     },
     {
-      "id": "0x5568af297a00-EntityDecl",
-      "Name": "0x5568af297ab8-Name"
+      "id": "0x558852c97a00-EntityDecl",
+      "Name": "0x558852c97ab8-Name"
     },
     {
-      "id": "0x5568af297ab8-Name",
+      "id": "0x558852c97ab8-Name",
       "source": "arr3"
     },
     {
-      "id": "0x5568af297fe0-DeclarationConstruct",
-      "value": "0x5568af297fe0-SpecificationConstruct"
+      "id": "0x558852c97fe0-DeclarationConstruct",
+      "variantType": "SpecificationConstruct",
+      "SpecificationConstruct": "0x558852c97fe0-SpecificationConstruct"
     },
     {
-      "id": "0x5568af297fe0-SpecificationConstruct",
-      "value<TypeDeclarationStmt>": "0x5568af297fe0-Statement"
+      "id": "0x558852c97fe0-SpecificationConstruct",
+      "variantType": "Statement",
+      "Statement<TypeDeclarationStmt>": "0x558852c97fe0-Statement"
     },
     {
-      "id": "0x5568af297fe0-Statement",
-      "statement": "0x5568af2971e0-TypeDeclarationStmt",
+      "id": "0x558852c97fe0-Statement",
+      "statement": "0x558852c971e0-TypeDeclarationStmt",
       "source": "integer, allocatable :: arr_alloc(:)"
     },
     {
-      "id": "0x5568af2971e0-TypeDeclarationStmt",
-      "DeclarationTypeSpec": "0x5568af297210-DeclarationTypeSpec",
+      "id": "0x558852c971e0-TypeDeclarationStmt",
+      "DeclarationTypeSpec": "0x558852c97210-DeclarationTypeSpec",
       "AttrSpec": [
-        "0x5568af295860-AttrSpec"
+        "0x558852c95860-AttrSpec"
       ],
       "EntityDecl": [
-        "0x5568af297e10-EntityDecl"
+        "0x558852c97e10-EntityDecl"
       ]
     },
     {
-      "id": "0x5568af297210-DeclarationTypeSpec",
-      "value": "0x5568af297210-IntrinsicTypeSpec"
+      "id": "0x558852c97210-DeclarationTypeSpec",
+      "variantType": "IntrinsicTypeSpec",
+      "IntrinsicTypeSpec": "0x558852c97210-IntrinsicTypeSpec"
     },
     {
-      "id": "0x5568af297210-IntrinsicTypeSpec",
-      "value": "0x5568af297210-IntegerTypeSpec"
+      "id": "0x558852c97210-IntrinsicTypeSpec",
+      "variantType": "IntegerTypeSpec",
+      "IntegerTypeSpec": "0x558852c97210-IntegerTypeSpec"
     },
     {
-      "id": "0x5568af297210-IntegerTypeSpec"
+      "id": "0x558852c97210-IntegerTypeSpec"
     },
     {
-      "id": "0x5568af295860-AttrSpec",
-      "value": "0x5568af295860-Allocatable"
+      "id": "0x558852c95860-AttrSpec",
+      "variantType": "Allocatable",
+      "Allocatable": "0x558852c95860-Allocatable"
     },
     {
-      "id": "0x5568af295860-Allocatable",
+      "id": "0x558852c95860-Allocatable",
       "keyword": "Allocatable"
     },
     {
-      "id": "0x5568af297e10-EntityDecl",
-      "Name": "0x5568af297ec8-Name",
-      "ArraySpec": "0x5568af297e90-ArraySpec"
+      "id": "0x558852c97e10-EntityDecl",
+      "Name": "0x558852c97ec8-Name",
+      "ArraySpec": "0x558852c97e90-ArraySpec"
     },
     {
-      "id": "0x5568af297ec8-Name",
+      "id": "0x558852c97ec8-Name",
       "source": "arr_alloc"
     },
     {
-      "id": "0x5568af297e90-ArraySpec",
-      "value": "0x5568af297e90-DeferredShapeSpecList"
+      "id": "0x558852c97e90-ArraySpec",
+      "variantType": "DeferredShapeSpecList",
+      "DeferredShapeSpecList": "0x558852c97e90-DeferredShapeSpecList"
     },
     {
-      "id": "0x5568af297e90-DeferredShapeSpecList",
+      "id": "0x558852c97e90-DeferredShapeSpecList",
       "int": "1"
     },
     {
-      "id": "0x5568af298660-DeclarationConstruct",
-      "value": "0x5568af298660-SpecificationConstruct"
+      "id": "0x558852c98660-DeclarationConstruct",
+      "variantType": "SpecificationConstruct",
+      "SpecificationConstruct": "0x558852c98660-SpecificationConstruct"
     },
     {
-      "id": "0x5568af298660-SpecificationConstruct",
-      "value<TypeDeclarationStmt>": "0x5568af298660-Statement"
+      "id": "0x558852c98660-SpecificationConstruct",
+      "variantType": "Statement",
+      "Statement<TypeDeclarationStmt>": "0x558852c98660-Statement"
     },
     {
-      "id": "0x5568af298660-Statement",
-      "statement": "0x5568af2972d0-TypeDeclarationStmt",
+      "id": "0x558852c98660-Statement",
+      "statement": "0x558852c972d0-TypeDeclarationStmt",
       "source": "integer, dimension(2,3,4) :: matrix3d"
     },
     {
-      "id": "0x5568af2972d0-TypeDeclarationStmt",
-      "DeclarationTypeSpec": "0x5568af297300-DeclarationTypeSpec",
+      "id": "0x558852c972d0-TypeDeclarationStmt",
+      "DeclarationTypeSpec": "0x558852c97300-DeclarationTypeSpec",
       "AttrSpec": [
-        "0x5568af295be0-AttrSpec"
+        "0x558852c95be0-AttrSpec"
       ],
       "EntityDecl": [
-        "0x5568af298490-EntityDecl"
+        "0x558852c98490-EntityDecl"
       ]
     },
     {
-      "id": "0x5568af297300-DeclarationTypeSpec",
-      "value": "0x5568af297300-IntrinsicTypeSpec"
+      "id": "0x558852c97300-DeclarationTypeSpec",
+      "variantType": "IntrinsicTypeSpec",
+      "IntrinsicTypeSpec": "0x558852c97300-IntrinsicTypeSpec"
     },
     {
-      "id": "0x5568af297300-IntrinsicTypeSpec",
-      "value": "0x5568af297300-IntegerTypeSpec"
+      "id": "0x558852c97300-IntrinsicTypeSpec",
+      "variantType": "IntegerTypeSpec",
+      "IntegerTypeSpec": "0x558852c97300-IntegerTypeSpec"
     },
     {
-      "id": "0x5568af297300-IntegerTypeSpec"
+      "id": "0x558852c97300-IntegerTypeSpec"
     },
     {
-      "id": "0x5568af295be0-AttrSpec",
-      "value": "0x5568af295be0-ArraySpec"
+      "id": "0x558852c95be0-AttrSpec",
+      "variantType": "ArraySpec",
+      "ArraySpec": "0x558852c95be0-ArraySpec"
     },
     {
-      "id": "0x5568af295be0-ArraySpec",
-      "value": [
-        "0x5568af295920-ExplicitShapeSpec",
-        "0x5568af295680-ExplicitShapeSpec",
-        "0x5568af2958f0-ExplicitShapeSpec"
+      "id": "0x558852c95be0-ArraySpec",
+      "variantType": "ExplicitShapeSpec",
+      "ExplicitShapeSpec": [
+        "0x558852c95920-ExplicitShapeSpec",
+        "0x558852c95680-ExplicitShapeSpec",
+        "0x558852c958f0-ExplicitShapeSpec"
       ]
     },
     {
-      "id": "0x5568af295920-ExplicitShapeSpec",
-      "upper_bound": "0x5568af295920-SpecificationExpr"
+      "id": "0x558852c95920-ExplicitShapeSpec",
+      "upper_bound": "0x558852c95920-SpecificationExpr"
     },
     {
-      "id": "0x5568af295920-SpecificationExpr",
-      "Expr": "0x5568af2980b0-Expr"
+      "id": "0x558852c95920-SpecificationExpr",
+      "Expr": "0x558852c980b0-Expr"
     },
     {
-      "id": "0x5568af2980b0-Expr",
-      "value": "0x5568af2980d0-LiteralConstant"
+      "id": "0x558852c980b0-Expr",
+      "variantType": "LiteralConstant",
+      "LiteralConstant": "0x558852c980d0-LiteralConstant"
     },
     {
-      "id": "0x5568af2980d0-LiteralConstant",
-      "value": "0x5568af2980d0-IntLiteralConstant"
+      "id": "0x558852c980d0-LiteralConstant",
+      "variantType": "IntLiteralConstant",
+      "IntLiteralConstant": "0x558852c980d0-IntLiteralConstant"
     },
     {
-      "id": "0x5568af2980d0-IntLiteralConstant",
+      "id": "0x558852c980d0-IntLiteralConstant",
       "CharBlock": "2"
     },
     {
-      "id": "0x5568af295680-ExplicitShapeSpec",
-      "upper_bound": "0x5568af295680-SpecificationExpr"
+      "id": "0x558852c95680-ExplicitShapeSpec",
+      "upper_bound": "0x558852c95680-SpecificationExpr"
     },
     {
-      "id": "0x5568af295680-SpecificationExpr",
-      "Expr": "0x5568af2981f0-Expr"
+      "id": "0x558852c95680-SpecificationExpr",
+      "Expr": "0x558852c981f0-Expr"
     },
     {
-      "id": "0x5568af2981f0-Expr",
-      "value": "0x5568af298210-LiteralConstant"
+      "id": "0x558852c981f0-Expr",
+      "variantType": "LiteralConstant",
+      "LiteralConstant": "0x558852c98210-LiteralConstant"
     },
     {
-      "id": "0x5568af298210-LiteralConstant",
-      "value": "0x5568af298210-IntLiteralConstant"
+      "id": "0x558852c98210-LiteralConstant",
+      "variantType": "IntLiteralConstant",
+      "IntLiteralConstant": "0x558852c98210-IntLiteralConstant"
     },
     {
-      "id": "0x5568af298210-IntLiteralConstant",
+      "id": "0x558852c98210-IntLiteralConstant",
       "CharBlock": "3"
     },
     {
-      "id": "0x5568af2958f0-ExplicitShapeSpec",
-      "upper_bound": "0x5568af2958f0-SpecificationExpr"
+      "id": "0x558852c958f0-ExplicitShapeSpec",
+      "upper_bound": "0x558852c958f0-SpecificationExpr"
     },
     {
-      "id": "0x5568af2958f0-SpecificationExpr",
-      "Expr": "0x5568af2983a0-Expr"
+      "id": "0x558852c958f0-SpecificationExpr",
+      "Expr": "0x558852c983a0-Expr"
     },
     {
-      "id": "0x5568af2983a0-Expr",
-      "value": "0x5568af2983c0-LiteralConstant"
+      "id": "0x558852c983a0-Expr",
+      "variantType": "LiteralConstant",
+      "LiteralConstant": "0x558852c983c0-LiteralConstant"
     },
     {
-      "id": "0x5568af2983c0-LiteralConstant",
-      "value": "0x5568af2983c0-IntLiteralConstant"
+      "id": "0x558852c983c0-LiteralConstant",
+      "variantType": "IntLiteralConstant",
+      "IntLiteralConstant": "0x558852c983c0-IntLiteralConstant"
     },
     {
-      "id": "0x5568af2983c0-IntLiteralConstant",
+      "id": "0x558852c983c0-IntLiteralConstant",
       "CharBlock": "4"
     },
     {
-      "id": "0x5568af298490-EntityDecl",
-      "Name": "0x5568af298548-Name"
+      "id": "0x558852c98490-EntityDecl",
+      "Name": "0x558852c98548-Name"
     },
     {
-      "id": "0x5568af298548-Name",
+      "id": "0x558852c98548-Name",
       "source": "matrix3d"
     },
     {
-      "id": "0x5568af2982e0-DeclarationConstruct",
-      "value": "0x5568af2982e0-SpecificationConstruct"
+      "id": "0x558852c982e0-DeclarationConstruct",
+      "variantType": "SpecificationConstruct",
+      "SpecificationConstruct": "0x558852c982e0-SpecificationConstruct"
     },
     {
-      "id": "0x5568af2982e0-SpecificationConstruct",
-      "value<TypeDeclarationStmt>": "0x5568af2982e0-Statement"
+      "id": "0x558852c982e0-SpecificationConstruct",
+      "variantType": "Statement",
+      "Statement<TypeDeclarationStmt>": "0x558852c982e0-Statement"
     },
     {
-      "id": "0x5568af2982e0-Statement",
-      "statement": "0x5568af298030-TypeDeclarationStmt",
+      "id": "0x558852c982e0-Statement",
+      "statement": "0x558852c98030-TypeDeclarationStmt",
       "source": "integer, dimension(0:4) :: arr_custom_bound"
     },
     {
-      "id": "0x5568af298030-TypeDeclarationStmt",
-      "DeclarationTypeSpec": "0x5568af298060-DeclarationTypeSpec",
+      "id": "0x558852c98030-TypeDeclarationStmt",
+      "DeclarationTypeSpec": "0x558852c98060-DeclarationTypeSpec",
       "AttrSpec": [
-        "0x5568af295a40-AttrSpec"
+        "0x558852c95a40-AttrSpec"
       ],
       "EntityDecl": [
-        "0x5568af298900-EntityDecl"
+        "0x558852c98900-EntityDecl"
       ]
     },
     {
-      "id": "0x5568af298060-DeclarationTypeSpec",
-      "value": "0x5568af298060-IntrinsicTypeSpec"
+      "id": "0x558852c98060-DeclarationTypeSpec",
+      "variantType": "IntrinsicTypeSpec",
+      "IntrinsicTypeSpec": "0x558852c98060-IntrinsicTypeSpec"
     },
     {
-      "id": "0x5568af298060-IntrinsicTypeSpec",
-      "value": "0x5568af298060-IntegerTypeSpec"
+      "id": "0x558852c98060-IntrinsicTypeSpec",
+      "variantType": "IntegerTypeSpec",
+      "IntegerTypeSpec": "0x558852c98060-IntegerTypeSpec"
     },
     {
-      "id": "0x5568af298060-IntegerTypeSpec"
+      "id": "0x558852c98060-IntegerTypeSpec"
     },
     {
-      "id": "0x5568af295a40-AttrSpec",
-      "value": "0x5568af295a40-ArraySpec"
+      "id": "0x558852c95a40-AttrSpec",
+      "variantType": "ArraySpec",
+      "ArraySpec": "0x558852c95a40-ArraySpec"
     },
     {
-      "id": "0x5568af295a40-ArraySpec",
-      "value": [
-        "0x5568af296220-ExplicitShapeSpec"
+      "id": "0x558852c95a40-ArraySpec",
+      "variantType": "ExplicitShapeSpec",
+      "ExplicitShapeSpec": [
+        "0x558852c96220-ExplicitShapeSpec"
       ]
     },
     {
-      "id": "0x5568af296220-ExplicitShapeSpec",
-      "lower_bound": "0x5568af296228-SpecificationExpr",
-      "upper_bound": "0x5568af296220-SpecificationExpr"
+      "id": "0x558852c96220-ExplicitShapeSpec",
+      "lower_bound": "0x558852c96228-SpecificationExpr",
+      "upper_bound": "0x558852c96220-SpecificationExpr"
     },
     {
-      "id": "0x5568af296228-SpecificationExpr",
-      "Expr": "0x5568af298730-Expr"
+      "id": "0x558852c96228-SpecificationExpr",
+      "Expr": "0x558852c98730-Expr"
     },
     {
-      "id": "0x5568af298730-Expr",
-      "value": "0x5568af298750-LiteralConstant"
+      "id": "0x558852c98730-Expr",
+      "variantType": "LiteralConstant",
+      "LiteralConstant": "0x558852c98750-LiteralConstant"
     },
     {
-      "id": "0x5568af298750-LiteralConstant",
-      "value": "0x5568af298750-IntLiteralConstant"
+      "id": "0x558852c98750-LiteralConstant",
+      "variantType": "IntLiteralConstant",
+      "IntLiteralConstant": "0x558852c98750-IntLiteralConstant"
     },
     {
-      "id": "0x5568af298750-IntLiteralConstant",
+      "id": "0x558852c98750-IntLiteralConstant",
       "CharBlock": "0"
     },
     {
-      "id": "0x5568af296220-SpecificationExpr",
-      "Expr": "0x5568af298810-Expr"
+      "id": "0x558852c96220-SpecificationExpr",
+      "Expr": "0x558852c98810-Expr"
     },
     {
-      "id": "0x5568af298810-Expr",
-      "value": "0x5568af298830-LiteralConstant"
+      "id": "0x558852c98810-Expr",
+      "variantType": "LiteralConstant",
+      "LiteralConstant": "0x558852c98830-LiteralConstant"
     },
     {
-      "id": "0x5568af298830-LiteralConstant",
-      "value": "0x5568af298830-IntLiteralConstant"
+      "id": "0x558852c98830-LiteralConstant",
+      "variantType": "IntLiteralConstant",
+      "IntLiteralConstant": "0x558852c98830-IntLiteralConstant"
     },
     {
-      "id": "0x5568af298830-IntLiteralConstant",
+      "id": "0x558852c98830-IntLiteralConstant",
       "CharBlock": "4"
     },
     {
-      "id": "0x5568af298900-EntityDecl",
-      "Name": "0x5568af2989b8-Name"
+      "id": "0x558852c98900-EntityDecl",
+      "Name": "0x558852c989b8-Name"
     },
     {
-      "id": "0x5568af2989b8-Name",
+      "id": "0x558852c989b8-Name",
       "source": "arr_custom_bound"
     },
     {
-      "id": "0x5568af29c008-ExecutionPart",
+      "id": "0x558852c9c008-ExecutionPart",
       "ExecutionPartConstruct": [
-        "0x5568af29a6e0-ExecutionPartConstruct",
-        "0x5568af2994d0-ExecutionPartConstruct",
-        "0x5568af29b4e0-ExecutionPartConstruct",
-        "0x5568af29b210-ExecutionPartConstruct",
-        "0x5568af29bea0-ExecutionPartConstruct"
+        "0x558852c9a6e0-ExecutionPartConstruct",
+        "0x558852c994d0-ExecutionPartConstruct",
+        "0x558852c9b4e0-ExecutionPartConstruct",
+        "0x558852c9b210-ExecutionPartConstruct",
+        "0x558852c9bea0-ExecutionPartConstruct"
       ]
     },
     {
-      "id": "0x5568af29c008-ExecutionPartConstruct"
+      "id": "0x558852c9c008-ExecutionPartConstruct"
     },
     {
-      "id": "0x5568af29a6e0-ExecutionPartConstruct",
-      "value": "0x5568af29a6e0-ExecutableConstruct"
+      "id": "0x558852c9a6e0-ExecutionPartConstruct",
+      "variantType": "ExecutableConstruct",
+      "ExecutableConstruct": "0x558852c9a6e0-ExecutableConstruct"
     },
     {
-      "id": "0x5568af29a6e0-ExecutableConstruct",
-      "value<ActionStmt>": "0x5568af29a6e0-Statement"
+      "id": "0x558852c9a6e0-ExecutableConstruct",
+      "variantType": "Statement",
+      "Statement<ActionStmt>": "0x558852c9a6e0-Statement"
     },
     {
-      "id": "0x5568af29a6e0-Statement",
-      "statement": "0x5568af29a6f0-ActionStmt",
+      "id": "0x558852c9a6e0-Statement",
+      "statement": "0x558852c9a6f0-ActionStmt",
       "source": "arr =(/10, 20, 30, 40, 50/)"
     },
     {
-      "id": "0x5568af29a6f0-ActionStmt",
-      "value": "0x5568af296720-AssignmentStmt"
+      "id": "0x558852c9a6f0-ActionStmt",
+      "variantType": "AssignmentStmt",
+      "AssignmentStmt": "0x558852c96720-AssignmentStmt"
     },
     {
-      "id": "0x5568af296720-AssignmentStmt",
-      "Variable": "0x5568af296800-Variable",
-      "Expr": "0x5568af296730-Expr"
+      "id": "0x558852c96720-AssignmentStmt",
+      "Variable": "0x558852c96800-Variable",
+      "Expr": "0x558852c96730-Expr"
     },
     {
-      "id": "0x5568af296800-Variable",
-      "value": "0x5568af2977c0-Designator"
+      "id": "0x558852c96800-Variable",
+      "variantType": "Designator",
+      "Designator": "0x558852c977c0-Designator"
     },
     {
-      "id": "0x5568af2977c0-Designator",
-      "value": "0x5568af2977d0-DataRef"
+      "id": "0x558852c977c0-Designator",
+      "variantType": "DataRef",
+      "DataRef": "0x558852c977d0-DataRef"
     },
     {
-      "id": "0x5568af2977d0-DataRef",
-      "value": "0x5568af2977d0-Name"
+      "id": "0x558852c977d0-DataRef",
+      "variantType": "Name",
+      "Name": "0x558852c977d0-Name"
     },
     {
-      "id": "0x5568af2977d0-Name",
+      "id": "0x558852c977d0-Name",
       "source": "arr"
     },
     {
-      "id": "0x5568af296730-Expr",
-      "value": "0x5568af296750-ArrayConstructor"
+      "id": "0x558852c96730-Expr",
+      "variantType": "ArrayConstructor",
+      "ArrayConstructor": "0x558852c96750-ArrayConstructor"
     },
     {
-      "id": "0x5568af296750-ArrayConstructor",
-      "AcSpec": "0x5568af296750-AcSpec"
+      "id": "0x558852c96750-ArrayConstructor",
+      "AcSpec": "0x558852c96750-AcSpec"
     },
     {
-      "id": "0x5568af296750-AcSpec",
+      "id": "0x558852c96750-AcSpec",
       "values": [
-        "0x5568af299530-AcValue",
-        "0x5568af2971b0-AcValue",
-        "0x5568af2965d0-AcValue",
-        "0x5568af2958b0-AcValue",
-        "0x5568af295820-AcValue"
+        "0x558852c99530-AcValue",
+        "0x558852c971b0-AcValue",
+        "0x558852c965d0-AcValue",
+        "0x558852c958b0-AcValue",
+        "0x558852c95820-AcValue"
       ]
     },
     {
-      "id": "0x5568af299530-AcValue",
-      "value": "0x5568af29a440-Expr"
+      "id": "0x558852c99530-AcValue",
+      "variantType": "Expr",
+      "Expr": "0x558852c9a440-Expr"
     },
     {
-      "id": "0x5568af29a440-Expr",
-      "value": "0x5568af29a460-LiteralConstant"
+      "id": "0x558852c9a440-Expr",
+      "variantType": "LiteralConstant",
+      "LiteralConstant": "0x558852c9a460-LiteralConstant"
     },
     {
-      "id": "0x5568af29a460-LiteralConstant",
-      "value": "0x5568af29a460-IntLiteralConstant"
+      "id": "0x558852c9a460-LiteralConstant",
+      "variantType": "IntLiteralConstant",
+      "IntLiteralConstant": "0x558852c9a460-IntLiteralConstant"
     },
     {
-      "id": "0x5568af29a460-IntLiteralConstant",
+      "id": "0x558852c9a460-IntLiteralConstant",
       "CharBlock": "10"
     },
     {
-      "id": "0x5568af2971b0-AcValue",
-      "value": "0x5568af299cf0-Expr"
+      "id": "0x558852c971b0-AcValue",
+      "variantType": "Expr",
+      "Expr": "0x558852c99cf0-Expr"
     },
     {
-      "id": "0x5568af299cf0-Expr",
-      "value": "0x5568af299d10-LiteralConstant"
+      "id": "0x558852c99cf0-Expr",
+      "variantType": "LiteralConstant",
+      "LiteralConstant": "0x558852c99d10-LiteralConstant"
     },
     {
-      "id": "0x5568af299d10-LiteralConstant",
-      "value": "0x5568af299d10-IntLiteralConstant"
+      "id": "0x558852c99d10-LiteralConstant",
+      "variantType": "IntLiteralConstant",
+      "IntLiteralConstant": "0x558852c99d10-IntLiteralConstant"
     },
     {
-      "id": "0x5568af299d10-IntLiteralConstant",
+      "id": "0x558852c99d10-IntLiteralConstant",
       "CharBlock": "20"
     },
     {
-      "id": "0x5568af2965d0-AcValue",
-      "value": "0x5568af2999f0-Expr"
+      "id": "0x558852c965d0-AcValue",
+      "variantType": "Expr",
+      "Expr": "0x558852c999f0-Expr"
     },
     {
-      "id": "0x5568af2999f0-Expr",
-      "value": "0x5568af299a10-LiteralConstant"
+      "id": "0x558852c999f0-Expr",
+      "variantType": "LiteralConstant",
+      "LiteralConstant": "0x558852c99a10-LiteralConstant"
     },
     {
-      "id": "0x5568af299a10-LiteralConstant",
-      "value": "0x5568af299a10-IntLiteralConstant"
+      "id": "0x558852c99a10-LiteralConstant",
+      "variantType": "IntLiteralConstant",
+      "IntLiteralConstant": "0x558852c99a10-IntLiteralConstant"
     },
     {
-      "id": "0x5568af299a10-IntLiteralConstant",
+      "id": "0x558852c99a10-IntLiteralConstant",
       "CharBlock": "30"
     },
     {
-      "id": "0x5568af2958b0-AcValue",
-      "value": "0x5568af298ef0-Expr"
+      "id": "0x558852c958b0-AcValue",
+      "variantType": "Expr",
+      "Expr": "0x558852c98ef0-Expr"
     },
     {
-      "id": "0x5568af298ef0-Expr",
-      "value": "0x5568af298f10-LiteralConstant"
+      "id": "0x558852c98ef0-Expr",
+      "variantType": "LiteralConstant",
+      "LiteralConstant": "0x558852c98f10-LiteralConstant"
     },
     {
-      "id": "0x5568af298f10-LiteralConstant",
-      "value": "0x5568af298f10-IntLiteralConstant"
+      "id": "0x558852c98f10-LiteralConstant",
+      "variantType": "IntLiteralConstant",
+      "IntLiteralConstant": "0x558852c98f10-IntLiteralConstant"
     },
     {
-      "id": "0x5568af298f10-IntLiteralConstant",
+      "id": "0x558852c98f10-IntLiteralConstant",
       "CharBlock": "40"
     },
     {
-      "id": "0x5568af295820-AcValue",
-      "value": "0x5568af298c50-Expr"
+      "id": "0x558852c95820-AcValue",
+      "variantType": "Expr",
+      "Expr": "0x558852c98c50-Expr"
     },
     {
-      "id": "0x5568af298c50-Expr",
-      "value": "0x5568af298c70-LiteralConstant"
+      "id": "0x558852c98c50-Expr",
+      "variantType": "LiteralConstant",
+      "LiteralConstant": "0x558852c98c70-LiteralConstant"
     },
     {
-      "id": "0x5568af298c70-LiteralConstant",
-      "value": "0x5568af298c70-IntLiteralConstant"
+      "id": "0x558852c98c70-LiteralConstant",
+      "variantType": "IntLiteralConstant",
+      "IntLiteralConstant": "0x558852c98c70-IntLiteralConstant"
     },
     {
-      "id": "0x5568af298c70-IntLiteralConstant",
+      "id": "0x558852c98c70-IntLiteralConstant",
       "CharBlock": "50"
     },
     {
-      "id": "0x5568af2994d0-ExecutionPartConstruct",
-      "value": "0x5568af2994d0-ExecutableConstruct"
+      "id": "0x558852c994d0-ExecutionPartConstruct",
+      "variantType": "ExecutableConstruct",
+      "ExecutableConstruct": "0x558852c994d0-ExecutableConstruct"
     },
     {
-      "id": "0x5568af2994d0-ExecutableConstruct",
-      "value<ActionStmt>": "0x5568af2994d0-Statement"
+      "id": "0x558852c994d0-ExecutableConstruct",
+      "variantType": "Statement",
+      "Statement<ActionStmt>": "0x558852c994d0-Statement"
     },
     {
-      "id": "0x5568af2994d0-Statement",
-      "statement": "0x5568af2994e0-ActionStmt",
+      "id": "0x558852c994d0-Statement",
+      "statement": "0x558852c994e0-ActionStmt",
       "source": "arr2 = [10, 20, 30, 40, 50]"
     },
     {
-      "id": "0x5568af2994e0-ActionStmt",
-      "value": "0x5568af29ac50-AssignmentStmt"
+      "id": "0x558852c994e0-ActionStmt",
+      "variantType": "AssignmentStmt",
+      "AssignmentStmt": "0x558852c9ac50-AssignmentStmt"
     },
     {
-      "id": "0x5568af29ac50-AssignmentStmt",
-      "Variable": "0x5568af29ad30-Variable",
-      "Expr": "0x5568af29ac60-Expr"
+      "id": "0x558852c9ac50-AssignmentStmt",
+      "Variable": "0x558852c9ad30-Variable",
+      "Expr": "0x558852c9ac60-Expr"
     },
     {
-      "id": "0x5568af29ad30-Variable",
-      "value": "0x5568af299ff0-Designator"
+      "id": "0x558852c9ad30-Variable",
+      "variantType": "Designator",
+      "Designator": "0x558852c99ff0-Designator"
     },
     {
-      "id": "0x5568af299ff0-Designator",
-      "value": "0x5568af29a000-DataRef"
+      "id": "0x558852c99ff0-Designator",
+      "variantType": "DataRef",
+      "DataRef": "0x558852c9a000-DataRef"
     },
     {
-      "id": "0x5568af29a000-DataRef",
-      "value": "0x5568af29a000-Name"
+      "id": "0x558852c9a000-DataRef",
+      "variantType": "Name",
+      "Name": "0x558852c9a000-Name"
     },
     {
-      "id": "0x5568af29a000-Name",
+      "id": "0x558852c9a000-Name",
       "source": "arr2"
     },
     {
-      "id": "0x5568af29ac60-Expr",
-      "value": "0x5568af29ac80-ArrayConstructor"
+      "id": "0x558852c9ac60-Expr",
+      "variantType": "ArrayConstructor",
+      "ArrayConstructor": "0x558852c9ac80-ArrayConstructor"
     },
     {
-      "id": "0x5568af29ac80-ArrayConstructor",
-      "AcSpec": "0x5568af29ac80-AcSpec"
+      "id": "0x558852c9ac80-ArrayConstructor",
+      "AcSpec": "0x558852c9ac80-AcSpec"
     },
     {
-      "id": "0x5568af29ac80-AcSpec",
+      "id": "0x558852c9ac80-AcSpec",
       "values": [
-        "0x5568af29ac20-AcValue",
-        "0x5568af297440-AcValue",
-        "0x5568af295780-AcValue",
-        "0x5568af29aac0-AcValue",
-        "0x5568af29abe0-AcValue"
+        "0x558852c9ac20-AcValue",
+        "0x558852c97440-AcValue",
+        "0x558852c95780-AcValue",
+        "0x558852c9aac0-AcValue",
+        "0x558852c9abe0-AcValue"
       ]
     },
     {
-      "id": "0x5568af29ac20-AcValue",
-      "value": "0x5568af29a730-Expr"
+      "id": "0x558852c9ac20-AcValue",
+      "variantType": "Expr",
+      "Expr": "0x558852c9a730-Expr"
     },
     {
-      "id": "0x5568af29a730-Expr",
-      "value": "0x5568af29a750-LiteralConstant"
+      "id": "0x558852c9a730-Expr",
+      "variantType": "LiteralConstant",
+      "LiteralConstant": "0x558852c9a750-LiteralConstant"
     },
     {
-      "id": "0x5568af29a750-LiteralConstant",
-      "value": "0x5568af29a750-IntLiteralConstant"
+      "id": "0x558852c9a750-LiteralConstant",
+      "variantType": "IntLiteralConstant",
+      "IntLiteralConstant": "0x558852c9a750-IntLiteralConstant"
     },
     {
-      "id": "0x5568af29a750-IntLiteralConstant",
+      "id": "0x558852c9a750-IntLiteralConstant",
       "CharBlock": "10"
     },
     {
-      "id": "0x5568af297440-AcValue",
-      "value": "0x5568af29a810-Expr"
+      "id": "0x558852c97440-AcValue",
+      "variantType": "Expr",
+      "Expr": "0x558852c9a810-Expr"
     },
     {
-      "id": "0x5568af29a810-Expr",
-      "value": "0x5568af29a830-LiteralConstant"
+      "id": "0x558852c9a810-Expr",
+      "variantType": "LiteralConstant",
+      "LiteralConstant": "0x558852c9a830-LiteralConstant"
     },
     {
-      "id": "0x5568af29a830-LiteralConstant",
-      "value": "0x5568af29a830-IntLiteralConstant"
+      "id": "0x558852c9a830-LiteralConstant",
+      "variantType": "IntLiteralConstant",
+      "IntLiteralConstant": "0x558852c9a830-IntLiteralConstant"
     },
     {
-      "id": "0x5568af29a830-IntLiteralConstant",
+      "id": "0x558852c9a830-IntLiteralConstant",
       "CharBlock": "20"
     },
     {
-      "id": "0x5568af295780-AcValue",
-      "value": "0x5568af29a8f0-Expr"
+      "id": "0x558852c95780-AcValue",
+      "variantType": "Expr",
+      "Expr": "0x558852c9a8f0-Expr"
     },
     {
-      "id": "0x5568af29a8f0-Expr",
-      "value": "0x5568af29a910-LiteralConstant"
+      "id": "0x558852c9a8f0-Expr",
+      "variantType": "LiteralConstant",
+      "LiteralConstant": "0x558852c9a910-LiteralConstant"
     },
     {
-      "id": "0x5568af29a910-LiteralConstant",
-      "value": "0x5568af29a910-IntLiteralConstant"
+      "id": "0x558852c9a910-LiteralConstant",
+      "variantType": "IntLiteralConstant",
+      "IntLiteralConstant": "0x558852c9a910-IntLiteralConstant"
     },
     {
-      "id": "0x5568af29a910-IntLiteralConstant",
+      "id": "0x558852c9a910-IntLiteralConstant",
       "CharBlock": "30"
     },
     {
-      "id": "0x5568af29aac0-AcValue",
-      "value": "0x5568af29a9d0-Expr"
+      "id": "0x558852c9aac0-AcValue",
+      "variantType": "Expr",
+      "Expr": "0x558852c9a9d0-Expr"
     },
     {
-      "id": "0x5568af29a9d0-Expr",
-      "value": "0x5568af29a9f0-LiteralConstant"
+      "id": "0x558852c9a9d0-Expr",
+      "variantType": "LiteralConstant",
+      "LiteralConstant": "0x558852c9a9f0-LiteralConstant"
     },
     {
-      "id": "0x5568af29a9f0-LiteralConstant",
-      "value": "0x5568af29a9f0-IntLiteralConstant"
+      "id": "0x558852c9a9f0-LiteralConstant",
+      "variantType": "IntLiteralConstant",
+      "IntLiteralConstant": "0x558852c9a9f0-IntLiteralConstant"
     },
     {
-      "id": "0x5568af29a9f0-IntLiteralConstant",
+      "id": "0x558852c9a9f0-IntLiteralConstant",
       "CharBlock": "40"
     },
     {
-      "id": "0x5568af29abe0-AcValue",
-      "value": "0x5568af29aaf0-Expr"
+      "id": "0x558852c9abe0-AcValue",
+      "variantType": "Expr",
+      "Expr": "0x558852c9aaf0-Expr"
     },
     {
-      "id": "0x5568af29aaf0-Expr",
-      "value": "0x5568af29ab10-LiteralConstant"
+      "id": "0x558852c9aaf0-Expr",
+      "variantType": "LiteralConstant",
+      "LiteralConstant": "0x558852c9ab10-LiteralConstant"
     },
     {
-      "id": "0x5568af29ab10-LiteralConstant",
-      "value": "0x5568af29ab10-IntLiteralConstant"
+      "id": "0x558852c9ab10-LiteralConstant",
+      "variantType": "IntLiteralConstant",
+      "IntLiteralConstant": "0x558852c9ab10-IntLiteralConstant"
     },
     {
-      "id": "0x5568af29ab10-IntLiteralConstant",
+      "id": "0x558852c9ab10-IntLiteralConstant",
       "CharBlock": "50"
     },
     {
-      "id": "0x5568af29b4e0-ExecutionPartConstruct",
-      "value": "0x5568af29b4e0-ExecutableConstruct"
+      "id": "0x558852c9b4e0-ExecutionPartConstruct",
+      "variantType": "ExecutableConstruct",
+      "ExecutableConstruct": "0x558852c9b4e0-ExecutableConstruct"
     },
     {
-      "id": "0x5568af29b4e0-ExecutableConstruct",
-      "value<ActionStmt>": "0x5568af29b4e0-Statement"
+      "id": "0x558852c9b4e0-ExecutableConstruct",
+      "variantType": "Statement",
+      "Statement<ActionStmt>": "0x558852c9b4e0-Statement"
     },
     {
-      "id": "0x5568af29b4e0-Statement",
-      "statement": "0x5568af29b4f0-ActionStmt",
+      "id": "0x558852c9b4e0-Statement",
+      "statement": "0x558852c9b4f0-ActionStmt",
       "source": "arr3 = [integer :: 10, 20, 30, 40, 50]"
     },
     {
-      "id": "0x5568af29b4f0-ActionStmt",
-      "value": "0x5568af29b3c0-AssignmentStmt"
+      "id": "0x558852c9b4f0-ActionStmt",
+      "variantType": "AssignmentStmt",
+      "AssignmentStmt": "0x558852c9b3c0-AssignmentStmt"
     },
     {
-      "id": "0x5568af29b3c0-AssignmentStmt",
-      "Variable": "0x5568af29b4a0-Variable",
-      "Expr": "0x5568af29b3d0-Expr"
+      "id": "0x558852c9b3c0-AssignmentStmt",
+      "Variable": "0x558852c9b4a0-Variable",
+      "Expr": "0x558852c9b3d0-Expr"
     },
     {
-      "id": "0x5568af29b4a0-Variable",
-      "value": "0x5568af273590-Designator"
+      "id": "0x558852c9b4a0-Variable",
+      "variantType": "Designator",
+      "Designator": "0x558852c73590-Designator"
     },
     {
-      "id": "0x5568af273590-Designator",
-      "value": "0x5568af2735a0-DataRef"
+      "id": "0x558852c73590-Designator",
+      "variantType": "DataRef",
+      "DataRef": "0x558852c735a0-DataRef"
     },
     {
-      "id": "0x5568af2735a0-DataRef",
-      "value": "0x5568af2735a0-Name"
+      "id": "0x558852c735a0-DataRef",
+      "variantType": "Name",
+      "Name": "0x558852c735a0-Name"
     },
     {
-      "id": "0x5568af2735a0-Name",
+      "id": "0x558852c735a0-Name",
       "source": "arr3"
     },
     {
-      "id": "0x5568af29b3d0-Expr",
-      "value": "0x5568af29b3f0-ArrayConstructor"
+      "id": "0x558852c9b3d0-Expr",
+      "variantType": "ArrayConstructor",
+      "ArrayConstructor": "0x558852c9b3f0-ArrayConstructor"
     },
     {
-      "id": "0x5568af29b3f0-ArrayConstructor",
-      "AcSpec": "0x5568af29b3f0-AcSpec"
+      "id": "0x558852c9b3f0-ArrayConstructor",
+      "AcSpec": "0x558852c9b3f0-AcSpec"
     },
     {
-      "id": "0x5568af29b3f0-AcSpec",
+      "id": "0x558852c9b3f0-AcSpec",
       "values": [
-        "0x5568af29b390-AcValue",
-        "0x5568af29af30-AcValue",
-        "0x5568af29b050-AcValue",
-        "0x5568af29b1d0-AcValue",
-        "0x5568af29b350-AcValue"
+        "0x558852c9b390-AcValue",
+        "0x558852c9af30-AcValue",
+        "0x558852c9b050-AcValue",
+        "0x558852c9b1d0-AcValue",
+        "0x558852c9b350-AcValue"
       ],
-      "type": "0x5568af29b3f0-TypeSpec"
+      "type": "0x558852c9b3f0-TypeSpec"
     },
     {
-      "id": "0x5568af29b3f0-TypeSpec",
-      "value": "0x5568af29b3f8-IntrinsicTypeSpec"
+      "id": "0x558852c9b3f0-TypeSpec",
+      "variantType": "IntrinsicTypeSpec",
+      "IntrinsicTypeSpec": "0x558852c9b3f8-IntrinsicTypeSpec"
     },
     {
-      "id": "0x5568af29b3f8-IntrinsicTypeSpec",
-      "value": "0x5568af29b3f8-IntegerTypeSpec"
+      "id": "0x558852c9b3f8-IntrinsicTypeSpec",
+      "variantType": "IntegerTypeSpec",
+      "IntegerTypeSpec": "0x558852c9b3f8-IntegerTypeSpec"
     },
     {
-      "id": "0x5568af29b3f8-IntegerTypeSpec"
+      "id": "0x558852c9b3f8-IntegerTypeSpec"
     },
     {
-      "id": "0x5568af29b390-AcValue",
-      "value": "0x5568af29ad60-Expr"
+      "id": "0x558852c9b390-AcValue",
+      "variantType": "Expr",
+      "Expr": "0x558852c9ad60-Expr"
     },
     {
-      "id": "0x5568af29ad60-Expr",
-      "value": "0x5568af29ad80-LiteralConstant"
+      "id": "0x558852c9ad60-Expr",
+      "variantType": "LiteralConstant",
+      "LiteralConstant": "0x558852c9ad80-LiteralConstant"
     },
     {
-      "id": "0x5568af29ad80-LiteralConstant",
-      "value": "0x5568af29ad80-IntLiteralConstant"
+      "id": "0x558852c9ad80-LiteralConstant",
+      "variantType": "IntLiteralConstant",
+      "IntLiteralConstant": "0x558852c9ad80-IntLiteralConstant"
     },
     {
-      "id": "0x5568af29ad80-IntLiteralConstant",
+      "id": "0x558852c9ad80-IntLiteralConstant",
       "CharBlock": "10"
     },
     {
-      "id": "0x5568af29af30-AcValue",
-      "value": "0x5568af29ae40-Expr"
+      "id": "0x558852c9af30-AcValue",
+      "variantType": "Expr",
+      "Expr": "0x558852c9ae40-Expr"
     },
     {
-      "id": "0x5568af29ae40-Expr",
-      "value": "0x5568af29ae60-LiteralConstant"
+      "id": "0x558852c9ae40-Expr",
+      "variantType": "LiteralConstant",
+      "LiteralConstant": "0x558852c9ae60-LiteralConstant"
     },
     {
-      "id": "0x5568af29ae60-LiteralConstant",
-      "value": "0x5568af29ae60-IntLiteralConstant"
+      "id": "0x558852c9ae60-LiteralConstant",
+      "variantType": "IntLiteralConstant",
+      "IntLiteralConstant": "0x558852c9ae60-IntLiteralConstant"
     },
     {
-      "id": "0x5568af29ae60-IntLiteralConstant",
+      "id": "0x558852c9ae60-IntLiteralConstant",
       "CharBlock": "20"
     },
     {
-      "id": "0x5568af29b050-AcValue",
-      "value": "0x5568af29af60-Expr"
+      "id": "0x558852c9b050-AcValue",
+      "variantType": "Expr",
+      "Expr": "0x558852c9af60-Expr"
     },
     {
-      "id": "0x5568af29af60-Expr",
-      "value": "0x5568af29af80-LiteralConstant"
+      "id": "0x558852c9af60-Expr",
+      "variantType": "LiteralConstant",
+      "LiteralConstant": "0x558852c9af80-LiteralConstant"
     },
     {
-      "id": "0x5568af29af80-LiteralConstant",
-      "value": "0x5568af29af80-IntLiteralConstant"
+      "id": "0x558852c9af80-LiteralConstant",
+      "variantType": "IntLiteralConstant",
+      "IntLiteralConstant": "0x558852c9af80-IntLiteralConstant"
     },
     {
-      "id": "0x5568af29af80-IntLiteralConstant",
+      "id": "0x558852c9af80-IntLiteralConstant",
       "CharBlock": "30"
     },
     {
-      "id": "0x5568af29b1d0-AcValue",
-      "value": "0x5568af29b0e0-Expr"
+      "id": "0x558852c9b1d0-AcValue",
+      "variantType": "Expr",
+      "Expr": "0x558852c9b0e0-Expr"
     },
     {
-      "id": "0x5568af29b0e0-Expr",
-      "value": "0x5568af29b100-LiteralConstant"
+      "id": "0x558852c9b0e0-Expr",
+      "variantType": "LiteralConstant",
+      "LiteralConstant": "0x558852c9b100-LiteralConstant"
     },
     {
-      "id": "0x5568af29b100-LiteralConstant",
-      "value": "0x5568af29b100-IntLiteralConstant"
+      "id": "0x558852c9b100-LiteralConstant",
+      "variantType": "IntLiteralConstant",
+      "IntLiteralConstant": "0x558852c9b100-IntLiteralConstant"
     },
     {
-      "id": "0x5568af29b100-IntLiteralConstant",
+      "id": "0x558852c9b100-IntLiteralConstant",
       "CharBlock": "40"
     },
     {
-      "id": "0x5568af29b350-AcValue",
-      "value": "0x5568af29b260-Expr"
+      "id": "0x558852c9b350-AcValue",
+      "variantType": "Expr",
+      "Expr": "0x558852c9b260-Expr"
     },
     {
-      "id": "0x5568af29b260-Expr",
-      "value": "0x5568af29b280-LiteralConstant"
+      "id": "0x558852c9b260-Expr",
+      "variantType": "LiteralConstant",
+      "LiteralConstant": "0x558852c9b280-LiteralConstant"
     },
     {
-      "id": "0x5568af29b280-LiteralConstant",
-      "value": "0x5568af29b280-IntLiteralConstant"
+      "id": "0x558852c9b280-LiteralConstant",
+      "variantType": "IntLiteralConstant",
+      "IntLiteralConstant": "0x558852c9b280-IntLiteralConstant"
     },
     {
-      "id": "0x5568af29b280-IntLiteralConstant",
+      "id": "0x558852c9b280-IntLiteralConstant",
       "CharBlock": "50"
     },
     {
-      "id": "0x5568af29b210-ExecutionPartConstruct",
-      "value": "0x5568af29b210-ExecutableConstruct"
+      "id": "0x558852c9b210-ExecutionPartConstruct",
+      "variantType": "ExecutableConstruct",
+      "ExecutableConstruct": "0x558852c9b210-ExecutableConstruct"
     },
     {
-      "id": "0x5568af29b210-ExecutableConstruct",
-      "value<ActionStmt>": "0x5568af29b210-Statement"
+      "id": "0x558852c9b210-ExecutableConstruct",
+      "variantType": "Statement",
+      "Statement<ActionStmt>": "0x558852c9b210-Statement"
     },
     {
-      "id": "0x5568af29b210-Statement",
-      "statement": "0x5568af29b220-ActionStmt",
+      "id": "0x558852c9b210-Statement",
+      "statement": "0x558852c9b220-ActionStmt",
       "source": "arr_alloc = [integer ::]"
     },
     {
-      "id": "0x5568af29b220-ActionStmt",
-      "value": "0x5568af29b530-AssignmentStmt"
+      "id": "0x558852c9b220-ActionStmt",
+      "variantType": "AssignmentStmt",
+      "AssignmentStmt": "0x558852c9b530-AssignmentStmt"
     },
     {
-      "id": "0x5568af29b530-AssignmentStmt",
-      "Variable": "0x5568af29b610-Variable",
-      "Expr": "0x5568af29b540-Expr"
+      "id": "0x558852c9b530-AssignmentStmt",
+      "Variable": "0x558852c9b610-Variable",
+      "Expr": "0x558852c9b540-Expr"
     },
     {
-      "id": "0x5568af29b610-Variable",
-      "value": "0x5568af299680-Designator"
+      "id": "0x558852c9b610-Variable",
+      "variantType": "Designator",
+      "Designator": "0x558852c99680-Designator"
     },
     {
-      "id": "0x5568af299680-Designator",
-      "value": "0x5568af299690-DataRef"
+      "id": "0x558852c99680-Designator",
+      "variantType": "DataRef",
+      "DataRef": "0x558852c99690-DataRef"
     },
     {
-      "id": "0x5568af299690-DataRef",
-      "value": "0x5568af299690-Name"
+      "id": "0x558852c99690-DataRef",
+      "variantType": "Name",
+      "Name": "0x558852c99690-Name"
     },
     {
-      "id": "0x5568af299690-Name",
+      "id": "0x558852c99690-Name",
       "source": "arr_alloc"
     },
     {
-      "id": "0x5568af29b540-Expr",
-      "value": "0x5568af29b560-ArrayConstructor"
+      "id": "0x558852c9b540-Expr",
+      "variantType": "ArrayConstructor",
+      "ArrayConstructor": "0x558852c9b560-ArrayConstructor"
     },
     {
-      "id": "0x5568af29b560-ArrayConstructor",
-      "AcSpec": "0x5568af29b560-AcSpec"
+      "id": "0x558852c9b560-ArrayConstructor",
+      "AcSpec": "0x558852c9b560-AcSpec"
     },
     {
-      "id": "0x5568af29b560-AcSpec",
+      "id": "0x558852c9b560-AcSpec",
       "values": [],
-      "type": "0x5568af29b560-TypeSpec"
+      "type": "0x558852c9b560-TypeSpec"
     },
     {
-      "id": "0x5568af29b560-TypeSpec",
-      "value": "0x5568af29b568-IntrinsicTypeSpec"
+      "id": "0x558852c9b560-TypeSpec",
+      "variantType": "IntrinsicTypeSpec",
+      "IntrinsicTypeSpec": "0x558852c9b568-IntrinsicTypeSpec"
     },
     {
-      "id": "0x5568af29b568-IntrinsicTypeSpec",
-      "value": "0x5568af29b568-IntegerTypeSpec"
+      "id": "0x558852c9b568-IntrinsicTypeSpec",
+      "variantType": "IntegerTypeSpec",
+      "IntegerTypeSpec": "0x558852c9b568-IntegerTypeSpec"
     },
     {
-      "id": "0x5568af29b568-IntegerTypeSpec"
+      "id": "0x558852c9b568-IntegerTypeSpec"
     },
     {
-      "id": "0x5568af29bea0-ExecutionPartConstruct",
-      "value": "0x5568af29bea0-ExecutableConstruct"
+      "id": "0x558852c9bea0-ExecutionPartConstruct",
+      "variantType": "ExecutableConstruct",
+      "ExecutableConstruct": "0x558852c9bea0-ExecutableConstruct"
     },
     {
-      "id": "0x5568af29bea0-ExecutableConstruct",
-      "value<ActionStmt>": "0x5568af29bea0-Statement"
+      "id": "0x558852c9bea0-ExecutableConstruct",
+      "variantType": "Statement",
+      "Statement<ActionStmt>": "0x558852c9bea0-Statement"
     },
     {
-      "id": "0x5568af29bea0-Statement",
-      "statement": "0x5568af29beb0-ActionStmt",
+      "id": "0x558852c9bea0-Statement",
+      "statement": "0x558852c9beb0-ActionStmt",
       "source": "arr_custom_bound = [10, 20, 30, 40, 50]"
     },
     {
-      "id": "0x5568af29beb0-ActionStmt",
-      "value": "0x5568af29bd80-AssignmentStmt"
+      "id": "0x558852c9beb0-ActionStmt",
+      "variantType": "AssignmentStmt",
+      "AssignmentStmt": "0x558852c9bd80-AssignmentStmt"
     },
     {
-      "id": "0x5568af29bd80-AssignmentStmt",
-      "Variable": "0x5568af29be60-Variable",
-      "Expr": "0x5568af29bd90-Expr"
+      "id": "0x558852c9bd80-AssignmentStmt",
+      "Variable": "0x558852c9be60-Variable",
+      "Expr": "0x558852c9bd90-Expr"
     },
     {
-      "id": "0x5568af29be60-Variable",
-      "value": "0x5568af298fd0-Designator"
+      "id": "0x558852c9be60-Variable",
+      "variantType": "Designator",
+      "Designator": "0x558852c98fd0-Designator"
     },
     {
-      "id": "0x5568af298fd0-Designator",
-      "value": "0x5568af298fe0-DataRef"
+      "id": "0x558852c98fd0-Designator",
+      "variantType": "DataRef",
+      "DataRef": "0x558852c98fe0-DataRef"
     },
     {
-      "id": "0x5568af298fe0-DataRef",
-      "value": "0x5568af298fe0-Name"
+      "id": "0x558852c98fe0-DataRef",
+      "variantType": "Name",
+      "Name": "0x558852c98fe0-Name"
     },
     {
-      "id": "0x5568af298fe0-Name",
+      "id": "0x558852c98fe0-Name",
       "source": "arr_custom_bound"
     },
     {
-      "id": "0x5568af29bd90-Expr",
-      "value": "0x5568af29bdb0-ArrayConstructor"
+      "id": "0x558852c9bd90-Expr",
+      "variantType": "ArrayConstructor",
+      "ArrayConstructor": "0x558852c9bdb0-ArrayConstructor"
     },
     {
-      "id": "0x5568af29bdb0-ArrayConstructor",
-      "AcSpec": "0x5568af29bdb0-AcSpec"
+      "id": "0x558852c9bdb0-ArrayConstructor",
+      "AcSpec": "0x558852c9bdb0-AcSpec"
     },
     {
-      "id": "0x5568af29bdb0-AcSpec",
+      "id": "0x558852c9bdb0-AcSpec",
       "values": [
-        "0x5568af29bd50-AcValue",
-        "0x5568af29b8f0-AcValue",
-        "0x5568af29ba10-AcValue",
-        "0x5568af29bb90-AcValue",
-        "0x5568af29bd10-AcValue"
+        "0x558852c9bd50-AcValue",
+        "0x558852c9b8f0-AcValue",
+        "0x558852c9ba10-AcValue",
+        "0x558852c9bb90-AcValue",
+        "0x558852c9bd10-AcValue"
       ]
     },
     {
-      "id": "0x5568af29bd50-AcValue",
-      "value": "0x5568af29b720-Expr"
+      "id": "0x558852c9bd50-AcValue",
+      "variantType": "Expr",
+      "Expr": "0x558852c9b720-Expr"
     },
     {
-      "id": "0x5568af29b720-Expr",
-      "value": "0x5568af29b740-LiteralConstant"
+      "id": "0x558852c9b720-Expr",
+      "variantType": "LiteralConstant",
+      "LiteralConstant": "0x558852c9b740-LiteralConstant"
     },
     {
-      "id": "0x5568af29b740-LiteralConstant",
-      "value": "0x5568af29b740-IntLiteralConstant"
+      "id": "0x558852c9b740-LiteralConstant",
+      "variantType": "IntLiteralConstant",
+      "IntLiteralConstant": "0x558852c9b740-IntLiteralConstant"
     },
     {
-      "id": "0x5568af29b740-IntLiteralConstant",
+      "id": "0x558852c9b740-IntLiteralConstant",
       "CharBlock": "10"
     },
     {
-      "id": "0x5568af29b8f0-AcValue",
-      "value": "0x5568af29b800-Expr"
+      "id": "0x558852c9b8f0-AcValue",
+      "variantType": "Expr",
+      "Expr": "0x558852c9b800-Expr"
     },
     {
-      "id": "0x5568af29b800-Expr",
-      "value": "0x5568af29b820-LiteralConstant"
+      "id": "0x558852c9b800-Expr",
+      "variantType": "LiteralConstant",
+      "LiteralConstant": "0x558852c9b820-LiteralConstant"
     },
     {
-      "id": "0x5568af29b820-LiteralConstant",
-      "value": "0x5568af29b820-IntLiteralConstant"
+      "id": "0x558852c9b820-LiteralConstant",
+      "variantType": "IntLiteralConstant",
+      "IntLiteralConstant": "0x558852c9b820-IntLiteralConstant"
     },
     {
-      "id": "0x5568af29b820-IntLiteralConstant",
+      "id": "0x558852c9b820-IntLiteralConstant",
       "CharBlock": "20"
     },
     {
-      "id": "0x5568af29ba10-AcValue",
-      "value": "0x5568af29b920-Expr"
+      "id": "0x558852c9ba10-AcValue",
+      "variantType": "Expr",
+      "Expr": "0x558852c9b920-Expr"
     },
     {
-      "id": "0x5568af29b920-Expr",
-      "value": "0x5568af29b940-LiteralConstant"
+      "id": "0x558852c9b920-Expr",
+      "variantType": "LiteralConstant",
+      "LiteralConstant": "0x558852c9b940-LiteralConstant"
     },
     {
-      "id": "0x5568af29b940-LiteralConstant",
-      "value": "0x5568af29b940-IntLiteralConstant"
+      "id": "0x558852c9b940-LiteralConstant",
+      "variantType": "IntLiteralConstant",
+      "IntLiteralConstant": "0x558852c9b940-IntLiteralConstant"
     },
     {
-      "id": "0x5568af29b940-IntLiteralConstant",
+      "id": "0x558852c9b940-IntLiteralConstant",
       "CharBlock": "30"
     },
     {
-      "id": "0x5568af29bb90-AcValue",
-      "value": "0x5568af29baa0-Expr"
+      "id": "0x558852c9bb90-AcValue",
+      "variantType": "Expr",
+      "Expr": "0x558852c9baa0-Expr"
     },
     {
-      "id": "0x5568af29baa0-Expr",
-      "value": "0x5568af29bac0-LiteralConstant"
+      "id": "0x558852c9baa0-Expr",
+      "variantType": "LiteralConstant",
+      "LiteralConstant": "0x558852c9bac0-LiteralConstant"
     },
     {
-      "id": "0x5568af29bac0-LiteralConstant",
-      "value": "0x5568af29bac0-IntLiteralConstant"
+      "id": "0x558852c9bac0-LiteralConstant",
+      "variantType": "IntLiteralConstant",
+      "IntLiteralConstant": "0x558852c9bac0-IntLiteralConstant"
     },
     {
-      "id": "0x5568af29bac0-IntLiteralConstant",
+      "id": "0x558852c9bac0-IntLiteralConstant",
       "CharBlock": "40"
     },
     {
-      "id": "0x5568af29bd10-AcValue",
-      "value": "0x5568af29bc20-Expr"
+      "id": "0x558852c9bd10-AcValue",
+      "variantType": "Expr",
+      "Expr": "0x558852c9bc20-Expr"
     },
     {
-      "id": "0x5568af29bc20-Expr",
-      "value": "0x5568af29bc40-LiteralConstant"
+      "id": "0x558852c9bc20-Expr",
+      "variantType": "LiteralConstant",
+      "LiteralConstant": "0x558852c9bc40-LiteralConstant"
     },
     {
-      "id": "0x5568af29bc40-LiteralConstant",
-      "value": "0x5568af29bc40-IntLiteralConstant"
+      "id": "0x558852c9bc40-LiteralConstant",
+      "variantType": "IntLiteralConstant",
+      "IntLiteralConstant": "0x558852c9bc40-IntLiteralConstant"
     },
     {
-      "id": "0x5568af29bc40-IntLiteralConstant",
+      "id": "0x558852c9bc40-IntLiteralConstant",
       "CharBlock": "50"
     },
     {
-      "id": "0x5568af29bf80-Statement",
-      "statement": "0x5568af29bf90-EndProgramStmt",
+      "id": "0x558852c9bf80-Statement",
+      "statement": "0x558852c9bf90-EndProgramStmt",
       "source": "end program test_array_assign"
     },
     {
-      "id": "0x5568af29bf90-EndProgramStmt",
-      "Name": "0x5568af29bf90-Name"
+      "id": "0x558852c9bf90-EndProgramStmt",
+      "Name": "0x558852c9bf90-Name"
     },
     {
-      "id": "0x5568af29bf90-Name",
+      "id": "0x558852c9bf90-Name",
       "source": "test_array_assign"
     }
   ],

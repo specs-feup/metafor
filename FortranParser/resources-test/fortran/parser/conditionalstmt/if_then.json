@@ -1,254 +1,279 @@
 {
   "nodes": [
     {
-      "id": "0x55f44d283cb0-Program",
+      "id": "0x557ac200ecb0-Program",
       "ProgramUnit": [
-        "0x55f44d2ac650-ProgramUnit"
+        "0x557ac2037650-ProgramUnit"
       ]
     },
     {
-      "id": "0x55f44d2ac650-ProgramUnit",
-      "value": "0x55f44d2b1420-MainProgram"
+      "id": "0x557ac2037650-ProgramUnit",
+      "variantType": "MainProgram",
+      "MainProgram": "0x557ac203c420-MainProgram"
     },
     {
-      "id": "0x55f44d2b1420-MainProgram",
-      "Statement<ProgramStmt>": "0x55f44d2b1568-Statement",
-      "SpecificationPart": "0x55f44d2b14c0-SpecificationPart",
-      "ExecutionPart": "0x55f44d2b14a8-ExecutionPart",
-      "Statement<EndProgramStmt>": "0x55f44d2b1420-Statement"
+      "id": "0x557ac203c420-MainProgram",
+      "Statement<ProgramStmt>": "0x557ac203c568-Statement",
+      "SpecificationPart": "0x557ac203c4c0-SpecificationPart",
+      "ExecutionPart": "0x557ac203c4a8-ExecutionPart",
+      "Statement<EndProgramStmt>": "0x557ac203c420-Statement"
     },
     {
-      "id": "0x55f44d2b1568-Statement",
-      "statement": "0x55f44d2b1578-ProgramStmt",
+      "id": "0x557ac203c568-Statement",
+      "statement": "0x557ac203c578-ProgramStmt",
       "source": "program if"
     },
     {
-      "id": "0x55f44d2b1578-ProgramStmt",
-      "Name": "0x55f44d2b1578-Name"
+      "id": "0x557ac203c578-ProgramStmt",
+      "Name": "0x557ac203c578-Name"
     },
     {
-      "id": "0x55f44d2b1578-Name",
+      "id": "0x557ac203c578-Name",
       "source": "if"
     },
     {
-      "id": "0x55f44d2b14c0-SpecificationPart",
-      "ImplicitPart": "0x55f44d2b14d8-ImplicitPart",
+      "id": "0x557ac203c4c0-SpecificationPart",
+      "ImplicitPart": "0x557ac203c4d8-ImplicitPart",
       "DeclarationConstruct": [
-        "0x55f44d28a5a0-DeclarationConstruct"
+        "0x557ac20155a0-DeclarationConstruct"
       ]
     },
     {
-      "id": "0x55f44d2b14d8-ImplicitPart"
+      "id": "0x557ac203c4d8-ImplicitPart"
     },
     {
-      "id": "0x55f44d28a5a0-DeclarationConstruct",
-      "value": "0x55f44d28a5a0-SpecificationConstruct"
+      "id": "0x557ac20155a0-DeclarationConstruct",
+      "variantType": "SpecificationConstruct",
+      "SpecificationConstruct": "0x557ac20155a0-SpecificationConstruct"
     },
     {
-      "id": "0x55f44d28a5a0-SpecificationConstruct",
-      "value<TypeDeclarationStmt>": "0x55f44d28a5a0-Statement"
+      "id": "0x557ac20155a0-SpecificationConstruct",
+      "variantType": "Statement",
+      "Statement<TypeDeclarationStmt>": "0x557ac20155a0-Statement"
     },
     {
-      "id": "0x55f44d28a5a0-Statement",
-      "statement": "0x55f44d292240-TypeDeclarationStmt",
+      "id": "0x557ac20155a0-Statement",
+      "statement": "0x557ac201d240-TypeDeclarationStmt",
       "source": "logical :: cond"
     },
     {
-      "id": "0x55f44d292240-TypeDeclarationStmt",
-      "DeclarationTypeSpec": "0x55f44d292270-DeclarationTypeSpec",
+      "id": "0x557ac201d240-TypeDeclarationStmt",
+      "DeclarationTypeSpec": "0x557ac201d270-DeclarationTypeSpec",
       "EntityDecl": [
-        "0x55f44d2acde0-EntityDecl"
+        "0x557ac2037de0-EntityDecl"
       ]
     },
     {
-      "id": "0x55f44d292270-DeclarationTypeSpec",
-      "value": "0x55f44d292270-IntrinsicTypeSpec"
+      "id": "0x557ac201d270-DeclarationTypeSpec",
+      "variantType": "IntrinsicTypeSpec",
+      "IntrinsicTypeSpec": "0x557ac201d270-IntrinsicTypeSpec"
     },
     {
-      "id": "0x55f44d292270-IntrinsicTypeSpec",
-      "value": "0x55f44d292270-Logical"
+      "id": "0x557ac201d270-IntrinsicTypeSpec",
+      "variantType": "Logical",
+      "Logical": "0x557ac201d270-Logical"
     },
     {
-      "id": "0x55f44d292270-Logical"
+      "id": "0x557ac201d270-Logical"
     },
     {
-      "id": "0x55f44d2acde0-EntityDecl",
-      "Name": "0x55f44d2ace98-Name"
+      "id": "0x557ac2037de0-EntityDecl",
+      "Name": "0x557ac2037e98-Name"
     },
     {
-      "id": "0x55f44d2ace98-Name",
+      "id": "0x557ac2037e98-Name",
       "source": "cond"
     },
     {
-      "id": "0x55f44d2b14a8-ExecutionPart",
+      "id": "0x557ac203c4a8-ExecutionPart",
       "ExecutionPartConstruct": [
-        "0x55f44d2adfd0-ExecutionPartConstruct",
-        "0x55f44d283af0-ExecutionPartConstruct"
+        "0x557ac2038fd0-ExecutionPartConstruct",
+        "0x557ac200eaf0-ExecutionPartConstruct"
       ]
     },
     {
-      "id": "0x55f44d2b14a8-ExecutionPartConstruct"
+      "id": "0x557ac203c4a8-ExecutionPartConstruct"
     },
     {
-      "id": "0x55f44d2adfd0-ExecutionPartConstruct",
-      "value": "0x55f44d2adfd0-ExecutableConstruct"
+      "id": "0x557ac2038fd0-ExecutionPartConstruct",
+      "variantType": "ExecutableConstruct",
+      "ExecutableConstruct": "0x557ac2038fd0-ExecutableConstruct"
     },
     {
-      "id": "0x55f44d2adfd0-ExecutableConstruct",
-      "value<ActionStmt>": "0x55f44d2adfd0-Statement"
+      "id": "0x557ac2038fd0-ExecutableConstruct",
+      "variantType": "Statement",
+      "Statement<ActionStmt>": "0x557ac2038fd0-Statement"
     },
     {
-      "id": "0x55f44d2adfd0-Statement",
-      "statement": "0x55f44d2adfe0-ActionStmt",
+      "id": "0x557ac2038fd0-Statement",
+      "statement": "0x557ac2038fe0-ActionStmt",
       "source": "cond = .false."
     },
     {
-      "id": "0x55f44d2adfe0-ActionStmt",
-      "value": "0x55f44d2ae910-AssignmentStmt"
+      "id": "0x557ac2038fe0-ActionStmt",
+      "variantType": "AssignmentStmt",
+      "AssignmentStmt": "0x557ac2039910-AssignmentStmt"
     },
     {
-      "id": "0x55f44d2ae910-AssignmentStmt",
-      "Variable": "0x55f44d2ae9f0-Variable",
-      "Expr": "0x55f44d2ae920-Expr"
+      "id": "0x557ac2039910-AssignmentStmt",
+      "Variable": "0x557ac20399f0-Variable",
+      "Expr": "0x557ac2039920-Expr"
     },
     {
-      "id": "0x55f44d2ae9f0-Variable",
-      "value": "0x55f44d28a220-Designator"
+      "id": "0x557ac20399f0-Variable",
+      "variantType": "Designator",
+      "Designator": "0x557ac2015220-Designator"
     },
     {
-      "id": "0x55f44d28a220-Designator",
-      "value": "0x55f44d28a230-DataRef"
+      "id": "0x557ac2015220-Designator",
+      "variantType": "DataRef",
+      "DataRef": "0x557ac2015230-DataRef"
     },
     {
-      "id": "0x55f44d28a230-DataRef",
-      "value": "0x55f44d28a230-Name"
+      "id": "0x557ac2015230-DataRef",
+      "variantType": "Name",
+      "Name": "0x557ac2015230-Name"
     },
     {
-      "id": "0x55f44d28a230-Name",
+      "id": "0x557ac2015230-Name",
       "source": "cond"
     },
     {
-      "id": "0x55f44d2ae920-Expr",
-      "value": "0x55f44d2ae940-LiteralConstant"
+      "id": "0x557ac2039920-Expr",
+      "variantType": "LiteralConstant",
+      "LiteralConstant": "0x557ac2039940-LiteralConstant"
     },
     {
-      "id": "0x55f44d2ae940-LiteralConstant",
-      "value": "0x55f44d2ae940-LogicalLiteralConstant"
+      "id": "0x557ac2039940-LiteralConstant",
+      "variantType": "LogicalLiteralConstant",
+      "LogicalLiteralConstant": "0x557ac2039940-LogicalLiteralConstant"
     },
     {
-      "id": "0x55f44d2ae940-LogicalLiteralConstant",
+      "id": "0x557ac2039940-LogicalLiteralConstant",
       "bool": "0"
     },
     {
-      "id": "0x55f44d283af0-ExecutionPartConstruct",
-      "value": "0x55f44d283af0-ExecutableConstruct"
+      "id": "0x557ac200eaf0-ExecutionPartConstruct",
+      "variantType": "ExecutableConstruct",
+      "ExecutableConstruct": "0x557ac200eaf0-ExecutableConstruct"
     },
     {
-      "id": "0x55f44d283af0-ExecutableConstruct",
-      "value": "0x55f44d26d490-IfConstruct"
+      "id": "0x557ac200eaf0-ExecutableConstruct",
+      "variantType": "IfConstruct",
+      "IfConstruct": "0x557ac1ff8490-IfConstruct"
     },
     {
-      "id": "0x55f44d26d490-IfConstruct",
-      "Statement<IfThenStmt>": "0x55f44d26d560-Statement",
+      "id": "0x557ac1ff8490-IfConstruct",
+      "Statement<IfThenStmt>": "0x557ac1ff8560-Statement",
       "ExecutionPartConstruct": [
-        "0x55f44d2ae620-ExecutionPartConstruct"
+        "0x557ac2039620-ExecutionPartConstruct"
       ],
-      "Statement<EndIfStmt>": "0x55f44d26d490-Statement"
+      "Statement<EndIfStmt>": "0x557ac1ff8490-Statement"
     },
     {
-      "id": "0x55f44d26d560-Statement",
-      "statement": "0x55f44d26d570-IfThenStmt",
+      "id": "0x557ac1ff8560-Statement",
+      "statement": "0x557ac1ff8570-IfThenStmt",
       "source": "if(cond) then"
     },
     {
-      "id": "0x55f44d26d570-IfThenStmt",
-      "Expr": "0x55f44d2ae110-Expr"
+      "id": "0x557ac1ff8570-IfThenStmt",
+      "Expr": "0x557ac2039110-Expr"
     },
     {
-      "id": "0x55f44d2ae110-Expr",
-      "value": "0x55f44d2adbc0-Designator"
+      "id": "0x557ac2039110-Expr",
+      "variantType": "Designator",
+      "Designator": "0x557ac2038bc0-Designator"
     },
     {
-      "id": "0x55f44d2adbc0-Designator",
-      "value": "0x55f44d2adbd0-DataRef"
+      "id": "0x557ac2038bc0-Designator",
+      "variantType": "DataRef",
+      "DataRef": "0x557ac2038bd0-DataRef"
     },
     {
-      "id": "0x55f44d2adbd0-DataRef",
-      "value": "0x55f44d2adbd0-Name"
+      "id": "0x557ac2038bd0-DataRef",
+      "variantType": "Name",
+      "Name": "0x557ac2038bd0-Name"
     },
     {
-      "id": "0x55f44d2adbd0-Name",
+      "id": "0x557ac2038bd0-Name",
       "source": "cond"
     },
     {
-      "id": "0x55f44d26d548-ExecutionPartConstruct"
+      "id": "0x557ac1ff8548-ExecutionPartConstruct"
     },
     {
-      "id": "0x55f44d2ae620-ExecutionPartConstruct",
-      "value": "0x55f44d2ae620-ExecutableConstruct"
+      "id": "0x557ac2039620-ExecutionPartConstruct",
+      "variantType": "ExecutableConstruct",
+      "ExecutableConstruct": "0x557ac2039620-ExecutableConstruct"
     },
     {
-      "id": "0x55f44d2ae620-ExecutableConstruct",
-      "value<ActionStmt>": "0x55f44d2ae620-Statement"
+      "id": "0x557ac2039620-ExecutableConstruct",
+      "variantType": "Statement",
+      "Statement<ActionStmt>": "0x557ac2039620-Statement"
     },
     {
-      "id": "0x55f44d2ae620-Statement",
-      "statement": "0x55f44d2ae630-ActionStmt",
+      "id": "0x557ac2039620-Statement",
+      "statement": "0x557ac2039630-ActionStmt",
       "source": "print *, \"cond is true\""
     },
     {
-      "id": "0x55f44d2ae630-ActionStmt",
-      "value": "0x55f44d2b1210-PrintStmt"
+      "id": "0x557ac2039630-ActionStmt",
+      "variantType": "PrintStmt",
+      "PrintStmt": "0x557ac203c210-PrintStmt"
     },
     {
-      "id": "0x55f44d2b1210-PrintStmt",
-      "Format": "0x55f44d2b1228-Format",
+      "id": "0x557ac203c210-PrintStmt",
+      "Format": "0x557ac203c228-Format",
       "OutputItem": [
-        "0x55f44d2b1130-OutputItem"
+        "0x557ac203c130-OutputItem"
       ]
     },
     {
-      "id": "0x55f44d2b1228-Format",
-      "value": "0x55f44d2b1228-Star"
+      "id": "0x557ac203c228-Format",
+      "variantType": "Star",
+      "Star": "0x557ac203c228-Star"
     },
     {
-      "id": "0x55f44d2b1228-Star"
+      "id": "0x557ac203c228-Star"
     },
     {
-      "id": "0x55f44d2b1130-OutputItem",
-      "value": "0x55f44d2b1130-Expr"
+      "id": "0x557ac203c130-OutputItem",
+      "variantType": "Expr",
+      "Expr": "0x557ac203c130-Expr"
     },
     {
-      "id": "0x55f44d2b1130-Expr",
-      "value": "0x55f44d2b1150-LiteralConstant"
+      "id": "0x557ac203c130-Expr",
+      "variantType": "LiteralConstant",
+      "LiteralConstant": "0x557ac203c150-LiteralConstant"
     },
     {
-      "id": "0x55f44d2b1150-LiteralConstant",
-      "value": "0x55f44d2b1150-CharLiteralConstant"
+      "id": "0x557ac203c150-LiteralConstant",
+      "variantType": "CharLiteralConstant",
+      "CharLiteralConstant": "0x557ac203c150-CharLiteralConstant"
     },
     {
-      "id": "0x55f44d2b1150-CharLiteralConstant",
+      "id": "0x557ac203c150-CharLiteralConstant",
       "string": "cond is true"
     },
     {
-      "id": "0x55f44d26d490-Statement",
-      "statement": "0x55f44d26d4a0-EndIfStmt",
+      "id": "0x557ac1ff8490-Statement",
+      "statement": "0x557ac1ff84a0-EndIfStmt",
       "source": "end if"
     },
     {
-      "id": "0x55f44d26d4a0-EndIfStmt"
+      "id": "0x557ac1ff84a0-EndIfStmt"
     },
     {
-      "id": "0x55f44d2b1420-Statement",
-      "statement": "0x55f44d2b1430-EndProgramStmt",
+      "id": "0x557ac203c420-Statement",
+      "statement": "0x557ac203c430-EndProgramStmt",
       "source": "end program if"
     },
     {
-      "id": "0x55f44d2b1430-EndProgramStmt",
-      "Name": "0x55f44d2b1430-Name"
+      "id": "0x557ac203c430-EndProgramStmt",
+      "Name": "0x557ac203c430-Name"
     },
     {
-      "id": "0x55f44d2b1430-Name",
+      "id": "0x557ac203c430-Name",
       "source": "if"
     }
   ],
