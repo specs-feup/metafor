@@ -35,7 +35,7 @@ public class ExprProcessors extends ANodeProcessor {
 
         String opName = attributes().getString(binaryOperator, "op");
 
-        binaryOperator.set(BinaryOperator.OP, BinaryOperatorKind.valueOf(opName));
+        binaryOperator.set(BinaryOperator.OP, BinaryOperatorKind.valueOf(opName.toUpperCase()));
     }
 
     public void arrayConstructor(ArrayConstructor arrayConstructor) {
