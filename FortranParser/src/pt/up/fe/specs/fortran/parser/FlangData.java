@@ -65,26 +65,38 @@ public class FlangData {
             return Optional.empty();
         }
 
-
         // If there is already a concrete FortranAst class for this id, there is no derivation
         if (FlangToClass.isClass(getKind(id))) {
             return Optional.empty();
         }
 
         // Calculate key to the next level
-        var key = id.endsWith("-Statement") || id.endsWith("-UnlabeledStatement") ? REGEX_STMT : REGEX_VALUE;
         var attrs = getAttrs(id);
-        var keys = attrs.getKeys();
-
-        var idTry = attrs.getOptionalString(key);
+        var derivedKeyTry = getDerivedKey(id);
+        var derivedIdTry = derivedKeyTry.flatMap(attrs::getOptionalString);
 
         if (isNode) {
-            var derivedId = idTry.orElseThrow(() -> new RuntimeException("Could not find key '" + key + "' for id " + id + ", which has the following keys: " + keys +
+            var derivedId = derivedIdTry.orElseThrow(() -> new RuntimeException("Could not find derived key for id " + id + ", which has the following keys: " + attrs.getKeys() +
                     "\n -> this can mean that this is a concrete FortranAst node that does not exist yet. Create the node in FortranAst project, and an entry in enum FlangName corresponding to the Flang node, and then add the mapping in the class FlangToClass. Finally, add a processor for the node in the class Nodes."));
             return Optional.of(derivedId);
         }
 
-        return idTry;
+        return derivedIdTry;
+    }
+
+    private Optional<Pattern> getDerivedKey(String id) {
+        // TODO(Process-ing): Redo pattern
+        var attrs = getAttrs(id);
+
+        if (attrs.has("variantType")) {
+            return Optional.of(Pattern.compile(attrs.getString("variantType") + "(<\\w+>)?"));
+        }
+
+        if (attrs.has("statement")) {
+            return Optional.of(Pattern.compile("statement"));
+        }
+
+        return Optional.empty();
     }
 
     public String getChildId(String id) {

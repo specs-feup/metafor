@@ -214,11 +214,9 @@ public class StmtProcessors extends ANodeProcessor {
         var caseSelectorId = caseStmtAttrs.getString(FlangName.CASE_SELECTOR);
         var caseSelectorAttrs = attributes().get(caseSelectorId);
 
-        var caseSelectorValues = caseSelectorAttrs.getStringList("value");
-
-        // If the case selector is a list of values, they are a list of CaseValueRange instances
-        if (caseSelectorValues.get(0).endsWith("CaseValueRange")) {
-            var caseValueRangeIds = caseSelectorAttrs.getStringList(() -> "value");
+        // If they exist, extract the list of case value ranges
+        if (caseSelectorAttrs.has(FlangName.CASE_VALUE_RANGE)) {
+            var caseValueRangeIds = caseSelectorAttrs.getStringList(FlangName.CASE_VALUE_RANGE);
             var caseValueRanges = caseValueRangeIds.stream()
                     .map(Object::toString)
                     .map(this::buildCaseValueRange)
@@ -230,16 +228,21 @@ public class StmtProcessors extends ANodeProcessor {
             return valueCaseStmt;
         }
 
-        // Otherwise, it's a default case
-        return factory().newNode(DefaultCaseStmt.class);
+        // If selector has a default child, build a default case statement
+        if (caseSelectorAttrs.has(FlangName.DEFAULT)) {
+            return factory().newNode(DefaultCaseStmt.class);
+        }
+
+        throw new RuntimeException("Unknown case selector: " + caseSelectorId);
     }
 
     public CaseValueRange buildCaseValueRange(String id) {
-        var childId = attributes().get(id).getString("value");
+        var attrs = attributes().get(id);
 
         // If child is an instance of Range, build an appropriate range
-        if (childId.endsWith("Range")) {
-            var rangeAttrs = attributes().get(childId);
+        if (attrs.has(FlangName.RANGE)) {
+            var rangeId = attrs.getString(FlangName.RANGE);
+            var rangeAttrs = attributes().get(rangeId);
 
             Optional<FortranNode> lowerBound = rangeAttrs.getOptionalString("lower")
                     .map(lowerId -> getNode(attributes().getChildId(lowerId)));
@@ -273,7 +276,8 @@ public class StmtProcessors extends ANodeProcessor {
         }
 
         // If child is an instance of Expr, build a single case value
-        if (childId.endsWith("Expr")) {
+        if (attrs.has(FlangName.EXPR)) {
+            var childId = attrs.getString(FlangName.EXPR);
             var exprId = attributes().getChildId(childId);
             var expr = getNode(exprId);
 
@@ -283,7 +287,7 @@ public class StmtProcessors extends ANodeProcessor {
             return caseValue;
         }
 
-        throw new RuntimeException("Unknown case selector child: " + childId);
+        throw new RuntimeException("Could not determine case value range type for id: " + id + " with attributes: " + attrs);
     }
 
     public void endSelectStmt(EndSelectStmt ignoredEndSelectStmt) {

@@ -39,6 +39,14 @@ public interface NodeProcessor {
         return getNode(attributes().getChildId(node, attribute));
     }
 
+    default String getChildId(FortranNode node, FlangName name) {
+        return attributes().getChildId(node, name.getString());
+    }
+
+    default String getChildId(FortranNode node, String attribute) {
+        return attributes().getChildId(node, attribute);
+    }
+
     default String getChildId(FortranNode node, Pattern attribute) {
         return attributes().getChildId(node, attribute);
     }

@@ -4,17 +4,13 @@ import pt.up.fe.specs.util.SpecsCollections;
 import pt.up.fe.specs.util.SpecsLogs;
 import pt.up.fe.specs.util.providers.StringProvider;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Function;
 import java.util.regex.Pattern;
 
 public class FlangAttributes {
 
-    private static final Set<String> EXPECTED_COMMON_KEYS = Set.of("id", "value");
+    private static final Set<String> EXPECTED_COMMON_KEYS = Set.of("id", "variantType");
 
     private final Map<String, Object> attributes;
 
