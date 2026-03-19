@@ -1,564 +1,390 @@
 {"nodes": [
   {
-    "id": "0x7fffbd6d9400-Program",
+    "id": "0x7fffc6984400-Program",
     "ProgramUnit": [
-      "0x7fffbd703440-ProgramUnit"]
+      "0x7fffc69b2030-ProgramUnit"]
   },
   {
-    "id": "0x7fffbd703440-ProgramUnit",
-    "value": "0x7fffbd706270-MainProgram"
+    "id": "0x7fffc69b2030-ProgramUnit",
+    "value": "0x7fffc69b2d20-MainProgram"
   },
   {
-    "id": "0x7fffbd706270-MainProgram",
-    "Statement<ProgramStmt>": "0x7fffbd7063b8-Statement",
-    "SpecificationPart": "0x7fffbd706310-SpecificationPart",
-    "ExecutionPart": "0x7fffbd7062f8-ExecutionPart",
-    "Statement<EndProgramStmt>": "0x7fffbd706270-Statement"
+    "id": "0x7fffc69b2d20-MainProgram",
+    "Statement<ProgramStmt>": "0x7fffc69b2e68-Statement",
+    "SpecificationPart": "0x7fffc69b2dc0-SpecificationPart",
+    "ExecutionPart": "0x7fffc69b2da8-ExecutionPart",
+    "Statement<EndProgramStmt>": "0x7fffc69b2d20-Statement"
   },
   {
-    "id": "0x7fffbd7063b8-Statement",
-    "statement": "0x7fffbd7063c8-ProgramStmt",
+    "id": "0x7fffc69b2e68-Statement",
+    "statement": "0x7fffc69b2e78-ProgramStmt",
     "label": "null",
-    "source": "program simple_loop"
+    "source": "program array_demonstration"
   },
   {
-    "id": "0x7fffbd7063c8-ProgramStmt",
-    "Name": "0x7fffbd7063c8-Name"
+    "id": "0x7fffc69b2e78-ProgramStmt",
+    "Name": "0x7fffc69b2e78-Name"
   },
   {
-    "id": "0x7fffbd7063c8-Name",
-    "source": "simple_loop"
+    "id": "0x7fffc69b2e78-Name",
+    "source": "array_demonstration"
   },
   {
-    "id": "0x7fffbd706310-SpecificationPart",
-    "ImplicitPart": "0x7fffbd706328-ImplicitPart",
+    "id": "0x7fffc69b2dc0-SpecificationPart",
+    "ImplicitPart": "0x7fffc69b2dd8-ImplicitPart",
     "DeclarationConstruct": [
-      "0x7fffbd6df980-DeclarationConstruct"]
+      "0x7fffc69b0220-DeclarationConstruct"]
   },
   {
-    "id": "0x7fffbd706328-ImplicitPart"
+    "id": "0x7fffc69b2dd8-ImplicitPart",
+    "ImplicitPartStmt": [
+      "0x7fffc69acdb0-ImplicitPartStmt"]
   },
   {
-    "id": "0x7fffbd6df980-DeclarationConstruct",
-    "value": "0x7fffbd6df980-SpecificationConstruct"
+    "id": "0x7fffc69acdb0-ImplicitPartStmt",
+    "value<ImplicitStmt>": "0x7fffc69acdb0-Statement"
   },
   {
-    "id": "0x7fffbd6df980-SpecificationConstruct",
-    "value<TypeDeclarationStmt>": "0x7fffbd6df980-Statement"
-  },
-  {
-    "id": "0x7fffbd6df980-Statement",
-    "statement": "0x7fffbd6e78b0-TypeDeclarationStmt",
+    "id": "0x7fffc69acdb0-Statement",
+    "statement": "0x7fffc69ae720-ImplicitStmt",
     "label": "null",
-    "source": "integer :: i, dummy, a = 2"
+    "source": "implicit none"
   },
   {
-    "id": "0x7fffbd6e78b0-TypeDeclarationStmt",
-    "DeclarationTypeSpec": "0x7fffbd6e78e0-DeclarationTypeSpec",
+    "id": "0x7fffc69ae720-ImplicitStmt",
+    "value": [
+    ]
+  },
+  {
+    "id": "0x7fffc69b0220-DeclarationConstruct",
+    "value": "0x7fffc69b0220-SpecificationConstruct"
+  },
+  {
+    "id": "0x7fffc69b0220-SpecificationConstruct",
+    "value<TypeDeclarationStmt>": "0x7fffc69b0220-Statement"
+  },
+  {
+    "id": "0x7fffc69b0220-Statement",
+    "statement": "0x7fffc6992910-TypeDeclarationStmt",
+    "label": "null",
+    "source": "integer :: vec(5) = [10, 20, 30, 40, 50]"
+  },
+  {
+    "id": "0x7fffc6992910-TypeDeclarationStmt",
+    "DeclarationTypeSpec": "0x7fffc6992940-DeclarationTypeSpec",
     "EntityDecl": [
-      "0x7fffbd703b10-EntityDecl",
-      "0x7fffbd6b30d0-EntityDecl",
-      "0x7fffbd703a20-EntityDecl"]
+      "0x7fffc69b0050-EntityDecl"]
   },
   {
-    "id": "0x7fffbd6e78e0-DeclarationTypeSpec",
-    "value": "0x7fffbd6e78e0-IntrinsicTypeSpec"
+    "id": "0x7fffc6992940-DeclarationTypeSpec",
+    "value": "0x7fffc6992940-IntrinsicTypeSpec"
   },
   {
-    "id": "0x7fffbd6e78e0-IntrinsicTypeSpec",
-    "value": "0x7fffbd6e78e0-IntegerTypeSpec"
+    "id": "0x7fffc6992940-IntrinsicTypeSpec",
+    "value": "0x7fffc6992940-IntegerTypeSpec"
   },
   {
-    "id": "0x7fffbd6e78e0-IntegerTypeSpec"
+    "id": "0x7fffc6992940-IntegerTypeSpec"
   },
   {
-    "id": "0x7fffbd703b10-EntityDecl",
-    "Name": "0x7fffbd703bc8-Name"
+    "id": "0x7fffc69b0050-EntityDecl",
+    "Name": "0x7fffc69b0108-Name",
+    "ArraySpec": "0x7fffc69b00d0-ArraySpec",
+    "Initialization": "0x7fffc69b0050-Initialization"
   },
   {
-    "id": "0x7fffbd703bc8-Name",
-    "source": "i"
+    "id": "0x7fffc69b0108-Name",
+    "source": "vec"
   },
   {
-    "id": "0x7fffbd6b30d0-EntityDecl",
-    "Name": "0x7fffbd6b3188-Name"
+    "id": "0x7fffc69b00d0-ArraySpec",
+    "value": [
+      "0x7fffc69acd20-ExplicitShapeSpec"]
   },
   {
-    "id": "0x7fffbd6b3188-Name",
-    "source": "dummy"
+    "id": "0x7fffc69acd20-ExplicitShapeSpec",
+    "upper_bound": "0x7fffc69acd20-SpecificationExpr"
   },
   {
-    "id": "0x7fffbd703a20-EntityDecl",
-    "Name": "0x7fffbd703ad8-Name",
-    "Initialization": "0x7fffbd703a20-Initialization"
+    "id": "0x7fffc69acd20-SpecificationExpr",
+    "Expr": "0x7fffc69ae7c0-Expr"
   },
   {
-    "id": "0x7fffbd703ad8-Name",
-    "source": "a"
+    "id": "0x7fffc69ae7c0-Expr",
+    "value": "0x7fffc69ae7e0-LiteralConstant"
   },
   {
-    "id": "0x7fffbd703a20-Initialization",
-    "value": "0x7fffbd703a20-Constant"
+    "id": "0x7fffc69ae7e0-LiteralConstant",
+    "value": "0x7fffc69ae7e0-IntLiteralConstant"
   },
   {
-    "id": "0x7fffbd703a20-Constant",
-    "value": "0x7fffbd703950-LiteralConstant"
-  },
-  {
-    "id": "0x7fffbd703930-Expr",
-    "value": "0x7fffbd703950-LiteralConstant"
-  },
-  {
-    "id": "0x7fffbd703950-LiteralConstant",
-    "value": "0x7fffbd703950-IntLiteralConstant"
-  },
-  {
-    "id": "0x7fffbd703950-IntLiteralConstant",
-    "CharBlock": "2"
-  },
-  {
-    "id": "0x7fffbd7062f8-ExecutionPart",
-    "ExecutionPartConstruct": [
-      "0x7fffbd7048f0-ExecutionPartConstruct",
-      "0x7fffbd705500-ExecutionPartConstruct",
-      "0x7fffbd705ea0-ExecutionPartConstruct"]
-  },
-  {
-    "id": "0x7fffbd7062f8-ExecutionPartConstruct"
-  },
-  {
-    "id": "0x7fffbd7048f0-ExecutionPartConstruct",
-    "value": "0x7fffbd7048f0-ExecutableConstruct"
-  },
-  {
-    "id": "0x7fffbd7048f0-ExecutableConstruct",
-    "value": "0x7fffbd6c4490-DoConstruct"
-  },
-  {
-    "id": "0x7fffbd6c4490-DoConstruct",
-    "Statement<NonLabelDoStmt>": "0x7fffbd6c44e8-Statement",
-    "ExecutionPartConstruct": [
-      "0x7fffbd703870-ExecutionPartConstruct",
-      "0x7fffbd705780-ExecutionPartConstruct"],
-    "Statement<EndDoStmt>": "0x7fffbd6c4490-Statement"
-  },
-  {
-    "id": "0x7fffbd6c44e8-Statement",
-    "statement": "0x7fffbd6c44f8-NonLabelDoStmt",
-    "label": "null",
-    "source": "do i = 1, 5, a"
-  },
-  {
-    "id": "0x7fffbd6c44f8-NonLabelDoStmt",
-    "LoopControl": "0x7fffbd6c44f8-LoopControl"
-  },
-  {
-    "id": "0x7fffbd6c44f8-LoopControl",
-    "value": "0x7fffbd6c44f8-LoopBounds",
-    "kind": "Range"
-  },
-  {
-    "id": "0x7fffbd6c44f8-LoopBounds",
-    "var": "0x7fffbd6c44f8-Name",
-    "lower": "0x7fffbd705190-Expr",
-    "upper": "0x7fffbd705270-Expr",
-    "step": "0x7fffbd7053b0-Expr"
-  },
-  {
-    "id": "0x7fffbd6c44f8-Name",
-    "source": "i"
-  },
-  {
-    "id": "0x7fffbd705190-Expr",
-    "value": "0x7fffbd7051b0-LiteralConstant"
-  },
-  {
-    "id": "0x7fffbd7051b0-LiteralConstant",
-    "value": "0x7fffbd7051b0-IntLiteralConstant"
-  },
-  {
-    "id": "0x7fffbd7051b0-IntLiteralConstant",
-    "CharBlock": "1"
-  },
-  {
-    "id": "0x7fffbd705270-Expr",
-    "value": "0x7fffbd705290-LiteralConstant"
-  },
-  {
-    "id": "0x7fffbd705290-LiteralConstant",
-    "value": "0x7fffbd705290-IntLiteralConstant"
-  },
-  {
-    "id": "0x7fffbd705290-IntLiteralConstant",
+    "id": "0x7fffc69ae7e0-IntLiteralConstant",
     "CharBlock": "5"
   },
   {
-    "id": "0x7fffbd7053b0-Expr",
-    "value": "0x7fffbd705350-Designator"
+    "id": "0x7fffc69b0050-Initialization",
+    "value": "0x7fffc69aff60-Expr"
   },
   {
-    "id": "0x7fffbd705350-Designator",
-    "value": "0x7fffbd705360-DataRef"
+    "id": "0x7fffc69aff60-Expr",
+    "value": "0x7fffc69aff80-ArrayConstructor"
   },
   {
-    "id": "0x7fffbd705360-DataRef",
-    "value": "0x7fffbd705360-Name"
+    "id": "0x7fffc69aff80-ArrayConstructor",
+    "AcSpec": "0x7fffc69aff80-AcSpec"
   },
   {
-    "id": "0x7fffbd705360-Name",
-    "source": "a"
+    "id": "0x7fffc69aff80-AcSpec",
+    "values": [
+      "0x7fffc69ada00-AcValue",
+      "0x7fffc69ace00-AcValue",
+      "0x7fffc69ace90-AcValue",
+      "0x7fffc69ad910-AcValue",
+      "0x7fffc69ad9c0-AcValue"]
   },
   {
-    "id": "0x7fffbd6c44d0-ExecutionPartConstruct"
+    "id": "0x7fffc69ada00-AcValue",
+    "value": "0x7fffc69af1a0-Expr"
   },
   {
-    "id": "0x7fffbd703870-ExecutionPartConstruct",
-    "value": "0x7fffbd703870-ExecutableConstruct"
+    "id": "0x7fffc69af1a0-Expr",
+    "value": "0x7fffc69af1c0-LiteralConstant"
   },
   {
-    "id": "0x7fffbd703870-ExecutableConstruct",
-    "value<ActionStmt>": "0x7fffbd703870-Statement"
+    "id": "0x7fffc69af1c0-LiteralConstant",
+    "value": "0x7fffc69af1c0-IntLiteralConstant"
   },
   {
-    "id": "0x7fffbd703870-Statement",
-    "statement": "0x7fffbd703880-ActionStmt",
-    "label": "null",
-    "source": "dummy = 3"
+    "id": "0x7fffc69af1c0-IntLiteralConstant",
+    "CharBlock": "10"
   },
   {
-    "id": "0x7fffbd703880-ActionStmt",
-    "value": "0x7fffbd705550-AssignmentStmt"
+    "id": "0x7fffc69ace00-AcValue",
+    "value": "0x7fffc69af4a0-Expr"
   },
   {
-    "id": "0x7fffbd705550-AssignmentStmt",
-    "Variable": "0x7fffbd705630-Variable",
-    "Expr": "0x7fffbd705560-Expr"
+    "id": "0x7fffc69af4a0-Expr",
+    "value": "0x7fffc69af4c0-LiteralConstant"
   },
   {
-    "id": "0x7fffbd705630-Variable",
-    "value": "0x7fffbd6dfce0-Designator"
+    "id": "0x7fffc69af4c0-LiteralConstant",
+    "value": "0x7fffc69af4c0-IntLiteralConstant"
   },
   {
-    "id": "0x7fffbd6dfce0-Designator",
-    "value": "0x7fffbd6dfcf0-DataRef"
+    "id": "0x7fffc69af4c0-IntLiteralConstant",
+    "CharBlock": "20"
   },
   {
-    "id": "0x7fffbd6dfcf0-DataRef",
-    "value": "0x7fffbd6dfcf0-Name"
+    "id": "0x7fffc69ace90-AcValue",
+    "value": "0x7fffc69af7a0-Expr"
   },
   {
-    "id": "0x7fffbd6dfcf0-Name",
-    "source": "dummy"
+    "id": "0x7fffc69af7a0-Expr",
+    "value": "0x7fffc69af7c0-LiteralConstant"
   },
   {
-    "id": "0x7fffbd705560-Expr",
-    "value": "0x7fffbd705580-LiteralConstant"
+    "id": "0x7fffc69af7c0-LiteralConstant",
+    "value": "0x7fffc69af7c0-IntLiteralConstant"
   },
   {
-    "id": "0x7fffbd705580-LiteralConstant",
-    "value": "0x7fffbd705580-IntLiteralConstant"
+    "id": "0x7fffc69af7c0-IntLiteralConstant",
+    "CharBlock": "30"
   },
   {
-    "id": "0x7fffbd705580-IntLiteralConstant",
-    "CharBlock": "3"
+    "id": "0x7fffc69ad910-AcValue",
+    "value": "0x7fffc69afaa0-Expr"
   },
   {
-    "id": "0x7fffbd705780-ExecutionPartConstruct",
-    "value": "0x7fffbd705780-ExecutableConstruct"
+    "id": "0x7fffc69afaa0-Expr",
+    "value": "0x7fffc69afac0-LiteralConstant"
   },
   {
-    "id": "0x7fffbd705780-ExecutableConstruct",
-    "value<ActionStmt>": "0x7fffbd705780-Statement"
+    "id": "0x7fffc69afac0-LiteralConstant",
+    "value": "0x7fffc69afac0-IntLiteralConstant"
   },
   {
-    "id": "0x7fffbd705780-Statement",
-    "statement": "0x7fffbd705790-ActionStmt",
-    "label": "null",
-    "source": "dummy = 4"
+    "id": "0x7fffc69afac0-IntLiteralConstant",
+    "CharBlock": "40"
   },
   {
-    "id": "0x7fffbd705790-ActionStmt",
-    "value": "0x7fffbd705660-AssignmentStmt"
+    "id": "0x7fffc69ad9c0-AcValue",
+    "value": "0x7fffc69afda0-Expr"
   },
   {
-    "id": "0x7fffbd705660-AssignmentStmt",
-    "Variable": "0x7fffbd705740-Variable",
-    "Expr": "0x7fffbd705670-Expr"
+    "id": "0x7fffc69afda0-Expr",
+    "value": "0x7fffc69afdc0-LiteralConstant"
   },
   {
-    "id": "0x7fffbd705740-Variable",
-    "value": "0x7fffbd6d9230-Designator"
+    "id": "0x7fffc69afdc0-LiteralConstant",
+    "value": "0x7fffc69afdc0-IntLiteralConstant"
   },
   {
-    "id": "0x7fffbd6d9230-Designator",
-    "value": "0x7fffbd6d9240-DataRef"
+    "id": "0x7fffc69afdc0-IntLiteralConstant",
+    "CharBlock": "50"
   },
   {
-    "id": "0x7fffbd6d9240-DataRef",
-    "value": "0x7fffbd6d9240-Name"
-  },
-  {
-    "id": "0x7fffbd6d9240-Name",
-    "source": "dummy"
-  },
-  {
-    "id": "0x7fffbd705670-Expr",
-    "value": "0x7fffbd705690-LiteralConstant"
-  },
-  {
-    "id": "0x7fffbd705690-LiteralConstant",
-    "value": "0x7fffbd705690-IntLiteralConstant"
-  },
-  {
-    "id": "0x7fffbd705690-IntLiteralConstant",
-    "CharBlock": "4"
-  },
-  {
-    "id": "0x7fffbd6c4490-Statement",
-    "statement": "0x7fffbd6c44a0-EndDoStmt",
-    "label": "null",
-    "source": "end do"
-  },
-  {
-    "id": "0x7fffbd6c44a0-EndDoStmt"
-  },
-  {
-    "id": "0x7fffbd705500-ExecutionPartConstruct",
-    "value": "0x7fffbd705500-ExecutableConstruct"
-  },
-  {
-    "id": "0x7fffbd705500-ExecutableConstruct",
-    "value": "0x7fffbd705d10-DoConstruct"
-  },
-  {
-    "id": "0x7fffbd705d10-DoConstruct",
-    "Statement<NonLabelDoStmt>": "0x7fffbd705d68-Statement",
+    "id": "0x7fffc69b2da8-ExecutionPart",
     "ExecutionPartConstruct": [
-      "0x7fffbd705cc0-ExecutionPartConstruct"],
-    "Statement<EndDoStmt>": "0x7fffbd705d10-Statement"
+      "0x7fffc69af290-ExecutionPartConstruct",
+      "0x7fffc69b1160-ExecutionPartConstruct"]
   },
   {
-    "id": "0x7fffbd705d68-Statement",
-    "statement": "0x7fffbd705d78-NonLabelDoStmt",
+    "id": "0x7fffc69b2da8-ExecutionPartConstruct"
+  },
+  {
+    "id": "0x7fffc69af290-ExecutionPartConstruct",
+    "value": "0x7fffc69af290-ExecutableConstruct"
+  },
+  {
+    "id": "0x7fffc69af290-ExecutableConstruct",
+    "value<ActionStmt>": "0x7fffc69af290-Statement"
+  },
+  {
+    "id": "0x7fffc69af290-Statement",
+    "statement": "0x7fffc69af2a0-ActionStmt",
     "label": "null",
-    "source": "do while(2 > 0)"
+    "source": "print *, \"--- 1. Simple Indexing ---\""
   },
   {
-    "id": "0x7fffbd705d78-NonLabelDoStmt",
-    "LoopControl": "0x7fffbd705d78-LoopControl"
+    "id": "0x7fffc69af2a0-ActionStmt",
+    "value": "0x7fffc69aebd0-PrintStmt"
   },
   {
-    "id": "0x7fffbd705d78-LoopControl",
-    "value": "0x7fffbd705a00-Expr",
-    "kind": "While"
+    "id": "0x7fffc69aebd0-PrintStmt",
+    "Format": "0x7fffc69aebe8-Format",
+    "OutputItem": [
+      "0x7fffc69aea80-OutputItem"]
   },
   {
-    "id": "0x7fffbd705a00-Expr",
-    "value": "0x7fffbd705a20-GT"
+    "id": "0x7fffc69aebe8-Format",
+    "value": "0x7fffc69aebe8-Star"
   },
   {
-    "id": "0x7fffbd705a20-GT",
-    "left": "0x7fffbd705920-Expr",
-    "right": "0x7fffbd705840-Expr",
-    "op": "GT"
+    "id": "0x7fffc69aebe8-Star"
   },
   {
-    "id": "0x7fffbd705920-Expr",
-    "value": "0x7fffbd705940-LiteralConstant"
+    "id": "0x7fffc69aea80-OutputItem",
+    "value": "0x7fffc69aea80-Expr"
   },
   {
-    "id": "0x7fffbd705940-LiteralConstant",
-    "value": "0x7fffbd705940-IntLiteralConstant"
+    "id": "0x7fffc69aea80-Expr",
+    "value": "0x7fffc69aeaa0-LiteralConstant"
   },
   {
-    "id": "0x7fffbd705940-IntLiteralConstant",
+    "id": "0x7fffc69aeaa0-LiteralConstant",
+    "value": "0x7fffc69aeaa0-CharLiteralConstant"
+  },
+  {
+    "id": "0x7fffc69aeaa0-CharLiteralConstant",
+    "string": "--- 1. Simple Indexing ---"
+  },
+  {
+    "id": "0x7fffc69b1160-ExecutionPartConstruct",
+    "value": "0x7fffc69b1160-ExecutableConstruct"
+  },
+  {
+    "id": "0x7fffc69b1160-ExecutableConstruct",
+    "value<ActionStmt>": "0x7fffc69b1160-Statement"
+  },
+  {
+    "id": "0x7fffc69b1160-Statement",
+    "statement": "0x7fffc69b1170-ActionStmt",
+    "label": "null",
+    "source": "print *, \"The second element is:\", vec(2)"
+  },
+  {
+    "id": "0x7fffc69b1170-ActionStmt",
+    "value": "0x7fffc69b0fe0-PrintStmt"
+  },
+  {
+    "id": "0x7fffc69b0fe0-PrintStmt",
+    "Format": "0x7fffc69b0ff8-Format",
+    "OutputItem": [
+      "0x7fffc69b0e90-OutputItem",
+      "0x7fffc69b0da0-OutputItem"]
+  },
+  {
+    "id": "0x7fffc69b0ff8-Format",
+    "value": "0x7fffc69b0ff8-Star"
+  },
+  {
+    "id": "0x7fffc69b0ff8-Star"
+  },
+  {
+    "id": "0x7fffc69b0e90-OutputItem",
+    "value": "0x7fffc69b0e90-Expr"
+  },
+  {
+    "id": "0x7fffc69b0e90-Expr",
+    "value": "0x7fffc69b0eb0-LiteralConstant"
+  },
+  {
+    "id": "0x7fffc69b0eb0-LiteralConstant",
+    "value": "0x7fffc69b0eb0-CharLiteralConstant"
+  },
+  {
+    "id": "0x7fffc69b0eb0-CharLiteralConstant",
+    "string": "The second element is:"
+  },
+  {
+    "id": "0x7fffc69b0da0-OutputItem",
+    "value": "0x7fffc69b0da0-Expr"
+  },
+  {
+    "id": "0x7fffc69b0da0-Expr",
+    "value": "0x7fffc69c3530-Designator"
+  },
+  {
+    "id": "0x7fffc69c3530-Designator",
+    "value": "0x7fffc69c3540-DataRef"
+  },
+  {
+    "id": "0x7fffc69c3540-DataRef",
+    "value": "0x7fffc6a454a0-ArrayElement"
+  },
+  {
+    "id": "0x7fffc6a454a0-ArrayElement",
+    "base": "0x7fffc6a454a0-DataRef",
+    "subscripts": [
+      "0x7fffc69ace40-SectionSubscript"]
+  },
+  {
+    "id": "0x7fffc6a454a0-DataRef",
+    "value": "0x7fffc6a454a0-Name"
+  },
+  {
+    "id": "0x7fffc6a454a0-Name",
+    "source": "vec"
+  },
+  {
+    "id": "0x7fffc69ace40-SectionSubscript",
+    "value": "0x7fffc69b3a60-Expr"
+  },
+  {
+    "id": "0x7fffc69b3a60-Expr",
+    "value": "0x7fffc69b3a80-LiteralConstant"
+  },
+  {
+    "id": "0x7fffc69b3a80-LiteralConstant",
+    "value": "0x7fffc69b3a80-IntLiteralConstant"
+  },
+  {
+    "id": "0x7fffc69b3a80-IntLiteralConstant",
     "CharBlock": "2"
   },
   {
-    "id": "0x7fffbd705840-Expr",
-    "value": "0x7fffbd705860-LiteralConstant"
-  },
-  {
-    "id": "0x7fffbd705860-LiteralConstant",
-    "value": "0x7fffbd705860-IntLiteralConstant"
-  },
-  {
-    "id": "0x7fffbd705860-IntLiteralConstant",
-    "CharBlock": "0"
-  },
-  {
-    "id": "0x7fffbd705d50-ExecutionPartConstruct"
-  },
-  {
-    "id": "0x7fffbd705cc0-ExecutionPartConstruct",
-    "value": "0x7fffbd705cc0-ExecutableConstruct"
-  },
-  {
-    "id": "0x7fffbd705cc0-ExecutableConstruct",
-    "value<ActionStmt>": "0x7fffbd705cc0-Statement"
-  },
-  {
-    "id": "0x7fffbd705cc0-Statement",
-    "statement": "0x7fffbd705cd0-ActionStmt",
+    "id": "0x7fffc69b2d20-Statement",
+    "statement": "0x7fffc69b2d30-EndProgramStmt",
     "label": "null",
-    "source": "dummy = 2"
+    "source": "end program array_demonstration"
   },
   {
-    "id": "0x7fffbd705cd0-ActionStmt",
-    "value": "0x7fffbd705ba0-AssignmentStmt"
+    "id": "0x7fffc69b2d30-EndProgramStmt",
+    "Name": "0x7fffc69b2d30-Name"
   },
   {
-    "id": "0x7fffbd705ba0-AssignmentStmt",
-    "Variable": "0x7fffbd705c80-Variable",
-    "Expr": "0x7fffbd705bb0-Expr"
-  },
-  {
-    "id": "0x7fffbd705c80-Variable",
-    "value": "0x7fffbd705490-Designator"
-  },
-  {
-    "id": "0x7fffbd705490-Designator",
-    "value": "0x7fffbd7054a0-DataRef"
-  },
-  {
-    "id": "0x7fffbd7054a0-DataRef",
-    "value": "0x7fffbd7054a0-Name"
-  },
-  {
-    "id": "0x7fffbd7054a0-Name",
-    "source": "dummy"
-  },
-  {
-    "id": "0x7fffbd705bb0-Expr",
-    "value": "0x7fffbd705bd0-LiteralConstant"
-  },
-  {
-    "id": "0x7fffbd705bd0-LiteralConstant",
-    "value": "0x7fffbd705bd0-IntLiteralConstant"
-  },
-  {
-    "id": "0x7fffbd705bd0-IntLiteralConstant",
-    "CharBlock": "2"
-  },
-  {
-    "id": "0x7fffbd705d10-Statement",
-    "statement": "0x7fffbd705d20-EndDoStmt",
-    "label": "null",
-    "source": "end do"
-  },
-  {
-    "id": "0x7fffbd705d20-EndDoStmt"
-  },
-  {
-    "id": "0x7fffbd705ea0-ExecutionPartConstruct",
-    "value": "0x7fffbd705ea0-ExecutableConstruct"
-  },
-  {
-    "id": "0x7fffbd705ea0-ExecutableConstruct",
-    "value": "0x7fffbd706060-DoConstruct"
-  },
-  {
-    "id": "0x7fffbd706060-DoConstruct",
-    "Statement<NonLabelDoStmt>": "0x7fffbd7060b8-Statement",
-    "ExecutionPartConstruct": [
-      "0x7fffbd706010-ExecutionPartConstruct"],
-    "Statement<EndDoStmt>": "0x7fffbd706060-Statement"
-  },
-  {
-    "id": "0x7fffbd7060b8-Statement",
-    "statement": "0x7fffbd7060c8-NonLabelDoStmt",
-    "label": "null",
-    "source": "name: do"
-  },
-  {
-    "id": "0x7fffbd7060c8-NonLabelDoStmt",
-    "Name": "0x7fffbd706148-Name"
-  },
-  {
-    "id": "0x7fffbd706148-Name",
-    "source": "name"
-  },
-  {
-    "id": "0x7fffbd7060a0-ExecutionPartConstruct"
-  },
-  {
-    "id": "0x7fffbd706010-ExecutionPartConstruct",
-    "value": "0x7fffbd706010-ExecutableConstruct"
-  },
-  {
-    "id": "0x7fffbd706010-ExecutableConstruct",
-    "value<ActionStmt>": "0x7fffbd706010-Statement"
-  },
-  {
-    "id": "0x7fffbd706010-Statement",
-    "statement": "0x7fffbd706020-ActionStmt",
-    "label": "null",
-    "source": "dummy = 4"
-  },
-  {
-    "id": "0x7fffbd706020-ActionStmt",
-    "value": "0x7fffbd705ef0-AssignmentStmt"
-  },
-  {
-    "id": "0x7fffbd705ef0-AssignmentStmt",
-    "Variable": "0x7fffbd705fd0-Variable",
-    "Expr": "0x7fffbd705f00-Expr"
-  },
-  {
-    "id": "0x7fffbd705fd0-Variable",
-    "value": "0x7fffbd705e30-Designator"
-  },
-  {
-    "id": "0x7fffbd705e30-Designator",
-    "value": "0x7fffbd705e40-DataRef"
-  },
-  {
-    "id": "0x7fffbd705e40-DataRef",
-    "value": "0x7fffbd705e40-Name"
-  },
-  {
-    "id": "0x7fffbd705e40-Name",
-    "source": "dummy"
-  },
-  {
-    "id": "0x7fffbd705f00-Expr",
-    "value": "0x7fffbd705f20-LiteralConstant"
-  },
-  {
-    "id": "0x7fffbd705f20-LiteralConstant",
-    "value": "0x7fffbd705f20-IntLiteralConstant"
-  },
-  {
-    "id": "0x7fffbd705f20-IntLiteralConstant",
-    "CharBlock": "4"
-  },
-  {
-    "id": "0x7fffbd706060-Statement",
-    "statement": "0x7fffbd706070-EndDoStmt",
-    "label": "null",
-    "source": "end do name"
-  },
-  {
-    "id": "0x7fffbd706070-EndDoStmt",
-    "Name": "0x7fffbd706070-Name"
-  },
-  {
-    "id": "0x7fffbd706070-Name",
-    "source": "name"
-  },
-  {
-    "id": "0x7fffbd706270-Statement",
-    "statement": "0x7fffbd706280-EndProgramStmt",
-    "label": "null",
-    "source": "end program simple_loop"
-  },
-  {
-    "id": "0x7fffbd706280-EndProgramStmt",
-    "Name": "0x7fffbd706280-Name"
-  },
-  {
-    "id": "0x7fffbd706280-Name",
-    "source": "simple_loop"
+    "id": "0x7fffc69b2d30-Name",
+    "source": "array_demonstration"
   }],
   "enums": {
     "Fortran::common::CUDADataAttr": ["Constant", "Device", "Managed", "Pinned", "Shared", "Texture", "Unified"],

@@ -1,12 +1,6 @@
 package pt.up.fe.specs.fortran.parser.processors;
 
-import pt.up.fe.specs.fortran.ast.nodes.expr.BinaryOperator;
-import pt.up.fe.specs.fortran.ast.nodes.expr.IntLiteral;
-import pt.up.fe.specs.fortran.ast.nodes.expr.LogicalLiteral;
-import pt.up.fe.specs.fortran.ast.nodes.expr.ParenExpr;
-import pt.up.fe.specs.fortran.ast.nodes.expr.StringLiteral;
-import pt.up.fe.specs.fortran.ast.nodes.expr.ArrayConstructor;
-import pt.up.fe.specs.fortran.ast.nodes.expr.AcSpecification;
+import pt.up.fe.specs.fortran.ast.nodes.expr.*;
 import pt.up.fe.specs.fortran.ast.nodes.expr.enums.BinaryOperatorKind;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
@@ -57,4 +51,8 @@ public class ExprProcessors extends ANodeProcessor {
         acSpecification.addChildren(acValueList);
     }
 
+    public void arraySubscriptExpr(ArraySubscriptExpr arraySubscriptExpr) {
+        arraySubscriptExpr.addChild(getChild(arraySubscriptExpr, "base"));
+        arraySubscriptExpr.addChildren(getChildren(arraySubscriptExpr, "subscripts"));
+    }
 }

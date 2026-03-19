@@ -95,6 +95,7 @@ public class Nodes {
         processors.put(BinaryOperator.class, e::binaryOperator);
         processors.put(ArrayConstructor.class, e::arrayConstructor);
         processors.put(AcSpecification.class, e::acSpecification);
+        processors.put(ArraySubscriptExpr.class, e::arraySubscriptExpr);
 
         var t = new TypeProcessors(data);
         processors.put(IntegerType.class, t::integerType);
