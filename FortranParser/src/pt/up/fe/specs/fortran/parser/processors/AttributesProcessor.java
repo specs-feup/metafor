@@ -9,7 +9,6 @@ import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 
 import java.util.EnumSet;
 import java.util.Set;
-import java.util.regex.Pattern;
 
 public class AttributesProcessor extends ANodeProcessor {
     private static final Set<FlangName> KEYWORD_ATTRIBUTES = EnumSet.of(
@@ -21,9 +20,9 @@ public class AttributesProcessor extends ANodeProcessor {
         super(data);
     }
 
-
     public void arraySpecification(ArraySpecification arraySpecification) {
-        var shapes = getChildren(arraySpecification, "value");
+        var variantType = attributes(arraySpecification).getString("variantType");
+        var shapes = getChildren(arraySpecification, variantType);
         arraySpecification.addChildren(shapes);
     }
 

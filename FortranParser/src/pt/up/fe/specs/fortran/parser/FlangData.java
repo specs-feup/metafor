@@ -88,12 +88,18 @@ public class FlangData {
         // TODO(Process-ing): Redo pattern
         var attrs = getAttrs(id);
 
+        if (attrs.has("statement")) {
+            return Optional.of(Pattern.compile("statement"));
+        }
+
         if (attrs.has("variantType")) {
             return Optional.of(Pattern.compile(attrs.getString("variantType") + "(<\\w+>)?"));
         }
 
-        if (attrs.has("statement")) {
-            return Optional.of(Pattern.compile("statement"));
+        var keys = attrs.getKeys();
+        if (keys.size() == 2) {
+            var otherKey = keys.stream().filter(key -> !key.equals("id")).findFirst().orElseThrow();
+            return Optional.of(Pattern.compile(otherKey));
         }
 
         return Optional.empty();
