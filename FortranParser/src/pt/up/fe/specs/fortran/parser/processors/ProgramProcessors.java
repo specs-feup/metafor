@@ -70,6 +70,6 @@ public class ProgramProcessors extends ANodeProcessor {
 
         var name = firstName.orElse(endName);
 
-        subroutine.setOptional(MainProgram.PROGRAM_NAME, name);
+        subroutine.set(Subroutine.SUBROUTINE_NAME, name);
     }
 }
