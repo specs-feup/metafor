@@ -260,4 +260,16 @@ public class FortranParserTest {
             testNative("subroutine.f90");
         }
     }
+
+    @Test
+    void testArrayElementAccess() {
+        testJson("arrays/element_access.json");
+    }
+
+    @Test
+    void testArrayElementAccessNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("arrays/element_access.f90");
+        }
+    }
 }
