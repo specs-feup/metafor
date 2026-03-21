@@ -88,6 +88,8 @@ public class Nodes {
         processors.put(CaseBlock.class, s::caseBlock);
         processors.put(EndSelectStmt.class, s::endSelectStmt);
 
+        processors.put(CallStmt.class, s::callStmt);
+
         var e = new ExprProcessors(data);
         processors.put(StringLiteral.class, e::stringLiteral);
         processors.put(IntLiteral.class, e::intLiteral);
@@ -97,6 +99,8 @@ public class Nodes {
         processors.put(ArrayConstructor.class, e::arrayConstructor);
         processors.put(AcSpecification.class, e::acSpecification);
         processors.put(ArraySubscriptExpr.class, e::arraySubscriptExpr);
+        processors.put(Call.class, e::call);
+        processors.put(Argument.class, e::argument);
 
         var t = new TypeProcessors(data);
         processors.put(IntegerType.class, t::integerType);

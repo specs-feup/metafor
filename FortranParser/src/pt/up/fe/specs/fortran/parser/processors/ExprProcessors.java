@@ -51,8 +51,17 @@ public class ExprProcessors extends ANodeProcessor {
         acSpecification.addChildren(acValueList);
     }
 
+    public void call(Call call) {
+        call.addChild(getChild(call, FlangName.PROCEDURE_DESIGNATOR));
+        call.addChildren(getChildren(call, FlangName.ACTUAL_ARG_SPEC));
+    }
+
     public void arraySubscriptExpr(ArraySubscriptExpr arraySubscriptExpr) {
         arraySubscriptExpr.addChild(getChild(arraySubscriptExpr, "base"));
         arraySubscriptExpr.addChildren(getChildren(arraySubscriptExpr, "subscripts"));
+    }
+
+    public void argument(Argument argument) {
+        argument.addChild(getChild(argument, FlangName.ACTUAL_ARG));
     }
 }

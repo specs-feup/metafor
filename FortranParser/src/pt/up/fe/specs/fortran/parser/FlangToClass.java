@@ -12,13 +12,9 @@ import pt.up.fe.specs.fortran.ast.nodes.loops.ConcurrentRange;
 import pt.up.fe.specs.fortran.ast.nodes.loops.RangeLoopControl;
 import pt.up.fe.specs.fortran.ast.nodes.expr.*;
 import pt.up.fe.specs.fortran.ast.nodes.program.*;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.AssignmentStmt;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.FormatStmt;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.PrintStmt;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.TypeDeclarationStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.*;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.DoStmt;
 import pt.up.fe.specs.fortran.ast.nodes.type.IntegerType;
 import pt.up.fe.specs.fortran.ast.nodes.type.LogicalType;
 import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
@@ -68,6 +64,8 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.CASE, CaseBlock.class);
         NAME_TO_CLASS.put(FlangName.END_SELECT_STMT, EndSelectStmt.class);
 
+        NAME_TO_CLASS.put(FlangName.CALL_STMT, CallStmt.class);
+
         /// Variables
         //NAME_TO_CLASS.put(FlangName.DATA_REF, DataRef.class);
         NAME_TO_CLASS.put(FlangName.NAME, DataRef.class);
@@ -92,6 +90,8 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.ARRAY_CONSTRUCTOR, ArrayConstructor.class);
         NAME_TO_CLASS.put(FlangName.AC_SPEC, AcSpecification.class);
         NAME_TO_CLASS.put(FlangName.ARRAY_ELEMENT, ArraySubscriptExpr.class);
+        NAME_TO_CLASS.put(FlangName.CALL, Call.class);
+        NAME_TO_CLASS.put(FlangName.ACTUAL_ARG_SPEC, Argument.class);
 
         /// TYPEs
         NAME_TO_CLASS.put(FlangName.INTEGER_TYPE_SPEC, IntegerType.class);

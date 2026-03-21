@@ -323,4 +323,8 @@ public class StmtProcessors extends ANodeProcessor {
         Execution body = factory().newNode(Execution.class, getChildren(doStmt, FlangName.EXECUTION_PART_CONSTRUCT));
         doStmt.addChild(body);
     }
+
+    public void callStmt(CallStmt callStmt) {
+        callStmt.addChild(getChild(callStmt, "call"));
+    }
 }

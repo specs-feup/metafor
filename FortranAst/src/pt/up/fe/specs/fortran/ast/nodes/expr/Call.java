@@ -5,6 +5,7 @@ import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Call extends Expr {
 
@@ -16,7 +17,16 @@ public class Call extends Expr {
         return getChild(DataRef.class, 0);
     }
 
-    public List<Expr> getArgs() {
-        return getChildren(Expr.class, 1);
+    public List<Argument> getArgs() {
+        return getChildren(Argument.class, 1);
+    }
+
+    @Override
+    public String getCode() {
+        return getCallee().getCode() + "(" +
+                getArgs().stream()
+                        .map(Argument::getCode)
+                        .collect(Collectors.joining(", ")) +
+                ")";
     }
 }

@@ -7,6 +7,7 @@ public enum FortranKeyword {
     DO,
     WHILE,
     CONCURRENT,
+    SUBROUTINE,
 
     // Conditional statements
     IF,

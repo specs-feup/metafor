@@ -84,6 +84,10 @@ public enum FlangName implements StringProvider {
     GT("GT"),
     GE("GE"),
     SCALAR,
+    PROCEDURE_DESIGNATOR,
+    ACTUAL_ARG_SPEC,
+    ACTUAL_ARG,
+    CALL,
 
     // ARRAYs
     ARRAY_CONSTRUCTOR,
