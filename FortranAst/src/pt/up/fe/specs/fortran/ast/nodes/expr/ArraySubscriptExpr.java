@@ -23,7 +23,6 @@ public class ArraySubscriptExpr extends DataRef {
 
     @Override
     public String getCode() {
-
         return getRef().getCode() + "(" +
                 getSubscripts().stream()
                         .map(Expr::getCode)
