@@ -57,6 +57,7 @@ public class Nodes {
         processors.put(MainProgram.class, p::mainProgram);
         processors.put(Specification.class, p::specification);
         processors.put(Execution.class, p::execution);
+        processors.put(Subroutine.class, p::subroutine);
 
 
         var d = new DeclProcessors(data);

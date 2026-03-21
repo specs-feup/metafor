@@ -11,6 +11,7 @@ public enum FlangName implements StringProvider {
     PROGRAM,
     MAIN_PROGRAM,
     PROGRAM_UNIT,
+    SUBROUTINE_SUBPROGRAM,
     SPECIFICATION_PART,
     DECLARATION_CONSTRUCT,
     IMPLICIT_PART,
@@ -37,6 +38,7 @@ public enum FlangName implements StringProvider {
     ASSIGNMENT_STMT,
     NON_LABEL_DO_STMT,
     DO_CONSTRUCT,
+    CALL_STMT,
 
     /// Conditional Statements
     IF_CONSTRUCT,
