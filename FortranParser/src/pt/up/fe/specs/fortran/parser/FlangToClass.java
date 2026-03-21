@@ -71,7 +71,8 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.END_SELECT_STMT, EndSelectStmt.class);
 
         /// Variables
-        NAME_TO_CLASS.put(FlangName.DATA_REF, DataRef.class);
+        //NAME_TO_CLASS.put(FlangName.DATA_REF, DataRef.class);
+        NAME_TO_CLASS.put(FlangName.NAME, DataRef.class);
 
         /// EXPRs
         NAME_TO_CLASS.put(FlangName.CHAR_LITERAL_CONSTANT, StringLiteral.class);

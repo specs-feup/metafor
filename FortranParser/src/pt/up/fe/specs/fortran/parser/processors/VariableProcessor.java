@@ -9,10 +9,11 @@ public class VariableProcessor extends ANodeProcessor {
     }
 
     public void dataRefProcessor(DataRef dataRef) {
-        var nameId = attributes(dataRef).getString("value");
-        var name = attributes().get(nameId).getOptionalString("source");
 
-        name.ifPresent(str -> dataRef.set(DataRef.NAME, str));
+        //var nameId = attributes(dataRef).getString("value");
+        //var name = attributes().get(nameId).getOptionalString("source");
+        String name = attributes(dataRef).getString("source");
+
         dataRef.set(DataRef.NAME, name);
     }
 }
