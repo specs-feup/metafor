@@ -2,10 +2,7 @@ package pt.up.fe.specs.fortran.parser.processors;
 
 import pt.up.fe.specs.fortran.ast.FortranContext;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
-import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
-import pt.up.fe.specs.fortran.ast.nodes.program.FortranFile;
-import pt.up.fe.specs.fortran.ast.nodes.program.MainProgram;
-import pt.up.fe.specs.fortran.ast.nodes.program.Specification;
+import pt.up.fe.specs.fortran.ast.nodes.program.*;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 import pt.up.fe.specs.util.SpecsIo;
@@ -62,5 +59,17 @@ public class ProgramProcessors extends ANodeProcessor {
         }
     }
 
+    public void subroutine(Subroutine subroutine) {
+        var firstName = attributes().getOptionalString(subroutine, "source", FlangName.SUBROUTINE_STMT, FlangName.NAME);
+        // [specification-part]
+        subroutine.addChild(getChild(subroutine, FlangName.SPECIFICATION_PART));
+        // [execution-part]
+        subroutine.addChild(getChild(subroutine, FlangName.EXECUTION_PART));
+        // [internal-subprogram-part]
+        var endName = attributes().getString(subroutine, "source", FlangName.END_SUBROUTINE_STMT, FlangName.NAME);
 
+        var name = firstName.orElse(endName);
+
+        subroutine.setOptional(MainProgram.PROGRAM_NAME, name);
+    }
 }

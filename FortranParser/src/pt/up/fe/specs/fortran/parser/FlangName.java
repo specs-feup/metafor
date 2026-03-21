@@ -25,6 +25,8 @@ public enum FlangName implements StringProvider {
     /// STMTs
     PROGRAM_STMT,
     END_PROGRAM_STMT,
+    SUBROUTINE_STMT,
+    END_SUBROUTINE_STMT,
     ACTION_STMT,
     PRINT_STMT,
     FORMAT_STMT,
