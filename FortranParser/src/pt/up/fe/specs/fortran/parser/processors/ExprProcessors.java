@@ -24,6 +24,10 @@ public class ExprProcessors extends ANodeProcessor {
         logicalLiteral.set(StringLiteral.SOURCE_LITERAL, attributes().getString(logicalLiteral, "bool"));
     }
 
+    public void realLiteral(RealLiteral realLiteral) {
+        realLiteral.set(RealLiteral.SOURCE_LITERAL, attributes().getString(realLiteral, "real"));
+    }
+
     public void parenExpr(ParenExpr parenExpr) {
         parenExpr.addChild(getChild(parenExpr, FlangName.EXPR));
     }

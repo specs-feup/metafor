@@ -72,6 +72,7 @@ public enum FlangName implements StringProvider {
     CHAR_LITERAL_CONSTANT,
     INT_LITERAL_CONSTANT,
     LOGICAL_LITERAL_CONSTANT,
+    REAL_LITERAL_CONSTANT,
     STAR,
     PARENTHESES,
     ADD,

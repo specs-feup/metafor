@@ -77,6 +77,7 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.CHAR_LITERAL_CONSTANT, StringLiteral.class);
         NAME_TO_CLASS.put(FlangName.INT_LITERAL_CONSTANT, IntLiteral.class);
         NAME_TO_CLASS.put(FlangName.LOGICAL_LITERAL_CONSTANT, LogicalLiteral.class);
+        NAME_TO_CLASS.put(FlangName.REAL_LITERAL_CONSTANT, RealLiteral.class);
         NAME_TO_CLASS.put(FlangName.FORMAT, Format.class);
         NAME_TO_CLASS.put(FlangName.STAR, Star.class);
         NAME_TO_CLASS.put(FlangName.PARENTHESES, ParenExpr.class);
