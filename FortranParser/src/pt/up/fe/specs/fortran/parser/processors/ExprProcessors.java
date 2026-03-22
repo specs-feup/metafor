@@ -25,7 +25,7 @@ public class ExprProcessors extends ANodeProcessor {
     }
 
     public void realLiteral(RealLiteral realLiteral) {
-        realLiteral.set(RealLiteral.SOURCE_LITERAL, attributes().getString(realLiteral, "real"));
+        realLiteral.set(RealLiteral.SOURCE_LITERAL, attributes().get(attributes().getString(realLiteral, "real")).getString("source"));
     }
 
     public void parenExpr(ParenExpr parenExpr) {

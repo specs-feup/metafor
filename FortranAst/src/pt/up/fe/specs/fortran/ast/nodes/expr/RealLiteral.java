@@ -9,4 +9,9 @@ public class RealLiteral extends Literal {
     public RealLiteral(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
     }
+
+    @Override
+    public String getCode() {
+        return getLiteral();
+    }
 }

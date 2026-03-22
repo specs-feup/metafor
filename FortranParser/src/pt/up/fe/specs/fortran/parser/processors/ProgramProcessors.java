@@ -37,6 +37,10 @@ public class ProgramProcessors extends ANodeProcessor {
         // [execution-part]
         mainProgram.addChild(getChild(mainProgram, FlangName.EXECUTION_PART));
         // [internal-subprogram-part]
+        if (attributes(mainProgram).has(FlangName.INTERNAL_SUBPROGRAM_PART)) {
+            mainProgram.addChild(getChild(mainProgram, FlangName.INTERNAL_SUBPROGRAM_PART));
+        }
+
         var endName = attributes().getString(mainProgram, "source", FlangName.END_PROGRAM_STMT, FlangName.NAME);
 
         var name = firstName.orElse(endName);
@@ -56,6 +60,12 @@ public class ProgramProcessors extends ANodeProcessor {
     public void execution(Execution execution) {
         if (attributes(execution).has(FlangName.EXECUTION_PART_CONSTRUCT)) {
             execution.setChildren(getChildren(execution, FlangName.EXECUTION_PART_CONSTRUCT));
+        }
+    }
+
+    public void internalSubprogram(InternalSubprogram internalSubprogram) {
+        if (attributes(internalSubprogram).has(FlangName.INTERNAL_SUBPROGRAM)) {
+            internalSubprogram.setChildren(getChildren(internalSubprogram, FlangName.INTERNAL_SUBPROGRAM));
         }
     }
 

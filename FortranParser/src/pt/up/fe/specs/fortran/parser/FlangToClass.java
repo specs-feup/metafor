@@ -41,6 +41,7 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.MAIN_PROGRAM, MainProgram.class);
         NAME_TO_CLASS.put(FlangName.SPECIFICATION_PART, Specification.class);
         NAME_TO_CLASS.put(FlangName.EXECUTION_PART, Execution.class);
+        NAME_TO_CLASS.put(FlangName.INTERNAL_SUBPROGRAM_PART, InternalSubprogram.class);
         NAME_TO_CLASS.put(FlangName.SUBROUTINE_SUBPROGRAM, Subroutine.class);
 
         /// DECLs

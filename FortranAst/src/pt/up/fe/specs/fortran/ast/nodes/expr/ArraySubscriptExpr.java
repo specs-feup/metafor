@@ -14,7 +14,7 @@ public class ArraySubscriptExpr extends DataRef {
     }
 
     public DataRef getRef() {
-        return getChild(DataRef.class);
+        return getChild(DataRef.class, 0);
     }
 
     public List<Expr> getSubscripts() {
