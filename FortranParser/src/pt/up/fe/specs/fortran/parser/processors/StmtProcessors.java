@@ -85,10 +85,13 @@ public class StmtProcessors extends ANodeProcessor {
     public void ifConstruct(IfConstruct ifConstruct) {
         // Add if-then block
         var ifThenStmt = getChild(ifConstruct, FlangName.IF_THEN_STMT.getStmtAttr());
-        var blockStatements = getChildren(ifConstruct, FlangName.EXECUTION_PART_CONSTRUCT);
+
 
         var thenBlock = factory().newNode(StmtBlock.class);
-        thenBlock.addChildren(blockStatements);
+        if (attributes(ifConstruct).has(FlangName.EXECUTION_PART_CONSTRUCT)) {
+            var blockStatements = getChildren(ifConstruct, FlangName.EXECUTION_PART_CONSTRUCT);
+            thenBlock.addChildren(blockStatements);
+        }
 
         var ifThenBlock = factory().newNode(IfThenBlock.class);
         ifThenBlock.addChild(ifThenStmt);
