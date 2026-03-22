@@ -53,7 +53,9 @@ public class ExprProcessors extends ANodeProcessor {
 
     public void call(Call call) {
         call.addChild(getChild(call, FlangName.PROCEDURE_DESIGNATOR));
-        call.addChildren(getChildren(call, FlangName.ACTUAL_ARG_SPEC));
+
+        if (attributes(call).has(FlangName.ACTUAL_ARG_SPEC))
+            call.addChildren(getChildren(call, FlangName.ACTUAL_ARG_SPEC));
     }
 
     public void arraySubscriptExpr(ArraySubscriptExpr arraySubscriptExpr) {
