@@ -71,5 +71,8 @@ public class ProgramProcessors extends ANodeProcessor {
         var name = firstName.orElse(endName);
 
         subroutine.set(Subroutine.SUBROUTINE_NAME, name);
+
+        String statementId = attributes().get(attributes(subroutine).getString(FlangName.SUBROUTINE_STMT.getStmtAttr())).getString("statement");
+        subroutine.addChildren(getChildren(statementId, FlangName.DUMMY_ARG));
     }
 }

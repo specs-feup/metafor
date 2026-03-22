@@ -22,6 +22,7 @@ public enum FlangName implements StringProvider {
 
     /// DECLs
     ENTITY_DECL,
+    DUMMY_ARG,
 
     /// STMTs
     PROGRAM_STMT,

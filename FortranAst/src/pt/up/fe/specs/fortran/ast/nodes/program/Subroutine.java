@@ -4,8 +4,12 @@ import org.suikasoft.jOptions.Datakey.DataKey;
 import org.suikasoft.jOptions.Datakey.KeyFactory;
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
+import pt.up.fe.specs.fortran.ast.nodes.decl.DummyArgumentDecl;
+import pt.up.fe.specs.fortran.ast.nodes.expr.Expr;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static pt.up.fe.specs.fortran.ast.FortranKeyword.*;
 
@@ -17,14 +21,24 @@ public class Subroutine extends ProgramUnit {
         super(data, children);
     }
 
+    public List<DummyArgumentDecl> getDummyArgs() {
+        return getChildrenOf(DummyArgumentDecl.class);
+    }
+
     @Override
     public String getCode() {
 
         var code = new StringBuilder();
 
+        var argCode = "(" +
+                getDummyArgs().stream()
+                        .map(DummyArgumentDecl::getCode)
+                        .collect(Collectors.joining(", ")) +
+                ")";
+
         var subroutineName = get(SUBROUTINE_NAME);
 
-        code.append(keyword(SUBROUTINE)).append(" ").append(subroutineName).append(ln());
+        code.append(keyword(SUBROUTINE)).append(" ").append(subroutineName).append(argCode).append(ln());
 
         code.append(getBodyCode()).append(ln());
 
