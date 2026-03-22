@@ -99,6 +99,7 @@ public enum FlangName implements StringProvider {
     /// TYPEs
     DECLARATION_TYPE_SPEC,
     INTEGER_TYPE_SPEC,
+    DOUBLE_PRECISION,
     LOGICAL,
 
     /// LOOP
