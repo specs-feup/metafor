@@ -31,6 +31,7 @@ import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.CaseBlock;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.CaseConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.EndSelectStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.SelectCaseStmt;
+import pt.up.fe.specs.fortran.ast.nodes.type.CharacterType;
 import pt.up.fe.specs.fortran.ast.nodes.type.DoublePrecisionType;
 import pt.up.fe.specs.fortran.ast.nodes.type.IntegerType;
 import pt.up.fe.specs.fortran.ast.nodes.type.LogicalType;
@@ -110,6 +111,7 @@ public class Nodes {
         processors.put(IntegerType.class, t::integerType);
         processors.put(LogicalType.class, t::logicalType);
         processors.put(DoublePrecisionType.class, t::doublePrecisionType);
+        processors.put(CharacterType.class, t::characterType);
 
         var a = new AttributesProcessor(data);
         processors.put(ArraySpecification.class, a::arraySpecification);

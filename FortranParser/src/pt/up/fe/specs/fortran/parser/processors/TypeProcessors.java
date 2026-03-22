@@ -1,5 +1,6 @@
 package pt.up.fe.specs.fortran.parser.processors;
 
+import pt.up.fe.specs.fortran.ast.nodes.type.CharacterType;
 import pt.up.fe.specs.fortran.ast.nodes.type.DoublePrecisionType;
 import pt.up.fe.specs.fortran.ast.nodes.type.IntegerType;
 import pt.up.fe.specs.fortran.ast.nodes.type.LogicalType;
@@ -21,6 +22,10 @@ public class TypeProcessors extends ANodeProcessor {
     }
 
     public void doublePrecisionType(DoublePrecisionType doublePrecisionType) {
+
+    }
+
+    public void characterType(CharacterType characterType) {
 
     }
 }

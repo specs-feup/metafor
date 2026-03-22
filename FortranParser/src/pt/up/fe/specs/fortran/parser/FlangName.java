@@ -102,6 +102,7 @@ public enum FlangName implements StringProvider {
     INTEGER_TYPE_SPEC,
     DOUBLE_PRECISION,
     LOGICAL,
+    CHARACTER,
 
     /// LOOP
     LOOP_BOUNDS,

@@ -16,6 +16,7 @@ import pt.up.fe.specs.fortran.ast.nodes.program.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.*;
+import pt.up.fe.specs.fortran.ast.nodes.type.CharacterType;
 import pt.up.fe.specs.fortran.ast.nodes.type.DoublePrecisionType;
 import pt.up.fe.specs.fortran.ast.nodes.type.IntegerType;
 import pt.up.fe.specs.fortran.ast.nodes.type.LogicalType;
@@ -101,6 +102,7 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.INTEGER_TYPE_SPEC, IntegerType.class);
         NAME_TO_CLASS.put(FlangName.LOGICAL, LogicalType.class);
         NAME_TO_CLASS.put(FlangName.DOUBLE_PRECISION, DoublePrecisionType.class);
+        NAME_TO_CLASS.put(FlangName.CHARACTER, CharacterType.class);
 
         ///  LOOP
         NAME_TO_CLASS.put(FlangName.LOOP_BOUNDS, RangeLoopControl.class);
