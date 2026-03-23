@@ -272,4 +272,9 @@ public class FortranParserTest {
             testNative("arrays/element_access.f90");
         }
     }
+
+    @Test
+    void test3mm() {
+        testJson("polybench/3mm.json");
+    }
 }
