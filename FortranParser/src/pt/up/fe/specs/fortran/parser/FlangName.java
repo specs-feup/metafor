@@ -42,6 +42,7 @@ public enum FlangName implements StringProvider {
     NON_LABEL_DO_STMT,
     DO_CONSTRUCT,
     CALL_STMT,
+    COMPILER_DIRECTIVE,
 
     /// Conditional Statements
     IF_CONSTRUCT,
@@ -125,7 +126,8 @@ public enum FlangName implements StringProvider {
 
 
     // OTHER
-    INITIALIZATION;
+    INITIALIZATION,
+    NAME_VALUE;
 
     private static final Lazy<EnumHelper<FlangName>> HELPER = EnumHelper.newLazyHelper(FlangName.class);
 

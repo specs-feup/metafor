@@ -277,4 +277,16 @@ public class FortranParserTest {
     void test3mm() {
         testJson("polybench/3mm.json");
     }
+
+    @Test
+    void testDirective() {
+        testJson("directive.json");
+    }
+
+    @Test
+    void testDirectiveNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("directive.f90");
+        }
+    }
 }
