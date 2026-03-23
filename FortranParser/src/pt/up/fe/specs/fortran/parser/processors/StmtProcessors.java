@@ -1,5 +1,6 @@
 package pt.up.fe.specs.fortran.parser.processors;
 
+import pt.up.fe.specs.fortran.ast.nodes.expr.DataRef;
 import pt.up.fe.specs.fortran.ast.nodes.expr.Expr;
 import pt.up.fe.specs.fortran.ast.nodes.loops.WhileLoopControl;
 import pt.up.fe.specs.fortran.ast.nodes.loops.enums.DoKind;
@@ -18,6 +19,7 @@ import java.util.Optional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class StmtProcessors extends ANodeProcessor {
     public StmtProcessors(FortranJsonResult data) {
@@ -322,5 +324,9 @@ public class StmtProcessors extends ANodeProcessor {
 
         Execution body = factory().newNode(Execution.class, getChildren(doStmt, FlangName.EXECUTION_PART_CONSTRUCT));
         doStmt.addChild(body);
+    }
+
+    public void compilerDirective(CompilerDirective compilerDirective) {
+        compilerDirective.addChildren(getChildren(compilerDirective, "value"));
     }
 }

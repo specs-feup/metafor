@@ -248,4 +248,16 @@ public class FortranParserTest {
     void testNamedSelectCase() {
         testJson("conditionalstmt/named_select_case.json");
     }
+
+    @Test
+    void testDirective() {
+        testJson("directive.json");
+    }
+
+    @Test
+    void testDirectiveNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("directive.f90");
+        }
+    }
 }
