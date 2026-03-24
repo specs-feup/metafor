@@ -70,14 +70,14 @@ public abstract class AFortranWeaverJoinPoint extends AJoinPoint {
     }
 
     @Override
-    public JoinPoint[] insertImpl(String position, JoinPoint joinPoint) {
+    public AJoinPoint[] insertImpl(String position, JoinPoint joinPoint) {
         var insertedNode = getNode().insert(Position.valueOf(position.toUpperCase()), (FortranNode) joinPoint.getNode());
 
         return new AJoinPoint[]{FortranJoinpoints.create(insertedNode, AJoinPoint.class)};
     }
 
     @Override
-    public JoinPoint[] insertImpl(String position, String code) {
+    public AJoinPoint[] insertImpl(String position, String code) {
         var insertedNode = getNode().insert(Position.valueOf(position.toUpperCase()), code);
 
         return new AJoinPoint[]{FortranJoinpoints.create(insertedNode, AJoinPoint.class)};
