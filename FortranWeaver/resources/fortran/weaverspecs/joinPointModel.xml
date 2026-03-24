@@ -12,5 +12,15 @@
 
     <joinpoint class="expr" tooltip="Represents an expression"/>
 
-    <joinpoint class="binaryoperator" extends="expr" tooltip="Represents a binary operation"/>
+    <joinpoint class="binaryOperator" extends="expr" tooltip="Represents a binary operation"/>
+
+    <joinpoint class="executableStatement" extends="statement" tooltip="Represents an executable statement"/>
+
+    <joinpoint class="actionStatement" extends="executableStatement" tooltip="Represents an action statement"/>
+
+    <joinpoint class="assignmentStatement" extends="actionStatement" tooltip="Represents an assignment statement"/>
+
+    <joinpoint class="designator" extends="expr" tooltip="Represents a designator"/>
+
+    <joinpoint class="dataRef" extends="designator" tooltip="Represents a data reference"/>
 </joinpoints>

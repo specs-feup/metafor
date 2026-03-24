@@ -78,7 +78,205 @@
 		},
 		{
 			"type": "joinpoint",
-			"name": "binaryoperator",
+			"name": "actionStatement",
+			"extends": "executableStatement"		,
+			"tooltip": "Represents an action statement",
+			"children": [
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "isFirst"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "isLast"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "Returns an array with the children of the node",
+						"children": [
+									{
+										"type": "joinpoint[]",
+										"name": "children"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "String with the code represented by this node",
+						"children": [
+									{
+										"type": "String",
+										"name": "code"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "Returns an array with the descendants of the node",
+						"children": [
+									{
+										"type": "joinpoint[]",
+										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "Returns the parent node in the AST, or undefined if it is the root node",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "parent"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "Returns the 'program' join point",
+						"children": [
+									{
+										"type": "program",
+										"name": "root"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "the nodes of the scope of the current join point. If this node has a body (e.g., loop, function) corresponds to the children of the body. Otherwise, returns an empty array",
+						"children": [
+									{
+										"type": "joinpoint[]",
+										"name": "scopeNodes"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Replaces this node with the given node",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "replaceWith"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					}]
+		},
+		{
+			"type": "joinpoint",
+			"name": "assignmentStatement",
+			"extends": "actionStatement"		,
+			"tooltip": "Represents an assignment statement",
+			"children": [
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "expr",
+										"name": "expr"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "dataRef",
+										"name": "variable"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "isFirst"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "isLast"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "Returns an array with the children of the node",
+						"children": [
+									{
+										"type": "joinpoint[]",
+										"name": "children"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "String with the code represented by this node",
+						"children": [
+									{
+										"type": "String",
+										"name": "code"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "Returns an array with the descendants of the node",
+						"children": [
+									{
+										"type": "joinpoint[]",
+										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "Returns the parent node in the AST, or undefined if it is the root node",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "parent"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "Returns the 'program' join point",
+						"children": [
+									{
+										"type": "program",
+										"name": "root"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "the nodes of the scope of the current join point. If this node has a body (e.g., loop, function) corresponds to the children of the body. Otherwise, returns an empty array",
+						"children": [
+									{
+										"type": "joinpoint[]",
+										"name": "scopeNodes"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Replaces this node with the given node",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "replaceWith"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					}]
+		},
+		{
+			"type": "joinpoint",
+			"name": "binaryOperator",
 			"extends": "expr"		,
 			"tooltip": "Represents a binary operation",
 			"children": [
@@ -186,6 +384,255 @@
 										"type": "expr",
 										"name": "rhs",
 										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Replaces this node with the given node",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "replaceWith"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					}]
+		},
+		{
+			"type": "joinpoint",
+			"name": "dataRef",
+			"extends": "designator"		,
+			"tooltip": "Represents a data reference",
+			"children": [
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "String",
+										"name": "name"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "Returns an array with the children of the node",
+						"children": [
+									{
+										"type": "joinpoint[]",
+										"name": "children"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "String with the code represented by this node",
+						"children": [
+									{
+										"type": "String",
+										"name": "code"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "Returns an array with the descendants of the node",
+						"children": [
+									{
+										"type": "joinpoint[]",
+										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "Returns the parent node in the AST, or undefined if it is the root node",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "parent"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "Returns the 'program' join point",
+						"children": [
+									{
+										"type": "program",
+										"name": "root"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "the nodes of the scope of the current join point. If this node has a body (e.g., loop, function) corresponds to the children of the body. Otherwise, returns an empty array",
+						"children": [
+									{
+										"type": "joinpoint[]",
+										"name": "scopeNodes"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Replaces this node with the given node",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "replaceWith"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					}]
+		},
+		{
+			"type": "joinpoint",
+			"name": "designator",
+			"extends": "expr"		,
+			"tooltip": "Represents a designator",
+			"children": [
+					{
+						"type": "attribute",
+						"tooltip": "Returns an array with the children of the node",
+						"children": [
+									{
+										"type": "joinpoint[]",
+										"name": "children"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "String with the code represented by this node",
+						"children": [
+									{
+										"type": "String",
+										"name": "code"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "Returns an array with the descendants of the node",
+						"children": [
+									{
+										"type": "joinpoint[]",
+										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "Returns the parent node in the AST, or undefined if it is the root node",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "parent"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "Returns the 'program' join point",
+						"children": [
+									{
+										"type": "program",
+										"name": "root"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "the nodes of the scope of the current join point. If this node has a body (e.g., loop, function) corresponds to the children of the body. Otherwise, returns an empty array",
+						"children": [
+									{
+										"type": "joinpoint[]",
+										"name": "scopeNodes"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Replaces this node with the given node",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "replaceWith"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					}]
+		},
+		{
+			"type": "joinpoint",
+			"name": "executableStatement",
+			"extends": "statement"		,
+			"tooltip": "Represents an executable statement",
+			"children": [
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "isFirst"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "isLast"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "Returns an array with the children of the node",
+						"children": [
+									{
+										"type": "joinpoint[]",
+										"name": "children"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "String with the code represented by this node",
+						"children": [
+									{
+										"type": "String",
+										"name": "code"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "Returns an array with the descendants of the node",
+						"children": [
+									{
+										"type": "joinpoint[]",
+										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "Returns the parent node in the AST, or undefined if it is the root node",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "parent"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "Returns the 'program' join point",
+						"children": [
+									{
+										"type": "program",
+										"name": "root"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "the nodes of the scope of the current join point. If this node has a body (e.g., loop, function) corresponds to the children of the body. Otherwise, returns an empty array",
+						"children": [
+									{
+										"type": "joinpoint[]",
+										"name": "scopeNodes"
 									}]
 					},
 					{

@@ -40,10 +40,20 @@
     </artifact>
 
     <!--BINARYOPERATOR -->
-    <artifact class="binaryoperator">
+    <artifact class="binaryOperator">
         <attribute name="left" type="expr"/>
         <attribute name="right" type="expr"/>
         <attribute name="kind" type="{add, sub, mul, div, gt, ge, lt, le, eq, ne}"/>
     </artifact>
 
+    <!-- ASSIGNMENT STATEMENT -->
+    <artifact class="assignmentStatement">
+        <attribute name="variable" type="dataRef"/>
+        <attribute name="expr" type="expr"/>
+    </artifact>
+
+    <!-- DATAREF -->
+    <artifact class="dataRef">
+        <attribute name="name" type="String"/>
+    </artifact>
 </artifacts>
