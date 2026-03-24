@@ -1,5 +1,6 @@
 package pt.up.fe.specs.fortran.parser.processors;
 
+import pt.up.fe.specs.fortran.ast.nodes.expr.DataRef;
 import pt.up.fe.specs.fortran.ast.nodes.expr.Expr;
 import pt.up.fe.specs.fortran.ast.nodes.loops.WhileLoopControl;
 import pt.up.fe.specs.fortran.ast.nodes.loops.enums.DoKind;
@@ -18,6 +19,7 @@ import java.util.Optional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class StmtProcessors extends ANodeProcessor {
     public StmtProcessors(FortranJsonResult data) {
@@ -85,10 +87,13 @@ public class StmtProcessors extends ANodeProcessor {
     public void ifConstruct(IfConstruct ifConstruct) {
         // Add if-then block
         var ifThenStmt = getChild(ifConstruct, FlangName.IF_THEN_STMT.getStmtAttr());
-        var blockStatements = getChildren(ifConstruct, FlangName.EXECUTION_PART_CONSTRUCT);
+
 
         var thenBlock = factory().newNode(StmtBlock.class);
-        thenBlock.addChildren(blockStatements);
+        if (attributes(ifConstruct).has(FlangName.EXECUTION_PART_CONSTRUCT)) {
+            var blockStatements = getChildren(ifConstruct, FlangName.EXECUTION_PART_CONSTRUCT);
+            thenBlock.addChildren(blockStatements);
+        }
 
         var ifThenBlock = factory().newNode(IfThenBlock.class);
         ifThenBlock.addChild(ifThenStmt);
@@ -322,5 +327,13 @@ public class StmtProcessors extends ANodeProcessor {
 
         Execution body = factory().newNode(Execution.class, getChildren(doStmt, FlangName.EXECUTION_PART_CONSTRUCT));
         doStmt.addChild(body);
+    }
+
+    public void compilerDirective(CompilerDirective compilerDirective) {
+        compilerDirective.addChildren(getChildren(compilerDirective, "value"));
+    }
+
+    public void callStmt(CallStmt callStmt) {
+        callStmt.addChild(getChild(callStmt, "call"));
     }
 }

@@ -248,4 +248,45 @@ public class FortranParserTest {
     void testNamedSelectCase() {
         testJson("conditionalstmt/named_select_case.json");
     }
+
+    @Test
+    void testSubroutine() {
+        testJson("subroutine.json");
+    }
+
+    @Test
+    void testSubroutineNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("subroutine.f90");
+        }
+    }
+
+    @Test
+    void testArrayElementAccess() {
+        testJson("arrays/element_access.json");
+    }
+
+    @Test
+    void testArrayElementAccessNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("arrays/element_access.f90");
+        }
+    }
+
+    @Test
+    void test3mm() {
+        testJson("polybench/3mm.json");
+    }
+
+    @Test
+    void testDirective() {
+        testJson("directive.json");
+    }
+
+    @Test
+    void testDirectiveNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("directive.f90");
+        }
+    }
 }

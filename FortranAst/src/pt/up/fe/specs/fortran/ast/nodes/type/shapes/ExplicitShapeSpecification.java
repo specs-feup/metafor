@@ -2,6 +2,7 @@ package pt.up.fe.specs.fortran.ast.nodes.type.shapes;
 
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
+import pt.up.fe.specs.fortran.ast.nodes.expr.Expr;
 import pt.up.fe.specs.fortran.ast.nodes.expr.IntLiteral;
 
 import java.util.Collection;
@@ -16,10 +17,10 @@ public class ExplicitShapeSpecification extends ShapeSpecification {
     @Override
     public String getCode() {
         var bounds = getBounds();
-        return bounds.stream().map(IntLiteral::getCode).collect(Collectors.joining(":"));
+        return bounds.stream().map(Expr::getCode).collect(Collectors.joining(":"));
     }
 
-    private List<IntLiteral> getBounds() {
-        return getChildren(IntLiteral.class);
+    private List<Expr> getBounds() {
+        return getChildren(Expr.class);
     }
 }

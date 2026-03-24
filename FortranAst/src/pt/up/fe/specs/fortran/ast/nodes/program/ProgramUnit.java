@@ -27,6 +27,7 @@ public abstract class ProgramUnit extends FortranNode {
         }
         */
         return getChildren().stream()
+                .filter(node -> (node instanceof StmtBlock) || (node instanceof InternalSubprogram))
                 .map(FortranNode::getCode)
                 .filter(code -> !code.isEmpty())
                 .map(this::indent)

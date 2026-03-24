@@ -2,10 +2,7 @@ package pt.up.fe.specs.fortran.parser.processors;
 
 import pt.up.fe.specs.fortran.ast.FortranContext;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
-import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
-import pt.up.fe.specs.fortran.ast.nodes.program.FortranFile;
-import pt.up.fe.specs.fortran.ast.nodes.program.MainProgram;
-import pt.up.fe.specs.fortran.ast.nodes.program.Specification;
+import pt.up.fe.specs.fortran.ast.nodes.program.*;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 import pt.up.fe.specs.util.SpecsIo;
@@ -40,6 +37,10 @@ public class ProgramProcessors extends ANodeProcessor {
         // [execution-part]
         mainProgram.addChild(getChild(mainProgram, FlangName.EXECUTION_PART));
         // [internal-subprogram-part]
+        if (attributes(mainProgram).has(FlangName.INTERNAL_SUBPROGRAM_PART)) {
+            mainProgram.addChild(getChild(mainProgram, FlangName.INTERNAL_SUBPROGRAM_PART));
+        }
+
         var endName = attributes().getString(mainProgram, "source", FlangName.END_PROGRAM_STMT, FlangName.NAME);
 
         var name = firstName.orElse(endName);
@@ -62,5 +63,23 @@ public class ProgramProcessors extends ANodeProcessor {
         }
     }
 
+    public void internalSubprogram(InternalSubprogram internalSubprogram) {
+        if (attributes(internalSubprogram).has(FlangName.INTERNAL_SUBPROGRAM)) {
+            internalSubprogram.setChildren(getChildren(internalSubprogram, FlangName.INTERNAL_SUBPROGRAM));
+        }
+    }
 
+    public void subroutine(Subroutine subroutine) {
+        var name = attributes().getString(subroutine, "source", FlangName.SUBROUTINE_STMT, FlangName.NAME);
+        // [specification-part]
+        subroutine.addChild(getChild(subroutine, FlangName.SPECIFICATION_PART));
+        // [execution-part]
+        subroutine.addChild(getChild(subroutine, FlangName.EXECUTION_PART));
+        // [internal-subprogram-part]
+
+        subroutine.set(Subroutine.SUBROUTINE_NAME, name);
+
+        String statementId = attributes().get(attributes(subroutine).getString(FlangName.SUBROUTINE_STMT.getStmtAttr())).getString("statement");
+        subroutine.addChildren(getChildren(statementId, FlangName.DUMMY_ARG));
+    }
 }
