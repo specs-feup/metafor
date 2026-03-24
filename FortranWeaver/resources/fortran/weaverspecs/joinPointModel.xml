@@ -23,4 +23,22 @@
     <joinpoint class="designator" extends="expr" tooltip="Represents a designator"/>
 
     <joinpoint class="dataRef" extends="designator" tooltip="Represents a data reference"/>
+
+    <joinpoint class="literal" extends="expr" tooltip="Represents a literal"/>
+
+    <joinpoint class="intLiteral" extends="literal"/>
+
+    <joinpoint class="stringLiteral" extends="literal"/>
+
+    <joinpoint class="realLiteral" extends="literal"/>
+
+    <joinpoint class="doStatement" extends="executableStatement" tooltip="Represents a do loop"/>
+
+    <joinpoint class="loopControl" tooltip="Represents the loop control structure, with specialized subclasses for different loop kinds"/>
+
+    <joinpoint class="rangeLoopControl" extends="loopControl"/>
+
+    <joinpoint class="statementBlock"/>
+
+    <joinpoint class="execution" extends="statementBlock"/>
 </joinpoints>

@@ -56,4 +56,32 @@
     <artifact class="dataRef">
         <attribute name="name" type="String"/>
     </artifact>
+
+    <!-- LITEARL -->
+    <artifact class="literal">
+        <attribute name="literal" type="String"/>
+    </artifact>
+
+    <!-- LOOP CONTROL -->
+    <artifact class="rangeLoopControl">
+        <attribute name="var" type="dataRef"/>
+        <attribute name="lower" type="expr"/>
+        <attribute name="upper" type="expr"/>
+        <!-- TODO how to represent optionals? -->
+    </artifact>
+
+    <!-- DO LOOP -->
+    <artifact class="doStatement">
+        <attribute name="control" type="loopControl"/>
+        <attribute name="body" type="execution"/>
+    </artifact>
+
+    <!-- STATEMENT BLOCKS -->
+    <artifact class="stmtBlock">
+        <attribute name="stmts" type="statement[]"/>
+    </artifact>
+
+    <artifact class="execution">
+        <attribute name="executableStmts" type="executableStatement[]"/>
+    </artifact>
 </artifacts>
