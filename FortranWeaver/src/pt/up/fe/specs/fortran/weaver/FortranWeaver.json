@@ -961,6 +961,14 @@
 					},
 					{
 						"type": "attribute",
+						"children": [
+									{
+										"type": "statement[]",
+										"name": "stmts"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "Returns an array with the children of the node",
 						"children": [
 									{
@@ -1871,6 +1879,14 @@
 			"name": "statementBlock",
 			"extends": "joinpoint"		,
 			"children": [
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "statement[]",
+										"name": "stmts"
+									}]
+					},
 					{
 						"type": "attribute",
 						"tooltip": "Returns an array with the children of the node",
