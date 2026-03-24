@@ -39,5 +39,11 @@
         <attribute name="isLast" type="Boolean"/>
     </artifact>
 
+    <!--BINARYOPERATOR -->
+    <artifact class="binaryoperator">
+        <attribute name="left" type="expr"/>
+        <attribute name="right" type="expr"/>
+        <attribute name="kind" type="{add, sub, mul, div, gt, ge, lt, le, eq, ne}"/>
+    </artifact>
 
 </artifacts>
