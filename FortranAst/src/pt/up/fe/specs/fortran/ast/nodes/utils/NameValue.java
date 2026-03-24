@@ -18,6 +18,10 @@ public class NameValue extends FortranNode {
         super(data, children);
     }
 
+    public String getName() {
+        return get(NAME);
+    }
+
     @Override
     public String getCode() {
         StringBuilder code = new StringBuilder();
