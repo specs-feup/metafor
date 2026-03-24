@@ -84,4 +84,21 @@
     <artifact class="execution">
         <attribute name="executableStmts" type="executableStatement[]"/>
     </artifact>
+
+    <!-- ARRAY SUBSCRIPT -->
+    <artifact class="arraySubscriptExpr">
+        <attribute name="var" type="dataRef"/>
+        <attribute name="subscripts" type="expr[]"/>
+    </artifact>
+
+    <!-- COMPILER DIRECTIVE -->
+    <artifact class="compilerDirective">
+        <attribute name="pairs" type="nameValue[]"/>
+    </artifact>
+
+    <!-- UTILS -->
+    <artifact class="nameValue">
+        <attribute name="name" type="String"/>
+        <!-- TODO how to represent optionals? -->
+    </artifact>
 </artifacts>

@@ -41,4 +41,10 @@
     <joinpoint class="statementBlock"/>
 
     <joinpoint class="execution" extends="statementBlock"/>
+
+    <joinpoint class="arraySubscriptExpr" extends="expr" tooltip="Represents an access to one (or several) elements of an array"/>
+
+    <joinpoint class="compilerDirective" extends="executableStatement"/>
+
+    <joinpoint class="nameValue" tooltip="Represents a name/value pair in a compiler directive"/>
 </joinpoints>
