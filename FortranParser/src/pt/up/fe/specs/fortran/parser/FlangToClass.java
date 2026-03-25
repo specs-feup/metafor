@@ -15,13 +15,9 @@ import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
 import pt.up.fe.specs.fortran.ast.nodes.program.FortranFile;
 import pt.up.fe.specs.fortran.ast.nodes.program.MainProgram;
 import pt.up.fe.specs.fortran.ast.nodes.program.Specification;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.AssignmentStmt;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.FormatStmt;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.PrintStmt;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.TypeDeclarationStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.*;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.DoStmt;
 import pt.up.fe.specs.fortran.ast.nodes.type.IntegerType;
 import pt.up.fe.specs.fortran.ast.nodes.type.LogicalType;
 import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
@@ -30,6 +26,7 @@ import pt.up.fe.specs.fortran.ast.nodes.type.attributes.KeywordAttributeSpecifie
 import pt.up.fe.specs.fortran.ast.nodes.type.shapes.DeferredShapeSpecList;
 import pt.up.fe.specs.fortran.ast.nodes.type.shapes.ExplicitShapeSpecification;
 import pt.up.fe.specs.fortran.ast.nodes.utils.Format;
+import pt.up.fe.specs.fortran.ast.nodes.utils.NameValue;
 import pt.up.fe.specs.fortran.ast.nodes.utils.Star;
 
 import java.util.HashMap;
@@ -55,6 +52,7 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.TYPE_DECLARATION_STMT, TypeDeclarationStmt.class);
         NAME_TO_CLASS.put(FlangName.ASSIGNMENT_STMT, AssignmentStmt.class);
         NAME_TO_CLASS.put(FlangName.DO_CONSTRUCT, DoStmt.class);
+        NAME_TO_CLASS.put(FlangName.COMPILER_DIRECTIVE, CompilerDirective.class);
 
         NAME_TO_CLASS.put(FlangName.IF_CONSTRUCT, IfConstruct.class);
         NAME_TO_CLASS.put(FlangName.IF_THEN_STMT, IfThenStmt.class);
@@ -111,6 +109,9 @@ public class FlangToClass {
         ///  SHAPES
         NAME_TO_CLASS.put(FlangName.EXPLICIT_SHAPE_SPEC, ExplicitShapeSpecification.class);
         NAME_TO_CLASS.put(FlangName.DEFERRED_SHAPE_SPEC_LIST, DeferredShapeSpecList.class);
+
+        ///  UTILs
+        NAME_TO_CLASS.put(FlangName.NAME_VALUE, NameValue.class);
     }
 
     public static boolean isClass(String type) {

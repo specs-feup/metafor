@@ -250,6 +250,17 @@ public class FortranParserTest {
     }
 
     @Test
+    void testDirective() {
+        testJson("directive.json");
+    }
+
+    @Test
+    void testDirectiveNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("directive.f90");
+        }
+    }
+  
     void testArrayElementAccess() {
         testJson("arrays/element_access.json");
     }

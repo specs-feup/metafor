@@ -37,6 +37,7 @@ import pt.up.fe.specs.fortran.ast.nodes.type.attributes.KeywordAttributeSpecifie
 import pt.up.fe.specs.fortran.ast.nodes.type.shapes.DeferredShapeSpecList;
 import pt.up.fe.specs.fortran.ast.nodes.type.shapes.ExplicitShapeSpecification;
 import pt.up.fe.specs.fortran.ast.nodes.utils.Format;
+import pt.up.fe.specs.fortran.ast.nodes.utils.NameValue;
 import pt.up.fe.specs.fortran.ast.nodes.utils.Star;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 import pt.up.fe.specs.util.classmap.ConsumerClassMap;
@@ -71,6 +72,7 @@ public class Nodes {
         processors.put(TypeDeclarationStmt.class, s::typeDeclarationStmt);
         processors.put(AssignmentStmt.class, s::assignmentStmt);
         processors.put(StmtBlock.class, s::stmtBlock);
+        processors.put(CompilerDirective.class, s::compilerDirective);
 
         processors.put(IfConstruct.class, s::ifConstruct);
         processors.put(IfThenStmt.class, s::ifThenStmt);
@@ -112,6 +114,7 @@ public class Nodes {
         var u = new UtilsProcessors(data);
         processors.put(Star.class, u::star);
         processors.put(Format.class, u::format);
+        processors.put(NameValue.class, u::nameValue);
 
         var l = new LoopProcessors(data);
         processors.put(RangeLoopControl.class, l::loopRange);
