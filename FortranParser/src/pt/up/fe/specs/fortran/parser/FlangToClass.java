@@ -71,7 +71,8 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.END_SELECT_STMT, EndSelectStmt.class);
 
         /// Variables
-        NAME_TO_CLASS.put(FlangName.DATA_REF, DataRef.class);
+        //NAME_TO_CLASS.put(FlangName.DATA_REF, DataRef.class);
+        NAME_TO_CLASS.put(FlangName.NAME, DataRef.class);
 
         /// EXPRs
         NAME_TO_CLASS.put(FlangName.CHAR_LITERAL_CONSTANT, StringLiteral.class);
@@ -92,6 +93,7 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.GE, BinaryOperator.class);
         NAME_TO_CLASS.put(FlangName.ARRAY_CONSTRUCTOR, ArrayConstructor.class);
         NAME_TO_CLASS.put(FlangName.AC_SPEC, AcSpecification.class);
+        NAME_TO_CLASS.put(FlangName.ARRAY_ELEMENT, ArraySubscriptExpr.class);
 
         /// TYPEs
         NAME_TO_CLASS.put(FlangName.INTEGER_TYPE_SPEC, IntegerType.class);
