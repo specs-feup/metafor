@@ -123,6 +123,13 @@ public class FortranParserTest {
     }
 
     @Test
+    void testBinaryOperatorNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("binary_operator.f90");
+        }
+    }
+
+    @Test
     void testDoConcurrent() {
         testJson("concurrent.json");
     }
@@ -198,6 +205,18 @@ public class FortranParserTest {
     void testArrayAssignmentNative() {
         if (SpecsPlatforms.isLinux()) {
             testNative("arrays/array_declaration.f90");
+        }
+    }
+
+    @Test
+    void testArrayImpliedDo() {
+        testJson("arrays/array_implied_do.json");
+    }
+
+    @Test
+    void testArrayImpliedDoNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("arrays/array_implied_do.f90");
         }
     }
 
@@ -287,6 +306,17 @@ public class FortranParserTest {
     void testDirectiveNative() {
         if (SpecsPlatforms.isLinux()) {
             testNative("directive.f90");
+        }
+    }
+
+    void testArrayElementAccess() {
+        testJson("arrays/element_access.json");
+    }
+
+    @Test
+    void testArrayElementAccessNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("arrays/element_access.f90");
         }
     }
 }

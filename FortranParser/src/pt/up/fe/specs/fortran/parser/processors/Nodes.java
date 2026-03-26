@@ -109,6 +109,8 @@ public class Nodes {
         processors.put(ArraySubscriptExpr.class, e::arraySubscriptExpr);
         processors.put(Call.class, e::call);
         processors.put(Argument.class, e::argument);
+        processors.put(AcImpliedDo.class, e::acImpliedDo);
+        processors.put(AcImpliedDoControl.class, e::acImpliedDoControl);
 
         var t = new TypeProcessors(data);
         processors.put(IntegerType.class, t::integerType);

@@ -105,6 +105,8 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.ARRAY_ELEMENT, ArraySubscriptExpr.class);
         NAME_TO_CLASS.put(FlangName.CALL, Call.class);
         NAME_TO_CLASS.put(FlangName.ACTUAL_ARG_SPEC, Argument.class);
+        NAME_TO_CLASS.put(FlangName.AC_IMPLIED_DO, AcImpliedDo.class);
+        NAME_TO_CLASS.put(FlangName.AC_IMPLIED_DO_CONTROL, AcImpliedDoControl.class);
 
         /// TYPEs
         NAME_TO_CLASS.put(FlangName.INTEGER_TYPE_SPEC, IntegerType.class);
