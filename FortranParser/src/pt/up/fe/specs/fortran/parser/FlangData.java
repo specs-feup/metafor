@@ -92,8 +92,8 @@ public class FlangData {
             return Optional.of(Pattern.compile("statement"));
         }
 
-        if (attrs.has("variantType")) {
-            return Optional.of(Pattern.compile(attrs.getString("variantType") + "(<\\w+>)?"));
+        if (attrs.has("variantKey")) {
+            return Optional.of(Pattern.compile(attrs.getString("variantKey") + "(<\\w+>)?"));
         }
 
         var keys = attrs.getKeys();

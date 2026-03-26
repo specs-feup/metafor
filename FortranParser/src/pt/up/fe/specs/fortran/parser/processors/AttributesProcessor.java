@@ -21,8 +21,8 @@ public class AttributesProcessor extends ANodeProcessor {
     }
 
     public void arraySpecification(ArraySpecification arraySpecification) {
-        var variantType = attributes(arraySpecification).getString("variantType");
-        var shapes = getChildren(arraySpecification, variantType);
+        var variantKey = attributes(arraySpecification).getString("variantKey");
+        var shapes = getChildren(arraySpecification, variantKey);
         arraySpecification.addChildren(shapes);
     }
 
