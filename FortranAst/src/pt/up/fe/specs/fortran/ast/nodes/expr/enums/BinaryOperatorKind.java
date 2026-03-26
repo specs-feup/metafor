@@ -3,10 +3,10 @@ package pt.up.fe.specs.fortran.ast.nodes.expr.enums;
 import pt.up.fe.specs.util.providers.StringProvider;
 
 public enum BinaryOperatorKind implements StringProvider {
-    Add,
-    Subtract,
-    Multiply,
-    Divide,
+    ADD,
+    SUBTRACT,
+    MULTIPLY,
+    DIVIDE,
     LT,
     LE,
     GT,
@@ -16,16 +16,16 @@ public enum BinaryOperatorKind implements StringProvider {
 
     public String getOpString() {
         switch (this) {
-            case Add -> {
+            case ADD -> {
                 return "+";
             }
-            case Subtract -> {
+            case SUBTRACT -> {
                 return "-";
             }
-            case Multiply -> {
+            case MULTIPLY -> {
                 return "*";
             }
-            case Divide -> {
+            case DIVIDE -> {
                 return "/";
             }
             case EQ -> {
