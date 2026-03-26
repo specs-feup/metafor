@@ -86,8 +86,7 @@ public class StmtProcessors extends ANodeProcessor {
 
     public void ifConstruct(IfConstruct ifConstruct) {
         // Add if-then block
-        var ifThenStmt = getChild(ifConstruct, FlangName.IF_THEN_STMT.getStmtAttr());
-
+        var ifThenStmt = getStmtChild(ifConstruct, FlangName.IF_THEN_STMT);
 
         var thenBlock = factory().newNode(StmtBlock.class);
         if (attributes(ifConstruct).has(FlangName.EXECUTION_PART_CONSTRUCT)) {
@@ -114,7 +113,7 @@ public class StmtProcessors extends ANodeProcessor {
         }
 
         // Add end if statement
-        var endIfStmt = getChild(ifConstruct, FlangName.END_IF_STMT.getStmtAttr());
+        var endIfStmt = getStmtChild(ifConstruct, FlangName.END_IF_STMT);
         ifConstruct.addChild(endIfStmt);
 
         // Assign name if present
@@ -132,7 +131,7 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void elseIfBlock(ElseIfBlock ifElseBlock) {
-        var elseIfStmt = getChild(ifElseBlock, FlangName.ELSE_IF_STMT.getStmtAttr());
+        var elseIfStmt = getStmtChild(ifElseBlock, FlangName.ELSE_IF_STMT);
         ifElseBlock.addChild(elseIfStmt);
 
         var blockStatements = getChildren(ifElseBlock, FlangName.EXECUTION_PART_CONSTRUCT);
@@ -147,7 +146,7 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void elseBlock(ElseBlock elseBlock) {
-        var elseStmt = getChild(elseBlock, FlangName.ELSE_STMT.getStmtAttr());
+        var elseStmt = getStmtChild(elseBlock, FlangName.ELSE_STMT);
         elseBlock.addChild(elseStmt);
 
         var blockStatements = getChildren(elseBlock, FlangName.EXECUTION_PART_CONSTRUCT);
@@ -166,16 +165,16 @@ public class StmtProcessors extends ANodeProcessor {
 
     public void ifStmt(IfStmt ifStmt) {
         var condition = getChild(ifStmt, FlangName.EXPR);
-        var thenStmt = getChild(ifStmt, FlangName.ACTION_STMT.getUnlabeledStmtAttr());
+        var thenStmt = getUnlabeledStmtChild(ifStmt, FlangName.ACTION_STMT);
 
         ifStmt.addChild(condition);
         ifStmt.addChild(thenStmt);
     }
 
     public void caseConstruct(CaseConstruct caseConstruct) {
-        var selectCaseStmt = getChild(caseConstruct, FlangName.SELECT_CASE_STMT.getStmtAttr());
+        var selectCaseStmt = getStmtChild(caseConstruct, FlangName.SELECT_CASE_STMT);
         var caseBlocks = getChildren(caseConstruct, FlangName.CASE);
-        var endSelectStmt = getChild(caseConstruct, FlangName.END_SELECT_STMT.getStmtAttr());
+        var endSelectStmt = getStmtChild(caseConstruct, FlangName.END_SELECT_STMT);
 
         caseConstruct.addChild(selectCaseStmt);
         caseConstruct.addChildren(caseBlocks);

@@ -3,6 +3,7 @@ package pt.up.fe.specs.fortran.parser.processors;
 import pt.up.fe.specs.fortran.ast.nodes.utils.Format;
 import pt.up.fe.specs.fortran.ast.nodes.utils.NameValue;
 import pt.up.fe.specs.fortran.ast.nodes.utils.Star;
+import pt.up.fe.specs.fortran.parser.FlangData;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 
@@ -14,7 +15,7 @@ public class UtilsProcessors extends ANodeProcessor {
     }
 
     public void format(Format format) {
-        var variantKey = attributes(format).getString("variantKey");
+        var variantKey = attributes(format).getString(FlangData.VARIANT_IDENTIFIER_KEY);
         var childId = getChildId(format, variantKey);
 
         if (data().attributes().isIdInteger(childId)) {

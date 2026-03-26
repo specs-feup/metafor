@@ -4,6 +4,7 @@ import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.IntentSpec;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.KeywordAttributeSpecifier;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.enums.IntentKind;
+import pt.up.fe.specs.fortran.parser.FlangData;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 
@@ -21,7 +22,7 @@ public class AttributesProcessor extends ANodeProcessor {
     }
 
     public void arraySpecification(ArraySpecification arraySpecification) {
-        var variantKey = attributes(arraySpecification).getString("variantKey");
+        var variantKey = attributes(arraySpecification).getString(FlangData.VARIANT_IDENTIFIER_KEY);
         var shapes = getChildren(arraySpecification, variantKey);
         arraySpecification.addChildren(shapes);
     }

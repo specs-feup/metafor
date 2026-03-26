@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import static pt.up.fe.specs.fortran.parser.FlangData.VARIANT_IDENTIFIER_KEY;
+
 public interface NodeProcessor {
     FortranJsonResult data();
 
@@ -64,6 +66,10 @@ public interface NodeProcessor {
 
     default FortranNode getVariantChild(FortranNode node) {
         return getNode(attributes().getVariantChildId(node));
+    }
+
+    default boolean hasVariant(FortranNode node) {
+        return attributes().getAttrs(node).has(VARIANT_IDENTIFIER_KEY);
     }
 
     default List<FortranNode> getChildren(FortranNode node, FlangName attribute) {
