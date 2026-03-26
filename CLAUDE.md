@@ -20,9 +20,9 @@ cd FortranParser && ./gradlew build
 ```sh
 cd Fortran-JS
 npm install
+npm run build-interfaces  # regenerate TS joinpoints from FortranWeaver JSON
 npm run build          # tsc -b src-api src-code
 npm test               # Jest with --experimental-vm-modules
-npm run build-interfaces  # regenerate TS joinpoints from FortranWeaver JSON
 ```
 
 ## Architecture
@@ -43,7 +43,7 @@ npm run build-interfaces  # regenerate TS joinpoints from FortranWeaver JSON
 
 - **FortranWeaver** — LARA framework integration. Uses WeaverGenerator to generate weaver abstracts from specs. Depends on FortranAst + FortranParser.
 
-- **Fortran-JS** — TypeScript CLI (`@specs-feup/metafor`). Consumes FortranWeaver output. Depends on `@specs-feup/lara ~3.5.0`.
+- **Fortran-JS** — TypeScript CLI (`@specs-feup/metafor`). FortranWeaver provides a Node-friendly interface for AST interaction. Depends on `@specs-feup/lara ~3.5.0`.
 
 ### Adding Support for a New Flang Node Type
 
