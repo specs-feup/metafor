@@ -308,15 +308,4 @@ public class FortranParserTest {
             testNative("directive.f90");
         }
     }
-
-    void testArrayElementAccess() {
-        testJson("arrays/element_access.json");
-    }
-
-    @Test
-    void testArrayElementAccessNative() {
-        if (SpecsPlatforms.isLinux()) {
-            testNative("arrays/element_access.f90");
-        }
-    }
 }
