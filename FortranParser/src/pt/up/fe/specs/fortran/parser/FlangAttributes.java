@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 
 public class FlangAttributes {
 
-    private static final Set<String> EXPECTED_COMMON_KEYS = Set.of("id", "variantKey");
+    private static final Set<String> EXPECTED_COMMON_KEYS = Set.of("id", FlangData.VARIANT_IDENTIFIER_KEY);
 
     private final Map<String, Object> attributes;
 

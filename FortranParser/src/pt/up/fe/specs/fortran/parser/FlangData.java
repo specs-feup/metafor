@@ -8,20 +8,9 @@ import java.util.function.Function;
 import java.util.regex.Pattern;
 
 public class FlangData {
+    public static final String VARIANT_IDENTIFIER_KEY = "variantKey";
 
     /// STATIC
-
-    // TODO(Process-ing): Improve dump structure to avoid unintuitive regular expressions for key discovery
-    private static final Pattern REGEX_VALUE = Pattern.compile("(value|Expr)(<\\w+>)?");
-    private static final Pattern REGEX_STMT = Pattern.compile("statement");
-
-    public static Pattern getRegexValue() {
-        return REGEX_VALUE;
-    }
-
-    public static Pattern getRegexStmt() {
-        return REGEX_STMT;
-    }
 
     public static FlangData convert(Map<String, Map<String, Object>> data) {
         var newAttrs = new HashMap<String, FlangAttributes>();
@@ -92,8 +81,8 @@ public class FlangData {
             return Optional.of(Pattern.compile("statement"));
         }
 
-        if (attrs.has("variantKey")) {
-            return Optional.of(Pattern.compile(attrs.getString("variantKey") + "(<\\w+>)?"));
+        if (attrs.has(VARIANT_IDENTIFIER_KEY)) {
+            return Optional.of(Pattern.compile(attrs.getString(VARIANT_IDENTIFIER_KEY) + "(<\\w+>)?"));
         }
 
         var keys = attrs.getKeys();
@@ -212,6 +201,12 @@ public class FlangData {
 
     public String getChildId(FortranNode node, Pattern attribute) {
         return getChildId(getAttrs(node).getString(attribute));
+    }
+
+    public String getVariantChildId(FortranNode node) {
+        var variantKey = getAttrs(node).getString(VARIANT_IDENTIFIER_KEY);
+
+        return getChildId(getAttrs(node).getString(variantKey));
     }
 
     public List<String> getChildrenIds(FortranNode node, FlangName attribute) {
