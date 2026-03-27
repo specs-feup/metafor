@@ -21,7 +21,7 @@ public class FortranNativeParser {
 
     private static final boolean USE_RELEASE = false;
 
-    private static final boolean SAVE_JSON = true;
+    private static final boolean SAVE_JSON = false;
 
     private static final String BASE_URL = "https://github.com/specs-feup/flang-dumper/releases/download/";
     private static final String CURRENT_VERSION = "v1.0.3";
