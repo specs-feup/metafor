@@ -17,6 +17,11 @@ public class FCompilerDirective extends ACompilerDirective {
     }
 
     @Override
+    public String getDirectiveStringImpl() {
+        return compilerDirective.getDirectiveString();
+    }
+
+    @Override
     public ANameValue[] getPairsArrayImpl() {
         return (ANameValue[]) compilerDirective.getPairs()
                 .stream()
