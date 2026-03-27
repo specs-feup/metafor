@@ -125,6 +125,7 @@ public enum FlangName implements StringProvider {
     EXPLICIT_SHAPE_SPEC,
     ALLOCATABLE,
     ASYNCHRONOUS,
+    INTENT_SPEC,
 
 
     // OTHER
