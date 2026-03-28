@@ -27,11 +27,39 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "true if the given node is a descendant of this node",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "contains"
+									},
+									{
+										"type": "joinpoint",
+										"name": "jp",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "Returns an array with the descendants of the node",
 						"children": [
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "Looks for an ancestor joinpoint name, walking back on the AST",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -121,11 +149,39 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "true if the given node is a descendant of this node",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "contains"
+									},
+									{
+										"type": "joinpoint",
+										"name": "jp",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "Returns an array with the descendants of the node",
 						"children": [
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "Looks for an ancestor joinpoint name, walking back on the AST",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -196,11 +252,39 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "true if the given node is a descendant of this node",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "contains"
+									},
+									{
+										"type": "joinpoint",
+										"name": "jp",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "Returns an array with the descendants of the node",
 						"children": [
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "Looks for an ancestor joinpoint name, walking back on the AST",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -287,11 +371,39 @@
 					},
 					{
 						"type": "attribute",
+						"tooltip": "true if the given node is a descendant of this node",
+						"children": [
+									{
+										"type": "Boolean",
+										"name": "contains"
+									},
+									{
+										"type": "joinpoint",
+										"name": "jp",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "Returns an array with the descendants of the node",
 						"children": [
 									{
 										"type": "joinpoint[]",
 										"name": "descendants"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "Looks for an ancestor joinpoint name, walking back on the AST",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "getAncestor"
+									},
+									{
+										"type": "String",
+										"name": "type",
+										"defaultValue": ""
 									}]
 					},
 					{
