@@ -2,6 +2,7 @@ package pt.up.fe.specs.fortran.parser.processors;
 
 import pt.up.fe.specs.fortran.ast.nodes.expr.*;
 import pt.up.fe.specs.fortran.ast.nodes.expr.enums.BinaryOperatorKind;
+import pt.up.fe.specs.fortran.parser.FlangAttributes;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 
@@ -38,7 +39,7 @@ public class ExprProcessors extends ANodeProcessor {
 
         String opName = attributes().getString(binaryOperator, "op");
 
-        binaryOperator.set(BinaryOperator.OP, BinaryOperatorKind.valueOf(opName));
+        binaryOperator.set(BinaryOperator.OP, BinaryOperatorKind.valueOf(opName.toUpperCase()));
     }
 
     public void arrayConstructor(ArrayConstructor arrayConstructor) {
@@ -66,6 +67,17 @@ public class ExprProcessors extends ANodeProcessor {
         arraySubscriptExpr.addChild(getChild(arraySubscriptExpr, "base"));
         arraySubscriptExpr.addChildren(getChildren(arraySubscriptExpr, "subscripts"));
     }
+
+    public void acImpliedDo(AcImpliedDo acImpliedDo) {
+        acImpliedDo.addChild(getChild(acImpliedDo, "AcImpliedDoControl"));
+        acImpliedDo.addChildren(getChildren(acImpliedDo, "AcValue"));
+    }
+
+    public void acImpliedDoControl(AcImpliedDoControl control) {
+        var rangeControl = getChild(control, "value");
+        control.addChild(rangeControl);
+    }
+
 
     public void argument(Argument argument) {
         argument.addChild(getChild(argument, FlangName.ACTUAL_ARG));

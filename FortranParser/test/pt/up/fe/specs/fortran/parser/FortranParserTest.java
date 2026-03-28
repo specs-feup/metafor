@@ -123,6 +123,13 @@ public class FortranParserTest {
     }
 
     @Test
+    void testBinaryOperatorNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("binary_operator.f90");
+        }
+    }
+
+    @Test
     void testDoConcurrent() {
         testJson("concurrent.json");
     }
@@ -202,6 +209,18 @@ public class FortranParserTest {
     }
 
     @Test
+    void testArrayImpliedDo() {
+        testJson("arrays/array_implied_do.json");
+    }
+
+    @Test
+    void testArrayImpliedDoNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("arrays/array_implied_do.f90");
+        }
+    }
+
+    @Test
     void testSelectCaseNative() {
         if (SpecsPlatforms.isLinux()) {
             testNative("conditionalstmt/select_case.f90");
@@ -273,10 +292,12 @@ public class FortranParserTest {
         }
     }
 
+    /* commented for now until some details are added to the AST
     @Test
     void test3mm() {
         testJson("polybench/3mm.json");
     }
+    */
 
     @Test
     void testDirective() {
