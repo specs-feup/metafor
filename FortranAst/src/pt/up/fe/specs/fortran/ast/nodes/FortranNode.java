@@ -22,11 +22,13 @@ import pt.up.fe.specs.fortran.ast.FortranKeyword;
 import pt.up.fe.specs.fortran.ast.FortranNodeFactory;
 import pt.up.fe.specs.fortran.ast.FortranNodes;
 import pt.up.fe.specs.fortran.ast.utils.Position;
+import pt.up.fe.specs.util.SpecsLogs;
 import pt.up.fe.specs.util.treenode.NodeInsertUtils;
 import pt.up.fe.specs.util.utilities.PrintOnce;
 import pt.up.fe.specs.util.utilities.StringLines;
 
 import java.util.Collection;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -154,5 +156,48 @@ public abstract class FortranNode extends DataNode<FortranNode> {
         return StringLines.getLines(code).stream()
             .map(line -> tab() + line)
             .collect(Collectors.joining(ln()));
+    }
+
+
+    public Optional<FortranNode> getLeft() {
+        var indexOfSelf = indexOfSelf();
+
+        if (indexOfSelf == -1) {
+            SpecsLogs.debug("getLeft: Could not find index of self");
+            return Optional.empty();
+        }
+
+        // Get siblings
+        var siblings = getParent().getChildren();
+
+        var leftIndex = indexOfSelf - 1;
+
+        // No more elements to the left
+        if (leftIndex < 0) {
+            return Optional.empty();
+        }
+
+        return Optional.of(siblings.get(leftIndex));
+    }
+
+    public Optional<FortranNode> getRight() {
+        var indexOfSelf = indexOfSelf();
+
+        if (indexOfSelf == -1) {
+            SpecsLogs.debug("getRight: Could not find index of self");
+            return Optional.empty();
+        }
+
+        // Get siblings
+        var siblings = getParent().getChildren();
+
+        var rightIndex = indexOfSelf + 1;
+
+        // No more elements to the right
+        if (rightIndex >= siblings.size()) {
+            return Optional.empty();
+        }
+
+        return Optional.of(siblings.get(rightIndex));
     }
 }
