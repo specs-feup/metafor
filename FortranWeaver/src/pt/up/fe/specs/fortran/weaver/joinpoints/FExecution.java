@@ -7,6 +7,8 @@ import pt.up.fe.specs.fortran.weaver.abstracts.joinpoints.AExecutableStatement;
 import pt.up.fe.specs.fortran.weaver.abstracts.joinpoints.AExecution;
 import pt.up.fe.specs.fortran.weaver.abstracts.joinpoints.AStatement;
 
+import java.util.stream.Collectors;
+
 public class FExecution extends AExecution {
 
     private final Execution execution;
@@ -18,10 +20,11 @@ public class FExecution extends AExecution {
 
     @Override
     public AExecutableStatement[] getExecutableStmtsArrayImpl() {
-        return (AExecutableStatement[]) execution.getExecutableStatements()
+        return execution.getExecutableStatements()
                 .stream()
                 .map(FortranJoinpoints::create)
-                .toArray();
+                .toList()
+                .toArray(new AExecutableStatement[0]);
     }
 
     @Override
