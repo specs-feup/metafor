@@ -17,14 +17,4 @@ public class GenericFortranJoinpoint extends AFortranWeaverJoinPoint {
     public FortranNode getNode() {
         return node;
     }
-
-    @Override
-    public AJoinPoint getLeftJpImpl() {
-        return getNode().getLeft().map(FortranJoinpoints::create).orElse(null);
-    }
-
-    @Override
-    public AJoinPoint getRightJpImpl() {
-        return getNode().getRight().map(FortranJoinpoints::create).orElse(null);
-    }
 }
