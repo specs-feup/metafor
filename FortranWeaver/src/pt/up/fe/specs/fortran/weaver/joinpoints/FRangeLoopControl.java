@@ -18,12 +18,12 @@ public class FRangeLoopControl extends ARangeLoopControl {
 
     @Override
     public AExpr getLowerImpl() {
-        return FortranJoinpoints.create(rangeLoopControl.getLower(), ADataRef.class);
+        return FortranJoinpoints.create(rangeLoopControl.getLower(), AExpr.class);
     }
 
     @Override
     public AExpr getUpperImpl() {
-        return FortranJoinpoints.create(rangeLoopControl.getUpper(), ADataRef.class);
+        return FortranJoinpoints.create(rangeLoopControl.getUpper(), AExpr.class);
     }
 
     @Override
