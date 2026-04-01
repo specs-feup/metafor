@@ -35,6 +35,7 @@ public enum FlangName implements StringProvider {
     ASSIGNMENT_STMT,
     NON_LABEL_DO_STMT,
     DO_CONSTRUCT,
+    COMPILER_DIRECTIVE,
 
     /// Conditional Statements
     IF_CONSTRUCT,
@@ -45,6 +46,16 @@ public enum FlangName implements StringProvider {
     ELSE_STMT,
     END_IF_STMT,
     IF_STMT,
+
+    CASE_CONSTRUCT,
+    SELECT_CASE_STMT,
+    CASE,
+    CASE_STMT,
+    CASE_SELECTOR,
+    CASE_VALUE_RANGE,
+    RANGE,
+    DEFAULT,
+    END_SELECT_STMT,
 
     // Variables
     VARIABLE,
@@ -75,6 +86,9 @@ public enum FlangName implements StringProvider {
     ARRAY_CONSTRUCTOR,
     AC_SPEC,
     AC_VALUE,
+    ARRAY_ELEMENT,
+    AC_IMPLIED_DO,
+    AC_IMPLIED_DO_CONTROL,
 
     /// TYPEs
     DECLARATION_TYPE_SPEC,
@@ -116,7 +130,8 @@ public enum FlangName implements StringProvider {
 
 
     // OTHER
-    INITIALIZATION;
+    INITIALIZATION,
+    NAME_VALUE;
 
     private static final Lazy<EnumHelper<FlangName>> HELPER = EnumHelper.newLazyHelper(FlangName.class);
 

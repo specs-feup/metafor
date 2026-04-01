@@ -12,6 +12,10 @@ public enum FortranKeyword {
     IF,
     THEN,
     ELSE,
+    SELECT,
+    CASE,
+    DEFAULT,
+
     OMP;
 
     public String getKeyword(boolean lowercase) {

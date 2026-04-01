@@ -36,7 +36,7 @@ public class DoStmt extends ExecutableStmt {
 
     public DoKind getKind() {
         return getControl()
-                .map(DoKind::getKindFromControl)
+                .map(DoKind::fromControl)
                 .orElse(DoKind.WHILE);
     }
 
