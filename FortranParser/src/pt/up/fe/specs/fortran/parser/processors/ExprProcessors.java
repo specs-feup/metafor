@@ -25,6 +25,10 @@ public class ExprProcessors extends ANodeProcessor {
         logicalLiteral.set(StringLiteral.SOURCE_LITERAL, attributes().getString(logicalLiteral, "bool"));
     }
 
+    public void realLiteral(RealLiteral realLiteral) {
+        realLiteral.set(RealLiteral.SOURCE_LITERAL, attributes().get(attributes().getString(realLiteral, "real")).getString("source"));
+    }
+
     public void parenExpr(ParenExpr parenExpr) {
         parenExpr.addChild(getChild(parenExpr, FlangName.EXPR));
     }
@@ -52,6 +56,13 @@ public class ExprProcessors extends ANodeProcessor {
         acSpecification.addChildren(acValueList);
     }
 
+    public void call(Call call) {
+        call.addChild(getChild(call, FlangName.PROCEDURE_DESIGNATOR));
+
+        if (attributes(call).has(FlangName.ACTUAL_ARG_SPEC))
+            call.addChildren(getChildren(call, FlangName.ACTUAL_ARG_SPEC));
+    }
+
     public void arraySubscriptExpr(ArraySubscriptExpr arraySubscriptExpr) {
         arraySubscriptExpr.addChild(getChild(arraySubscriptExpr, "base"));
         arraySubscriptExpr.addChildren(getChildren(arraySubscriptExpr, "subscripts"));
@@ -67,4 +78,8 @@ public class ExprProcessors extends ANodeProcessor {
         control.addChild(rangeControl);
     }
 
+
+    public void argument(Argument argument) {
+        argument.addChild(getChild(argument, FlangName.ACTUAL_ARG));
+    }
 }

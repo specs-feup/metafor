@@ -11,20 +11,26 @@ public enum FlangName implements StringProvider {
     PROGRAM,
     MAIN_PROGRAM,
     PROGRAM_UNIT,
+    SUBROUTINE_SUBPROGRAM,
     SPECIFICATION_PART,
+    INTERNAL_SUBPROGRAM_PART,
     DECLARATION_CONSTRUCT,
     IMPLICIT_PART,
     EXECUTION_PART,
+    INTERNAL_SUBPROGRAM,
     BLOCK,
     EXECUTION_PART_CONSTRUCT,
     EXECUTABLE_CONSTRUCT,
 
     /// DECLs
     ENTITY_DECL,
+    DUMMY_ARG,
 
     /// STMTs
     PROGRAM_STMT,
     END_PROGRAM_STMT,
+    SUBROUTINE_STMT,
+    END_SUBROUTINE_STMT,
     ACTION_STMT,
     PRINT_STMT,
     FORMAT_STMT,
@@ -35,6 +41,7 @@ public enum FlangName implements StringProvider {
     ASSIGNMENT_STMT,
     NON_LABEL_DO_STMT,
     DO_CONSTRUCT,
+    CALL_STMT,
     COMPILER_DIRECTIVE,
 
     /// Conditional Statements
@@ -68,6 +75,7 @@ public enum FlangName implements StringProvider {
     CHAR_LITERAL_CONSTANT,
     INT_LITERAL_CONSTANT,
     LOGICAL_LITERAL_CONSTANT,
+    REAL_LITERAL_CONSTANT,
     STAR,
     PARENTHESES,
     ADD,
@@ -81,6 +89,10 @@ public enum FlangName implements StringProvider {
     GT("GT"),
     GE("GE"),
     SCALAR,
+    PROCEDURE_DESIGNATOR,
+    ACTUAL_ARG_SPEC,
+    ACTUAL_ARG,
+    CALL,
 
     // ARRAYs
     ARRAY_CONSTRUCTOR,
@@ -93,7 +105,9 @@ public enum FlangName implements StringProvider {
     /// TYPEs
     DECLARATION_TYPE_SPEC,
     INTEGER_TYPE_SPEC,
+    DOUBLE_PRECISION,
     LOGICAL,
+    CHARACTER,
 
     /// LOOP
     LOOP_BOUNDS,
@@ -127,6 +141,7 @@ public enum FlangName implements StringProvider {
     EXPLICIT_SHAPE_SPEC,
     ALLOCATABLE,
     ASYNCHRONOUS,
+    INTENT_SPEC,
 
 
     // OTHER

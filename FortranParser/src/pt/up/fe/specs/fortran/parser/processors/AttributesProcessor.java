@@ -1,7 +1,9 @@
 package pt.up.fe.specs.fortran.parser.processors;
 
 import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
+import pt.up.fe.specs.fortran.ast.nodes.type.attributes.IntentSpec;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.KeywordAttributeSpecifier;
+import pt.up.fe.specs.fortran.ast.nodes.type.attributes.enums.IntentKind;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 
@@ -29,5 +31,12 @@ public class AttributesProcessor extends ANodeProcessor {
         var keyword = attributes(keywordSpecifier).getString("keyword");
 
         keywordSpecifier.set(KeywordAttributeSpecifier.KEYWORD, keyword);
+    }
+
+    public void intentSpec(IntentSpec intentSpec) {
+        intentSpec.set(
+                IntentSpec.KIND,
+                IntentKind.convertTry(attributes(intentSpec).getString("intent")).get()
+        );
     }
 }
