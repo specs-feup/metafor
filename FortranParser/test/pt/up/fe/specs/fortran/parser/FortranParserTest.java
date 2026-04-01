@@ -269,17 +269,18 @@ public class FortranParserTest {
     }
 
     @Test
-    void testDirective() {
-        testJson("directive.json");
+    void testSubroutine() {
+        testJson("subroutine.json");
     }
 
     @Test
-    void testDirectiveNative() {
+    void testSubroutineNative() {
         if (SpecsPlatforms.isLinux()) {
-            testNative("directive.f90");
+            testNative("subroutine.f90");
         }
     }
-  
+
+    @Test
     void testArrayElementAccess() {
         testJson("arrays/element_access.json");
     }
@@ -288,6 +289,25 @@ public class FortranParserTest {
     void testArrayElementAccessNative() {
         if (SpecsPlatforms.isLinux()) {
             testNative("arrays/element_access.f90");
+        }
+    }
+
+    /* commented for now until some details are added to the AST
+    @Test
+    void test3mm() {
+        testJson("polybench/3mm.json");
+    }
+    */
+
+    @Test
+    void testDirective() {
+        testJson("directive.json");
+    }
+
+    @Test
+    void testDirectiveNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("directive.f90");
         }
     }
 }

@@ -1,5 +1,6 @@
 package pt.up.fe.specs.fortran.parser.processors;
 
+import pt.up.fe.specs.fortran.ast.nodes.decl.DummyArgumentDecl;
 import pt.up.fe.specs.fortran.ast.nodes.decl.EntityDecl;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
@@ -28,5 +29,10 @@ public class DeclProcessors extends ANodeProcessor {
 
     }
 
+    public void dummyArgumentDecl(DummyArgumentDecl dummyArgumentDecl) {
+        var nameId = attributes(dummyArgumentDecl).getString("value");
+        var name = attributes().get(nameId).getString("source");
 
+        dummyArgumentDecl.set(DummyArgumentDecl.NAME, name);
+    }
 }

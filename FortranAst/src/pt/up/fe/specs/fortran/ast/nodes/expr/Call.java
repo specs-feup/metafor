@@ -7,25 +7,25 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ArraySubscriptExpr extends DataRef {
+public class Call extends Expr {
 
-    public ArraySubscriptExpr(DataStore data, Collection<? extends FortranNode> children) {
+    public Call(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
     }
 
-    public DataRef getRef() {
+    public DataRef getCallee() {
         return getChild(DataRef.class, 0);
     }
 
-    public List<Expr> getSubscripts() {
-        return getChildren(Expr.class, 1);
+    public List<Argument> getArgs() {
+        return getChildren(Argument.class, 1);
     }
 
     @Override
     public String getCode() {
-        return getRef().getCode() + "(" +
-                getSubscripts().stream()
-                        .map(Expr::getCode)
+        return getCallee().getCode() + "(" +
+                getArgs().stream()
+                        .map(Argument::getCode)
                         .collect(Collectors.joining(", ")) +
                 ")";
     }
