@@ -7,6 +7,7 @@ import pt.up.fe.specs.fortran.weaver.FortranJoinpoints;
 import pt.up.fe.specs.fortran.weaver.abstracts.joinpoints.AJoinPoint;
 import pt.up.fe.specs.fortran.weaver.abstracts.joinpoints.AProgram;
 import pt.up.fe.specs.util.exceptions.NotImplementedException;
+import pt.up.fe.specs.util.treenode.NodeInsertUtils;
 
 import java.util.stream.Stream;
 
@@ -81,6 +82,15 @@ public abstract class AFortranWeaverJoinPoint extends AJoinPoint {
         var insertedNode = getNode().insert(Position.valueOf(position.toUpperCase()), code);
 
         return new AJoinPoint[]{FortranJoinpoints.create(insertedNode, AJoinPoint.class)};
+    }
+
+    public static FortranNode replace(FortranNode target, FortranNode newNode) {
+        return NodeInsertUtils.replace(target, newNode);
+    }
+
+    @Override
+    public AJoinPoint replaceWithImpl(AJoinPoint node) {
+        return FortranJoinpoints.create(replace(getNode(), node.getNode()));
     }
 
     @Override
