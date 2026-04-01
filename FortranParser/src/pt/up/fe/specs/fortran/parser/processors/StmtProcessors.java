@@ -297,20 +297,21 @@ public class StmtProcessors extends ANodeProcessor {
                 s -> {
                     FlangAttributes attrs = attributes().getAttrs(s);
 
-                    String childKey = attrs.getVariantKey();
+                    FlangName childKey = FlangName.convertTry(attrs.getVariantKey()).orElseThrow();
                     String value = attrs.getString(childKey);
 
                     switch (childKey) {
-                        case "LoopBounds", "Concurrent" -> {
+                        case LOOP_BOUNDS, CONCURRENT -> {
                             doStmt.addChild(getChild(value));
                         }
-                        case "Expr" -> {
+                        case EXPR -> {
                             Expr cond = (Expr) getChild(value);
                             WhileLoopControl middleman = factory().newNode(WhileLoopControl.class);
 
                             middleman.addChild(cond);
                             doStmt.addChild(middleman);
                         }
+                        default -> throw new RuntimeException("Unknown loop control type: " + childKey);
                     }
                 },
                 () -> {
