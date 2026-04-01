@@ -22,7 +22,7 @@ public class AttributesProcessor extends ANodeProcessor {
     }
 
     public void arraySpecification(ArraySpecification arraySpecification) {
-        var variantKey = attributes(arraySpecification).getString(FlangData.VARIANT_IDENTIFIER_KEY);
+        var variantKey = attributes(arraySpecification).getVariantKey();
         var shapes = getChildren(arraySpecification, variantKey);
         arraySpecification.addChildren(shapes);
     }

@@ -300,7 +300,7 @@ public class StmtProcessors extends ANodeProcessor {
                 s -> {
                     FlangAttributes attrs = attributes().getAttrs(s);
 
-                    String childKey = attrs.getString(FlangData.VARIANT_IDENTIFIER_KEY);
+                    String childKey = attrs.getVariantKey();
                     String value = attrs.getString(childKey);
 
                     switch (childKey) {
@@ -327,7 +327,7 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void compilerDirective(CompilerDirective compilerDirective) {
-        var variantKey = attributes(compilerDirective).getString(FlangData.VARIANT_IDENTIFIER_KEY);
+        var variantKey = attributes(compilerDirective).getVariantKey();
         compilerDirective.addChildren(getChildren(compilerDirective, variantKey));
     }
 

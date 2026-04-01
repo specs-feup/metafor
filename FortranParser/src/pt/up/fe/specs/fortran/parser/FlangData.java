@@ -8,8 +8,6 @@ import java.util.function.Function;
 import java.util.regex.Pattern;
 
 public class FlangData {
-    public static final String VARIANT_IDENTIFIER_KEY = "variantKey";
-
     /// STATIC
 
     public static FlangData convert(Map<String, Map<String, Object>> data) {
@@ -81,8 +79,8 @@ public class FlangData {
             return Optional.of(Pattern.compile("statement"));
         }
 
-        if (attrs.has(VARIANT_IDENTIFIER_KEY)) {
-            return Optional.of(Pattern.compile(attrs.getString(VARIANT_IDENTIFIER_KEY) + "(<\\w+>)?"));
+        if (attrs.hasVariant()) {
+            return Optional.of(Pattern.compile(attrs.getVariantKey() + "(<\\w+>)?"));
         }
 
         var keys = attrs.getKeys();
@@ -204,9 +202,7 @@ public class FlangData {
     }
 
     public String getVariantChildId(FortranNode node) {
-        var variantKey = getAttrs(node).getString(VARIANT_IDENTIFIER_KEY);
-
-        return getChildId(getAttrs(node).getString(variantKey));
+        return getChildId(getAttrs(node).getVariantString());
     }
 
     public List<String> getChildrenIds(FortranNode node, FlangName attribute) {
@@ -220,6 +216,7 @@ public class FlangData {
                 .map(this::getChildId)
                 .toList();
     }
+
     public List<String> getChildrenIds(FortranNode node, String attribute) {
         return getAttrs(node).getStringList(attribute).stream()
                 .map(this::getChildId)

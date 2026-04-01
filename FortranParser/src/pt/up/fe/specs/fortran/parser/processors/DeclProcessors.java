@@ -31,8 +31,7 @@ public class DeclProcessors extends ANodeProcessor {
     }
 
     public void dummyArgumentDecl(DummyArgumentDecl dummyArgumentDecl) {
-        var variantKey = attributes(dummyArgumentDecl).getString(FlangData.VARIANT_IDENTIFIER_KEY);
-        var nameId = attributes(dummyArgumentDecl).getString(variantKey);
+        var nameId = attributes(dummyArgumentDecl).getVariantString();
         var name = attributes().get(nameId).getString("source");
 
         dummyArgumentDecl.set(DummyArgumentDecl.NAME, name);
