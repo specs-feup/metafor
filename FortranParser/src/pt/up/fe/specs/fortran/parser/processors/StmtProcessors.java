@@ -11,7 +11,6 @@ import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.*;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.DimensionSpec;
 import pt.up.fe.specs.fortran.parser.FlangAttributes;
-import pt.up.fe.specs.fortran.parser.FlangData;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 
@@ -240,10 +239,8 @@ public class StmtProcessors extends ANodeProcessor {
             var rangeId = attrs.getString(FlangName.RANGE);
             var rangeAttrs = attributes().get(rangeId);
 
-            Optional<FortranNode> lowerBound = rangeAttrs.getOptionalString("lower")
-                    .map(lowerId -> getNode(attributes().getChildId(lowerId)));
-            Optional<FortranNode> upperBound = rangeAttrs.getOptionalString("upper")
-                    .map(upperId -> getNode(attributes().getChildId(upperId)));
+            Optional<FortranNode> lowerBound = rangeAttrs.getOptionalString("lower").map(this::getChild);
+            Optional<FortranNode> upperBound = rangeAttrs.getOptionalString("upper").map(this::getChild);
 
             if (lowerBound.isPresent()) {
                 if (upperBound.isPresent()) {
