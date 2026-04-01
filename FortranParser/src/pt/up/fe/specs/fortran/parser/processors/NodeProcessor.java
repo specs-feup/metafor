@@ -62,8 +62,12 @@ public interface NodeProcessor {
         return getChild(node, name.getUnlabeledStmtAttr());
     }
 
+    default String getVariantChildId(FortranNode node) {
+        return attributes().getVariantChildId(node);
+    }
+
     default FortranNode getVariantChild(FortranNode node) {
-        return getNode(attributes().getVariantChildId(node));
+        return getNode(getVariantChildId(node));
     }
 
     default boolean hasVariant(FortranNode node) {

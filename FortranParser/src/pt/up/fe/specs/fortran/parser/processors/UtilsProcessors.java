@@ -14,8 +14,7 @@ public class UtilsProcessors extends ANodeProcessor {
     }
 
     public void format(Format format) {
-        var variantKey = attributes(format).getVariantKey();
-        var childId = getChildId(format, variantKey);
+        var childId = getVariantChildId(format);
 
         if (data().attributes().isIdInteger(childId)) {
             // Create placeholder LabelDecl
