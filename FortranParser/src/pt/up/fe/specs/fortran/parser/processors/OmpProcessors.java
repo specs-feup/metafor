@@ -31,7 +31,7 @@ public class OmpProcessors extends ANodeProcessor {
         Execution body = factory().newNode(Execution.class, getChildren(ompBlockConstruct, FlangName.EXECUTION_PART_CONSTRUCT));
         ompBlockConstruct.addChild(body);
 
-        ompBlockConstruct.addChildren(getChildren(clauseList, FlangName.OMP_CLAUSE));
+        if (attributes().get(clauseList).has(FlangName.OMP_CLAUSE)) ompBlockConstruct.addChildren(getChildren(clauseList, FlangName.OMP_CLAUSE));
     }
 
     public void ompLoopConstruct(OmpLoopConstruct ompLoopConstruct) {
@@ -45,7 +45,7 @@ public class OmpProcessors extends ANodeProcessor {
         DoStmt loop = (DoStmt) getChild(ompLoopConstruct, FlangName.DO_CONSTRUCT);
         ompLoopConstruct.addChild(loop);
 
-
+        if (attributes().get(clauseList).has(FlangName.OMP_CLAUSE)) ompLoopConstruct.addChildren(getChildren(clauseList, FlangName.OMP_CLAUSE));
     }
 
     public void ompDataSharingClause(OmpDataSharingClause ompDataSharingClause) {
