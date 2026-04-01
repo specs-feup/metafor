@@ -3,7 +3,6 @@ package pt.up.fe.specs.fortran.parser.processors;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.expr.Expr;
 import pt.up.fe.specs.fortran.ast.nodes.loops.WhileLoopControl;
-import pt.up.fe.specs.fortran.ast.nodes.loops.enums.DoKind;
 import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
 import pt.up.fe.specs.fortran.ast.nodes.program.StmtBlock;
 import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
@@ -11,6 +10,7 @@ import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.*;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.DimensionSpec;
+import pt.up.fe.specs.fortran.parser.FlangAttributes;
 import pt.up.fe.specs.fortran.parser.FlangData;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
@@ -298,14 +298,16 @@ public class StmtProcessors extends ANodeProcessor {
 
         control.ifPresentOrElse(
                 s -> {
-                    DoKind kind = DoKind.convertTry(attributes().getAttrs(s).getString("kind")).get();
-                    String value = attributes().getAttrs(s).getString("value");
+                    FlangAttributes attrs = attributes().getAttrs(s);
 
-                    switch (kind) {
-                        case RANGE, CONCURRENT -> {
+                    String childKey = attrs.getString(FlangData.VARIANT_IDENTIFIER_KEY);
+                    String value = attrs.getString(childKey);
+
+                    switch (childKey) {
+                        case "LoopBounds", "Concurrent" -> {
                             doStmt.addChild(getChild(value));
                         }
-                        case WHILE -> {
+                        case "Expr" -> {
                             Expr cond = (Expr) getChild(value);
                             WhileLoopControl middleman = factory().newNode(WhileLoopControl.class);
 
