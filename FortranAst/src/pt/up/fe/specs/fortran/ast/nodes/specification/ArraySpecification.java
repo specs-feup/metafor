@@ -23,7 +23,7 @@ public class ArraySpecification extends FortranNode {
         var code = new StringBuilder();
 
         code.append("(");
-        var shapesCode = shapes.stream().map(ShapeSpecification::getCode).collect(Collectors.joining(","));
+        var shapesCode = shapes.stream().map(ShapeSpecification::getCode).collect(Collectors.joining(", "));
         code.append(shapesCode);
         code.append(")");
         return code.toString();

@@ -1,7 +1,7 @@
-PROGRAM test_array_assign
+PROGRAM TEST_ARRAY_ASSIGN
     integer, dimension(5) :: arr, arr2, arr3
     integer, ALLOCATABLE :: arr_alloc(:)
-    integer, dimension(2,3,4) :: matrix3d
+    integer, dimension(2, 3, 4) :: matrix3d
     integer, dimension(0:4) :: arr_custom_bound
 
     arr = [10, 20, 30, 40, 50]
@@ -9,4 +9,4 @@ PROGRAM test_array_assign
     arr3 = [integer :: 10, 20, 30, 40, 50]
     arr_alloc = [integer ::]
     arr_custom_bound = [10, 20, 30, 40, 50]
-END PROGRAM test_array_assign
+END PROGRAM TEST_ARRAY_ASSIGN
