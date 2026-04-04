@@ -47,4 +47,8 @@
     <joinpoint class="compilerDirective" extends="executableStatement"/>
 
     <joinpoint class="nameValue" tooltip="Represents a name/value pair in a compiler directive"/>
+
+    <joinpoint class="ompConstruct" tooltip="Represents a generic OpenMP construct" extends="executableStatement"/>
+
+    <joinpoint class="ompLoopConstruct" tooltip="Represents an OpenMP loop construct (such as do or do parallel)" extends="ompConstruct"/>
 </joinpoints>
