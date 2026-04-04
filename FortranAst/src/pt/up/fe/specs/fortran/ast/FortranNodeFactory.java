@@ -6,7 +6,10 @@ import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.decl.LabelDecl;
 import pt.up.fe.specs.fortran.ast.nodes.expr.Literal;
 import pt.up.fe.specs.fortran.ast.nodes.expr.StringLiteral;
+import pt.up.fe.specs.fortran.ast.nodes.omp.OmpLoopConstruct;
+import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpClause;
 import pt.up.fe.specs.fortran.ast.nodes.program.*;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.DoStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ExecutableStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.LiteralExecutionStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.PrintStmt;
@@ -192,4 +195,13 @@ public class FortranNodeFactory {
         return new LabelRef(data, Collections.emptyList());
     }
 
+    public OmpLoopConstruct ompLoopConstruct(DoStmt doStmt, List<OmpClause> clauses) {
+        DataStore data = newDataStore(OmpLoopConstruct.class);
+
+        OmpLoopConstruct newNode = new OmpLoopConstruct(data, clauses);
+
+        newNode.addChild(doStmt);
+
+        return newNode;
+    }
 }
