@@ -14,15 +14,18 @@
 package pt.up.fe.specs.fortran.weaver;
 
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
+import pt.up.fe.specs.fortran.ast.nodes.expr.*;
+import pt.up.fe.specs.fortran.ast.nodes.loops.LoopControl;
+import pt.up.fe.specs.fortran.ast.nodes.loops.RangeLoopControl;
 import pt.up.fe.specs.fortran.ast.nodes.program.Application;
+import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
 import pt.up.fe.specs.fortran.ast.nodes.program.FortranFile;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.Stmt;
+import pt.up.fe.specs.fortran.ast.nodes.program.StmtBlock;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
+import pt.up.fe.specs.fortran.ast.nodes.utils.NameValue;
 import pt.up.fe.specs.fortran.weaver.abstracts.AFortranWeaverJoinPoint;
 import pt.up.fe.specs.fortran.weaver.abstracts.joinpoints.AJoinPoint;
-import pt.up.fe.specs.fortran.weaver.joinpoints.FFile;
-import pt.up.fe.specs.fortran.weaver.joinpoints.FProgram;
-import pt.up.fe.specs.fortran.weaver.joinpoints.FStatement;
-import pt.up.fe.specs.fortran.weaver.joinpoints.GenericFortranJoinpoint;
+import pt.up.fe.specs.fortran.weaver.joinpoints.*;
 import pt.up.fe.specs.util.SpecsCollections;
 import pt.up.fe.specs.util.SpecsLogs;
 import pt.up.fe.specs.util.classmap.FunctionClassMap;
@@ -39,6 +42,25 @@ public class FortranJoinpoints {
         JOINPOINT_FACTORY.put(Application.class, FProgram::new);
         JOINPOINT_FACTORY.put(FortranFile.class, FFile::new);
         JOINPOINT_FACTORY.put(Stmt.class, FStatement::new);
+        JOINPOINT_FACTORY.put(ActionStmt.class, FActionStatement::new);
+        JOINPOINT_FACTORY.put(ArraySubscriptExpr.class, FArraySubscriptExpr::new);
+        JOINPOINT_FACTORY.put(AssignmentStmt.class, FAssignmentStatement::new);
+        JOINPOINT_FACTORY.put(BinaryOperator.class, FBinaryOperator::new);
+        JOINPOINT_FACTORY.put(CompilerDirective.class, FCompilerDirective::new);
+        JOINPOINT_FACTORY.put(DataRef.class, FDataRef::new);
+        JOINPOINT_FACTORY.put(Designator.class, FDesignator::new);
+        JOINPOINT_FACTORY.put(DoStmt.class, FDoStatement::new);
+        JOINPOINT_FACTORY.put(ExecutableStmt.class, FExecutableStatement::new);
+        JOINPOINT_FACTORY.put(Execution.class, FExecution::new);
+        JOINPOINT_FACTORY.put(Expr.class, FExpr::new);
+        JOINPOINT_FACTORY.put(IntLiteral.class, FIntLiteral::new);
+        JOINPOINT_FACTORY.put(Literal.class, FLiteral::new);
+        JOINPOINT_FACTORY.put(LoopControl.class, FLoopControl::new);
+        JOINPOINT_FACTORY.put(NameValue.class, FNameValue::new);
+        JOINPOINT_FACTORY.put(RangeLoopControl.class, FRangeLoopControl::new);
+        JOINPOINT_FACTORY.put(RealLiteral.class, FRealLiteral::new);
+        JOINPOINT_FACTORY.put(StmtBlock.class, FStatementBlock::new);
+        JOINPOINT_FACTORY.put(StringLiteral.class, FStringLiteral::new);
         JOINPOINT_FACTORY.put(FortranNode.class, FortranJoinpoints::defaultFactory);
     }
 

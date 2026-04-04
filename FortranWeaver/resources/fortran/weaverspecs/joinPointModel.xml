@@ -10,4 +10,41 @@
 
     <joinpoint class="statement" tooltip="Represents a Fortran statement"/>
 
+    <joinpoint class="expr" tooltip="Represents an expression"/>
+
+    <joinpoint class="binaryOperator" extends="expr" tooltip="Represents a binary operation"/>
+
+    <joinpoint class="executableStatement" extends="statement" tooltip="Represents an executable statement"/>
+
+    <joinpoint class="actionStatement" extends="executableStatement" tooltip="Represents an action statement"/>
+
+    <joinpoint class="assignmentStatement" extends="actionStatement" tooltip="Represents an assignment statement"/>
+
+    <joinpoint class="designator" extends="expr" tooltip="Represents a designator"/>
+
+    <joinpoint class="dataRef" extends="designator" tooltip="Represents a data reference"/>
+
+    <joinpoint class="literal" extends="expr" tooltip="Represents a literal"/>
+
+    <joinpoint class="intLiteral" extends="literal"/>
+
+    <joinpoint class="stringLiteral" extends="literal"/>
+
+    <joinpoint class="realLiteral" extends="literal"/>
+
+    <joinpoint class="doStatement" extends="executableStatement" tooltip="Represents a do loop"/>
+
+    <joinpoint class="loopControl" tooltip="Represents the loop control structure, with specialized subclasses for different loop kinds"/>
+
+    <joinpoint class="rangeLoopControl" extends="loopControl"/>
+
+    <joinpoint class="statementBlock"/>
+
+    <joinpoint class="execution" extends="statementBlock"/>
+
+    <joinpoint class="arraySubscriptExpr" extends="dataRef" tooltip="Represents an access to one (or several) elements of an array"/>
+
+    <joinpoint class="compilerDirective" extends="executableStatement"/>
+
+    <joinpoint class="nameValue" tooltip="Represents a name/value pair in a compiler directive"/>
 </joinpoints>
