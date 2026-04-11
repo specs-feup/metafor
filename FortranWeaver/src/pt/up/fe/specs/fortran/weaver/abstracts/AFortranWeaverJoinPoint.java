@@ -6,8 +6,10 @@ import pt.up.fe.specs.fortran.ast.utils.Position;
 import pt.up.fe.specs.fortran.weaver.FortranJoinpoints;
 import pt.up.fe.specs.fortran.weaver.abstracts.joinpoints.AJoinPoint;
 import pt.up.fe.specs.fortran.weaver.abstracts.joinpoints.AProgram;
+import pt.up.fe.specs.util.SpecsLogs;
 import pt.up.fe.specs.util.exceptions.NotImplementedException;
 
+import java.util.Objects;
 import java.util.stream.Stream;
 
 /**
@@ -98,6 +100,36 @@ public abstract class AFortranWeaverJoinPoint extends AJoinPoint {
     }
 
     @Override
+    public AJoinPoint getAncestorImpl(String type) {
+        Objects.requireNonNull(type, () -> "Missing type of ancestor in attribute 'ancestor'");
+
+        if (type.equals("program")) {
+            SpecsLogs.warn("Consider using attribute .root, instead of .ancestor('program')");
+        }
+
+        FortranNode currentNode = getNode();
+        while (currentNode.hasParent()) {
+            // Create join point for testing type
+            AFortranWeaverJoinPoint parentJp = FortranJoinpoints.create(currentNode.getParent());
+
+            if (parentJp.instanceOf(type)) {
+                return parentJp;
+            }
+
+            currentNode = parentJp.getNode();
+        }
+
+        return null;
+    }
+
+    @Override
+    public Boolean containsImpl(AJoinPoint jp) {
+        FortranNode clavaNode = jp.getNode();
+
+        return getNode().getDescendantsStream()
+                .anyMatch(child -> child == clavaNode);
+    }
+  
     public AJoinPoint getLeftJpImpl() {
         return getNode().getLeft().map(FortranJoinpoints::create).orElse(null);
     }

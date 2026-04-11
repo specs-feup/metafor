@@ -20,6 +20,14 @@
         <!-- TODO: TEMP FIX WHILE GENERATOR DOES NOT ADD THIS BASE ATTRIBUTE AUTOMATICALLY -->
         <attribute name="scopeNodes" type="joinpoint[]"
                    tooltip="the nodes of the scope of the current join point. If this node has a body (e.g., loop, function) corresponds to the children of the body. Otherwise, returns an empty array"/>
+        <attribute name="getAncestor" type="joinpoint"
+                   tooltip="Looks for an ancestor joinpoint name, walking back on the AST">
+            <parameter name="type" type="String"/>
+        </attribute>
+        <attribute name="contains" type="Boolean"
+                   tooltip="true if the given node is a descendant of this node">
+            <parameter name="jp" type="joinpoint"/>
+        </attribute>
         <attribute name="leftJp" type="joinpoint"
                    tooltip="Returns the node that came before this node, or undefined if there is none"/>
         <attribute name="rightJp" type="joinpoint"
