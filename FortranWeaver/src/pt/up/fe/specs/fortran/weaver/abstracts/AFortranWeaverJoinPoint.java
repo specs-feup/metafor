@@ -129,4 +129,13 @@ public abstract class AFortranWeaverJoinPoint extends AJoinPoint {
         return getNode().getDescendantsStream()
                 .anyMatch(child -> child == clavaNode);
     }
+  
+    public AJoinPoint getLeftJpImpl() {
+        return getNode().getLeft().map(FortranJoinpoints::create).orElse(null);
+    }
+
+    @Override
+    public AJoinPoint getRightJpImpl() {
+        return getNode().getRight().map(FortranJoinpoints::create).orElse(null);
+    }
 }

@@ -64,11 +64,29 @@
 					},
 					{
 						"type": "attribute",
+            "tooltip": "Returns the node that came before this node, or undefined if there is none",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "leftJp"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "Returns the parent node in the AST, or undefined if it is the root node",
 						"children": [
 									{
 										"type": "joinpoint",
 										"name": "parent"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "Returns the node that comes after this node, or undefined if there is none",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "rightJp"
 									}]
 					},
 					{
@@ -182,6 +200,15 @@
 										"type": "String",
 										"name": "type",
 										"defaultValue": ""
+                  }]
+          },
+          {
+						"type": "attribute",
+						"tooltip": "Returns the node that came before this node, or undefined if there is none",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "leftJp"
 									}]
 					},
 					{
@@ -191,6 +218,15 @@
 									{
 										"type": "joinpoint",
 										"name": "parent"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "Returns the node that comes after this node, or undefined if there is none",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "rightJp"
 									}]
 					},
 					{
@@ -289,11 +325,29 @@
 					},
 					{
 						"type": "attribute",
+            "tooltip": "Returns the node that came before this node, or undefined if there is none",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "leftJp"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "Returns the parent node in the AST, or undefined if it is the root node",
 						"children": [
 									{
 										"type": "joinpoint",
 										"name": "parent"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "Returns the node that comes after this node, or undefined if there is none",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "rightJp"
 									}]
 					},
 					{
@@ -408,11 +462,29 @@
 					},
 					{
 						"type": "attribute",
+            "tooltip": "Returns the node that came before this node, or undefined if there is none",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "leftJp"
+									}]
+					},
+					{
+						"type": "attribute",
 						"tooltip": "Returns the parent node in the AST, or undefined if it is the root node",
 						"children": [
 									{
 										"type": "joinpoint",
 										"name": "parent"
+									}]
+					},
+					{
+						"type": "attribute",
+						"tooltip": "Returns the node that comes after this node, or undefined if there is none",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "rightJp"
 									}]
 					},
 					{

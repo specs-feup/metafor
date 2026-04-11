@@ -28,6 +28,10 @@
                    tooltip="true if the given node is a descendant of this node">
             <parameter name="jp" type="joinpoint"/>
         </attribute>
+        <attribute name="leftJp" type="joinpoint"
+                   tooltip="Returns the node that came before this node, or undefined if there is none"/>
+        <attribute name="rightJp" type="joinpoint"
+                   tooltip="Returns the node that comes after this node, or undefined if there is none"/>
     </global>
 
     <!-- PROGRAM -->
