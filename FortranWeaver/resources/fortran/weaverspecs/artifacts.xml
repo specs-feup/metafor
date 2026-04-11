@@ -20,6 +20,10 @@
         <!-- TODO: TEMP FIX WHILE GENERATOR DOES NOT ADD THIS BASE ATTRIBUTE AUTOMATICALLY -->
         <attribute name="scopeNodes" type="joinpoint[]"
                    tooltip="the nodes of the scope of the current join point. If this node has a body (e.g., loop, function) corresponds to the children of the body. Otherwise, returns an empty array"/>
+        <attribute name="leftJp" type="joinpoint"
+                   tooltip="Returns the node that came before this node, or undefined if there is none"/>
+        <attribute name="rightJp" type="joinpoint"
+                   tooltip="Returns the node that comes after this node, or undefined if there is none"/>
     </global>
 
     <!-- PROGRAM -->

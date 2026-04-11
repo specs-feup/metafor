@@ -96,4 +96,14 @@ public abstract class AFortranWeaverJoinPoint extends AJoinPoint {
     public int hashCode() {
         return getNode().hashCode();
     }
+
+    @Override
+    public AJoinPoint getLeftJpImpl() {
+        return getNode().getLeft().map(FortranJoinpoints::create).orElse(null);
+    }
+
+    @Override
+    public AJoinPoint getRightJpImpl() {
+        return getNode().getRight().map(FortranJoinpoints::create).orElse(null);
+    }
 }
