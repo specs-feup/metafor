@@ -1,5 +1,6 @@
 package pt.up.fe.specs.fortran.weaver.importable;
 
+import pt.up.fe.specs.fortran.ast.nodes.omp.OmpLoopConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpClause;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.DoStmt;
 import pt.up.fe.specs.fortran.weaver.FortranJoinpoints;
@@ -21,5 +22,9 @@ public class AstFactory {
         DoStmt doStmt = (DoStmt) loop.getNode();
 
         return FortranJoinpoints.create(FortranWeaver.getFactory().ompLoopConstruct(doStmt, clauses), AOmpLoopConstruct.class);
+    }
+
+    public static AOmpLoopConstruct emptyOmpLoopConstruct() {
+        return FortranJoinpoints.create(FortranWeaver.getFactory().newNode(OmpLoopConstruct.class), AOmpLoopConstruct.class);
     }
 }
