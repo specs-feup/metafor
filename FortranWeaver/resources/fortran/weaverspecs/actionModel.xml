@@ -22,4 +22,13 @@
         <parameter name="rhs" type="expr"/>
     </action>
 
+    <!-- OPENMP -->
+    <action name="setClauses" class="ompConstruct" tooltip="Sets the construct's clauses">
+        <parameter name="clauses" type="ompClause[]"/>
+    </action>
+
+    <action name="setLoop" class="ompLoopConstruct">
+        <parameter name="loop" type="doStatement"/>
+    </action>
+
 </actions>

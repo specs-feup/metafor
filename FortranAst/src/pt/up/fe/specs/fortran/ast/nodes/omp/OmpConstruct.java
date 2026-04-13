@@ -24,6 +24,12 @@ abstract public class OmpConstruct extends ExecutableStmt {
         return getChildrenOf(OmpClause.class);
     }
 
+    public void setClauses(List<OmpClause> clauses) {
+        removeChildren(OmpClause.class);
+
+        addChildren(clauses);
+    }
+
     public String getClauseCode() {
         return getClauses().stream()
             .map(OmpClause::getCode)
