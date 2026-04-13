@@ -4,12 +4,12 @@ import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.IntentSpec;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.KeywordAttributeSpecifier;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.enums.IntentKind;
+import pt.up.fe.specs.fortran.parser.FlangData;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 
 import java.util.EnumSet;
 import java.util.Set;
-import java.util.regex.Pattern;
 
 public class AttributesProcessor extends ANodeProcessor {
     private static final Set<FlangName> KEYWORD_ATTRIBUTES = EnumSet.of(
@@ -21,9 +21,9 @@ public class AttributesProcessor extends ANodeProcessor {
         super(data);
     }
 
-
     public void arraySpecification(ArraySpecification arraySpecification) {
-        var shapes = getChildren(arraySpecification, "value");
+        var variantKey = attributes(arraySpecification).getVariantKey();
+        var shapes = getChildren(arraySpecification, variantKey);
         arraySpecification.addChildren(shapes);
     }
 

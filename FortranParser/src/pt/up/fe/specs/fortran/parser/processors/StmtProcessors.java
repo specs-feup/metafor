@@ -1,25 +1,21 @@
 package pt.up.fe.specs.fortran.parser.processors;
 
-import pt.up.fe.specs.fortran.ast.nodes.expr.DataRef;
+import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.expr.Expr;
 import pt.up.fe.specs.fortran.ast.nodes.loops.WhileLoopControl;
-import pt.up.fe.specs.fortran.ast.nodes.loops.enums.DoKind;
 import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
-import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.program.StmtBlock;
 import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.*;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.DimensionSpec;
+import pt.up.fe.specs.fortran.parser.FlangAttributes;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 
-import java.util.Optional;
-
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class StmtProcessors extends ANodeProcessor {
     public StmtProcessors(FortranJsonResult data) {
@@ -29,12 +25,12 @@ public class StmtProcessors extends ANodeProcessor {
     private void executableStmt(ExecutableStmt executableStmt) {
         executableStmt.set(ExecutableStmt.SOURCE, attributes(executableStmt).getString("source"));
 
-        var label = attributes(executableStmt).getString("label");
-        if (!label.equals("null")) {
-            var labelDecl = factory().labelDecl(Integer.valueOf(label));
+        var labelOpt = attributes(executableStmt).getOptionalString("label");
+        labelOpt.ifPresent(label -> {
+            var labelDecl = factory().labelDecl(Integer.parseInt(label));
             data().processorData().addLabelDecl(labelDecl);
             executableStmt.addChild(0, labelDecl);
-        }
+        });
     }
 
 
@@ -86,8 +82,7 @@ public class StmtProcessors extends ANodeProcessor {
 
     public void ifConstruct(IfConstruct ifConstruct) {
         // Add if-then block
-        var ifThenStmt = getChild(ifConstruct, FlangName.IF_THEN_STMT.getStmtAttr());
-
+        var ifThenStmt = getStmtChild(ifConstruct, FlangName.IF_THEN_STMT);
 
         var thenBlock = factory().newNode(StmtBlock.class);
         if (attributes(ifConstruct).has(FlangName.EXECUTION_PART_CONSTRUCT)) {
@@ -114,7 +109,7 @@ public class StmtProcessors extends ANodeProcessor {
         }
 
         // Add end if statement
-        var endIfStmt = getChild(ifConstruct, FlangName.END_IF_STMT.getStmtAttr());
+        var endIfStmt = getStmtChild(ifConstruct, FlangName.END_IF_STMT);
         ifConstruct.addChild(endIfStmt);
 
         // Assign name if present
@@ -132,7 +127,7 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void elseIfBlock(ElseIfBlock ifElseBlock) {
-        var elseIfStmt = getChild(ifElseBlock, FlangName.ELSE_IF_STMT.getStmtAttr());
+        var elseIfStmt = getStmtChild(ifElseBlock, FlangName.ELSE_IF_STMT);
         ifElseBlock.addChild(elseIfStmt);
 
         var blockStatements = getChildren(ifElseBlock, FlangName.EXECUTION_PART_CONSTRUCT);
@@ -147,7 +142,7 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void elseBlock(ElseBlock elseBlock) {
-        var elseStmt = getChild(elseBlock, FlangName.ELSE_STMT.getStmtAttr());
+        var elseStmt = getStmtChild(elseBlock, FlangName.ELSE_STMT);
         elseBlock.addChild(elseStmt);
 
         var blockStatements = getChildren(elseBlock, FlangName.EXECUTION_PART_CONSTRUCT);
@@ -166,16 +161,16 @@ public class StmtProcessors extends ANodeProcessor {
 
     public void ifStmt(IfStmt ifStmt) {
         var condition = getChild(ifStmt, FlangName.EXPR);
-        var thenStmt = getChild(ifStmt, FlangName.ACTION_STMT.getUnlabeledStmtAttr());
+        var thenStmt = getUnlabeledStmtChild(ifStmt, FlangName.ACTION_STMT);
 
         ifStmt.addChild(condition);
         ifStmt.addChild(thenStmt);
     }
 
     public void caseConstruct(CaseConstruct caseConstruct) {
-        var selectCaseStmt = getChild(caseConstruct, FlangName.SELECT_CASE_STMT.getStmtAttr());
+        var selectCaseStmt = getStmtChild(caseConstruct, FlangName.SELECT_CASE_STMT);
         var caseBlocks = getChildren(caseConstruct, FlangName.CASE);
-        var endSelectStmt = getChild(caseConstruct, FlangName.END_SELECT_STMT.getStmtAttr());
+        var endSelectStmt = getStmtChild(caseConstruct, FlangName.END_SELECT_STMT);
 
         caseConstruct.addChild(selectCaseStmt);
         caseConstruct.addChildren(caseBlocks);
@@ -214,11 +209,9 @@ public class StmtProcessors extends ANodeProcessor {
         var caseSelectorId = caseStmtAttrs.getString(FlangName.CASE_SELECTOR);
         var caseSelectorAttrs = attributes().get(caseSelectorId);
 
-        var caseSelectorValues = caseSelectorAttrs.getStringList("value");
-
-        // If the case selector is a list of values, they are a list of CaseValueRange instances
-        if (caseSelectorValues.get(0).endsWith("CaseValueRange")) {
-            var caseValueRangeIds = caseSelectorAttrs.getStringList(() -> "value");
+        // If they exist, extract the list of case value ranges
+        if (caseSelectorAttrs.has(FlangName.CASE_VALUE_RANGE)) {
+            var caseValueRangeIds = caseSelectorAttrs.getStringList(FlangName.CASE_VALUE_RANGE);
             var caseValueRanges = caseValueRangeIds.stream()
                     .map(Object::toString)
                     .map(this::buildCaseValueRange)
@@ -230,26 +223,24 @@ public class StmtProcessors extends ANodeProcessor {
             return valueCaseStmt;
         }
 
-        // Otherwise, it's a default case
-        return factory().newNode(DefaultCaseStmt.class);
+        // If selector has a default child, build a default case statement
+        if (caseSelectorAttrs.has(FlangName.DEFAULT)) {
+            return factory().newNode(DefaultCaseStmt.class);
+        }
+
+        throw new RuntimeException("Unknown case selector: " + caseSelectorId);
     }
 
     public CaseValueRange buildCaseValueRange(String id) {
-        var childId = attributes().get(id).getString("value");
+        var attrs = attributes().get(id);
 
         // If child is an instance of Range, build an appropriate range
-        if (childId.endsWith("Range")) {
-            var rangeAttrs = attributes().get(childId);
-            var lowerBoundId = rangeAttrs.getString("lower");
-            var upperBoundId = rangeAttrs.getString("upper");
+        if (attrs.has(FlangName.RANGE)) {
+            var rangeId = attrs.getString(FlangName.RANGE);
+            var rangeAttrs = attributes().get(rangeId);
 
-            Optional<FortranNode> lowerBound = lowerBoundId.equals("null")
-                    ? Optional.empty()
-                    : Optional.of(getNode(attributes().getChildId(lowerBoundId)));
-
-            Optional<FortranNode> upperBound = upperBoundId.equals("null")
-                    ? Optional.empty()
-                    : Optional.of(getNode(attributes().getChildId(upperBoundId)));
+            Optional<FortranNode> lowerBound = rangeAttrs.getOptionalString("lower").map(this::getChild);
+            Optional<FortranNode> upperBound = rangeAttrs.getOptionalString("upper").map(this::getChild);
 
             if (lowerBound.isPresent()) {
                 if (upperBound.isPresent()) {
@@ -278,7 +269,8 @@ public class StmtProcessors extends ANodeProcessor {
         }
 
         // If child is an instance of Expr, build a single case value
-        if (childId.endsWith("Expr")) {
+        if (attrs.has(FlangName.EXPR)) {
+            var childId = attrs.getString(FlangName.EXPR);
             var exprId = attributes().getChildId(childId);
             var expr = getNode(exprId);
 
@@ -288,7 +280,7 @@ public class StmtProcessors extends ANodeProcessor {
             return caseValue;
         }
 
-        throw new RuntimeException("Unknown case selector child: " + childId);
+        throw new RuntimeException("Could not determine case value range type for id: " + id + " with attributes: " + attrs);
     }
 
     public void endSelectStmt(EndSelectStmt ignoredEndSelectStmt) {
@@ -303,20 +295,23 @@ public class StmtProcessors extends ANodeProcessor {
 
         control.ifPresentOrElse(
                 s -> {
-                    DoKind kind = DoKind.convertTry(attributes().getAttrs(s).getString("kind")).get();
-                    String value = attributes().getAttrs(s).getString("value");
+                    FlangAttributes attrs = attributes().getAttrs(s);
 
-                    switch (kind) {
-                        case RANGE, CONCURRENT -> {
+                    FlangName childKey = FlangName.convertTry(attrs.getVariantKey()).orElseThrow();
+                    String value = attrs.getString(childKey);
+
+                    switch (childKey) {
+                        case LOOP_BOUNDS, CONCURRENT -> {
                             doStmt.addChild(getChild(value));
                         }
-                        case WHILE -> {
+                        case EXPR -> {
                             Expr cond = (Expr) getChild(value);
                             WhileLoopControl middleman = factory().newNode(WhileLoopControl.class);
 
                             middleman.addChild(cond);
                             doStmt.addChild(middleman);
                         }
+                        default -> throw new RuntimeException("Unknown loop control type: " + childKey);
                     }
                 },
                 () -> {
@@ -330,7 +325,8 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void compilerDirective(CompilerDirective compilerDirective) {
-        compilerDirective.addChildren(getChildren(compilerDirective, "value"));
+        var variantKey = attributes(compilerDirective).getVariantKey();
+        compilerDirective.addChildren(getChildren(compilerDirective, variantKey));
     }
 
     public void callStmt(CallStmt callStmt) {
