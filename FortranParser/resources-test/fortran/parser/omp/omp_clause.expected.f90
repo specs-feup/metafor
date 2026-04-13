@@ -1,16 +1,15 @@
-program openmp_demo
-    use omp_lib
-    implicit none
+PROGRAM openmp_demo
+    USE omp_lib
 
     integer :: i, thread_id, num_threads, total_sum
     integer :: shared_counter = 0
 
-    !$omp parallel private(i) shared(num_threads)
-        !$omp do
+    !$OMP PARALLEL private(i) shared(num_threads)
+        !$OMP DO
         do i = 1, 100
             total_sum = total_sum
         end do
-        !$omp end do
-    !$omp end parallel
+        !$OMP END DO
+    !$OMP END PARALLEL
 
-end program openmp_demo
+END PROGRAM openmp_demo

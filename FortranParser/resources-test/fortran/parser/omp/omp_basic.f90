@@ -1,6 +1,5 @@
 program openmp_demo
     use omp_lib
-    implicit none
 
     integer :: total_sum
 
