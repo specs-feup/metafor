@@ -1,11 +1,10 @@
-program openmp_demo
-    use omp_lib
-    implicit none
+PROGRAM openmp_demo
+    USE omp_lib
 
     integer :: total_sum
 
-    !$omp parallel
+    !$OMP PARALLEL
         total_sum = total_sum + 1
-    !$omp end parallel
+    !$OMP END PARALLEL
 
-end program openmp_demo
+END PROGRAM openmp_demo

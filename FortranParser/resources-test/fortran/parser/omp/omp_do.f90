@@ -1,6 +1,5 @@
 program openmp_demo
     use omp_lib
-    implicit none
 
     integer :: i, thread_id, num_threads, total_sum
     integer :: shared_counter = 0
