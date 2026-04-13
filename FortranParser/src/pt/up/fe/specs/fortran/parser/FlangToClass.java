@@ -16,23 +16,19 @@ import pt.up.fe.specs.fortran.ast.nodes.omp.OmpBlockConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.omp.OmpLoopConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpDataSharingClause;
 import pt.up.fe.specs.fortran.ast.nodes.program.*;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
-import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
-import pt.up.fe.specs.fortran.ast.nodes.program.FortranFile;
-import pt.up.fe.specs.fortran.ast.nodes.program.MainProgram;
-import pt.up.fe.specs.fortran.ast.nodes.program.Specification;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.*;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.*;
-import pt.up.fe.specs.fortran.ast.nodes.type.CharacterType;
-import pt.up.fe.specs.fortran.ast.nodes.type.DoublePrecisionType;
-import pt.up.fe.specs.fortran.ast.nodes.type.IntegerType;
-import pt.up.fe.specs.fortran.ast.nodes.type.LogicalType;
 import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.*;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.CaseBlock;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.CaseConstruct;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.EndSelectStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.SelectCaseStmt;
+import pt.up.fe.specs.fortran.ast.nodes.type.*;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.AllocatableKeyword;
+import pt.up.fe.specs.fortran.ast.nodes.type.attributes.IntentSpec;
 import pt.up.fe.specs.fortran.ast.nodes.type.shapes.DeferredShapeSpecList;
 import pt.up.fe.specs.fortran.ast.nodes.type.shapes.ExplicitShapeSpecification;
 import pt.up.fe.specs.fortran.ast.nodes.utils.Format;
-import pt.up.fe.specs.fortran.ast.nodes.type.attributes.IntentSpec;
 import pt.up.fe.specs.fortran.ast.nodes.utils.NameValue;
 import pt.up.fe.specs.fortran.ast.nodes.utils.Star;
 
@@ -115,6 +111,7 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.LOGICAL, LogicalType.class);
         NAME_TO_CLASS.put(FlangName.DOUBLE_PRECISION, DoublePrecisionType.class);
         NAME_TO_CLASS.put(FlangName.CHARACTER, CharacterType.class);
+        NAME_TO_CLASS.put(FlangName.REAL, RealType.class);
 
         ///  LOOP
         NAME_TO_CLASS.put(FlangName.LOOP_BOUNDS, RangeLoopControl.class);

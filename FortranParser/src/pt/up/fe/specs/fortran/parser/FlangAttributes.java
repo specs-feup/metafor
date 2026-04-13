@@ -1,20 +1,17 @@
 package pt.up.fe.specs.fortran.parser;
 
+import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.util.SpecsCollections;
 import pt.up.fe.specs.util.SpecsLogs;
 import pt.up.fe.specs.util.providers.StringProvider;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Function;
 import java.util.regex.Pattern;
 
 public class FlangAttributes {
-
-    private static final Set<String> EXPECTED_COMMON_KEYS = Set.of("id", "value");
+    public static final String VARIANT_IDENTIFIER_KEY = "variantKey";
+    private static final Set<String> EXPECTED_COMMON_KEYS = Set.of("id", VARIANT_IDENTIFIER_KEY);
 
     private final Map<String, Object> attributes;
 
@@ -106,6 +103,14 @@ public class FlangAttributes {
         return Optional.ofNullable(value);
     }
 
+    public String getVariantKey() {
+        return getString(VARIANT_IDENTIFIER_KEY);
+    }
+
+    public String getVariantString() {
+        return getString(getVariantKey());
+    }
+
     /**
      * Adds the given attributes to the current attributes, without overwritting existing attributes.
      *
@@ -146,5 +151,9 @@ public class FlangAttributes {
 
     public boolean has(String key) {
         return getKeys().contains(key);
+    }
+
+    public boolean hasVariant() {
+        return has(VARIANT_IDENTIFIER_KEY);
     }
 }
