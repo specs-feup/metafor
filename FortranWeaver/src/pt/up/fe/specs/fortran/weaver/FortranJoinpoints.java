@@ -17,6 +17,10 @@ import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.expr.*;
 import pt.up.fe.specs.fortran.ast.nodes.loops.LoopControl;
 import pt.up.fe.specs.fortran.ast.nodes.loops.RangeLoopControl;
+import pt.up.fe.specs.fortran.ast.nodes.omp.OmpConstruct;
+import pt.up.fe.specs.fortran.ast.nodes.omp.OmpLoopConstruct;
+import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpClause;
+import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpDataSharingClause;
 import pt.up.fe.specs.fortran.ast.nodes.program.Application;
 import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
 import pt.up.fe.specs.fortran.ast.nodes.program.FortranFile;
@@ -61,6 +65,10 @@ public class FortranJoinpoints {
         JOINPOINT_FACTORY.put(RealLiteral.class, FRealLiteral::new);
         JOINPOINT_FACTORY.put(StmtBlock.class, FStatementBlock::new);
         JOINPOINT_FACTORY.put(StringLiteral.class, FStringLiteral::new);
+        JOINPOINT_FACTORY.put(OmpConstruct.class, FOmpConstruct::new);
+        JOINPOINT_FACTORY.put(OmpClause.class, FOmpClause::new);
+        JOINPOINT_FACTORY.put(OmpLoopConstruct.class, FOmpLoopConstruct::new);
+        JOINPOINT_FACTORY.put(OmpDataSharingClause.class, FOmpDataSharingClause::new);
         JOINPOINT_FACTORY.put(FortranNode.class, FortranJoinpoints::defaultFactory);
     }
 

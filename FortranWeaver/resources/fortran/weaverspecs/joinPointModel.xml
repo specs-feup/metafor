@@ -53,4 +53,6 @@
     <joinpoint class="ompLoopConstruct" tooltip="Represents an OpenMP loop construct (such as do or do parallel)" extends="ompConstruct"/>
 
     <joinpoint class="ompClause" tooltip="Represents an OpenMP clause"/>
+
+    <joinpoint class="ompDataSharingClause" tooltip="Represents an OpenMP datasharing clause (public, private, ...)" extends="ompClause"/>
 </joinpoints>
