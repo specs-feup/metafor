@@ -10,4 +10,8 @@ export default class FortranJoinPoints {
             flattenArgsArray(clauses).map(unwrapJoinPoint)
             ));
     }
+
+    static emptyOmpLoopConstruct(): Joinpoints.OmpLoopConstruct {
+        return wrapJoinPoint(FortranJavaTypes.AstFactory.emptyOmpLoopConstruct());
+    }
 }
