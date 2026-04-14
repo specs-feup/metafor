@@ -14,4 +14,10 @@ export default class FortranJoinPoints {
     static emptyOmpLoopConstruct(): Joinpoints.OmpLoopConstruct {
         return wrapJoinPoint(FortranJavaTypes.AstFactory.emptyOmpLoopConstruct());
     }
+
+    static ompPrivateClause(dataRefs: Joinpoints.DataRef[]): Joinpoints.OmpDataSharingClause {
+        return wrapJoinPoint(FortranJavaTypes.AstFactory.ompPrivateClause(
+            flattenArgsArray(dataRefs).map(unwrapJoinPoint)
+        ));
+    }
 }
