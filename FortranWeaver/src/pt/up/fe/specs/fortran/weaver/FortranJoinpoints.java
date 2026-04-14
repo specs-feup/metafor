@@ -17,10 +17,7 @@ import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.expr.*;
 import pt.up.fe.specs.fortran.ast.nodes.loops.LoopControl;
 import pt.up.fe.specs.fortran.ast.nodes.loops.RangeLoopControl;
-import pt.up.fe.specs.fortran.ast.nodes.program.Application;
-import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
-import pt.up.fe.specs.fortran.ast.nodes.program.FortranFile;
-import pt.up.fe.specs.fortran.ast.nodes.program.StmtBlock;
+import pt.up.fe.specs.fortran.ast.nodes.program.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.utils.NameValue;
 import pt.up.fe.specs.fortran.weaver.abstracts.AFortranWeaverJoinPoint;
@@ -61,6 +58,7 @@ public class FortranJoinpoints {
         JOINPOINT_FACTORY.put(RealLiteral.class, FRealLiteral::new);
         JOINPOINT_FACTORY.put(StmtBlock.class, FStatementBlock::new);
         JOINPOINT_FACTORY.put(StringLiteral.class, FStringLiteral::new);
+        JOINPOINT_FACTORY.put(Specification.class, FSpecification::new);
         JOINPOINT_FACTORY.put(FortranNode.class, FortranJoinpoints::defaultFactory);
     }
 
