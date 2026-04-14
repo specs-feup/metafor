@@ -66,7 +66,7 @@ public class FortranJoinpoints {
 
 
     private static AFortranWeaverJoinPoint defaultFactory(FortranNode node) {
-        SpecsLogs.warn("Factory not defined for nodes of class '" + node.getClass().getSimpleName() + "'");
+        SpecsLogs.debug(() -> "Factory not defined for nodes of class '" + node.getClass().getSimpleName() + "'");
         return new GenericFortranJoinpoint(node);
     }
 
