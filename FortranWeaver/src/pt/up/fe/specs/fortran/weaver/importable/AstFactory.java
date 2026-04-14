@@ -37,4 +37,8 @@ public class AstFactory {
 
         return FortranJoinpoints.create(FortranWeaver.getFactory().ompDataSharingClause(OmpClauseKind.PRIVATE, dataRefs), AOmpDataSharingClause.class);
     }
+
+    public static ADataRef dataRef(String name) {
+        return FortranJoinpoints.create(FortranWeaver.getFactory().dataRef(name), ADataRef.class);
+    }
 }

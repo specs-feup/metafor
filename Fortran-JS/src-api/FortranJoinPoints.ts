@@ -20,4 +20,8 @@ export default class FortranJoinPoints {
             flattenArgsArray(dataRefs).map(unwrapJoinPoint)
         ));
     }
+
+    static dataRef(name: string): Joinpoints.DataRef {
+        return wrapJoinPoint(FortranJavaTypes.AstFactory.dataRef(name));
+    }
 }

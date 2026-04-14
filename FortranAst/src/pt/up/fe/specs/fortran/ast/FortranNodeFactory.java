@@ -225,4 +225,14 @@ public class FortranNodeFactory {
 
         return newNode;
     }
+
+    public DataRef dataRef(String name) {
+        DataStore data = newDataStore(DataRef.class);
+
+        DataRef newNode = new DataRef(data, Collections.emptyList());
+
+        newNode.set(DataRef.NAME, name);
+
+        return newNode;
+    }
 }
