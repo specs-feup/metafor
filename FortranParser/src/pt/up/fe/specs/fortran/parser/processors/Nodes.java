@@ -1,6 +1,7 @@
 package pt.up.fe.specs.fortran.parser.processors;
 
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
+import pt.up.fe.specs.fortran.ast.nodes.decl.DataStmtValue;
 import pt.up.fe.specs.fortran.ast.nodes.decl.DummyArgumentDecl;
 import pt.up.fe.specs.fortran.ast.nodes.decl.EntityDecl;
 import pt.up.fe.specs.fortran.ast.nodes.expr.*;
@@ -48,6 +49,7 @@ public class Nodes {
 
         var d = new DeclProcessors(data);
         processors.put(EntityDecl.class, d::entityDecl);
+        processors.put(DataStmtValue.class, d::dataStmtValue);
         processors.put(DummyArgumentDecl.class, d::dummyArgumentDecl);
 
         var v = new VariableProcessor(data);

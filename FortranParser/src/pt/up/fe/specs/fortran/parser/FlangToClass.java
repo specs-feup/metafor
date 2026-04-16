@@ -1,6 +1,7 @@
 package pt.up.fe.specs.fortran.parser;
 
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
+import pt.up.fe.specs.fortran.ast.nodes.decl.DataStmtValue;
 import pt.up.fe.specs.fortran.ast.nodes.decl.DummyArgumentDecl;
 import pt.up.fe.specs.fortran.ast.nodes.decl.EntityDecl;
 import pt.up.fe.specs.fortran.ast.nodes.expr.*;
@@ -43,6 +44,7 @@ public class FlangToClass {
         /// DECLs
         NAME_TO_CLASS.put(FlangName.ENTITY_DECL, EntityDecl.class);
         NAME_TO_CLASS.put(FlangName.DUMMY_ARG, DummyArgumentDecl.class);
+        NAME_TO_CLASS.put(FlangName.DATA_STMT_VALUE, DataStmtValue.class);
 
         /// STMTs
         NAME_TO_CLASS.put(FlangName.PRINT_STMT, PrintStmt.class);

@@ -26,6 +26,8 @@ public enum FlangName implements StringProvider {
     ENTITY_DECL,
     DUMMY_ARG,
     DATA_STMT_VALUE,
+    DATA_STMT_REPEAT,
+    DATA_STMT_CONSTANT,
 
     /// STMTs
     PROGRAM_STMT,

@@ -1,5 +1,6 @@
 package pt.up.fe.specs.fortran.parser.processors;
 
+import pt.up.fe.specs.fortran.ast.nodes.decl.DataStmtValue;
 import pt.up.fe.specs.fortran.ast.nodes.decl.DummyArgumentDecl;
 import pt.up.fe.specs.fortran.ast.nodes.decl.EntityDecl;
 import pt.up.fe.specs.fortran.ast.nodes.decl.Initialization;
@@ -36,18 +37,35 @@ public class DeclProcessors extends ANodeProcessor {
         var variantKey = attrs.getVariantKey();
 
         if (variantKey.equals(FlangName.DATA_STMT_VALUE.getString())) {
-            // If the child is a DataStmtValue, we build a ListInitialization
-            throw new UnsupportedOperationException("DataStmtValue initialization is not supported yet");
+            var dataStmtValueIds = attrs.getStringList(FlangName.DATA_STMT_VALUE);
+            var dataStmtValues = dataStmtValueIds.stream()
+                    .map(this::getNode)
+                    .toList();
+
+            var init = factory().listInitialization();
+            init.addChildren(dataStmtValues);
+
+            return init;
         }
 
         // Otherwise, we assume it's an ExprInitialization
         var childId = attrs.getString(variantKey);
-        var exprInit = getChild(childId);
+        var initExpr = getChild(childId);
 
-        var initialization = factory().exprInitialization();
-        initialization.addChild(exprInit);
+        var init = factory().exprInitialization();
+        init.addChild(initExpr);
 
-        return initialization;
+        return init;
+    }
+
+    public void dataStmtValue(DataStmtValue dataStmtValue) {
+        if (attributes(dataStmtValue).has(FlangName.DATA_STMT_REPEAT)) {
+            var repeat = getChild(dataStmtValue, FlangName.DATA_STMT_REPEAT);
+            dataStmtValue.addChild(repeat);
+        }
+
+        var constant = getChild(dataStmtValue, FlangName.DATA_STMT_CONSTANT);
+        dataStmtValue.addChild(constant);
     }
 
     public void dummyArgumentDecl(DummyArgumentDecl dummyArgumentDecl) {
