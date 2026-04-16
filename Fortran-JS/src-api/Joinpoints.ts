@@ -11,9 +11,32 @@ import {
 
 type PrivateMapper = {
   "Joinpoint": typeof Joinpoint,
+  "Expr": typeof Expr,
   "FileJp": typeof FileJp,
+  "Literal": typeof Literal,
+  "LoopControl": typeof LoopControl,
+  "NameValue": typeof NameValue,
+  "OmpClause": typeof OmpClause,
+  "OmpDataSharingClause": typeof OmpDataSharingClause,
   "Program": typeof Program,
+  "RangeLoopControl": typeof RangeLoopControl,
+  "RealLiteral": typeof RealLiteral,
   "Statement": typeof Statement,
+  "StatementBlock": typeof StatementBlock,
+  "StringLiteral": typeof StringLiteral,
+  "BinaryOperator": typeof BinaryOperator,
+  "Designator": typeof Designator,
+  "ExecutableStatement": typeof ExecutableStatement,
+  "Execution": typeof Execution,
+  "IntLiteral": typeof IntLiteral,
+  "OmpConstruct": typeof OmpConstruct,
+  "OmpLoopConstruct": typeof OmpLoopConstruct,
+  "ActionStatement": typeof ActionStatement,
+  "AssignmentStatement": typeof AssignmentStatement,
+  "CompilerDirective": typeof CompilerDirective,
+  "DataRef": typeof DataRef,
+  "DoStatement": typeof DoStatement,
+  "ArraySubscriptExpr": typeof ArraySubscriptExpr,
 };
 
 type DefaultAttributeMap = {
@@ -40,9 +63,17 @@ export class Joinpoint extends LaraJoinPoint {
    */
   get descendants(): Joinpoint[] { return wrapJoinPoint(this._javaObject.getDescendants()) }
   /**
+   * Returns the node that came before this node, or undefined if there is none
+   */
+  get leftJp(): Joinpoint { return wrapJoinPoint(this._javaObject.getLeftJp()) }
+  /**
    * Returns the parent node in the AST, or undefined if it is the root node
    */
   get parent(): Joinpoint { return wrapJoinPoint(this._javaObject.getParent()) }
+  /**
+   * Returns the node that comes after this node, or undefined if there is none
+   */
+  get rightJp(): Joinpoint { return wrapJoinPoint(this._javaObject.getRightJp()) }
   /**
    * Returns the 'program' join point
    */
@@ -52,9 +83,29 @@ export class Joinpoint extends LaraJoinPoint {
    */
   get scopeNodes(): Joinpoint[] { return wrapJoinPoint(this._javaObject.getScopeNodes()) }
   /**
+   * True if the given node is a descendant of this node
+   */
+  contains(jp: Joinpoint): boolean { return wrapJoinPoint(this._javaObject.contains(unwrapJoinPoint(jp))); }
+  /**
+   * Looks for an ancestor joinpoint name, walking back on the AST
+   */
+  getAncestor(type: string): Joinpoint { return wrapJoinPoint(this._javaObject.getAncestor(unwrapJoinPoint(type))); }
+  /**
    * Replaces this node with the given node
    */
   replaceWith(node: Joinpoint): Joinpoint { return wrapJoinPoint(this._javaObject.replaceWith(unwrapJoinPoint(node))); }
+}
+
+  /**
+   * Represents an expression
+   */
+export class Expr extends Joinpoint {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
 }
 
   /**
@@ -78,9 +129,92 @@ export class FileJp extends Joinpoint {
 }
 
   /**
+   * Represents a literal
+   */
+export class Literal extends Expr {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+  get literal(): string { return wrapJoinPoint(this._javaObject.getLiteral()) }
+}
+
+  /**
+   * Represents the loop control structure, with specialized subclasses for different loop kinds
+   */
+export class LoopControl extends Joinpoint {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+}
+
+  /**
+   * Represents a name/value pair in a compiler directive
+   */
+export class NameValue extends Joinpoint {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+  get name(): string { return wrapJoinPoint(this._javaObject.getName()) }
+}
+
+  /**
+   * Represents an OpenMP clause
+   */
+export class OmpClause extends Joinpoint {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+}
+
+  /**
+   * Represents an OpenMP datasharing clause (public, private, ...)
+   */
+export class OmpDataSharingClause extends OmpClause {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+}
+
+  /**
    * Represents the complete program and is the top-most join point in the hierarchy
    */
 export class Program extends Joinpoint {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+}
+
+export class RangeLoopControl extends LoopControl {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+  get lower(): Expr { return wrapJoinPoint(this._javaObject.getLower()) }
+  get upper(): Expr { return wrapJoinPoint(this._javaObject.getUpper()) }
+  get var(): DataRef { return wrapJoinPoint(this._javaObject.getVar()) }
+}
+
+export class RealLiteral extends Literal {
   /**
    * @internal
    */
@@ -103,11 +237,231 @@ export class Statement extends Joinpoint {
   get isLast(): boolean { return wrapJoinPoint(this._javaObject.getIsLast()) }
 }
 
+export class StatementBlock extends Joinpoint {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+  get stmts(): Statement[] { return wrapJoinPoint(this._javaObject.getStmts()) }
+}
+
+export class StringLiteral extends Literal {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+}
+
+  /**
+   * Represents a binary operation
+   */
+export class BinaryOperator extends Expr {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+  get kind(): "add" | "sub" | "mul" | "div" | "gt" | "ge" | "lt" | "le" | "eq" | "ne" { return wrapJoinPoint(this._javaObject.getKind()) }
+  get left(): Expr { return wrapJoinPoint(this._javaObject.getLeft()) }
+  set left(value: Expr) { this._javaObject.setLeft(unwrapJoinPoint(value)); }
+  get right(): Expr { return wrapJoinPoint(this._javaObject.getRight()) }
+  set right(value: Expr) { this._javaObject.setRight(unwrapJoinPoint(value)); }
+  /**
+   * Sets the left-hand side of the operation
+   */
+  setLeft(lhs: Expr): void { return wrapJoinPoint(this._javaObject.setLeft(unwrapJoinPoint(lhs))); }
+  /**
+   * Sets the right-hand side of the operation
+   */
+  setRight(rhs: Expr): void { return wrapJoinPoint(this._javaObject.setRight(unwrapJoinPoint(rhs))); }
+}
+
+  /**
+   * Represents a designator
+   */
+export class Designator extends Expr {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+}
+
+  /**
+   * Represents an executable statement
+   */
+export class ExecutableStatement extends Statement {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+}
+
+export class Execution extends StatementBlock {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+  get executableStmts(): ExecutableStatement[] { return wrapJoinPoint(this._javaObject.getExecutableStmts()) }
+}
+
+export class IntLiteral extends Literal {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+}
+
+  /**
+   * Represents a generic OpenMP construct
+   */
+export class OmpConstruct extends ExecutableStatement {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+  /**
+   * Sets the construct's clauses
+   */
+  setClauses(clauses: OmpClause[]): void { return wrapJoinPoint(this._javaObject.setClauses(unwrapJoinPoint(clauses))); }
+}
+
+  /**
+   * Represents an OpenMP loop construct (such as do or do parallel)
+   */
+export class OmpLoopConstruct extends OmpConstruct {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+  setLoop(loop: DoStatement): void { return wrapJoinPoint(this._javaObject.setLoop(unwrapJoinPoint(loop))); }
+}
+
+  /**
+   * Represents an action statement
+   */
+export class ActionStatement extends ExecutableStatement {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+}
+
+  /**
+   * Represents an assignment statement
+   */
+export class AssignmentStatement extends ActionStatement {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+  get expr(): Expr { return wrapJoinPoint(this._javaObject.getExpr()) }
+  get variable(): DataRef { return wrapJoinPoint(this._javaObject.getVariable()) }
+}
+
+export class CompilerDirective extends ExecutableStatement {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+  /**
+   * Returns the directive's contents as a string
+   */
+  get directiveString(): string { return wrapJoinPoint(this._javaObject.getDirectiveString()) }
+  get pairs(): NameValue[] { return wrapJoinPoint(this._javaObject.getPairs()) }
+}
+
+  /**
+   * Represents a data reference
+   */
+export class DataRef extends Designator {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+  get name(): string { return wrapJoinPoint(this._javaObject.getName()) }
+}
+
+  /**
+   * Represents a do loop
+   */
+export class DoStatement extends ExecutableStatement {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+  get body(): Execution { return wrapJoinPoint(this._javaObject.getBody()) }
+  get control(): LoopControl { return wrapJoinPoint(this._javaObject.getControl()) }
+}
+
+  /**
+   * Represents an access to one (or several) elements of an array
+   */
+export class ArraySubscriptExpr extends DataRef {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+  get subscripts(): Expr[] { return wrapJoinPoint(this._javaObject.getSubscripts()) }
+  get var(): DataRef { return wrapJoinPoint(this._javaObject.getVar()) }
+}
+
 const JoinpointMapper = {
   joinpoint: Joinpoint,
+  expr: Expr,
   file: FileJp,
+  literal: Literal,
+  loopControl: LoopControl,
+  nameValue: NameValue,
+  ompClause: OmpClause,
+  ompDataSharingClause: OmpDataSharingClause,
   program: Program,
+  rangeLoopControl: RangeLoopControl,
+  realLiteral: RealLiteral,
   statement: Statement,
+  statementBlock: StatementBlock,
+  stringLiteral: StringLiteral,
+  binaryOperator: BinaryOperator,
+  designator: Designator,
+  executableStatement: ExecutableStatement,
+  execution: Execution,
+  intLiteral: IntLiteral,
+  ompConstruct: OmpConstruct,
+  ompLoopConstruct: OmpLoopConstruct,
+  actionStatement: ActionStatement,
+  assignmentStatement: AssignmentStatement,
+  compilerDirective: CompilerDirective,
+  dataRef: DataRef,
+  doStatement: DoStatement,
+  arraySubscriptExpr: ArraySubscriptExpr,
 };
 
 let registered = false;
