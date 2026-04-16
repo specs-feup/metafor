@@ -18,6 +18,6 @@ public class ExprInitialization extends Initialization {
     @Override
     public String getCode() {
         var expr = getExpr();
-        return expr.getCode();
+        return " = " + expr.getCode();
     }
 }
