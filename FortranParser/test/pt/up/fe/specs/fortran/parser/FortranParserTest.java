@@ -300,6 +300,30 @@ public class FortranParserTest {
     */
 
     @Test
+    void testKindSelector() {
+        testJson("decl/kind_selector.json");
+    }
+
+    @Test
+    void testKindSelectorNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("decl/kind_selector.f90");
+        }
+    }
+
+    @Test
+    void testLegacyKindSelector() {
+        testJson("decl/legacy_kind_selector.json");
+    }
+
+    @Test
+    void testLegacyKindSelectorNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("decl/legacy_kind_selector.f90");
+        }
+    }
+
+    @Test
     void testDirective() {
         testJson("directive.json");
     }
