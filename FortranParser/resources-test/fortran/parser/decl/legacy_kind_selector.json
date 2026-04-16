@@ -1,178 +1,178 @@
 {
   "nodes": [
     {
-      "id": "0x55d72d664cc0-Program",
+      "id": "0x55bcdd313cc0-Program",
       "ProgramUnit": [
-        "0x55d72d68eba0-ProgramUnit"
+        "0x55bcdd33dc10-ProgramUnit"
       ]
     },
     {
-      "id": "0x55d72d68eba0-ProgramUnit",
+      "id": "0x55bcdd33dc10-ProgramUnit",
       "variantKey": "MainProgram",
-      "MainProgram": "0x55d72d690ba0-MainProgram"
+      "MainProgram": "0x55bcdd33fb20-MainProgram"
     },
     {
-      "id": "0x55d72d690ba0-MainProgram",
-      "Statement<ProgramStmt>": "0x55d72d690ce8-Statement",
-      "SpecificationPart": "0x55d72d690c40-SpecificationPart",
-      "ExecutionPart": "0x55d72d690c28-ExecutionPart",
-      "Statement<EndProgramStmt>": "0x55d72d690ba0-Statement"
+      "id": "0x55bcdd33fb20-MainProgram",
+      "Statement<ProgramStmt>": "0x55bcdd33fc68-Statement",
+      "SpecificationPart": "0x55bcdd33fbc0-SpecificationPart",
+      "ExecutionPart": "0x55bcdd33fba8-ExecutionPart",
+      "Statement<EndProgramStmt>": "0x55bcdd33fb20-Statement"
     },
     {
-      "id": "0x55d72d690ce8-Statement",
-      "statement": "0x55d72d690cf8-ProgramStmt",
+      "id": "0x55bcdd33fc68-Statement",
+      "statement": "0x55bcdd33fc78-ProgramStmt",
       "source": "program legacy_kind_selector"
     },
     {
-      "id": "0x55d72d690cf8-ProgramStmt",
-      "Name": "0x55d72d690cf8-Name"
+      "id": "0x55bcdd33fc78-ProgramStmt",
+      "Name": "0x55bcdd33fc78-Name"
     },
     {
-      "id": "0x55d72d690cf8-Name",
+      "id": "0x55bcdd33fc78-Name",
       "source": "legacy_kind_selector"
     },
     {
-      "id": "0x55d72d690c40-SpecificationPart",
-      "ImplicitPart": "0x55d72d690c58-ImplicitPart",
+      "id": "0x55bcdd33fbc0-SpecificationPart",
+      "ImplicitPart": "0x55bcdd33fbd8-ImplicitPart",
       "DeclarationConstruct": [
-        "0x55d72d66b240-DeclarationConstruct"
+        "0x55bcdd31a5b0-DeclarationConstruct"
       ]
     },
     {
-      "id": "0x55d72d690c58-ImplicitPart"
+      "id": "0x55bcdd33fbd8-ImplicitPart"
     },
     {
-      "id": "0x55d72d66b240-DeclarationConstruct",
+      "id": "0x55bcdd31a5b0-DeclarationConstruct",
       "variantKey": "SpecificationConstruct",
-      "SpecificationConstruct": "0x55d72d66b240-SpecificationConstruct"
+      "SpecificationConstruct": "0x55bcdd31a5b0-SpecificationConstruct"
     },
     {
-      "id": "0x55d72d66b240-SpecificationConstruct",
+      "id": "0x55bcdd31a5b0-SpecificationConstruct",
       "variantKey": "Statement",
-      "Statement<TypeDeclarationStmt>": "0x55d72d66b240-Statement"
+      "Statement<TypeDeclarationStmt>": "0x55bcdd31a5b0-Statement"
     },
     {
-      "id": "0x55d72d66b240-Statement",
-      "statement": "0x55d72d673250-TypeDeclarationStmt",
-      "source": "integer*8 i8"
+      "id": "0x55bcdd31a5b0-Statement",
+      "statement": "0x55bcdd322250-TypeDeclarationStmt",
+      "source": "integer*8 :: i8"
     },
     {
-      "id": "0x55d72d673250-TypeDeclarationStmt",
-      "DeclarationTypeSpec": "0x55d72d673280-DeclarationTypeSpec",
+      "id": "0x55bcdd322250-TypeDeclarationStmt",
+      "DeclarationTypeSpec": "0x55bcdd322280-DeclarationTypeSpec",
       "EntityDecl": [
-        "0x55d72d68f0a0-EntityDecl"
+        "0x55bcdd33e110-EntityDecl"
       ]
     },
     {
-      "id": "0x55d72d673280-DeclarationTypeSpec",
+      "id": "0x55bcdd322280-DeclarationTypeSpec",
       "variantKey": "IntrinsicTypeSpec",
-      "IntrinsicTypeSpec": "0x55d72d673280-IntrinsicTypeSpec"
+      "IntrinsicTypeSpec": "0x55bcdd322280-IntrinsicTypeSpec"
     },
     {
-      "id": "0x55d72d673280-IntrinsicTypeSpec",
+      "id": "0x55bcdd322280-IntrinsicTypeSpec",
       "variantKey": "IntegerTypeSpec",
-      "IntegerTypeSpec": "0x55d72d673280-IntegerTypeSpec"
+      "IntegerTypeSpec": "0x55bcdd322280-IntegerTypeSpec"
     },
     {
-      "id": "0x55d72d673280-IntegerTypeSpec",
-      "KindSelector": "0x55d72d673280-KindSelector"
+      "id": "0x55bcdd322280-IntegerTypeSpec",
+      "KindSelector": "0x55bcdd322280-KindSelector"
     },
     {
-      "id": "0x55d72d673280-KindSelector",
+      "id": "0x55bcdd322280-KindSelector",
       "variantKey": "StarSize",
-      "StarSize": "0x55d72d673280-StarSize"
+      "StarSize": "0x55bcdd322280-StarSize"
     },
     {
-      "id": "0x55d72d673280-StarSize",
+      "id": "0x55bcdd322280-StarSize",
       "uint64_t": "8"
     },
     {
-      "id": "0x55d72d68f0a0-EntityDecl",
-      "Name": "0x55d72d68f158-Name"
+      "id": "0x55bcdd33e110-EntityDecl",
+      "Name": "0x55bcdd33e1c8-Name"
     },
     {
-      "id": "0x55d72d68f158-Name",
+      "id": "0x55bcdd33e1c8-Name",
       "source": "i8"
     },
     {
-      "id": "0x55d72d690c28-ExecutionPart",
+      "id": "0x55bcdd33fba8-ExecutionPart",
       "ExecutionPartConstruct": [
-        "0x55d72d690a40-ExecutionPartConstruct"
+        "0x55bcdd33fa40-ExecutionPartConstruct"
       ]
     },
     {
-      "id": "0x55d72d690c28-ExecutionPartConstruct"
+      "id": "0x55bcdd33fba8-ExecutionPartConstruct"
     },
     {
-      "id": "0x55d72d690a40-ExecutionPartConstruct",
+      "id": "0x55bcdd33fa40-ExecutionPartConstruct",
       "variantKey": "ExecutableConstruct",
-      "ExecutableConstruct": "0x55d72d690a40-ExecutableConstruct"
+      "ExecutableConstruct": "0x55bcdd33fa40-ExecutableConstruct"
     },
     {
-      "id": "0x55d72d690a40-ExecutableConstruct",
+      "id": "0x55bcdd33fa40-ExecutableConstruct",
       "variantKey": "Statement",
-      "Statement<ActionStmt>": "0x55d72d690a40-Statement"
+      "Statement<ActionStmt>": "0x55bcdd33fa40-Statement"
     },
     {
-      "id": "0x55d72d690a40-Statement",
-      "statement": "0x55d72d690a50-ActionStmt",
+      "id": "0x55bcdd33fa40-Statement",
+      "statement": "0x55bcdd33fa50-ActionStmt",
       "source": "print *, i8"
     },
     {
-      "id": "0x55d72d690a50-ActionStmt",
+      "id": "0x55bcdd33fa50-ActionStmt",
       "variantKey": "PrintStmt",
-      "PrintStmt": "0x55d72d6908d0-PrintStmt"
+      "PrintStmt": "0x55bcdd33f8c0-PrintStmt"
     },
     {
-      "id": "0x55d72d6908d0-PrintStmt",
-      "Format": "0x55d72d6908e8-Format",
+      "id": "0x55bcdd33f8c0-PrintStmt",
+      "Format": "0x55bcdd33f8d8-Format",
       "OutputItem": [
-        "0x55d72d690780-OutputItem"
+        "0x55bcdd33f770-OutputItem"
       ]
     },
     {
-      "id": "0x55d72d6908e8-Format",
+      "id": "0x55bcdd33f8d8-Format",
       "variantKey": "Star",
-      "Star": "0x55d72d6908e8-Star"
+      "Star": "0x55bcdd33f8d8-Star"
     },
     {
-      "id": "0x55d72d6908e8-Star"
+      "id": "0x55bcdd33f8d8-Star"
     },
     {
-      "id": "0x55d72d690780-OutputItem",
+      "id": "0x55bcdd33f770-OutputItem",
       "variantKey": "Expr",
-      "Expr": "0x55d72d690780-Expr"
+      "Expr": "0x55bcdd33f770-Expr"
     },
     {
-      "id": "0x55d72d690780-Expr",
+      "id": "0x55bcdd33f770-Expr",
       "variantKey": "Designator",
-      "Designator": "0x55d72d6909d0-Designator"
+      "Designator": "0x55bcdd33f470-Designator"
     },
     {
-      "id": "0x55d72d6909d0-Designator",
+      "id": "0x55bcdd33f470-Designator",
       "variantKey": "DataRef",
-      "DataRef": "0x55d72d6909e0-DataRef"
+      "DataRef": "0x55bcdd33f480-DataRef"
     },
     {
-      "id": "0x55d72d6909e0-DataRef",
+      "id": "0x55bcdd33f480-DataRef",
       "variantKey": "Name",
-      "Name": "0x55d72d6909e0-Name"
+      "Name": "0x55bcdd33f480-Name"
     },
     {
-      "id": "0x55d72d6909e0-Name",
+      "id": "0x55bcdd33f480-Name",
       "source": "i8"
     },
     {
-      "id": "0x55d72d690ba0-Statement",
-      "statement": "0x55d72d690bb0-EndProgramStmt",
+      "id": "0x55bcdd33fb20-Statement",
+      "statement": "0x55bcdd33fb30-EndProgramStmt",
       "source": "end program legacy_kind_selector"
     },
     {
-      "id": "0x55d72d690bb0-EndProgramStmt",
-      "Name": "0x55d72d690bb0-Name"
+      "id": "0x55bcdd33fb30-EndProgramStmt",
+      "Name": "0x55bcdd33fb30-Name"
     },
     {
-      "id": "0x55d72d690bb0-Name",
+      "id": "0x55bcdd33fb30-Name",
       "source": "legacy_kind_selector"
     }
   ],
