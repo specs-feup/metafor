@@ -6,9 +6,9 @@ PROGRAM openmp_demo
 
     !$OMP PARALLEL private(i) shared(num_threads)
         !$OMP DO
-        do i = 1, 100
+        DO i = 1, 100
             total_sum = total_sum
-        end do
+        END DO
         !$OMP END DO
     !$OMP END PARALLEL
 
