@@ -3,6 +3,7 @@ package pt.up.fe.specs.fortran.ast;
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import org.suikasoft.jOptions.storedefinition.StoreDefinitions;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
+import pt.up.fe.specs.fortran.ast.nodes.decl.ExprInitialization;
 import pt.up.fe.specs.fortran.ast.nodes.decl.LabelDecl;
 import pt.up.fe.specs.fortran.ast.nodes.expr.Literal;
 import pt.up.fe.specs.fortran.ast.nodes.expr.StringLiteral;
@@ -152,6 +153,12 @@ public class FortranNodeFactory {
         data.set(LabelDecl.LABEL, label);
 
         return new LabelDecl(data, Collections.emptyList());
+    }
+
+    public ExprInitialization exprInitialization() {
+        DataStore data = newDataStore(ExprInitialization.class);
+
+        return new ExprInitialization(data, Collections.emptyList());
     }
 
     // EXPR
