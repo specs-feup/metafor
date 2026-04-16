@@ -75,6 +75,7 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.END_SELECT_STMT, EndSelectStmt.class);
 
         NAME_TO_CLASS.put(FlangName.CALL_STMT, CallStmt.class);
+        NAME_TO_CLASS.put(FlangName.USE_STMT, UseStmt.class);
 
         /// Variables
         //NAME_TO_CLASS.put(FlangName.DATA_REF, DataRef.class);
