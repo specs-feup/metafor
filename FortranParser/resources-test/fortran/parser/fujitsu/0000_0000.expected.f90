@@ -4,9 +4,9 @@ PROGRAM main
     DO i8 = j, k
         kkk = kkk + i8
     END DO
-    IF (int(kkk)==0) THEN
+    IF (int(kkk) == 0) THEN
         PRINT *, "OK"
     ELSE
         PRINT *, "NG", int(kkk)
-    ENDIF
-END
+    END IF
+END PROGRAM main
