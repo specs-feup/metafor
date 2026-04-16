@@ -22,6 +22,6 @@ public class ListInitialization extends Initialization {
 
         return dataStmtValues.stream()
                 .map(FortranNode::getCode)
-                .collect(Collectors.joining(", ", "/ ", "/"));
+                .collect(Collectors.joining(", ", " /", "/"));
     }
 }
