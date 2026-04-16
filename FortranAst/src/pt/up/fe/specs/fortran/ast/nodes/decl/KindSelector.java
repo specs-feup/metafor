@@ -8,15 +8,15 @@ import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import java.util.Collection;
 
 public class KindSelector extends FortranNode {
-    public static final DataKey<Integer> KIND = KeyFactory.integer("kind");
+    public static final DataKey<Integer> VALUE = KeyFactory.integer("value");
     public static final DataKey<Boolean> LEGACY = KeyFactory.bool("legacy");
 
     public KindSelector(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
     }
 
-    public Integer getKind() {
-        return get(KIND);
+    public Integer getValue() {
+        return get(VALUE);
     }
 
     public boolean isLegacy() {
@@ -26,7 +26,7 @@ public class KindSelector extends FortranNode {
     @Override
     public String getCode() {
         return isLegacy()
-                ? "*" + getKind()
-                : "(" + getKind() + ")";
+                ? "*" + getValue()
+                : "(" + getValue() + ")";
     }
 }
