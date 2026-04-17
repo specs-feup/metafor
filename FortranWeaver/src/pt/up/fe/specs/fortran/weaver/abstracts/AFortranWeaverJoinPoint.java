@@ -8,6 +8,7 @@ import pt.up.fe.specs.fortran.weaver.abstracts.joinpoints.AJoinPoint;
 import pt.up.fe.specs.fortran.weaver.abstracts.joinpoints.AProgram;
 import pt.up.fe.specs.util.SpecsLogs;
 import pt.up.fe.specs.util.exceptions.NotImplementedException;
+import pt.up.fe.specs.util.treenode.NodeInsertUtils;
 
 import java.util.Objects;
 import java.util.stream.Stream;
@@ -72,17 +73,26 @@ public abstract class AFortranWeaverJoinPoint extends AJoinPoint {
     }
 
     @Override
-    public JoinPoint[] insertImpl(String position, JoinPoint joinPoint) {
+    public AJoinPoint[] insertImpl(String position, JoinPoint joinPoint) {
         var insertedNode = getNode().insert(Position.valueOf(position.toUpperCase()), (FortranNode) joinPoint.getNode());
 
         return new AJoinPoint[]{FortranJoinpoints.create(insertedNode, AJoinPoint.class)};
     }
 
     @Override
-    public JoinPoint[] insertImpl(String position, String code) {
+    public AJoinPoint[] insertImpl(String position, String code) {
         var insertedNode = getNode().insert(Position.valueOf(position.toUpperCase()), code);
 
         return new AJoinPoint[]{FortranJoinpoints.create(insertedNode, AJoinPoint.class)};
+    }
+
+    public static FortranNode replace(FortranNode target, FortranNode newNode) {
+        return NodeInsertUtils.replace(target, newNode);
+    }
+
+    @Override
+    public AJoinPoint replaceWithImpl(AJoinPoint node) {
+        return FortranJoinpoints.create(replace(getNode(), node.getNode()));
     }
 
     @Override
@@ -129,7 +139,8 @@ public abstract class AFortranWeaverJoinPoint extends AJoinPoint {
         return getNode().getDescendantsStream()
                 .anyMatch(child -> child == clavaNode);
     }
-  
+
+    @Override
     public AJoinPoint getLeftJpImpl() {
         return getNode().getLeft().map(FortranJoinpoints::create).orElse(null);
     }
