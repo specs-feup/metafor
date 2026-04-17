@@ -92,6 +92,7 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.LE, BinaryOperator.class);
         NAME_TO_CLASS.put(FlangName.GT, BinaryOperator.class);
         NAME_TO_CLASS.put(FlangName.GE, BinaryOperator.class);
+        NAME_TO_CLASS.put(FlangName.AND, BinaryOperator.class);
         NAME_TO_CLASS.put(FlangName.ARRAY_CONSTRUCTOR, ArrayConstructor.class);
         NAME_TO_CLASS.put(FlangName.AC_SPEC, AcSpecification.class);
         NAME_TO_CLASS.put(FlangName.ARRAY_ELEMENT, ArraySubscriptExpr.class);

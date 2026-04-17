@@ -12,7 +12,8 @@ public enum BinaryOperatorKind implements StringProvider {
     GT,
     GE,
     EQ,
-    NE;
+    NE,
+    AND;
 
     public String getOpString() {
         switch (this) {
@@ -45,6 +46,9 @@ public enum BinaryOperatorKind implements StringProvider {
             }
             case LT -> {
                 return "<";
+            }
+            case AND -> {
+                return ".and.";
             }
             default -> {
                 return "<UNDEFINED_BINARY_OP_STRING:" + this + ">";
