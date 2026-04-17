@@ -24,6 +24,6 @@ public class WriteStmt extends ActionStmt {
 
     @Override
     public String getCode() {
-        return FortranKeyword.WRITE.toString() + "(" + getIoUnit().get().getCode() + ", " + getFormat().get() + ")";
+        return FortranKeyword.WRITE + "(" + getIoUnit().get().getCode() + ", " + getFormat().get().getCode() + ")";
     }
 }
