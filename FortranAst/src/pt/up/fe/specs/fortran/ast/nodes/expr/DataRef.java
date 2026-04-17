@@ -22,6 +22,10 @@ public class DataRef extends Designator {
         super(data, children);
     }
 
+    public String getName() {
+        return get(NAME);
+    }
+
     @Override
     public String getCode() {
         return get(NAME);
