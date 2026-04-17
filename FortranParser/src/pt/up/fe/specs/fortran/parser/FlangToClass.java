@@ -20,10 +20,7 @@ import pt.up.fe.specs.fortran.ast.nodes.type.attributes.AllocatableKeyword;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.IntentSpec;
 import pt.up.fe.specs.fortran.ast.nodes.type.shapes.DeferredShapeSpecList;
 import pt.up.fe.specs.fortran.ast.nodes.type.shapes.ExplicitShapeSpecification;
-import pt.up.fe.specs.fortran.ast.nodes.utils.Format;
-import pt.up.fe.specs.fortran.ast.nodes.utils.IoUnit;
-import pt.up.fe.specs.fortran.ast.nodes.utils.NameValue;
-import pt.up.fe.specs.fortran.ast.nodes.utils.Star;
+import pt.up.fe.specs.fortran.ast.nodes.utils.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -126,6 +123,7 @@ public class FlangToClass {
         ///  UTILs
         NAME_TO_CLASS.put(FlangName.NAME_VALUE, NameValue.class);
         NAME_TO_CLASS.put(FlangName.IO_UNIT, IoUnit.class);
+        NAME_TO_CLASS.put(FlangName.IO_CONTROL_SPEC, IoControlSpec.class);
     }
 
     public static boolean isClass(String type) {

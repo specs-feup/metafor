@@ -20,10 +20,7 @@ import pt.up.fe.specs.fortran.ast.nodes.type.attributes.IntentSpec;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.KeywordAttributeSpecifier;
 import pt.up.fe.specs.fortran.ast.nodes.type.shapes.DeferredShapeSpecList;
 import pt.up.fe.specs.fortran.ast.nodes.type.shapes.ExplicitShapeSpecification;
-import pt.up.fe.specs.fortran.ast.nodes.utils.Format;
-import pt.up.fe.specs.fortran.ast.nodes.utils.IoUnit;
-import pt.up.fe.specs.fortran.ast.nodes.utils.NameValue;
-import pt.up.fe.specs.fortran.ast.nodes.utils.Star;
+import pt.up.fe.specs.fortran.ast.nodes.utils.*;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 import pt.up.fe.specs.util.classmap.ConsumerClassMap;
 import pt.up.fe.specs.util.exceptions.NotImplementedException;
@@ -117,6 +114,7 @@ public class Nodes {
         processors.put(Format.class, u::format);
         processors.put(NameValue.class, u::nameValue);
         processors.put(IoUnit.class, u::ioUnit);
+        processors.put(IoControlSpec.class, u::ioControlSpec);
 
         var l = new LoopProcessors(data);
         processors.put(RangeLoopControl.class, l::loopRange);

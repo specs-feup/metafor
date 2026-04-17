@@ -341,5 +341,9 @@ public class StmtProcessors extends ANodeProcessor {
         if (attributes(writeStmt).has("format")) {
             writeStmt.addChild(getChild(writeStmt, "format"));
         }
+
+        if (attributes(writeStmt).has("controls")) {
+            writeStmt.addChildren(getChildren(writeStmt, "controls"));
+        }
     }
 }

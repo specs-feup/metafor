@@ -4,9 +4,12 @@ import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.FortranKeyword;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.utils.Format;
+import pt.up.fe.specs.fortran.ast.nodes.utils.IoControlSpec;
 import pt.up.fe.specs.fortran.ast.nodes.utils.IoUnit;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 public class WriteStmt extends ActionStmt {
@@ -22,8 +25,26 @@ public class WriteStmt extends ActionStmt {
         return getChildTry(Format.class);
     }
 
+    public List<IoControlSpec> getControlSpecs() {
+        return getChildrenOf(IoControlSpec.class);
+    }
+
     @Override
     public String getCode() {
-        return FortranKeyword.WRITE + "(" + getIoUnit().get().getCode() + ", " + getFormat().get().getCode() + ")";
+        StringBuilder code = new StringBuilder();
+        code.append(FortranKeyword.WRITE).append("(");
+
+        List<String> parts = new ArrayList<>();
+
+        getIoUnit().ifPresent(unit -> parts.add(unit.getCode()));
+
+        getFormat().ifPresent(fmt -> parts.add(fmt.getCode()));
+
+        getControlSpecs().forEach(spec -> parts.add(spec.getCode()));
+
+        code.append(String.join(", ", parts));
+
+        code.append(")");
+        return code.toString();
     }
 }
