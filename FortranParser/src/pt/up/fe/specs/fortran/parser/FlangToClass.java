@@ -21,6 +21,7 @@ import pt.up.fe.specs.fortran.ast.nodes.type.attributes.IntentSpec;
 import pt.up.fe.specs.fortran.ast.nodes.type.shapes.DeferredShapeSpecList;
 import pt.up.fe.specs.fortran.ast.nodes.type.shapes.ExplicitShapeSpecification;
 import pt.up.fe.specs.fortran.ast.nodes.utils.Format;
+import pt.up.fe.specs.fortran.ast.nodes.utils.IoUnit;
 import pt.up.fe.specs.fortran.ast.nodes.utils.NameValue;
 import pt.up.fe.specs.fortran.ast.nodes.utils.Star;
 
@@ -67,6 +68,7 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.END_SELECT_STMT, EndSelectStmt.class);
 
         NAME_TO_CLASS.put(FlangName.CALL_STMT, CallStmt.class);
+        NAME_TO_CLASS.put(FlangName.WRITE_STMT, WriteStmt.class);
 
         /// Variables
         //NAME_TO_CLASS.put(FlangName.DATA_REF, DataRef.class);
@@ -121,6 +123,7 @@ public class FlangToClass {
 
         ///  UTILs
         NAME_TO_CLASS.put(FlangName.NAME_VALUE, NameValue.class);
+        NAME_TO_CLASS.put(FlangName.IO_UNIT, IoUnit.class);
     }
 
     public static boolean isClass(String type) {

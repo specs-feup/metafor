@@ -41,9 +41,11 @@ public class ProgramProcessors extends ANodeProcessor {
             mainProgram.addChild(getChild(mainProgram, FlangName.INTERNAL_SUBPROGRAM_PART));
         }
 
-        var endName = attributes().getString(mainProgram, "source", FlangName.END_PROGRAM_STMT, FlangName.NAME);
+        var endName = attributes().getOptionalString(mainProgram, "source", FlangName.END_PROGRAM_STMT, FlangName.NAME);
 
-        var name = firstName.orElse(endName);
+        var name = firstName
+                .or(() -> endName)
+                .orElseThrow();
 
         mainProgram.setOptional(MainProgram.PROGRAM_NAME, name);
     }

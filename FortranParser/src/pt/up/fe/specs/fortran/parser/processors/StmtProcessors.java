@@ -332,4 +332,14 @@ public class StmtProcessors extends ANodeProcessor {
     public void callStmt(CallStmt callStmt) {
         callStmt.addChild(getChild(callStmt, "call"));
     }
+
+    public void writeStmt(WriteStmt writeStmt) {
+        if (attributes(writeStmt).has("iounit")) {
+            writeStmt.addChild(getChild(writeStmt, "iounit"));
+        }
+
+        if (attributes(writeStmt).has("format")) {
+            writeStmt.addChild(getChild(writeStmt, "format"));
+        }
+    }
 }

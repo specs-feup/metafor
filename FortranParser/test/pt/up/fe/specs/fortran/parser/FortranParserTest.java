@@ -292,12 +292,12 @@ public class FortranParserTest {
         }
     }
 
-    /* commented for now until some details are added to the AST
+
     @Test
     void test3mm() {
         testJson("polybench/3mm.json");
     }
-    */
+
 
     @Test
     void testDirective() {
