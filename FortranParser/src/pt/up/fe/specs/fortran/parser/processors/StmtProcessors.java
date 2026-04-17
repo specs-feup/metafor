@@ -350,4 +350,8 @@ public class StmtProcessors extends ANodeProcessor {
             writeStmt.addChildren(getChildren(writeStmt, "items"));
         }
     }
+
+    public void containsStmt(ContainsStmt containsStmt) {
+
+    }
 }

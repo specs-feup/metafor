@@ -76,6 +76,7 @@ public class Nodes {
 
         processors.put(CallStmt.class, s::callStmt);
         processors.put(WriteStmt.class, s::writeStmt);
+        processors.put(ContainsStmt.class, s::containsStmt);
 
         var e = new ExprProcessors(data);
         processors.put(StringLiteral.class, e::stringLiteral);

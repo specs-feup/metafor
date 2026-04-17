@@ -46,6 +46,7 @@ public enum FlangName implements StringProvider {
     WRITE_STMT,
     IO_UNIT,
     IO_CONTROL_SPEC,
+    CONTAINS_STMT,
 
     /// Conditional Statements
     IF_CONSTRUCT,
