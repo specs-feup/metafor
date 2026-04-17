@@ -1,6 +1,6 @@
 !******************************************************************************
 !
-!  3mm.f90: This file is part of the PolyBench/Fortran 1.0 test suite.
+!  3mm.F90: This file is part of the PolyBench/Fortran 1.0 test suite.
 !
 !  Contact: Louis-Noel Pouchet <pouchet@cse.ohio-state.edu>
 !  Web address: http://polybench.sourceforge.net
@@ -11,24 +11,27 @@
 ! Default data type is double, default size is 4000.
       program three_mm
       implicit none
-      double precision, dimension( 1024+0,  1024+0) :: a
-      double precision, dimension( 1024+0,  1024+0) :: b
-      double precision, dimension( 1024+0,  1024+0) :: c
-      double precision, dimension( 1024+0,  1024+0) :: d
-      double precision, dimension( 1024+0,  1024+0) :: e
-      double precision, dimension( 1024+0,  1024+0) :: f
-      double precision, dimension( 1024+0,  1024+0) :: g
+      double precision, dimension( 2000+0,  2000+0) :: a
+      double precision, dimension( 2000+0,  2000+0) :: b
+      double precision, dimension( 2000+0,  2000+0) :: c
+      double precision, dimension( 2000+0,  2000+0) :: d
+      double precision, dimension( 2000+0,  2000+0) :: e
+      double precision, dimension( 2000+0,  2000+0) :: f
+      double precision, dimension( 2000+0,  2000+0) :: g
       integer :: i;      character(LEN = 30) :: arg
 !     Allocation of Arrays
 !     Initialization
-      call init_array(1024, 1024, 1024, 1024, 1024, &
+      call init_array(2000, 2000, 2000, 2000, 2000, &
                            a, b, c, d)
 !     Kernel Execution
-      call kernel_3mm(1024, 1024, 1024, 1024, 1024, &
+      call polybench_timer_start();
+      call kernel_3mm(2000, 2000, 2000, 2000, 2000, &
                           e, a, b, f, c, d, g)
+      call polybench_timer_stop();
+      call polybench_timer_print();
 !     Prevent dead-code elimination. All live-out data must be printed
 !     by the function call in argument.
-      call getarg(1, arg);                               if( command_argument_count() > 42 .AND.  arg .EQ. '' ) then;      call print_array(1024, 1024, g);  end if;
+      call getarg(1, arg);                               if( command_argument_count() > 42 .AND.  arg .EQ. '' ) then;      call print_array(2000, 2000, g);  end if;
 !     Deallocation of Arrays
       contains
         subroutine init_array(ni, nj, nk, nl, nm, a, b, c , d)
