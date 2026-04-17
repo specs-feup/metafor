@@ -106,6 +106,7 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.DOUBLE_PRECISION, DoublePrecisionType.class);
         NAME_TO_CLASS.put(FlangName.CHARACTER, CharacterType.class);
         NAME_TO_CLASS.put(FlangName.REAL, RealType.class);
+        NAME_TO_CLASS.put(FlangName.LENGTH_SELECTOR, LengthSelector.class);
 
         ///  LOOP
         NAME_TO_CLASS.put(FlangName.LOOP_BOUNDS, RangeLoopControl.class);
