@@ -10,7 +10,6 @@
 ! Include benchmark-specific header.
 ! Default data type is double, default size is 4000.
       program three_mm
-      implicit none
       double precision, dimension(:,:), allocatable :: a
       double precision, dimension(:,:), allocatable :: b
       double precision, dimension(:,:), allocatable :: c
@@ -49,7 +48,6 @@
       deallocate(g)
       contains
         subroutine init_array(ni, nj, nk, nl, nm, a, b, c , d)
-        implicit none
         double precision, dimension(nk, ni) :: a
         double precision, dimension(nj, nk) :: b
         double precision, dimension(nm, nj) :: c
@@ -78,7 +76,6 @@
         end do
         end subroutine
         subroutine print_array(ni, nl, g)
-        implicit none
         double precision, dimension(nl, ni) :: g
         integer :: ni, nl
         integer :: i, j
@@ -93,7 +90,6 @@
         write(0, *)
         end subroutine
         subroutine kernel_3mm(ni, nj, nk, nl, nm, e, a, b, f, c, d, g)
-        implicit none
         double precision, dimension(nk, ni) :: a
         double precision, dimension(nj, nk) :: b
         double precision, dimension(nm, nj) :: c

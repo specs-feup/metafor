@@ -1,5 +1,4 @@
       PROGRAM THREE_MM
-      implicit none
       double precision, dimension(:, :), ALLOCATABLE :: a
       double precision, dimension(:, :), ALLOCATABLE :: b
       double precision, dimension(:, :), ALLOCATABLE :: c
@@ -37,7 +36,6 @@
       deallocate(g)
       contains
         SUBROUTINE init_array(ni, nj, nk, nl, nm, a, b, c, d)
-        implicit none
         double precision, dimension(nk,ni) :: a
         double precision, dimension(nj,nk) :: b
         double precision, dimension(nm,nj) :: c
@@ -66,7 +64,6 @@
         END DO
         END SUBROUTINE init_array
         SUBROUTINE print_array(ni, nl, g)
-        implicit none
         double precision, dimension(nl,ni) :: g
         integer :: ni, nl
         integer :: i, j
@@ -81,7 +78,6 @@
         WRITE(0, *)
         END SUBROUTINE print_array
         SUBROUTINE kernel_3mm(ni, nj, nk, nl, nm, e, a, b, f, c, d, g)
-        implicit none
         double precision, dimension(nk,ni) :: a
         double precision, dimension(nj,nk) :: b
         double precision, dimension(nm,nj) :: c
