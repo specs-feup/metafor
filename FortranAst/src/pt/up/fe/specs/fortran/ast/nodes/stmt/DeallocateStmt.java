@@ -6,6 +6,7 @@ import pt.up.fe.specs.fortran.ast.nodes.expr.DataRef;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DeallocateStmt extends ActionStmt {
     public DeallocateStmt(DataStore data, Collection<? extends FortranNode> children) {
@@ -14,5 +15,22 @@ public class DeallocateStmt extends ActionStmt {
 
     public List<DataRef> getRefs() {
         return getChildrenOf(DataRef.class);
+    }
+
+    @Override
+    public String getCode() {
+        StringBuilder code = new StringBuilder();
+
+        code.append("deallocate(");
+
+        code.append(getRefs()
+                .stream()
+                .map(DataRef::getCode)
+                .collect(Collectors.joining(", "))
+        );
+
+        code.append(")");
+
+        return code.toString();
     }
 }
