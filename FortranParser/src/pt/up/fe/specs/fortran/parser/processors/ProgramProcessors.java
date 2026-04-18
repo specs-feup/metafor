@@ -90,4 +90,9 @@ public class ProgramProcessors extends ANodeProcessor {
         String statementId = attributes().get(attributes(subroutine).getString(FlangName.SUBROUTINE_STMT.getStmtAttr())).getString("statement");
         subroutine.addChildren(getChildren(statementId, FlangName.DUMMY_ARG));
     }
+
+    public void allocation(Allocation allocation) {
+        allocation.addChild(getChild(allocation, FlangName.ALLOCATE_OBJECT));
+        allocation.addChildren(getChildren(allocation, FlangName.ALLOCATE_SHAPE_SPEC));
+    }
 }

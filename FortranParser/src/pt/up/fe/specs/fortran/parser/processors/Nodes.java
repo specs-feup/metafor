@@ -18,6 +18,7 @@ import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.SelectCaseStmt;
 import pt.up.fe.specs.fortran.ast.nodes.type.*;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.IntentSpec;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.KeywordAttributeSpecifier;
+import pt.up.fe.specs.fortran.ast.nodes.type.shapes.AllocateShapeSpecification;
 import pt.up.fe.specs.fortran.ast.nodes.type.shapes.DeferredShapeSpecList;
 import pt.up.fe.specs.fortran.ast.nodes.type.shapes.ExplicitShapeSpecification;
 import pt.up.fe.specs.fortran.ast.nodes.utils.*;
@@ -42,6 +43,7 @@ public class Nodes {
         processors.put(Execution.class, p::execution);
         processors.put(Subroutine.class, p::subroutine);
         processors.put(InternalSubprogram.class, p::internalSubprogram);
+        processors.put(Allocation.class, p::allocation);
 
 
         var d = new DeclProcessors(data);
@@ -77,6 +79,8 @@ public class Nodes {
         processors.put(CallStmt.class, s::callStmt);
         processors.put(WriteStmt.class, s::writeStmt);
         processors.put(ContainsStmt.class, s::containsStmt);
+        processors.put(AllocateStmt.class, s::allocateStmt);
+        processors.put(DeallocateStmt.class, s::deallocateStmt);
 
         var e = new ExprProcessors(data);
         processors.put(StringLiteral.class, e::stringLiteral);
@@ -109,6 +113,7 @@ public class Nodes {
         var shapes = new ShapesProcessor(data);
         processors.put(ExplicitShapeSpecification.class, shapes::explicitShapeSpec);
         processors.put(DeferredShapeSpecList.class, shapes::deferredShapeSpecLis);
+        processors.put(AllocateShapeSpecification.class, shapes::allocateShapeSpec);
 
         var u = new UtilsProcessors(data);
         processors.put(Star.class, u::star);

@@ -18,6 +18,7 @@ import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.SelectCaseStmt;
 import pt.up.fe.specs.fortran.ast.nodes.type.*;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.AllocatableKeyword;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.IntentSpec;
+import pt.up.fe.specs.fortran.ast.nodes.type.shapes.AllocateShapeSpecification;
 import pt.up.fe.specs.fortran.ast.nodes.type.shapes.DeferredShapeSpecList;
 import pt.up.fe.specs.fortran.ast.nodes.type.shapes.ExplicitShapeSpecification;
 import pt.up.fe.specs.fortran.ast.nodes.utils.*;
@@ -37,6 +38,7 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.EXECUTION_PART, Execution.class);
         NAME_TO_CLASS.put(FlangName.INTERNAL_SUBPROGRAM_PART, InternalSubprogram.class);
         NAME_TO_CLASS.put(FlangName.SUBROUTINE_SUBPROGRAM, Subroutine.class);
+        NAME_TO_CLASS.put(FlangName.ALLOCATION, Allocation.class);
 
         /// DECLs
         NAME_TO_CLASS.put(FlangName.ENTITY_DECL, EntityDecl.class);
@@ -67,6 +69,8 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.CALL_STMT, CallStmt.class);
         NAME_TO_CLASS.put(FlangName.WRITE_STMT, WriteStmt.class);
         NAME_TO_CLASS.put(FlangName.CONTAINS_STMT, ContainsStmt.class);
+        NAME_TO_CLASS.put(FlangName.ALLOCATE_STMT, AllocateStmt.class);
+        NAME_TO_CLASS.put(FlangName.DEALLOCATE_STMT, DeallocateStmt.class);
 
         /// Variables
         //NAME_TO_CLASS.put(FlangName.DATA_REF, DataRef.class);
@@ -120,6 +124,7 @@ public class FlangToClass {
         ///  SHAPES
         NAME_TO_CLASS.put(FlangName.EXPLICIT_SHAPE_SPEC, ExplicitShapeSpecification.class);
         NAME_TO_CLASS.put(FlangName.DEFERRED_SHAPE_SPEC_LIST, DeferredShapeSpecList.class);
+        NAME_TO_CLASS.put(FlangName.ALLOCATE_SHAPE_SPEC, AllocateShapeSpecification.class);
 
         ///  UTILs
         NAME_TO_CLASS.put(FlangName.NAME_VALUE, NameValue.class);
