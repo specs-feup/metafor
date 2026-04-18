@@ -2,9 +2,8 @@ package pt.up.fe.specs.fortran.parser.processors;
 
 import pt.up.fe.specs.fortran.ast.FortranContext;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
+import pt.up.fe.specs.fortran.ast.nodes.alloc.Allocation;
 import pt.up.fe.specs.fortran.ast.nodes.program.*;
-import pt.up.fe.specs.fortran.parser.FlangAttributes;
-import pt.up.fe.specs.fortran.parser.FlangData;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 import pt.up.fe.specs.util.SpecsIo;
@@ -89,10 +88,5 @@ public class ProgramProcessors extends ANodeProcessor {
 
         String statementId = attributes().get(attributes(subroutine).getString(FlangName.SUBROUTINE_STMT.getStmtAttr())).getString("statement");
         subroutine.addChildren(getChildren(statementId, FlangName.DUMMY_ARG));
-    }
-
-    public void allocation(Allocation allocation) {
-        allocation.addChild(getChild(allocation, FlangName.ALLOCATE_OBJECT));
-        allocation.addChildren(getChildren(allocation, FlangName.ALLOCATE_SHAPE_SPEC));
     }
 }

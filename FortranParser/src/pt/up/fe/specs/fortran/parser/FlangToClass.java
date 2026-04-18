@@ -1,6 +1,8 @@
 package pt.up.fe.specs.fortran.parser;
 
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
+import pt.up.fe.specs.fortran.ast.nodes.alloc.Allocation;
+import pt.up.fe.specs.fortran.ast.nodes.alloc.StatVariable;
 import pt.up.fe.specs.fortran.ast.nodes.decl.DummyArgumentDecl;
 import pt.up.fe.specs.fortran.ast.nodes.decl.EntityDecl;
 import pt.up.fe.specs.fortran.ast.nodes.expr.*;
@@ -130,6 +132,7 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.NAME_VALUE, NameValue.class);
         NAME_TO_CLASS.put(FlangName.IO_UNIT, IoUnit.class);
         NAME_TO_CLASS.put(FlangName.IO_CONTROL_SPEC, IoControlSpec.class);
+        NAME_TO_CLASS.put(FlangName.STAT_VARIABLE, StatVariable.class);
     }
 
     public static boolean isClass(String type) {

@@ -1,6 +1,8 @@
 package pt.up.fe.specs.fortran.parser.processors;
 
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
+import pt.up.fe.specs.fortran.ast.nodes.alloc.Allocation;
+import pt.up.fe.specs.fortran.ast.nodes.alloc.StatVariable;
 import pt.up.fe.specs.fortran.ast.nodes.decl.DummyArgumentDecl;
 import pt.up.fe.specs.fortran.ast.nodes.decl.EntityDecl;
 import pt.up.fe.specs.fortran.ast.nodes.expr.*;
@@ -43,8 +45,10 @@ public class Nodes {
         processors.put(Execution.class, p::execution);
         processors.put(Subroutine.class, p::subroutine);
         processors.put(InternalSubprogram.class, p::internalSubprogram);
-        processors.put(Allocation.class, p::allocation);
 
+        var alloc = new AllocProcessors(data);
+        processors.put(Allocation.class, alloc::allocation);
+        processors.put(StatVariable.class, alloc::statVariable);
 
         var d = new DeclProcessors(data);
         processors.put(EntityDecl.class, d::entityDecl);

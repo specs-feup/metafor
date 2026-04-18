@@ -1,4 +1,4 @@
-package pt.up.fe.specs.fortran.ast.nodes.program;
+package pt.up.fe.specs.fortran.ast.nodes.alloc;
 
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
@@ -20,6 +20,10 @@ public class Allocation extends FortranNode {
 
     public List<AllocateShapeSpecification> getShapes() {
         return getChildrenOf(AllocateShapeSpecification.class);
+    }
+
+    public List<AllocOption> getOptions() {
+        return getChildrenOf(AllocOption.class);
     }
 
     @Override

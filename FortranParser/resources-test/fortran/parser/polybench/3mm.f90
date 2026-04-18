@@ -11,28 +11,42 @@
 ! Default data type is double, default size is 4000.
       program three_mm
       implicit none
-      double precision, dimension( 2000+0,  2000+0) :: a
-      double precision, dimension( 2000+0,  2000+0) :: b
-      double precision, dimension( 2000+0,  2000+0) :: c
-      double precision, dimension( 2000+0,  2000+0) :: d
-      double precision, dimension( 2000+0,  2000+0) :: e
-      double precision, dimension( 2000+0,  2000+0) :: f
-      double precision, dimension( 2000+0,  2000+0) :: g
-      integer :: i;      character(LEN = 30) :: arg
+      double precision, dimension(:,:), allocatable :: a
+      double precision, dimension(:,:), allocatable :: b
+      double precision, dimension(:,:), allocatable :: c
+      double precision, dimension(:,:), allocatable :: d
+      double precision, dimension(:,:), allocatable :: e
+      double precision, dimension(:,:), allocatable :: f
+      double precision, dimension(:,:), allocatable :: g
+      integer :: i
 !     Allocation of Arrays
+      allocate(a( 32+0, 32+0), STAT=I); call check_err(I)
+      allocate(b( 32+0, 32+0), STAT=I); call check_err(I)
+      allocate(c( 32+0, 32+0), STAT=I); call check_err(I)
+      allocate(d( 32+0, 32+0), STAT=I); call check_err(I)
+      allocate(e( 32+0, 32+0), STAT=I); call check_err(I)
+      allocate(f( 32+0, 32+0), STAT=I); call check_err(I)
+      allocate(g( 32+0, 32+0), STAT=I); call check_err(I)
 !     Initialization
-      call init_array(2000, 2000, 2000, 2000, 2000, &
+      call init_array(32, 32, 32, 32, 32, &
                            a, b, c, d)
 !     Kernel Execution
       call polybench_timer_start();
-      call kernel_3mm(2000, 2000, 2000, 2000, 2000, &
+      call kernel_3mm(32, 32, 32, 32, 32, &
                           e, a, b, f, c, d, g)
       call polybench_timer_stop();
       call polybench_timer_print();
 !     Prevent dead-code elimination. All live-out data must be printed
 !     by the function call in argument.
-      call getarg(1, arg);                               if( command_argument_count() > 42 .AND.  arg .EQ. '' ) then;      call print_array(2000, 2000, g);  end if;
+            call print_array(32, 32, g);  ;
 !     Deallocation of Arrays
+      deallocate(a)
+      deallocate(b)
+      deallocate(c)
+      deallocate(d)
+      deallocate(e)
+      deallocate(f)
+      deallocate(g)
       contains
         subroutine init_array(ni, nj, nk, nl, nm, a, b, c , d)
         implicit none

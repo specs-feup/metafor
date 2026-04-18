@@ -143,7 +143,9 @@ public enum FlangName implements StringProvider {
     // OTHER
     INITIALIZATION,
     NAME_VALUE,
-    ALLOCATE_OBJECT;
+    ALLOCATE_OBJECT,
+    ALLOC_OPT,
+    STAT_VARIABLE;
 
     private static final Lazy<EnumHelper<FlangName>> HELPER = EnumHelper.newLazyHelper(FlangName.class);
 
