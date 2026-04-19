@@ -25,7 +25,7 @@ export default class FortranJoinPoints {
         return wrapJoinPoint(FortranJavaTypes.AstFactory.dataRef(name));
     }
 
-    static useStmt(moduleName: string): Joinpoints.UseStatement {
-        return wrapJoinPoint(FortranJavaTypes.AstFactory.useStmt(moduleName));
+    static useStatement(moduleName: string): Joinpoints.UseStatement {
+        return wrapJoinPoint(FortranJavaTypes.AstFactory.useStatement(moduleName));
     }
 }
