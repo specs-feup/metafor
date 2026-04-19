@@ -51,7 +51,7 @@ public class FortranNativeParser {
         System.out.println("PLUGIN : " + plugin.getAbsolutePath());
 
         // Execute flang to obtain json
-        var command = List.of("flang-20", "-fc1", "-load", plugin.getAbsolutePath(), "-plugin", "dump-ast", file.getAbsolutePath());
+        var command = List.of("flang-22", "-fc1", "-load", plugin.getAbsolutePath(), "-plugin", "dump-ast", file.getAbsolutePath());
 
         var jsonFile = SAVE_JSON ? new File(file.getAbsoluteFile().getParentFile(), file.getName() + ".json") : null;
 
