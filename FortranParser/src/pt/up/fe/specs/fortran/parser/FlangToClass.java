@@ -82,6 +82,7 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.ALLOCATE_STMT, AllocateStmt.class);
         NAME_TO_CLASS.put(FlangName.DEALLOCATE_STMT, DeallocateStmt.class);
         NAME_TO_CLASS.put(FlangName.USE_STMT, UseStmt.class);
+        NAME_TO_CLASS.put(FlangName.CONTINUE_STMT, ContinueStmt.class);
 
         /// Variables
         //NAME_TO_CLASS.put(FlangName.DATA_REF, DataRef.class);
