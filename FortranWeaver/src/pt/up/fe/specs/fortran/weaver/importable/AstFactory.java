@@ -41,4 +41,8 @@ public class AstFactory {
     public static ADataRef dataRef(String name) {
         return FortranJoinpoints.create(FortranWeaver.getFactory().dataRef(name), ADataRef.class);
     }
+
+    public static AUseStatement useStatement(String moduleName) {
+        return FortranJoinpoints.create(FortranWeaver.getFactory().useStmt(moduleName), AUseStatement.class);
+    }
 }

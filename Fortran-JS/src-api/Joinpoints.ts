@@ -24,6 +24,7 @@ type PrivateMapper = {
   "Statement": typeof Statement,
   "StatementBlock": typeof StatementBlock,
   "StringLiteral": typeof StringLiteral,
+  "UseStatement": typeof UseStatement,
   "BinaryOperator": typeof BinaryOperator,
   "Designator": typeof Designator,
   "ExecutableStatement": typeof ExecutableStatement,
@@ -257,6 +258,15 @@ export class StringLiteral extends Literal {
   };
 }
 
+export class UseStatement extends Statement {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+}
+
   /**
    * Represents a binary operation
    */
@@ -361,6 +371,10 @@ export class Specification extends StatementBlock {
   static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
     name: null,
   };
+  /**
+   * Adds a UseStmt to a specification part. The statement is inserted at the beginning.
+   */
+  addUseStmt(stmt: UseStatement): void { return wrapJoinPoint(this._javaObject.addUseStmt(unwrapJoinPoint(stmt))); }
 }
 
   /**
@@ -459,6 +473,7 @@ const JoinpointMapper = {
   statement: Statement,
   statementBlock: StatementBlock,
   stringLiteral: StringLiteral,
+  useStatement: UseStatement,
   binaryOperator: BinaryOperator,
   designator: Designator,
   executableStatement: ExecutableStatement,

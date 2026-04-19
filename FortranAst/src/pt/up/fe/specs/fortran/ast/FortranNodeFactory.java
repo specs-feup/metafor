@@ -13,10 +13,7 @@ import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpDataSharingClause;
 import pt.up.fe.specs.fortran.ast.nodes.omp.enums.OmpClauseKind;
 import pt.up.fe.specs.fortran.ast.nodes.omp.enums.OmpDirectiveKind;
 import pt.up.fe.specs.fortran.ast.nodes.program.*;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.DoStmt;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.ExecutableStmt;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.LiteralExecutionStmt;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.PrintStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.utils.Format;
 import pt.up.fe.specs.fortran.ast.nodes.utils.LabelRef;
 import pt.up.fe.specs.fortran.ast.nodes.utils.Star;
@@ -232,6 +229,16 @@ public class FortranNodeFactory {
         DataRef newNode = new DataRef(data, Collections.emptyList());
 
         newNode.set(DataRef.NAME, name);
+
+        return newNode;
+    }
+
+    public UseStmt useStmt(String moduleName) {
+        DataStore data = newDataStore(UseStmt.class);
+
+        UseStmt newNode = new UseStmt(data, Collections.emptyList());
+
+        newNode.set(UseStmt.NAME, moduleName);
 
         return newNode;
     }
