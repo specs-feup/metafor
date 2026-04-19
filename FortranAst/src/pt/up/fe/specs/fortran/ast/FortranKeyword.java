@@ -9,6 +9,7 @@ public enum FortranKeyword {
     CONCURRENT,
     SUBROUTINE,
     WRITE,
+    USE,
 
     // Conditional statements
     IF,

@@ -90,6 +90,7 @@ public class Nodes {
         processors.put(EndSelectStmt.class, s::endSelectStmt);
 
         processors.put(CallStmt.class, s::callStmt);
+        processors.put(UseStmt.class, s::useStmt);
         processors.put(WriteStmt.class, s::writeStmt);
         processors.put(ContainsStmt.class, s::containsStmt);
         processors.put(AllocateStmt.class, s::allocateStmt);

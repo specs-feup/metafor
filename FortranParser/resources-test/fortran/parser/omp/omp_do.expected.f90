@@ -6,16 +6,16 @@ PROGRAM openmp_demo
 
     !$OMP PARALLEL
         !$OMP DO
-        do i = 1, 100
+        DO i = 1, 100
             total_sum = total_sum
-        end do
+        END DO
         !$OMP END DO
     !$OMP END PARALLEL
 
     !$OMP PARALLEL DO
-    do i = 1, 2
+    DO i = 1, 2
         total_sum = 1
-    end do
+    END DO
     !$OMP END PARALLEL DO
 
-end program openmp_demo
+END PROGRAM openmp_demo

@@ -363,4 +363,11 @@ public class StmtProcessors extends ANodeProcessor {
     public void deallocateStmt(DeallocateStmt deallocateStmt) {
         deallocateStmt.addChildren(getChildren(deallocateStmt, FlangName.ALLOCATE_OBJECT));
     }
+
+    public void useStmt(UseStmt useStmt) {
+        String nameId = attributes(useStmt).getString("moduleName");
+        String name = attributes().get(nameId).getString("source");
+
+        useStmt.set(UseStmt.NAME, name);
+    }
 }
