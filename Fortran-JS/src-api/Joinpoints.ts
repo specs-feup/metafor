@@ -31,6 +31,7 @@ type PrivateMapper = {
   "IntLiteral": typeof IntLiteral,
   "OmpConstruct": typeof OmpConstruct,
   "OmpLoopConstruct": typeof OmpLoopConstruct,
+  "Specification": typeof Specification,
   "ActionStatement": typeof ActionStatement,
   "AssignmentStatement": typeof AssignmentStatement,
   "CompilerDirective": typeof CompilerDirective,
@@ -353,6 +354,15 @@ export class OmpLoopConstruct extends OmpConstruct {
   setLoop(loop: DoStatement): void { return wrapJoinPoint(this._javaObject.setLoop(unwrapJoinPoint(loop))); }
 }
 
+export class Specification extends StatementBlock {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+}
+
   /**
    * Represents an action statement
    */
@@ -456,6 +466,7 @@ const JoinpointMapper = {
   intLiteral: IntLiteral,
   ompConstruct: OmpConstruct,
   ompLoopConstruct: OmpLoopConstruct,
+  specification: Specification,
   actionStatement: ActionStatement,
   assignmentStatement: AssignmentStatement,
   compilerDirective: CompilerDirective,
