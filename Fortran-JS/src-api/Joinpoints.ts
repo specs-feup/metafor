@@ -19,17 +19,20 @@ type PrivateMapper = {
   "OmpClause": typeof OmpClause,
   "OmpDataSharingClause": typeof OmpDataSharingClause,
   "Program": typeof Program,
+  "ProgramUnit": typeof ProgramUnit,
   "RangeLoopControl": typeof RangeLoopControl,
   "RealLiteral": typeof RealLiteral,
   "Statement": typeof Statement,
   "StatementBlock": typeof StatementBlock,
   "StringLiteral": typeof StringLiteral,
+  "Subroutine": typeof Subroutine,
   "UseStatement": typeof UseStatement,
   "BinaryOperator": typeof BinaryOperator,
   "Designator": typeof Designator,
   "ExecutableStatement": typeof ExecutableStatement,
   "Execution": typeof Execution,
   "IntLiteral": typeof IntLiteral,
+  "MainProgram": typeof MainProgram,
   "OmpConstruct": typeof OmpConstruct,
   "OmpLoopConstruct": typeof OmpLoopConstruct,
   "Specification": typeof Specification,
@@ -204,6 +207,19 @@ export class Program extends Joinpoint {
   };
 }
 
+export class ProgramUnit extends Joinpoint {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+  /**
+   * Returns the unit's specification part
+   */
+  get specification(): Specification { return wrapJoinPoint(this._javaObject.getSpecification()) }
+}
+
 export class RangeLoopControl extends LoopControl {
   /**
    * @internal
@@ -250,6 +266,15 @@ export class StatementBlock extends Joinpoint {
 }
 
 export class StringLiteral extends Literal {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+}
+
+export class Subroutine extends ProgramUnit {
   /**
    * @internal
    */
@@ -327,6 +352,15 @@ export class Execution extends StatementBlock {
 }
 
 export class IntLiteral extends Literal {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+}
+
+export class MainProgram extends ProgramUnit {
   /**
    * @internal
    */
@@ -468,17 +502,20 @@ const JoinpointMapper = {
   ompClause: OmpClause,
   ompDataSharingClause: OmpDataSharingClause,
   program: Program,
+  programUnit: ProgramUnit,
   rangeLoopControl: RangeLoopControl,
   realLiteral: RealLiteral,
   statement: Statement,
   statementBlock: StatementBlock,
   stringLiteral: StringLiteral,
+  subroutine: Subroutine,
   useStatement: UseStatement,
   binaryOperator: BinaryOperator,
   designator: Designator,
   executableStatement: ExecutableStatement,
   execution: Execution,
   intLiteral: IntLiteral,
+  mainProgram: MainProgram,
   ompConstruct: OmpConstruct,
   ompLoopConstruct: OmpLoopConstruct,
   specification: Specification,
