@@ -59,4 +59,10 @@
     <joinpoint class="ompDataSharingClause" tooltip="Represents an OpenMP datasharing clause (public, private, ...)" extends="ompClause"/>
 
     <joinpoint class="useStatement" extends="statement"/>
+
+    <joinpoint class="programUnit"/>
+
+    <joinpoint class="mainProgram" extends="programUnit"/>
+
+    <joinpoint class="subroutine" extends="programUnit"/>
 </joinpoints>
