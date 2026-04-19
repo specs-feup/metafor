@@ -17,4 +17,9 @@ public class FUseStatement extends AUseStatement {
     public FortranNode getNode() {
         return useStmt;
     }
+
+    @Override
+    public String getModuleNameImpl() {
+        return useStmt.getName();
+    }
 }
