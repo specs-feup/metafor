@@ -1,8 +1,7 @@
 package pt.up.fe.specs.fortran.parser.processors;
 
-import pt.up.fe.specs.fortran.ast.nodes.utils.Format;
-import pt.up.fe.specs.fortran.ast.nodes.utils.NameValue;
-import pt.up.fe.specs.fortran.ast.nodes.utils.Star;
+import pt.up.fe.specs.fortran.ast.nodes.utils.*;
+import pt.up.fe.specs.fortran.ast.nodes.utils.enums.IoControlSpecKind;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 
@@ -37,5 +36,21 @@ public class UtilsProcessors extends ANodeProcessor {
         if (attributes(nameValue).has("uint64_t")) {
             nameValue.setOptional(NameValue.VALUE, Integer.parseInt(attributes(nameValue).getString("uint64_t")));
         }
+    }
+
+    public void ioUnit(IoUnit ioUnit) {
+        var variantKey = attributes(ioUnit).getVariantKey();
+        ioUnit.addChild(getChild(ioUnit, variantKey));
+    }
+
+    public void ioControlSpec(IoControlSpec ioControlSpec) {
+        var childId = attributes(ioControlSpec).getVariantString();
+
+        ioControlSpec.set(
+                IoControlSpec.KIND,
+                IoControlSpecKind.valueOf(attributes().get(childId).getString("kind").toUpperCase())
+        );
+
+        ioControlSpec.addChild(getChild(attributes().get(childId).getString(FlangName.EXPR)));
     }
 }

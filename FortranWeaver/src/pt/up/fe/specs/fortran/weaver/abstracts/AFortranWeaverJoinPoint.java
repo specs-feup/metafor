@@ -110,16 +110,6 @@ public abstract class AFortranWeaverJoinPoint extends AJoinPoint {
     }
 
     @Override
-    public AJoinPoint getLeftJpImpl() {
-        return getNode().getLeft().map(FortranJoinpoints::create).orElse(null);
-    }
-
-    @Override
-    public AJoinPoint getRightJpImpl() {
-        return getNode().getRight().map(FortranJoinpoints::create).orElse(null);
-    }
-
-    @Override
     public AJoinPoint getAncestorImpl(String type) {
         Objects.requireNonNull(type, () -> "Missing type of ancestor in attribute 'ancestor'");
 
@@ -148,5 +138,15 @@ public abstract class AFortranWeaverJoinPoint extends AJoinPoint {
 
         return getNode().getDescendantsStream()
                 .anyMatch(child -> child == clavaNode);
+    }
+
+    @Override
+    public AJoinPoint getLeftJpImpl() {
+        return getNode().getLeft().map(FortranJoinpoints::create).orElse(null);
+    }
+
+    @Override
+    public AJoinPoint getRightJpImpl() {
+        return getNode().getRight().map(FortranJoinpoints::create).orElse(null);
     }
 }

@@ -9,18 +9,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ExplicitShapeSpecification extends ShapeSpecification {
+public class ExplicitShapeSpecification extends BoundedShapeSpecification {
     public ExplicitShapeSpecification(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
-    }
-
-    @Override
-    public String getCode() {
-        var bounds = getBounds();
-        return bounds.stream().map(Expr::getCode).collect(Collectors.joining(":"));
-    }
-
-    private List<Expr> getBounds() {
-        return getChildren(Expr.class);
     }
 }

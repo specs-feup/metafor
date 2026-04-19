@@ -2,6 +2,7 @@ package pt.up.fe.specs.fortran.parser.processors;
 
 import pt.up.fe.specs.fortran.ast.FortranContext;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
+import pt.up.fe.specs.fortran.ast.nodes.alloc.Allocation;
 import pt.up.fe.specs.fortran.ast.nodes.program.*;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
@@ -41,9 +42,11 @@ public class ProgramProcessors extends ANodeProcessor {
             mainProgram.addChild(getChild(mainProgram, FlangName.INTERNAL_SUBPROGRAM_PART));
         }
 
-        var endName = attributes().getString(mainProgram, "source", FlangName.END_PROGRAM_STMT, FlangName.NAME);
+        var endName = attributes().getOptionalString(mainProgram, "source", FlangName.END_PROGRAM_STMT, FlangName.NAME);
 
-        var name = firstName.orElse(endName);
+        var name = firstName
+                .or(() -> endName)
+                .orElseThrow();
 
         mainProgram.setOptional(MainProgram.PROGRAM_NAME, name);
     }
@@ -64,8 +67,12 @@ public class ProgramProcessors extends ANodeProcessor {
     }
 
     public void internalSubprogram(InternalSubprogram internalSubprogram) {
+        if (attributes(internalSubprogram).has(FlangName.CONTAINS_STMT.getStmtAttr())) {
+            internalSubprogram.addChild(getChild(internalSubprogram, FlangName.CONTAINS_STMT.getStmtAttr()));
+        }
+
         if (attributes(internalSubprogram).has(FlangName.INTERNAL_SUBPROGRAM)) {
-            internalSubprogram.setChildren(getChildren(internalSubprogram, FlangName.INTERNAL_SUBPROGRAM));
+            internalSubprogram.addChildren(getChildren(internalSubprogram, FlangName.INTERNAL_SUBPROGRAM));
         }
     }
 
