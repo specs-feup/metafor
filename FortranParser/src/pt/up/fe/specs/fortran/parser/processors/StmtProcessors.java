@@ -374,4 +374,8 @@ public class StmtProcessors extends ANodeProcessor {
     public void continueStmt(ContinueStmt continueStmt) {
 
     }
+
+    public void parameterStmt(ParameterStmt parameterStmt) {
+        parameterStmt.addChildren(getChildren(parameterStmt, FlangName.NAMED_CONSTANT_DEF));
+    }
 }

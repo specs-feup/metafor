@@ -16,6 +16,7 @@ import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
 import pt.up.fe.specs.fortran.ast.nodes.program.FortranFile;
 import pt.up.fe.specs.fortran.ast.nodes.program.MainProgram;
 import pt.up.fe.specs.fortran.ast.nodes.program.Specification;
+import pt.up.fe.specs.fortran.ast.nodes.specification.NamedConstantDef;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.expr.*;
 import pt.up.fe.specs.fortran.ast.nodes.program.*;
@@ -96,6 +97,7 @@ public class Nodes {
         processors.put(AllocateStmt.class, s::allocateStmt);
         processors.put(DeallocateStmt.class, s::deallocateStmt);
         processors.put(ContinueStmt.class, s::continueStmt);
+        processors.put(ParameterStmt.class, s::parameterStmt);
 
         var e = new ExprProcessors(data);
         processors.put(StringLiteral.class, e::stringLiteral);
@@ -124,6 +126,7 @@ public class Nodes {
         processors.put(ArraySpecification.class, a::arraySpecification);
         processors.put(KeywordAttributeSpecifier.class, a::keywordSpecifier);
         processors.put(IntentSpec.class, a::intentSpec);
+        processors.put(NamedConstantDef.class, a::namedConstantDef);
 
         var shapes = new ShapesProcessor(data);
         processors.put(ExplicitShapeSpecification.class, shapes::explicitShapeSpec);

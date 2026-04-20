@@ -53,6 +53,7 @@ public enum FlangName implements StringProvider {
     DEALLOCATE_STMT,
     USE_STMT,
     CONTINUE_STMT,
+    PARAMETER_STMT,
 
     /// Conditional Statements
     IF_CONSTRUCT,
@@ -164,7 +165,9 @@ public enum FlangName implements StringProvider {
     NAME_VALUE,
     ALLOCATE_OBJECT,
     ALLOC_OPT,
-    STAT_VARIABLE;
+    STAT_VARIABLE,
+    NAMED_CONSTANT,
+    NAMED_CONSTANT_DEF;
 
     private static final Lazy<EnumHelper<FlangName>> HELPER = EnumHelper.newLazyHelper(FlangName.class);
 

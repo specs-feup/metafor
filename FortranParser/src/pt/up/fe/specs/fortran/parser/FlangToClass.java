@@ -19,6 +19,7 @@ import pt.up.fe.specs.fortran.ast.nodes.omp.OmpLoopConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpDataSharingClause;
 import pt.up.fe.specs.fortran.ast.nodes.program.*;
 import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
+import pt.up.fe.specs.fortran.ast.nodes.specification.NamedConstantDef;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.CaseBlock;
@@ -83,6 +84,7 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.DEALLOCATE_STMT, DeallocateStmt.class);
         NAME_TO_CLASS.put(FlangName.USE_STMT, UseStmt.class);
         NAME_TO_CLASS.put(FlangName.CONTINUE_STMT, ContinueStmt.class);
+        NAME_TO_CLASS.put(FlangName.PARAMETER_STMT, ParameterStmt.class);
 
         /// Variables
         //NAME_TO_CLASS.put(FlangName.DATA_REF, DataRef.class);
@@ -132,6 +134,7 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.ARRAY_SPEC, ArraySpecification.class);
         NAME_TO_CLASS.put(FlangName.ALLOCATABLE, AllocatableKeyword.class);
         NAME_TO_CLASS.put(FlangName.INTENT_SPEC, IntentSpec.class);
+        NAME_TO_CLASS.put(FlangName.NAMED_CONSTANT_DEF, NamedConstantDef.class);
 
         ///  SHAPES
         NAME_TO_CLASS.put(FlangName.EXPLICIT_SHAPE_SPEC, ExplicitShapeSpecification.class);
