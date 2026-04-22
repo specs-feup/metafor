@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 public class OmpReductionClause extends OmpClause {
 
-    public final DataKey<BinaryOperatorKind> OPERATOR = KeyFactory.enumeration("operator", BinaryOperatorKind.class);
+    public static final DataKey<BinaryOperatorKind> OPERATOR = KeyFactory.enumeration("operator", BinaryOperatorKind.class);
 
     public OmpReductionClause(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);

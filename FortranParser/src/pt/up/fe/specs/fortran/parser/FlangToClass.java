@@ -17,6 +17,7 @@ import pt.up.fe.specs.fortran.ast.nodes.expr.*;
 import pt.up.fe.specs.fortran.ast.nodes.omp.OmpBlockConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.omp.OmpLoopConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpDataSharingClause;
+import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpReductionClause;
 import pt.up.fe.specs.fortran.ast.nodes.program.*;
 import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
 import pt.up.fe.specs.fortran.ast.nodes.specification.NamedConstantDef;
@@ -153,7 +154,7 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.SHARED, OmpDataSharingClause.class);
         NAME_TO_CLASS.put(FlangName.PRIVATE, OmpDataSharingClause.class);
         NAME_TO_CLASS.put(FlangName.FIRST_PRIVATE, OmpDataSharingClause.class);
-
+        NAME_TO_CLASS.put(FlangName.REDUCTION, OmpReductionClause.class);
     }
 
     public static boolean isClass(String type) {

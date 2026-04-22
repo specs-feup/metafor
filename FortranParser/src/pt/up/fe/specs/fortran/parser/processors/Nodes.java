@@ -12,6 +12,7 @@ import pt.up.fe.specs.fortran.ast.nodes.loops.RangeLoopControl;
 import pt.up.fe.specs.fortran.ast.nodes.omp.OmpBlockConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.omp.OmpLoopConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpDataSharingClause;
+import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpReductionClause;
 import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
 import pt.up.fe.specs.fortran.ast.nodes.program.FortranFile;
 import pt.up.fe.specs.fortran.ast.nodes.program.MainProgram;
@@ -149,6 +150,7 @@ public class Nodes {
         processors.put(OmpBlockConstruct.class, omp::ompBlockConstruct);
         processors.put(OmpLoopConstruct.class, omp::ompLoopConstruct);
         processors.put(OmpDataSharingClause.class, omp::ompDataSharingClause);
+        processors.put(OmpReductionClause.class, omp::ompReductionClause);
     }
 
     public void process(FortranNode node) {

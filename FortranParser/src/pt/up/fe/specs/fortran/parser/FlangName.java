@@ -147,6 +147,9 @@ public enum FlangName implements StringProvider {
     OMP_OBJECT_LIST,
     OMP_CLAUSE,
     OMP_CLAUSE_LIST,
+    OMP_REDUCTION_CLAUSE,
+    REDUCTION,
+    OMP_DIRECTIVE_NAME,
 
     // ATTRIBUTES
     DEFERRED_SHAPE_SPEC_LIST,
