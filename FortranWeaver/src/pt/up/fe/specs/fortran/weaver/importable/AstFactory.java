@@ -1,6 +1,7 @@
 package pt.up.fe.specs.fortran.weaver.importable;
 
 import pt.up.fe.specs.fortran.ast.nodes.expr.DataRef;
+import pt.up.fe.specs.fortran.ast.nodes.expr.enums.BinaryOperatorKind;
 import pt.up.fe.specs.fortran.ast.nodes.omp.OmpLoopConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpClause;
 import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpDataSharingClause;
@@ -44,5 +45,16 @@ public class AstFactory {
 
     public static AUseStatement useStatement(String moduleName) {
         return FortranJoinpoints.create(FortranWeaver.getFactory().useStmt(moduleName), AUseStatement.class);
+    }
+
+    public static AOmpReductionClause ompReductionClause(String operator, Object[] args) {
+        List<DataRef> dataRefs = SpecsCollections.asListT(ADataRef.class, args)
+                .stream()
+                .map(clause -> (DataRef) clause.getNode())
+                .toList();
+
+        BinaryOperatorKind kind = BinaryOperatorKind.valueOf(operator);
+
+        return FortranJoinpoints.create(FortranWeaver.getFactory().ompReductionClause(kind, dataRefs), AOmpReductionClause.class);
     }
 }

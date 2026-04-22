@@ -28,4 +28,11 @@ export default class FortranJoinPoints {
     static useStatement(moduleName: string): Joinpoints.UseStatement {
         return wrapJoinPoint(FortranJavaTypes.AstFactory.useStatement(moduleName));
     }
+
+    static ompReductionClause(operator: string, dataRefs: Joinpoints.DataRef[]): Joinpoints.OmpReductionClause {
+        return wrapJoinPoint(FortranJavaTypes.AstFactory.ompReductionClause(
+            operator,
+            flattenArgsArray(dataRefs).map(unwrapJoinPoint)
+        ));
+    }
 }

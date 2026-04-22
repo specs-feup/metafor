@@ -7,9 +7,11 @@ import pt.up.fe.specs.fortran.ast.nodes.decl.LabelDecl;
 import pt.up.fe.specs.fortran.ast.nodes.expr.DataRef;
 import pt.up.fe.specs.fortran.ast.nodes.expr.Literal;
 import pt.up.fe.specs.fortran.ast.nodes.expr.StringLiteral;
+import pt.up.fe.specs.fortran.ast.nodes.expr.enums.BinaryOperatorKind;
 import pt.up.fe.specs.fortran.ast.nodes.omp.OmpLoopConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpClause;
 import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpDataSharingClause;
+import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpReductionClause;
 import pt.up.fe.specs.fortran.ast.nodes.omp.enums.OmpClauseKind;
 import pt.up.fe.specs.fortran.ast.nodes.omp.enums.OmpDirectiveKind;
 import pt.up.fe.specs.fortran.ast.nodes.program.*;
@@ -239,6 +241,18 @@ public class FortranNodeFactory {
         UseStmt newNode = new UseStmt(data, Collections.emptyList());
 
         newNode.set(UseStmt.NAME, moduleName);
+
+        return newNode;
+    }
+
+    public OmpReductionClause ompReductionClause(BinaryOperatorKind operator, List<DataRef> refs) {
+        DataStore data = newDataStore(OmpReductionClause.class);
+
+        OmpReductionClause newNode= new OmpReductionClause(data, refs);
+
+        newNode.set(OmpReductionClause.KIND, OmpClauseKind.REDUCTION);
+
+        newNode.set(OmpReductionClause.OPERATOR, operator);
 
         return newNode;
     }

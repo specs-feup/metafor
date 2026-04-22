@@ -18,6 +18,7 @@ type PrivateMapper = {
   "NameValue": typeof NameValue,
   "OmpClause": typeof OmpClause,
   "OmpDataSharingClause": typeof OmpDataSharingClause,
+  "OmpReductionClause": typeof OmpReductionClause,
   "Program": typeof Program,
   "ProgramUnit": typeof ProgramUnit,
   "RangeLoopControl": typeof RangeLoopControl,
@@ -187,6 +188,15 @@ export class OmpClause extends Joinpoint {
    * Represents an OpenMP datasharing clause (public, private, ...)
    */
 export class OmpDataSharingClause extends OmpClause {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+}
+
+export class OmpReductionClause extends OmpClause {
   /**
    * @internal
    */
@@ -502,6 +512,7 @@ const JoinpointMapper = {
   nameValue: NameValue,
   ompClause: OmpClause,
   ompDataSharingClause: OmpDataSharingClause,
+  ompReductionClause: OmpReductionClause,
   program: Program,
   programUnit: ProgramUnit,
   rangeLoopControl: RangeLoopControl,
