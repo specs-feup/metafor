@@ -149,7 +149,7 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.STAT_VARIABLE, StatVariable.class);
 
         /// OPENMP
-        NAME_TO_CLASS.put(FlangName.OPENMP_BLOCK_CONSTRUCT, OmpBlockConstruct.class);
+        NAME_TO_CLASS.put(FlangName.OMP_BLOCK_CONSTRUCT, OmpBlockConstruct.class);
         NAME_TO_CLASS.put(FlangName.OPENMP_LOOP_CONSTRUCT, OmpLoopConstruct.class);
         NAME_TO_CLASS.put(FlangName.SHARED, OmpDataSharingClause.class);
         NAME_TO_CLASS.put(FlangName.PRIVATE, OmpDataSharingClause.class);
