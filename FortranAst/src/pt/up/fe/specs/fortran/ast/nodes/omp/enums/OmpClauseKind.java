@@ -6,7 +6,8 @@ import pt.up.fe.specs.util.providers.StringProvider;
 public enum OmpClauseKind implements StringProvider {
     PRIVATE("private"),
     SHARED("shared"),
-    FIRST_PRIVATE("firstprivate");
+    FIRST_PRIVATE("firstprivate"),
+    REDUCTION("reduction");
 
     private final String code;
 
