@@ -7,7 +7,9 @@ public enum OmpClauseKind implements StringProvider {
     PRIVATE("private"),
     SHARED("shared"),
     FIRST_PRIVATE("firstprivate"),
-    REDUCTION("reduction");
+    REDUCTION("reduction"),
+    NO_WAIT("nowait"),
+    ORDERED("ordered");
 
     private final String code;
 
