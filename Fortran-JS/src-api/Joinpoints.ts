@@ -42,6 +42,7 @@ type PrivateMapper = {
   "CompilerDirective": typeof CompilerDirective,
   "DataRef": typeof DataRef,
   "DoStatement": typeof DoStatement,
+  "OmpBlockConstruct": typeof OmpBlockConstruct,
   "ArraySubscriptExpr": typeof ArraySubscriptExpr,
 };
 
@@ -390,6 +391,8 @@ export class OmpConstruct extends ExecutableStatement {
   static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
     name: null,
   };
+  get clauses(): OmpClause[] { return wrapJoinPoint(this._javaObject.getClauses()) }
+  set clauses(value: OmpClause[]) { this._javaObject.setClauses(unwrapJoinPoint(value)); }
   /**
    * Sets the construct's clauses
    */
@@ -490,6 +493,18 @@ export class DoStatement extends ExecutableStatement {
 }
 
   /**
+   * Represents an OpenMP block construct (such as parallel or task)
+   */
+export class OmpBlockConstruct extends OmpConstruct {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+}
+
+  /**
    * Represents an access to one (or several) elements of an array
    */
 export class ArraySubscriptExpr extends DataRef {
@@ -536,6 +551,7 @@ const JoinpointMapper = {
   compilerDirective: CompilerDirective,
   dataRef: DataRef,
   doStatement: DoStatement,
+  ompBlockConstruct: OmpBlockConstruct,
   arraySubscriptExpr: ArraySubscriptExpr,
 };
 

@@ -35,4 +35,14 @@ export default class FortranJoinPoints {
             flattenArgsArray(dataRefs).map(unwrapJoinPoint)
         ));
     }
+
+    static emptyOmpBlockConstruct(): Joinpoints.OmpBlockConstruct {
+        return wrapJoinPoint(FortranJavaTypes.AstFactory.emptyOmpBlockConstruct());
+    }
+
+    static execution(stmts: Joinpoints.ExecutableStatement[]): Joinpoints.Execution {
+        return wrapJoinPoint(FortranJavaTypes.AstFactory.execution(
+            flattenArgsArray(stmts).map(unwrapJoinPoint)
+        ));
+    }
 }
