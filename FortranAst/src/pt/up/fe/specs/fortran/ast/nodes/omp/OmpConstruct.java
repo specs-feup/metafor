@@ -30,9 +30,13 @@ abstract public class OmpConstruct extends ExecutableStmt {
         addChildren(clauses);
     }
 
+    protected static String getClauseCode(List<OmpClause> clauses) {
+        return clauses.stream()
+                .map(OmpClause::getCode)
+                .collect(Collectors.joining(" "));
+    }
+
     public String getClauseCode() {
-        return getClauses().stream()
-            .map(OmpClause::getCode)
-            .collect(Collectors.joining(" "));
+        return getClauseCode(getClauses());
     }
 }

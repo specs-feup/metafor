@@ -9,7 +9,7 @@ program openmp_demo
         do i = 1, 100
             total_sum = total_sum
         end do
-        !$omp end do
+        !$omp end do nowait
     !$omp end parallel
 
 end program openmp_demo
