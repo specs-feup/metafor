@@ -337,13 +337,13 @@ public class FortranParserTest {
 
     @Test
     void testFujitsu0000_0000() {
-        testJson("fujitsu/0000_0000.json");
+        testJson("fujitsu/0000/0000_0000.json");
     }
 
     @Test
     void testFujitsu0000_0000Native() {
         if (SpecsPlatforms.isLinux()) {
-            testNative("fujitsu/0000_0000.f90");
+            testNative("fujitsu/0000/0000_0000.f90");
         }
     }
 }
