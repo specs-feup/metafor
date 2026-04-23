@@ -389,6 +389,18 @@ public class FortranParserTest {
     }
 
     @Test
+    void testParameter() {
+        testJson("parameter.json");
+    }
+
+    @Test
+    void testParameterNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("parameter.f90");
+        }
+    }
+
+    @Test
     void testFujitsu0000_0000() {
         testJson("fujitsu/0000/0000_0000.json");
     }
@@ -401,14 +413,14 @@ public class FortranParserTest {
     }
 
     @Test
-    void testParameter() {
-        testJson("parameter.json");
+    void testFujitsu0000_0001() {
+        testJson("fujitsu/0000/0000_0001.json");
     }
 
     @Test
-    void testParameterNative() {
+    void testFujitsu0000_0001Native() {
         if (SpecsPlatforms.isLinux()) {
-            testNative("parameter.f90");
+            testNative("fujitsu/0000/0000_0001.f90");
         }
     }
 }
