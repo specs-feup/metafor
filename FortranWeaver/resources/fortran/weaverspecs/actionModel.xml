@@ -31,6 +31,10 @@
         <parameter name="loop" type="doStatement"/>
     </action>
 
+    <action name="setBody" class="ompBlockConstruct">
+        <parameter name="body" type="execution"/>
+    </action>
+
     <!-- SPECIFICATION -->
     <action name="addUseStmt" class="specification" tooltip="Adds a UseStmt to a specification part. The statement is inserted at the beginning.">
         <parameter name="stmt" type="useStatement"/>

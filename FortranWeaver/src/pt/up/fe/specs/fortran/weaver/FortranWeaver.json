@@ -2588,6 +2588,19 @@
 					},
 					{
 						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setBody"
+									},
+									{
+										"type": "execution",
+										"name": "body",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
 						"tooltip": "Sets the construct's clauses",
 						"children": [
 									{
