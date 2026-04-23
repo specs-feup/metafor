@@ -96,6 +96,20 @@ public abstract class AFortranWeaverJoinPoint extends AJoinPoint {
     }
 
     @Override
+    public AJoinPoint detachImpl() {
+        FortranNode node = getNode();
+
+        if (!node.hasParent()) {
+            SpecsLogs.msgInfo(
+                    "action detach: could not find a parent in joinpoint of type '" + getJoinPointType() + "'");
+            return this;
+        }
+
+        node.detach();
+        return this;
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof AJoinPoint)) {
             return false;
