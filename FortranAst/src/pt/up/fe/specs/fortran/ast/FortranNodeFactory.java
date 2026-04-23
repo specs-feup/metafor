@@ -8,6 +8,7 @@ import pt.up.fe.specs.fortran.ast.nodes.expr.DataRef;
 import pt.up.fe.specs.fortran.ast.nodes.expr.Literal;
 import pt.up.fe.specs.fortran.ast.nodes.expr.StringLiteral;
 import pt.up.fe.specs.fortran.ast.nodes.expr.enums.BinaryOperatorKind;
+import pt.up.fe.specs.fortran.ast.nodes.omp.OmpBlockConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.omp.OmpLoopConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpClause;
 import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpDataSharingClause;
@@ -211,6 +212,16 @@ public class FortranNodeFactory {
         OmpLoopConstruct newNode = new OmpLoopConstruct(data, Collections.emptyList());
 
         newNode.set(OmpLoopConstruct.KINDS, OmpDirectiveKind.getKinds("parallel do"));
+
+        return newNode;
+    }
+
+    public OmpBlockConstruct emptyOmpBlockConstruct() {
+        DataStore data = newDataStore(OmpBlockConstruct.class);
+
+        OmpBlockConstruct newNode = new OmpBlockConstruct(data, Collections.emptyList());
+
+        newNode.set(OmpBlockConstruct.KINDS, OmpDirectiveKind.getKinds("parallel"));
 
         return newNode;
     }

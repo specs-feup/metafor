@@ -7,6 +7,7 @@ import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpClause;
 import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpDataSharingClause;
 import pt.up.fe.specs.fortran.ast.nodes.omp.enums.OmpClauseKind;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.DoStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.ExecutableStmt;
 import pt.up.fe.specs.fortran.weaver.FortranJoinpoints;
 import pt.up.fe.specs.fortran.weaver.FortranWeaver;
 import pt.up.fe.specs.fortran.weaver.abstracts.joinpoints.*;
@@ -28,6 +29,10 @@ public class AstFactory {
 
     public static AOmpLoopConstruct emptyOmpLoopConstruct() {
         return FortranJoinpoints.create(FortranWeaver.getFactory().emptyOmpLoopConstruct(), AOmpLoopConstruct.class);
+    }
+
+    public static AOmpBlockConstruct emptyOmpBlockConstruct() {
+        return FortranJoinpoints.create(FortranWeaver.getFactory().emptyOmpBlockConstruct(), AOmpBlockConstruct.class);
     }
 
     public static AOmpDataSharingClause ompPrivateClause(Object[] args) {
@@ -56,5 +61,14 @@ public class AstFactory {
         BinaryOperatorKind kind = BinaryOperatorKind.valueOf(operator);
 
         return FortranJoinpoints.create(FortranWeaver.getFactory().ompReductionClause(kind, dataRefs), AOmpReductionClause.class);
+    }
+
+    public static AExecution execution(Object[] args) {
+        List<ExecutableStmt> stmts = SpecsCollections.asListT(AExecutableStatement.class, args)
+                .stream()
+                .map(stmt -> (ExecutableStmt) stmt.getNode())
+                .toList();
+
+        return FortranJoinpoints.create(FortranWeaver.getFactory().execution(stmts), AExecution.class);
     }
 }
