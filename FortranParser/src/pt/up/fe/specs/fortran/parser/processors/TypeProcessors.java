@@ -51,6 +51,9 @@ public class TypeProcessors extends ANodeProcessor {
     }
 
     public void realType(RealType realType) {
-
+        if (attributes(realType).has(FlangName.KIND_SELECTOR)) {
+            var kindSelector = getChild(realType, FlangName.KIND_SELECTOR);
+            realType.addChild(kindSelector);
+        }
     }
 }
