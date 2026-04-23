@@ -35,6 +35,10 @@
         <parameter name="body" type="execution"/>
     </action>
 
+    <action name="setDirective" class="ompConstruct">
+        <parameter name="directive" type="String"/>
+    </action>
+
     <!-- SPECIFICATION -->
     <action name="addUseStmt" class="specification" tooltip="Adds a UseStmt to a specification part. The statement is inserted at the beginning.">
         <parameter name="stmt" type="useStatement"/>

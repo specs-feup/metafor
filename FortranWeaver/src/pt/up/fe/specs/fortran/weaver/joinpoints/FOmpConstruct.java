@@ -3,6 +3,7 @@ package pt.up.fe.specs.fortran.weaver.joinpoints;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.omp.OmpConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpClause;
+import pt.up.fe.specs.fortran.ast.nodes.omp.enums.OmpDirectiveKind;
 import pt.up.fe.specs.fortran.weaver.FortranJoinpoints;
 import pt.up.fe.specs.fortran.weaver.abstracts.joinpoints.AExpr;
 import pt.up.fe.specs.fortran.weaver.abstracts.joinpoints.AOmpClause;
@@ -36,6 +37,11 @@ public class FOmpConstruct extends AOmpConstruct {
                 .toList();
 
         ompConstruct.setClauses(clauseList);
+    }
+
+    @Override
+    public void setDirectiveImpl(String directive) {
+        ompConstruct.set(OmpConstruct.KINDS, OmpDirectiveKind.getKinds(directive));
     }
 
     @Override

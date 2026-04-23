@@ -2615,6 +2615,19 @@
 					},
 					{
 						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setDirective"
+									},
+									{
+										"type": "String",
+										"name": "directive",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
 						"tooltip": "Replaces this node with the given node",
 						"children": [
 									{
@@ -2890,6 +2903,19 @@
 									{
 										"type": "ompClause[]",
 										"name": "clauses",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setDirective"
+									},
+									{
+										"type": "String",
+										"name": "directive",
 										"defaultValue": ""
 									}]
 					},
@@ -3183,6 +3209,19 @@
 									{
 										"type": "ompClause[]",
 										"name": "clauses",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setDirective"
+									},
+									{
+										"type": "String",
+										"name": "directive",
 										"defaultValue": ""
 									}]
 					},
