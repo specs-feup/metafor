@@ -98,6 +98,10 @@ export class Joinpoint extends LaraJoinPoint {
    */
   getAncestor(type: string): Joinpoint { return wrapJoinPoint(this._javaObject.getAncestor(unwrapJoinPoint(type))); }
   /**
+   * Removes node associated to the joinpoint from the AST
+   */
+  detach(): Joinpoint { return wrapJoinPoint(this._javaObject.detach()); }
+  /**
    * Replaces this node with the given node
    */
   replaceWith(node: Joinpoint): Joinpoint { return wrapJoinPoint(this._javaObject.replaceWith(unwrapJoinPoint(node))); }
