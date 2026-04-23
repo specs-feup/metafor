@@ -1,135 +1,136 @@
 {
   "nodes": [
     {
-      "id": "0x5580550e7cc0-Program",
+      "id": "0x55d37b96ecc0-Program",
       "ProgramUnit": [
-        "0x558055110550-ProgramUnit"
+        "0x55d37b997550-ProgramUnit"
       ]
     },
     {
-      "id": "0x558055110550-ProgramUnit",
+      "id": "0x55d37b997550-ProgramUnit",
       "variantKey": "MainProgram",
-      "MainProgram": "0x558055113560-MainProgram"
+      "MainProgram": "0x55d37b99a560-MainProgram"
     },
     {
-      "id": "0x558055113560-MainProgram",
-      "Statement<ProgramStmt>": "0x5580551136a8-Statement",
-      "SpecificationPart": "0x558055113600-SpecificationPart",
-      "ExecutionPart": "0x5580551135e8-ExecutionPart",
-      "Statement<EndProgramStmt>": "0x558055113560-Statement"
+      "id": "0x55d37b99a560-MainProgram",
+      "Statement<ProgramStmt>": "0x55d37b99a6a8-Statement",
+      "SpecificationPart": "0x55d37b99a600-SpecificationPart",
+      "ExecutionPart": "0x55d37b99a5e8-ExecutionPart",
+      "Statement<EndProgramStmt>": "0x55d37b99a560-Statement"
     },
     {
-      "id": "0x5580551136a8-Statement",
-      "statement": "0x5580551136b8-ProgramStmt",
+      "id": "0x55d37b99a6a8-Statement",
+      "statement": "0x55d37b99a6b8-ProgramStmt",
       "source": "program negate"
     },
     {
-      "id": "0x5580551136b8-ProgramStmt",
-      "Name": "0x5580551136b8-Name"
+      "id": "0x55d37b99a6b8-ProgramStmt",
+      "Name": "0x55d37b99a6b8-Name"
     },
     {
-      "id": "0x5580551136b8-Name",
+      "id": "0x55d37b99a6b8-Name",
       "source": "negate"
     },
     {
-      "id": "0x558055113600-SpecificationPart",
-      "ImplicitPart": "0x558055113618-ImplicitPart",
+      "id": "0x55d37b99a600-SpecificationPart",
+      "ImplicitPart": "0x55d37b99a618-ImplicitPart",
       "DeclarationConstruct": [
-        "0x5580550ee240-DeclarationConstruct"
+        "0x55d37b975240-DeclarationConstruct"
       ]
     },
     {
-      "id": "0x558055113618-ImplicitPart"
+      "id": "0x55d37b99a618-ImplicitPart"
     },
     {
-      "id": "0x5580550ee240-DeclarationConstruct",
+      "id": "0x55d37b975240-DeclarationConstruct",
       "variantKey": "SpecificationConstruct",
-      "SpecificationConstruct": "0x5580550ee240-SpecificationConstruct"
+      "SpecificationConstruct": "0x55d37b975240-SpecificationConstruct"
     },
     {
-      "id": "0x5580550ee240-SpecificationConstruct",
+      "id": "0x55d37b975240-SpecificationConstruct",
       "variantKey": "Statement",
-      "Statement<TypeDeclarationStmt>": "0x5580550ee240-Statement"
+      "Statement<TypeDeclarationStmt>": "0x55d37b975240-Statement"
     },
     {
-      "id": "0x5580550ee240-Statement",
-      "statement": "0x5580551114e0-TypeDeclarationStmt",
+      "id": "0x55d37b975240-Statement",
+      "statement": "0x55d37b9984e0-TypeDeclarationStmt",
       "source": "integer :: a = -10"
     },
     {
-      "id": "0x5580551114e0-TypeDeclarationStmt",
-      "DeclarationTypeSpec": "0x558055111510-DeclarationTypeSpec",
+      "id": "0x55d37b9984e0-TypeDeclarationStmt",
+      "DeclarationTypeSpec": "0x55d37b998510-DeclarationTypeSpec",
       "EntityDecl": [
-        "0x558055111eb0-EntityDecl"
+        "0x55d37b998eb0-EntityDecl"
       ]
     },
     {
-      "id": "0x558055111510-DeclarationTypeSpec",
+      "id": "0x55d37b998510-DeclarationTypeSpec",
       "variantKey": "IntrinsicTypeSpec",
-      "IntrinsicTypeSpec": "0x558055111510-IntrinsicTypeSpec"
+      "IntrinsicTypeSpec": "0x55d37b998510-IntrinsicTypeSpec"
     },
     {
-      "id": "0x558055111510-IntrinsicTypeSpec",
+      "id": "0x55d37b998510-IntrinsicTypeSpec",
       "variantKey": "IntegerTypeSpec",
-      "IntegerTypeSpec": "0x558055111510-IntegerTypeSpec"
+      "IntegerTypeSpec": "0x55d37b998510-IntegerTypeSpec"
     },
     {
-      "id": "0x558055111510-IntegerTypeSpec"
+      "id": "0x55d37b998510-IntegerTypeSpec"
     },
     {
-      "id": "0x558055111eb0-EntityDecl",
-      "Name": "0x558055111f68-Name",
-      "Initialization": "0x558055111eb0-Initialization"
+      "id": "0x55d37b998eb0-EntityDecl",
+      "Name": "0x55d37b998f68-Name",
+      "Initialization": "0x55d37b998eb0-Initialization"
     },
     {
-      "id": "0x558055111f68-Name",
+      "id": "0x55d37b998f68-Name",
       "source": "a"
     },
     {
-      "id": "0x558055111eb0-Initialization",
+      "id": "0x55d37b998eb0-Initialization",
       "variantKey": "Expr",
-      "Expr": "0x558055111dc0-Expr"
+      "Expr": "0x55d37b998dc0-Expr"
     },
     {
-      "id": "0x558055111dc0-Expr",
+      "id": "0x55d37b998dc0-Expr",
       "variantKey": "Negate",
-      "Negate": "0x558055111de0-Negate"
+      "Negate": "0x55d37b998de0-Negate"
     },
     {
-      "id": "0x558055111de0-Negate",
-      "Expr": "0x5580550c0040-Expr"
+      "id": "0x55d37b998de0-Negate",
+      "Expr": "0x55d37b947040-Expr",
+      "op": "NEGATE"
     },
     {
-      "id": "0x5580550c0040-Expr",
+      "id": "0x55d37b947040-Expr",
       "variantKey": "LiteralConstant",
-      "LiteralConstant": "0x5580550c0060-LiteralConstant"
+      "LiteralConstant": "0x55d37b947060-LiteralConstant"
     },
     {
-      "id": "0x5580550c0060-LiteralConstant",
+      "id": "0x55d37b947060-LiteralConstant",
       "variantKey": "IntLiteralConstant",
-      "IntLiteralConstant": "0x5580550c0060-IntLiteralConstant"
+      "IntLiteralConstant": "0x55d37b947060-IntLiteralConstant"
     },
     {
-      "id": "0x5580550c0060-IntLiteralConstant",
+      "id": "0x55d37b947060-IntLiteralConstant",
       "CharBlock": "10"
     },
     {
-      "id": "0x5580551135e8-ExecutionPart"
+      "id": "0x55d37b99a5e8-ExecutionPart"
     },
     {
-      "id": "0x5580551135e8-list"
+      "id": "0x55d37b99a5e8-list"
     },
     {
-      "id": "0x558055113560-Statement",
-      "statement": "0x558055113570-EndProgramStmt",
+      "id": "0x55d37b99a560-Statement",
+      "statement": "0x55d37b99a570-EndProgramStmt",
       "source": "end program negate"
     },
     {
-      "id": "0x558055113570-EndProgramStmt",
-      "Name": "0x558055113570-Name"
+      "id": "0x55d37b99a570-EndProgramStmt",
+      "Name": "0x55d37b99a570-Name"
     },
     {
-      "id": "0x558055113570-Name",
+      "id": "0x55d37b99a570-Name",
       "source": "negate"
     }
   ],
