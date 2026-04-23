@@ -397,6 +397,7 @@ export class OmpConstruct extends ExecutableStatement {
    * Sets the construct's clauses
    */
   setClauses(clauses: OmpClause[]): void { return wrapJoinPoint(this._javaObject.setClauses(unwrapJoinPoint(clauses))); }
+  setDirective(directive: string): void { return wrapJoinPoint(this._javaObject.setDirective(unwrapJoinPoint(directive))); }
 }
 
   /**
@@ -502,6 +503,7 @@ export class OmpBlockConstruct extends OmpConstruct {
   static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
     name: null,
   };
+  setBody(body: Execution): void { return wrapJoinPoint(this._javaObject.setBody(unwrapJoinPoint(body))); }
 }
 
   /**
