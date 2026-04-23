@@ -413,6 +413,18 @@ public class FortranParserTest {
     }
 
     @Test
+    void testNegate() {
+        testJson("expr/negate.json");
+    }
+
+    @Test
+    void testNegateNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("expr/negate.f90");
+        }
+    }
+
+    @Test
     void testFujitsu0000_0000() {
         testJson("fujitsu/0000/0000_0000.json");
     }
