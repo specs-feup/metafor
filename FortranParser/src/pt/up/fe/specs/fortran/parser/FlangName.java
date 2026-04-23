@@ -139,6 +139,7 @@ public enum FlangName implements StringProvider {
     OMP_BEGIN_DIRECTIVE,
     OMP_BLOCK_DIRECTIVE,
     OMP_BEGIN_LOOP_DIRECTIVE,
+    OMP_END_LOOP_DIRECTIVE,
     OMP_LOOP_DIRECTIVE,
     SHARED,
     PRIVATE,
@@ -151,6 +152,7 @@ public enum FlangName implements StringProvider {
     REDUCTION,
     OMP_DIRECTIVE_NAME,
     MODIFIER,
+    NOWAIT,
 
     // ATTRIBUTES
     DEFERRED_SHAPE_SPEC_LIST,

@@ -4,6 +4,7 @@ import pt.up.fe.specs.fortran.ast.nodes.expr.enums.BinaryOperatorKind;
 import pt.up.fe.specs.fortran.ast.nodes.omp.OmpBlockConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.omp.OmpLoopConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpDataSharingClause;
+import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpNowaitClause;
 import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpReductionClause;
 import pt.up.fe.specs.fortran.ast.nodes.omp.enums.OmpClauseKind;
 import pt.up.fe.specs.fortran.ast.nodes.omp.enums.OmpDirectiveKind;
@@ -36,6 +37,7 @@ public class OmpProcessors extends ANodeProcessor {
     public void ompLoopConstruct(OmpLoopConstruct ompLoopConstruct) {
         String directive = attributes().getString(ompLoopConstruct, "directive", FlangName.OMP_BEGIN_LOOP_DIRECTIVE, FlangName.OMP_DIRECTIVE_NAME);
         String clauseList = attributes().getString(ompLoopConstruct, "id", FlangName.OMP_BEGIN_LOOP_DIRECTIVE, FlangName.OMP_CLAUSE_LIST);
+        String endClauseList = attributes().getString(ompLoopConstruct, "id", FlangName.OMP_END_LOOP_DIRECTIVE, FlangName.OMP_CLAUSE_LIST);
 
         List<OmpDirectiveKind> kinds = OmpDirectiveKind.getKinds(directive);
 
@@ -45,6 +47,7 @@ public class OmpProcessors extends ANodeProcessor {
         ompLoopConstruct.addChild(loop);
 
         if (attributes().get(clauseList).has(FlangName.OMP_CLAUSE)) ompLoopConstruct.addChildren(getChildren(clauseList, FlangName.OMP_CLAUSE));
+        if (attributes().get(endClauseList).has(FlangName.OMP_CLAUSE)) ompLoopConstruct.addChildren(getChildren(endClauseList, FlangName.OMP_CLAUSE));
     }
 
     public void ompDataSharingClause(OmpDataSharingClause ompDataSharingClause) {
@@ -72,5 +75,9 @@ public class OmpProcessors extends ANodeProcessor {
 
         ompReductionClause.set(OmpReductionClause.OPERATOR, BinaryOperatorKind.valueOf(operator.toUpperCase()));
         ompReductionClause.set(OmpReductionClause.KIND, OmpClauseKind.REDUCTION);
+    }
+
+    public void ompNowaitClause(OmpNowaitClause ompNowaitClause) {
+        ompNowaitClause.set(OmpNowaitClause.KIND, OmpClauseKind.NO_WAIT);
     }
 }
