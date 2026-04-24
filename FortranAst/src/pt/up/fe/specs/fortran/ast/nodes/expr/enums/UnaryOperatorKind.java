@@ -5,7 +5,7 @@ import pt.up.fe.specs.util.providers.StringProvider;
 public enum UnaryOperatorKind implements StringProvider {
     NEGATE("-"),
     UNARY_PLUS("+"),
-    NOT(".not.");
+    NOT(".not. ");
 
     UnaryOperatorKind(String opString) {
         this.opString = opString;

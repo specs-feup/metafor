@@ -95,7 +95,7 @@ public enum FlangName implements StringProvider {
     PARENTHESES,
     UNARY_PLUS,
     NEGATE,
-    NOT,
+    NOT("NOT"),
     ADD,
     SUBTRACT,
     MULTIPLY,
