@@ -425,6 +425,42 @@ public class FortranParserTest {
     }
 
     @Test
+    void testParenteses() {
+        testJson("expr/parentheses.json");
+    }
+
+    @Test
+    void testParentesesNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("expr/parentheses.f90");
+        }
+    }
+
+    @Test
+    void testUnaryPlus() {
+        testJson("expr/unary_plus.json");
+    }
+
+    @Test
+    void testUnaryPlusNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("expr/unary_plus.f90");
+        }
+    }
+
+    @Test
+    void testNot() {
+        testJson("expr/not.json");
+    }
+
+    @Test
+    void testNotNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("expr/not.f90");
+        }
+    }
+
+    @Test
     void testFujitsu0000_0000() {
         testJson("fujitsu/0000/0000_0000.json");
     }
