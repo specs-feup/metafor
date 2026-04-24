@@ -85,7 +85,9 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.FORMAT, Format.class);
         NAME_TO_CLASS.put(FlangName.STAR, Star.class);
         NAME_TO_CLASS.put(FlangName.PARENTHESES, ParenExpr.class);
+        NAME_TO_CLASS.put(FlangName.UNARY_PLUS, UnaryOperator.class);
         NAME_TO_CLASS.put(FlangName.NEGATE, UnaryOperator.class);
+        NAME_TO_CLASS.put(FlangName.NOT, UnaryOperator.class);
         NAME_TO_CLASS.put(FlangName.ADD, BinaryOperator.class);
         NAME_TO_CLASS.put(FlangName.SUBTRACT, BinaryOperator.class);
         NAME_TO_CLASS.put(FlangName.MULTIPLY, BinaryOperator.class);
