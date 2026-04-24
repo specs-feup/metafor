@@ -19,6 +19,10 @@ public class ExprProcessors extends ANodeProcessor {
 
     public void intLiteral(IntLiteral intLiteral) {
         intLiteral.set(StringLiteral.SOURCE_LITERAL, attributes().getString(intLiteral, "CharBlock"));
+
+        if (attributes(intLiteral).has(FlangName.KIND_PARAM)) {
+            intLiteral.setOptional(IntLiteral.KIND_PARAM, attributes().getString(intLiteral, "uint64_t", FlangName.KIND_PARAM));
+        }
     }
 
     public void logicalLiteral(LogicalLiteral logicalLiteral) {
