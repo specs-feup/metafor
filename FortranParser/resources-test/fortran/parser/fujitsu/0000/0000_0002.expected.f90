@@ -9,7 +9,7 @@ a1 = 1
 a2 = b1
 b2 = a1
 
-IF ((a2 - b2) .ne. 0) THEN
+IF ((a2 - b2) /= 0) THEN
     ok = .false.
     PRINT *, "TEST1-NG =>", a2 - b2
 END IF
@@ -19,7 +19,7 @@ a1 = -1
 a2 = b1
 b2 = a1
 
-IF ((a2 - b2) .ne. 0) THEN
+IF ((a2 - b2) /= 0) THEN
     ok = .false.
     PRINT *, "TEST2-NG =>", a2 - b2
 END IF
