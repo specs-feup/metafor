@@ -1,6 +1,6 @@
-integer*1 :: a1, a2
-real*4 :: b1, b2
-logical :: ok
+integer*1 a1, a2
+real*4    b1, b2
+logical   ok
 
 ok = .true.
 
@@ -9,23 +9,23 @@ a1 = 1
 a2 = b1
 b2 = a1
 
-IF ((a2 - b2) .ne. 0) THEN
+if ((a2-b2) .ne. 0) then
     ok = .false.
-    PRINT *, "TEST1-NG =>", a2 - b2
-END IF
+    print *,"TEST1-NG =>",a2-b2
+endif
 
 b1 = -1.1
 a1 = -1
 a2 = b1
 b2 = a1
 
-IF ((a2 - b2) .ne. 0) THEN
+if ((a2-b2) .ne. 0) then
     ok = .false.
-    PRINT *, "TEST2-NG =>", a2 - b2
-END IF
+    print *,"TEST2-NG =>",a2-b2
+endif
 
-IF (ok) THEN
-    PRINT *, "OK"
-END IF
+if (ok) then
+    print *,"OK"
+endif
 
-END
+end
