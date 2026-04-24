@@ -1,3 +1,3 @@
 PROGRAM not
-    logical :: a = .not. .true.;
+    logical :: a = .not. .true.
 END PROGRAM not
