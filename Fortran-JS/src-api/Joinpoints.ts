@@ -70,6 +70,10 @@ export class Joinpoint extends LaraJoinPoint {
    */
   get descendants(): Joinpoint[] { return wrapJoinPoint(this._javaObject.getDescendants()) }
   /**
+   * Returns the index of this join point in relation to its parent
+   */
+  get indexOfSelf(): number { return wrapJoinPoint(this._javaObject.getIndexOfSelf()) }
+  /**
    * Returns the node that came before this node, or undefined if there is none
    */
   get leftJp(): Joinpoint { return wrapJoinPoint(this._javaObject.getLeftJp()) }

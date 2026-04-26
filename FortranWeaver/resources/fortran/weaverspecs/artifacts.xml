@@ -32,6 +32,8 @@
                    tooltip="true if the given node is a descendant of this node">
             <parameter name="jp" type="joinpoint"/>
         </attribute>
+
+        <attribute name="indexOfSelf" type="int" tooltip="Returns the index of this join point in relation to its parent"/>
     </global>
 
     <!-- PROGRAM -->

@@ -163,4 +163,9 @@ public abstract class AFortranWeaverJoinPoint extends AJoinPoint {
     public AJoinPoint getRightJpImpl() {
         return getNode().getRight().map(FortranJoinpoints::create).orElse(null);
     }
+
+    @Override
+    public Integer getIndexOfSelfImpl() {
+        return getNode().indexOfSelf();
+    }
 }
