@@ -46,4 +46,13 @@
     <action name="addUseStmt" class="specification" tooltip="Adds a UseStmt to a specification part. The statement is inserted at the beginning.">
         <parameter name="stmt" type="useStatement"/>
     </action>
+
+    <!-- EXECUTION -->
+    <action name="insertBegin" class="execution">
+        <parameter name="stmt" type="executableStatement"/>
+    </action>
+
+    <action name="insertEnd" class="execution">
+        <parameter name="stmt" type="executableStatement"/>
+    </action>
 </actions>

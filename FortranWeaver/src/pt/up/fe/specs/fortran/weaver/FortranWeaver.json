@@ -1735,6 +1735,32 @@
 					},
 					{
 						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "insertBegin"
+									},
+									{
+										"type": "executableStatement",
+										"name": "stmt",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "insertEnd"
+									},
+									{
+										"type": "executableStatement",
+										"name": "stmt",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
 						"tooltip": "Removes node associated to the joinpoint from the AST",
 						"children": [
 									{
