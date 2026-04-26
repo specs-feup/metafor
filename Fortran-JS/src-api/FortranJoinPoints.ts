@@ -45,4 +45,8 @@ export default class FortranJoinPoints {
             flattenArgsArray(stmts).map(unwrapJoinPoint)
         ));
     }
+
+    static ompOrderedClause(value: number): Joinpoints.OmpOrderedClause {
+        return wrapJoinPoint(FortranJavaTypes.AstFactory.ompOrderedClause(value));
+    }
 }

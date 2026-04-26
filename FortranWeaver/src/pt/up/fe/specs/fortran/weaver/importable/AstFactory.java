@@ -71,4 +71,8 @@ public class AstFactory {
 
         return FortranJoinpoints.create(FortranWeaver.getFactory().execution(stmts), AExecution.class);
     }
+
+    public static AOmpOrderedClause ompOrderedClause(int value) {
+        return FortranJoinpoints.create(FortranWeaver.getFactory().ompOrderedClause(value), AOmpOrderedClause.class);
+    }
 }

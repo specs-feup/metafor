@@ -18,6 +18,7 @@ type PrivateMapper = {
   "NameValue": typeof NameValue,
   "OmpClause": typeof OmpClause,
   "OmpDataSharingClause": typeof OmpDataSharingClause,
+  "OmpOrderedClause": typeof OmpOrderedClause,
   "OmpReductionClause": typeof OmpReductionClause,
   "Program": typeof Program,
   "ProgramUnit": typeof ProgramUnit,
@@ -205,6 +206,15 @@ export class OmpDataSharingClause extends OmpClause {
   };
 }
 
+export class OmpOrderedClause extends OmpClause {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+}
+
 export class OmpReductionClause extends OmpClause {
   /**
    * @internal
@@ -369,6 +379,8 @@ export class Execution extends StatementBlock {
     name: null,
   };
   get executableStmts(): ExecutableStatement[] { return wrapJoinPoint(this._javaObject.getExecutableStmts()) }
+  insertBegin(stmt: ExecutableStatement): void { return wrapJoinPoint(this._javaObject.insertBegin(unwrapJoinPoint(stmt))); }
+  insertEnd(stmt: ExecutableStatement): void { return wrapJoinPoint(this._javaObject.insertEnd(unwrapJoinPoint(stmt))); }
 }
 
 export class IntLiteral extends Literal {
@@ -537,6 +549,7 @@ const JoinpointMapper = {
   nameValue: NameValue,
   ompClause: OmpClause,
   ompDataSharingClause: OmpDataSharingClause,
+  ompOrderedClause: OmpOrderedClause,
   ompReductionClause: OmpReductionClause,
   program: Program,
   programUnit: ProgramUnit,

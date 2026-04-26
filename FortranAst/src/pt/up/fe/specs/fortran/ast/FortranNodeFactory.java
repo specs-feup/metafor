@@ -5,6 +5,7 @@ import org.suikasoft.jOptions.storedefinition.StoreDefinitions;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.decl.LabelDecl;
 import pt.up.fe.specs.fortran.ast.nodes.expr.DataRef;
+import pt.up.fe.specs.fortran.ast.nodes.expr.IntLiteral;
 import pt.up.fe.specs.fortran.ast.nodes.expr.Literal;
 import pt.up.fe.specs.fortran.ast.nodes.expr.StringLiteral;
 import pt.up.fe.specs.fortran.ast.nodes.expr.enums.BinaryOperatorKind;
@@ -12,6 +13,7 @@ import pt.up.fe.specs.fortran.ast.nodes.omp.OmpBlockConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.omp.OmpLoopConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpClause;
 import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpDataSharingClause;
+import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpOrderedClause;
 import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpReductionClause;
 import pt.up.fe.specs.fortran.ast.nodes.omp.enums.OmpClauseKind;
 import pt.up.fe.specs.fortran.ast.nodes.omp.enums.OmpDirectiveKind;
@@ -264,6 +266,28 @@ public class FortranNodeFactory {
         newNode.set(OmpReductionClause.KIND, OmpClauseKind.REDUCTION);
 
         newNode.set(OmpReductionClause.OPERATOR, operator);
+
+        return newNode;
+    }
+
+    public IntLiteral intLiteral(int value) {
+        DataStore data = newDataStore(IntLiteral.class);
+
+        IntLiteral newNode = new IntLiteral(data, Collections.emptyList());
+
+        newNode.set(IntLiteral.SOURCE_LITERAL, Integer.toString(value));
+
+        return newNode;
+    }
+
+    public OmpOrderedClause ompOrderedClause(int value) {
+        DataStore data = newDataStore(OmpOrderedClause.class);
+
+        OmpOrderedClause newNode = new OmpOrderedClause(data, Collections.emptyList());
+
+        newNode.set(OmpOrderedClause.KIND, OmpClauseKind.ORDERED);
+
+        newNode.addChild(intLiteral(value));
 
         return newNode;
     }
