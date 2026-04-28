@@ -131,4 +131,10 @@
     <artifact class="ompConstruct">
         <attribute name="clauses" type="ompClause[]"/>
     </artifact>
+
+    <!-- CONDITIONALS -->
+    <artifact class="ifStatement">
+        <attribute name="condition" type="expr"/>
+        <attribute name="statement" type="actionStatement"/>
+    </artifact>
 </artifacts>

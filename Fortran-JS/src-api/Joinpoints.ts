@@ -43,6 +43,7 @@ type PrivateMapper = {
   "CompilerDirective": typeof CompilerDirective,
   "DataRef": typeof DataRef,
   "DoStatement": typeof DoStatement,
+  "IfStatement": typeof IfStatement,
   "OmpBlockConstruct": typeof OmpBlockConstruct,
   "ArraySubscriptExpr": typeof ArraySubscriptExpr,
 };
@@ -513,6 +514,17 @@ export class DoStatement extends ExecutableStatement {
   get control(): LoopControl { return wrapJoinPoint(this._javaObject.getControl()) }
 }
 
+export class IfStatement extends ActionStatement {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+  get condition(): Expr { return wrapJoinPoint(this._javaObject.getCondition()) }
+  get statement(): ActionStatement { return wrapJoinPoint(this._javaObject.getStatement()) }
+}
+
   /**
    * Represents an OpenMP block construct (such as parallel or task)
    */
@@ -574,6 +586,7 @@ const JoinpointMapper = {
   compilerDirective: CompilerDirective,
   dataRef: DataRef,
   doStatement: DoStatement,
+  ifStatement: IfStatement,
   ompBlockConstruct: OmpBlockConstruct,
   arraySubscriptExpr: ArraySubscriptExpr,
 };
