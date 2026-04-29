@@ -1,3 +1,3 @@
 PROGRAM negate
-    integer :: a = -10
+    INTEGER :: a = -10
 END PROGRAM negate

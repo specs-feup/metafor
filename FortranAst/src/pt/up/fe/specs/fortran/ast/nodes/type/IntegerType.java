@@ -1,6 +1,7 @@
 package pt.up.fe.specs.fortran.ast.nodes.type;
 
 import org.suikasoft.jOptions.Interfaces.DataStore;
+import pt.up.fe.specs.fortran.ast.FortranKeyword;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.decl.KindSelector;
 
@@ -21,6 +22,6 @@ public class IntegerType extends IntrinsicType {
 
     @Override
     public String getCode() {
-        return "integer" + getKindSelector().map(FortranNode::getCode).orElse("");
+        return keyword(FortranKeyword.INTEGER) + getKindSelector().map(FortranNode::getCode).orElse("");
     }
 }

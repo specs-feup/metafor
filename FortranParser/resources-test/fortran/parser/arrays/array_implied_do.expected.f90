@@ -1,9 +1,9 @@
 PROGRAM test_implied_do
-    integer :: i, j
-    integer, dimension(5) :: arr1, arr2, arr3
-    integer, dimension(10) :: arr4, arr5
-    integer, dimension(9) :: arr6
-    integer, dimension(15) :: arr7
+    INTEGER :: i, j
+    INTEGER, DIMENSION(5) :: arr1, arr2, arr3
+    INTEGER, DIMENSION(10) :: arr4, arr5
+    INTEGER, DIMENSION(9) :: arr6
+    INTEGER, DIMENSION(15) :: arr7
 
     arr1 = [(i, i = 1, 5)]
 
@@ -13,7 +13,7 @@ PROGRAM test_implied_do
 
     arr4 = [0, (i, i = 1, 8), 99]
 
-    arr5 = [integer :: (i * 2, i = 1, 10)]
+    arr5 = [INTEGER :: (i * 2, i = 1, 10)]
 
     arr6 = [((i + j, i = 1, 3), j = 1, 3)]
 

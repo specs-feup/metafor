@@ -1,6 +1,6 @@
-integer*2 :: a1, a2
-real*4 :: b1, b2
-logical :: ok
+INTEGER*2 :: a1, a2
+REAL*4 :: b1, b2
+LOGICAL :: ok
 
 ok = .true.
 

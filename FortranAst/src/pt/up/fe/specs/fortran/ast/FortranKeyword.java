@@ -17,6 +17,14 @@ public enum FortranKeyword {
     CASE,
     DEFAULT,
 
+    // Types
+    INTEGER,
+    REAL,
+    CHARACTER,
+    LOGICAL,
+    DOUBLE,
+    PRECISION,
+    DIMENSION,
     ;
 
     public String getKeyword(boolean lowercase) {
