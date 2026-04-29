@@ -1,5 +1,5 @@
 PROGRAM SIMPLE_LOOP
-    integer :: i, dummy, a = 2
+    INTEGER :: i, dummy, a = 2
 
     DO i = 1, 5, a
         dummy = 3
@@ -10,7 +10,7 @@ PROGRAM SIMPLE_LOOP
         dummy = 2
     END DO
 
-    name: DO
+    name : DO
         dummy = 4
     END DO name
 

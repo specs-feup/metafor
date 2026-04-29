@@ -19,7 +19,17 @@ public enum FortranKeyword {
     CASE,
     DEFAULT,
 
-    OMP;
+    // Types
+    INTEGER,
+    REAL,
+    CHARACTER,
+    LOGICAL,
+    DOUBLE,
+    PRECISION,
+    DIMENSION,
+
+    OMP
+    ;
 
     public String getKeyword(boolean lowercase) {
         var keyword = name();

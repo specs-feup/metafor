@@ -1,6 +1,7 @@
 package pt.up.fe.specs.fortran.ast.nodes.type;
 
 import org.suikasoft.jOptions.Interfaces.DataStore;
+import pt.up.fe.specs.fortran.ast.FortranKeyword;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 
 import java.util.Collection;
@@ -17,6 +18,6 @@ public class CharacterType extends IntrinsicType {
 
     @Override
     public String getCode() {
-        return "character" + getSelector().map(CharSelector::getCode).orElse("");
+        return keyword(FortranKeyword.CHARACTER) + getSelector().map(CharSelector::getCode).orElse("");
     }
 }

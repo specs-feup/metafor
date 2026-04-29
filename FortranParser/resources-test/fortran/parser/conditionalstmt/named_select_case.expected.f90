@@ -1,8 +1,8 @@
 PROGRAM NAMED_SELECT_CASE
-    integer :: val, result
+    INTEGER :: val, result
 
     val = 2
-    named_select: SELECT CASE (val)
+    named_select : SELECT CASE (val)
     CASE (1) named_select
         result = 10
     CASE (2) named_select
