@@ -1,4 +1,4 @@
-PROGRAM if
+PROGRAM IF
   logical :: cond
   cond = .false.
 
@@ -7,4 +7,4 @@ PROGRAM if
   ELSE
     PRINT *, "cond is false"
   END IF
-END PROGRAM if
+END PROGRAM IF

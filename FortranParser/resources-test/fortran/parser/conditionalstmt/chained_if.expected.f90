@@ -1,4 +1,4 @@
-PROGRAM if
+PROGRAM IF
   logical :: cond1, cond2
   cond1 = .false.
   cond2 = .true.
@@ -10,4 +10,4 @@ PROGRAM if
   ELSE
     PRINT *, "both conditions are false"
   END IF
-END PROGRAM if
+END PROGRAM IF
