@@ -1,4 +1,4 @@
-PROGRAM openmp_demo
+PROGRAM OPENMP_DEMO
     USE omp_lib
 
     integer :: total_sum
@@ -7,4 +7,4 @@ PROGRAM openmp_demo
         total_sum = total_sum + 1
     !$OMP END PARALLEL
 
-END PROGRAM openmp_demo
+END PROGRAM OPENMP_DEMO
