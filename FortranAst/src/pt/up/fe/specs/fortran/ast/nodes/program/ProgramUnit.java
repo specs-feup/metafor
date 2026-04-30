@@ -14,6 +14,10 @@ public abstract class ProgramUnit extends FortranNode {
         super(data, children);
     }
 
+    public Specification getSpecification() {
+        return getChild(Specification.class);
+    }
+
     public String getBodyCode() {
         /*
         // Write code of the children, indented

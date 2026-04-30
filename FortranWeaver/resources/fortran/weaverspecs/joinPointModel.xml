@@ -52,9 +52,23 @@
 
     <joinpoint class="ompConstruct" tooltip="Represents a generic OpenMP construct" extends="executableStatement"/>
 
+    <joinpoint class="ompBlockConstruct" tooltip="Represents an OpenMP block construct (such as parallel or task)" extends="ompConstruct"/>
+
     <joinpoint class="ompLoopConstruct" tooltip="Represents an OpenMP loop construct (such as do or do parallel)" extends="ompConstruct"/>
 
     <joinpoint class="ompClause" tooltip="Represents an OpenMP clause"/>
 
     <joinpoint class="ompDataSharingClause" tooltip="Represents an OpenMP datasharing clause (public, private, ...)" extends="ompClause"/>
+
+    <joinpoint class="ompReductionClause" extends="ompClause"/>
+
+    <joinpoint class="ompOrderedClause" extends="ompClause"/>
+
+    <joinpoint class="useStatement" extends="statement"/>
+
+    <joinpoint class="programUnit"/>
+
+    <joinpoint class="mainProgram" extends="programUnit"/>
+
+    <joinpoint class="subroutine" extends="programUnit"/>
 </joinpoints>

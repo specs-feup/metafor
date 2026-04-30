@@ -18,6 +18,12 @@ public class OmpBlockConstruct extends OmpConstruct {
         return getChild(Execution.class);
     }
 
+    public Execution setBody(Execution body) {
+        removeChildren(Execution.class);
+
+        return (Execution) addChild(body);
+    }
+
     @Override
     public String getCode() {
         var code = new StringBuilder();

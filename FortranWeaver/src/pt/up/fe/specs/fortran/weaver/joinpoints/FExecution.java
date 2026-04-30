@@ -28,6 +28,16 @@ public class FExecution extends AExecution {
     }
 
     @Override
+    public void insertBeginImpl(AExecutableStatement stmt) {
+        execution.addChild(0, stmt.getNode());
+    }
+
+    @Override
+    public void insertEndImpl(AExecutableStatement stmt) {
+        execution.addChild(stmt.getNode());
+    }
+
+    @Override
     public FortranNode getNode() {
         return execution;
     }

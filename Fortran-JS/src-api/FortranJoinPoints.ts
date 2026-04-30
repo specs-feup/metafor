@@ -24,4 +24,29 @@ export default class FortranJoinPoints {
     static dataRef(name: string): Joinpoints.DataRef {
         return wrapJoinPoint(FortranJavaTypes.AstFactory.dataRef(name));
     }
+
+    static useStatement(moduleName: string): Joinpoints.UseStatement {
+        return wrapJoinPoint(FortranJavaTypes.AstFactory.useStatement(moduleName));
+    }
+
+    static ompReductionClause(operator: string, dataRefs: Joinpoints.DataRef[]): Joinpoints.OmpReductionClause {
+        return wrapJoinPoint(FortranJavaTypes.AstFactory.ompReductionClause(
+            operator,
+            flattenArgsArray(dataRefs).map(unwrapJoinPoint)
+        ));
+    }
+
+    static emptyOmpBlockConstruct(): Joinpoints.OmpBlockConstruct {
+        return wrapJoinPoint(FortranJavaTypes.AstFactory.emptyOmpBlockConstruct());
+    }
+
+    static execution(stmts: Joinpoints.ExecutableStatement[]): Joinpoints.Execution {
+        return wrapJoinPoint(FortranJavaTypes.AstFactory.execution(
+            flattenArgsArray(stmts).map(unwrapJoinPoint)
+        ));
+    }
+
+    static ompOrderedClause(value: number): Joinpoints.OmpOrderedClause {
+        return wrapJoinPoint(FortranJavaTypes.AstFactory.ompOrderedClause(value));
+    }
 }

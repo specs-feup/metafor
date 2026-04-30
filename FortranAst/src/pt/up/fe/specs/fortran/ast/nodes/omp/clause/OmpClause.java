@@ -15,4 +15,9 @@ public abstract class OmpClause extends FortranNode {
     public OmpClause(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
     }
+
+    @Override
+    public String getCode() {
+        return get(KIND).getCode();
+    }
 }

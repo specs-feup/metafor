@@ -52,6 +52,8 @@ public enum FlangName implements StringProvider {
     ALLOCATE_STMT,
     DEALLOCATE_STMT,
     USE_STMT,
+    CONTINUE_STMT,
+    PARAMETER_STMT,
 
     /// Conditional Statements
     IF_CONSTRUCT,
@@ -132,11 +134,12 @@ public enum FlangName implements StringProvider {
 
     /// OPENMP
     OPENMP_CONSTRUCT("OpenMPConstruct"),
-    OPENMP_BLOCK_CONSTRUCT("OpenMPBlockConstruct"),
+    OMP_BLOCK_CONSTRUCT,
     OPENMP_LOOP_CONSTRUCT("OpenMPLoopConstruct"),
-    OMP_BEGIN_BLOCK_DIRECTIVE,
+    OMP_BEGIN_DIRECTIVE,
     OMP_BLOCK_DIRECTIVE,
     OMP_BEGIN_LOOP_DIRECTIVE,
+    OMP_END_LOOP_DIRECTIVE,
     OMP_LOOP_DIRECTIVE,
     SHARED,
     PRIVATE,
@@ -145,6 +148,11 @@ public enum FlangName implements StringProvider {
     OMP_OBJECT_LIST,
     OMP_CLAUSE,
     OMP_CLAUSE_LIST,
+    OMP_REDUCTION_CLAUSE,
+    REDUCTION,
+    OMP_DIRECTIVE_NAME,
+    MODIFIER,
+    NOWAIT,
 
     // ATTRIBUTES
     DEFERRED_SHAPE_SPEC_LIST,
@@ -163,7 +171,9 @@ public enum FlangName implements StringProvider {
     NAME_VALUE,
     ALLOCATE_OBJECT,
     ALLOC_OPT,
-    STAT_VARIABLE;
+    STAT_VARIABLE,
+    NAMED_CONSTANT,
+    NAMED_CONSTANT_DEF;
 
     private static final Lazy<EnumHelper<FlangName>> HELPER = EnumHelper.newLazyHelper(FlangName.class);
 

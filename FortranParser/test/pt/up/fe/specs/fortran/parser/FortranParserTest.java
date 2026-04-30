@@ -329,6 +329,18 @@ public class FortranParserTest {
     }
 
     @Test
+    void testOmpReduction() {
+        testJson("omp/omp_reduction.json");
+    }
+
+    @Test
+    void testOmpReductionNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("omp/omp_reduction.f90");
+        }
+    }
+
+    @Test
     void test3mm() {
         testJson("polybench/3mm.json");
     }

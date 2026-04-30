@@ -9,7 +9,7 @@ PROGRAM OPENMP_DEMO
         DO i = 1, 100
             total_sum = total_sum
         END DO
-        !$OMP END DO
+        !$OMP END DO nowait
     !$OMP END PARALLEL
 
 END PROGRAM OPENMP_DEMO

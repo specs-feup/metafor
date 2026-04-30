@@ -370,4 +370,12 @@ public class StmtProcessors extends ANodeProcessor {
 
         useStmt.set(UseStmt.NAME, name);
     }
+
+    public void continueStmt(ContinueStmt continueStmt) {
+
+    }
+
+    public void parameterStmt(ParameterStmt parameterStmt) {
+        parameterStmt.addChildren(getChildren(parameterStmt, FlangName.NAMED_CONSTANT_DEF));
+    }
 }
