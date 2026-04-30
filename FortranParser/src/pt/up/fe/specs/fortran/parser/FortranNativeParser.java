@@ -19,19 +19,19 @@ import java.util.function.Function;
 
 public class FortranNativeParser {
 
-    private static final boolean USE_RELEASE = false;
+    private static final boolean USE_RELEASE = true;
 
     private static final boolean SAVE_JSON = false;
 
     private static final String BASE_URL = "https://github.com/specs-feup/flang-dumper/releases/download/";
-    private static final String CURRENT_VERSION = "v1.0.3";
+    private static final String CURRENT_VERSION = "v1.0.4";
 
     private static final WebResourceProvider LINUX_DUMPER_NIGHTLY =
             WebResourceProvider.newInstance(BASE_URL + "nightly/",
                     "DumpASTPlugin.so");
 
     private static final WebResourceProvider LINUX_DUMPER_RELEASE =
-            WebResourceProvider.newInstance(BASE_URL + "plugin_dump_ast_" + CURRENT_VERSION + "/",
+            WebResourceProvider.newInstance(BASE_URL + CURRENT_VERSION + "/",
                     "DumpASTPlugin.so", CURRENT_VERSION);
 
     private static final Lazy<File> FLANG_DUMPER = Lazy.newInstance(FortranNativeParser::prepareDumper);
