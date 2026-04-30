@@ -19,7 +19,7 @@ import java.util.function.Function;
 
 public class FortranNativeParser {
 
-    private static final boolean USE_RELEASE = true;
+    private static final boolean USE_RELEASE = false;
 
     private static final boolean SAVE_JSON = false;
 
