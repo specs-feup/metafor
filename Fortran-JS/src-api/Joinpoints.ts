@@ -16,6 +16,8 @@ type PrivateMapper = {
   "Literal": typeof Literal,
   "LoopControl": typeof LoopControl,
   "NameValue": typeof NameValue,
+  "OmpClause": typeof OmpClause,
+  "OmpDataSharingClause": typeof OmpDataSharingClause,
   "Program": typeof Program,
   "RangeLoopControl": typeof RangeLoopControl,
   "RealLiteral": typeof RealLiteral,
@@ -27,6 +29,8 @@ type PrivateMapper = {
   "ExecutableStatement": typeof ExecutableStatement,
   "Execution": typeof Execution,
   "IntLiteral": typeof IntLiteral,
+  "OmpConstruct": typeof OmpConstruct,
+  "OmpLoopConstruct": typeof OmpLoopConstruct,
   "Specification": typeof Specification,
   "ActionStatement": typeof ActionStatement,
   "AssignmentStatement": typeof AssignmentStatement,
@@ -164,6 +168,30 @@ export class NameValue extends Joinpoint {
 }
 
   /**
+   * Represents an OpenMP clause
+   */
+export class OmpClause extends Joinpoint {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+}
+
+  /**
+   * Represents an OpenMP datasharing clause (public, private, ...)
+   */
+export class OmpDataSharingClause extends OmpClause {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+}
+
+  /**
    * Represents the complete program and is the top-most join point in the hierarchy
    */
 export class Program extends Joinpoint {
@@ -297,6 +325,35 @@ export class IntLiteral extends Literal {
   };
 }
 
+  /**
+   * Represents a generic OpenMP construct
+   */
+export class OmpConstruct extends ExecutableStatement {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+  /**
+   * Sets the construct's clauses
+   */
+  setClauses(clauses: OmpClause[]): void { return wrapJoinPoint(this._javaObject.setClauses(unwrapJoinPoint(clauses))); }
+}
+
+  /**
+   * Represents an OpenMP loop construct (such as do or do parallel)
+   */
+export class OmpLoopConstruct extends OmpConstruct {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+  setLoop(loop: DoStatement): void { return wrapJoinPoint(this._javaObject.setLoop(unwrapJoinPoint(loop))); }
+}
+
 export class Specification extends StatementBlock {
   /**
    * @internal
@@ -394,6 +451,8 @@ const JoinpointMapper = {
   literal: Literal,
   loopControl: LoopControl,
   nameValue: NameValue,
+  ompClause: OmpClause,
+  ompDataSharingClause: OmpDataSharingClause,
   program: Program,
   rangeLoopControl: RangeLoopControl,
   realLiteral: RealLiteral,
@@ -405,6 +464,8 @@ const JoinpointMapper = {
   executableStatement: ExecutableStatement,
   execution: Execution,
   intLiteral: IntLiteral,
+  ompConstruct: OmpConstruct,
+  ompLoopConstruct: OmpLoopConstruct,
   specification: Specification,
   actionStatement: ActionStatement,
   assignmentStatement: AssignmentStatement,

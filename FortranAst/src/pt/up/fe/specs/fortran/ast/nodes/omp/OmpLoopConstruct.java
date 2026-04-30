@@ -18,6 +18,12 @@ public class OmpLoopConstruct extends OmpConstruct {
         return getChild(DoStmt.class);
     }
 
+    public DoStmt setLoop(DoStmt loop) {
+        removeChildren(DoStmt.class);
+
+        return (DoStmt) addChild(loop);
+    }
+
     @Override
     public String getCode() {
         var code = new StringBuilder();
