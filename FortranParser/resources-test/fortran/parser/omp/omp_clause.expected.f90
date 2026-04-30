@@ -1,4 +1,4 @@
-PROGRAM openmp_demo
+PROGRAM OPENMP_DEMO
     USE omp_lib
 
     integer :: i, thread_id, num_threads, total_sum
@@ -12,4 +12,4 @@ PROGRAM openmp_demo
         !$OMP END DO
     !$OMP END PARALLEL
 
-END PROGRAM openmp_demo
+END PROGRAM OPENMP_DEMO
