@@ -82,14 +82,14 @@ jobs:
           path: specs-java-libs
           ref: ${{ steps.Branch-specs-java-libs.outputs.value == '1' && env.BRANCH_NAME || 'master' }}
 
-      - name: Checkout flang dumper, to install flang-20
+      - name: Checkout flang dumper, to install flang
         uses: actions/checkout@v4
         with:
           repository: specs-feup/flang-dumper
           path: flang-dumper
           ref: main
 
-      - name: Install flang-20
+      - name: Install flang
         run: |
           cd flang-dumper/scripts
           sudo ./install-dependencies.sh
