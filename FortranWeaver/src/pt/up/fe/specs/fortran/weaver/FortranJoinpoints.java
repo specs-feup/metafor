@@ -25,6 +25,7 @@ import pt.up.fe.specs.fortran.ast.nodes.program.Application;
 import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
 import pt.up.fe.specs.fortran.ast.nodes.program.FortranFile;
 import pt.up.fe.specs.fortran.ast.nodes.program.StmtBlock;
+import pt.up.fe.specs.fortran.ast.nodes.program.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.utils.NameValue;
 import pt.up.fe.specs.fortran.weaver.abstracts.AFortranWeaverJoinPoint;
@@ -69,12 +70,13 @@ public class FortranJoinpoints {
         JOINPOINT_FACTORY.put(OmpClause.class, FOmpClause::new);
         JOINPOINT_FACTORY.put(OmpLoopConstruct.class, FOmpLoopConstruct::new);
         JOINPOINT_FACTORY.put(OmpDataSharingClause.class, FOmpDataSharingClause::new);
+        JOINPOINT_FACTORY.put(Specification.class, FSpecification::new);
         JOINPOINT_FACTORY.put(FortranNode.class, FortranJoinpoints::defaultFactory);
     }
 
 
     private static AFortranWeaverJoinPoint defaultFactory(FortranNode node) {
-        SpecsLogs.warn("Factory not defined for nodes of class '" + node.getClass().getSimpleName() + "'");
+        SpecsLogs.debug(() -> "Factory not defined for nodes of class '" + node.getClass().getSimpleName() + "'");
         return new GenericFortranJoinpoint(node);
     }
 

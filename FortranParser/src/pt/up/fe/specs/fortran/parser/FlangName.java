@@ -27,6 +27,7 @@ public enum FlangName implements StringProvider {
     DUMMY_ARG,
 
     /// STMTs
+    STATEMENT,
     PROGRAM_STMT,
     END_PROGRAM_STMT,
     SUBROUTINE_STMT,
@@ -43,6 +44,7 @@ public enum FlangName implements StringProvider {
     DO_CONSTRUCT,
     CALL_STMT,
     COMPILER_DIRECTIVE,
+    USE_STMT,
 
     /// Conditional Statements
     IF_CONSTRUCT,
