@@ -24,4 +24,10 @@ public class CompilerDirective extends ExecutableStmt {
                 .map(NameValue::getCode)
                 .collect(Collectors.joining(" "));
     }
+
+    public String getDirectiveString() {
+        return getPairs().stream()
+                .map(NameValue::getCode)
+                .collect(Collectors.joining(" "));
+    }
 }
