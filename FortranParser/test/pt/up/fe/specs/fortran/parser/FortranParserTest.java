@@ -328,12 +328,17 @@ public class FortranParserTest {
         }
     }
 
-    /* commented for now until some details are added to the AST
     @Test
     void test3mm() {
         testJson("polybench/3mm.json");
     }
-    */
+
+    @Test
+    void test3mmNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("polybench/3mm.f90");
+        }
+    }
 
     @Test
     void testDirective() {

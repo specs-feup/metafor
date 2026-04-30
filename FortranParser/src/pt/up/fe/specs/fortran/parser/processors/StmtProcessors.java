@@ -333,6 +333,37 @@ public class StmtProcessors extends ANodeProcessor {
         callStmt.addChild(getChild(callStmt, "call"));
     }
 
+    public void writeStmt(WriteStmt writeStmt) {
+        if (attributes(writeStmt).has("iounit")) {
+            writeStmt.addChild(getChild(writeStmt, "iounit"));
+        }
+
+        if (attributes(writeStmt).has("format")) {
+            writeStmt.addChild(getChild(writeStmt, "format"));
+        }
+
+        if (attributes(writeStmt).has("controls")) {
+            writeStmt.addChildren(getChildren(writeStmt, "controls"));
+        }
+
+        if (attributes(writeStmt).has("items")) {
+            writeStmt.addChildren(getChildren(writeStmt, "items"));
+        }
+    }
+
+    public void containsStmt(ContainsStmt containsStmt) {
+
+    }
+
+    public void allocateStmt(AllocateStmt allocateStmt) {
+        allocateStmt.addChildren(getChildren(allocateStmt, FlangName.ALLOCATION));
+        allocateStmt.addChildren(getChildren(allocateStmt, FlangName.ALLOC_OPT));
+    }
+
+    public void deallocateStmt(DeallocateStmt deallocateStmt) {
+        deallocateStmt.addChildren(getChildren(deallocateStmt, FlangName.ALLOCATE_OBJECT));
+    }
+
     public void useStmt(UseStmt useStmt) {
         String nameId = attributes(useStmt).getString("moduleName");
         String name = attributes().get(nameId).getString("source");
