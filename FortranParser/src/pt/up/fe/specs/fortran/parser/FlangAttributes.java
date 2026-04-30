@@ -1,20 +1,17 @@
 package pt.up.fe.specs.fortran.parser;
 
+import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.util.SpecsCollections;
 import pt.up.fe.specs.util.SpecsLogs;
 import pt.up.fe.specs.util.providers.StringProvider;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Function;
 import java.util.regex.Pattern;
 
 public class FlangAttributes {
-
-    private static final Set<String> EXPECTED_COMMON_KEYS = Set.of("id", "value");
+    public static final String VARIANT_IDENTIFIER_KEY = "variantKey";
+    private static final Set<String> EXPECTED_COMMON_KEYS = Set.of("id", VARIANT_IDENTIFIER_KEY);
 
     private final Map<String, Object> attributes;
 
@@ -83,20 +80,35 @@ public class FlangAttributes {
         return getList(key, Object::toString);
     }
 
+    public List<String> getStringList(String key) {
+        return getList(key, Object::toString);
+    }
+
 
     public <T> List<T> getList(StringProvider key, Function<Object, T> converter) {
         return getList(key.getString(), converter);
     }
 
     public <T> List<T> getList(String key, Function<Object, T> converter) {
-        var list = (List<Object>) attributes.get(key);
-        Objects.requireNonNull(list, () -> "Attrs do not have a value for key '" + key + "': " + attributes);
-        return list.stream().map(obj -> converter.apply(obj)).toList();
+        var value = attributes.get(key);
+        Objects.requireNonNull(value, () -> "Attrs do not have a value for key '" + key + "': " + attributes);
+        if (value instanceof List<?> list) {
+            return list.stream().map(o -> converter.apply(o)).toList();
+        }
+        return List.of(converter.apply(value));
     }
 
     public Optional<Object> getOptional(String key) {
         var value = attributes.get(key);
-        return Optional.ofNullable(value.toString());
+        return Optional.ofNullable(value);
+    }
+
+    public String getVariantKey() {
+        return getString(VARIANT_IDENTIFIER_KEY);
+    }
+
+    public String getVariantString() {
+        return getString(getVariantKey());
     }
 
     /**
@@ -134,6 +146,14 @@ public class FlangAttributes {
     }
 
     public boolean has(FlangName key) {
-        return getKeys().contains(key.getString());
+        return has(key.getString());
+    }
+
+    public boolean has(String key) {
+        return getKeys().contains(key);
+    }
+
+    public boolean hasVariant() {
+        return has(VARIANT_IDENTIFIER_KEY);
     }
 }

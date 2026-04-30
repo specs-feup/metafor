@@ -57,7 +57,7 @@ public class FortranParserTest {
         var rootNode = new FortranAstBuilder(parseResult).build();
         //System.out.println(parseResult);
         System.out.println("AST: " + rootNode.toTree());
-        //System.out.println("CODE:\n" + rootNode.getCode());
+        System.out.println("CODE:\n" + rootNode.getCode());
 
         var code = rootNode.getCode();
 
@@ -102,4 +102,212 @@ public class FortranParserTest {
         testJson("declaration.json");
     }
 
+    @Test
+    void testLogicalExpresion() {
+        testJson("logical_expression.json");
+    }
+
+    @Test
+    void testParenExpr() {
+        testJson("parenexpr.json");
+    }
+
+    @Test
+    void testDo() {
+        testJson("do.json");
+    }
+
+    @Test
+    void testBinaryOperator() {
+        testJson("binary_operator.json");
+    }
+
+    @Test
+    void testBinaryOperatorNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("binary_operator.f90");
+        }
+    }
+
+    @Test
+    void testDoConcurrent() {
+        testJson("concurrent.json");
+    }
+
+    // Conditional statements
+
+    @Test
+    void testIfThenNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("conditionalstmt/if_then.f90");
+        }
+    }
+
+    @Test
+    void testIfThenElseNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("conditionalstmt/if_then_else.f90");
+        }
+    }
+
+    @Test
+    void testChainedIfNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("conditionalstmt/chained_if.f90");
+        }
+    }
+
+    @Test
+    void testNamedChainedIfNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("conditionalstmt/named_chained_if.f90");
+        }
+    }
+
+    @Test
+    void testIfThen() {
+        testJson("conditionalstmt/if_then.json");
+    }
+
+    @Test
+    void testIfThenElse() {
+        testJson("conditionalstmt/if_then_else.json");
+    }
+
+    @Test
+    void testChainedIf() {
+        testJson("conditionalstmt/chained_if.json");
+    }
+
+    @Test
+    void testNamedChainedIf() {
+        testJson("conditionalstmt/named_chained_if.json");
+    }
+
+    @Test
+    void testLogicalIfNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("conditionalstmt/logical_if.f90");
+        }
+    }
+
+    @Test
+    void testLogicalIf() {
+        testJson("conditionalstmt/logical_if.json");
+    }
+
+    @Test
+    void testArrayAssignment() {
+        testJson("arrays/array_declaration.json");
+    }
+
+    @Test
+    void testArrayAssignmentNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("arrays/array_declaration.f90");
+        }
+    }
+
+    @Test
+    void testArrayImpliedDo() {
+        testJson("arrays/array_implied_do.json");
+    }
+
+    @Test
+    void testArrayImpliedDoNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("arrays/array_implied_do.f90");
+        }
+    }
+
+    @Test
+    void testSelectCaseNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("conditionalstmt/select_case.f90");
+        }
+    }
+
+    @Test
+    void testSelectCase() {
+        testJson("conditionalstmt/select_case.json");
+    }
+
+    @Test
+    void testSelectCaseListNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("conditionalstmt/select_case_list.f90");
+        }
+    }
+
+    @Test
+    void testSelectCaseList() {
+        testJson("conditionalstmt/select_case_list.json");
+    }
+
+    @Test
+    void testSelectCaseRangeNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("conditionalstmt/select_case_range.f90");
+        }
+    }
+
+    @Test
+    void testSelectCaseRange() {
+        testJson("conditionalstmt/select_case_range.json");
+    }
+
+    @Test
+    void testNamedSelectCaseNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("conditionalstmt/named_select_case.f90");
+        }
+    }
+
+    @Test
+    void testNamedSelectCase() {
+        testJson("conditionalstmt/named_select_case.json");
+    }
+
+    @Test
+    void testSubroutine() {
+        testJson("subroutine.json");
+    }
+
+    @Test
+    void testSubroutineNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("subroutine.f90");
+        }
+    }
+
+    @Test
+    void testArrayElementAccess() {
+        testJson("arrays/element_access.json");
+    }
+
+    @Test
+    void testArrayElementAccessNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("arrays/element_access.f90");
+        }
+    }
+
+    /* commented for now until some details are added to the AST
+    @Test
+    void test3mm() {
+        testJson("polybench/3mm.json");
+    }
+    */
+
+    @Test
+    void testDirective() {
+        testJson("directive.json");
+    }
+
+    @Test
+    void testDirectiveNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("directive.f90");
+        }
+    }
 }

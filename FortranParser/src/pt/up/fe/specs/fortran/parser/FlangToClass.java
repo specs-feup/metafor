@@ -1,18 +1,27 @@
 package pt.up.fe.specs.fortran.parser;
 
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
+import pt.up.fe.specs.fortran.ast.nodes.decl.DummyArgumentDecl;
 import pt.up.fe.specs.fortran.ast.nodes.decl.EntityDecl;
-import pt.up.fe.specs.fortran.ast.nodes.expr.IntLiteral;
-import pt.up.fe.specs.fortran.ast.nodes.expr.StringLiteral;
-import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
-import pt.up.fe.specs.fortran.ast.nodes.program.FortranFile;
-import pt.up.fe.specs.fortran.ast.nodes.program.MainProgram;
-import pt.up.fe.specs.fortran.ast.nodes.program.Specification;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.FormatStmt;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.PrintStmt;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.TypeDeclarationStmt;
-import pt.up.fe.specs.fortran.ast.nodes.type.IntegerType;
+import pt.up.fe.specs.fortran.ast.nodes.expr.*;
+import pt.up.fe.specs.fortran.ast.nodes.loops.ConcurrentLoopControl;
+import pt.up.fe.specs.fortran.ast.nodes.loops.ConcurrentRange;
+import pt.up.fe.specs.fortran.ast.nodes.loops.RangeLoopControl;
+import pt.up.fe.specs.fortran.ast.nodes.program.*;
+import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.*;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.CaseBlock;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.CaseConstruct;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.EndSelectStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.SelectCaseStmt;
+import pt.up.fe.specs.fortran.ast.nodes.type.*;
+import pt.up.fe.specs.fortran.ast.nodes.type.attributes.AllocatableKeyword;
+import pt.up.fe.specs.fortran.ast.nodes.type.attributes.IntentSpec;
+import pt.up.fe.specs.fortran.ast.nodes.type.shapes.DeferredShapeSpecList;
+import pt.up.fe.specs.fortran.ast.nodes.type.shapes.ExplicitShapeSpecification;
 import pt.up.fe.specs.fortran.ast.nodes.utils.Format;
+import pt.up.fe.specs.fortran.ast.nodes.utils.NameValue;
 import pt.up.fe.specs.fortran.ast.nodes.utils.Star;
 
 import java.util.HashMap;
@@ -28,24 +37,90 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.MAIN_PROGRAM, MainProgram.class);
         NAME_TO_CLASS.put(FlangName.SPECIFICATION_PART, Specification.class);
         NAME_TO_CLASS.put(FlangName.EXECUTION_PART, Execution.class);
+        NAME_TO_CLASS.put(FlangName.INTERNAL_SUBPROGRAM_PART, InternalSubprogram.class);
+        NAME_TO_CLASS.put(FlangName.SUBROUTINE_SUBPROGRAM, Subroutine.class);
 
         /// DECLs
         NAME_TO_CLASS.put(FlangName.ENTITY_DECL, EntityDecl.class);
+        NAME_TO_CLASS.put(FlangName.DUMMY_ARG, DummyArgumentDecl.class);
 
         /// STMTs
         NAME_TO_CLASS.put(FlangName.PRINT_STMT, PrintStmt.class);
         NAME_TO_CLASS.put(FlangName.FORMAT_STMT, FormatStmt.class);
         NAME_TO_CLASS.put(FlangName.TYPE_DECLARATION_STMT, TypeDeclarationStmt.class);
+        NAME_TO_CLASS.put(FlangName.ASSIGNMENT_STMT, AssignmentStmt.class);
+        NAME_TO_CLASS.put(FlangName.DO_CONSTRUCT, DoStmt.class);
+        NAME_TO_CLASS.put(FlangName.COMPILER_DIRECTIVE, CompilerDirective.class);
+
+        NAME_TO_CLASS.put(FlangName.IF_CONSTRUCT, IfConstruct.class);
+        NAME_TO_CLASS.put(FlangName.IF_THEN_STMT, IfThenStmt.class);
+        NAME_TO_CLASS.put(FlangName.ELSE_IF_BLOCK, ElseIfBlock.class);
+        NAME_TO_CLASS.put(FlangName.ELSE_IF_STMT, ElseIfStmt.class);
+        NAME_TO_CLASS.put(FlangName.ELSE_BLOCK, ElseBlock.class);
+        NAME_TO_CLASS.put(FlangName.ELSE_STMT, ElseStmt.class);
+        NAME_TO_CLASS.put(FlangName.END_IF_STMT, EndIfStmt.class);
+        NAME_TO_CLASS.put(FlangName.IF_STMT, IfStmt.class);
+
+        NAME_TO_CLASS.put(FlangName.CASE_CONSTRUCT, CaseConstruct.class);
+        NAME_TO_CLASS.put(FlangName.SELECT_CASE_STMT, SelectCaseStmt.class);
+        NAME_TO_CLASS.put(FlangName.CASE, CaseBlock.class);
+        NAME_TO_CLASS.put(FlangName.END_SELECT_STMT, EndSelectStmt.class);
+
+        NAME_TO_CLASS.put(FlangName.CALL_STMT, CallStmt.class);
+
+        /// Variables
+        //NAME_TO_CLASS.put(FlangName.DATA_REF, DataRef.class);
+        NAME_TO_CLASS.put(FlangName.NAME, DataRef.class);
 
         /// EXPRs
         NAME_TO_CLASS.put(FlangName.CHAR_LITERAL_CONSTANT, StringLiteral.class);
         NAME_TO_CLASS.put(FlangName.INT_LITERAL_CONSTANT, IntLiteral.class);
+        NAME_TO_CLASS.put(FlangName.LOGICAL_LITERAL_CONSTANT, LogicalLiteral.class);
+        NAME_TO_CLASS.put(FlangName.REAL_LITERAL_CONSTANT, RealLiteral.class);
         NAME_TO_CLASS.put(FlangName.FORMAT, Format.class);
         NAME_TO_CLASS.put(FlangName.STAR, Star.class);
+        NAME_TO_CLASS.put(FlangName.PARENTHESES, ParenExpr.class);
+        NAME_TO_CLASS.put(FlangName.ADD, BinaryOperator.class);
+        NAME_TO_CLASS.put(FlangName.SUBTRACT, BinaryOperator.class);
+        NAME_TO_CLASS.put(FlangName.MULTIPLY, BinaryOperator.class);
+        NAME_TO_CLASS.put(FlangName.DIVIDE, BinaryOperator.class);
+        NAME_TO_CLASS.put(FlangName.EQ, BinaryOperator.class);
+        NAME_TO_CLASS.put(FlangName.NE, BinaryOperator.class);
+        NAME_TO_CLASS.put(FlangName.LT, BinaryOperator.class);
+        NAME_TO_CLASS.put(FlangName.LE, BinaryOperator.class);
+        NAME_TO_CLASS.put(FlangName.GT, BinaryOperator.class);
+        NAME_TO_CLASS.put(FlangName.GE, BinaryOperator.class);
+        NAME_TO_CLASS.put(FlangName.ARRAY_CONSTRUCTOR, ArrayConstructor.class);
+        NAME_TO_CLASS.put(FlangName.AC_SPEC, AcSpecification.class);
+        NAME_TO_CLASS.put(FlangName.ARRAY_ELEMENT, ArraySubscriptExpr.class);
+        NAME_TO_CLASS.put(FlangName.CALL, Call.class);
+        NAME_TO_CLASS.put(FlangName.ACTUAL_ARG_SPEC, Argument.class);
+        NAME_TO_CLASS.put(FlangName.AC_IMPLIED_DO, AcImpliedDo.class);
+        NAME_TO_CLASS.put(FlangName.AC_IMPLIED_DO_CONTROL, AcImpliedDoControl.class);
 
         /// TYPEs
         NAME_TO_CLASS.put(FlangName.INTEGER_TYPE_SPEC, IntegerType.class);
+        NAME_TO_CLASS.put(FlangName.LOGICAL, LogicalType.class);
+        NAME_TO_CLASS.put(FlangName.DOUBLE_PRECISION, DoublePrecisionType.class);
+        NAME_TO_CLASS.put(FlangName.CHARACTER, CharacterType.class);
+        NAME_TO_CLASS.put(FlangName.REAL, RealType.class);
 
+        ///  LOOP
+        NAME_TO_CLASS.put(FlangName.LOOP_BOUNDS, RangeLoopControl.class);
+        NAME_TO_CLASS.put(FlangName.CONCURRENT, ConcurrentLoopControl.class);
+        NAME_TO_CLASS.put(FlangName.CONCURRENT_CONTROL, ConcurrentRange.class);
+
+        ///  ATTRIBUTES
+        NAME_TO_CLASS.put(FlangName.ARRAY_SPEC, ArraySpecification.class);
+        NAME_TO_CLASS.put(FlangName.ALLOCATABLE, AllocatableKeyword.class);
+        NAME_TO_CLASS.put(FlangName.INTENT_SPEC, IntentSpec.class);
+
+        ///  SHAPES
+        NAME_TO_CLASS.put(FlangName.EXPLICIT_SHAPE_SPEC, ExplicitShapeSpecification.class);
+        NAME_TO_CLASS.put(FlangName.DEFERRED_SHAPE_SPEC_LIST, DeferredShapeSpecList.class);
+
+        ///  UTILs
+        NAME_TO_CLASS.put(FlangName.NAME_VALUE, NameValue.class);
     }
 
     public static boolean isClass(String type) {

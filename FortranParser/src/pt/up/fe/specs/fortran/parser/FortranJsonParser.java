@@ -144,14 +144,14 @@ public class FortranJsonParser implements JsonReaderParser {
      * Kind is encoded in the id.
      *
      * @param id
-     * @return
+     * @return kind of a node. For example, for id "0x59c9331191b0-EntityDecl", returns "EntityDecl"
      */
     public static String getKind(String id, boolean strict) {
         var dashIdx = id.indexOf('-');
         if (!strict && dashIdx != -1) {
             return null;
         }
-        
+
         SpecsCheck.checkArgument(dashIdx != -1, () -> "Expected to find a dash (-) that signals the beginning of the node kind: " + id);
 
         return id.substring(dashIdx + 1);

@@ -1,0 +1,665 @@
+{
+  "nodes": [
+    {
+      "id": "0x55b9f09a6cb0-Program",
+      "ProgramUnit": [
+        "0x55b9f09cf650-ProgramUnit"
+      ]
+    },
+    {
+      "id": "0x55b9f09cf650-ProgramUnit",
+      "variantKey": "MainProgram",
+      "MainProgram": "0x55b9f09d48c0-MainProgram"
+    },
+    {
+      "id": "0x55b9f09d48c0-MainProgram",
+      "Statement<ProgramStmt>": "0x55b9f09d4a08-Statement",
+      "SpecificationPart": "0x55b9f09d4960-SpecificationPart",
+      "ExecutionPart": "0x55b9f09d4948-ExecutionPart",
+      "Statement<EndProgramStmt>": "0x55b9f09d48c0-Statement"
+    },
+    {
+      "id": "0x55b9f09d4a08-Statement",
+      "statement": "0x55b9f09d4a18-ProgramStmt",
+      "source": "program if"
+    },
+    {
+      "id": "0x55b9f09d4a18-ProgramStmt",
+      "Name": "0x55b9f09d4a18-Name"
+    },
+    {
+      "id": "0x55b9f09d4a18-Name",
+      "source": "if"
+    },
+    {
+      "id": "0x55b9f09d4960-SpecificationPart",
+      "ImplicitPart": "0x55b9f09d4978-ImplicitPart",
+      "DeclarationConstruct": [
+        "0x55b9f09ad5a0-DeclarationConstruct"
+      ]
+    },
+    {
+      "id": "0x55b9f09d4978-ImplicitPart"
+    },
+    {
+      "id": "0x55b9f09ad5a0-DeclarationConstruct",
+      "variantKey": "SpecificationConstruct",
+      "SpecificationConstruct": "0x55b9f09ad5a0-SpecificationConstruct"
+    },
+    {
+      "id": "0x55b9f09ad5a0-SpecificationConstruct",
+      "variantKey": "Statement",
+      "Statement<TypeDeclarationStmt>": "0x55b9f09ad5a0-Statement"
+    },
+    {
+      "id": "0x55b9f09ad5a0-Statement",
+      "statement": "0x55b9f09b5240-TypeDeclarationStmt",
+      "source": "logical :: cond"
+    },
+    {
+      "id": "0x55b9f09b5240-TypeDeclarationStmt",
+      "DeclarationTypeSpec": "0x55b9f09b5270-DeclarationTypeSpec",
+      "EntityDecl": [
+        "0x55b9f09d0c50-EntityDecl"
+      ]
+    },
+    {
+      "id": "0x55b9f09b5270-DeclarationTypeSpec",
+      "variantKey": "IntrinsicTypeSpec",
+      "IntrinsicTypeSpec": "0x55b9f09b5270-IntrinsicTypeSpec"
+    },
+    {
+      "id": "0x55b9f09b5270-IntrinsicTypeSpec",
+      "variantKey": "Logical",
+      "Logical": "0x55b9f09b5270-Logical"
+    },
+    {
+      "id": "0x55b9f09b5270-Logical"
+    },
+    {
+      "id": "0x55b9f09d0c50-EntityDecl",
+      "Name": "0x55b9f09d0d08-Name"
+    },
+    {
+      "id": "0x55b9f09d0d08-Name",
+      "source": "cond"
+    },
+    {
+      "id": "0x55b9f09d4948-ExecutionPart",
+      "ExecutionPartConstruct": [
+        "0x55b9f09d1cc0-ExecutionPartConstruct",
+        "0x55b9f09a6af0-ExecutionPartConstruct"
+      ]
+    },
+    {
+      "id": "0x55b9f09d4948-ExecutionPartConstruct"
+    },
+    {
+      "id": "0x55b9f09d1cc0-ExecutionPartConstruct",
+      "variantKey": "ExecutableConstruct",
+      "ExecutableConstruct": "0x55b9f09d1cc0-ExecutableConstruct"
+    },
+    {
+      "id": "0x55b9f09d1cc0-ExecutableConstruct",
+      "variantKey": "Statement",
+      "Statement<ActionStmt>": "0x55b9f09d1cc0-Statement"
+    },
+    {
+      "id": "0x55b9f09d1cc0-Statement",
+      "statement": "0x55b9f09d1cd0-ActionStmt",
+      "source": "cond = .false."
+    },
+    {
+      "id": "0x55b9f09d1cd0-ActionStmt",
+      "variantKey": "AssignmentStmt",
+      "AssignmentStmt": "0x55b9f09d1b30-AssignmentStmt"
+    },
+    {
+      "id": "0x55b9f09d1b30-AssignmentStmt",
+      "Variable": "0x55b9f09d1c10-Variable",
+      "Expr": "0x55b9f09d1b40-Expr"
+    },
+    {
+      "id": "0x55b9f09d1c10-Variable",
+      "variantKey": "Designator",
+      "Designator": "0x55b9f09ad220-Designator"
+    },
+    {
+      "id": "0x55b9f09ad220-Designator",
+      "variantKey": "DataRef",
+      "DataRef": "0x55b9f09ad230-DataRef"
+    },
+    {
+      "id": "0x55b9f09ad230-DataRef",
+      "variantKey": "Name",
+      "Name": "0x55b9f09ad230-Name"
+    },
+    {
+      "id": "0x55b9f09ad230-Name",
+      "source": "cond"
+    },
+    {
+      "id": "0x55b9f09d1b40-Expr",
+      "variantKey": "LiteralConstant",
+      "LiteralConstant": "0x55b9f09d1b60-LiteralConstant"
+    },
+    {
+      "id": "0x55b9f09d1b60-LiteralConstant",
+      "variantKey": "LogicalLiteralConstant",
+      "LogicalLiteralConstant": "0x55b9f09d1b60-LogicalLiteralConstant"
+    },
+    {
+      "id": "0x55b9f09d1b60-LogicalLiteralConstant",
+      "bool": "0"
+    },
+    {
+      "id": "0x55b9f09a6af0-ExecutionPartConstruct",
+      "variantKey": "ExecutableConstruct",
+      "ExecutableConstruct": "0x55b9f09a6af0-ExecutableConstruct"
+    },
+    {
+      "id": "0x55b9f09a6af0-ExecutableConstruct",
+      "variantKey": "IfConstruct",
+      "IfConstruct": "0x55b9f0990490-IfConstruct"
+    },
+    {
+      "id": "0x55b9f0990490-IfConstruct",
+      "Statement<IfThenStmt>": "0x55b9f0990560-Statement",
+      "ExecutionPartConstruct": [
+        "0x55b9f09d18d0-ExecutionPartConstruct"
+      ],
+      "ElseBlock": "0x55b9f09904d0-ElseBlock",
+      "Statement<EndIfStmt>": "0x55b9f0990490-Statement"
+    },
+    {
+      "id": "0x55b9f0990560-Statement",
+      "statement": "0x55b9f0990570-IfThenStmt",
+      "source": "if(cond) then"
+    },
+    {
+      "id": "0x55b9f0990570-IfThenStmt",
+      "Expr": "0x55b9f09d13c0-Expr"
+    },
+    {
+      "id": "0x55b9f09d13c0-Expr",
+      "variantKey": "Designator",
+      "Designator": "0x55b9f09d0d30-Designator"
+    },
+    {
+      "id": "0x55b9f09d0d30-Designator",
+      "variantKey": "DataRef",
+      "DataRef": "0x55b9f09d0d40-DataRef"
+    },
+    {
+      "id": "0x55b9f09d0d40-DataRef",
+      "variantKey": "Name",
+      "Name": "0x55b9f09d0d40-Name"
+    },
+    {
+      "id": "0x55b9f09d0d40-Name",
+      "source": "cond"
+    },
+    {
+      "id": "0x55b9f0990548-ExecutionPartConstruct"
+    },
+    {
+      "id": "0x55b9f09d18d0-ExecutionPartConstruct",
+      "variantKey": "ExecutableConstruct",
+      "ExecutableConstruct": "0x55b9f09d18d0-ExecutableConstruct"
+    },
+    {
+      "id": "0x55b9f09d18d0-ExecutableConstruct",
+      "variantKey": "Statement",
+      "Statement<ActionStmt>": "0x55b9f09d18d0-Statement"
+    },
+    {
+      "id": "0x55b9f09d18d0-Statement",
+      "statement": "0x55b9f09d18e0-ActionStmt",
+      "source": "print *, \"cond is true\""
+    },
+    {
+      "id": "0x55b9f09d18e0-ActionStmt",
+      "variantKey": "PrintStmt",
+      "PrintStmt": "0x55b9f09d44c0-PrintStmt"
+    },
+    {
+      "id": "0x55b9f09d44c0-PrintStmt",
+      "Format": "0x55b9f09d44d8-Format",
+      "OutputItem": [
+        "0x55b9f09d43e0-OutputItem"
+      ]
+    },
+    {
+      "id": "0x55b9f09d44d8-Format",
+      "variantKey": "Star",
+      "Star": "0x55b9f09d44d8-Star"
+    },
+    {
+      "id": "0x55b9f09d44d8-Star"
+    },
+    {
+      "id": "0x55b9f09d43e0-OutputItem",
+      "variantKey": "Expr",
+      "Expr": "0x55b9f09d43e0-Expr"
+    },
+    {
+      "id": "0x55b9f09d43e0-Expr",
+      "variantKey": "LiteralConstant",
+      "LiteralConstant": "0x55b9f09d4400-LiteralConstant"
+    },
+    {
+      "id": "0x55b9f09d4400-LiteralConstant",
+      "variantKey": "CharLiteralConstant",
+      "CharLiteralConstant": "0x55b9f09d4400-CharLiteralConstant"
+    },
+    {
+      "id": "0x55b9f09d4400-CharLiteralConstant",
+      "string": "cond is true"
+    },
+    {
+      "id": "0x55b9f09904d0-ElseBlock",
+      "Statement<ElseStmt>": "0x55b9f09904e8-Statement",
+      "ExecutionPartConstruct": [
+        "0x55b9f09d2710-ExecutionPartConstruct"
+      ]
+    },
+    {
+      "id": "0x55b9f09904e8-Statement",
+      "statement": "0x55b9f09904f8-ElseStmt",
+      "source": "else"
+    },
+    {
+      "id": "0x55b9f09904f8-ElseStmt"
+    },
+    {
+      "id": "0x55b9f09904d0-ExecutionPartConstruct"
+    },
+    {
+      "id": "0x55b9f09d2710-ExecutionPartConstruct",
+      "variantKey": "ExecutableConstruct",
+      "ExecutableConstruct": "0x55b9f09d2710-ExecutableConstruct"
+    },
+    {
+      "id": "0x55b9f09d2710-ExecutableConstruct",
+      "variantKey": "Statement",
+      "Statement<ActionStmt>": "0x55b9f09d2710-Statement"
+    },
+    {
+      "id": "0x55b9f09d2710-Statement",
+      "statement": "0x55b9f09d2720-ActionStmt",
+      "source": "print *, \"cond is false\""
+    },
+    {
+      "id": "0x55b9f09d2720-ActionStmt",
+      "variantKey": "PrintStmt",
+      "PrintStmt": "0x55b9f09d46b0-PrintStmt"
+    },
+    {
+      "id": "0x55b9f09d46b0-PrintStmt",
+      "Format": "0x55b9f09d46c8-Format",
+      "OutputItem": [
+        "0x55b9f09d45d0-OutputItem"
+      ]
+    },
+    {
+      "id": "0x55b9f09d46c8-Format",
+      "variantKey": "Star",
+      "Star": "0x55b9f09d46c8-Star"
+    },
+    {
+      "id": "0x55b9f09d46c8-Star"
+    },
+    {
+      "id": "0x55b9f09d45d0-OutputItem",
+      "variantKey": "Expr",
+      "Expr": "0x55b9f09d45d0-Expr"
+    },
+    {
+      "id": "0x55b9f09d45d0-Expr",
+      "variantKey": "LiteralConstant",
+      "LiteralConstant": "0x55b9f09d45f0-LiteralConstant"
+    },
+    {
+      "id": "0x55b9f09d45f0-LiteralConstant",
+      "variantKey": "CharLiteralConstant",
+      "CharLiteralConstant": "0x55b9f09d45f0-CharLiteralConstant"
+    },
+    {
+      "id": "0x55b9f09d45f0-CharLiteralConstant",
+      "string": "cond is false"
+    },
+    {
+      "id": "0x55b9f0990490-Statement",
+      "statement": "0x55b9f09904a0-EndIfStmt",
+      "source": "end if"
+    },
+    {
+      "id": "0x55b9f09904a0-EndIfStmt"
+    },
+    {
+      "id": "0x55b9f09d48c0-Statement",
+      "statement": "0x55b9f09d48d0-EndProgramStmt",
+      "source": "end program if"
+    },
+    {
+      "id": "0x55b9f09d48d0-EndProgramStmt",
+      "Name": "0x55b9f09d48d0-Name"
+    },
+    {
+      "id": "0x55b9f09d48d0-Name",
+      "source": "if"
+    }
+  ],
+  "enums": {
+    "Fortran::common::CUDADataAttr": [
+      "Constant",
+      "Device",
+      "Managed",
+      "Pinned",
+      "Shared",
+      "Texture",
+      "Unified"
+    ],
+    "Fortran::common::CUDASubprogramAttrs": [
+      "Host",
+      "Device",
+      "HostDevice",
+      "Global",
+      "Grid_Global"
+    ],
+    "Fortran::common::OpenACCDeviceType": [
+      "Star",
+      "Default",
+      "Nvidia",
+      "Radeon",
+      "Host",
+      "Multicore",
+      "None"
+    ],
+    "Fortran::parser::AccDataModifier::Modifier": [
+      "ReadOnly",
+      "Zero"
+    ],
+    "Fortran::parser::AccessSpec::Kind": [
+      "Public",
+      "Private"
+    ],
+    "Fortran::parser::BindEntity::Kind": [
+      "Object",
+      "Common"
+    ],
+    "Fortran::parser::ConnectSpec::CharExpr::Kind": [
+      "Access",
+      "Action",
+      "Asynchronous",
+      "Blank",
+      "Decimal",
+      "Delim",
+      "Encoding",
+      "Form",
+      "Pad",
+      "Position",
+      "Round",
+      "Sign",
+      "Carriagecontrol",
+      "Convert",
+      "Dispose"
+    ],
+    "Fortran::parser::DefinedOperator::IntrinsicOperator": [
+      "Power",
+      "Multiply",
+      "Divide",
+      "Add",
+      "Subtract",
+      "Concat",
+      "LT",
+      "LE",
+      "EQ",
+      "NE",
+      "GE",
+      "GT",
+      "NOT",
+      "AND",
+      "OR",
+      "EQV",
+      "NEQV"
+    ],
+    "Fortran::parser::ImplicitStmt::ImplicitNoneNameSpec": [
+      "External",
+      "Type"
+    ],
+    "Fortran::parser::InquireSpec::CharVar::Kind": [
+      "Access",
+      "Action",
+      "Asynchronous",
+      "Blank",
+      "Decimal",
+      "Delim",
+      "Direct",
+      "Encoding",
+      "Form",
+      "Formatted",
+      "Iomsg",
+      "Name",
+      "Pad",
+      "Position",
+      "Read",
+      "Readwrite",
+      "Round",
+      "Sequential",
+      "Sign",
+      "Stream",
+      "Status",
+      "Unformatted",
+      "Write",
+      "Carriagecontrol",
+      "Convert",
+      "Dispose"
+    ],
+    "Fortran::parser::InquireSpec::IntVar::Kind": [
+      "Iostat",
+      "Nextrec",
+      "Number",
+      "Pos",
+      "Recl",
+      "Size"
+    ],
+    "Fortran::parser::InquireSpec::LogVar::Kind": [
+      "Exist",
+      "Named",
+      "Opened",
+      "Pending"
+    ],
+    "Fortran::parser::IntentSpec::Intent": [
+      "In",
+      "Out",
+      "InOut"
+    ],
+    "Fortran::parser::IoControlSpec::CharExpr::Kind": [
+      "Advance",
+      "Blank",
+      "Decimal",
+      "Delim",
+      "Pad",
+      "Round",
+      "Sign"
+    ],
+    "Fortran::parser::ReductionOperator::Operator": [
+      "Plus",
+      "Multiply",
+      "Max",
+      "Min",
+      "Iand",
+      "Ior",
+      "Ieor",
+      "And",
+      "Or",
+      "Eqv",
+      "Neqv"
+    ],
+    "Fortran::parser::OmpTraitSelectorName::Value": [
+      "Arch",
+      "Atomic_Default_Mem_Order",
+      "Condition",
+      "Device_Num",
+      "Extension",
+      "Isa",
+      "Kind",
+      "Requires",
+      "Simd",
+      "Uid",
+      "Vendor"
+    ],
+    "Fortran::parser::OmpTraitSetSelectorName::Value": [
+      "Construct",
+      "Device",
+      "Implementation",
+      "Target_Device",
+      "User"
+    ],
+    "Fortran::parser::OmpMapType::Value": [
+      "Alloc",
+      "Delete",
+      "From",
+      "Release",
+      "To",
+      "Tofrom"
+    ],
+    "Fortran::parser::OmpMapTypeModifier::Value": [
+      "Always",
+      "Close",
+      "Present",
+      "Ompx_Hold"
+    ],
+    "Fortran::parser::OmpAtClause::ActionTime": [
+      "Compilation",
+      "Execution"
+    ],
+    "Fortran::parser::OmpSeverityClause::Severity": [
+      "Fatal",
+      "Warning"
+    ],
+    "Fortran::parser::OmpCancelType::Type": [
+      "Parallel",
+      "Sections",
+      "Do",
+      "Taskgroup"
+    ],
+    "Fortran::parser::OmpDefaultClause::DataSharingAttribute": [
+      "Private",
+      "Firstprivate",
+      "Shared",
+      "None"
+    ],
+    "Fortran::parser::OmpVariableCategory::Value": [
+      "Aggregate",
+      "All",
+      "Allocatable",
+      "Pointer",
+      "Scalar"
+    ],
+    "Fortran::parser::OmpDefaultmapClause::ImplicitBehavior": [
+      "Alloc",
+      "To",
+      "From",
+      "Tofrom",
+      "Firstprivate",
+      "None",
+      "Default"
+    ],
+    "Fortran::parser::OmpDependenceType::Value": [
+      "Sink",
+      "Source"
+    ],
+    "Fortran::parser::OmpTaskDependenceType::Value": [
+      "In",
+      "Out",
+      "Inout",
+      "Inoutset",
+      "Mutexinoutset",
+      "Depobj"
+    ],
+    "Fortran::parser::OmpExpectation::Value": [
+      "Present"
+    ],
+    "Fortran::parser::OmpLastprivateModifier::Value": [
+      "Conditional"
+    ],
+    "Fortran::parser::OmpLinearModifier::Value": [
+      "Ref",
+      "Uval",
+      "Val"
+    ],
+    "Fortran::parser::OmpOrderClause::Ordering": [
+      "Concurrent"
+    ],
+    "Fortran::parser::OmpOrderModifier::Value": [
+      "Reproducible",
+      "Unconstrained"
+    ],
+    "Fortran::parser::OmpPrescriptiveness::Value": [
+      "Strict"
+    ],
+    "Fortran::parser::OmpBindClause::Binding": [
+      "Parallel",
+      "Teams",
+      "Thread"
+    ],
+    "Fortran::parser::OmpProcBindClause::AffinityPolicy": [
+      "Close",
+      "Master",
+      "Spread",
+      "Primary"
+    ],
+    "Fortran::parser::OmpReductionModifier::Value": [
+      "Default",
+      "Inscan",
+      "Task"
+    ],
+    "Fortran::parser::OmpScheduleClause::Kind": [
+      "Static",
+      "Dynamic",
+      "Guided",
+      "Auto",
+      "Runtime"
+    ],
+    "Fortran::parser::OmpDeviceModifier::Value": [
+      "Ancestor",
+      "Device_Num"
+    ],
+    "Fortran::parser::OmpDeviceTypeClause::DeviceTypeDescription": [
+      "Any",
+      "Host",
+      "Nohost"
+    ],
+    "Fortran::parser::OmpChunkModifier::Value": [
+      "Simd"
+    ],
+    "Fortran::parser::OmpOrderingModifier::Value": [
+      "Monotonic",
+      "Nonmonotonic",
+      "Simd"
+    ],
+    "Fortran::common::OmpAtomicDefaultMemOrderType": [
+      "SeqCst",
+      "AcqRel",
+      "Relaxed"
+    ],
+    "Fortran::parser::ProcedureStmt::Kind": [
+      "ModuleProcedure",
+      "Procedure"
+    ],
+    "Fortran::parser::SavedEntity::Kind": [
+      "Entity",
+      "Common"
+    ],
+    "Fortran::parser::StopStmt::Kind": [
+      "Stop",
+      "ErrorStop"
+    ],
+    "Fortran::parser::UseStmt::ModuleNature": [
+      "Intrinsic",
+      "Non_Intrinsic"
+    ]
+  }
+}

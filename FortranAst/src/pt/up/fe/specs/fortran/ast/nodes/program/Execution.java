@@ -32,7 +32,7 @@ public class Execution extends StmtBlock {
         var code = new StringBuilder();
         for (var stmt : getExecutableStatements()) {
 
-            System.out.println("LABEL: " + stmt.getLabel());
+            //System.out.println("LABEL: " + stmt.getLabel());
             stmt.getLabel().ifPresent(label -> code.append(label.get(LabelDecl.LABEL) + " "));
 
             code.append(stmt.getCode()).append(ln());

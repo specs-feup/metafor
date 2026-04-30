@@ -13,7 +13,6 @@ import java.util.Objects;
 import java.util.regex.Pattern;
 
 public interface NodeProcessor {
-
     FortranJsonResult data();
 
     default FortranNodeFactory factory() {
@@ -31,12 +30,20 @@ public interface NodeProcessor {
     }
 
 
-    default FortranNode getChild(FortranNode node, FlangName attribute) {
-        return getNode(attributes().getChildId(node, attribute));
+    default FortranNode getChild(FortranNode node, FlangName name) {
+        return getChild(node, name.getString());
     }
 
     default FortranNode getChild(FortranNode node, String attribute) {
         return getNode(attributes().getChildId(node, attribute));
+    }
+
+    default String getChildId(FortranNode node, FlangName name) {
+        return attributes().getChildId(node, name.getString());
+    }
+
+    default String getChildId(FortranNode node, String attribute) {
+        return attributes().getChildId(node, attribute);
     }
 
     default String getChildId(FortranNode node, Pattern attribute) {
@@ -47,7 +54,39 @@ public interface NodeProcessor {
         return getNode(attributes().getChildId(node, attribute));
     }
 
+    default FortranNode getStmtChild(FortranNode node, FlangName name) {
+        return getChild(node, name.getStmtAttr());
+    }
+
+    default FortranNode getUnlabeledStmtChild(FortranNode node, FlangName name) {
+        return getChild(node, name.getUnlabeledStmtAttr());
+    }
+
+    default String getVariantChildId(FortranNode node) {
+        return attributes().getVariantChildId(node);
+    }
+
+    default FortranNode getVariantChild(FortranNode node) {
+        return getNode(getVariantChildId(node));
+    }
+
+    default boolean hasVariant(FortranNode node) {
+        return attributes().getAttrs(node).hasVariant();
+    }
+
     default List<FortranNode> getChildren(FortranNode node, FlangName attribute) {
+        return attributes().getChildrenIds(node, attribute).stream()
+                .map(this::getNode)
+                .toList();
+    }
+
+    default List<FortranNode> getChildren(String key, FlangName attribute) {
+        return attributes().getChildrenIds(key, attribute).stream()
+                .map(this::getNode)
+                .toList();
+    }
+
+    default List<FortranNode> getChildren(FortranNode node, String attribute) {
         return attributes().getChildrenIds(node, attribute).stream()
                 .map(this::getNode)
                 .toList();

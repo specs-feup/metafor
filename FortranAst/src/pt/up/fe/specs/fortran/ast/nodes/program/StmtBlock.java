@@ -6,6 +6,7 @@ import pt.up.fe.specs.fortran.ast.nodes.stmt.Stmt;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class StmtBlock extends FortranNode {
 
@@ -16,5 +17,11 @@ public class StmtBlock extends FortranNode {
     public List<Stmt> getStatements() {
         return getChildren(Stmt.class);
     }
-    
+
+    @Override
+    public String getCode() {
+        return getStatements().stream()
+                .map(Stmt::getCode)
+                .collect(Collectors.joining(ln()));
+    }
 }

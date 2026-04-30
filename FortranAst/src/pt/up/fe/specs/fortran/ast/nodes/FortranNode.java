@@ -19,10 +19,17 @@ import org.suikasoft.jOptions.Interfaces.DataStore;
 import org.suikasoft.jOptions.treenode.DataNode;
 import pt.up.fe.specs.fortran.ast.FortranContext;
 import pt.up.fe.specs.fortran.ast.FortranKeyword;
+import pt.up.fe.specs.fortran.ast.FortranNodeFactory;
 import pt.up.fe.specs.fortran.ast.FortranNodes;
+import pt.up.fe.specs.fortran.ast.utils.Position;
+import pt.up.fe.specs.util.SpecsLogs;
+import pt.up.fe.specs.util.treenode.NodeInsertUtils;
 import pt.up.fe.specs.util.utilities.PrintOnce;
+import pt.up.fe.specs.util.utilities.StringLines;
 
 import java.util.Collection;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Represents a node of the Fortran AST.
@@ -30,7 +37,6 @@ import java.util.Collection;
  * @author JoaoBispo
  */
 public abstract class FortranNode extends DataNode<FortranNode> {
-
     // DATAKEYS BEGIN
 
     /**
@@ -121,5 +127,77 @@ public abstract class FortranNode extends DataNode<FortranNode> {
 
     protected String keyword(FortranKeyword keyword) {
         return get(CONTEXT).get(FortranContext.FORTRAN_KEYWORDS).get(keyword);
+    }
+
+    public FortranNodeFactory getFactory() {
+        return get(FortranNode.CONTEXT).get(FortranContext.FACTORY);
+    }
+
+
+    public FortranNode insert(Position position, FortranNode newNode) {
+        switch (position) {
+            case BEFORE -> NodeInsertUtils.insertBefore(this, newNode);
+            case AFTER -> NodeInsertUtils.insertAfter(this, newNode);
+            case REPLACE -> NodeInsertUtils.replace(this, newNode);
+        }
+
+        return newNode;
+    }
+
+    public FortranNode insert(Position position, String code) {
+        // By default, transforms code into a literal statement.
+        // This might need to evolve in the future, depending on where the code is inserted
+        var literalStmt = getFactory().literalExecutionStmt(code);
+
+        return insert(position, literalStmt);
+    }
+
+    public String indent(String code) {
+        return StringLines.getLines(code).stream()
+            .map(line -> tab() + line)
+            .collect(Collectors.joining(ln()));
+    }
+
+
+    public Optional<FortranNode> getLeft() {
+        var indexOfSelf = indexOfSelf();
+
+        if (indexOfSelf == -1) {
+            SpecsLogs.debug("getLeft: Could not find index of self");
+            return Optional.empty();
+        }
+
+        // Get siblings
+        var siblings = getParent().getChildren();
+
+        var leftIndex = indexOfSelf - 1;
+
+        // No more elements to the left
+        if (leftIndex < 0) {
+            return Optional.empty();
+        }
+
+        return Optional.of(siblings.get(leftIndex));
+    }
+
+    public Optional<FortranNode> getRight() {
+        var indexOfSelf = indexOfSelf();
+
+        if (indexOfSelf == -1) {
+            SpecsLogs.debug("getRight: Could not find index of self");
+            return Optional.empty();
+        }
+
+        // Get siblings
+        var siblings = getParent().getChildren();
+
+        var rightIndex = indexOfSelf + 1;
+
+        // No more elements to the right
+        if (rightIndex >= siblings.size()) {
+            return Optional.empty();
+        }
+
+        return Optional.of(siblings.get(rightIndex));
     }
 }

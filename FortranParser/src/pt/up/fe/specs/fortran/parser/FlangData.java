@@ -8,19 +8,7 @@ import java.util.function.Function;
 import java.util.regex.Pattern;
 
 public class FlangData {
-
     /// STATIC
-
-    private static final Pattern REGEX_VALUE = Pattern.compile("value(<\\w+>)?");
-    private static final Pattern REGEX_STMT = Pattern.compile("statement");
-
-    public static Pattern getRegexValue() {
-        return REGEX_VALUE;
-    }
-
-    public static Pattern getRegexStmt() {
-        return REGEX_STMT;
-    }
 
     public static FlangData convert(Map<String, Map<String, Object>> data) {
         var newAttrs = new HashMap<String, FlangAttributes>();
@@ -64,26 +52,44 @@ public class FlangData {
             return Optional.empty();
         }
 
-
         // If there is already a concrete FortranAst class for this id, there is no derivation
         if (FlangToClass.isClass(getKind(id))) {
             return Optional.empty();
         }
 
         // Calculate key to the next level
-        var key = id.endsWith("-Statement") ? REGEX_STMT : REGEX_VALUE;
         var attrs = getAttrs(id);
-        var keys = attrs.getKeys();
-
-        var idTry = attrs.getOptionalString(key);
+        var derivedKeyTry = getDerivedKey(id);
+        var derivedIdTry = derivedKeyTry.flatMap(attrs::getOptionalString);
 
         if (isNode) {
-            var derivedId = idTry.orElseThrow(() -> new RuntimeException("Could not find key '" + key + "' for id " + id + ", which has the following keys: " + keys +
+            var derivedId = derivedIdTry.orElseThrow(() -> new RuntimeException("Could not find derived key for id " + id + ", which has the following keys: " + attrs.getKeys() +
                     "\n -> this can mean that this is a concrete FortranAst node that does not exist yet. Create the node in FortranAst project, and an entry in enum FlangName corresponding to the Flang node, and then add the mapping in the class FlangToClass. Finally, add a processor for the node in the class Nodes."));
             return Optional.of(derivedId);
         }
 
-        return idTry;
+        return derivedIdTry;
+    }
+
+    private Optional<Pattern> getDerivedKey(String id) {
+        // TODO(Process-ing): Redo pattern
+        var attrs = getAttrs(id);
+
+        if (attrs.has("statement")) {
+            return Optional.of(Pattern.compile("statement"));
+        }
+
+        if (attrs.hasVariant()) {
+            return Optional.of(Pattern.compile(attrs.getVariantKey() + "(<\\w+>)?"));
+        }
+
+        var keys = attrs.getKeys();
+        if (keys.size() == 2) {
+            var otherKey = keys.stream().filter(key -> !key.equals("id")).findFirst().orElseThrow();
+            return Optional.of(Pattern.compile(otherKey));
+        }
+
+        return Optional.empty();
     }
 
     public String getChildId(String id) {
@@ -136,10 +142,6 @@ public class FlangData {
     }
 
 
-    public String getStmtAttr(FlangName flangName) {
-        return "Statement<" + flangName.getString() + ">";
-    }
-
     public String getString(FortranNode node, String key, FlangName... path) {
         return getOptionalString(node, key, path).orElseThrow(() -> new RuntimeException("Could not find key '" + key + "' in node '" + node.getNodeName() + "' using the path " + Arrays.toString(path)));
     }
@@ -160,7 +162,7 @@ public class FlangData {
         for (var nodeName : path) {
             if (nodeName.isStmt()) {
                 // Decode kind to statement attribute
-                var firstKey = getStmtAttr(nodeName);
+                var firstKey = nodeName.getStmtAttr();
                 // Get id to stmt
                 var stmtId = currentAttrs.getOptionalString(firstKey);
                 if (stmtId.isEmpty()) {
@@ -199,7 +201,23 @@ public class FlangData {
         return getChildId(getAttrs(node).getString(attribute));
     }
 
+    public String getVariantChildId(FortranNode node) {
+        return getChildId(getAttrs(node).getVariantString());
+    }
+
     public List<String> getChildrenIds(FortranNode node, FlangName attribute) {
+        return getAttrs(node).getStringList(attribute).stream()
+                .map(this::getChildId)
+                .toList();
+    }
+
+    public List<String> getChildrenIds(String key, FlangName attribute) {
+        return getAttrs(key).getStringList(attribute).stream()
+                .map(this::getChildId)
+                .toList();
+    }
+
+    public List<String> getChildrenIds(FortranNode node, String attribute) {
         return getAttrs(node).getStringList(attribute).stream()
                 .map(this::getChildId)
                 .toList();

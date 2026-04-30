@@ -11,8 +11,27 @@
         <attribute name="parent" type="joinpoint"
                    tooltip="Returns the parent node in the AST, or undefined if it is the root node"/>
         <attribute name="code" type="String" tooltip="String with the code represented by this node"/>
+        <!-- TODO: TEMP FIX WHILE GENERATOR DOES NOT ADD THIS BASE ATTRIBUTE AUTOMATICALLY -->
         <attribute name="children" type="joinpoint[]"
-                   tooltip="Returns an array with the children of the node, ignoring null nodes"/>
+                   tooltip="Returns an array with the children of the node"/>
+        <!-- TODO: TEMP FIX WHILE GENERATOR DOES NOT ADD THIS BASE ATTRIBUTE AUTOMATICALLY -->
+        <attribute name="descendants" type="joinpoint[]"
+                   tooltip="Returns an array with the descendants of the node"/>
+        <!-- TODO: TEMP FIX WHILE GENERATOR DOES NOT ADD THIS BASE ATTRIBUTE AUTOMATICALLY -->
+        <attribute name="scopeNodes" type="joinpoint[]"
+                   tooltip="the nodes of the scope of the current join point. If this node has a body (e.g., loop, function) corresponds to the children of the body. Otherwise, returns an empty array"/>
+        <attribute name="leftJp" type="joinpoint"
+                   tooltip="Returns the node that came before this node, or undefined if there is none"/>
+        <attribute name="rightJp" type="joinpoint"
+                   tooltip="Returns the node that comes after this node, or undefined if there is none"/>
+        <attribute name="getAncestor" type="joinpoint"
+                   tooltip="Looks for an ancestor joinpoint name, walking back on the AST">
+            <parameter name="type" type="String"/>
+        </attribute>
+        <attribute name="contains" type="Boolean"
+                   tooltip="true if the given node is a descendant of this node">
+            <parameter name="jp" type="joinpoint"/>
+        </attribute>
     </global>
 
     <!-- PROGRAM -->
@@ -32,5 +51,67 @@
         <attribute name="isLast" type="Boolean"/>
     </artifact>
 
+    <!--BINARYOPERATOR -->
+    <artifact class="binaryOperator">
+        <attribute name="left" type="expr"/>
+        <attribute name="right" type="expr"/>
+        <attribute name="kind" type="{add, sub, mul, div, gt, ge, lt, le, eq, ne}"/>
+    </artifact>
 
+    <!-- ASSIGNMENT STATEMENT -->
+    <artifact class="assignmentStatement">
+        <attribute name="variable" type="dataRef"/>
+        <attribute name="expr" type="expr"/>
+    </artifact>
+
+    <!-- DATAREF -->
+    <artifact class="dataRef">
+        <attribute name="name" type="String"/>
+    </artifact>
+
+    <!-- LITEARL -->
+    <artifact class="literal">
+        <attribute name="literal" type="String"/>
+    </artifact>
+
+    <!-- LOOP CONTROL -->
+    <artifact class="rangeLoopControl">
+        <attribute name="var" type="dataRef"/>
+        <attribute name="lower" type="expr"/>
+        <attribute name="upper" type="expr"/>
+        <!-- TODO how to represent optionals? -->
+    </artifact>
+
+    <!-- DO LOOP -->
+    <artifact class="doStatement">
+        <attribute name="control" type="loopControl"/>
+        <attribute name="body" type="execution"/>
+    </artifact>
+
+    <!-- STATEMENT BLOCKS -->
+    <artifact class="statementBlock">
+        <attribute name="stmts" type="statement[]"/>
+    </artifact>
+
+    <artifact class="execution">
+        <attribute name="executableStmts" type="executableStatement[]"/>
+    </artifact>
+
+    <!-- ARRAY SUBSCRIPT -->
+    <artifact class="arraySubscriptExpr">
+        <attribute name="var" type="dataRef"/>
+        <attribute name="subscripts" type="expr[]"/>
+    </artifact>
+
+    <!-- COMPILER DIRECTIVE -->
+    <artifact class="compilerDirective">
+        <attribute name="pairs" type="nameValue[]"/>
+        <attribute name="directiveString" type="String" tooltip="Returns the directive's contents as a string"/>
+    </artifact>
+
+    <!-- UTILS -->
+    <artifact class="nameValue">
+        <attribute name="name" type="String"/>
+        <!-- TODO how to represent optionals? -->
+    </artifact>
 </artifacts>

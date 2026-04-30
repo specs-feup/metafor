@@ -1,0 +1,676 @@
+{
+  "nodes": [
+    {
+      "id": "0x56400fbb6cb0-Program",
+      "ProgramUnit": [
+        "0x56400fbdf650-ProgramUnit"
+      ]
+    },
+    {
+      "id": "0x56400fbdf650-ProgramUnit",
+      "variantKey": "MainProgram",
+      "MainProgram": "0x56400fbe3090-MainProgram"
+    },
+    {
+      "id": "0x56400fbe3090-MainProgram",
+      "Statement<ProgramStmt>": "0x56400fbe31d8-Statement",
+      "SpecificationPart": "0x56400fbe3130-SpecificationPart",
+      "ExecutionPart": "0x56400fbe3118-ExecutionPart",
+      "Statement<EndProgramStmt>": "0x56400fbe3090-Statement"
+    },
+    {
+      "id": "0x56400fbe31d8-Statement",
+      "statement": "0x56400fbe31e8-ProgramStmt",
+      "source": "program logical_if"
+    },
+    {
+      "id": "0x56400fbe31e8-ProgramStmt",
+      "Name": "0x56400fbe31e8-Name"
+    },
+    {
+      "id": "0x56400fbe31e8-Name",
+      "source": "logical_if"
+    },
+    {
+      "id": "0x56400fbe3130-SpecificationPart",
+      "ImplicitPart": "0x56400fbe3148-ImplicitPart",
+      "DeclarationConstruct": [
+        "0x56400fbbd5a0-DeclarationConstruct",
+        "0x56400fbbd230-DeclarationConstruct"
+      ]
+    },
+    {
+      "id": "0x56400fbe3148-ImplicitPart"
+    },
+    {
+      "id": "0x56400fbbd5a0-DeclarationConstruct",
+      "variantKey": "SpecificationConstruct",
+      "SpecificationConstruct": "0x56400fbbd5a0-SpecificationConstruct"
+    },
+    {
+      "id": "0x56400fbbd5a0-SpecificationConstruct",
+      "variantKey": "Statement",
+      "Statement<TypeDeclarationStmt>": "0x56400fbbd5a0-Statement"
+    },
+    {
+      "id": "0x56400fbbd5a0-Statement",
+      "statement": "0x56400fbc5240-TypeDeclarationStmt",
+      "source": "logical :: cond"
+    },
+    {
+      "id": "0x56400fbc5240-TypeDeclarationStmt",
+      "DeclarationTypeSpec": "0x56400fbc5270-DeclarationTypeSpec",
+      "EntityDecl": [
+        "0x56400fbe0c70-EntityDecl"
+      ]
+    },
+    {
+      "id": "0x56400fbc5270-DeclarationTypeSpec",
+      "variantKey": "IntrinsicTypeSpec",
+      "IntrinsicTypeSpec": "0x56400fbc5270-IntrinsicTypeSpec"
+    },
+    {
+      "id": "0x56400fbc5270-IntrinsicTypeSpec",
+      "variantKey": "Logical",
+      "Logical": "0x56400fbc5270-Logical"
+    },
+    {
+      "id": "0x56400fbc5270-Logical"
+    },
+    {
+      "id": "0x56400fbe0c70-EntityDecl",
+      "Name": "0x56400fbe0d28-Name"
+    },
+    {
+      "id": "0x56400fbe0d28-Name",
+      "source": "cond"
+    },
+    {
+      "id": "0x56400fbbd230-DeclarationConstruct",
+      "variantKey": "SpecificationConstruct",
+      "SpecificationConstruct": "0x56400fbbd230-SpecificationConstruct"
+    },
+    {
+      "id": "0x56400fbbd230-SpecificationConstruct",
+      "variantKey": "Statement",
+      "Statement<TypeDeclarationStmt>": "0x56400fbbd230-Statement"
+    },
+    {
+      "id": "0x56400fbbd230-Statement",
+      "statement": "0x56400fbe0be0-TypeDeclarationStmt",
+      "source": "integer :: result"
+    },
+    {
+      "id": "0x56400fbe0be0-TypeDeclarationStmt",
+      "DeclarationTypeSpec": "0x56400fbe0c10-DeclarationTypeSpec",
+      "EntityDecl": [
+        "0x56400fbe1270-EntityDecl"
+      ]
+    },
+    {
+      "id": "0x56400fbe0c10-DeclarationTypeSpec",
+      "variantKey": "IntrinsicTypeSpec",
+      "IntrinsicTypeSpec": "0x56400fbe0c10-IntrinsicTypeSpec"
+    },
+    {
+      "id": "0x56400fbe0c10-IntrinsicTypeSpec",
+      "variantKey": "IntegerTypeSpec",
+      "IntegerTypeSpec": "0x56400fbe0c10-IntegerTypeSpec"
+    },
+    {
+      "id": "0x56400fbe0c10-IntegerTypeSpec"
+    },
+    {
+      "id": "0x56400fbe1270-EntityDecl",
+      "Name": "0x56400fbe1328-Name"
+    },
+    {
+      "id": "0x56400fbe1328-Name",
+      "source": "result"
+    },
+    {
+      "id": "0x56400fbe3118-ExecutionPart",
+      "ExecutionPartConstruct": [
+        "0x56400fbe11a0-ExecutionPartConstruct",
+        "0x56400fbe1670-ExecutionPartConstruct",
+        "0x56400fbe2d70-ExecutionPartConstruct"
+      ]
+    },
+    {
+      "id": "0x56400fbe3118-ExecutionPartConstruct"
+    },
+    {
+      "id": "0x56400fbe11a0-ExecutionPartConstruct",
+      "variantKey": "ExecutableConstruct",
+      "ExecutableConstruct": "0x56400fbe11a0-ExecutableConstruct"
+    },
+    {
+      "id": "0x56400fbe11a0-ExecutableConstruct",
+      "variantKey": "Statement",
+      "Statement<ActionStmt>": "0x56400fbe11a0-Statement"
+    },
+    {
+      "id": "0x56400fbe11a0-Statement",
+      "statement": "0x56400fbe11b0-ActionStmt",
+      "source": "cond = .false."
+    },
+    {
+      "id": "0x56400fbe11b0-ActionStmt",
+      "variantKey": "AssignmentStmt",
+      "AssignmentStmt": "0x56400fbdfdd0-AssignmentStmt"
+    },
+    {
+      "id": "0x56400fbdfdd0-AssignmentStmt",
+      "Variable": "0x56400fbdfeb0-Variable",
+      "Expr": "0x56400fbdfde0-Expr"
+    },
+    {
+      "id": "0x56400fbdfeb0-Variable",
+      "variantKey": "Designator",
+      "Designator": "0x56400fbe1ff0-Designator"
+    },
+    {
+      "id": "0x56400fbe1ff0-Designator",
+      "variantKey": "DataRef",
+      "DataRef": "0x56400fbe2000-DataRef"
+    },
+    {
+      "id": "0x56400fbe2000-DataRef",
+      "variantKey": "Name",
+      "Name": "0x56400fbe2000-Name"
+    },
+    {
+      "id": "0x56400fbe2000-Name",
+      "source": "cond"
+    },
+    {
+      "id": "0x56400fbdfde0-Expr",
+      "variantKey": "LiteralConstant",
+      "LiteralConstant": "0x56400fbdfe00-LiteralConstant"
+    },
+    {
+      "id": "0x56400fbdfe00-LiteralConstant",
+      "variantKey": "LogicalLiteralConstant",
+      "LogicalLiteralConstant": "0x56400fbdfe00-LogicalLiteralConstant"
+    },
+    {
+      "id": "0x56400fbdfe00-LogicalLiteralConstant",
+      "bool": "0"
+    },
+    {
+      "id": "0x56400fbe1670-ExecutionPartConstruct",
+      "variantKey": "ExecutableConstruct",
+      "ExecutableConstruct": "0x56400fbe1670-ExecutableConstruct"
+    },
+    {
+      "id": "0x56400fbe1670-ExecutableConstruct",
+      "variantKey": "Statement",
+      "Statement<ActionStmt>": "0x56400fbe1670-Statement"
+    },
+    {
+      "id": "0x56400fbe1670-Statement",
+      "statement": "0x56400fbe1680-ActionStmt",
+      "source": "result = 2"
+    },
+    {
+      "id": "0x56400fbe1680-ActionStmt",
+      "variantKey": "AssignmentStmt",
+      "AssignmentStmt": "0x56400fbe1550-AssignmentStmt"
+    },
+    {
+      "id": "0x56400fbe1550-AssignmentStmt",
+      "Variable": "0x56400fbe1630-Variable",
+      "Expr": "0x56400fbe1560-Expr"
+    },
+    {
+      "id": "0x56400fbe1630-Variable",
+      "variantKey": "Designator",
+      "Designator": "0x56400fbe0e20-Designator"
+    },
+    {
+      "id": "0x56400fbe0e20-Designator",
+      "variantKey": "DataRef",
+      "DataRef": "0x56400fbe0e30-DataRef"
+    },
+    {
+      "id": "0x56400fbe0e30-DataRef",
+      "variantKey": "Name",
+      "Name": "0x56400fbe0e30-Name"
+    },
+    {
+      "id": "0x56400fbe0e30-Name",
+      "source": "result"
+    },
+    {
+      "id": "0x56400fbe1560-Expr",
+      "variantKey": "LiteralConstant",
+      "LiteralConstant": "0x56400fbe1580-LiteralConstant"
+    },
+    {
+      "id": "0x56400fbe1580-LiteralConstant",
+      "variantKey": "IntLiteralConstant",
+      "IntLiteralConstant": "0x56400fbe1580-IntLiteralConstant"
+    },
+    {
+      "id": "0x56400fbe1580-IntLiteralConstant",
+      "CharBlock": "2"
+    },
+    {
+      "id": "0x56400fbe2d70-ExecutionPartConstruct",
+      "variantKey": "ExecutableConstruct",
+      "ExecutableConstruct": "0x56400fbe2d70-ExecutableConstruct"
+    },
+    {
+      "id": "0x56400fbe2d70-ExecutableConstruct",
+      "variantKey": "Statement",
+      "Statement<ActionStmt>": "0x56400fbe2d70-Statement"
+    },
+    {
+      "id": "0x56400fbe2d70-Statement",
+      "statement": "0x56400fbe2d80-ActionStmt",
+      "source": "if(cond) result = 3"
+    },
+    {
+      "id": "0x56400fbe2d80-ActionStmt",
+      "variantKey": "IfStmt",
+      "IfStmt": "0x56400fb8f1c0-IfStmt"
+    },
+    {
+      "id": "0x56400fb8f1c0-IfStmt",
+      "Expr": "0x56400fbe1720-Expr",
+      "UnlabeledStatement<ActionStmt>": "0x56400fb8f1c0-UnlabeledStatement"
+    },
+    {
+      "id": "0x56400fbe1720-Expr",
+      "variantKey": "Designator",
+      "Designator": "0x56400fbe16c0-Designator"
+    },
+    {
+      "id": "0x56400fbe16c0-Designator",
+      "variantKey": "DataRef",
+      "DataRef": "0x56400fbe16d0-DataRef"
+    },
+    {
+      "id": "0x56400fbe16d0-DataRef",
+      "variantKey": "Name",
+      "Name": "0x56400fbe16d0-Name"
+    },
+    {
+      "id": "0x56400fbe16d0-Name",
+      "source": "cond"
+    },
+    {
+      "id": "0x56400fb8f1c0-UnlabeledStatement",
+      "statement": "0x56400fb8f1d0-ActionStmt",
+      "source": "result = 3"
+    },
+    {
+      "id": "0x56400fb8f1d0-ActionStmt",
+      "variantKey": "AssignmentStmt",
+      "AssignmentStmt": "0x56400fbe1860-AssignmentStmt"
+    },
+    {
+      "id": "0x56400fbe1860-AssignmentStmt",
+      "Variable": "0x56400fbe1940-Variable",
+      "Expr": "0x56400fbe1870-Expr"
+    },
+    {
+      "id": "0x56400fbe1940-Variable",
+      "variantKey": "Designator",
+      "Designator": "0x56400fbe1e70-Designator"
+    },
+    {
+      "id": "0x56400fbe1e70-Designator",
+      "variantKey": "DataRef",
+      "DataRef": "0x56400fbe1e80-DataRef"
+    },
+    {
+      "id": "0x56400fbe1e80-DataRef",
+      "variantKey": "Name",
+      "Name": "0x56400fbe1e80-Name"
+    },
+    {
+      "id": "0x56400fbe1e80-Name",
+      "source": "result"
+    },
+    {
+      "id": "0x56400fbe1870-Expr",
+      "variantKey": "LiteralConstant",
+      "LiteralConstant": "0x56400fbe1890-LiteralConstant"
+    },
+    {
+      "id": "0x56400fbe1890-LiteralConstant",
+      "variantKey": "IntLiteralConstant",
+      "IntLiteralConstant": "0x56400fbe1890-IntLiteralConstant"
+    },
+    {
+      "id": "0x56400fbe1890-IntLiteralConstant",
+      "CharBlock": "3"
+    },
+    {
+      "id": "0x56400fbe3090-Statement",
+      "statement": "0x56400fbe30a0-EndProgramStmt",
+      "source": "end program logical_if"
+    },
+    {
+      "id": "0x56400fbe30a0-EndProgramStmt",
+      "Name": "0x56400fbe30a0-Name"
+    },
+    {
+      "id": "0x56400fbe30a0-Name",
+      "source": "logical_if"
+    }
+  ],
+  "enums": {
+    "Fortran::common::CUDADataAttr": [
+      "Constant",
+      "Device",
+      "Managed",
+      "Pinned",
+      "Shared",
+      "Texture",
+      "Unified"
+    ],
+    "Fortran::common::CUDASubprogramAttrs": [
+      "Host",
+      "Device",
+      "HostDevice",
+      "Global",
+      "Grid_Global"
+    ],
+    "Fortran::common::OpenACCDeviceType": [
+      "Star",
+      "Default",
+      "Nvidia",
+      "Radeon",
+      "Host",
+      "Multicore",
+      "None"
+    ],
+    "Fortran::parser::AccDataModifier::Modifier": [
+      "ReadOnly",
+      "Zero"
+    ],
+    "Fortran::parser::AccessSpec::Kind": [
+      "Public",
+      "Private"
+    ],
+    "Fortran::parser::BindEntity::Kind": [
+      "Object",
+      "Common"
+    ],
+    "Fortran::parser::ConnectSpec::CharExpr::Kind": [
+      "Access",
+      "Action",
+      "Asynchronous",
+      "Blank",
+      "Decimal",
+      "Delim",
+      "Encoding",
+      "Form",
+      "Pad",
+      "Position",
+      "Round",
+      "Sign",
+      "Carriagecontrol",
+      "Convert",
+      "Dispose"
+    ],
+    "Fortran::parser::DefinedOperator::IntrinsicOperator": [
+      "Power",
+      "Multiply",
+      "Divide",
+      "Add",
+      "Subtract",
+      "Concat",
+      "LT",
+      "LE",
+      "EQ",
+      "NE",
+      "GE",
+      "GT",
+      "NOT",
+      "AND",
+      "OR",
+      "EQV",
+      "NEQV"
+    ],
+    "Fortran::parser::ImplicitStmt::ImplicitNoneNameSpec": [
+      "External",
+      "Type"
+    ],
+    "Fortran::parser::InquireSpec::CharVar::Kind": [
+      "Access",
+      "Action",
+      "Asynchronous",
+      "Blank",
+      "Decimal",
+      "Delim",
+      "Direct",
+      "Encoding",
+      "Form",
+      "Formatted",
+      "Iomsg",
+      "Name",
+      "Pad",
+      "Position",
+      "Read",
+      "Readwrite",
+      "Round",
+      "Sequential",
+      "Sign",
+      "Stream",
+      "Status",
+      "Unformatted",
+      "Write",
+      "Carriagecontrol",
+      "Convert",
+      "Dispose"
+    ],
+    "Fortran::parser::InquireSpec::IntVar::Kind": [
+      "Iostat",
+      "Nextrec",
+      "Number",
+      "Pos",
+      "Recl",
+      "Size"
+    ],
+    "Fortran::parser::InquireSpec::LogVar::Kind": [
+      "Exist",
+      "Named",
+      "Opened",
+      "Pending"
+    ],
+    "Fortran::parser::IntentSpec::Intent": [
+      "In",
+      "Out",
+      "InOut"
+    ],
+    "Fortran::parser::IoControlSpec::CharExpr::Kind": [
+      "Advance",
+      "Blank",
+      "Decimal",
+      "Delim",
+      "Pad",
+      "Round",
+      "Sign"
+    ],
+    "Fortran::parser::ReductionOperator::Operator": [
+      "Plus",
+      "Multiply",
+      "Max",
+      "Min",
+      "Iand",
+      "Ior",
+      "Ieor",
+      "And",
+      "Or",
+      "Eqv",
+      "Neqv"
+    ],
+    "Fortran::parser::OmpTraitSelectorName::Value": [
+      "Arch",
+      "Atomic_Default_Mem_Order",
+      "Condition",
+      "Device_Num",
+      "Extension",
+      "Isa",
+      "Kind",
+      "Requires",
+      "Simd",
+      "Uid",
+      "Vendor"
+    ],
+    "Fortran::parser::OmpTraitSetSelectorName::Value": [
+      "Construct",
+      "Device",
+      "Implementation",
+      "Target_Device",
+      "User"
+    ],
+    "Fortran::parser::OmpMapType::Value": [
+      "Alloc",
+      "Delete",
+      "From",
+      "Release",
+      "To",
+      "Tofrom"
+    ],
+    "Fortran::parser::OmpMapTypeModifier::Value": [
+      "Always",
+      "Close",
+      "Present",
+      "Ompx_Hold"
+    ],
+    "Fortran::parser::OmpAtClause::ActionTime": [
+      "Compilation",
+      "Execution"
+    ],
+    "Fortran::parser::OmpSeverityClause::Severity": [
+      "Fatal",
+      "Warning"
+    ],
+    "Fortran::parser::OmpCancelType::Type": [
+      "Parallel",
+      "Sections",
+      "Do",
+      "Taskgroup"
+    ],
+    "Fortran::parser::OmpDefaultClause::DataSharingAttribute": [
+      "Private",
+      "Firstprivate",
+      "Shared",
+      "None"
+    ],
+    "Fortran::parser::OmpVariableCategory::Value": [
+      "Aggregate",
+      "All",
+      "Allocatable",
+      "Pointer",
+      "Scalar"
+    ],
+    "Fortran::parser::OmpDefaultmapClause::ImplicitBehavior": [
+      "Alloc",
+      "To",
+      "From",
+      "Tofrom",
+      "Firstprivate",
+      "None",
+      "Default"
+    ],
+    "Fortran::parser::OmpDependenceType::Value": [
+      "Sink",
+      "Source"
+    ],
+    "Fortran::parser::OmpTaskDependenceType::Value": [
+      "In",
+      "Out",
+      "Inout",
+      "Inoutset",
+      "Mutexinoutset",
+      "Depobj"
+    ],
+    "Fortran::parser::OmpExpectation::Value": [
+      "Present"
+    ],
+    "Fortran::parser::OmpLastprivateModifier::Value": [
+      "Conditional"
+    ],
+    "Fortran::parser::OmpLinearModifier::Value": [
+      "Ref",
+      "Uval",
+      "Val"
+    ],
+    "Fortran::parser::OmpOrderClause::Ordering": [
+      "Concurrent"
+    ],
+    "Fortran::parser::OmpOrderModifier::Value": [
+      "Reproducible",
+      "Unconstrained"
+    ],
+    "Fortran::parser::OmpPrescriptiveness::Value": [
+      "Strict"
+    ],
+    "Fortran::parser::OmpBindClause::Binding": [
+      "Parallel",
+      "Teams",
+      "Thread"
+    ],
+    "Fortran::parser::OmpProcBindClause::AffinityPolicy": [
+      "Close",
+      "Master",
+      "Spread",
+      "Primary"
+    ],
+    "Fortran::parser::OmpReductionModifier::Value": [
+      "Default",
+      "Inscan",
+      "Task"
+    ],
+    "Fortran::parser::OmpScheduleClause::Kind": [
+      "Static",
+      "Dynamic",
+      "Guided",
+      "Auto",
+      "Runtime"
+    ],
+    "Fortran::parser::OmpDeviceModifier::Value": [
+      "Ancestor",
+      "Device_Num"
+    ],
+    "Fortran::parser::OmpDeviceTypeClause::DeviceTypeDescription": [
+      "Any",
+      "Host",
+      "Nohost"
+    ],
+    "Fortran::parser::OmpChunkModifier::Value": [
+      "Simd"
+    ],
+    "Fortran::parser::OmpOrderingModifier::Value": [
+      "Monotonic",
+      "Nonmonotonic",
+      "Simd"
+    ],
+    "Fortran::common::OmpAtomicDefaultMemOrderType": [
+      "SeqCst",
+      "AcqRel",
+      "Relaxed"
+    ],
+    "Fortran::parser::ProcedureStmt::Kind": [
+      "ModuleProcedure",
+      "Procedure"
+    ],
+    "Fortran::parser::SavedEntity::Kind": [
+      "Entity",
+      "Common"
+    ],
+    "Fortran::parser::StopStmt::Kind": [
+      "Stop",
+      "ErrorStop"
+    ],
+    "Fortran::parser::UseStmt::ModuleNature": [
+      "Intrinsic",
+      "Non_Intrinsic"
+    ]
+  }
+}
