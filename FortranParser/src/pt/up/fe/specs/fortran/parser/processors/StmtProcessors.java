@@ -332,4 +332,11 @@ public class StmtProcessors extends ANodeProcessor {
     public void callStmt(CallStmt callStmt) {
         callStmt.addChild(getChild(callStmt, "call"));
     }
+
+    public void useStmt(UseStmt useStmt) {
+        String nameId = attributes(useStmt).getString("moduleName");
+        String name = attributes().get(nameId).getString("source");
+
+        useStmt.set(UseStmt.NAME, name);
+    }
 }

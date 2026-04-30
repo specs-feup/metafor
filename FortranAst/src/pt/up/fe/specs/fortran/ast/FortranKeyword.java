@@ -8,6 +8,7 @@ public enum FortranKeyword {
     WHILE,
     CONCURRENT,
     SUBROUTINE,
+    USE,
 
     // Conditional statements
     IF,
@@ -17,7 +18,7 @@ public enum FortranKeyword {
     CASE,
     DEFAULT,
 
-    ;
+    OMP;
 
     public String getKeyword(boolean lowercase) {
         var keyword = name();

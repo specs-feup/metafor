@@ -7,6 +7,15 @@ import pt.up.fe.specs.fortran.ast.nodes.expr.*;
 import pt.up.fe.specs.fortran.ast.nodes.loops.ConcurrentLoopControl;
 import pt.up.fe.specs.fortran.ast.nodes.loops.ConcurrentRange;
 import pt.up.fe.specs.fortran.ast.nodes.loops.RangeLoopControl;
+import pt.up.fe.specs.fortran.ast.nodes.omp.OmpBlockConstruct;
+import pt.up.fe.specs.fortran.ast.nodes.omp.OmpLoopConstruct;
+import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpDataSharingClause;
+import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
+import pt.up.fe.specs.fortran.ast.nodes.program.FortranFile;
+import pt.up.fe.specs.fortran.ast.nodes.program.MainProgram;
+import pt.up.fe.specs.fortran.ast.nodes.program.Specification;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
+import pt.up.fe.specs.fortran.ast.nodes.expr.*;
 import pt.up.fe.specs.fortran.ast.nodes.program.*;
 import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
@@ -77,6 +86,7 @@ public class Nodes {
         processors.put(EndSelectStmt.class, s::endSelectStmt);
 
         processors.put(CallStmt.class, s::callStmt);
+        processors.put(UseStmt.class, s::useStmt);
 
         var e = new ExprProcessors(data);
         processors.put(StringLiteral.class, e::stringLiteral);
@@ -118,6 +128,11 @@ public class Nodes {
         processors.put(RangeLoopControl.class, l::loopRange);
         processors.put(ConcurrentLoopControl.class, l::concurrentLoopControl);
         processors.put(ConcurrentRange.class, l::concurrentRange);
+
+        var omp = new OmpProcessors(data);
+        processors.put(OmpBlockConstruct.class, omp::ompBlockConstruct);
+        processors.put(OmpLoopConstruct.class, omp::ompLoopConstruct);
+        processors.put(OmpDataSharingClause.class, omp::ompDataSharingClause);
     }
 
     public void process(FortranNode node) {

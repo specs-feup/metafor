@@ -292,6 +292,42 @@ public class FortranParserTest {
         }
     }
 
+    @Test
+    void testOmpBasic() {
+        testJson("omp/omp_basic.json");
+    }
+
+    @Test
+    void testOmpBasicNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("omp/omp_basic.f90");
+        }
+    }
+
+    @Test
+    void testOmpDo() {
+        testJson("omp/omp_do.json");
+    }
+
+    @Test
+    void testOmpDoNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("omp/omp_do.f90");
+        }
+    }
+
+    @Test
+    void testOmpClause() {
+        testJson("omp/omp_clause.json");
+    }
+
+    @Test
+    void testOmpClauseNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("omp/omp_clause.f90");
+        }
+    }
+
     /* commented for now until some details are added to the AST
     @Test
     void test3mm() {

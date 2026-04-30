@@ -27,6 +27,7 @@ public enum FlangName implements StringProvider {
     DUMMY_ARG,
 
     /// STMTs
+    STATEMENT,
     PROGRAM_STMT,
     END_PROGRAM_STMT,
     SUBROUTINE_STMT,
@@ -43,6 +44,7 @@ public enum FlangName implements StringProvider {
     DO_CONSTRUCT,
     CALL_STMT,
     COMPILER_DIRECTIVE,
+    USE_STMT,
 
     /// Conditional Statements
     IF_CONSTRUCT,
@@ -117,6 +119,22 @@ public enum FlangName implements StringProvider {
     CONCURRENT_HEADER,
     CONCURRENT_CONTROL,
     LOCALITY_SPEC,
+
+    /// OPENMP
+    OPENMP_CONSTRUCT("OpenMPConstruct"),
+    OPENMP_BLOCK_CONSTRUCT("OpenMPBlockConstruct"),
+    OPENMP_LOOP_CONSTRUCT("OpenMPLoopConstruct"),
+    OMP_BEGIN_BLOCK_DIRECTIVE,
+    OMP_BLOCK_DIRECTIVE,
+    OMP_BEGIN_LOOP_DIRECTIVE,
+    OMP_LOOP_DIRECTIVE,
+    SHARED,
+    PRIVATE,
+    FIRST_PRIVATE("Firstprivate"),
+    OMP_OBJECT,
+    OMP_OBJECT_LIST,
+    OMP_CLAUSE,
+    OMP_CLAUSE_LIST,
 
     // ATTRIBUTES
     DEFERRED_SHAPE_SPEC_LIST,
