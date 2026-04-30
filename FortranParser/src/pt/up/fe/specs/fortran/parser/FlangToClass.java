@@ -5,10 +5,18 @@ import pt.up.fe.specs.fortran.ast.nodes.alloc.Allocation;
 import pt.up.fe.specs.fortran.ast.nodes.alloc.StatVariable;
 import pt.up.fe.specs.fortran.ast.nodes.decl.DummyArgumentDecl;
 import pt.up.fe.specs.fortran.ast.nodes.decl.EntityDecl;
-import pt.up.fe.specs.fortran.ast.nodes.expr.*;
+import pt.up.fe.specs.fortran.ast.nodes.expr.BinaryOperator;
+import pt.up.fe.specs.fortran.ast.nodes.expr.IntLiteral;
+import pt.up.fe.specs.fortran.ast.nodes.expr.LogicalLiteral;
+import pt.up.fe.specs.fortran.ast.nodes.expr.ParenExpr;
+import pt.up.fe.specs.fortran.ast.nodes.expr.StringLiteral;
 import pt.up.fe.specs.fortran.ast.nodes.loops.ConcurrentLoopControl;
 import pt.up.fe.specs.fortran.ast.nodes.loops.ConcurrentRange;
 import pt.up.fe.specs.fortran.ast.nodes.loops.RangeLoopControl;
+import pt.up.fe.specs.fortran.ast.nodes.expr.*;
+import pt.up.fe.specs.fortran.ast.nodes.omp.OmpBlockConstruct;
+import pt.up.fe.specs.fortran.ast.nodes.omp.OmpLoopConstruct;
+import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpDataSharingClause;
 import pt.up.fe.specs.fortran.ast.nodes.program.*;
 import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
@@ -73,6 +81,7 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.CONTAINS_STMT, ContainsStmt.class);
         NAME_TO_CLASS.put(FlangName.ALLOCATE_STMT, AllocateStmt.class);
         NAME_TO_CLASS.put(FlangName.DEALLOCATE_STMT, DeallocateStmt.class);
+        NAME_TO_CLASS.put(FlangName.USE_STMT, UseStmt.class);
 
         /// Variables
         //NAME_TO_CLASS.put(FlangName.DATA_REF, DataRef.class);
@@ -133,6 +142,14 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.IO_UNIT, IoUnit.class);
         NAME_TO_CLASS.put(FlangName.IO_CONTROL_SPEC, IoControlSpec.class);
         NAME_TO_CLASS.put(FlangName.STAT_VARIABLE, StatVariable.class);
+
+        /// OPENMP
+        NAME_TO_CLASS.put(FlangName.OPENMP_BLOCK_CONSTRUCT, OmpBlockConstruct.class);
+        NAME_TO_CLASS.put(FlangName.OPENMP_LOOP_CONSTRUCT, OmpLoopConstruct.class);
+        NAME_TO_CLASS.put(FlangName.SHARED, OmpDataSharingClause.class);
+        NAME_TO_CLASS.put(FlangName.PRIVATE, OmpDataSharingClause.class);
+        NAME_TO_CLASS.put(FlangName.FIRST_PRIVATE, OmpDataSharingClause.class);
+
     }
 
     public static boolean isClass(String type) {
