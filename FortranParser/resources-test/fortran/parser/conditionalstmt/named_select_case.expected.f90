@@ -1,4 +1,4 @@
-PROGRAM named_select_case
+PROGRAM NAMED_SELECT_CASE
     integer :: val, result
 
     val = 2
@@ -14,4 +14,4 @@ PROGRAM named_select_case
     END SELECT named_select
 
     PRINT *, "Result:", result
-END PROGRAM named_select_case
+END PROGRAM NAMED_SELECT_CASE
