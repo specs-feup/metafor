@@ -6,7 +6,7 @@ SUBROUTINE add_numbers(a, b, result, useless)
     result = a + b
 END SUBROUTINE add_numbers
 
-PROGRAM main
+PROGRAM MAIN
     integer :: x, y, total, useless
 
     x = 5
@@ -15,4 +15,4 @@ PROGRAM main
     call add_numbers(x, y, total, useless)
 
     PRINT *, "The sum is:", total
-END PROGRAM main
+END PROGRAM MAIN

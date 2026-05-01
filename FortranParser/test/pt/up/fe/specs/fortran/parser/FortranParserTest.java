@@ -71,7 +71,7 @@ public class FortranParserTest {
         var expectedNormalized = SpecsStrings.normalizeFileContents(SpecsIo.getResource(expectedResourceName), true);
         var codeNormalized = SpecsStrings.normalizeFileContents(code, true);
 
-        assertEquals(expectedNormalized, codeNormalized, "Codes do not match.\nOriginal code:\n" + code);
+        assertEquals(expectedNormalized, codeNormalized, "Codes do not match.\nAST code:\n" + code);
 
 
     }
@@ -292,12 +292,89 @@ public class FortranParserTest {
         }
     }
 
-    /* commented for now until some details are added to the AST
+    @Test
+    void testOmpBasic() {
+        testJson("omp/omp_basic.json");
+    }
+
+    @Test
+    void testOmpBasicNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("omp/omp_basic.f90");
+        }
+    }
+
+    @Test
+    void testOmpDo() {
+        testJson("omp/omp_do.json");
+    }
+
+    @Test
+    void testOmpDoNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("omp/omp_do.f90");
+        }
+    }
+
+    @Test
+    void testOmpClause() {
+        testJson("omp/omp_clause.json");
+    }
+
+    @Test
+    void testOmpClauseNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("omp/omp_clause.f90");
+        }
+    }
+
+    @Test
+    void testOmpReduction() {
+        testJson("omp/omp_reduction.json");
+    }
+
+    @Test
+    void testOmpReductionNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("omp/omp_reduction.f90");
+        }
+    }
+
     @Test
     void test3mm() {
         testJson("polybench/3mm.json");
     }
-    */
+
+    @Test
+    void test3mmNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("polybench/3mm.f90");
+        }
+    }
+
+    @Test
+    void testKindSelector() {
+        testJson("decl/kind_selector.json");
+    }
+
+    @Test
+    void testKindSelectorNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("decl/kind_selector.f90");
+        }
+    }
+
+    @Test
+    void testLegacyKindSelector() {
+        testJson("decl/legacy_kind_selector.json");
+    }
+
+    @Test
+    void testLegacyKindSelectorNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("decl/legacy_kind_selector.f90");
+        }
+    }
 
     @Test
     void testDirective() {
@@ -308,6 +385,18 @@ public class FortranParserTest {
     void testDirectiveNative() {
         if (SpecsPlatforms.isLinux()) {
             testNative("directive.f90");
+        }
+    }
+
+    @Test
+    void testFujitsu0000_0000() {
+        testJson("fujitsu/0000_0000.json");
+    }
+
+    @Test
+    void testFujitsu0000_0000Native() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("fujitsu/0000_0000.f90");
         }
     }
 }

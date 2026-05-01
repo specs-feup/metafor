@@ -2,6 +2,7 @@ package pt.up.fe.specs.fortran.parser.processors;
 
 import pt.up.fe.specs.fortran.ast.FortranContext;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
+import pt.up.fe.specs.fortran.ast.nodes.alloc.Allocation;
 import pt.up.fe.specs.fortran.ast.nodes.program.*;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
@@ -31,7 +32,7 @@ public class ProgramProcessors extends ANodeProcessor {
 
     public void mainProgram(MainProgram mainProgram) {
 
-        var firstName = attributes().getOptionalString(mainProgram, "source", FlangName.PROGRAM_STMT, FlangName.NAME);
+        var name = attributes().getString(mainProgram, "source", FlangName.PROGRAM_STMT, FlangName.NAME);
         // [specification-part]
         mainProgram.addChild(getChild(mainProgram, FlangName.SPECIFICATION_PART));
         // [execution-part]
@@ -41,17 +42,17 @@ public class ProgramProcessors extends ANodeProcessor {
             mainProgram.addChild(getChild(mainProgram, FlangName.INTERNAL_SUBPROGRAM_PART));
         }
 
-        var endName = attributes().getString(mainProgram, "source", FlangName.END_PROGRAM_STMT, FlangName.NAME);
-
-        var name = firstName.orElse(endName);
-
         mainProgram.setOptional(MainProgram.PROGRAM_NAME, name);
     }
 
     public void specification(Specification specification) {
 
+        if (attributes(specification).has(FlangName.STATEMENT)) {
+            specification.addChildren(getChildren(specification, FlangName.STATEMENT));
+        }
+
         if (attributes(specification).has(FlangName.DECLARATION_CONSTRUCT)) {
-            specification.setChildren(getChildren(specification, FlangName.DECLARATION_CONSTRUCT));
+            specification.addChildren(getChildren(specification, FlangName.DECLARATION_CONSTRUCT));
         }
 
 
@@ -64,8 +65,12 @@ public class ProgramProcessors extends ANodeProcessor {
     }
 
     public void internalSubprogram(InternalSubprogram internalSubprogram) {
+        if (attributes(internalSubprogram).has(FlangName.CONTAINS_STMT.getStmtAttr())) {
+            internalSubprogram.addChild(getChild(internalSubprogram, FlangName.CONTAINS_STMT.getStmtAttr()));
+        }
+
         if (attributes(internalSubprogram).has(FlangName.INTERNAL_SUBPROGRAM)) {
-            internalSubprogram.setChildren(getChildren(internalSubprogram, FlangName.INTERNAL_SUBPROGRAM));
+            internalSubprogram.addChildren(getChildren(internalSubprogram, FlangName.INTERNAL_SUBPROGRAM));
         }
     }
 

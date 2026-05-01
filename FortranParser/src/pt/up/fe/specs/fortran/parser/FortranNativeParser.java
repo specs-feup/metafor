@@ -18,13 +18,14 @@ import java.util.Optional;
 import java.util.function.Function;
 
 public class FortranNativeParser {
+    public static final int FLANG_VERSION = 22;
 
     private static final boolean USE_RELEASE = true;
 
     private static final boolean SAVE_JSON = false;
 
     private static final String BASE_URL = "https://github.com/specs-feup/flang-dumper/releases/download/";
-    private static final String CURRENT_VERSION = "v1.0.4";
+    private static final String CURRENT_VERSION = "v22.0.0";
 
     private static final WebResourceProvider LINUX_DUMPER_NIGHTLY =
             WebResourceProvider.newInstance(BASE_URL + "nightly/",
@@ -43,6 +44,10 @@ public class FortranNativeParser {
         this.context = context;
     }
 
+    private static String getFlangCommand() {
+        return "flang-" + FLANG_VERSION;
+    }
+
     public FortranJsonResult parse(File file) {
 
         context.set(FortranContext.LAST_PARSED_FILE, Optional.of(file));
@@ -51,7 +56,7 @@ public class FortranNativeParser {
         System.out.println("PLUGIN : " + plugin.getAbsolutePath());
 
         // Execute flang to obtain json
-        var command = List.of("flang-20", "-fc1", "-load", plugin.getAbsolutePath(), "-plugin", "dump-ast", file.getAbsolutePath());
+        var command = List.of(getFlangCommand(), "-fc1", "-fopenmp", "-load", plugin.getAbsolutePath(), "-plugin", "dump-ast", file.getAbsolutePath());
 
         var jsonFile = SAVE_JSON ? new File(file.getAbsoluteFile().getParentFile(), file.getName() + ".json") : null;
 
@@ -107,9 +112,8 @@ public class FortranNativeParser {
             throw new RuntimeException("Fortran input files only supported in Linux operating system, detected " + System.getProperty("os.name"));
         }
 
-        // Check if flang-20 is available
-        SpecsSystem.isCommandAvailable(List.of("flang-20"), new File("."));
-
+        // Check if flang is available
+        SpecsSystem.isCommandAvailable(List.of(getFlangCommand()), new File("."));
 
         // Resolve filename (taking into account versioning)
         var resource = USE_RELEASE ? LINUX_DUMPER_RELEASE.createResourceVersion("_" + LINUX_DUMPER_RELEASE.version())

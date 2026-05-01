@@ -1,5 +1,7 @@
 package pt.up.fe.specs.fortran.parser.processors;
 
+import pt.up.fe.specs.fortran.ast.nodes.type.shapes.AllocateShapeSpecification;
+import pt.up.fe.specs.fortran.ast.nodes.type.shapes.BoundedShapeSpecification;
 import pt.up.fe.specs.fortran.ast.nodes.type.shapes.DeferredShapeSpecList;
 import pt.up.fe.specs.fortran.ast.nodes.type.shapes.ExplicitShapeSpecification;
 import pt.up.fe.specs.fortran.parser.FlangName;
@@ -11,12 +13,20 @@ public class ShapesProcessor extends ANodeProcessor {
     }
 
     public void explicitShapeSpec(ExplicitShapeSpecification explicitShapeSpec) {
-        if (attributes(explicitShapeSpec).has("lower_bound")) {
-            var lower_bound = getChild(explicitShapeSpec, "lower_bound");
-            explicitShapeSpec.addChild(lower_bound);
+        boundedShapeSpec(explicitShapeSpec);
+    }
+
+    public void allocateShapeSpec(AllocateShapeSpecification allocateShapeSpec) {
+        boundedShapeSpec(allocateShapeSpec);
+    }
+
+    public void boundedShapeSpec(BoundedShapeSpecification boundedShapeSpec) {
+        if (attributes(boundedShapeSpec).has("lower_bound")) {
+            var lower_bound = getChild(boundedShapeSpec, "lower_bound");
+            boundedShapeSpec.addChild(lower_bound);
         }
-        var upper_bound = getChild(explicitShapeSpec, "upper_bound");
-        explicitShapeSpec.addChild(upper_bound);
+        var upper_bound = getChild(boundedShapeSpec, "upper_bound");
+        boundedShapeSpec.addChild(upper_bound);
     }
 
     public void deferredShapeSpecLis(DeferredShapeSpecList deferredShapeSpecList) {

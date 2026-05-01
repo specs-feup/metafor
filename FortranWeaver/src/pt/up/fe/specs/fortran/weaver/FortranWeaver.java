@@ -11,6 +11,9 @@ import org.lara.language.specification.dsl.LanguageSpecification;
 import org.suikasoft.jOptions.DataStore.SimpleDataStore;
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.FortranAstOptions;
+import pt.up.fe.specs.fortran.ast.FortranContext;
+import pt.up.fe.specs.fortran.ast.FortranNodeFactory;
+import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.program.Application;
 import pt.up.fe.specs.fortran.ast.nodes.program.FortranFile;
 import pt.up.fe.specs.fortran.parser.ApplicationParser;
@@ -169,5 +172,13 @@ public class FortranWeaver extends AFortranWeaver {
     @Override
     protected LanguageSpecification buildLangSpecs() {
         return buildLanguageSpecification();
+    }
+
+    public static FortranNodeFactory getFactory() {
+        return getContext().get(FortranContext.FACTORY);
+    }
+
+    public static FortranContext getContext() {
+        return getFortranWeaver().currentRoot.get(FortranNode.CONTEXT);
     }
 }

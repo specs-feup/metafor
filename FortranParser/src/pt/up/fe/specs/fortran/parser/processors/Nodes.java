@@ -1,12 +1,37 @@
 package pt.up.fe.specs.fortran.parser.processors;
 
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
+import pt.up.fe.specs.fortran.ast.nodes.decl.DataStmtValue;
+import pt.up.fe.specs.fortran.ast.nodes.alloc.Allocation;
+import pt.up.fe.specs.fortran.ast.nodes.alloc.StatVariable;
 import pt.up.fe.specs.fortran.ast.nodes.decl.DummyArgumentDecl;
 import pt.up.fe.specs.fortran.ast.nodes.decl.EntityDecl;
+import pt.up.fe.specs.fortran.ast.nodes.decl.KindSelector;
 import pt.up.fe.specs.fortran.ast.nodes.expr.*;
 import pt.up.fe.specs.fortran.ast.nodes.loops.ConcurrentLoopControl;
 import pt.up.fe.specs.fortran.ast.nodes.loops.ConcurrentRange;
 import pt.up.fe.specs.fortran.ast.nodes.loops.RangeLoopControl;
+import pt.up.fe.specs.fortran.ast.nodes.omp.OmpBlockConstruct;
+import pt.up.fe.specs.fortran.ast.nodes.omp.OmpLoopConstruct;
+import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpDataSharingClause;
+import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpNowaitClause;
+import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpReductionClause;
+import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
+import pt.up.fe.specs.fortran.ast.nodes.program.FortranFile;
+import pt.up.fe.specs.fortran.ast.nodes.program.MainProgram;
+import pt.up.fe.specs.fortran.ast.nodes.program.Specification;
+import pt.up.fe.specs.fortran.ast.nodes.specification.NamedConstantDef;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
+import pt.up.fe.specs.fortran.ast.nodes.expr.*;
+import pt.up.fe.specs.fortran.ast.nodes.omp.OmpBlockConstruct;
+import pt.up.fe.specs.fortran.ast.nodes.omp.OmpLoopConstruct;
+import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpDataSharingClause;
+import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
+import pt.up.fe.specs.fortran.ast.nodes.program.FortranFile;
+import pt.up.fe.specs.fortran.ast.nodes.program.MainProgram;
+import pt.up.fe.specs.fortran.ast.nodes.program.Specification;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
+import pt.up.fe.specs.fortran.ast.nodes.expr.*;
 import pt.up.fe.specs.fortran.ast.nodes.program.*;
 import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
@@ -18,11 +43,10 @@ import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.SelectCaseStmt;
 import pt.up.fe.specs.fortran.ast.nodes.type.*;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.IntentSpec;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.KeywordAttributeSpecifier;
+import pt.up.fe.specs.fortran.ast.nodes.type.shapes.AllocateShapeSpecification;
 import pt.up.fe.specs.fortran.ast.nodes.type.shapes.DeferredShapeSpecList;
 import pt.up.fe.specs.fortran.ast.nodes.type.shapes.ExplicitShapeSpecification;
-import pt.up.fe.specs.fortran.ast.nodes.utils.Format;
-import pt.up.fe.specs.fortran.ast.nodes.utils.NameValue;
-import pt.up.fe.specs.fortran.ast.nodes.utils.Star;
+import pt.up.fe.specs.fortran.ast.nodes.utils.*;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 import pt.up.fe.specs.util.classmap.ConsumerClassMap;
 import pt.up.fe.specs.util.exceptions.NotImplementedException;
@@ -45,9 +69,13 @@ public class Nodes {
         processors.put(Subroutine.class, p::subroutine);
         processors.put(InternalSubprogram.class, p::internalSubprogram);
 
+        var alloc = new AllocProcessors(data);
+        processors.put(Allocation.class, alloc::allocation);
+        processors.put(StatVariable.class, alloc::statVariable);
 
         var d = new DeclProcessors(data);
         processors.put(EntityDecl.class, d::entityDecl);
+        processors.put(DataStmtValue.class, d::dataStmtValue);
         processors.put(DummyArgumentDecl.class, d::dummyArgumentDecl);
 
         var v = new VariableProcessor(data);
@@ -77,6 +105,13 @@ public class Nodes {
         processors.put(EndSelectStmt.class, s::endSelectStmt);
 
         processors.put(CallStmt.class, s::callStmt);
+        processors.put(UseStmt.class, s::useStmt);
+        processors.put(WriteStmt.class, s::writeStmt);
+        processors.put(ContainsStmt.class, s::containsStmt);
+        processors.put(AllocateStmt.class, s::allocateStmt);
+        processors.put(DeallocateStmt.class, s::deallocateStmt);
+        processors.put(ContinueStmt.class, s::continueStmt);
+        processors.put(ParameterStmt.class, s::parameterStmt);
 
         var e = new ExprProcessors(data);
         processors.put(StringLiteral.class, e::stringLiteral);
@@ -95,29 +130,42 @@ public class Nodes {
 
         var t = new TypeProcessors(data);
         processors.put(IntegerType.class, t::integerType);
+        processors.put(KindSelector.class, t::kindSelector);
         processors.put(LogicalType.class, t::logicalType);
         processors.put(DoublePrecisionType.class, t::doublePrecisionType);
         processors.put(CharacterType.class, t::characterType);
         processors.put(RealType.class, t::realType);
+        processors.put(LengthSelector.class, t::lengthSelector);
 
         var a = new AttributesProcessor(data);
         processors.put(ArraySpecification.class, a::arraySpecification);
         processors.put(KeywordAttributeSpecifier.class, a::keywordSpecifier);
         processors.put(IntentSpec.class, a::intentSpec);
+        processors.put(NamedConstantDef.class, a::namedConstantDef);
 
         var shapes = new ShapesProcessor(data);
         processors.put(ExplicitShapeSpecification.class, shapes::explicitShapeSpec);
         processors.put(DeferredShapeSpecList.class, shapes::deferredShapeSpecLis);
+        processors.put(AllocateShapeSpecification.class, shapes::allocateShapeSpec);
 
         var u = new UtilsProcessors(data);
         processors.put(Star.class, u::star);
         processors.put(Format.class, u::format);
         processors.put(NameValue.class, u::nameValue);
+        processors.put(IoUnit.class, u::ioUnit);
+        processors.put(IoControlSpec.class, u::ioControlSpec);
 
         var l = new LoopProcessors(data);
         processors.put(RangeLoopControl.class, l::loopRange);
         processors.put(ConcurrentLoopControl.class, l::concurrentLoopControl);
         processors.put(ConcurrentRange.class, l::concurrentRange);
+
+        var omp = new OmpProcessors(data);
+        processors.put(OmpBlockConstruct.class, omp::ompBlockConstruct);
+        processors.put(OmpLoopConstruct.class, omp::ompLoopConstruct);
+        processors.put(OmpDataSharingClause.class, omp::ompDataSharingClause);
+        processors.put(OmpReductionClause.class, omp::ompReductionClause);
+        processors.put(OmpNowaitClause.class, omp::ompNowaitClause);
     }
 
     public void process(FortranNode node) {

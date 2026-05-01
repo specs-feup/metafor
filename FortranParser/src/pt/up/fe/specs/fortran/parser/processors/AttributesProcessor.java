@@ -1,6 +1,7 @@
 package pt.up.fe.specs.fortran.parser.processors;
 
 import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
+import pt.up.fe.specs.fortran.ast.nodes.specification.NamedConstantDef;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.IntentSpec;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.KeywordAttributeSpecifier;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.enums.IntentKind;
@@ -38,5 +39,10 @@ public class AttributesProcessor extends ANodeProcessor {
                 IntentSpec.KIND,
                 IntentKind.convertTry(attributes(intentSpec).getString("intent")).get()
         );
+    }
+
+    public void namedConstantDef(NamedConstantDef namedConstantDef) {
+        namedConstantDef.addChild(getChild(namedConstantDef, FlangName.NAMED_CONSTANT));
+        namedConstantDef.addChild(getChild(namedConstantDef, FlangName.EXPR));
     }
 }
