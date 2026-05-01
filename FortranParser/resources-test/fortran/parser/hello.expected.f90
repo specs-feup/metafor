@@ -1,7 +1,7 @@
-PROGRAM hello
+PROGRAM HELLO
     PRINT *, "Hello, World!"
     PRINT 100, "Hello, World!", 2
     100
     /*<.getCode() not implemented for node class pt.up.fe.specs.fortran.ast.nodes.stmt.FormatStmt>*/
     20 PRINT "(A, F6.3)", "Value = ", 3
-END PROGRAM hello
+END PROGRAM HELLO

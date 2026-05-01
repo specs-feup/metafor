@@ -16,23 +16,34 @@ type PrivateMapper = {
   "Literal": typeof Literal,
   "LoopControl": typeof LoopControl,
   "NameValue": typeof NameValue,
+  "OmpClause": typeof OmpClause,
+  "OmpDataSharingClause": typeof OmpDataSharingClause,
+  "OmpOrderedClause": typeof OmpOrderedClause,
+  "OmpReductionClause": typeof OmpReductionClause,
   "Program": typeof Program,
+  "ProgramUnit": typeof ProgramUnit,
   "RangeLoopControl": typeof RangeLoopControl,
   "RealLiteral": typeof RealLiteral,
   "Statement": typeof Statement,
   "StatementBlock": typeof StatementBlock,
   "StringLiteral": typeof StringLiteral,
+  "Subroutine": typeof Subroutine,
+  "UseStatement": typeof UseStatement,
   "BinaryOperator": typeof BinaryOperator,
   "Designator": typeof Designator,
   "ExecutableStatement": typeof ExecutableStatement,
   "Execution": typeof Execution,
   "IntLiteral": typeof IntLiteral,
+  "MainProgram": typeof MainProgram,
+  "OmpConstruct": typeof OmpConstruct,
+  "OmpLoopConstruct": typeof OmpLoopConstruct,
   "Specification": typeof Specification,
   "ActionStatement": typeof ActionStatement,
   "AssignmentStatement": typeof AssignmentStatement,
   "CompilerDirective": typeof CompilerDirective,
   "DataRef": typeof DataRef,
   "DoStatement": typeof DoStatement,
+  "OmpBlockConstruct": typeof OmpBlockConstruct,
   "ArraySubscriptExpr": typeof ArraySubscriptExpr,
 };
 
@@ -59,6 +70,10 @@ export class Joinpoint extends LaraJoinPoint {
    * Returns an array with the descendants of the node
    */
   get descendants(): Joinpoint[] { return wrapJoinPoint(this._javaObject.getDescendants()) }
+  /**
+   * Returns the index of this join point in relation to its parent
+   */
+  get indexOfSelf(): number { return wrapJoinPoint(this._javaObject.getIndexOfSelf()) }
   /**
    * Returns the node that came before this node, or undefined if there is none
    */
@@ -87,6 +102,10 @@ export class Joinpoint extends LaraJoinPoint {
    * Looks for an ancestor joinpoint name, walking back on the AST
    */
   getAncestor(type: string): Joinpoint { return wrapJoinPoint(this._javaObject.getAncestor(unwrapJoinPoint(type))); }
+  /**
+   * Removes node associated to the joinpoint from the AST
+   */
+  detach(): Joinpoint { return wrapJoinPoint(this._javaObject.detach()); }
   /**
    * Replaces this node with the given node
    */
@@ -164,6 +183,48 @@ export class NameValue extends Joinpoint {
 }
 
   /**
+   * Represents an OpenMP clause
+   */
+export class OmpClause extends Joinpoint {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+}
+
+  /**
+   * Represents an OpenMP datasharing clause (public, private, ...)
+   */
+export class OmpDataSharingClause extends OmpClause {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+}
+
+export class OmpOrderedClause extends OmpClause {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+}
+
+export class OmpReductionClause extends OmpClause {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+}
+
+  /**
    * Represents the complete program and is the top-most join point in the hierarchy
    */
 export class Program extends Joinpoint {
@@ -173,6 +234,19 @@ export class Program extends Joinpoint {
   static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
     name: null,
   };
+}
+
+export class ProgramUnit extends Joinpoint {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+  /**
+   * Returns the unit's specification part
+   */
+  get specification(): Specification { return wrapJoinPoint(this._javaObject.getSpecification()) }
 }
 
 export class RangeLoopControl extends LoopControl {
@@ -227,6 +301,25 @@ export class StringLiteral extends Literal {
   static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
     name: null,
   };
+}
+
+export class Subroutine extends ProgramUnit {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+}
+
+export class UseStatement extends Statement {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+  get moduleName(): string { return wrapJoinPoint(this._javaObject.getModuleName()) }
 }
 
   /**
@@ -286,6 +379,8 @@ export class Execution extends StatementBlock {
     name: null,
   };
   get executableStmts(): ExecutableStatement[] { return wrapJoinPoint(this._javaObject.getExecutableStmts()) }
+  insertBegin(stmt: ExecutableStatement): void { return wrapJoinPoint(this._javaObject.insertBegin(unwrapJoinPoint(stmt))); }
+  insertEnd(stmt: ExecutableStatement): void { return wrapJoinPoint(this._javaObject.insertEnd(unwrapJoinPoint(stmt))); }
 }
 
 export class IntLiteral extends Literal {
@@ -297,6 +392,47 @@ export class IntLiteral extends Literal {
   };
 }
 
+export class MainProgram extends ProgramUnit {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+}
+
+  /**
+   * Represents a generic OpenMP construct
+   */
+export class OmpConstruct extends ExecutableStatement {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+  get clauses(): OmpClause[] { return wrapJoinPoint(this._javaObject.getClauses()) }
+  set clauses(value: OmpClause[]) { this._javaObject.setClauses(unwrapJoinPoint(value)); }
+  /**
+   * Sets the construct's clauses
+   */
+  setClauses(clauses: OmpClause[]): void { return wrapJoinPoint(this._javaObject.setClauses(unwrapJoinPoint(clauses))); }
+  setDirective(directive: string): void { return wrapJoinPoint(this._javaObject.setDirective(unwrapJoinPoint(directive))); }
+}
+
+  /**
+   * Represents an OpenMP loop construct (such as do or do parallel)
+   */
+export class OmpLoopConstruct extends OmpConstruct {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+  setLoop(loop: DoStatement): void { return wrapJoinPoint(this._javaObject.setLoop(unwrapJoinPoint(loop))); }
+}
+
 export class Specification extends StatementBlock {
   /**
    * @internal
@@ -304,6 +440,10 @@ export class Specification extends StatementBlock {
   static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
     name: null,
   };
+  /**
+   * Adds a UseStmt to a specification part. The statement is inserted at the beginning.
+   */
+  addUseStmt(stmt: UseStatement): void { return wrapJoinPoint(this._javaObject.addUseStmt(unwrapJoinPoint(stmt))); }
 }
 
   /**
@@ -374,6 +514,19 @@ export class DoStatement extends ExecutableStatement {
 }
 
   /**
+   * Represents an OpenMP block construct (such as parallel or task)
+   */
+export class OmpBlockConstruct extends OmpConstruct {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+  setBody(body: Execution): void { return wrapJoinPoint(this._javaObject.setBody(unwrapJoinPoint(body))); }
+}
+
+  /**
    * Represents an access to one (or several) elements of an array
    */
 export class ArraySubscriptExpr extends DataRef {
@@ -394,23 +547,34 @@ const JoinpointMapper = {
   literal: Literal,
   loopControl: LoopControl,
   nameValue: NameValue,
+  ompClause: OmpClause,
+  ompDataSharingClause: OmpDataSharingClause,
+  ompOrderedClause: OmpOrderedClause,
+  ompReductionClause: OmpReductionClause,
   program: Program,
+  programUnit: ProgramUnit,
   rangeLoopControl: RangeLoopControl,
   realLiteral: RealLiteral,
   statement: Statement,
   statementBlock: StatementBlock,
   stringLiteral: StringLiteral,
+  subroutine: Subroutine,
+  useStatement: UseStatement,
   binaryOperator: BinaryOperator,
   designator: Designator,
   executableStatement: ExecutableStatement,
   execution: Execution,
   intLiteral: IntLiteral,
+  mainProgram: MainProgram,
+  ompConstruct: OmpConstruct,
+  ompLoopConstruct: OmpLoopConstruct,
   specification: Specification,
   actionStatement: ActionStatement,
   assignmentStatement: AssignmentStatement,
   compilerDirective: CompilerDirective,
   dataRef: DataRef,
   doStatement: DoStatement,
+  ompBlockConstruct: OmpBlockConstruct,
   arraySubscriptExpr: ArraySubscriptExpr,
 };
 

@@ -292,12 +292,65 @@ public class FortranParserTest {
         }
     }
 
-    /* commented for now until some details are added to the AST
+    @Test
+    void testOmpBasic() {
+        testJson("omp/omp_basic.json");
+    }
+
+    @Test
+    void testOmpBasicNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("omp/omp_basic.f90");
+        }
+    }
+
+    @Test
+    void testOmpDo() {
+        testJson("omp/omp_do.json");
+    }
+
+    @Test
+    void testOmpDoNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("omp/omp_do.f90");
+        }
+    }
+
+    @Test
+    void testOmpClause() {
+        testJson("omp/omp_clause.json");
+    }
+
+    @Test
+    void testOmpClauseNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("omp/omp_clause.f90");
+        }
+    }
+
+    @Test
+    void testOmpReduction() {
+        testJson("omp/omp_reduction.json");
+    }
+
+    @Test
+    void testOmpReductionNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("omp/omp_reduction.f90");
+        }
+    }
+
     @Test
     void test3mm() {
         testJson("polybench/3mm.json");
     }
-    */
+
+    @Test
+    void test3mmNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("polybench/3mm.f90");
+        }
+    }
 
     @Test
     void testKindSelector() {

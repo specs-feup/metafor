@@ -21,6 +21,7 @@ public enum FlangName implements StringProvider {
     BLOCK,
     EXECUTION_PART_CONSTRUCT,
     EXECUTABLE_CONSTRUCT,
+    ALLOCATION,
 
     /// DECLs
     ENTITY_DECL,
@@ -30,6 +31,7 @@ public enum FlangName implements StringProvider {
     DATA_STMT_CONSTANT,
 
     /// STMTs
+    STATEMENT,
     PROGRAM_STMT,
     END_PROGRAM_STMT,
     SUBROUTINE_STMT,
@@ -46,6 +48,15 @@ public enum FlangName implements StringProvider {
     DO_CONSTRUCT,
     CALL_STMT,
     COMPILER_DIRECTIVE,
+    WRITE_STMT,
+    IO_UNIT,
+    IO_CONTROL_SPEC,
+    CONTAINS_STMT,
+    ALLOCATE_STMT,
+    DEALLOCATE_STMT,
+    USE_STMT,
+    CONTINUE_STMT,
+    PARAMETER_STMT,
 
     /// Conditional Statements
     IF_CONSTRUCT,
@@ -92,6 +103,7 @@ public enum FlangName implements StringProvider {
     LE("LE"),
     GT("GT"),
     GE("GE"),
+    AND("AND"),
     SCALAR,
     PROCEDURE_DESIGNATOR,
     ACTUAL_ARG_SPEC,
@@ -115,6 +127,8 @@ public enum FlangName implements StringProvider {
     LOGICAL,
     CHARACTER,
     REAL,
+    CHAR_SELECTOR,
+    LENGTH_SELECTOR,
 
     /// LOOP
     LOOP_BOUNDS,
@@ -124,12 +138,35 @@ public enum FlangName implements StringProvider {
     CONCURRENT_CONTROL,
     LOCALITY_SPEC,
 
+    /// OPENMP
+    OPENMP_CONSTRUCT("OpenMPConstruct"),
+    OMP_BLOCK_CONSTRUCT,
+    OPENMP_LOOP_CONSTRUCT("OpenMPLoopConstruct"),
+    OMP_BEGIN_DIRECTIVE,
+    OMP_BLOCK_DIRECTIVE,
+    OMP_BEGIN_LOOP_DIRECTIVE,
+    OMP_END_LOOP_DIRECTIVE,
+    OMP_LOOP_DIRECTIVE,
+    SHARED,
+    PRIVATE,
+    FIRST_PRIVATE("Firstprivate"),
+    OMP_OBJECT,
+    OMP_OBJECT_LIST,
+    OMP_CLAUSE,
+    OMP_CLAUSE_LIST,
+    OMP_REDUCTION_CLAUSE,
+    REDUCTION,
+    OMP_DIRECTIVE_NAME,
+    MODIFIER,
+    NOWAIT,
+
     // ATTRIBUTES
     DEFERRED_SHAPE_SPEC_LIST,
     SPECIFICATION_EXPR,
     ATTR_SPEC,
     ARRAY_SPEC,
     EXPLICIT_SHAPE_SPEC,
+    ALLOCATE_SHAPE_SPEC,
     ALLOCATABLE,
     ASYNCHRONOUS,
     INTENT_SPEC,
@@ -137,7 +174,12 @@ public enum FlangName implements StringProvider {
 
     // OTHER
     INITIALIZATION,
-    NAME_VALUE;
+    NAME_VALUE,
+    ALLOCATE_OBJECT,
+    ALLOC_OPT,
+    STAT_VARIABLE,
+    NAMED_CONSTANT,
+    NAMED_CONSTANT_DEF;
 
     private static final Lazy<EnumHelper<FlangName>> HELPER = EnumHelper.newLazyHelper(FlangName.class);
 
