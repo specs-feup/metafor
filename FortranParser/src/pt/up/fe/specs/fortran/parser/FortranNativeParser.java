@@ -20,7 +20,7 @@ import java.util.function.Function;
 public class FortranNativeParser {
     public static final int FLANG_VERSION = 22;
 
-    private static final boolean USE_RELEASE = true;
+    private static final boolean USE_RELEASE = false;
 
     private static final boolean SAVE_JSON = false;
 
