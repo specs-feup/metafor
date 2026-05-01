@@ -1,5 +1,5 @@
-PROGRAM kind_selector
+PROGRAM KIND_SELECTOR
     integer(8) :: i8
 
     PRINT *, i8
-END PROGRAM kind_selector
+END PROGRAM KIND_SELECTOR

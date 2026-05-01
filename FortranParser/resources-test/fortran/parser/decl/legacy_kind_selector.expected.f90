@@ -1,5 +1,5 @@
-PROGRAM legacy_kind_selector
+PROGRAM LEGACY_KIND_SELECTOR
     integer*8 :: i8
 
     PRINT *, i8
-END PROGRAM legacy_kind_selector
+END PROGRAM LEGACY_KIND_SELECTOR
