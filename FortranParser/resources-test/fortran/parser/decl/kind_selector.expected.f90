@@ -1,0 +1,5 @@
+PROGRAM KIND_SELECTOR
+    integer(8) :: i8
+
+    PRINT *, i8
+END PROGRAM KIND_SELECTOR

@@ -4,9 +4,8 @@ import org.suikasoft.jOptions.Datakey.DataKey;
 import org.suikasoft.jOptions.Datakey.KeyFactory;
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
-import pt.up.fe.specs.fortran.ast.nodes.expr.Expr;
-import pt.up.fe.specs.fortran.ast.nodes.type.FortranType;
 import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
+import pt.up.fe.specs.fortran.ast.nodes.type.FortranType;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -32,8 +31,8 @@ public class EntityDecl extends FortranDecl {
         return getChild(FortranType.class, 0);
     }
 
-    public Optional<Expr> getInitialization() {
-        return getChildOf(Expr.class);
+    public Optional<Initialization> getInitialization() {
+        return getChildOf(Initialization.class);
     }
 
     public Optional<ArraySpecification> getArraySpec() {
@@ -49,7 +48,7 @@ public class EntityDecl extends FortranDecl {
 
         getArraySpec().ifPresent(arraySpec -> code.append(arraySpec.getCode()));
 
-        getInitialization().ifPresent(init -> code.append(" = ").append(init.getCode()));
+        getInitialization().ifPresent(init -> code.append(init.getCode()));
 
         return code.toString();
     }

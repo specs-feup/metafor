@@ -71,7 +71,7 @@ public class FortranParserTest {
         var expectedNormalized = SpecsStrings.normalizeFileContents(SpecsIo.getResource(expectedResourceName), true);
         var codeNormalized = SpecsStrings.normalizeFileContents(code, true);
 
-        assertEquals(expectedNormalized, codeNormalized, "Codes do not match.\nOriginal code:\n" + code);
+        assertEquals(expectedNormalized, codeNormalized, "Codes do not match.\nAST code:\n" + code);
 
 
     }
@@ -353,6 +353,30 @@ public class FortranParserTest {
     }
 
     @Test
+    void testKindSelector() {
+        testJson("decl/kind_selector.json");
+    }
+
+    @Test
+    void testKindSelectorNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("decl/kind_selector.f90");
+        }
+    }
+
+    @Test
+    void testLegacyKindSelector() {
+        testJson("decl/legacy_kind_selector.json");
+    }
+
+    @Test
+    void testLegacyKindSelectorNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("decl/legacy_kind_selector.f90");
+        }
+    }
+
+    @Test
     void testDirective() {
         testJson("directive.json");
     }
@@ -361,6 +385,18 @@ public class FortranParserTest {
     void testDirectiveNative() {
         if (SpecsPlatforms.isLinux()) {
             testNative("directive.f90");
+        }
+    }
+
+    @Test
+    void testFujitsu0000_0000() {
+        testJson("fujitsu/0000_0000.json");
+    }
+
+    @Test
+    void testFujitsu0000_0000Native() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("fujitsu/0000_0000.f90");
         }
     }
 }

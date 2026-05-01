@@ -1,10 +1,12 @@
 package pt.up.fe.specs.fortran.parser.processors;
 
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
+import pt.up.fe.specs.fortran.ast.nodes.decl.DataStmtValue;
 import pt.up.fe.specs.fortran.ast.nodes.alloc.Allocation;
 import pt.up.fe.specs.fortran.ast.nodes.alloc.StatVariable;
 import pt.up.fe.specs.fortran.ast.nodes.decl.DummyArgumentDecl;
 import pt.up.fe.specs.fortran.ast.nodes.decl.EntityDecl;
+import pt.up.fe.specs.fortran.ast.nodes.decl.KindSelector;
 import pt.up.fe.specs.fortran.ast.nodes.expr.*;
 import pt.up.fe.specs.fortran.ast.nodes.loops.ConcurrentLoopControl;
 import pt.up.fe.specs.fortran.ast.nodes.loops.ConcurrentRange;
@@ -73,6 +75,7 @@ public class Nodes {
 
         var d = new DeclProcessors(data);
         processors.put(EntityDecl.class, d::entityDecl);
+        processors.put(DataStmtValue.class, d::dataStmtValue);
         processors.put(DummyArgumentDecl.class, d::dummyArgumentDecl);
 
         var v = new VariableProcessor(data);
@@ -127,6 +130,7 @@ public class Nodes {
 
         var t = new TypeProcessors(data);
         processors.put(IntegerType.class, t::integerType);
+        processors.put(KindSelector.class, t::kindSelector);
         processors.put(LogicalType.class, t::logicalType);
         processors.put(DoublePrecisionType.class, t::doublePrecisionType);
         processors.put(CharacterType.class, t::characterType);

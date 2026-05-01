@@ -26,6 +26,9 @@ public enum FlangName implements StringProvider {
     /// DECLs
     ENTITY_DECL,
     DUMMY_ARG,
+    DATA_STMT_VALUE,
+    DATA_STMT_REPEAT,
+    DATA_STMT_CONSTANT,
 
     /// STMTs
     STATEMENT,
@@ -85,6 +88,7 @@ public enum FlangName implements StringProvider {
     LITERAL_CONSTANT,
     CHAR_LITERAL_CONSTANT,
     INT_LITERAL_CONSTANT,
+    SIGNED_INT_LITERAL_CONSTANT,
     LOGICAL_LITERAL_CONSTANT,
     REAL_LITERAL_CONSTANT,
     STAR,
@@ -117,6 +121,8 @@ public enum FlangName implements StringProvider {
     /// TYPEs
     DECLARATION_TYPE_SPEC,
     INTEGER_TYPE_SPEC,
+    KIND_SELECTOR,
+    STAR_SIZE,
     DOUBLE_PRECISION,
     LOGICAL,
     CHARACTER,
