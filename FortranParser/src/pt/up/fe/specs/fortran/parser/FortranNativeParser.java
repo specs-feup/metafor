@@ -20,12 +20,12 @@ import java.util.function.Function;
 public class FortranNativeParser {
     public static final int FLANG_VERSION = 22;
 
-    private static final boolean USE_RELEASE = false;
+    private static final boolean USE_RELEASE = true;
 
     private static final boolean SAVE_JSON = false;
 
     private static final String BASE_URL = "https://github.com/specs-feup/flang-dumper/releases/download/";
-    private static final String CURRENT_VERSION = "v1.0.4";
+    private static final String CURRENT_VERSION = "v22.0.0";
 
     private static final WebResourceProvider LINUX_DUMPER_NIGHTLY =
             WebResourceProvider.newInstance(BASE_URL + "nightly/",
