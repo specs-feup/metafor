@@ -71,7 +71,7 @@ public class FortranParserTest {
         var expectedNormalized = SpecsStrings.normalizeFileContents(SpecsIo.getResource(expectedResourceName), true);
         var codeNormalized = SpecsStrings.normalizeFileContents(code, true);
 
-        assertEquals(expectedNormalized, codeNormalized, "Codes do not match.\nOriginal code:\n" + code);
+        assertEquals(expectedNormalized, codeNormalized, "Codes do not match.\nAST code:\n" + code);
 
 
     }
