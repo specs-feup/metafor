@@ -11,8 +11,13 @@ import {
 
 type PrivateMapper = {
   "Joinpoint": typeof Joinpoint,
+  "ElseBlock": typeof ElseBlock,
+  "ElseIfBlock": typeof ElseIfBlock,
+  "ElseIfStatement": typeof ElseIfStatement,
   "Expr": typeof Expr,
   "FileJp": typeof FileJp,
+  "IfThenBlock": typeof IfThenBlock,
+  "IfThenStatement": typeof IfThenStatement,
   "Literal": typeof Literal,
   "LoopControl": typeof LoopControl,
   "NameValue": typeof NameValue,
@@ -33,6 +38,7 @@ type PrivateMapper = {
   "Designator": typeof Designator,
   "ExecutableStatement": typeof ExecutableStatement,
   "Execution": typeof Execution,
+  "IfConstruct": typeof IfConstruct,
   "IntLiteral": typeof IntLiteral,
   "MainProgram": typeof MainProgram,
   "OmpConstruct": typeof OmpConstruct,
@@ -114,6 +120,46 @@ export class Joinpoint extends LaraJoinPoint {
 }
 
   /**
+   * Represents the optional 'else' block of an if construct
+   */
+export class ElseBlock extends Joinpoint {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+  get body(): StatementBlock { return wrapJoinPoint(this._javaObject.getBody()) }
+}
+
+  /**
+   * Represents the optional 'else if' blocks of an if construct
+   */
+export class ElseIfBlock extends Joinpoint {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+  get body(): StatementBlock { return wrapJoinPoint(this._javaObject.getBody()) }
+  get header(): ElseIfStatement { return wrapJoinPoint(this._javaObject.getHeader()) }
+}
+
+  /**
+   * Represents the header of an 'else if' block
+   */
+export class ElseIfStatement extends Joinpoint {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+  get condition(): Expr { return wrapJoinPoint(this._javaObject.getCondition()) }
+}
+
+  /**
    * Represents an expression
    */
 export class Expr extends Joinpoint {
@@ -143,6 +189,33 @@ export class FileJp extends Joinpoint {
    * The name of the file
    */
   get name(): string { return wrapJoinPoint(this._javaObject.getName()) }
+}
+
+  /**
+   * Represents the first block of an if construct
+   */
+export class IfThenBlock extends Joinpoint {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+  get body(): StatementBlock { return wrapJoinPoint(this._javaObject.getBody()) }
+  get header(): IfThenStatement { return wrapJoinPoint(this._javaObject.getHeader()) }
+}
+
+  /**
+   * Represents the header of an 'if then' block
+   */
+export class IfThenStatement extends Joinpoint {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+  get condition(): Expr { return wrapJoinPoint(this._javaObject.getCondition()) }
 }
 
   /**
@@ -384,6 +457,21 @@ export class Execution extends StatementBlock {
   insertEnd(stmt: ExecutableStatement): void { return wrapJoinPoint(this._javaObject.insertEnd(unwrapJoinPoint(stmt))); }
 }
 
+  /**
+   * Represents the root of an if construct
+   */
+export class IfConstruct extends ExecutableStatement {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+  get elseBlock(): ElseBlock { return wrapJoinPoint(this._javaObject.getElseBlock()) }
+  get elseIfBlocks(): ElseIfBlock[] { return wrapJoinPoint(this._javaObject.getElseIfBlocks()) }
+  get ifThenBlock(): IfThenBlock { return wrapJoinPoint(this._javaObject.getIfThenBlock()) }
+}
+
 export class IntLiteral extends Literal {
   /**
    * @internal
@@ -554,8 +642,13 @@ export class ArraySubscriptExpr extends DataRef {
 
 const JoinpointMapper = {
   joinpoint: Joinpoint,
+  elseBlock: ElseBlock,
+  elseIfBlock: ElseIfBlock,
+  elseIfStatement: ElseIfStatement,
   expr: Expr,
   file: FileJp,
+  ifThenBlock: IfThenBlock,
+  ifThenStatement: IfThenStatement,
   literal: Literal,
   loopControl: LoopControl,
   nameValue: NameValue,
@@ -576,6 +669,7 @@ const JoinpointMapper = {
   designator: Designator,
   executableStatement: ExecutableStatement,
   execution: Execution,
+  ifConstruct: IfConstruct,
   intLiteral: IntLiteral,
   mainProgram: MainProgram,
   ompConstruct: OmpConstruct,
