@@ -17,7 +17,7 @@ public class FElseIfBlock extends AElseIfBlock {
 
     @Override
     public AStatementBlock getBodyImpl() {
-        return FortranJoinpoints.create(elseIfBlock, AStatementBlock.class);
+        return FortranJoinpoints.create(elseIfBlock.getBlock(), AStatementBlock.class);
     }
 
     @Override
