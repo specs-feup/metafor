@@ -73,4 +73,18 @@
     <joinpoint class="subroutine" extends="programUnit"/>
 
     <joinpoint class="ifStatement" extends="actionStatement"/>
+
+    <joinpoint class="ifConstruct" extends="executableStatement" tooltip="Represents the root of an if construct"/>
+
+    <joinpoint class="ifThenBlock" tooltip="Represents the first block of an if construct"/>
+
+    <joinpoint class="ifThenStatement" tooltip="Represents the header of an 'if then' block"/>
+
+    <joinpoint class="elseIfBlock" tooltip="Represents the optional 'else if' blocks of an if construct"/>
+
+    <joinpoint class="elseIfStatement" tooltip="Represents the header of an 'else if' block"/>
+
+    <joinpoint class="elseBlock" tooltip="Represents the optional 'else' block of an if construct"/>
+
+    <joinpoint class="elseStatement" tooltip="Represents the header of an 'else' block"/>
 </joinpoints>
