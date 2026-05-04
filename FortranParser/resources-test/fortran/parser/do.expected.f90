@@ -1,4 +1,4 @@
-PROGRAM simple_loop
+PROGRAM SIMPLE_LOOP
     integer :: i, dummy, a = 2
 
     DO i = 1, 5, a
@@ -14,4 +14,4 @@ PROGRAM simple_loop
         dummy = 4
     END DO name
 
-END PROGRAM simple_loop
+END PROGRAM SIMPLE_LOOP

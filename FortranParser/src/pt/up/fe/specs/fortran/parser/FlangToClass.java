@@ -1,10 +1,13 @@
 package pt.up.fe.specs.fortran.parser;
 
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
-import pt.up.fe.specs.fortran.ast.nodes.alloc.Allocation;
-import pt.up.fe.specs.fortran.ast.nodes.alloc.StatVariable;
+import pt.up.fe.specs.fortran.ast.nodes.decl.DataStmtValue;
 import pt.up.fe.specs.fortran.ast.nodes.decl.DummyArgumentDecl;
 import pt.up.fe.specs.fortran.ast.nodes.decl.EntityDecl;
+import pt.up.fe.specs.fortran.ast.nodes.decl.KindSelector;
+import pt.up.fe.specs.fortran.ast.nodes.expr.*;
+import pt.up.fe.specs.fortran.ast.nodes.alloc.Allocation;
+import pt.up.fe.specs.fortran.ast.nodes.alloc.StatVariable;
 import pt.up.fe.specs.fortran.ast.nodes.expr.BinaryOperator;
 import pt.up.fe.specs.fortran.ast.nodes.expr.IntLiteral;
 import pt.up.fe.specs.fortran.ast.nodes.expr.LogicalLiteral;
@@ -13,6 +16,10 @@ import pt.up.fe.specs.fortran.ast.nodes.expr.StringLiteral;
 import pt.up.fe.specs.fortran.ast.nodes.loops.ConcurrentLoopControl;
 import pt.up.fe.specs.fortran.ast.nodes.loops.ConcurrentRange;
 import pt.up.fe.specs.fortran.ast.nodes.loops.RangeLoopControl;
+import pt.up.fe.specs.fortran.ast.nodes.expr.*;
+import pt.up.fe.specs.fortran.ast.nodes.omp.OmpBlockConstruct;
+import pt.up.fe.specs.fortran.ast.nodes.omp.OmpLoopConstruct;
+import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpDataSharingClause;
 import pt.up.fe.specs.fortran.ast.nodes.expr.*;
 import pt.up.fe.specs.fortran.ast.nodes.omp.OmpBlockConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.omp.OmpLoopConstruct;
@@ -56,6 +63,7 @@ public class FlangToClass {
         /// DECLs
         NAME_TO_CLASS.put(FlangName.ENTITY_DECL, EntityDecl.class);
         NAME_TO_CLASS.put(FlangName.DUMMY_ARG, DummyArgumentDecl.class);
+        NAME_TO_CLASS.put(FlangName.DATA_STMT_VALUE, DataStmtValue.class);
 
         /// STMTs
         NAME_TO_CLASS.put(FlangName.PRINT_STMT, PrintStmt.class);
@@ -95,6 +103,8 @@ public class FlangToClass {
         /// EXPRs
         NAME_TO_CLASS.put(FlangName.CHAR_LITERAL_CONSTANT, StringLiteral.class);
         NAME_TO_CLASS.put(FlangName.INT_LITERAL_CONSTANT, IntLiteral.class);
+        NAME_TO_CLASS.put(FlangName.SIGNED_INT_LITERAL_CONSTANT, IntLiteral.class);
+        NAME_TO_CLASS.put(FlangName.KIND_SELECTOR, KindSelector.class);
         NAME_TO_CLASS.put(FlangName.LOGICAL_LITERAL_CONSTANT, LogicalLiteral.class);
         NAME_TO_CLASS.put(FlangName.REAL_LITERAL_CONSTANT, RealLiteral.class);
         NAME_TO_CLASS.put(FlangName.FORMAT, Format.class);
@@ -136,7 +146,6 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.ARRAY_SPEC, ArraySpecification.class);
         NAME_TO_CLASS.put(FlangName.ALLOCATABLE, AllocatableKeyword.class);
         NAME_TO_CLASS.put(FlangName.INTENT_SPEC, IntentSpec.class);
-        NAME_TO_CLASS.put(FlangName.NAMED_CONSTANT_DEF, NamedConstantDef.class);
 
         ///  SHAPES
         NAME_TO_CLASS.put(FlangName.EXPLICIT_SHAPE_SPEC, ExplicitShapeSpecification.class);

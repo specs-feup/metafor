@@ -1,6 +1,6 @@
-PROGRAM parenexpr
+PROGRAM PARENEXPR
     integer :: result
     integer :: a = 5
 
     result = (5)
-END PROGRAM parenexpr
+END PROGRAM PARENEXPR

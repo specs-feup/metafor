@@ -32,7 +32,7 @@ public class ProgramProcessors extends ANodeProcessor {
 
     public void mainProgram(MainProgram mainProgram) {
 
-        var firstName = attributes().getOptionalString(mainProgram, "source", FlangName.PROGRAM_STMT, FlangName.NAME);
+        var name = attributes().getString(mainProgram, "source", FlangName.PROGRAM_STMT, FlangName.NAME);
         // [specification-part]
         mainProgram.addChild(getChild(mainProgram, FlangName.SPECIFICATION_PART));
         // [execution-part]
@@ -41,12 +41,6 @@ public class ProgramProcessors extends ANodeProcessor {
         if (attributes(mainProgram).has(FlangName.INTERNAL_SUBPROGRAM_PART)) {
             mainProgram.addChild(getChild(mainProgram, FlangName.INTERNAL_SUBPROGRAM_PART));
         }
-
-        var endName = attributes().getOptionalString(mainProgram, "source", FlangName.END_PROGRAM_STMT, FlangName.NAME);
-
-        var name = firstName
-                .or(() -> endName)
-                .orElseThrow();
 
         mainProgram.setOptional(MainProgram.PROGRAM_NAME, name);
     }
