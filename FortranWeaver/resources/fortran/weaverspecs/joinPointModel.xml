@@ -71,4 +71,22 @@
     <joinpoint class="mainProgram" extends="programUnit"/>
 
     <joinpoint class="subroutine" extends="programUnit"/>
+
+    <joinpoint class="specificationStatement" extends="statement"/>
+
+    <joinpoint class="typeDeclarationStatement" extends="specificationStatement"/>
+
+    <joinpoint class="attributeSpecifier"/>
+
+    <joinpoint class="keywordAttributeSpecifier" extends="attributeSpecifier"/>
+
+    <joinpoint class="parameterKeyword" extends="keywordAttributeSpecifier"/>
+
+    <joinpoint class="fortranDecl"/>
+
+    <joinpoint class="entityDecl" extends="fortranDecl"/>
+
+    <joinpoint class="initialization"/>
+
+    <joinpoint class="exprInitialization" extends="initialization"/>
 </joinpoints>

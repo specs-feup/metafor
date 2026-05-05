@@ -99,6 +99,10 @@
         <attribute name="executableStmts" type="executableStatement[]"/>
     </artifact>
 
+    <artifact class="specification">
+        <attribute name="specificationStmts" type="specificationStatement[]"/>
+    </artifact>
+
     <!-- ARRAY SUBSCRIPT -->
     <artifact class="arraySubscriptExpr">
         <attribute name="var" type="dataRef"/>
@@ -130,5 +134,19 @@
     <!-- OPENMP -->
     <artifact class="ompConstruct">
         <attribute name="clauses" type="ompClause[]"/>
+    </artifact>
+
+    <!-- DECLARATIONS -->
+    <artifact class="typeDeclarationStatement">
+        <attribute name="decls" type="entityDecl[]"/>
+        <attribute name="attrs" type="attributeSpecifier[]"/>
+    </artifact>
+
+    <artifact class="exprInitialization">
+        <attribute name="expr" type="expr"/>
+    </artifact>
+
+    <artifact class="entityDecl">
+        <attribute name="name" type="String"/>
     </artifact>
 </artifacts>
