@@ -11,8 +11,12 @@ import {
 
 type PrivateMapper = {
   "Joinpoint": typeof Joinpoint,
+  "AttributeSpecifier": typeof AttributeSpecifier,
   "Expr": typeof Expr,
   "FileJp": typeof FileJp,
+  "FortranDecl": typeof FortranDecl,
+  "Initialization": typeof Initialization,
+  "KeywordAttributeSpecifier": typeof KeywordAttributeSpecifier,
   "Literal": typeof Literal,
   "LoopControl": typeof LoopControl,
   "NameValue": typeof NameValue,
@@ -20,6 +24,7 @@ type PrivateMapper = {
   "OmpDataSharingClause": typeof OmpDataSharingClause,
   "OmpOrderedClause": typeof OmpOrderedClause,
   "OmpReductionClause": typeof OmpReductionClause,
+  "ParameterKeyword": typeof ParameterKeyword,
   "Program": typeof Program,
   "ProgramUnit": typeof ProgramUnit,
   "RangeLoopControl": typeof RangeLoopControl,
@@ -31,13 +36,17 @@ type PrivateMapper = {
   "UseStatement": typeof UseStatement,
   "BinaryOperator": typeof BinaryOperator,
   "Designator": typeof Designator,
+  "EntityDecl": typeof EntityDecl,
   "ExecutableStatement": typeof ExecutableStatement,
   "Execution": typeof Execution,
+  "ExprInitialization": typeof ExprInitialization,
   "IntLiteral": typeof IntLiteral,
   "MainProgram": typeof MainProgram,
   "OmpConstruct": typeof OmpConstruct,
   "OmpLoopConstruct": typeof OmpLoopConstruct,
   "Specification": typeof Specification,
+  "SpecificationStatement": typeof SpecificationStatement,
+  "TypeDeclarationStatement": typeof TypeDeclarationStatement,
   "ActionStatement": typeof ActionStatement,
   "AssignmentStatement": typeof AssignmentStatement,
   "CompilerDirective": typeof CompilerDirective,
@@ -112,6 +121,15 @@ export class Joinpoint extends LaraJoinPoint {
   replaceWith(node: Joinpoint): Joinpoint { return wrapJoinPoint(this._javaObject.replaceWith(unwrapJoinPoint(node))); }
 }
 
+export class AttributeSpecifier extends Joinpoint {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+}
+
   /**
    * Represents an expression
    */
@@ -142,6 +160,33 @@ export class FileJp extends Joinpoint {
    * The name of the file
    */
   get name(): string { return wrapJoinPoint(this._javaObject.getName()) }
+}
+
+export class FortranDecl extends Joinpoint {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+}
+
+export class Initialization extends Joinpoint {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+}
+
+export class KeywordAttributeSpecifier extends AttributeSpecifier {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
 }
 
   /**
@@ -216,6 +261,15 @@ export class OmpOrderedClause extends OmpClause {
 }
 
 export class OmpReductionClause extends OmpClause {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+}
+
+export class ParameterKeyword extends KeywordAttributeSpecifier {
   /**
    * @internal
    */
@@ -359,6 +413,16 @@ export class Designator extends Expr {
   };
 }
 
+export class EntityDecl extends FortranDecl {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+  get name(): string { return wrapJoinPoint(this._javaObject.getName()) }
+}
+
   /**
    * Represents an executable statement
    */
@@ -381,6 +445,16 @@ export class Execution extends StatementBlock {
   get executableStmts(): ExecutableStatement[] { return wrapJoinPoint(this._javaObject.getExecutableStmts()) }
   insertBegin(stmt: ExecutableStatement): void { return wrapJoinPoint(this._javaObject.insertBegin(unwrapJoinPoint(stmt))); }
   insertEnd(stmt: ExecutableStatement): void { return wrapJoinPoint(this._javaObject.insertEnd(unwrapJoinPoint(stmt))); }
+}
+
+export class ExprInitialization extends Initialization {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+  get expr(): Expr { return wrapJoinPoint(this._javaObject.getExpr()) }
 }
 
 export class IntLiteral extends Literal {
@@ -440,10 +514,31 @@ export class Specification extends StatementBlock {
   static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
     name: null,
   };
+  get specificationStmts(): SpecificationStatement[] { return wrapJoinPoint(this._javaObject.getSpecificationStmts()) }
   /**
    * Adds a UseStmt to a specification part. The statement is inserted at the beginning.
    */
   addUseStmt(stmt: UseStatement): void { return wrapJoinPoint(this._javaObject.addUseStmt(unwrapJoinPoint(stmt))); }
+}
+
+export class SpecificationStatement extends Statement {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+}
+
+export class TypeDeclarationStatement extends SpecificationStatement {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+  get attrs(): AttributeSpecifier[] { return wrapJoinPoint(this._javaObject.getAttrs()) }
+  get decls(): EntityDecl[] { return wrapJoinPoint(this._javaObject.getDecls()) }
 }
 
   /**
@@ -542,8 +637,12 @@ export class ArraySubscriptExpr extends DataRef {
 
 const JoinpointMapper = {
   joinpoint: Joinpoint,
+  attributeSpecifier: AttributeSpecifier,
   expr: Expr,
   file: FileJp,
+  fortranDecl: FortranDecl,
+  initialization: Initialization,
+  keywordAttributeSpecifier: KeywordAttributeSpecifier,
   literal: Literal,
   loopControl: LoopControl,
   nameValue: NameValue,
@@ -551,6 +650,7 @@ const JoinpointMapper = {
   ompDataSharingClause: OmpDataSharingClause,
   ompOrderedClause: OmpOrderedClause,
   ompReductionClause: OmpReductionClause,
+  parameterKeyword: ParameterKeyword,
   program: Program,
   programUnit: ProgramUnit,
   rangeLoopControl: RangeLoopControl,
@@ -562,13 +662,17 @@ const JoinpointMapper = {
   useStatement: UseStatement,
   binaryOperator: BinaryOperator,
   designator: Designator,
+  entityDecl: EntityDecl,
   executableStatement: ExecutableStatement,
   execution: Execution,
+  exprInitialization: ExprInitialization,
   intLiteral: IntLiteral,
   mainProgram: MainProgram,
   ompConstruct: OmpConstruct,
   ompLoopConstruct: OmpLoopConstruct,
   specification: Specification,
+  specificationStatement: SpecificationStatement,
+  typeDeclarationStatement: TypeDeclarationStatement,
   actionStatement: ActionStatement,
   assignmentStatement: AssignmentStatement,
   compilerDirective: CompilerDirective,
