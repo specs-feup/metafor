@@ -11,12 +11,13 @@ import {
 
 type PrivateMapper = {
   "Joinpoint": typeof Joinpoint,
-  "AttributeSpecifier": typeof AttributeSpecifier,
+  "ElseBlock": typeof ElseBlock,
+  "ElseIfBlock": typeof ElseIfBlock,
+  "ElseIfStatement": typeof ElseIfStatement,
   "Expr": typeof Expr,
   "FileJp": typeof FileJp,
-  "FortranDecl": typeof FortranDecl,
-  "Initialization": typeof Initialization,
-  "KeywordAttributeSpecifier": typeof KeywordAttributeSpecifier,
+  "IfThenBlock": typeof IfThenBlock,
+  "IfThenStatement": typeof IfThenStatement,
   "Literal": typeof Literal,
   "LoopControl": typeof LoopControl,
   "NameValue": typeof NameValue,
@@ -24,7 +25,6 @@ type PrivateMapper = {
   "OmpDataSharingClause": typeof OmpDataSharingClause,
   "OmpOrderedClause": typeof OmpOrderedClause,
   "OmpReductionClause": typeof OmpReductionClause,
-  "ParameterKeyword": typeof ParameterKeyword,
   "Program": typeof Program,
   "ProgramUnit": typeof ProgramUnit,
   "RangeLoopControl": typeof RangeLoopControl,
@@ -36,22 +36,20 @@ type PrivateMapper = {
   "UseStatement": typeof UseStatement,
   "BinaryOperator": typeof BinaryOperator,
   "Designator": typeof Designator,
-  "EntityDecl": typeof EntityDecl,
   "ExecutableStatement": typeof ExecutableStatement,
   "Execution": typeof Execution,
-  "ExprInitialization": typeof ExprInitialization,
+  "IfConstruct": typeof IfConstruct,
   "IntLiteral": typeof IntLiteral,
   "MainProgram": typeof MainProgram,
   "OmpConstruct": typeof OmpConstruct,
   "OmpLoopConstruct": typeof OmpLoopConstruct,
   "Specification": typeof Specification,
-  "SpecificationStatement": typeof SpecificationStatement,
-  "TypeDeclarationStatement": typeof TypeDeclarationStatement,
   "ActionStatement": typeof ActionStatement,
   "AssignmentStatement": typeof AssignmentStatement,
   "CompilerDirective": typeof CompilerDirective,
   "DataRef": typeof DataRef,
   "DoStatement": typeof DoStatement,
+  "IfStatement": typeof IfStatement,
   "OmpBlockConstruct": typeof OmpBlockConstruct,
   "ArraySubscriptExpr": typeof ArraySubscriptExpr,
 };
@@ -121,13 +119,44 @@ export class Joinpoint extends LaraJoinPoint {
   replaceWith(node: Joinpoint): Joinpoint { return wrapJoinPoint(this._javaObject.replaceWith(unwrapJoinPoint(node))); }
 }
 
-export class AttributeSpecifier extends Joinpoint {
+  /**
+   * Represents the optional 'else' block of an if construct
+   */
+export class ElseBlock extends Joinpoint {
   /**
    * @internal
    */
   static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
     name: null,
   };
+  get body(): StatementBlock { return wrapJoinPoint(this._javaObject.getBody()) }
+}
+
+  /**
+   * Represents the optional 'else if' blocks of an if construct
+   */
+export class ElseIfBlock extends Joinpoint {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+  get body(): StatementBlock { return wrapJoinPoint(this._javaObject.getBody()) }
+  get header(): ElseIfStatement { return wrapJoinPoint(this._javaObject.getHeader()) }
+}
+
+  /**
+   * Represents the header of an 'else if' block
+   */
+export class ElseIfStatement extends Joinpoint {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+  get condition(): Expr { return wrapJoinPoint(this._javaObject.getCondition()) }
 }
 
   /**
@@ -162,31 +191,31 @@ export class FileJp extends Joinpoint {
   get name(): string { return wrapJoinPoint(this._javaObject.getName()) }
 }
 
-export class FortranDecl extends Joinpoint {
+  /**
+   * Represents the first block of an if construct
+   */
+export class IfThenBlock extends Joinpoint {
   /**
    * @internal
    */
   static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
     name: null,
   };
+  get body(): StatementBlock { return wrapJoinPoint(this._javaObject.getBody()) }
+  get header(): IfThenStatement { return wrapJoinPoint(this._javaObject.getHeader()) }
 }
 
-export class Initialization extends Joinpoint {
+  /**
+   * Represents the header of an 'if then' block
+   */
+export class IfThenStatement extends Joinpoint {
   /**
    * @internal
    */
   static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
     name: null,
   };
-}
-
-export class KeywordAttributeSpecifier extends AttributeSpecifier {
-  /**
-   * @internal
-   */
-  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
-    name: null,
-  };
+  get condition(): Expr { return wrapJoinPoint(this._javaObject.getCondition()) }
 }
 
   /**
@@ -261,15 +290,6 @@ export class OmpOrderedClause extends OmpClause {
 }
 
 export class OmpReductionClause extends OmpClause {
-  /**
-   * @internal
-   */
-  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
-    name: null,
-  };
-}
-
-export class ParameterKeyword extends KeywordAttributeSpecifier {
   /**
    * @internal
    */
@@ -413,16 +433,6 @@ export class Designator extends Expr {
   };
 }
 
-export class EntityDecl extends FortranDecl {
-  /**
-   * @internal
-   */
-  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
-    name: null,
-  };
-  get name(): string { return wrapJoinPoint(this._javaObject.getName()) }
-}
-
   /**
    * Represents an executable statement
    */
@@ -447,14 +457,19 @@ export class Execution extends StatementBlock {
   insertEnd(stmt: ExecutableStatement): void { return wrapJoinPoint(this._javaObject.insertEnd(unwrapJoinPoint(stmt))); }
 }
 
-export class ExprInitialization extends Initialization {
+  /**
+   * Represents the root of an if construct
+   */
+export class IfConstruct extends ExecutableStatement {
   /**
    * @internal
    */
   static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
     name: null,
   };
-  get expr(): Expr { return wrapJoinPoint(this._javaObject.getExpr()) }
+  get elseBlock(): ElseBlock { return wrapJoinPoint(this._javaObject.getElseBlock()) }
+  get elseIfBlocks(): ElseIfBlock[] { return wrapJoinPoint(this._javaObject.getElseIfBlocks()) }
+  get ifThenBlock(): IfThenBlock { return wrapJoinPoint(this._javaObject.getIfThenBlock()) }
 }
 
 export class IntLiteral extends Literal {
@@ -514,31 +529,10 @@ export class Specification extends StatementBlock {
   static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
     name: null,
   };
-  get specificationStmts(): SpecificationStatement[] { return wrapJoinPoint(this._javaObject.getSpecificationStmts()) }
   /**
    * Adds a UseStmt to a specification part. The statement is inserted at the beginning.
    */
   addUseStmt(stmt: UseStatement): void { return wrapJoinPoint(this._javaObject.addUseStmt(unwrapJoinPoint(stmt))); }
-}
-
-export class SpecificationStatement extends Statement {
-  /**
-   * @internal
-   */
-  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
-    name: null,
-  };
-}
-
-export class TypeDeclarationStatement extends SpecificationStatement {
-  /**
-   * @internal
-   */
-  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
-    name: null,
-  };
-  get attrs(): AttributeSpecifier[] { return wrapJoinPoint(this._javaObject.getAttrs()) }
-  get decls(): EntityDecl[] { return wrapJoinPoint(this._javaObject.getDecls()) }
 }
 
   /**
@@ -608,6 +602,17 @@ export class DoStatement extends ExecutableStatement {
   get control(): LoopControl { return wrapJoinPoint(this._javaObject.getControl()) }
 }
 
+export class IfStatement extends ActionStatement {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+  get condition(): Expr { return wrapJoinPoint(this._javaObject.getCondition()) }
+  get statement(): ActionStatement { return wrapJoinPoint(this._javaObject.getStatement()) }
+}
+
   /**
    * Represents an OpenMP block construct (such as parallel or task)
    */
@@ -637,12 +642,13 @@ export class ArraySubscriptExpr extends DataRef {
 
 const JoinpointMapper = {
   joinpoint: Joinpoint,
-  attributeSpecifier: AttributeSpecifier,
+  elseBlock: ElseBlock,
+  elseIfBlock: ElseIfBlock,
+  elseIfStatement: ElseIfStatement,
   expr: Expr,
   file: FileJp,
-  fortranDecl: FortranDecl,
-  initialization: Initialization,
-  keywordAttributeSpecifier: KeywordAttributeSpecifier,
+  ifThenBlock: IfThenBlock,
+  ifThenStatement: IfThenStatement,
   literal: Literal,
   loopControl: LoopControl,
   nameValue: NameValue,
@@ -650,7 +656,6 @@ const JoinpointMapper = {
   ompDataSharingClause: OmpDataSharingClause,
   ompOrderedClause: OmpOrderedClause,
   ompReductionClause: OmpReductionClause,
-  parameterKeyword: ParameterKeyword,
   program: Program,
   programUnit: ProgramUnit,
   rangeLoopControl: RangeLoopControl,
@@ -662,22 +667,20 @@ const JoinpointMapper = {
   useStatement: UseStatement,
   binaryOperator: BinaryOperator,
   designator: Designator,
-  entityDecl: EntityDecl,
   executableStatement: ExecutableStatement,
   execution: Execution,
-  exprInitialization: ExprInitialization,
+  ifConstruct: IfConstruct,
   intLiteral: IntLiteral,
   mainProgram: MainProgram,
   ompConstruct: OmpConstruct,
   ompLoopConstruct: OmpLoopConstruct,
   specification: Specification,
-  specificationStatement: SpecificationStatement,
-  typeDeclarationStatement: TypeDeclarationStatement,
   actionStatement: ActionStatement,
   assignmentStatement: AssignmentStatement,
   compilerDirective: CompilerDirective,
   dataRef: DataRef,
   doStatement: DoStatement,
+  ifStatement: IfStatement,
   ompBlockConstruct: OmpBlockConstruct,
   arraySubscriptExpr: ArraySubscriptExpr,
 };
