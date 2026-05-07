@@ -332,4 +332,11 @@ public class StmtProcessors extends ANodeProcessor {
     public void callStmt(CallStmt callStmt) {
         callStmt.addChild(getChild(callStmt, "call"));
     }
+
+    public void gotoStmt(GotoStmt gotoStmt) {
+        var strLabel = attributes(gotoStmt).getString("uint64_t");
+        var label = Integer.parseInt(strLabel);
+
+        gotoStmt.set(GotoStmt.LABEL, label);
+    }
 }

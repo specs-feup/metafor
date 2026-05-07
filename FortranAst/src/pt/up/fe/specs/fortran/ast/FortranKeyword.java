@@ -3,11 +3,15 @@ package pt.up.fe.specs.fortran.ast;
 public enum FortranKeyword {
     END,
     PROGRAM,
+    CONCURRENT,
+    SUBROUTINE,
+
+    // Execution statements
     PRINT,
     DO,
     WHILE,
-    CONCURRENT,
-    SUBROUTINE,
+    GO,
+    TO,
 
     // Conditional statements
     IF,
