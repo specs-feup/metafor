@@ -72,6 +72,13 @@ public class DeclProcessors extends ANodeProcessor {
         dummyArgumentDecl.set(DummyArgumentDecl.NAME, name);
     }
 
+    public void functionArgumentDecl(FunctionArgumentDecl functionArgumentDecl) {
+        var nameId = attributes(functionArgumentDecl).getVariantString();
+        var name = attributes().get(nameId).getString("source");
+
+        functionArgumentDecl.set(FunctionArgumentDecl.NAME, name);
+    }
+
     public void dataStmtSet(DataStmtSet dataStmtSet) {
         dataStmtSet.addChildren(getChildren(dataStmtSet, FlangName.DATA_STMT_OBJECT));
         dataStmtSet.addChildren(getChildren(dataStmtSet, FlangName.DATA_STMT_VALUE));

@@ -8,6 +8,7 @@ public enum FortranKeyword {
     WHILE,
     CONCURRENT,
     SUBROUTINE,
+    FUNCTION,
     WRITE,
     USE,
     GOTO,

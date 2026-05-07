@@ -58,12 +58,14 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.INTERNAL_SUBPROGRAM_PART, InternalSubprogram.class);
         NAME_TO_CLASS.put(FlangName.SUBROUTINE_SUBPROGRAM, Subroutine.class);
         NAME_TO_CLASS.put(FlangName.ALLOCATION, Allocation.class);
+        NAME_TO_CLASS.put(FlangName.FUNCTION_SUBPROGRAM, Function.class);
 
         /// DECLs
         NAME_TO_CLASS.put(FlangName.ENTITY_DECL, EntityDecl.class);
         NAME_TO_CLASS.put(FlangName.DUMMY_ARG, DummyArgumentDecl.class);
         NAME_TO_CLASS.put(FlangName.DATA_STMT_VALUE, DataStmtValue.class);
         NAME_TO_CLASS.put(FlangName.DATA_STMT_SET, DataStmtSet.class);
+        NAME_TO_CLASS.put(FlangName.FUNCTION_ARGUMENT_DECL, FunctionArgumentDecl.class);
 
         /// STMTs
         NAME_TO_CLASS.put(FlangName.PRINT_STMT, PrintStmt.class);

@@ -22,6 +22,7 @@ public enum FlangName implements StringProvider {
     EXECUTION_PART_CONSTRUCT,
     EXECUTABLE_CONSTRUCT,
     ALLOCATION,
+    FUNCTION_SUBPROGRAM,
 
     /// DECLs
     ENTITY_DECL,
@@ -37,6 +38,7 @@ public enum FlangName implements StringProvider {
     PROGRAM_STMT,
     END_PROGRAM_STMT,
     SUBROUTINE_STMT,
+    FUNCTION_STMT,
     END_SUBROUTINE_STMT,
     ACTION_STMT,
     PRINT_STMT,
@@ -192,7 +194,10 @@ public enum FlangName implements StringProvider {
     ALLOC_OPT,
     STAT_VARIABLE,
     NAMED_CONSTANT,
-    NAMED_CONSTANT_DEF;
+    NAMED_CONSTANT_DEF,
+
+    // EXTRA
+    FUNCTION_ARGUMENT_DECL;
 
     private static final Lazy<EnumHelper<FlangName>> HELPER = EnumHelper.newLazyHelper(FlangName.class);
 
