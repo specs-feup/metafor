@@ -148,6 +148,7 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.ALLOCATABLE, AllocatableKeyword.class);
         NAME_TO_CLASS.put(FlangName.INTENT_SPEC, IntentSpec.class);
         NAME_TO_CLASS.put(FlangName.PARAMETER, ParameterKeyword.class);
+        NAME_TO_CLASS.put(FlangName.NAMED_CONSTANT_DEF, NamedConstantDef.class);
 
         ///  SHAPES
         NAME_TO_CLASS.put(FlangName.EXPLICIT_SHAPE_SPEC, ExplicitShapeSpecification.class);
