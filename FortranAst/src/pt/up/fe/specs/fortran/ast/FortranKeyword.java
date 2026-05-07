@@ -10,6 +10,7 @@ public enum FortranKeyword {
     SUBROUTINE,
     WRITE,
     USE,
+    GOTO,
 
     // Conditional statements
     IF,

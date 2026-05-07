@@ -378,4 +378,8 @@ public class StmtProcessors extends ANodeProcessor {
     public void parameterStmt(ParameterStmt parameterStmt) {
         parameterStmt.addChildren(getChildren(parameterStmt, FlangName.NAMED_CONSTANT_DEF));
     }
+
+    public void gotoStmt(GotoStmt gotoStmt) {
+        gotoStmt.set(GotoStmt.LABEL, Integer.parseInt(attributes(gotoStmt).getString("uint64_t")));
+    }
 }
