@@ -15,6 +15,7 @@ public enum FortranKeyword {
     EXTERNAL,
     RETURN,
     DATA,
+    STOP,
 
     // Conditional statements
     IF,

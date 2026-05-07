@@ -411,4 +411,8 @@ public class StmtProcessors extends ANodeProcessor {
     public void dataStmt(DataStmt dataStmt) {
         dataStmt.addChildren(getChildren(dataStmt, FlangName.DATA_STMT_SET));
     }
+
+    public void stopStmt(StopStmt stopStmt) {
+
+    }
 }
