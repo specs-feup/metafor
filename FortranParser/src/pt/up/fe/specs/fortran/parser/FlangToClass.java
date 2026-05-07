@@ -65,7 +65,6 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.DUMMY_ARG, DummyArgumentDecl.class);
         NAME_TO_CLASS.put(FlangName.DATA_STMT_VALUE, DataStmtValue.class);
         NAME_TO_CLASS.put(FlangName.DATA_STMT_SET, DataStmtSet.class);
-        NAME_TO_CLASS.put(FlangName.FUNCTION_ARGUMENT_DECL, FunctionArgumentDecl.class);
 
         /// STMTs
         NAME_TO_CLASS.put(FlangName.PRINT_STMT, PrintStmt.class);
