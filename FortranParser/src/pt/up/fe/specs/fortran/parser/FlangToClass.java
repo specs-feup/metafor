@@ -73,6 +73,7 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.ASSIGNMENT_STMT, AssignmentStmt.class);
         NAME_TO_CLASS.put(FlangName.DO_CONSTRUCT, DoStmt.class);
         NAME_TO_CLASS.put(FlangName.COMPILER_DIRECTIVE, CompilerDirective.class);
+        NAME_TO_CLASS.put(FlangName.GOTO_STMT, GotoStmt.class);
 
         NAME_TO_CLASS.put(FlangName.IF_CONSTRUCT, IfConstruct.class);
         NAME_TO_CLASS.put(FlangName.IF_THEN_STMT, IfThenStmt.class);

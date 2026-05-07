@@ -48,6 +48,7 @@ public enum FlangName implements StringProvider {
     DO_CONSTRUCT,
     CALL_STMT,
     COMPILER_DIRECTIVE,
+    GOTO_STMT,
     WRITE_STMT,
     IO_UNIT,
     IO_CONTROL_SPEC,

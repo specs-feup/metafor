@@ -88,6 +88,7 @@ public class Nodes {
         processors.put(AssignmentStmt.class, s::assignmentStmt);
         processors.put(StmtBlock.class, s::stmtBlock);
         processors.put(CompilerDirective.class, s::compilerDirective);
+        processors.put(GotoStmt.class, s::gotoStmt);
 
         processors.put(IfConstruct.class, s::ifConstruct);
         processors.put(IfThenStmt.class, s::ifThenStmt);
