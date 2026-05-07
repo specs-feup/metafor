@@ -2,6 +2,7 @@ package pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt;
 
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
+import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
 import pt.up.fe.specs.fortran.ast.nodes.program.StmtBlock;
 
 import java.util.Collection;
@@ -15,8 +16,8 @@ public class ElseBlock extends FortranNode {
         return getChild(ElseStmt.class, 0);
     }
 
-    public StmtBlock getBlock() {
-        return getChild(StmtBlock.class, 1);
+    public Execution getBlock() {
+        return getChild(Execution.class, 1);
     }
 
     @Override
