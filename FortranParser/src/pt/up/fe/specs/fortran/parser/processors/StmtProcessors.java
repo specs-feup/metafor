@@ -401,4 +401,10 @@ public class StmtProcessors extends ANodeProcessor {
     public void externalStmt(ExternalStmt externalStmt) {
         externalStmt.addChildren(getChildren(externalStmt, FlangName.NAME));
     }
+
+    public void returnStmt(ReturnStmt returnStmt) {
+        if (attributes(returnStmt).has(FlangName.EXPR)) {
+            returnStmt.addChild(getChild(returnStmt, FlangName.EXPR));
+        }
+    }
 }

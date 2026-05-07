@@ -60,6 +60,7 @@ public enum FlangName implements StringProvider {
     GOTO_STMT,
     COMMON_STMT,
     EXTERNAL_STMT,
+    RETURN_STMT,
 
     /// Conditional Statements
     IF_CONSTRUCT,
@@ -171,6 +172,7 @@ public enum FlangName implements StringProvider {
     ARRAY_SPEC,
     EXPLICIT_SHAPE_SPEC,
     ALLOCATE_SHAPE_SPEC,
+    IMPLIED_SHAPE_SPEC,
     ALLOCATABLE,
     ASYNCHRONOUS,
     INTENT_SPEC,

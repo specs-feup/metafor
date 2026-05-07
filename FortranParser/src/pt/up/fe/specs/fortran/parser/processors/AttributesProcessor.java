@@ -33,6 +33,10 @@ public class AttributesProcessor extends ANodeProcessor {
             shapes = getChildren(childSpec, FlangName.EXPLICIT_SHAPE_SPEC);
             shapes.add(getChild(attributes().get(childSpec).getString(FlangName.ASSUMED_IMPLIED_SPEC)));
         }
+        else if (variantKey.equals(FlangName.IMPLIED_SHAPE_SPEC.getString())) {
+            String childSpec = attributes(arraySpecification).getVariantString();
+            shapes = getChildren(childSpec, FlangName.ASSUMED_IMPLIED_SPEC);
+        }
         else {
             shapes = getChildren(arraySpecification, variantKey);
         }
