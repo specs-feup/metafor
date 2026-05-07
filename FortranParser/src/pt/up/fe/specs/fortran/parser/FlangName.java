@@ -58,6 +58,7 @@ public enum FlangName implements StringProvider {
     CONTINUE_STMT,
     PARAMETER_STMT,
     GOTO_STMT,
+    COMMON_STMT,
 
     /// Conditional Statements
     IF_CONSTRUCT,
@@ -83,6 +84,7 @@ public enum FlangName implements StringProvider {
     VARIABLE,
     DESIGNATOR,
     DATA_REF,
+    COMMON_BLOCK_OBJECT,
 
     /// EXPRs
     EXPR,

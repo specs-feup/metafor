@@ -11,6 +11,7 @@ public enum FortranKeyword {
     WRITE,
     USE,
     GOTO,
+    COMMON,
 
     // Conditional statements
     IF,

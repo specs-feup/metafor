@@ -382,4 +382,18 @@ public class StmtProcessors extends ANodeProcessor {
     public void gotoStmt(GotoStmt gotoStmt) {
         gotoStmt.set(GotoStmt.LABEL, Integer.parseInt(attributes(gotoStmt).getString("uint64_t")));
     }
+
+    public void commonStmt(CommonStmt commonStmt) {
+        String block = attributes(commonStmt).getStringList(FlangName.BLOCK).getFirst();
+
+        if (attributes().get(block).has(FlangName.NAME)) {
+            commonStmt.addChild(getChild(attributes().get(block).getString(FlangName.NAME)));
+            commonStmt.set(CommonStmt.HAS_NAME, true);
+        }
+        else {
+            commonStmt.set(CommonStmt.HAS_NAME, false);
+        }
+
+        commonStmt.addChildren(getChildren(block, FlangName.COMMON_BLOCK_OBJECT));
+    }
 }

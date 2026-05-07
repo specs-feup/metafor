@@ -98,6 +98,7 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.CONTINUE_STMT, ContinueStmt.class);
         NAME_TO_CLASS.put(FlangName.PARAMETER_STMT, ParameterStmt.class);
         NAME_TO_CLASS.put(FlangName.GOTO_STMT, GotoStmt.class);
+        NAME_TO_CLASS.put(FlangName.COMMON_STMT, CommonStmt.class);
 
         /// Variables
         //NAME_TO_CLASS.put(FlangName.DATA_REF, DataRef.class);
