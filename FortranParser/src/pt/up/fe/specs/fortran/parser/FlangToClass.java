@@ -1,10 +1,7 @@
 package pt.up.fe.specs.fortran.parser;
 
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
-import pt.up.fe.specs.fortran.ast.nodes.decl.DataStmtValue;
-import pt.up.fe.specs.fortran.ast.nodes.decl.DummyArgumentDecl;
-import pt.up.fe.specs.fortran.ast.nodes.decl.EntityDecl;
-import pt.up.fe.specs.fortran.ast.nodes.decl.KindSelector;
+import pt.up.fe.specs.fortran.ast.nodes.decl.*;
 import pt.up.fe.specs.fortran.ast.nodes.expr.*;
 import pt.up.fe.specs.fortran.ast.nodes.alloc.Allocation;
 import pt.up.fe.specs.fortran.ast.nodes.alloc.StatVariable;
@@ -66,6 +63,7 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.ENTITY_DECL, EntityDecl.class);
         NAME_TO_CLASS.put(FlangName.DUMMY_ARG, DummyArgumentDecl.class);
         NAME_TO_CLASS.put(FlangName.DATA_STMT_VALUE, DataStmtValue.class);
+        NAME_TO_CLASS.put(FlangName.DATA_STMT_SET, DataStmtSet.class);
 
         /// STMTs
         NAME_TO_CLASS.put(FlangName.PRINT_STMT, PrintStmt.class);
@@ -101,6 +99,7 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.COMMON_STMT, CommonStmt.class);
         NAME_TO_CLASS.put(FlangName.EXTERNAL_STMT, ExternalStmt.class);
         NAME_TO_CLASS.put(FlangName.RETURN_STMT, ReturnStmt.class);
+        NAME_TO_CLASS.put(FlangName.DATA_STMT, DataStmt.class);
 
         /// Variables
         //NAME_TO_CLASS.put(FlangName.DATA_REF, DataRef.class);

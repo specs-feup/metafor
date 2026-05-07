@@ -407,4 +407,8 @@ public class StmtProcessors extends ANodeProcessor {
             returnStmt.addChild(getChild(returnStmt, FlangName.EXPR));
         }
     }
+
+    public void dataStmt(DataStmt dataStmt) {
+        dataStmt.addChildren(getChildren(dataStmt, FlangName.DATA_STMT_SET));
+    }
 }

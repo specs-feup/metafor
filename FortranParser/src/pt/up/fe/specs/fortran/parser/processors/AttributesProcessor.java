@@ -12,6 +12,7 @@ import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 public class AttributesProcessor extends ANodeProcessor {
@@ -27,11 +28,12 @@ public class AttributesProcessor extends ANodeProcessor {
     public void arraySpecification(ArraySpecification arraySpecification) {
         var variantKey = attributes(arraySpecification).getVariantKey();
         List<FortranNode> shapes;
+        Optional<FortranNode> additionalShape = Optional.empty();
 
         if (variantKey.equals(FlangName.ASSUMED_SIZE_SPEC.getString())) {
             String childSpec = attributes(arraySpecification).getVariantString();
             shapes = getChildren(childSpec, FlangName.EXPLICIT_SHAPE_SPEC);
-            shapes.add(getChild(attributes().get(childSpec).getString(FlangName.ASSUMED_IMPLIED_SPEC)));
+            additionalShape = Optional.of(getChild(attributes().get(childSpec).getString(FlangName.ASSUMED_IMPLIED_SPEC)));
         }
         else if (variantKey.equals(FlangName.IMPLIED_SHAPE_SPEC.getString())) {
             String childSpec = attributes(arraySpecification).getVariantString();
@@ -40,7 +42,9 @@ public class AttributesProcessor extends ANodeProcessor {
         else {
             shapes = getChildren(arraySpecification, variantKey);
         }
+
         arraySpecification.addChildren(shapes);
+        additionalShape.ifPresent(arraySpecification::addChild);
     }
 
     public void keywordSpecifier(KeywordAttributeSpecifier keywordSpecifier) {
