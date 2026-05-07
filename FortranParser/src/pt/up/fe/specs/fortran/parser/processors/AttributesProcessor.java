@@ -1,5 +1,6 @@
 package pt.up.fe.specs.fortran.parser.processors;
 
+import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
 import pt.up.fe.specs.fortran.ast.nodes.specification.NamedConstantDef;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.IntentSpec;
@@ -10,6 +11,7 @@ import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 
 import java.util.EnumSet;
+import java.util.List;
 import java.util.Set;
 
 public class AttributesProcessor extends ANodeProcessor {
@@ -24,7 +26,16 @@ public class AttributesProcessor extends ANodeProcessor {
 
     public void arraySpecification(ArraySpecification arraySpecification) {
         var variantKey = attributes(arraySpecification).getVariantKey();
-        var shapes = getChildren(arraySpecification, variantKey);
+        List<FortranNode> shapes;
+
+        if (variantKey.equals(FlangName.ASSUMED_SIZE_SPEC.getString())) {
+            String childSpec = attributes(arraySpecification).getVariantString();
+            shapes = getChildren(childSpec, FlangName.EXPLICIT_SHAPE_SPEC);
+            shapes.add(getChild(attributes().get(childSpec).getString(FlangName.ASSUMED_IMPLIED_SPEC)));
+        }
+        else {
+            shapes = getChildren(arraySpecification, variantKey);
+        }
         arraySpecification.addChildren(shapes);
     }
 

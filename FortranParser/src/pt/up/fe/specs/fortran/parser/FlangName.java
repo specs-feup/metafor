@@ -171,6 +171,8 @@ public enum FlangName implements StringProvider {
     ASYNCHRONOUS,
     INTENT_SPEC,
     PARAMETER,
+    ASSUMED_SIZE_SPEC,
+    ASSUMED_IMPLIED_SPEC,
 
 
     // OTHER
