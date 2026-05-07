@@ -12,6 +12,7 @@ public enum FortranKeyword {
     USE,
     GOTO,
     COMMON,
+    EXTERNAL,
 
     // Conditional statements
     IF,
