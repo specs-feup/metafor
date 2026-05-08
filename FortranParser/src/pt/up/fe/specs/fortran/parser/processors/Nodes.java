@@ -117,6 +117,8 @@ public class Nodes {
         processors.put(ReturnStmt.class, s::returnStmt);
         processors.put(DataStmt.class, s::dataStmt);
         processors.put(StopStmt.class, s::stopStmt);
+        processors.put(OpenStmt.class, s::openStmt);
+        processors.put(CloseStmt.class, s::closeStmt);
 
         var e = new ExprProcessors(data);
         processors.put(StringLiteral.class, e::stringLiteral);

@@ -418,4 +418,12 @@ public class StmtProcessors extends ANodeProcessor {
     public void stopStmt(StopStmt stopStmt) {
         actionStmt(stopStmt);
     }
+
+    public void openStmt(OpenStmt openStmt) {
+        actionStmt(openStmt);
+    }
+
+    public void closeStmt(CloseStmt closeStmt) {
+        actionStmt(closeStmt);
+    }
 }

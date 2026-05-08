@@ -101,6 +101,8 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.RETURN_STMT, ReturnStmt.class);
         NAME_TO_CLASS.put(FlangName.DATA_STMT, DataStmt.class);
         NAME_TO_CLASS.put(FlangName.STOP_STMT, StopStmt.class);
+        NAME_TO_CLASS.put(FlangName.OPEN_STMT, OpenStmt.class);
+        NAME_TO_CLASS.put(FlangName.CLOSE_STMT, CloseStmt.class);
 
         /// Variables
         //NAME_TO_CLASS.put(FlangName.DATA_REF, DataRef.class);
