@@ -22,7 +22,7 @@ public class ExternalStmt extends SpecificationStmt {
     public String getCode() {
         StringBuilder code = new StringBuilder();
 
-        code.append(FortranKeyword.EXTERNAL.getKeyword(false));
+        code.append(FortranKeyword.EXTERNAL.getKeyword(false)).append(" ");
 
         code.append(getNames()
                 .stream()

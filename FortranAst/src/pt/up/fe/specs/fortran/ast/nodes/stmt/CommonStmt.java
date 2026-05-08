@@ -32,9 +32,9 @@ public class CommonStmt extends SpecificationStmt {
     public String getCode() {
         StringBuilder code = new StringBuilder();
 
-        code.append(FortranKeyword.COMMON.getKeyword(false));
+        code.append(FortranKeyword.COMMON.getKeyword(false)).append(" ");
 
-        getName().ifPresent(name -> code.append("/ ").append(name.getCode()).append(" /"));
+        getName().ifPresent(name -> code.append("/ ").append(name.getCode()).append(" / "));
 
         code.append(getNames()
                 .stream()
