@@ -1,8 +1,8 @@
 PROGRAM OPENMP_DEMO
 
-    integer :: i, total_sum
-    integer :: shared_counter = 0
-    integer, PARAMETER :: n = 32
+    INTEGER :: i, total_sum
+    INTEGER :: shared_counter = 0
+    INTEGER, PARAMETER :: n = 32
 
     DO i = 1, 2
         total_sum = total_sum + 1
