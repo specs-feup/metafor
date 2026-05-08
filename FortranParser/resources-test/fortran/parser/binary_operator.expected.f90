@@ -1,4 +1,4 @@
-PROGRAM test_exprs
+PROGRAM TEST_EXPRS
     LOGICAL :: l
     INTEGER :: i, a = 1, b = 1
     l = 0 < a
@@ -15,4 +15,4 @@ PROGRAM test_exprs
 
     i = 0 + 1 - b * 5 / a + 7
 
-END PROGRAM test_exprs
+END PROGRAM TEST_EXPRS

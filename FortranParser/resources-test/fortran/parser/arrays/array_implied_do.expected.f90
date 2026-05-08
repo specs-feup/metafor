@@ -1,4 +1,4 @@
-PROGRAM test_implied_do
+PROGRAM TEST_IMPLIED_DO
     INTEGER :: i, j
     INTEGER, DIMENSION(5) :: arr1, arr2, arr3
     INTEGER, DIMENSION(10) :: arr4, arr5
@@ -19,4 +19,4 @@ PROGRAM test_implied_do
 
     arr7 = [(i, i * 10, i * 100, i = 1, 5)]
 
-END PROGRAM test_implied_do
+END PROGRAM TEST_IMPLIED_DO

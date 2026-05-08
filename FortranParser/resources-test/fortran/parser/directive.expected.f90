@@ -1,4 +1,4 @@
-PROGRAM dir
+PROGRAM DIR
     INTEGER :: result
     INTEGER :: a = 5
 
@@ -6,4 +6,4 @@ PROGRAM dir
     result = (5)
     !DIR$ end scop=5
 
-END PROGRAM dir
+END PROGRAM DIR

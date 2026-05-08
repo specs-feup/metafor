@@ -1,4 +1,4 @@
-PROGRAM simple_loop
+PROGRAM SIMPLE_LOOP
     INTEGER :: i, j
     REAL :: x
 
@@ -6,4 +6,4 @@ PROGRAM simple_loop
         x = 0.0
     END DO
 
-END PROGRAM simple_loop
+END PROGRAM SIMPLE_LOOP

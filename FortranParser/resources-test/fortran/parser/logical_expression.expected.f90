@@ -1,4 +1,4 @@
-PROGRAM logical_expression
+PROGRAM LOGICAL_EXPRESSION
     INTEGER :: a1, b1, a2, b2
     LOGICAL :: ok
 
@@ -7,4 +7,4 @@ PROGRAM logical_expression
     a1 = 1
     b1 = 2
 
-END PROGRAM logical_expression
+END PROGRAM LOGICAL_EXPRESSION

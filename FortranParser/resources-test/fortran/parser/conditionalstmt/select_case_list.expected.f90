@@ -1,4 +1,4 @@
-PROGRAM select_case_list
+PROGRAM SELECT_CASE_LIST
     INTEGER :: val, result
 
     val = 2
@@ -12,4 +12,4 @@ PROGRAM select_case_list
     END SELECT
 
     PRINT *, "Result:", result
-END PROGRAM select_case_list
+END PROGRAM SELECT_CASE_LIST

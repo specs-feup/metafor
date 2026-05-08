@@ -1,4 +1,4 @@
-PROGRAM select_case_range
+PROGRAM SELECT_CASE_RANGE
     INTEGER :: val, result
 
     val = 5
@@ -14,4 +14,4 @@ PROGRAM select_case_range
     END SELECT
 
     PRINT *, "Result:", result
-END PROGRAM select_case_range
+END PROGRAM SELECT_CASE_RANGE
