@@ -70,6 +70,7 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void assignmentStmt(AssignmentStmt assignmentStmt) {
+        actionStmt(assignmentStmt);
         var variable = getChild(assignmentStmt, FlangName.VARIABLE);
         var expression = getChild(assignmentStmt, FlangName.EXPR);
         assignmentStmt.addChild(variable);
@@ -160,6 +161,7 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void ifStmt(IfStmt ifStmt) {
+        actionStmt(ifStmt);
         var condition = getChild(ifStmt, FlangName.EXPR);
         var thenStmt = getUnlabeledStmtChild(ifStmt, FlangName.ACTION_STMT);
 
@@ -330,10 +332,12 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void callStmt(CallStmt callStmt) {
+        actionStmt(callStmt);
         callStmt.addChild(getChild(callStmt, "call"));
     }
 
     public void writeStmt(WriteStmt writeStmt) {
+        actionStmt(writeStmt);
         if (attributes(writeStmt).has("iounit")) {
             writeStmt.addChild(getChild(writeStmt, "iounit"));
         }
@@ -356,11 +360,13 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void allocateStmt(AllocateStmt allocateStmt) {
+        actionStmt(allocateStmt);
         allocateStmt.addChildren(getChildren(allocateStmt, FlangName.ALLOCATION));
         allocateStmt.addChildren(getChildren(allocateStmt, FlangName.ALLOC_OPT));
     }
 
     public void deallocateStmt(DeallocateStmt deallocateStmt) {
+        actionStmt(deallocateStmt);
         deallocateStmt.addChildren(getChildren(deallocateStmt, FlangName.ALLOCATE_OBJECT));
     }
   
@@ -372,7 +378,7 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void continueStmt(ContinueStmt continueStmt) {
-
+        actionStmt(continueStmt);
     }
 
     public void parameterStmt(ParameterStmt parameterStmt) {
@@ -399,6 +405,7 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void returnStmt(ReturnStmt returnStmt) {
+        actionStmt(returnStmt);
         if (attributes(returnStmt).has(FlangName.EXPR)) {
             returnStmt.addChild(getChild(returnStmt, FlangName.EXPR));
         }
@@ -409,6 +416,6 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void stopStmt(StopStmt stopStmt) {
-
+        actionStmt(stopStmt);
     }
 }
