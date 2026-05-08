@@ -88,6 +88,7 @@ public class Nodes {
         processors.put(AssignmentStmt.class, s::assignmentStmt);
         processors.put(StmtBlock.class, s::stmtBlock);
         processors.put(CompilerDirective.class, s::compilerDirective);
+        processors.put(GotoStmt.class, s::gotoStmt);
 
         processors.put(IfConstruct.class, s::ifConstruct);
         processors.put(IfThenStmt.class, s::ifThenStmt);
@@ -126,6 +127,7 @@ public class Nodes {
         processors.put(LogicalLiteral.class, e::logicalLiteral);
         processors.put(RealLiteral.class, e::realLiteral);
         processors.put(ParenExpr.class, e::parenExpr);
+        processors.put(UnaryOperator.class, e::unaryOperator);
         processors.put(BinaryOperator.class, e::binaryOperator);
         processors.put(ArrayConstructor.class, e::arrayConstructor);
         processors.put(AcSpecification.class, e::acSpecification);

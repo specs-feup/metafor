@@ -1,5 +1,6 @@
-PROGRAM KIND_SELECTOR
-    integer(8) :: i8
+PROGRAM kind_selector
+    INTEGER(8) :: i8 = 1
+    REAL(16) :: r16 = 2.0
 
-    PRINT *, i8
-END PROGRAM KIND_SELECTOR
+    PRINT *, i8, r16
+END PROGRAM kind_selector

@@ -73,6 +73,7 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.ASSIGNMENT_STMT, AssignmentStmt.class);
         NAME_TO_CLASS.put(FlangName.DO_CONSTRUCT, DoStmt.class);
         NAME_TO_CLASS.put(FlangName.COMPILER_DIRECTIVE, CompilerDirective.class);
+        NAME_TO_CLASS.put(FlangName.GOTO_STMT, GotoStmt.class);
 
         NAME_TO_CLASS.put(FlangName.IF_CONSTRUCT, IfConstruct.class);
         NAME_TO_CLASS.put(FlangName.IF_THEN_STMT, IfThenStmt.class);
@@ -118,6 +119,9 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.FORMAT, Format.class);
         NAME_TO_CLASS.put(FlangName.STAR, Star.class);
         NAME_TO_CLASS.put(FlangName.PARENTHESES, ParenExpr.class);
+        NAME_TO_CLASS.put(FlangName.UNARY_PLUS, UnaryOperator.class);
+        NAME_TO_CLASS.put(FlangName.NEGATE, UnaryOperator.class);
+        NAME_TO_CLASS.put(FlangName.NOT, UnaryOperator.class);
         NAME_TO_CLASS.put(FlangName.ADD, BinaryOperator.class);
         NAME_TO_CLASS.put(FlangName.SUBTRACT, BinaryOperator.class);
         NAME_TO_CLASS.put(FlangName.MULTIPLY, BinaryOperator.class);

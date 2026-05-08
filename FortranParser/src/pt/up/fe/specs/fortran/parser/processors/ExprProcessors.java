@@ -2,6 +2,7 @@ package pt.up.fe.specs.fortran.parser.processors;
 
 import pt.up.fe.specs.fortran.ast.nodes.expr.*;
 import pt.up.fe.specs.fortran.ast.nodes.expr.enums.BinaryOperatorKind;
+import pt.up.fe.specs.fortran.ast.nodes.expr.enums.UnaryOperatorKind;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 
@@ -18,6 +19,10 @@ public class ExprProcessors extends ANodeProcessor {
 
     public void intLiteral(IntLiteral intLiteral) {
         intLiteral.set(StringLiteral.SOURCE_LITERAL, attributes().getString(intLiteral, "CharBlock"));
+
+        if (attributes(intLiteral).has(FlangName.KIND_PARAM)) {
+            intLiteral.setOptional(IntLiteral.KIND_PARAM, attributes().getString(intLiteral, "uint64_t", FlangName.KIND_PARAM));
+        }
     }
 
     public void logicalLiteral(LogicalLiteral logicalLiteral) {
@@ -30,6 +35,14 @@ public class ExprProcessors extends ANodeProcessor {
 
     public void parenExpr(ParenExpr parenExpr) {
         parenExpr.addChild(getChild(parenExpr, FlangName.EXPR));
+    }
+
+    public void unaryOperator(UnaryOperator unaryOperator) {
+        unaryOperator.addChild(getChild(unaryOperator, FlangName.EXPR));
+
+        String opName = attributes().getString(unaryOperator, "op");
+
+        unaryOperator.set(UnaryOperator.OP, UnaryOperatorKind.valueOf(opName.toUpperCase()));
     }
 
     public void binaryOperator(BinaryOperator binaryOperator) {
@@ -76,7 +89,6 @@ public class ExprProcessors extends ANodeProcessor {
         var rangeControl = getChild(control, "value");
         control.addChild(rangeControl);
     }
-
 
     public void argument(Argument argument) {
         argument.addChild(getChild(argument, FlangName.ACTUAL_ARG));

@@ -1,5 +1,5 @@
 PROGRAM DECLARATION
 
-    integer :: a, b = 1
+    INTEGER :: a, b = 1
 
 END PROGRAM DECLARATION

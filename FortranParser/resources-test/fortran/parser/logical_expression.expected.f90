@@ -1,6 +1,6 @@
 PROGRAM LOGICAL_EXPRESSION
-    integer :: a1, b1, a2, b2
-    logical :: ok
+    INTEGER :: a1, b1, a2, b2
+    LOGICAL :: ok
 
     ok = .true.
 

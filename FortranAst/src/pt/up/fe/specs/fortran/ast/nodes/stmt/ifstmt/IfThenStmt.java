@@ -26,7 +26,7 @@ public class IfThenStmt extends FortranNode {
 
         var code = new StringBuilder();
 
-        nameOpt.ifPresent(name -> code.append(name).append(": "));
+        nameOpt.ifPresent(name -> code.append(name).append(" : "));
 
         code.append(keyword(FortranKeyword.IF))
                 .append(" (")

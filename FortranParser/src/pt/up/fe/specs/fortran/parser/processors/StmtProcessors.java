@@ -369,7 +369,7 @@ public class StmtProcessors extends ANodeProcessor {
         actionStmt(deallocateStmt);
         deallocateStmt.addChildren(getChildren(deallocateStmt, FlangName.ALLOCATE_OBJECT));
     }
-  
+
     public void useStmt(UseStmt useStmt) {
         String nameId = attributes(useStmt).getString("moduleName");
         String name = attributes().get(nameId).getString("source");
@@ -425,5 +425,12 @@ public class StmtProcessors extends ANodeProcessor {
 
     public void closeStmt(CloseStmt closeStmt) {
         actionStmt(closeStmt);
+    }
+
+    public void gotoStmt(GotoStmt gotoStmt) {
+        var strLabel = attributes(gotoStmt).getString("uint64_t");
+        var label = Integer.parseInt(strLabel);
+
+        gotoStmt.set(GotoStmt.LABEL, label);
     }
 }

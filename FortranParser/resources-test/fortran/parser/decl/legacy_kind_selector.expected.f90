@@ -1,5 +1,6 @@
-PROGRAM LEGACY_KIND_SELECTOR
-    integer*8 :: i8
+PROGRAM legacy_kind_selector
+    INTEGER*8 :: i8 = 1
+    REAL*16 :: r16 = 2.0
 
-    PRINT *, i8
-END PROGRAM LEGACY_KIND_SELECTOR
+    PRINT *, i8, r16
+END PROGRAM legacy_kind_selector

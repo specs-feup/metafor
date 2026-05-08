@@ -1,12 +1,13 @@
 package pt.up.fe.specs.fortran.ast.nodes.type.attributes;
 
 import org.suikasoft.jOptions.Interfaces.DataStore;
+import pt.up.fe.specs.fortran.ast.FortranKeyword;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
 
 import java.util.Collection;
 
-public class DimensionSpec extends  AttributeSpecifier {
+public class DimensionSpec extends AttributeSpecifier {
     public DimensionSpec(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
     }
@@ -14,7 +15,7 @@ public class DimensionSpec extends  AttributeSpecifier {
     @Override
     public String getCode() {
         var arraySpec = getArraySpecification();
-        return "dimension" + arraySpec.getCode();
+        return keyword(FortranKeyword.DIMENSION) + arraySpec.getCode();
     }
 
     private ArraySpecification getArraySpecification() {
