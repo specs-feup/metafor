@@ -32,6 +32,8 @@
                    tooltip="true if the given node is a descendant of this node">
             <parameter name="jp" type="joinpoint"/>
         </attribute>
+
+        <attribute name="indexOfSelf" type="int" tooltip="Returns the index of this join point in relation to its parent"/>
     </global>
 
     <!-- PROGRAM -->
@@ -113,5 +115,20 @@
     <artifact class="nameValue">
         <attribute name="name" type="String"/>
         <!-- TODO how to represent optionals? -->
+    </artifact>
+
+    <!-- PROGRAM UNIT -->
+    <artifact class="programUnit">
+        <attribute name="specification" type="specification" tooltip="Returns the unit's specification part"/>
+    </artifact>
+
+    <!-- USE STATEMENT -->
+    <artifact class="useStatement">
+        <attribute name="moduleName" type="String"/>
+    </artifact>
+
+    <!-- OPENMP -->
+    <artifact class="ompConstruct">
+        <attribute name="clauses" type="ompClause[]"/>
     </artifact>
 </artifacts>

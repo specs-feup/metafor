@@ -47,7 +47,9 @@ public class TypeProcessors extends ANodeProcessor {
     }
 
     public void characterType(CharacterType characterType) {
-
+        if (attributes(characterType).has(FlangName.CHAR_SELECTOR)) {
+            characterType.addChild(getChild(characterType, FlangName.CHAR_SELECTOR));
+        }
     }
 
     public void realType(RealType realType) {
@@ -55,5 +57,10 @@ public class TypeProcessors extends ANodeProcessor {
             var kindSelector = getChild(realType, FlangName.KIND_SELECTOR);
             realType.addChild(kindSelector);
         }
+    }
+
+    public void lengthSelector(LengthSelector lengthSelector) {
+        var childId = attributes(lengthSelector).getVariantString();
+        lengthSelector.addChild(getChild(attributes().get(childId).getVariantString()));
     }
 }

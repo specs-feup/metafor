@@ -5,6 +5,8 @@ public enum FortranKeyword {
     PROGRAM,
     CONCURRENT,
     SUBROUTINE,
+    WRITE,
+    USE,
 
     // Execution statements
     PRINT,
@@ -29,7 +31,8 @@ public enum FortranKeyword {
     DOUBLE,
     PRECISION,
     DIMENSION,
-    ;
+
+    OMP;
 
     public String getKeyword(boolean lowercase) {
         var keyword = name();

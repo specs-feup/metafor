@@ -6,11 +6,29 @@ import pt.up.fe.specs.fortran.ast.nodes.decl.DummyArgumentDecl;
 import pt.up.fe.specs.fortran.ast.nodes.decl.EntityDecl;
 import pt.up.fe.specs.fortran.ast.nodes.decl.KindSelector;
 import pt.up.fe.specs.fortran.ast.nodes.expr.*;
+import pt.up.fe.specs.fortran.ast.nodes.alloc.Allocation;
+import pt.up.fe.specs.fortran.ast.nodes.alloc.StatVariable;
+import pt.up.fe.specs.fortran.ast.nodes.expr.BinaryOperator;
+import pt.up.fe.specs.fortran.ast.nodes.expr.IntLiteral;
+import pt.up.fe.specs.fortran.ast.nodes.expr.LogicalLiteral;
+import pt.up.fe.specs.fortran.ast.nodes.expr.ParenExpr;
+import pt.up.fe.specs.fortran.ast.nodes.expr.StringLiteral;
 import pt.up.fe.specs.fortran.ast.nodes.loops.ConcurrentLoopControl;
 import pt.up.fe.specs.fortran.ast.nodes.loops.ConcurrentRange;
 import pt.up.fe.specs.fortran.ast.nodes.loops.RangeLoopControl;
+import pt.up.fe.specs.fortran.ast.nodes.expr.*;
+import pt.up.fe.specs.fortran.ast.nodes.omp.OmpBlockConstruct;
+import pt.up.fe.specs.fortran.ast.nodes.omp.OmpLoopConstruct;
+import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpDataSharingClause;
+import pt.up.fe.specs.fortran.ast.nodes.expr.*;
+import pt.up.fe.specs.fortran.ast.nodes.omp.OmpBlockConstruct;
+import pt.up.fe.specs.fortran.ast.nodes.omp.OmpLoopConstruct;
+import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpDataSharingClause;
+import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpNowaitClause;
+import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpReductionClause;
 import pt.up.fe.specs.fortran.ast.nodes.program.*;
 import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
+import pt.up.fe.specs.fortran.ast.nodes.specification.NamedConstantDef;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.CaseBlock;
@@ -20,11 +38,10 @@ import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.SelectCaseStmt;
 import pt.up.fe.specs.fortran.ast.nodes.type.*;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.AllocatableKeyword;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.IntentSpec;
+import pt.up.fe.specs.fortran.ast.nodes.type.shapes.AllocateShapeSpecification;
 import pt.up.fe.specs.fortran.ast.nodes.type.shapes.DeferredShapeSpecList;
 import pt.up.fe.specs.fortran.ast.nodes.type.shapes.ExplicitShapeSpecification;
-import pt.up.fe.specs.fortran.ast.nodes.utils.Format;
-import pt.up.fe.specs.fortran.ast.nodes.utils.NameValue;
-import pt.up.fe.specs.fortran.ast.nodes.utils.Star;
+import pt.up.fe.specs.fortran.ast.nodes.utils.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -41,6 +58,7 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.EXECUTION_PART, Execution.class);
         NAME_TO_CLASS.put(FlangName.INTERNAL_SUBPROGRAM_PART, InternalSubprogram.class);
         NAME_TO_CLASS.put(FlangName.SUBROUTINE_SUBPROGRAM, Subroutine.class);
+        NAME_TO_CLASS.put(FlangName.ALLOCATION, Allocation.class);
 
         /// DECLs
         NAME_TO_CLASS.put(FlangName.ENTITY_DECL, EntityDecl.class);
@@ -71,6 +89,13 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.END_SELECT_STMT, EndSelectStmt.class);
 
         NAME_TO_CLASS.put(FlangName.CALL_STMT, CallStmt.class);
+        NAME_TO_CLASS.put(FlangName.WRITE_STMT, WriteStmt.class);
+        NAME_TO_CLASS.put(FlangName.CONTAINS_STMT, ContainsStmt.class);
+        NAME_TO_CLASS.put(FlangName.ALLOCATE_STMT, AllocateStmt.class);
+        NAME_TO_CLASS.put(FlangName.DEALLOCATE_STMT, DeallocateStmt.class);
+        NAME_TO_CLASS.put(FlangName.USE_STMT, UseStmt.class);
+        NAME_TO_CLASS.put(FlangName.CONTINUE_STMT, ContinueStmt.class);
+        NAME_TO_CLASS.put(FlangName.PARAMETER_STMT, ParameterStmt.class);
 
         /// Variables
         //NAME_TO_CLASS.put(FlangName.DATA_REF, DataRef.class);
@@ -99,6 +124,7 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.LE, BinaryOperator.class);
         NAME_TO_CLASS.put(FlangName.GT, BinaryOperator.class);
         NAME_TO_CLASS.put(FlangName.GE, BinaryOperator.class);
+        NAME_TO_CLASS.put(FlangName.AND, BinaryOperator.class);
         NAME_TO_CLASS.put(FlangName.ARRAY_CONSTRUCTOR, ArrayConstructor.class);
         NAME_TO_CLASS.put(FlangName.AC_SPEC, AcSpecification.class);
         NAME_TO_CLASS.put(FlangName.ARRAY_ELEMENT, ArraySubscriptExpr.class);
@@ -113,6 +139,7 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.DOUBLE_PRECISION, DoublePrecisionType.class);
         NAME_TO_CLASS.put(FlangName.CHARACTER, CharacterType.class);
         NAME_TO_CLASS.put(FlangName.REAL, RealType.class);
+        NAME_TO_CLASS.put(FlangName.LENGTH_SELECTOR, LengthSelector.class);
 
         ///  LOOP
         NAME_TO_CLASS.put(FlangName.LOOP_BOUNDS, RangeLoopControl.class);
@@ -127,9 +154,22 @@ public class FlangToClass {
         ///  SHAPES
         NAME_TO_CLASS.put(FlangName.EXPLICIT_SHAPE_SPEC, ExplicitShapeSpecification.class);
         NAME_TO_CLASS.put(FlangName.DEFERRED_SHAPE_SPEC_LIST, DeferredShapeSpecList.class);
+        NAME_TO_CLASS.put(FlangName.ALLOCATE_SHAPE_SPEC, AllocateShapeSpecification.class);
 
         ///  UTILs
         NAME_TO_CLASS.put(FlangName.NAME_VALUE, NameValue.class);
+        NAME_TO_CLASS.put(FlangName.IO_UNIT, IoUnit.class);
+        NAME_TO_CLASS.put(FlangName.IO_CONTROL_SPEC, IoControlSpec.class);
+        NAME_TO_CLASS.put(FlangName.STAT_VARIABLE, StatVariable.class);
+
+        /// OPENMP
+        NAME_TO_CLASS.put(FlangName.OMP_BLOCK_CONSTRUCT, OmpBlockConstruct.class);
+        NAME_TO_CLASS.put(FlangName.OPENMP_LOOP_CONSTRUCT, OmpLoopConstruct.class);
+        NAME_TO_CLASS.put(FlangName.SHARED, OmpDataSharingClause.class);
+        NAME_TO_CLASS.put(FlangName.PRIVATE, OmpDataSharingClause.class);
+        NAME_TO_CLASS.put(FlangName.FIRST_PRIVATE, OmpDataSharingClause.class);
+        NAME_TO_CLASS.put(FlangName.REDUCTION, OmpReductionClause.class);
+        NAME_TO_CLASS.put(FlangName.NOWAIT, OmpNowaitClause.class);
     }
 
     public static boolean isClass(String type) {
