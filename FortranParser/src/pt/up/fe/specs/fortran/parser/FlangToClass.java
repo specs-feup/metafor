@@ -126,6 +126,7 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.SUBTRACT, BinaryOperator.class);
         NAME_TO_CLASS.put(FlangName.MULTIPLY, BinaryOperator.class);
         NAME_TO_CLASS.put(FlangName.DIVIDE, BinaryOperator.class);
+        NAME_TO_CLASS.put(FlangName.POWER, BinaryOperator.class);
         NAME_TO_CLASS.put(FlangName.EQ, BinaryOperator.class);
         NAME_TO_CLASS.put(FlangName.NE, BinaryOperator.class);
         NAME_TO_CLASS.put(FlangName.LT, BinaryOperator.class);

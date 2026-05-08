@@ -7,6 +7,7 @@ public enum BinaryOperatorKind implements StringProvider {
     SUBTRACT,
     MULTIPLY,
     DIVIDE,
+    POWER,
     LT,
     LE,
     GT,
@@ -28,6 +29,9 @@ public enum BinaryOperatorKind implements StringProvider {
             }
             case DIVIDE -> {
                 return "/";
+            }
+            case POWER -> {
+                return "**";
             }
             case EQ -> {
                 return "==";

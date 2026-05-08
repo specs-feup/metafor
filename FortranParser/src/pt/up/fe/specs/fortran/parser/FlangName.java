@@ -114,6 +114,7 @@ public enum FlangName implements StringProvider {
     SUBTRACT,
     MULTIPLY,
     DIVIDE,
+    POWER,
     EQ("EQ"),
     NE("NE"),
     LT("LT"),
