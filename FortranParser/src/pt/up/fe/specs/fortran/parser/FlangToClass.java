@@ -96,7 +96,6 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.USE_STMT, UseStmt.class);
         NAME_TO_CLASS.put(FlangName.CONTINUE_STMT, ContinueStmt.class);
         NAME_TO_CLASS.put(FlangName.PARAMETER_STMT, ParameterStmt.class);
-        NAME_TO_CLASS.put(FlangName.GOTO_STMT, GotoStmt.class);
         NAME_TO_CLASS.put(FlangName.COMMON_STMT, CommonStmt.class);
         NAME_TO_CLASS.put(FlangName.EXTERNAL_STMT, ExternalStmt.class);
         NAME_TO_CLASS.put(FlangName.RETURN_STMT, ReturnStmt.class);

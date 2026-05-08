@@ -61,7 +61,6 @@ public enum FlangName implements StringProvider {
     USE_STMT,
     CONTINUE_STMT,
     PARAMETER_STMT,
-    GOTO_STMT,
     COMMON_STMT,
     EXTERNAL_STMT,
     RETURN_STMT,
