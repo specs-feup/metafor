@@ -131,4 +131,38 @@
     <artifact class="ompConstruct">
         <attribute name="clauses" type="ompClause[]"/>
     </artifact>
+
+    <!-- CONDITIONALS -->
+    <artifact class="ifStatement">
+        <attribute name="condition" type="expr"/>
+        <attribute name="statement" type="actionStatement"/>
+    </artifact>
+
+    <artifact class="ifConstruct">
+        <attribute name="ifThenBlock" type="ifThenBlock"/>
+        <attribute name="elseIfBlocks" type="elseIfBlock[]"/>
+        <attribute name="elseBlock" type="elseBlock"/>
+    </artifact>
+
+    <artifact class="ifThenBlock">
+        <attribute name="header" type="ifThenStatement"/>
+        <attribute name="body" type="statementBlock"/>
+    </artifact>
+
+    <artifact class="ifThenStatement">
+        <attribute name="condition" type="expr"/>
+    </artifact>
+
+    <artifact class="elseIfBlock">
+        <attribute name="header" type="elseIfStatement"/>
+        <attribute name="body" type="statementBlock"/>
+    </artifact>
+
+    <artifact class="elseIfStatement">
+        <attribute name="condition" type="expr"/>
+    </artifact>
+
+    <artifact class="elseBlock">
+        <attribute name="body" type="statementBlock"/>
+    </artifact>
 </artifacts>

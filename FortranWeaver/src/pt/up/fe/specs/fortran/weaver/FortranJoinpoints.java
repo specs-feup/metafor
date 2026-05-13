@@ -38,6 +38,7 @@ import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
 import pt.up.fe.specs.fortran.ast.nodes.program.FortranFile;
 import pt.up.fe.specs.fortran.ast.nodes.program.StmtBlock;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.utils.NameValue;
 import pt.up.fe.specs.fortran.weaver.abstracts.AFortranWeaverJoinPoint;
 import pt.up.fe.specs.fortran.weaver.abstracts.joinpoints.AJoinPoint;
@@ -87,6 +88,13 @@ public class FortranJoinpoints {
         JOINPOINT_FACTORY.put(ProgramUnit.class, FProgramUnit::new);
         JOINPOINT_FACTORY.put(OmpReductionClause.class, FOmpReductionClause::new);
         JOINPOINT_FACTORY.put(OmpOrderedClause.class, FOmpOrderedClause::new);
+        JOINPOINT_FACTORY.put(IfStmt.class, FIfStatement::new);
+        JOINPOINT_FACTORY.put(IfConstruct.class, FIfConstruct::new);
+        JOINPOINT_FACTORY.put(IfThenBlock.class, FIfThenBlock::new);
+        JOINPOINT_FACTORY.put(IfThenStmt.class, FIfThenStatement::new);
+        JOINPOINT_FACTORY.put(ElseIfBlock.class, FElseIfBlock::new);
+        JOINPOINT_FACTORY.put(ElseIfStmt.class, FElseIfStatement::new);
+        JOINPOINT_FACTORY.put(ElseBlock.class, FElseBlock::new);
         JOINPOINT_FACTORY.put(FortranNode.class, FortranJoinpoints::defaultFactory);
     }
 
