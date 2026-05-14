@@ -552,10 +552,15 @@ export class DoStatement extends ExecutableStatement {
   };
   get body(): Execution { return wrapJoinPoint(this._javaObject.getBody()) }
   get control(): LoopControl { return wrapJoinPoint(this._javaObject.getControl()) }
+  get kind(): "while" | "range" | "concurrent" { return wrapJoinPoint(this._javaObject.getKind()) }
   /**
    * Performs a copy of the do statement, including its controls, but not the body
    */
   copyScope(): DoStatement { return wrapJoinPoint(this._javaObject.copyScope()); }
+  /**
+   * Returns true if the given do statement has the same loop control as this do statement
+   */
+  sameScope(loop: DoStatement): boolean { return wrapJoinPoint(this._javaObject.sameScope(unwrapJoinPoint(loop))); }
 }
 
   /**

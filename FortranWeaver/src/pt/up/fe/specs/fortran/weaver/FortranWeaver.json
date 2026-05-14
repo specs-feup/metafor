@@ -2007,6 +2007,14 @@
 						"type": "attribute",
 						"children": [
 									{
+										"type": "[while| range| concurrent]",
+										"name": "kind"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
 										"type": "Boolean",
 										"name": "isFirst"
 									}]
@@ -2135,6 +2143,20 @@
 									{
 										"type": "doStatement",
 										"name": "copyScope"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Returns true if the given do statement has the same loop control as this do statement",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "sameScope"
+									},
+									{
+										"type": "doStatement",
+										"name": "loop",
+										"defaultValue": ""
 									}]
 					},
 					{

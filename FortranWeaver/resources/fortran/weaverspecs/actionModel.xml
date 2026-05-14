@@ -95,4 +95,9 @@
     <action name="copyScope" class="doStatement" return="doStatement"
             tooltip="Performs a copy of the do statement, including its controls, but not the body"
     />
+
+    <action name="sameScope" class="doStatement" return="boolean"
+            tooltip="Returns true if the given do statement has the same loop control as this do statement">
+        <parameter name="loop" type="doStatement"/>
+    </action>
 </actions>

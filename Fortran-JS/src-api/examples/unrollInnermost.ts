@@ -1,5 +1,5 @@
 import Query from "@specs-feup/lara/api/weaver/Query.js";
-import { DoStatement, RangeLoopControl, Joinpoint } from "./Joinpoints.js";
+import { DoStatement, RangeLoopControl, Joinpoint } from "../Joinpoints.js";
 
 const FACTOR = 4;
 

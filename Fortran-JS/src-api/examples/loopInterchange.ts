@@ -1,5 +1,5 @@
 import Query from "@specs-feup/lara/api/weaver/Query.js";
-import { DoStatement, RangeLoopControl, Joinpoint } from "./Joinpoints.js";
+import { DoStatement, RangeLoopControl, Joinpoint } from "../Joinpoints.js";
 
 function isInKernel3mm(loop: DoStatement): boolean {
   const sub = loop.getAncestor("programUnit");

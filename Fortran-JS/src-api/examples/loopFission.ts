@@ -1,6 +1,6 @@
 import Query from "@specs-feup/lara/api/weaver/Query.js";
-import { ProgramUnit, Subroutine } from "./Joinpoints.js";
-import LoopFissionPass from "./pass/LoopFissionPass.js";
+import { Subroutine } from "../Joinpoints.js";
+import LoopFissionPass from "../pass/LoopFissionPass.js";
 
 
 // Collect loops with more than one body statement before any modifications
