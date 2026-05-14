@@ -438,6 +438,7 @@ export class Subroutine extends ProgramUnit {
   static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
     name: null,
   };
+  get moduleName(): string { return wrapJoinPoint(this._javaObject.getModuleName()) }
 }
 
 export class UseStatement extends Statement {
