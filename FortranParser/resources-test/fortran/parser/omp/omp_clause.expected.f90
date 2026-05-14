@@ -1,8 +1,8 @@
 PROGRAM OPENMP_DEMO
     USE omp_lib
 
-    integer :: i, thread_id, num_threads, total_sum
-    integer :: shared_counter = 0
+    INTEGER :: i, thread_id, num_threads, total_sum
+    INTEGER :: shared_counter = 0
 
     !$OMP PARALLEL private(i) shared(num_threads)
         !$OMP DO
