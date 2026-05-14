@@ -85,6 +85,7 @@ public class FortranJoinpoints {
         JOINPOINT_FACTORY.put(OmpDataSharingClause.class, FOmpDataSharingClause::new);
         JOINPOINT_FACTORY.put(UseStmt.class, FUseStatement::new);
         JOINPOINT_FACTORY.put(ProgramUnit.class, FProgramUnit::new);
+        JOINPOINT_FACTORY.put(Subroutine.class, FSubroutine::new);
         JOINPOINT_FACTORY.put(OmpReductionClause.class, FOmpReductionClause::new);
         JOINPOINT_FACTORY.put(OmpOrderedClause.class, FOmpOrderedClause::new);
         JOINPOINT_FACTORY.put(FortranNode.class, FortranJoinpoints::defaultFactory);

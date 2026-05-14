@@ -27,6 +27,13 @@ public class FDoStatement extends ADoStatement {
     }
 
     @Override
+    public ADoStatement copyScopeImpl() {
+        DoStmt copiedDoStmt = (DoStmt) doStmt.copy();
+        copiedDoStmt.getBody().removeChildren();
+        return new FDoStatement(copiedDoStmt);
+    }
+
+    @Override
     public FortranNode getNode() {
         return doStmt;
     }

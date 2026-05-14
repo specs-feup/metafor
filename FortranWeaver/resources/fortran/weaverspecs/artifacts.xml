@@ -88,6 +88,7 @@
     <artifact class="doStatement">
         <attribute name="control" type="loopControl"/>
         <attribute name="body" type="execution"/>
+        <attribute name="kind" type="{range, while, concurrent}"/>
     </artifact>
 
     <!-- STATEMENT BLOCKS -->
@@ -120,6 +121,11 @@
     <!-- PROGRAM UNIT -->
     <artifact class="programUnit">
         <attribute name="specification" type="specification" tooltip="Returns the unit's specification part"/>
+    </artifact>
+
+    <!-- SUBROUTINE -->
+    <artifact class="subroutine">
+        <attribute name="moduleName" type="String"/>
     </artifact>
 
     <!-- USE STATEMENT -->
