@@ -25,6 +25,10 @@ public class Subroutine extends ProgramUnit {
         return getChildrenOf(DummyArgumentDecl.class);
     }
 
+    public String getName() {
+        return get(SUBROUTINE_NAME);
+    }
+
     @Override
     public String getCode() {
 
