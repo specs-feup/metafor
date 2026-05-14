@@ -14,6 +14,10 @@
 package pt.up.fe.specs.fortran.weaver;
 
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
+import pt.up.fe.specs.fortran.ast.nodes.decl.EntityDecl;
+import pt.up.fe.specs.fortran.ast.nodes.decl.ExprInitialization;
+import pt.up.fe.specs.fortran.ast.nodes.decl.FortranDecl;
+import pt.up.fe.specs.fortran.ast.nodes.decl.Initialization;
 import pt.up.fe.specs.fortran.ast.nodes.expr.*;
 import pt.up.fe.specs.fortran.ast.nodes.loops.LoopControl;
 import pt.up.fe.specs.fortran.ast.nodes.loops.RangeLoopControl;
@@ -38,6 +42,9 @@ import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
 import pt.up.fe.specs.fortran.ast.nodes.program.FortranFile;
 import pt.up.fe.specs.fortran.ast.nodes.program.StmtBlock;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
+import pt.up.fe.specs.fortran.ast.nodes.type.attributes.AttributeSpecifier;
+import pt.up.fe.specs.fortran.ast.nodes.type.attributes.KeywordAttributeSpecifier;
+import pt.up.fe.specs.fortran.ast.nodes.type.attributes.ParameterKeyword;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.utils.NameValue;
 import pt.up.fe.specs.fortran.weaver.abstracts.AFortranWeaverJoinPoint;
@@ -95,6 +102,16 @@ public class FortranJoinpoints {
         JOINPOINT_FACTORY.put(ElseIfBlock.class, FElseIfBlock::new);
         JOINPOINT_FACTORY.put(ElseIfStmt.class, FElseIfStatement::new);
         JOINPOINT_FACTORY.put(ElseBlock.class, FElseBlock::new);
+        JOINPOINT_FACTORY.put(Subroutine.class, FSubroutine::new);
+        JOINPOINT_FACTORY.put(SpecificationStmt.class, FSpecificationStatement::new);
+        JOINPOINT_FACTORY.put(TypeDeclarationStmt.class, FTypeDeclarationStatement::new);
+        JOINPOINT_FACTORY.put(AttributeSpecifier.class, FAttributeSpecifier::new);
+        JOINPOINT_FACTORY.put(KeywordAttributeSpecifier.class, FKeywordAttributeSpecifier::new);
+        JOINPOINT_FACTORY.put(ParameterKeyword.class, FParameterKeyword::new);
+        JOINPOINT_FACTORY.put(FortranDecl.class, FFortranDecl::new);
+        JOINPOINT_FACTORY.put(EntityDecl.class, FEntityDecl::new);
+        JOINPOINT_FACTORY.put(Initialization.class, FInitialization::new);
+        JOINPOINT_FACTORY.put(ExprInitialization.class, FExprInitialization::new);
         JOINPOINT_FACTORY.put(FortranNode.class, FortranJoinpoints::defaultFactory);
     }
 
