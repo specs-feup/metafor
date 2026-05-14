@@ -30,7 +30,7 @@ public class FDoStatement extends ADoStatement {
 
     @Override
     public String getKindImpl() {
-        return doStmt.getKind().toString();
+        return doStmt.getKind().toString().toLowerCase();
     }
 
     @Override
@@ -45,7 +45,6 @@ public class FDoStatement extends ADoStatement {
         if (!Objects.equals(this.getKindImpl(), loop.getKindImpl())) {
             return false;
         }
-
         return Objects.equals(this.getControlImpl().getCodeImpl(), loop.getControlImpl().getCodeImpl());
     }
 
