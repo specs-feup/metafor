@@ -14,6 +14,9 @@ public enum FortranKeyword {
     WHILE,
     GO,
     TO,
+    STOP,
+    ERROR,
+    QUIET,
 
     // Conditional statements
     IF,
