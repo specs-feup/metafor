@@ -473,6 +473,18 @@ public class FortranParserTest {
     }
 
     @Test
+    void testStop() {
+        testJson("stmt/stop.json");
+    }
+
+    @Test
+    void testStopNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("stmt/stop.f90");
+        }
+    }
+
+    @Test
     void testFujitsu0000_0000() {
         testJson("fujitsu/0000/0000_0000.json");
     }
