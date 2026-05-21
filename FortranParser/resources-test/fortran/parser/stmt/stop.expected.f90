@@ -1,16 +1,16 @@
 PROGRAM STOP
-    PRINT *, "Executing simple stop..."
+    PRINT *, "Executing simple STOP..."
     STOP
 
-    PRINT *, "Executing stop with integer code (returns 1 to OS)..."
+    PRINT *, "Executing STOP with integer code (returns 1 to OS)..."
     STOP 1
 
-    PRINT *, "Executing stop with a string message..."
+    PRINT *, "Executing STOP with a string message..."
     STOP "Execution finished gracefully."
 
-    PRINT *, "Executing error stop..."
+    PRINT *, "Executing ERROR STOP..."
     ERROR STOP "Fatal error: Something went terribly wrong!"
 
-    PRINT *, "Executing quiet stop..."
+    PRINT *, "Executing quiet STOP..."
     STOP 55, QUIET = .true.
 END PROGRAM STOP
