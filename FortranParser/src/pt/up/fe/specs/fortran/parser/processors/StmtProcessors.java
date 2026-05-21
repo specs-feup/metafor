@@ -385,4 +385,19 @@ public class StmtProcessors extends ANodeProcessor {
     public void parameterStmt(ParameterStmt parameterStmt) {
         parameterStmt.addChildren(getChildren(parameterStmt, FlangName.NAMED_CONSTANT_DEF));
     }
+
+    public void stopStmt(StopStmt stopStmt) {
+        var kindId = attributes(stopStmt).getString("kind");
+        var kind = attributes().get(kindId).getString("value");
+        stopStmt.set(StopStmt.ERROR_STOP, kind.equals("ErrorStop"));
+
+        var stopCodeOpt = getChildOptional(stopStmt, "code");
+        stopCodeOpt.ifPresent(stopCode -> {
+            stopStmt.addChild(stopCode);
+            stopStmt.set(StopStmt.HAS_CODE, true);
+        });
+
+        var quietOpt = getChildOptional(stopStmt, "quiet");
+        quietOpt.ifPresent(stopStmt::addChild);
+    }
 }
