@@ -565,7 +565,7 @@ public class FortranParserTest {
     @Test
     void testFujitsu0000_0019Native() {
         if (SpecsPlatforms.isLinux()) {
-            testJson("fujitsu/0000/0000_0019.json");
+            testNative("fujitsu/0000/0000_0019.f90");
         }
     }
 
@@ -577,7 +577,7 @@ public class FortranParserTest {
     @Test
     void testFujitsu0000_0023Native() {
         if (SpecsPlatforms.isLinux()) {
-            testJson("fujitsu/0000/0000_0023.json");
+            testNative("fujitsu/0000/0000_0023.f90");
         }
     }
 
@@ -589,7 +589,7 @@ public class FortranParserTest {
     @Test
     void testFujitsu0000_0024Native() {
         if (SpecsPlatforms.isLinux()) {
-            testJson("fujitsu/0000/0000_0024.f90");
+            testNative("fujitsu/0000/0000_0024.f90");
         }
     }
 }
