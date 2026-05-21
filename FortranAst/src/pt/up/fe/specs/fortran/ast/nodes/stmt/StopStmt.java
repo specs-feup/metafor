@@ -54,7 +54,7 @@ public class StopStmt extends ActionStmt {
         stopCodeOpt.ifPresent(stopCode -> code.append(" ").append(stopCode.getCode()));
 
         quietOpt.ifPresent(quiet -> code.append(", ")
-                .append(keyword(FortranKeyword.STOP))
+                .append(keyword(FortranKeyword.QUIET))
                 .append(" = ")
                 .append(quiet.getCode()));
 
