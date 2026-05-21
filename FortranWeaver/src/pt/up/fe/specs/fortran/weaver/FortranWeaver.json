@@ -6667,6 +6667,14 @@
 						"children": [
 									{
 										"type": "expr",
+										"name": "step"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "expr",
 										"name": "upper"
 									}]
 					},
@@ -6785,6 +6793,32 @@
 									{
 										"type": "joinpoint[]",
 										"name": "scopeNodes"
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setStep"
+									},
+									{
+										"type": "expr",
+										"name": "step",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setUpper"
+									},
+									{
+										"type": "expr",
+										"name": "upper",
+										"defaultValue": ""
 									}]
 					},
 					{

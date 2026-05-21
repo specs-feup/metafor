@@ -209,4 +209,10 @@ public abstract class AFortranWeaverJoinPoint extends AJoinPoint {
         FortranNode copiedNode = getNode().copyShallow();
         return FortranJoinpoints.create(copiedNode);
     }
+
+    @Override
+    public AJoinPoint deepCopyImpl() {
+        FortranNode copiedNode = getNode().copy();
+        return FortranJoinpoints.create(copiedNode);
+    }
 }

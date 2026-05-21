@@ -1,11 +1,14 @@
 package pt.up.fe.specs.fortran.weaver.importable;
 
 import pt.up.fe.specs.fortran.ast.nodes.expr.DataRef;
+import pt.up.fe.specs.fortran.ast.nodes.expr.Expr;
 import pt.up.fe.specs.fortran.ast.nodes.expr.enums.BinaryOperatorKind;
 import pt.up.fe.specs.fortran.ast.nodes.omp.OmpLoopConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpClause;
 import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpDataSharingClause;
 import pt.up.fe.specs.fortran.ast.nodes.omp.enums.OmpClauseKind;
+import pt.up.fe.specs.fortran.ast.nodes.loops.LoopControl;
+import pt.up.fe.specs.fortran.ast.nodes.loops.RangeLoopControl;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.DoStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ExecutableStmt;
 import pt.up.fe.specs.fortran.weaver.FortranJoinpoints;
@@ -74,5 +77,52 @@ public class AstFactory {
 
     public static AOmpOrderedClause ompOrderedClause(int value) {
         return FortranJoinpoints.create(FortranWeaver.getFactory().ompOrderedClause(value), AOmpOrderedClause.class);
+    }
+
+    public static AIntLiteral intLiteral(int value) {
+        return FortranJoinpoints.create(FortranWeaver.getFactory().intLiteral(value), AIntLiteral.class);
+    }
+
+    public static ABinaryOperator binaryOperatorAdd(AExpr lhs, AExpr rhs) {
+        return binaryOperator(BinaryOperatorKind.ADD, lhs, rhs);
+    }
+
+    public static ABinaryOperator binaryOperatorSubtract(AExpr lhs, AExpr rhs) {
+        return binaryOperator(BinaryOperatorKind.SUBTRACT, lhs, rhs);
+    }
+
+    public static ABinaryOperator binaryOperatorMultiply(AExpr lhs, AExpr rhs) {
+        return binaryOperator(BinaryOperatorKind.MULTIPLY, lhs, rhs);
+    }
+
+    public static ABinaryOperator binaryOperatorDivide(AExpr lhs, AExpr rhs) {
+        return binaryOperator(BinaryOperatorKind.DIVIDE, lhs, rhs);
+    }
+
+    public static ARangeLoopControl rangeLoopControl(ADataRef var, AExpr lower, AExpr upper) {
+        DataRef varNode = (DataRef) var.getNode();
+        Expr lowerNode = (Expr) lower.getNode();
+        Expr upperNode = (Expr) upper.getNode();
+        return FortranJoinpoints.create(
+            FortranWeaver.getFactory().rangeLoopControl(varNode, lowerNode, upperNode),
+            ARangeLoopControl.class
+        );
+    }
+
+    public static ADoStatement doStatement(ARangeLoopControl control) {
+        RangeLoopControl ctrl = (RangeLoopControl) control.getNode();
+        return FortranJoinpoints.create(
+            FortranWeaver.getFactory().doStatement(ctrl),
+            ADoStatement.class
+        );
+    }
+
+    private static ABinaryOperator binaryOperator(BinaryOperatorKind kind, AExpr lhs, AExpr rhs) {
+        Expr lhsNode = (Expr) lhs.getNode();
+        Expr rhsNode = (Expr) rhs.getNode();
+        return FortranJoinpoints.create(
+            FortranWeaver.getFactory().binaryOperator(kind, lhsNode, rhsNode),
+            ABinaryOperator.class
+        );
     }
 }

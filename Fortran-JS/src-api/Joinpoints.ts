@@ -109,7 +109,7 @@ export class Joinpoint extends LaraJoinPoint {
   /**
    * Performs a copy of the node and its children, including the nodes in their fields (only the first level of field nodes, this function is not recursive)
    */
-  deepCopy(): Joinpoint { return wrapJoinPoint(this._javaObject.deepCopy()); }
+  deepCopy(): this { return wrapJoinPoint(this._javaObject.deepCopy()) as this; }
   /**
    * Removes node associated to the joinpoint from the AST
    */
@@ -297,8 +297,13 @@ export class RangeLoopControl extends LoopControl {
     name: null,
   };
   get lower(): Expr { return wrapJoinPoint(this._javaObject.getLower()) }
+  get step(): Expr { return wrapJoinPoint(this._javaObject.getStep()) }
+  set step(value: Expr) { this._javaObject.setStep(unwrapJoinPoint(value)); }
   get upper(): Expr { return wrapJoinPoint(this._javaObject.getUpper()) }
+  set upper(value: Expr) { this._javaObject.setUpper(unwrapJoinPoint(value)); }
   get var(): DataRef { return wrapJoinPoint(this._javaObject.getVar()) }
+  setStep(step: Expr): void { return wrapJoinPoint(this._javaObject.setStep(unwrapJoinPoint(step))); }
+  setUpper(upper: Expr): void { return wrapJoinPoint(this._javaObject.setUpper(unwrapJoinPoint(upper))); }
 }
 
 export class RealLiteral extends Literal {

@@ -91,6 +91,15 @@
         <parameter name="stmt" type="executableStatement"/>
     </action>
 
+    <!-- RangeLoopControl -->
+    <action name="setUpper" class="rangeLoopControl">
+        <parameter name="upper" type="expr"/>
+    </action>
+
+    <action name="setStep" class="rangeLoopControl">
+        <parameter name="step" type="expr"/>
+    </action>
+
     <!-- DoStatement -->
     <action name="copyScope" class="doStatement" return="doStatement"
             tooltip="Performs a copy of the do statement, including its controls, but not the body"
