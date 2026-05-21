@@ -170,6 +170,7 @@ public enum FlangName implements StringProvider {
     ALLOCATABLE,
     ASYNCHRONOUS,
     INTENT_SPEC,
+    PARAMETER,
 
 
     // OTHER
