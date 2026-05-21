@@ -484,17 +484,18 @@ public class FortranParserTest {
         }
     }
 
-    @Test
-    void testFujitsu0000_0001() {
-        testJson("fujitsu/0000/0000_0001.json");
-    }
-
-    @Test
-    void testFujitsu0000_0001Native() {
-        if (SpecsPlatforms.isLinux()) {
-            testNative("fujitsu/0000/0000_0001.f90");
-        }
-    }
+//    These tests are commented due to lack of support for 128-bit floating point values on most machines
+//    @Test
+//    void testFujitsu0000_0001() {
+//        testJson("fujitsu/0000/0000_0001.json");
+//    }
+//
+//    @Test
+//    void testFujitsu0000_0001Native() {
+//        if (SpecsPlatforms.isLinux()) {
+//            testNative("fujitsu/0000/0000_0001.f90");
+//        }
+//    }
 
     @Test
     void testFujitsu0000_0002() {
