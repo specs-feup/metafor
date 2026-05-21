@@ -35,8 +35,10 @@ public enum FortranKeyword {
     PRECISION,
     DIMENSION,
 
-    OMP
-    ;
+    // Declarations
+    PARAMETER,
+
+    OMP;
 
     public String getKeyword(boolean lowercase) {
         var keyword = name();
