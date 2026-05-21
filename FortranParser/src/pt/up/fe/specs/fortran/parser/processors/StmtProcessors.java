@@ -6,6 +6,7 @@ import pt.up.fe.specs.fortran.ast.nodes.loops.WhileLoopControl;
 import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
 import pt.up.fe.specs.fortran.ast.nodes.program.StmtBlock;
 import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
+import pt.up.fe.specs.fortran.ast.nodes.specification.NamedConstantDef;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.*;
@@ -16,6 +17,9 @@ import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 
 import java.util.List;
 import java.util.Optional;
+
+import static pt.up.fe.specs.fortran.parser.FlangName.EXPR;
+import static pt.up.fe.specs.fortran.parser.FlangName.NAMED_CONSTANT;
 
 public class StmtProcessors extends ANodeProcessor {
     public StmtProcessors(FortranJsonResult data) {
@@ -384,6 +388,14 @@ public class StmtProcessors extends ANodeProcessor {
 
     public void parameterStmt(ParameterStmt parameterStmt) {
         parameterStmt.addChildren(getChildren(parameterStmt, FlangName.NAMED_CONSTANT_DEF));
+    }
+
+    public void namedConstantDef(NamedConstantDef namedConstantDef) {
+        var ref = getChild(namedConstantDef, NAMED_CONSTANT);
+        namedConstantDef.addChild(ref);
+
+        var expr = getChild(namedConstantDef, EXPR);
+        namedConstantDef.addChild(expr);
     }
 
     public void stopStmt(StopStmt stopStmt) {
