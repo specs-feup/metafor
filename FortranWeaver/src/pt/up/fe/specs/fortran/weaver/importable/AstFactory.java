@@ -1,5 +1,7 @@
 package pt.up.fe.specs.fortran.weaver.importable;
 
+import pt.up.fe.specs.fortran.ast.nodes.expr.Argument;
+import pt.up.fe.specs.fortran.ast.nodes.expr.Call;
 import pt.up.fe.specs.fortran.ast.nodes.expr.DataRef;
 import pt.up.fe.specs.fortran.ast.nodes.expr.Expr;
 import pt.up.fe.specs.fortran.ast.nodes.expr.enums.BinaryOperatorKind;
@@ -17,6 +19,7 @@ import pt.up.fe.specs.fortran.weaver.abstracts.joinpoints.*;
 import pt.up.fe.specs.util.SpecsCollections;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class AstFactory {
     public static AOmpLoopConstruct ompLoopConstruct(ADoStatement loop, Object[] args) {
@@ -115,6 +118,17 @@ public class AstFactory {
             FortranWeaver.getFactory().doStatement(ctrl),
             ADoStatement.class
         );
+    }
+
+    public static AExpr intrinsicCall(String name, Object[] args) {
+        DataRef callee = FortranWeaver.getFactory().dataRef(name);
+        List<Argument> argNodes = SpecsCollections.asListT(AExpr.class, args)
+                .stream()
+                .map(a -> FortranWeaver.getFactory().argument((Expr) a.getNode()))
+                .collect(Collectors.toList());
+        return FortranJoinpoints.create(
+                FortranWeaver.getFactory().functionCall(callee, argNodes),
+                AExpr.class);
     }
 
     private static ABinaryOperator binaryOperator(BinaryOperatorKind kind, AExpr lhs, AExpr rhs) {

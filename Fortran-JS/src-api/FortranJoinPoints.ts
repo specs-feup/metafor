@@ -91,4 +91,10 @@ export default class FortranJoinPoints {
     static doStatement(control: Joinpoints.RangeLoopControl): Joinpoints.DoStatement {
         return wrapJoinPoint(FortranJavaTypes.AstFactory.doStatement(unwrapJoinPoint(control)));
     }
+
+    static intrinsicCall(name: string, args: Joinpoints.Expr[]): Joinpoints.Expr {
+        return wrapJoinPoint(FortranJavaTypes.AstFactory.intrinsicCall(
+            name, args.map(unwrapJoinPoint)
+        ));
+    }
 }

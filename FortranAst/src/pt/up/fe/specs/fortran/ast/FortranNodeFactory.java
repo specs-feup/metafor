@@ -6,7 +6,9 @@ import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.decl.ExprInitialization;
 import pt.up.fe.specs.fortran.ast.nodes.decl.LabelDecl;
 import pt.up.fe.specs.fortran.ast.nodes.decl.ListInitialization;
+import pt.up.fe.specs.fortran.ast.nodes.expr.Argument;
 import pt.up.fe.specs.fortran.ast.nodes.expr.BinaryOperator;
+import pt.up.fe.specs.fortran.ast.nodes.expr.Call;
 import pt.up.fe.specs.fortran.ast.nodes.expr.DataRef;
 import pt.up.fe.specs.fortran.ast.nodes.expr.Expr;
 import pt.up.fe.specs.fortran.ast.nodes.expr.IntLiteral;
@@ -307,6 +309,19 @@ public class FortranNodeFactory {
         DataStore data = newDataStore(DoStmt.class);
         Execution body = execution(Collections.emptyList());
         return new DoStmt(data, Arrays.asList(control, body));
+    }
+
+    public Argument argument(Expr expr) {
+        DataStore data = newDataStore(Argument.class);
+        return new Argument(data, Collections.singletonList(expr));
+    }
+
+    public Call functionCall(DataRef callee, List<Argument> args) {
+        DataStore data = newDataStore(Call.class);
+        List<FortranNode> children = new ArrayList<>(args.size() + 1);
+        children.add(callee);
+        children.addAll(args);
+        return new Call(data, children);
     }
 
     public BinaryOperator binaryOperator(BinaryOperatorKind kind, Expr lhs, Expr rhs) {

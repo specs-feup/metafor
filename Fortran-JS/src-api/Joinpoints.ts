@@ -109,7 +109,7 @@ export class Joinpoint extends LaraJoinPoint {
   /**
    * Performs a copy of the node and its children, including the nodes in their fields (only the first level of field nodes, this function is not recursive)
    */
-  deepCopy(): this { return wrapJoinPoint(this._javaObject.deepCopy()) as this; }
+  deepCopy(): Joinpoint { return wrapJoinPoint(this._javaObject.deepCopy()); }
   /**
    * Removes node associated to the joinpoint from the AST
    */
