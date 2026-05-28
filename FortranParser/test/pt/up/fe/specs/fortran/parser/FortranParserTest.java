@@ -592,4 +592,16 @@ public class FortranParserTest {
             testNative("fujitsu/0000/0000_0024.f90");
         }
     }
+
+    @Test
+    void testFujitsu0000_0029() {
+        testJson("fujitsu/0000/0000_0029.json");
+    }
+
+    @Test
+    void testFujitsu0000_0029Native() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("fujitsu/0000/0000_0029.f90");
+        }
+    }
 }
