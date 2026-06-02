@@ -49,10 +49,8 @@ function substituteVar(stmt: ExecutableStatement, varName: string, offset: numbe
  * @returns The replacement loops inserted into the AST, in source order.
  */
 export default function loopUnroll($loop: DoStatement, factor: number): DoStatement[] {
-  if (!($loop.control instanceof RangeLoopControl)) return [$loop];
-  if (factor <= 1) return [$loop];
-  const ctrl = $loop.control;
-  if (ctrl.step !== undefined) return [$loop];
+  if (!canUnroll($loop, factor)) return [$loop];
+  const ctrl = $loop.control as RangeLoopControl;
   const v = ctrl.var.name;
   const bodyStmts = $loop.body.executableStmts;
 
@@ -95,4 +93,10 @@ export default function loopUnroll($loop: DoStatement, factor: number): DoStatem
 
   $loop.replaceWith([mainDo, cleanupDo])
   return [mainDo, cleanupDo];
+}
+
+export function canUnroll($loop: DoStatement, factor: number = 2): boolean {
+  if (!($loop.control instanceof RangeLoopControl)) return false;
+  if (factor <= 1) return false;
+  return ($loop.control as RangeLoopControl).step === undefined;
 }

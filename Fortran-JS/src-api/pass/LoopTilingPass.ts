@@ -2,7 +2,7 @@ import Pass from "@specs-feup/lara/api/lara/pass/Pass.js";
 import PassResult from "@specs-feup/lara/api/lara/pass/results/PassResult.js";
 import Query from "@specs-feup/lara/api/weaver/Query.js";
 import { DoStatement, Joinpoint } from "../Joinpoints.js";
-import loopTile from "../code/LoopTiling.js";
+import loopTile, { canTile } from "../code/LoopTiling.js";
 
 /**
  * Pass that tiles every top-level 2-deep perfect loop nest in the subtree.
@@ -37,7 +37,8 @@ export default class LoopTilingPass extends Pass {
     const pairs: { outer: DoStatement; inner: DoStatement }[] = [];
     for (const loop of Query.searchFrom($jp, DoStatement)) {
       const stmts = loop.body.executableStmts;
-      if (stmts.length === 1 && stmts[0] instanceof DoStatement) {
+      if (stmts.length === 1 && stmts[0] instanceof DoStatement
+          && canTile(loop, stmts[0] as DoStatement)) {
         pairs.push({ outer: loop, inner: stmts[0] as DoStatement });
       }
     }

@@ -12,7 +12,7 @@ import { DoStatement, RangeLoopControl } from "../Joinpoints.js";
  * //   a(i) = b(i)
  * //   c(i) = d(i)
  * // end do
- *
+
  * // After:
  * // do i = 1, n
  * //   a(i) = b(i)
@@ -24,16 +24,12 @@ import { DoStatement, RangeLoopControl } from "../Joinpoints.js";
  * @param $loop - The do-loop to split.
  * @returns The replacement loops inserted into the AST, in source order.
  */
-export default function loopFision($loop: DoStatement): DoStatement[] {
+export default function loopFission($loop: DoStatement): DoStatement[] {
   const copiedLoopScopeTemplate = $loop.copyScope()
   const statements = $loop.body.executableStmts
   const result: DoStatement[] = []
 
-  if (!($loop.control instanceof RangeLoopControl)) {
-    return [$loop]
-  }
-  
-  if (statements.length <= 1) {
+  if (!canFission($loop)) {
     return [$loop]
   }
 
@@ -46,4 +42,9 @@ export default function loopFision($loop: DoStatement): DoStatement[] {
   $loop.replaceWith(result)
 
   return result
+}
+
+export function canFission($loop: DoStatement): boolean {
+  return $loop.control instanceof RangeLoopControl
+    && $loop.body.executableStmts.length > 1;
 }

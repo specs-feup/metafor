@@ -1,7 +1,7 @@
 import Pass from "@specs-feup/lara/api/lara/pass/Pass.js"
 import PassResult from "@specs-feup/lara/api/lara/pass/results/PassResult.js";
 import { DoStatement, Joinpoint } from "../Joinpoints.js";
-import loopFision from "../code/LoopFision.js";
+import loopFission, { canFission } from "../code/LoopFission.js";
 
 /**
  * Pass that splits every range do-loop with more than one body statement into
@@ -33,15 +33,13 @@ export default class LoopFissionPass extends Pass {
     for (const child of $jp.children) {
       yield* this._findLoops(child);
     }
-    if (
-      $jp instanceof DoStatement && $jp.body.executableStmts.length > 1
-    ) {
+    if ($jp instanceof DoStatement && canFission($jp)) {
       yield $jp;
     }
   }
 
   /** Applies loop fission to a single loop, replacing it in the AST with one loop per body statement. */
   protected _loopFission(loop: DoStatement) {
-    loopFision(loop)
+    loopFission(loop)
   }
 }

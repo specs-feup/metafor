@@ -28,10 +28,9 @@ import { DataRef, DoStatement, ExecutableStatement, RangeLoopControl } from "../
  * Returns unchanged `[outer]` if either loop is not a unit-step range loop.
  */
 export default function loopTile(outer: DoStatement, inner: DoStatement, tileSize: number): DoStatement[] {
-  const oc = outer.control;
-  const ic = inner.control;
-  if (!(oc instanceof RangeLoopControl && ic instanceof RangeLoopControl)) return [outer];
-  if (oc.step !== undefined || ic.step !== undefined) return [outer];
+  if (!canTile(outer, inner)) return [outer];
+  const oc = outer.control as RangeLoopControl;
+  const ic = inner.control as RangeLoopControl;
 
   const ovt = oc.var.name.repeat(2);
   const ivt = ic.var.name.repeat(2);
@@ -84,4 +83,10 @@ export default function loopTile(outer: DoStatement, inner: DoStatement, tileSiz
   outerTileDo.body.insertEnd(innerTileDo);
   outer.replaceWith(outerTileDo);
   return [outerTileDo];
+}
+
+export function canTile(outer: DoStatement, inner: DoStatement): boolean {
+  const oc = outer.control, ic = inner.control;
+  return oc instanceof RangeLoopControl && ic instanceof RangeLoopControl
+    && oc.step === undefined && ic.step === undefined;
 }

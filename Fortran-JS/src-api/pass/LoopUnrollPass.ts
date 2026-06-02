@@ -1,7 +1,7 @@
 import Pass from "@specs-feup/lara/api/lara/pass/Pass.js";
 import PassResult from "@specs-feup/lara/api/lara/pass/results/PassResult.js";
 import { DoStatement, Joinpoint } from "../Joinpoints.js";
-import loopUnroll from "../code/LoopUnroll.js";
+import loopUnroll, { canUnroll } from "../code/LoopUnroll.js";
 
 /**
  * Pass that unrolls every innermost range do-loop in the subtree by a given
@@ -41,7 +41,7 @@ export default class LoopUnrollPass extends Pass {
   protected *_findInnermostLoops($jp: Joinpoint): Generator<DoStatement> {
     if ($jp instanceof DoStatement) {
       const hasNestedLoop = $jp.descendants.some(d => d instanceof DoStatement);
-      if (!hasNestedLoop) {
+      if (!hasNestedLoop && canUnroll($jp, this.factor)) {
         yield $jp;
         return;
       }
