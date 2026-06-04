@@ -1,9 +1,9 @@
 package pt.up.fe.specs.fortran.parser.processors;
 
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
-import pt.up.fe.specs.fortran.ast.nodes.decl.DataStmtValue;
 import pt.up.fe.specs.fortran.ast.nodes.alloc.Allocation;
 import pt.up.fe.specs.fortran.ast.nodes.alloc.StatVariable;
+import pt.up.fe.specs.fortran.ast.nodes.decl.DataStmtValue;
 import pt.up.fe.specs.fortran.ast.nodes.decl.DummyArgumentDecl;
 import pt.up.fe.specs.fortran.ast.nodes.decl.EntityDecl;
 import pt.up.fe.specs.fortran.ast.nodes.decl.KindSelector;
@@ -16,24 +16,9 @@ import pt.up.fe.specs.fortran.ast.nodes.omp.OmpLoopConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpDataSharingClause;
 import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpNowaitClause;
 import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpReductionClause;
-import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
-import pt.up.fe.specs.fortran.ast.nodes.program.FortranFile;
-import pt.up.fe.specs.fortran.ast.nodes.program.MainProgram;
-import pt.up.fe.specs.fortran.ast.nodes.program.Specification;
-import pt.up.fe.specs.fortran.ast.nodes.specification.NamedConstantDef;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
-import pt.up.fe.specs.fortran.ast.nodes.expr.*;
-import pt.up.fe.specs.fortran.ast.nodes.omp.OmpBlockConstruct;
-import pt.up.fe.specs.fortran.ast.nodes.omp.OmpLoopConstruct;
-import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpDataSharingClause;
-import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
-import pt.up.fe.specs.fortran.ast.nodes.program.FortranFile;
-import pt.up.fe.specs.fortran.ast.nodes.program.MainProgram;
-import pt.up.fe.specs.fortran.ast.nodes.program.Specification;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
-import pt.up.fe.specs.fortran.ast.nodes.expr.*;
 import pt.up.fe.specs.fortran.ast.nodes.program.*;
 import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
+import pt.up.fe.specs.fortran.ast.nodes.specification.NamedConstantDef;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.CaseBlock;
@@ -88,6 +73,8 @@ public class Nodes {
         processors.put(AssignmentStmt.class, s::assignmentStmt);
         processors.put(StmtBlock.class, s::stmtBlock);
         processors.put(CompilerDirective.class, s::compilerDirective);
+        processors.put(GotoStmt.class, s::gotoStmt);
+        processors.put(StopStmt.class, s::stopStmt);
 
         processors.put(IfConstruct.class, s::ifConstruct);
         processors.put(IfThenStmt.class, s::ifThenStmt);
@@ -112,6 +99,7 @@ public class Nodes {
         processors.put(DeallocateStmt.class, s::deallocateStmt);
         processors.put(ContinueStmt.class, s::continueStmt);
         processors.put(ParameterStmt.class, s::parameterStmt);
+        processors.put(NamedConstantDef.class, s::namedConstantDef);
 
         var e = new ExprProcessors(data);
         processors.put(StringLiteral.class, e::stringLiteral);
@@ -119,6 +107,7 @@ public class Nodes {
         processors.put(LogicalLiteral.class, e::logicalLiteral);
         processors.put(RealLiteral.class, e::realLiteral);
         processors.put(ParenExpr.class, e::parenExpr);
+        processors.put(UnaryOperator.class, e::unaryOperator);
         processors.put(BinaryOperator.class, e::binaryOperator);
         processors.put(ArrayConstructor.class, e::arrayConstructor);
         processors.put(AcSpecification.class, e::acSpecification);

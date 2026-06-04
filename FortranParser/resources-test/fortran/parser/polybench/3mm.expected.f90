@@ -1,12 +1,12 @@
 PROGRAM THREE_MM
-double precision, dimension(:, :), ALLOCATABLE :: a
-double precision, dimension(:, :), ALLOCATABLE :: b
-double precision, dimension(:, :), ALLOCATABLE :: c
-double precision, dimension(:, :), ALLOCATABLE :: d
-double precision, dimension(:, :), ALLOCATABLE :: e
-double precision, dimension(:, :), ALLOCATABLE :: f
-double precision, dimension(:, :), ALLOCATABLE :: g
-integer :: i
+DOUBLE PRECISION, DIMENSION(:, :), ALLOCATABLE :: a
+DOUBLE PRECISION, DIMENSION(:, :), ALLOCATABLE :: b
+DOUBLE PRECISION, DIMENSION(:, :), ALLOCATABLE :: c
+DOUBLE PRECISION, DIMENSION(:, :), ALLOCATABLE :: d
+DOUBLE PRECISION, DIMENSION(:, :), ALLOCATABLE :: e
+DOUBLE PRECISION, DIMENSION(:, :), ALLOCATABLE :: f
+DOUBLE PRECISION, DIMENSION(:, :), ALLOCATABLE :: g
+INTEGER :: i
 allocate(a(32 + 0, 32 + 0), STAT=i)
 call check_err(i)
 allocate(b(32 + 0, 32 + 0), STAT=i)
@@ -36,12 +36,12 @@ deallocate(f)
 deallocate(g)
 contains
 SUBROUTINE init_array(ni, nj, nk, nl, nm, a, b, c, d)
-double precision, dimension(nk, ni) :: a
-double precision, dimension(nj, nk) :: b
-double precision, dimension(nm, nj) :: c
-double precision, dimension(nl, nm) :: d
-integer :: ni, nj, nk, nl, nm
-integer :: i, j
+DOUBLE PRECISION, DIMENSION(nk, ni) :: a
+DOUBLE PRECISION, DIMENSION(nj, nk) :: b
+DOUBLE PRECISION, DIMENSION(nm, nj) :: c
+DOUBLE PRECISION, DIMENSION(nl, nm) :: d
+INTEGER :: ni, nj, nk, nl, nm
+INTEGER :: i, j
 DO i = 1, ni
 DO j = 1, nk
 a(j, i) = dble(i - 1) * dble(j - 1) / ni
@@ -64,9 +64,9 @@ END DO
 END DO
 END SUBROUTINE init_array
 SUBROUTINE print_array(ni, nl, g)
-double precision, dimension(nl, ni) :: g
-integer :: ni, nl
-integer :: i, j
+DOUBLE PRECISION, DIMENSION(nl, ni) :: g
+INTEGER :: ni, nl
+INTEGER :: i, j
 DO i = 1, ni
 DO j = 1, nl
 WRITE(0, "(f0.2,1x)", advance="no") g(j, i)
@@ -78,15 +78,15 @@ END DO
 WRITE(0, *)
 END SUBROUTINE print_array
 SUBROUTINE kernel_3mm(ni, nj, nk, nl, nm, e, a, b, f, c, d, g)
-double precision, dimension(nk, ni) :: a
-double precision, dimension(nj, nk) :: b
-double precision, dimension(nm, nj) :: c
-double precision, dimension(nl, nm) :: d
-double precision, dimension(nj, ni) :: e
-double precision, dimension(nl, nj) :: f
-double precision, dimension(nl, ni) :: g
-integer :: ni, nj, nk, nl, nm
-integer :: i, j, k
+DOUBLE PRECISION, DIMENSION(nk, ni) :: a
+DOUBLE PRECISION, DIMENSION(nj, nk) :: b
+DOUBLE PRECISION, DIMENSION(nm, nj) :: c
+DOUBLE PRECISION, DIMENSION(nl, nm) :: d
+DOUBLE PRECISION, DIMENSION(nj, ni) :: e
+DOUBLE PRECISION, DIMENSION(nl, nj) :: f
+DOUBLE PRECISION, DIMENSION(nl, ni) :: g
+INTEGER :: ni, nj, nk, nl, nm
+INTEGER :: i, j, k
 DO i = 1, ni
 DO j = 1, nj
 e(j, i) = 0.0

@@ -1,5 +1,5 @@
 PROGRAM SELECT_CASE_LIST
-    integer :: val, result
+    INTEGER :: val, result
 
     val = 2
     SELECT CASE (val)

@@ -48,6 +48,7 @@ public enum FlangName implements StringProvider {
     DO_CONSTRUCT,
     CALL_STMT,
     COMPILER_DIRECTIVE,
+    GOTO_STMT,
     WRITE_STMT,
     IO_UNIT,
     IO_CONTROL_SPEC,
@@ -57,6 +58,7 @@ public enum FlangName implements StringProvider {
     USE_STMT,
     CONTINUE_STMT,
     PARAMETER_STMT,
+    STOP_STMT,
 
     /// Conditional Statements
     IF_CONSTRUCT,
@@ -91,8 +93,12 @@ public enum FlangName implements StringProvider {
     SIGNED_INT_LITERAL_CONSTANT,
     LOGICAL_LITERAL_CONSTANT,
     REAL_LITERAL_CONSTANT,
+    KIND_PARAM,
     STAR,
     PARENTHESES,
+    UNARY_PLUS,
+    NEGATE,
+    NOT("NOT"),
     ADD,
     SUBTRACT,
     MULTIPLY,

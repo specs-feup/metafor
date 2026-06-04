@@ -24,7 +24,7 @@ public class SelectCaseStmt extends Stmt {
 
         var code = new StringBuilder();
 
-        nameOpt.ifPresent(name -> code.append(name).append(": "));
+        nameOpt.ifPresent(name -> code.append(name).append(" : "));
 
         code.append(keyword(FortranKeyword.SELECT))
                 .append(" ")

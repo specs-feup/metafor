@@ -51,7 +51,7 @@ public class DoStmt extends ExecutableStmt {
         var code = new StringBuilder();
         Optional<String> name = getName();
 
-        name.ifPresent(str -> code.append(str).append(": "));
+        name.ifPresent(str -> code.append(str).append(" : "));
 
         code.append(keyword(DO)).append(" ").append(getControlCode()).append(ln());
 

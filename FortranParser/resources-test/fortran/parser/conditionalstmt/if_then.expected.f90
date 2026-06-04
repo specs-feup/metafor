@@ -1,8 +1,8 @@
 PROGRAM IF
-  logical :: cond
-  cond = .false.
+    LOGICAL :: cond
+    cond = .false.
 
-  IF (cond) THEN
-    PRINT *, "cond is true"
-  END IF
+    IF (cond) THEN
+        PRINT *, "cond is true"
+    END IF
 END PROGRAM IF

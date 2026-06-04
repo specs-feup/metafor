@@ -1,0 +1,953 @@
+{
+  "nodes": [
+    {
+      "id": "0x55c5e4d11f00-Program",
+      "ProgramUnit": [
+        "0x55c5e4d4faf0-ProgramUnit"
+      ]
+    },
+    {
+      "id": "0x55c5e4d4faf0-ProgramUnit",
+      "variantKey": "MainProgram",
+      "MainProgram": "0x55c5e4d40050-MainProgram"
+    },
+    {
+      "id": "0x55c5e4d40050-MainProgram",
+      "Statement<ProgramStmt>": "0x55c5e4d40198-Statement",
+      "SpecificationPart": "0x55c5e4d400f0-SpecificationPart",
+      "ExecutionPart": "0x55c5e4d400d8-ExecutionPart",
+      "Statement<EndProgramStmt>": "0x55c5e4d40050-Statement"
+    },
+    {
+      "id": "0x55c5e4d40198-Statement",
+      "statement": "0x55c5e4d401a8-ProgramStmt",
+      "source": "program STOP"
+    },
+    {
+      "id": "0x55c5e4d401a8-ProgramStmt",
+      "Name": "0x55c5e4d401a8-Name"
+    },
+    {
+      "id": "0x55c5e4d401a8-Name",
+      "source": "STOP"
+    },
+    {
+      "id": "0x55c5e4d400f0-SpecificationPart",
+      "ImplicitPart": "0x55c5e4d40108-ImplicitPart"
+    },
+    {
+      "id": "0x55c5e4d40108-ImplicitPart"
+    },
+    {
+      "id": "0x55c5e4d400d8-ExecutionPart",
+      "ExecutionPartConstruct": [
+        "0x55c5e4d4e2b0-ExecutionPartConstruct",
+        "0x55c5e4d1f110-ExecutionPartConstruct",
+        "0x55c5e4d4c9c0-ExecutionPartConstruct",
+        "0x55c5e4d4d030-ExecutionPartConstruct",
+        "0x55c5e4d4cda0-ExecutionPartConstruct",
+        "0x55c5e4d4d250-ExecutionPartConstruct",
+        "0x55c5e4d3c970-ExecutionPartConstruct",
+        "0x55c5e4d4cf00-ExecutionPartConstruct",
+        "0x55c5e4d3cd20-ExecutionPartConstruct",
+        "0x55c5e4d3ce80-ExecutionPartConstruct"
+      ]
+    },
+    {
+      "id": "0x55c5e4d400d8-ExecutionPartConstruct"
+    },
+    {
+      "id": "0x55c5e4d4e2b0-ExecutionPartConstruct",
+      "variantKey": "ExecutableConstruct",
+      "ExecutableConstruct": "0x55c5e4d4e2b0-ExecutableConstruct"
+    },
+    {
+      "id": "0x55c5e4d4e2b0-ExecutableConstruct",
+      "variantKey": "Statement",
+      "Statement<ActionStmt>": "0x55c5e4d4e2b0-Statement"
+    },
+    {
+      "id": "0x55c5e4d4e2b0-Statement",
+      "statement": "0x55c5e4d4e2c0-ActionStmt",
+      "source": "print *, \"Executing simple STOP...\""
+    },
+    {
+      "id": "0x55c5e4d4e2c0-ActionStmt",
+      "variantKey": "PrintStmt",
+      "PrintStmt": "0x55c5e4d4e6e0-PrintStmt"
+    },
+    {
+      "id": "0x55c5e4d4e6e0-PrintStmt",
+      "Format": "0x55c5e4d4e6f8-Format",
+      "OutputItem": [
+        "0x55c5e4d4c240-OutputItem"
+      ]
+    },
+    {
+      "id": "0x55c5e4d4e6f8-Format",
+      "variantKey": "Star",
+      "Star": "0x55c5e4d4e6f8-Star"
+    },
+    {
+      "id": "0x55c5e4d4e6f8-Star"
+    },
+    {
+      "id": "0x55c5e4d4c240-OutputItem",
+      "variantKey": "Expr",
+      "Expr": "0x55c5e4d4c240-Expr"
+    },
+    {
+      "id": "0x55c5e4d4c240-Expr",
+      "variantKey": "LiteralConstant",
+      "LiteralConstant": "0x55c5e4d4c260-LiteralConstant"
+    },
+    {
+      "id": "0x55c5e4d4c260-LiteralConstant",
+      "variantKey": "CharLiteralConstant",
+      "CharLiteralConstant": "0x55c5e4d4c260-CharLiteralConstant"
+    },
+    {
+      "id": "0x55c5e4d4c260-CharLiteralConstant",
+      "string": "Executing simple STOP..."
+    },
+    {
+      "id": "0x55c5e4d1f110-ExecutionPartConstruct",
+      "variantKey": "ExecutableConstruct",
+      "ExecutableConstruct": "0x55c5e4d1f110-ExecutableConstruct"
+    },
+    {
+      "id": "0x55c5e4d1f110-ExecutableConstruct",
+      "variantKey": "Statement",
+      "Statement<ActionStmt>": "0x55c5e4d1f110-Statement"
+    },
+    {
+      "id": "0x55c5e4d1f110-Statement",
+      "statement": "0x55c5e4d1f120-ActionStmt",
+      "source": "stop"
+    },
+    {
+      "id": "0x55c5e4d1f120-ActionStmt",
+      "variantKey": "StopStmt",
+      "StopStmt": "0x55c5e4d4e850-StopStmt"
+    },
+    {
+      "id": "0x55c5e4d4e850-StopStmt",
+      "kind": "0x55c5e4d4e938-Kind = Stop"
+    },
+    {
+      "id": "0x55c5e4d4e938-Kind = Stop",
+      "disambiguation": "Fortran::parser::StopStmt::Kind",
+      "value": "Stop"
+    },
+    {
+      "id": "0x55c5e4d4c9c0-ExecutionPartConstruct",
+      "variantKey": "ExecutableConstruct",
+      "ExecutableConstruct": "0x55c5e4d4c9c0-ExecutableConstruct"
+    },
+    {
+      "id": "0x55c5e4d4c9c0-ExecutableConstruct",
+      "variantKey": "Statement",
+      "Statement<ActionStmt>": "0x55c5e4d4c9c0-Statement"
+    },
+    {
+      "id": "0x55c5e4d4c9c0-Statement",
+      "statement": "0x55c5e4d4c9d0-ActionStmt",
+      "source": "print *, \"Executing STOP with integer code (returns 1 to OS)...\""
+    },
+    {
+      "id": "0x55c5e4d4c9d0-ActionStmt",
+      "variantKey": "PrintStmt",
+      "PrintStmt": "0x55c5e4d4c8b0-PrintStmt"
+    },
+    {
+      "id": "0x55c5e4d4c8b0-PrintStmt",
+      "Format": "0x55c5e4d4c8c8-Format",
+      "OutputItem": [
+        "0x55c5e4d4c7d0-OutputItem"
+      ]
+    },
+    {
+      "id": "0x55c5e4d4c8c8-Format",
+      "variantKey": "Star",
+      "Star": "0x55c5e4d4c8c8-Star"
+    },
+    {
+      "id": "0x55c5e4d4c8c8-Star"
+    },
+    {
+      "id": "0x55c5e4d4c7d0-OutputItem",
+      "variantKey": "Expr",
+      "Expr": "0x55c5e4d4c7d0-Expr"
+    },
+    {
+      "id": "0x55c5e4d4c7d0-Expr",
+      "variantKey": "LiteralConstant",
+      "LiteralConstant": "0x55c5e4d4c7f0-LiteralConstant"
+    },
+    {
+      "id": "0x55c5e4d4c7f0-LiteralConstant",
+      "variantKey": "CharLiteralConstant",
+      "CharLiteralConstant": "0x55c5e4d4c7f0-CharLiteralConstant"
+    },
+    {
+      "id": "0x55c5e4d4c7f0-CharLiteralConstant",
+      "string": "Executing STOP with integer code (returns 1 to OS)..."
+    },
+    {
+      "id": "0x55c5e4d4d030-ExecutionPartConstruct",
+      "variantKey": "ExecutableConstruct",
+      "ExecutableConstruct": "0x55c5e4d4d030-ExecutableConstruct"
+    },
+    {
+      "id": "0x55c5e4d4d030-ExecutableConstruct",
+      "variantKey": "Statement",
+      "Statement<ActionStmt>": "0x55c5e4d4d030-Statement"
+    },
+    {
+      "id": "0x55c5e4d4d030-Statement",
+      "statement": "0x55c5e4d4d040-ActionStmt",
+      "source": "stop 1"
+    },
+    {
+      "id": "0x55c5e4d4d040-ActionStmt",
+      "variantKey": "StopStmt",
+      "StopStmt": "0x55c5e4d4ca10-StopStmt"
+    },
+    {
+      "id": "0x55c5e4d4ca10-StopStmt",
+      "kind": "0x55c5e4d4caf8-Kind = Stop",
+      "code": "0x55c5e4d4ca20-StopCode"
+    },
+    {
+      "id": "0x55c5e4d4caf8-Kind = Stop",
+      "disambiguation": "Fortran::parser::StopStmt::Kind",
+      "value": "Stop"
+    },
+    {
+      "id": "0x55c5e4d4ca20-StopCode",
+      "Expr": "0x55c5e4d4ca20-Expr"
+    },
+    {
+      "id": "0x55c5e4d4ca20-Expr",
+      "variantKey": "LiteralConstant",
+      "LiteralConstant": "0x55c5e4d4ca40-LiteralConstant"
+    },
+    {
+      "id": "0x55c5e4d4ca40-LiteralConstant",
+      "variantKey": "IntLiteralConstant",
+      "IntLiteralConstant": "0x55c5e4d4ca40-IntLiteralConstant"
+    },
+    {
+      "id": "0x55c5e4d4ca40-IntLiteralConstant",
+      "CharBlock": "1"
+    },
+    {
+      "id": "0x55c5e4d4cda0-ExecutionPartConstruct",
+      "variantKey": "ExecutableConstruct",
+      "ExecutableConstruct": "0x55c5e4d4cda0-ExecutableConstruct"
+    },
+    {
+      "id": "0x55c5e4d4cda0-ExecutableConstruct",
+      "variantKey": "Statement",
+      "Statement<ActionStmt>": "0x55c5e4d4cda0-Statement"
+    },
+    {
+      "id": "0x55c5e4d4cda0-Statement",
+      "statement": "0x55c5e4d4cdb0-ActionStmt",
+      "source": "print *, \"Executing STOP with a string message...\""
+    },
+    {
+      "id": "0x55c5e4d4cdb0-ActionStmt",
+      "variantKey": "PrintStmt",
+      "PrintStmt": "0x55c5e4d4cc90-PrintStmt"
+    },
+    {
+      "id": "0x55c5e4d4cc90-PrintStmt",
+      "Format": "0x55c5e4d4cca8-Format",
+      "OutputItem": [
+        "0x55c5e4d4cbb0-OutputItem"
+      ]
+    },
+    {
+      "id": "0x55c5e4d4cca8-Format",
+      "variantKey": "Star",
+      "Star": "0x55c5e4d4cca8-Star"
+    },
+    {
+      "id": "0x55c5e4d4cca8-Star"
+    },
+    {
+      "id": "0x55c5e4d4cbb0-OutputItem",
+      "variantKey": "Expr",
+      "Expr": "0x55c5e4d4cbb0-Expr"
+    },
+    {
+      "id": "0x55c5e4d4cbb0-Expr",
+      "variantKey": "LiteralConstant",
+      "LiteralConstant": "0x55c5e4d4cbd0-LiteralConstant"
+    },
+    {
+      "id": "0x55c5e4d4cbd0-LiteralConstant",
+      "variantKey": "CharLiteralConstant",
+      "CharLiteralConstant": "0x55c5e4d4cbd0-CharLiteralConstant"
+    },
+    {
+      "id": "0x55c5e4d4cbd0-CharLiteralConstant",
+      "string": "Executing STOP with a string message..."
+    },
+    {
+      "id": "0x55c5e4d4d250-ExecutionPartConstruct",
+      "variantKey": "ExecutableConstruct",
+      "ExecutableConstruct": "0x55c5e4d4d250-ExecutableConstruct"
+    },
+    {
+      "id": "0x55c5e4d4d250-ExecutableConstruct",
+      "variantKey": "Statement",
+      "Statement<ActionStmt>": "0x55c5e4d4d250-Statement"
+    },
+    {
+      "id": "0x55c5e4d4d250-Statement",
+      "statement": "0x55c5e4d4d260-ActionStmt",
+      "source": "stop \"Execution finished gracefully.\""
+    },
+    {
+      "id": "0x55c5e4d4d260-ActionStmt",
+      "variantKey": "StopStmt",
+      "StopStmt": "0x55c5e4d4cdf0-StopStmt"
+    },
+    {
+      "id": "0x55c5e4d4cdf0-StopStmt",
+      "kind": "0x55c5e4d4ced8-Kind = Stop",
+      "code": "0x55c5e4d4ce00-StopCode"
+    },
+    {
+      "id": "0x55c5e4d4ced8-Kind = Stop",
+      "disambiguation": "Fortran::parser::StopStmt::Kind",
+      "value": "Stop"
+    },
+    {
+      "id": "0x55c5e4d4ce00-StopCode",
+      "Expr": "0x55c5e4d4ce00-Expr"
+    },
+    {
+      "id": "0x55c5e4d4ce00-Expr",
+      "variantKey": "LiteralConstant",
+      "LiteralConstant": "0x55c5e4d4ce20-LiteralConstant"
+    },
+    {
+      "id": "0x55c5e4d4ce20-LiteralConstant",
+      "variantKey": "CharLiteralConstant",
+      "CharLiteralConstant": "0x55c5e4d4ce20-CharLiteralConstant"
+    },
+    {
+      "id": "0x55c5e4d4ce20-CharLiteralConstant",
+      "string": "Execution finished gracefully."
+    },
+    {
+      "id": "0x55c5e4d3c970-ExecutionPartConstruct",
+      "variantKey": "ExecutableConstruct",
+      "ExecutableConstruct": "0x55c5e4d3c970-ExecutableConstruct"
+    },
+    {
+      "id": "0x55c5e4d3c970-ExecutableConstruct",
+      "variantKey": "Statement",
+      "Statement<ActionStmt>": "0x55c5e4d3c970-Statement"
+    },
+    {
+      "id": "0x55c5e4d3c970-Statement",
+      "statement": "0x55c5e4d3c980-ActionStmt",
+      "source": "print *, \"Executing ERROR STOP...\""
+    },
+    {
+      "id": "0x55c5e4d3c980-ActionStmt",
+      "variantKey": "PrintStmt",
+      "PrintStmt": "0x55c5e4d3c860-PrintStmt"
+    },
+    {
+      "id": "0x55c5e4d3c860-PrintStmt",
+      "Format": "0x55c5e4d3c878-Format",
+      "OutputItem": [
+        "0x55c5e4d3c780-OutputItem"
+      ]
+    },
+    {
+      "id": "0x55c5e4d3c878-Format",
+      "variantKey": "Star",
+      "Star": "0x55c5e4d3c878-Star"
+    },
+    {
+      "id": "0x55c5e4d3c878-Star"
+    },
+    {
+      "id": "0x55c5e4d3c780-OutputItem",
+      "variantKey": "Expr",
+      "Expr": "0x55c5e4d3c780-Expr"
+    },
+    {
+      "id": "0x55c5e4d3c780-Expr",
+      "variantKey": "LiteralConstant",
+      "LiteralConstant": "0x55c5e4d3c7a0-LiteralConstant"
+    },
+    {
+      "id": "0x55c5e4d3c7a0-LiteralConstant",
+      "variantKey": "CharLiteralConstant",
+      "CharLiteralConstant": "0x55c5e4d3c7a0-CharLiteralConstant"
+    },
+    {
+      "id": "0x55c5e4d3c7a0-CharLiteralConstant",
+      "string": "Executing ERROR STOP..."
+    },
+    {
+      "id": "0x55c5e4d4cf00-ExecutionPartConstruct",
+      "variantKey": "ExecutableConstruct",
+      "ExecutableConstruct": "0x55c5e4d4cf00-ExecutableConstruct"
+    },
+    {
+      "id": "0x55c5e4d4cf00-ExecutableConstruct",
+      "variantKey": "Statement",
+      "Statement<ActionStmt>": "0x55c5e4d4cf00-Statement"
+    },
+    {
+      "id": "0x55c5e4d4cf00-Statement",
+      "statement": "0x55c5e4d4cf10-ActionStmt",
+      "source": "error stop \"Fatal error: Something went terribly wrong!\""
+    },
+    {
+      "id": "0x55c5e4d4cf10-ActionStmt",
+      "variantKey": "StopStmt",
+      "StopStmt": "0x55c5e4d3c9c0-StopStmt"
+    },
+    {
+      "id": "0x55c5e4d3c9c0-StopStmt",
+      "kind": "0x55c5e4d3caa8-Kind = Stop",
+      "code": "0x55c5e4d3c9d0-StopCode"
+    },
+    {
+      "id": "0x55c5e4d3caa8-Kind = Stop",
+      "disambiguation": "Fortran::parser::StopStmt::Kind",
+      "value": "ErrorStop"
+    },
+    {
+      "id": "0x55c5e4d3c9d0-StopCode",
+      "Expr": "0x55c5e4d3c9d0-Expr"
+    },
+    {
+      "id": "0x55c5e4d3c9d0-Expr",
+      "variantKey": "LiteralConstant",
+      "LiteralConstant": "0x55c5e4d3c9f0-LiteralConstant"
+    },
+    {
+      "id": "0x55c5e4d3c9f0-LiteralConstant",
+      "variantKey": "CharLiteralConstant",
+      "CharLiteralConstant": "0x55c5e4d3c9f0-CharLiteralConstant"
+    },
+    {
+      "id": "0x55c5e4d3c9f0-CharLiteralConstant",
+      "string": "Fatal error: Something went terribly wrong!"
+    },
+    {
+      "id": "0x55c5e4d3cd20-ExecutionPartConstruct",
+      "variantKey": "ExecutableConstruct",
+      "ExecutableConstruct": "0x55c5e4d3cd20-ExecutableConstruct"
+    },
+    {
+      "id": "0x55c5e4d3cd20-ExecutableConstruct",
+      "variantKey": "Statement",
+      "Statement<ActionStmt>": "0x55c5e4d3cd20-Statement"
+    },
+    {
+      "id": "0x55c5e4d3cd20-Statement",
+      "statement": "0x55c5e4d3cd30-ActionStmt",
+      "source": "print *, \"Executing quiet STOP...\""
+    },
+    {
+      "id": "0x55c5e4d3cd30-ActionStmt",
+      "variantKey": "PrintStmt",
+      "PrintStmt": "0x55c5e4d3cc10-PrintStmt"
+    },
+    {
+      "id": "0x55c5e4d3cc10-PrintStmt",
+      "Format": "0x55c5e4d3cc28-Format",
+      "OutputItem": [
+        "0x55c5e4d3cb30-OutputItem"
+      ]
+    },
+    {
+      "id": "0x55c5e4d3cc28-Format",
+      "variantKey": "Star",
+      "Star": "0x55c5e4d3cc28-Star"
+    },
+    {
+      "id": "0x55c5e4d3cc28-Star"
+    },
+    {
+      "id": "0x55c5e4d3cb30-OutputItem",
+      "variantKey": "Expr",
+      "Expr": "0x55c5e4d3cb30-Expr"
+    },
+    {
+      "id": "0x55c5e4d3cb30-Expr",
+      "variantKey": "LiteralConstant",
+      "LiteralConstant": "0x55c5e4d3cb50-LiteralConstant"
+    },
+    {
+      "id": "0x55c5e4d3cb50-LiteralConstant",
+      "variantKey": "CharLiteralConstant",
+      "CharLiteralConstant": "0x55c5e4d3cb50-CharLiteralConstant"
+    },
+    {
+      "id": "0x55c5e4d3cb50-CharLiteralConstant",
+      "string": "Executing quiet STOP..."
+    },
+    {
+      "id": "0x55c5e4d3ce80-ExecutionPartConstruct",
+      "variantKey": "ExecutableConstruct",
+      "ExecutableConstruct": "0x55c5e4d3ce80-ExecutableConstruct"
+    },
+    {
+      "id": "0x55c5e4d3ce80-ExecutableConstruct",
+      "variantKey": "Statement",
+      "Statement<ActionStmt>": "0x55c5e4d3ce80-Statement"
+    },
+    {
+      "id": "0x55c5e4d3ce80-Statement",
+      "statement": "0x55c5e4d3ce90-ActionStmt",
+      "source": "stop 55, quiet = .true."
+    },
+    {
+      "id": "0x55c5e4d3ce90-ActionStmt",
+      "variantKey": "StopStmt",
+      "StopStmt": "0x55c5e4d3cd70-StopStmt"
+    },
+    {
+      "id": "0x55c5e4d3cd70-StopStmt",
+      "kind": "0x55c5e4d3ce58-Kind = Stop",
+      "code": "0x55c5e4d3cd80-StopCode",
+      "quiet": "0x55c5e4cb1790-Expr"
+    },
+    {
+      "id": "0x55c5e4d3ce58-Kind = Stop",
+      "disambiguation": "Fortran::parser::StopStmt::Kind",
+      "value": "Stop"
+    },
+    {
+      "id": "0x55c5e4d3cd80-StopCode",
+      "Expr": "0x55c5e4d3cd80-Expr"
+    },
+    {
+      "id": "0x55c5e4d3cd80-Expr",
+      "variantKey": "LiteralConstant",
+      "LiteralConstant": "0x55c5e4d3cda0-LiteralConstant"
+    },
+    {
+      "id": "0x55c5e4d3cda0-LiteralConstant",
+      "variantKey": "IntLiteralConstant",
+      "IntLiteralConstant": "0x55c5e4d3cda0-IntLiteralConstant"
+    },
+    {
+      "id": "0x55c5e4d3cda0-IntLiteralConstant",
+      "CharBlock": "55"
+    },
+    {
+      "id": "0x55c5e4cb1790-Expr",
+      "variantKey": "LiteralConstant",
+      "LiteralConstant": "0x55c5e4cb17b0-LiteralConstant"
+    },
+    {
+      "id": "0x55c5e4cb17b0-LiteralConstant",
+      "variantKey": "LogicalLiteralConstant",
+      "LogicalLiteralConstant": "0x55c5e4cb17b0-LogicalLiteralConstant"
+    },
+    {
+      "id": "0x55c5e4cb17b0-LogicalLiteralConstant",
+      "bool": "1"
+    },
+    {
+      "id": "0x55c5e4d40050-Statement",
+      "statement": "0x55c5e4d40060-EndProgramStmt",
+      "source": "end program STOP"
+    },
+    {
+      "id": "0x55c5e4d40060-EndProgramStmt",
+      "Name": "0x55c5e4d40060-Name"
+    },
+    {
+      "id": "0x55c5e4d40060-Name",
+      "source": "STOP"
+    }
+  ],
+  "enums": {
+    "Fortran::common::CUDADataAttr": [
+      "Constant",
+      "Device",
+      "Managed",
+      "Pinned",
+      "Shared",
+      "Texture",
+      "Unified"
+    ],
+    "Fortran::common::CUDASubprogramAttrs": [
+      "Host",
+      "Device",
+      "HostDevice",
+      "Global",
+      "Grid_Global"
+    ],
+    "Fortran::common::ImportKind": [
+      "Default",
+      "Only",
+      "None",
+      "All"
+    ],
+    "Fortran::common::OmpDependenceKind": [
+      "In",
+      "Out",
+      "Inout",
+      "Inoutset",
+      "Mutexinoutset",
+      "Depobj"
+    ],
+    "Fortran::common::OmpMemoryOrderType": [
+      "Acq_Rel",
+      "Acquire",
+      "Relaxed",
+      "Release",
+      "Seq_Cst"
+    ],
+    "Fortran::common::OpenACCDeviceType": [
+      "Star",
+      "Default",
+      "Nvidia",
+      "Radeon",
+      "Host",
+      "Multicore",
+      "None"
+    ],
+    "Fortran::parser::AccDataModifier::Modifier": [
+      "ReadOnly",
+      "Zero"
+    ],
+    "Fortran::parser::AccessSpec::Kind": [
+      "Public",
+      "Private"
+    ],
+    "Fortran::parser::BindEntity::Kind": [
+      "Object",
+      "Common"
+    ],
+    "Fortran::parser::CompilerDirective::VectorLength::Kind": [
+      "Auto",
+      "Fixed",
+      "Scalable"
+    ],
+    "Fortran::parser::ConnectSpec::CharExpr::Kind": [
+      "Access",
+      "Action",
+      "Asynchronous",
+      "Blank",
+      "Decimal",
+      "Delim",
+      "Encoding",
+      "Form",
+      "Pad",
+      "Position",
+      "Round",
+      "Sign",
+      "Carriagecontrol",
+      "Convert",
+      "Dispose"
+    ],
+    "Fortran::parser::DefinedOperator::IntrinsicOperator": [
+      "Power",
+      "Multiply",
+      "Divide",
+      "Add",
+      "Subtract",
+      "Concat",
+      "LT",
+      "LE",
+      "EQ",
+      "NE",
+      "GE",
+      "GT",
+      "NOT",
+      "AND",
+      "OR",
+      "EQV",
+      "NEQV"
+    ],
+    "Fortran::parser::ImplicitStmt::ImplicitNoneNameSpec": [
+      "External",
+      "Type"
+    ],
+    "Fortran::parser::InquireSpec::CharVar::Kind": [
+      "Access",
+      "Action",
+      "Asynchronous",
+      "Blank",
+      "Decimal",
+      "Delim",
+      "Direct",
+      "Encoding",
+      "Form",
+      "Formatted",
+      "Iomsg",
+      "Name",
+      "Pad",
+      "Position",
+      "Read",
+      "Readwrite",
+      "Round",
+      "Sequential",
+      "Sign",
+      "Stream",
+      "Status",
+      "Unformatted",
+      "Write",
+      "Carriagecontrol",
+      "Convert",
+      "Dispose"
+    ],
+    "Fortran::parser::InquireSpec::IntVar::Kind": [
+      "Iostat",
+      "Nextrec",
+      "Number",
+      "Pos",
+      "Recl",
+      "Size"
+    ],
+    "Fortran::parser::InquireSpec::LogVar::Kind": [
+      "Exist",
+      "Named",
+      "Opened",
+      "Pending"
+    ],
+    "Fortran::parser::IntentSpec::Intent": [
+      "In",
+      "Out",
+      "InOut"
+    ],
+    "Fortran::parser::IoControlSpec::CharExpr::Kind": [
+      "Advance",
+      "Blank",
+      "Decimal",
+      "Delim",
+      "Pad",
+      "Round",
+      "Sign"
+    ],
+    "Fortran::parser::ReductionOperator::Operator": [
+      "Plus",
+      "Multiply",
+      "Max",
+      "Min",
+      "Iand",
+      "Ior",
+      "Ieor",
+      "And",
+      "Or",
+      "Eqv",
+      "Neqv"
+    ],
+    "Fortran::parser::OmpAccessGroup::Value": [
+      "Cgroup"
+    ],
+    "Fortran::parser::OmpAdjustArgsClause::OmpAdjustOp::Value": [
+      "Nothing",
+      "Need_Device_Ptr"
+    ],
+    "Fortran::parser::OmpAlwaysModifier::Value": [
+      "Always"
+    ],
+    "Fortran::parser::OmpAtClause::ActionTime": [
+      "Compilation",
+      "Execution"
+    ],
+    "Fortran::parser::OmpAttachModifier::Value": [
+      "Always",
+      "Never",
+      "Auto"
+    ],
+    "Fortran::parser::OmpAutomapModifier::Value": [
+      "Automap"
+    ],
+    "Fortran::parser::OmpBindClause::Binding": [
+      "Parallel",
+      "Teams",
+      "Thread"
+    ],
+    "Fortran::parser::OmpChunkModifier::Value": [
+      "Simd"
+    ],
+    "Fortran::parser::OmpCloseModifier::Value": [
+      "Close"
+    ],
+    "Fortran::parser::OmpDefaultClause::DataSharingAttribute": [
+      "Private",
+      "Firstprivate",
+      "Shared",
+      "None"
+    ],
+    "Fortran::parser::OmpDefaultmapClause::ImplicitBehavior": [
+      "Alloc",
+      "To",
+      "From",
+      "Tofrom",
+      "Firstprivate",
+      "None",
+      "Default",
+      "Present"
+    ],
+    "Fortran::parser::OmpDeleteModifier::Value": [
+      "Delete"
+    ],
+    "Fortran::parser::OmpDependenceType::Value": [
+      "Sink",
+      "Source"
+    ],
+    "Fortran::parser::OmpDeviceModifier::Value": [
+      "Ancestor",
+      "Device_Num"
+    ],
+    "Fortran::parser::OmpDeviceTypeClause::DeviceTypeDescription": [
+      "Any",
+      "Host",
+      "Nohost"
+    ],
+    "Fortran::parser::OmpDirectiveSpecification::Flag": [
+      "DeprecatedSyntax",
+      "CrossesLabelDo"
+    ],
+    "Fortran::parser::OmpExpectation::Value": [
+      "Present"
+    ],
+    "Fortran::parser::OmpInteropType::Value": [
+      "Target",
+      "Targetsync"
+    ],
+    "Fortran::parser::OmpLastprivateModifier::Value": [
+      "Conditional"
+    ],
+    "Fortran::parser::OmpLinearModifier::Value": [
+      "Ref",
+      "Uval",
+      "Val"
+    ],
+    "Fortran::parser::OmpMapType::Value": [
+      "Alloc",
+      "Delete",
+      "From",
+      "Release",
+      "Storage",
+      "To",
+      "Tofrom"
+    ],
+    "Fortran::parser::OmpMapTypeModifier::Value": [
+      "Always",
+      "Close",
+      "Present",
+      "Ompx_Hold"
+    ],
+    "Fortran::parser::OmpObject::Invalid::Kind": [
+      "BlankCommonBlock"
+    ],
+    "Fortran::parser::OmpOrderClause::Ordering": [
+      "Concurrent"
+    ],
+    "Fortran::parser::OmpOrderingModifier::Value": [
+      "Monotonic",
+      "Nonmonotonic",
+      "Simd"
+    ],
+    "Fortran::parser::OmpOrderModifier::Value": [
+      "Reproducible",
+      "Unconstrained"
+    ],
+    "Fortran::parser::OmpPrescriptiveness::Value": [
+      "Strict"
+    ],
+    "Fortran::parser::OmpPresentModifier::Value": [
+      "Present"
+    ],
+    "Fortran::parser::OmpProcBindClause::AffinityPolicy": [
+      "Close",
+      "Master",
+      "Spread",
+      "Primary"
+    ],
+    "Fortran::parser::OmpReductionModifier::Value": [
+      "Default",
+      "Inscan",
+      "Task"
+    ],
+    "Fortran::parser::OmpRefModifier::Value": [
+      "Ref_Ptee",
+      "Ref_Ptr",
+      "Ref_Ptr_Ptee"
+    ],
+    "Fortran::parser::OmpScheduleClause::Kind": [
+      "Static",
+      "Dynamic",
+      "Guided",
+      "Auto",
+      "Runtime"
+    ],
+    "Fortran::parser::OmpSelfModifier::Value": [
+      "Self"
+    ],
+    "Fortran::parser::OmpSeverityClause::SevLevel": [
+      "Fatal",
+      "Warning"
+    ],
+    "Fortran::parser::OmpThreadsetClause::ThreadsetPolicy": [
+      "Omp_Pool",
+      "Omp_Team"
+    ],
+    "Fortran::parser::OmpTraitSelectorName::Value": [
+      "Arch",
+      "Atomic_Default_Mem_Order",
+      "Condition",
+      "Device_Num",
+      "Extension",
+      "Isa",
+      "Kind",
+      "Requires",
+      "Simd",
+      "Uid",
+      "Vendor"
+    ],
+    "Fortran::parser::OmpTraitSetSelectorName::Value": [
+      "Construct",
+      "Device",
+      "Implementation",
+      "Target_Device",
+      "User"
+    ],
+    "Fortran::parser::OmpVariableCategory::Value": [
+      "Aggregate",
+      "All",
+      "Allocatable",
+      "Pointer",
+      "Scalar"
+    ],
+    "Fortran::parser::OmpxHoldModifier::Value": [
+      "Ompx_Hold"
+    ],
+    "Fortran::parser::ProcedureStmt::Kind": [
+      "ModuleProcedure",
+      "Procedure"
+    ],
+    "Fortran::parser::SavedEntity::Kind": [
+      "Entity",
+      "Common"
+    ],
+    "Fortran::parser::StopStmt::Kind": [
+      "Stop",
+      "ErrorStop"
+    ],
+    "Fortran::parser::UseStmt::ModuleNature": [
+      "Intrinsic",
+      "Non_Intrinsic"
+    ]
+  }
+}

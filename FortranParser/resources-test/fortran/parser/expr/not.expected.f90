@@ -1,0 +1,3 @@
+PROGRAM NOT
+    LOGICAL :: a = .not. .true.
+END PROGRAM NOT
