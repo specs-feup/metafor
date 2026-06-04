@@ -110,13 +110,53 @@ export class Joinpoint extends LaraJoinPoint {
    */
   getAncestor(type: string): Joinpoint { return wrapJoinPoint(this._javaObject.getAncestor(unwrapJoinPoint(type))); }
   /**
+   * Performs a copy of the node and its children, but not of the nodes in its fields
+   */
+  copy(): Joinpoint { return wrapJoinPoint(this._javaObject.copy()); }
+  /**
+   * Performs a copy of the node and its children, including the nodes in their fields (only the first level of field nodes, this function is not recursive)
+   */
+  deepCopy(): Joinpoint { return wrapJoinPoint(this._javaObject.deepCopy()); }
+  /**
    * Removes node associated to the joinpoint from the AST
    */
   detach(): Joinpoint { return wrapJoinPoint(this._javaObject.detach()); }
   /**
+   * Inserts the given join point after this join point
+   */
+  insertAfter(node: Joinpoint): Joinpoint;
+  /**
+   * Overload which accepts a string
+   */
+  insertAfter(code: string): Joinpoint;
+  /**
+   * Inserts the given join point after this join point
+   */
+  insertAfter(p1: Joinpoint | string): Joinpoint { return wrapJoinPoint(this._javaObject.insertAfter(unwrapJoinPoint(p1))); }
+  /**
+   * Inserts the given join point before this join point
+   */
+  insertBefore(node: Joinpoint): Joinpoint;
+  /**
+   * Overload which accepts a string
+   */
+  insertBefore(node: string): Joinpoint;
+  /**
+   * Inserts the given join point before this join point
+   */
+  insertBefore(p1: Joinpoint | string): Joinpoint { return wrapJoinPoint(this._javaObject.insertBefore(unwrapJoinPoint(p1))); }
+  /**
    * Replaces this node with the given node
    */
-  replaceWith(node: Joinpoint): Joinpoint { return wrapJoinPoint(this._javaObject.replaceWith(unwrapJoinPoint(node))); }
+  replaceWith(node: Joinpoint): Joinpoint;
+  /**
+   * Overload which accepts a list of join points
+   */
+  replaceWith(node: Joinpoint[]): Joinpoint;
+  /**
+   * Replaces this node with the given node
+   */
+  replaceWith(p1: Joinpoint | Joinpoint[]): Joinpoint { return wrapJoinPoint(this._javaObject.replaceWith(unwrapJoinPoint(p1))); }
 }
 
   /**
@@ -331,8 +371,13 @@ export class RangeLoopControl extends LoopControl {
     name: null,
   };
   get lower(): Expr { return wrapJoinPoint(this._javaObject.getLower()) }
+  get step(): Expr { return wrapJoinPoint(this._javaObject.getStep()) }
+  set step(value: Expr) { this._javaObject.setStep(unwrapJoinPoint(value)); }
   get upper(): Expr { return wrapJoinPoint(this._javaObject.getUpper()) }
+  set upper(value: Expr) { this._javaObject.setUpper(unwrapJoinPoint(value)); }
   get var(): DataRef { return wrapJoinPoint(this._javaObject.getVar()) }
+  setStep(step: Expr): void { return wrapJoinPoint(this._javaObject.setStep(unwrapJoinPoint(step))); }
+  setUpper(upper: Expr): void { return wrapJoinPoint(this._javaObject.setUpper(unwrapJoinPoint(upper))); }
 }
 
 export class RealLiteral extends Literal {
@@ -384,6 +429,7 @@ export class Subroutine extends ProgramUnit {
   static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
     name: null,
   };
+  get moduleName(): string { return wrapJoinPoint(this._javaObject.getModuleName()) }
 }
 
 export class UseStatement extends Statement {
@@ -600,6 +646,15 @@ export class DoStatement extends ExecutableStatement {
   };
   get body(): Execution { return wrapJoinPoint(this._javaObject.getBody()) }
   get control(): LoopControl { return wrapJoinPoint(this._javaObject.getControl()) }
+  get kind(): "while" | "range" | "concurrent" { return wrapJoinPoint(this._javaObject.getKind()) }
+  /**
+   * Performs a copy of the do statement, including its controls, but not the body
+   */
+  copyScope(): DoStatement { return wrapJoinPoint(this._javaObject.copyScope()); }
+  /**
+   * Returns true if the given do statement has the same loop control as this do statement
+   */
+  sameScope(loop: DoStatement): boolean { return wrapJoinPoint(this._javaObject.sameScope(unwrapJoinPoint(loop))); }
 }
 
 export class IfStatement extends ActionStatement {
