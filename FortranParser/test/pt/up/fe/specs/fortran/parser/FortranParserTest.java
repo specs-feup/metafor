@@ -497,6 +497,18 @@ public class FortranParserTest {
     }
 
     @Test
+    void testSubscriptTriplet() {
+        testJson("expr/subscript_triplet.json");
+    }
+
+    @Test
+    void testSubscriptTripletNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("expr/subscript_triplet.f90");
+        }
+    }
+
+    @Test
     void testFujitsu0000_0000() {
         testJson("fujitsu/0000/0000_0000.json");
     }
