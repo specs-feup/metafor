@@ -8,6 +8,10 @@ import pt.up.fe.specs.fortran.ast.nodes.program.StmtBlock;
 import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
 import pt.up.fe.specs.fortran.ast.nodes.specification.NamedConstantDef;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.datastmt.DataStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.datastmt.DataStmtObject;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.datastmt.DataStmtSet;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.datastmt.DataStmtVariable;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.*;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.DimensionSpec;
@@ -18,8 +22,7 @@ import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 import java.util.List;
 import java.util.Optional;
 
-import static pt.up.fe.specs.fortran.parser.FlangName.EXPR;
-import static pt.up.fe.specs.fortran.parser.FlangName.NAMED_CONSTANT;
+import static pt.up.fe.specs.fortran.parser.FlangName.*;
 
 public class StmtProcessors extends ANodeProcessor {
     public StmtProcessors(FortranJsonResult data) {
@@ -411,5 +414,43 @@ public class StmtProcessors extends ANodeProcessor {
 
         var quietOpt = getChildOptional(stopStmt, "quiet");
         quietOpt.ifPresent(stopStmt::addChild);
+    }
+
+    public void dataStmt(DataStmt dataStmt) {
+        var dataStmtSets = getChildren(dataStmt, FlangName.DATA_STMT_SET);
+        dataStmt.addChildren(dataStmtSets);
+    }
+
+    public void dataStmtSet(DataStmtSet dataStmtSet) {
+        var dataStmtObjectIds = attributes(dataStmtSet).getStringList(FlangName.DATA_STMT_OBJECT);
+        var dataStmtObjects = dataStmtObjectIds.stream()
+                .map(this::createDataStmtObject)
+                .toList();
+        dataStmtObjects.forEach(this::dataStmtObject);
+        dataStmtSet.addChildren(dataStmtObjects);
+
+        var dataStmtValues = getChildren(dataStmtSet, FlangName.DATA_STMT_VALUE);
+        dataStmtSet.addChildren(dataStmtValues);
+    }
+
+    public DataStmtObject createDataStmtObject(String id) {
+        var attrs = attributes().get(id);
+
+        if (attrs.has(FlangName.VARIABLE)) {
+            return factory().newNode(DataStmtVariable.class, List.of(), id);
+        }
+
+        throw new RuntimeException("Unrecognizable DataStmtObject: " + attrs);
+    }
+
+    public void dataStmtObject(DataStmtObject object) {
+        if (object instanceof DataStmtVariable variable) {
+            dataStmtVariable(variable);
+        }
+    }
+
+    public void dataStmtVariable(DataStmtVariable dataStmtVariable) {
+        var variable = getChild(dataStmtVariable, FlangName.VARIABLE);
+        dataStmtVariable.addChild(variable);
     }
 }

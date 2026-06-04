@@ -26,6 +26,7 @@ public enum FlangName implements StringProvider {
     /// DECLs
     ENTITY_DECL,
     DUMMY_ARG,
+    DATA_STMT_OBJECT,
     DATA_STMT_VALUE,
     DATA_STMT_REPEAT,
     DATA_STMT_CONSTANT,
@@ -59,6 +60,8 @@ public enum FlangName implements StringProvider {
     CONTINUE_STMT,
     PARAMETER_STMT,
     STOP_STMT,
+    DATA_STMT,
+    DATA_STMT_SET,
 
     /// Conditional Statements
     IF_CONSTRUCT,
