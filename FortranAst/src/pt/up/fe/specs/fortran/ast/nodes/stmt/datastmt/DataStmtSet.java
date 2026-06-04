@@ -6,6 +6,7 @@ import pt.up.fe.specs.fortran.ast.nodes.decl.DataStmtValue;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DataStmtSet extends FortranNode {
     public DataStmtSet(DataStore data, Collection<? extends FortranNode> children) {
@@ -18,5 +19,20 @@ public class DataStmtSet extends FortranNode {
 
     public List<DataStmtValue> getValues() {
         return getChildrenOf(DataStmtValue.class);
+    }
+
+    @Override
+    public String getCode() {
+        var objects = getObjects();
+        var values = getValues();
+
+        var objectsCode = objects.stream()
+                .map(DataStmtObject::getCode)
+                .collect(Collectors.joining(", "));
+        var valuesCode = values.stream()
+                .map(DataStmtValue::getCode)
+                .collect(Collectors.joining(", "));
+
+        return objectsCode + " / " + valuesCode + " /";
     }
 }
