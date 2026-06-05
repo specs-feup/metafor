@@ -15,6 +15,7 @@ public class DataRef extends Designator {
      */
     public final static DataKey<String> NAME = KeyFactory.string("name");
 
+    public final static DataKey<String> SCOPE = KeyFactory.string("scope");
 
     // DATAKEYS END
 
@@ -24,6 +25,10 @@ public class DataRef extends Designator {
 
     public String getName() {
         return get(NAME);
+    }
+
+    public String getScope() {
+        return get(SCOPE);
     }
 
     @Override
