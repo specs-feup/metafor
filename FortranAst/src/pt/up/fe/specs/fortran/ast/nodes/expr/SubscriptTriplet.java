@@ -34,4 +34,20 @@ public class SubscriptTriplet extends SectionSubscript {
                 ? Optional.of(getChild(Expr.class, getNumChildren() - 1))
                 : Optional.empty();
     }
+
+    @Override
+    public String getCode() {
+        var startOpt = getStart();
+        var endOpt = getEnd();
+        var strideOpt = getStride();
+
+        StringBuilder code = new StringBuilder();
+
+        startOpt.ifPresent(start -> code.append(start.getCode()));
+        code.append(":");
+        endOpt.ifPresent(end -> code.append(end.getCode()));
+        strideOpt.ifPresent(stride -> code.append(":").append(stride.getCode()));
+
+        return code.toString();
+    }
 }
