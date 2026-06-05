@@ -4,6 +4,7 @@ import org.suikasoft.jOptions.Datakey.DataKey;
 import org.suikasoft.jOptions.Datakey.KeyFactory;
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
+import pt.up.fe.specs.fortran.ast.nodes.expr.enums.ScopeKind;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -16,7 +17,7 @@ public class DataRef extends Designator {
      */
     public final static DataKey<String> NAME = KeyFactory.string("name");
 
-    public final static DataKey<Optional<String>> SCOPE = KeyFactory.optional("scope");
+    public final static DataKey<Optional<ScopeKind>> SCOPE = KeyFactory.optional("scope");
 
     // DATAKEYS END
 
@@ -28,7 +29,7 @@ public class DataRef extends Designator {
         return get(NAME);
     }
 
-    public Optional<String> getScope() {
+    public Optional<ScopeKind> getScope() {
         return get(SCOPE);
     }
 

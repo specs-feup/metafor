@@ -1,6 +1,7 @@
 package pt.up.fe.specs.fortran.parser.processors;
 
 import pt.up.fe.specs.fortran.ast.nodes.expr.DataRef;
+import pt.up.fe.specs.fortran.ast.nodes.expr.enums.ScopeKind;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 
 public class VariableProcessor extends ANodeProcessor {
@@ -11,7 +12,9 @@ public class VariableProcessor extends ANodeProcessor {
     public void dataRefProcessor(DataRef dataRef) {
 
         var name = attributes(dataRef).getString("source");
-        var scope = attributes(dataRef).getOptionalString("scope");
+        var scope = attributes(dataRef)
+                .getOptionalString("scope")
+                .flatMap(ScopeKind::of);
 
         dataRef.set(DataRef.NAME, name);
         dataRef.set(DataRef.SCOPE, scope);
