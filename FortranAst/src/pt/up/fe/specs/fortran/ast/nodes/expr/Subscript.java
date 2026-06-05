@@ -13,4 +13,11 @@ public class Subscript extends SectionSubscript {
     public Expr getValue() {
         return getChild(Expr.class);
     }
+
+    @Override
+    public String getCode() {
+        var value = getValue();
+
+        return value.getCode();
+    }
 }

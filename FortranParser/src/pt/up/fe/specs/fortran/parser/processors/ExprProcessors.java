@@ -76,13 +76,33 @@ public class ExprProcessors extends ANodeProcessor {
     }
 
     public void arraySubscriptExpr(ArraySubscriptExpr arraySubscriptExpr) {
-        arraySubscriptExpr.addChild(getChild(arraySubscriptExpr, "base"));
-        arraySubscriptExpr.addChildren(getChildren(arraySubscriptExpr, "subscripts"));
+        var base = getChild(arraySubscriptExpr, "base");
+        arraySubscriptExpr.addChild(base);
+
+        var subscriptIds = attributes(arraySubscriptExpr).getStringList("subscripts");
+        var subscripts = subscriptIds.stream()
+                .map(this::getSectionSubscript)
+                .toList();
+
+        arraySubscriptExpr.addChildren(subscripts);
     }
 
-    public void subscript(Subscript subscript) {
-        var value = getChild(subscript, FlangName.EXPR);
-        subscript.addChild(value);
+    public SectionSubscript getSectionSubscript(String id) {
+        var attrs = attributes().get(id);
+
+        if (attrs.has(FlangName.SUBSCRIPT_TRIPLET)) {
+            return (SubscriptTriplet) getChild(id);
+        }
+
+        if (attrs.has(FlangName.EXPR)) {
+            var subscript = factory().newNode(Subscript.class);
+            var value = getChild(id);
+            subscript.addChild(value);
+
+            return subscript;
+        }
+
+        throw new RuntimeException("Section subscript with id '" + id + "' does not have a valid variant, expected either SubscriptTriplet or Subscript, but got attributes: " + attrs);
     }
 
     public void acImpliedDo(AcImpliedDo acImpliedDo) {
