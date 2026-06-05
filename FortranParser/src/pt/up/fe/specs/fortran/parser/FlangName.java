@@ -124,6 +124,9 @@ public enum FlangName implements StringProvider {
     AC_SPEC,
     AC_VALUE,
     ARRAY_ELEMENT,
+    SECTION_SUBSCRIPT,
+    SUBSCRIPT,
+    SUBSCRIPT_TRIPLET,
     AC_IMPLIED_DO,
     AC_IMPLIED_DO_CONTROL,
 

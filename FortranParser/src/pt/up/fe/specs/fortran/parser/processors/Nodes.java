@@ -117,6 +117,8 @@ public class Nodes {
         processors.put(ArrayConstructor.class, e::arrayConstructor);
         processors.put(AcSpecification.class, e::acSpecification);
         processors.put(ArraySubscriptExpr.class, e::arraySubscriptExpr);
+        processors.put(Subscript.class, e::subscript);
+//        processors.put(SubscriptTriplet.class, e::subscriptTriplet);
         processors.put(Call.class, e::call);
         processors.put(Argument.class, e::argument);
         processors.put(AcImpliedDo.class, e::acImpliedDo);

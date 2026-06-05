@@ -80,6 +80,11 @@ public class ExprProcessors extends ANodeProcessor {
         arraySubscriptExpr.addChildren(getChildren(arraySubscriptExpr, "subscripts"));
     }
 
+    public void subscript(Subscript subscript) {
+        var value = getChild(subscript, FlangName.EXPR);
+        subscript.addChild(value);
+    }
+
     public void acImpliedDo(AcImpliedDo acImpliedDo) {
         acImpliedDo.addChild(getChild(acImpliedDo, "AcImpliedDoControl"));
         acImpliedDo.addChildren(getChildren(acImpliedDo, "AcValue"));

@@ -126,6 +126,8 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.ARRAY_CONSTRUCTOR, ArrayConstructor.class);
         NAME_TO_CLASS.put(FlangName.AC_SPEC, AcSpecification.class);
         NAME_TO_CLASS.put(FlangName.ARRAY_ELEMENT, ArraySubscriptExpr.class);
+        NAME_TO_CLASS.put(FlangName.SUBSCRIPT, Subscript.class);
+        NAME_TO_CLASS.put(FlangName.SUBSCRIPT_TRIPLET, SubscriptTriplet.class);
         NAME_TO_CLASS.put(FlangName.CALL, Call.class);
         NAME_TO_CLASS.put(FlangName.ACTUAL_ARG_SPEC, Argument.class);
         NAME_TO_CLASS.put(FlangName.AC_IMPLIED_DO, AcImpliedDo.class);
