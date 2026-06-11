@@ -120,6 +120,13 @@ public class AstFactory {
         );
     }
 
+    public static AExpr parenExpr(AExpr expr) {
+        return FortranJoinpoints.create(
+            FortranWeaver.getFactory().parenExpr((Expr) expr.getNode()),
+            AExpr.class
+        );
+    }
+
     public static AExpr intrinsicCall(String name, Object[] args) {
         DataRef callee = FortranWeaver.getFactory().dataRef(name);
         List<Argument> argNodes = SpecsCollections.asListT(AExpr.class, args)
