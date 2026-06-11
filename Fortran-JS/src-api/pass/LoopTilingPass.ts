@@ -1,7 +1,7 @@
 import Pass from "@specs-feup/lara/api/lara/pass/Pass.js";
 import PassResult from "@specs-feup/lara/api/lara/pass/results/PassResult.js";
 import Query from "@specs-feup/lara/api/weaver/Query.js";
-import { DataRef, DoStatement, Joinpoint, RangeLoopControl } from "../Joinpoints.js";
+import { DoStatement, Joinpoint } from "../Joinpoints.js";
 import loopTile, { canTile } from "../code/LoopTiling.js";
 
 /**
@@ -39,31 +39,7 @@ export default class LoopTilingPass extends Pass {
       const stmts = loop.body.executableStmts;
       if (stmts.length === 1 && stmts[0] instanceof DoStatement
           && canTile(loop, stmts[0] as DoStatement)) {
-
-        const outer = loop;
-        const inner = stmts[0] as DoStatement;
-        const outerVarName = (outer.control as RangeLoopControl).var.name;
-
-        // Legality check: reject pairs where any loop in inner's subtree has
-        // bounds referencing the outer loop variable. This catches triangular
-        // loops like `do k = 1, i - 1` (trmm) and `do i = j, n` (reg_detect),
-        // where tiling the outer loop changes which iterations are valid for
-        // the dependent inner/descendant loop, producing wrong results.
-        // Try/catch guards against null-node traversal errors on staging branch.
-        let illegal = false;
-        try {
-          const subtreeLoops = [inner, ...Query.searchFrom(inner, DoStatement).get()];
-          illegal = subtreeLoops.some(subLoop => {
-            if (!(subLoop.control instanceof RangeLoopControl)) return false;
-            try {
-              return Query.searchFrom(subLoop.control, DataRef, { name: outerVarName }).get().length > 0;
-            } catch (_) { return false; }
-          });
-        } catch (_) { /* skip on traversal errors */ }
-
-        if (!illegal) {
-          pairs.push({ outer, inner });
-        }
+        pairs.push({ outer: loop, inner: stmts[0] as DoStatement });
       }
     }
     const innerSet = new Set(pairs.map(p => p.inner));

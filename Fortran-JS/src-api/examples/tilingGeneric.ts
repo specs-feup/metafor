@@ -10,7 +10,11 @@ if (subroutines.length === 0) {
   console.log('No kernel_* subroutine found — skipping');
 } else {
   for (const sub of subroutines) {
-    console.log(`[tilingGeneric] Tiling (tile=${TILE_SIZE}): ${sub.moduleName}`);
-    new LoopTilingPass(TILE_SIZE).apply(sub);
+    const result = new LoopTilingPass(TILE_SIZE).apply(sub);
+    if (result.appliedPass) {
+      console.log(`[tilingGeneric] TILED (tile=${TILE_SIZE}): ${sub.moduleName}`);
+    } else {
+      console.log(`[tilingGeneric] SKIPPED (no eligible 2-deep perfect nest): ${sub.moduleName}`);
+    }
   }
 }
