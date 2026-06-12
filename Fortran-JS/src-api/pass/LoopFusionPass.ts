@@ -32,7 +32,9 @@ export default class LoopFusionPass extends Pass {
    * inner loops are fused before their containing scope is inspected.
    */
   protected *_findAllFusableSets($jp: Joinpoint): Generator<DoStatement[]> {
-    for (const child of [...$jp.children]) {
+    let children: Joinpoint[];
+    try { children = [...$jp.children]; } catch (_) { children = []; }
+    for (const child of children) {
       yield* this._findAllFusableSets(child);
     }
     for (const set of this._findFusableSets($jp)) {
@@ -53,7 +55,9 @@ export default class LoopFusionPass extends Pass {
     const result: DoStatement[][] = [];
     let group: DoStatement[] = [];
 
-    for (const child of $jp.children) {
+    let children: Joinpoint[];
+    try { children = [...$jp.children]; } catch (_) { return result; }
+    for (const child of children) {
       if (child instanceof DoStatement && child.kind === 'range') {
         if (group.length === 0 || group[0].sameScope(child)) {
           group.push(child);
