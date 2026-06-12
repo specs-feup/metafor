@@ -8,7 +8,11 @@ if (subroutines.length === 0) {
   console.log('No kernel_* subroutine found — skipping');
 } else {
   for (const sub of subroutines) {
-    console.log(`[fusionGeneric] Applying loop fusion: ${sub.moduleName}`);
-    new LoopFusionPass().apply(sub);
+    const result = new LoopFusionPass().apply(sub);
+    if (result.appliedPass) {
+      console.log(`[fusionGeneric] FUSED: ${sub.moduleName}`);
+    } else {
+      console.log(`[fusionGeneric] SKIPPED (no fusable consecutive loops): ${sub.moduleName}`);
+    }
   }
 }

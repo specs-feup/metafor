@@ -8,7 +8,11 @@ if (subroutines.length === 0) {
   console.log('No kernel_* subroutine found — skipping');
 } else {
   for (const sub of subroutines) {
-    console.log(`[fissionGeneric] Applying loop fission: ${sub.moduleName}`);
-    new LoopFissionPass().apply(sub);
+    const result = new LoopFissionPass().apply(sub);
+    if (result.appliedPass) {
+      console.log(`[fissionGeneric] FISSIONED: ${sub.moduleName}`);
+    } else {
+      console.log(`[fissionGeneric] SKIPPED (no eligible multi-statement loops): ${sub.moduleName}`);
+    }
   }
 }

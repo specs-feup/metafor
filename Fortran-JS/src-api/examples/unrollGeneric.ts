@@ -10,7 +10,11 @@ if (subroutines.length === 0) {
   console.log('No kernel_* subroutine found — skipping');
 } else {
   for (const sub of subroutines) {
-    console.log(`[unrollGeneric] Unrolling innermost loops (factor=${FACTOR}): ${sub.moduleName}`);
-    new LoopUnrollPass(FACTOR).apply(sub);
+    const result = new LoopUnrollPass(FACTOR).apply(sub);
+    if (result.appliedPass) {
+      console.log(`[unrollGeneric] UNROLLED (factor=${FACTOR}): ${sub.moduleName}`);
+    } else {
+      console.log(`[unrollGeneric] SKIPPED (no unrollable innermost loops): ${sub.moduleName}`);
+    }
   }
 }
