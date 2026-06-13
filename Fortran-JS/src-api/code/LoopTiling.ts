@@ -1,3 +1,4 @@
+import Query from "@specs-feup/lara/api/weaver/Query.js";
 import FortranJoinPoints from "../FortranJoinPoints.js";
 import { DataRef, DoStatement, ExecutableStatement, RangeLoopControl } from "../Joinpoints.js";
 
@@ -85,8 +86,26 @@ export default function loopTile(outer: DoStatement, inner: DoStatement, tileSiz
   return [outerTileDo];
 }
 
+function containsVar(code: string, varName: string): boolean {
+  return new RegExp(`\\b${varName}\\b`).test(code);
+}
+
 export function canTile(outer: DoStatement, inner: DoStatement): boolean {
   const oc = outer.control, ic = inner.control;
-  return oc instanceof RangeLoopControl && ic instanceof RangeLoopControl
-    && oc.step === undefined && ic.step === undefined;
+  if (!(oc instanceof RangeLoopControl && ic instanceof RangeLoopControl)) return false;
+  if (oc.step !== undefined || ic.step !== undefined) return false;
+
+  const outerVar = oc.var.name;
+
+  // Check 1: triangular inner bounds — inner bound references outer variable
+  if (containsVar(ic.lower.code, outerVar) || containsVar(ic.upper.code, outerVar)) return false;
+
+  // Check 2: nested DO inside inner body uses outer variable in its bounds
+  for (const nested of Query.searchFrom(inner.body, DoStatement)) {
+    const nc = nested.control;
+    if (!(nc instanceof RangeLoopControl)) continue;
+    if (containsVar(nc.lower.code, outerVar) || containsVar(nc.upper.code, outerVar)) return false;
+  }
+
+  return true;
 }
