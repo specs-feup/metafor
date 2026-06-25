@@ -22,8 +22,6 @@ import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 import java.util.List;
 import java.util.Optional;
 
-import static pt.up.fe.specs.fortran.parser.FlangName.*;
-
 public class StmtProcessors extends ANodeProcessor {
     public StmtProcessors(FortranJsonResult data) {
         super(data);
@@ -394,10 +392,10 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void namedConstantDef(NamedConstantDef namedConstantDef) {
-        var ref = getChild(namedConstantDef, NAMED_CONSTANT);
+        var ref = getChild(namedConstantDef, FlangName.NAMED_CONSTANT_DEF);
         namedConstantDef.addChild(ref);
 
-        var expr = getChild(namedConstantDef, EXPR);
+        var expr = getChild(namedConstantDef, FlangName.EXPR);
         namedConstantDef.addChild(expr);
     }
 
@@ -452,5 +450,26 @@ public class StmtProcessors extends ANodeProcessor {
     public void dataStmtVariable(DataStmtVariable dataStmtVariable) {
         var variable = getChild(dataStmtVariable, FlangName.VARIABLE);
         dataStmtVariable.addChild(variable);
+    }
+
+    public void commonStmt(CommonStmt commonStmt) {
+        var blocks = getChildren(commonStmt, FlangName.COMMON_STMT_BLOCK);
+        commonStmt.addChildren(blocks);
+    }
+
+    public void commonBlock(CommonBlock commonBlock) {
+        var name = attributes().getString(commonBlock, "source", FlangName.NAME);
+        commonBlock.set(CommonBlock.NAME, name);
+
+        var objects = getChildren(commonBlock, FlangName.COMMON_BLOCK_OBJECT);
+        commonBlock.addChildren(objects);
+    }
+
+    public void commonBlockObject(CommonBlockObject object) {
+        var name = attributes().getString(object, "source", FlangName.NAME);
+        object.set(CommonBlockObject.NAME, name);
+
+        var arraySpecOpt = getChildOptional(object, FlangName.ARRAY_SPEC);
+        arraySpecOpt.ifPresent(object::addChild);
     }
 }

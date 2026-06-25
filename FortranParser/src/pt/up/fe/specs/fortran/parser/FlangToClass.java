@@ -67,6 +67,9 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.COMPILER_DIRECTIVE, CompilerDirective.class);
         NAME_TO_CLASS.put(FlangName.GOTO_STMT, GotoStmt.class);
         NAME_TO_CLASS.put(FlangName.STOP_STMT, StopStmt.class);
+        NAME_TO_CLASS.put(FlangName.COMMON_STMT, CommonStmt.class);
+        NAME_TO_CLASS.put(FlangName.COMMON_STMT_BLOCK, CommonBlock.class);
+        NAME_TO_CLASS.put(FlangName.COMMON_BLOCK_OBJECT, CommonBlockObject.class);
 
         NAME_TO_CLASS.put(FlangName.IF_CONSTRUCT, IfConstruct.class);
         NAME_TO_CLASS.put(FlangName.IF_THEN_STMT, IfThenStmt.class);
