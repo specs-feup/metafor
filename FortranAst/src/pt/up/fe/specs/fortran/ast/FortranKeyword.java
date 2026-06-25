@@ -17,6 +17,7 @@ public enum FortranKeyword {
     STOP,
     ERROR,
     QUIET,
+    CALL,
 
     // Conditional statements
     IF,

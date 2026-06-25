@@ -1,5 +1,5 @@
-COMMON /com/ok
-LOGICAL(1) ok
+COMMON /com/ ok
+LOGICAL(1) :: ok
 ok = .true.
 
 CALL test1
@@ -14,9 +14,9 @@ STOP
 END
 
 SUBROUTINE test1
-    COMMON /com/ok
-    LOGICAL(1) ok
-    INTEGER*4 m, d, ans
+    COMMON /com/ ok
+    LOGICAL(1) :: ok
+    INTEGER*4 :: m, d, ans
     PARAMETER (m = 19, d = 3, ans = 1)
 
     IF (mod(m, d) /= ans) THEN
@@ -26,9 +26,9 @@ SUBROUTINE test1
 END SUBROUTINE
 
 SUBROUTINE test2
-    COMMON /com/ok
-    LOGICAL(1) ok
-    INTEGER*2 m, d, ans
+    COMMON /com/ ok
+    LOGICAL(1) :: ok
+    INTEGER*2 :: m, d, ans
     PARAMETER (m = 19, d = 3, ans = 1)
 
     IF (mod(m, d) /= ans) THEN
@@ -38,9 +38,9 @@ SUBROUTINE test2
 END SUBROUTINE
 
 SUBROUTINE test3
-    COMMON /com/ok
-    LOGICAL(1) ok
-    INTEGER*1 m, d, ans
+    COMMON /com/ ok
+    LOGICAL(1) :: ok
+    INTEGER*1 :: m, d, ans
     PARAMETER (m = 19, d = 3, ans = 1)
 
     IF (mod(m, d) /= ans) THEN
