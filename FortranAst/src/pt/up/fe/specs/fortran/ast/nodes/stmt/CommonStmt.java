@@ -1,10 +1,12 @@
 package pt.up.fe.specs.fortran.ast.nodes.stmt;
 
 import org.suikasoft.jOptions.Interfaces.DataStore;
+import pt.up.fe.specs.fortran.ast.FortranKeyword;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CommonStmt extends SpecificationStmt {
     public CommonStmt(DataStore data, Collection<? extends FortranNode> children) {
@@ -13,5 +15,15 @@ public class CommonStmt extends SpecificationStmt {
 
     public List<CommonBlock> getBlocks() {
         return getChildren(CommonBlock.class);
+    }
+
+    @Override
+    public String getCode() {
+        var blocks = getBlocks();
+        var blocksCode =  blocks.stream()
+                .map(CommonBlock::getCode)
+                .collect(Collectors.joining(", "));
+
+        return keyword(FortranKeyword.COMMON) + " " + blocksCode;
     }
 }

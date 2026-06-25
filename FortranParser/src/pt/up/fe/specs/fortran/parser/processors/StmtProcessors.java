@@ -458,7 +458,7 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void commonBlock(CommonBlock commonBlock) {
-        var name = attributes().getString(commonBlock, "source", FlangName.NAME);
+        var name = attributes().getOptionalString(commonBlock, "source", FlangName.NAME);
         commonBlock.set(CommonBlock.NAME, name);
 
         var objects = getChildren(commonBlock, FlangName.COMMON_BLOCK_OBJECT);

@@ -17,7 +17,6 @@ public enum FortranKeyword {
     STOP,
     ERROR,
     QUIET,
-    DATA,
 
     // Conditional statements
     IF,
@@ -38,6 +37,8 @@ public enum FortranKeyword {
 
     // Declarations
     PARAMETER,
+    DATA,
+    COMMON,
 
     OMP;
 

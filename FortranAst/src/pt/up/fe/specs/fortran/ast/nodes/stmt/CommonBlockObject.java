@@ -24,4 +24,12 @@ public class CommonBlockObject extends FortranNode {
     public Optional<ArraySpecification> getArraySpec() {
         return getChildOf(ArraySpecification.class);
     }
+
+    @Override
+    public String getCode() {
+        var name = getName();
+        var arraySpecCode = getArraySpec().map(ArraySpecification::getCode);
+
+        return name + arraySpecCode.orElse("");
+    }
 }
