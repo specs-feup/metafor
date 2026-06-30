@@ -254,7 +254,7 @@ class MetaforFujitsuPipeline:
         res = self.results[rel]
         work_dir = self._stage_work_dir(rel, "stage3")
         work_dir.mkdir(parents=True, exist_ok=True)
-        cmd = self._metafor_command(path)
+        cmd = self._metafor_command(path, work_dir)
         cr = self._run_command(cmd, cwd=work_dir, log_prefix=f"{safe_name(rel)}__stage3")
         res.stage3_elapsed_s = cr.elapsed_s
         if cr.returncode != 0:
@@ -289,7 +289,7 @@ class MetaforFujitsuPipeline:
         stage3_output = Path(res.stage3_output_file).resolve()
         work_dir = self._stage_work_dir(rel, "stage41")
         work_dir.mkdir(parents=True, exist_ok=True)
-        cmd = self._metafor_command(stage3_output)
+        cmd = self._metafor_command(stage3_output, work_dir)
         cr = self._run_command(cmd, cwd=work_dir, log_prefix=f"{safe_name(rel)}__stage41")
         res.stage41_elapsed_s = cr.elapsed_s
         if cr.returncode != 0:
@@ -334,10 +334,16 @@ class MetaforFujitsuPipeline:
             self._flang_ir_command(path, original_ir),
             log_prefix=f"{safe_name(rel)}__stage42_original",
         )
+        if cr1.returncode == 0 and (not original_ir.exists() or original_ir.stat().st_size == 0):
+            original_ir.write_text(cr1.stdout, encoding="utf-8")
+
         cr2 = self._run_command(
             self._flang_ir_command(stage3_output, regenerated_ir),
             log_prefix=f"{safe_name(rel)}__stage42_regenerated",
         )
+        if cr2.returncode == 0 and (not regenerated_ir.exists() or regenerated_ir.stat().st_size == 0):
+            regenerated_ir.write_text(cr2.stdout, encoding="utf-8")
+
         res.stage42_elapsed_s = cr1.elapsed_s + cr2.elapsed_s
         if cr1.returncode != 0 or cr2.returncode != 0:
             problems = []
@@ -352,7 +358,16 @@ class MetaforFujitsuPipeline:
         res.stage42_original_ir = str(original_ir)
         res.stage42_regenerated_ir = str(regenerated_ir)
 
-        same = self._normalized_ir_equal(original_ir, regenerated_ir)
+        original_ir.write_text(
+            normalize_llvm_ir(original_ir.read_text(encoding="utf-8", errors="replace")),
+            encoding="utf-8",
+        )
+        regenerated_ir.write_text(
+            normalize_llvm_ir(regenerated_ir.read_text(encoding="utf-8", errors="replace")),
+            encoding="utf-8",
+        )
+
+        same = files_are_identical(original_ir, regenerated_ir)
         res.stage42_ok = same
         res.stage42_note = "Normalized LLVM IR match" if same else "Normalized LLVM IR mismatch"
 
@@ -469,7 +484,7 @@ class MetaforFujitsuPipeline:
     def _stage_work_dir(self, relative_file: str, stage_name: str) -> Path:
         return self.work_root / safe_name(relative_file) / stage_name
 
-    def _metafor_command(self, source_file: Path) -> list[str]:
+    def _metafor_command(self, source_file: Path, output_dir: Path) -> list[str]:
         return [
             self.args.npx,
             self.args.metafor_package,
@@ -477,6 +492,8 @@ class MetaforFujitsuPipeline:
             str(self.noop_script_path.resolve()),
             "-p",
             str(source_file.resolve()),
+            "-o",
+            str(output_dir),
         ]
 
     def _flang_ir_command(self, source_file: Path, output_file: Path) -> list[str]:
@@ -506,11 +523,6 @@ class MetaforFujitsuPipeline:
         if len(all_f90) == 1:
             return all_f90[0]
         return None
-
-    def _normalized_ir_equal(self, a_path: Path, b_path: Path) -> bool:
-        a = normalize_llvm_ir(a_path.read_text(encoding="utf-8", errors="replace"))
-        b = normalize_llvm_ir(b_path.read_text(encoding="utf-8", errors="replace"))
-        return a == b
 
     def _write_outputs(self, summary: Optional[dict] = None) -> None:
         results_csv = self.output_dir / "results.csv"
@@ -787,9 +799,11 @@ def write_csv(path: Path, rows: list[dict]) -> None:
 LLVM_IR_DROP_LINE_PATTERNS = [
     re.compile(r"^; ModuleID = "),
     re.compile(r'^source_filename = '),
-    re.compile(r"^!llvm\\.(module\\.flags|ident) = "),
-    re.compile(r"^!\\d+ = "),
-    re.compile(r"^attributes #\\d+ = "),
+    re.compile(r"^!llvm\.(module\.flags|ident) = "),
+    re.compile(r"^!\d+ = "),
+    re.compile(r"^attributes #\d+ = "),
+    re.compile(r'^[$@]_QQclX[0-9a-fA-F]+\s*='),
+    re.compile(r'^[$@]_QQclX<SRC>\s*='),
 ]
 
 
@@ -801,6 +815,8 @@ LLVM_IR_REPLACEMENTS = [
     (re.compile(r",? !alias.scope ![0-9]+"), ""),
     (re.compile(r",? !noalias ![0-9]+"), ""),
     (re.compile(r",? !llvm.loop ![0-9]+"), ""),
+    (re.compile(r"(_QQclX)[0-9a-fA-F]+"), r"\1<SRC>"),
+    (re.compile(r"(@_QQclX<SRC>,\s*i32\s+)\d+"), r"\1<LINE>"),
 ]
 
 
@@ -827,7 +843,7 @@ def build_arg_parser() -> argparse.ArgumentParser:
         default="metafor_fujitsu_results",
         help="Directory where CSV/report/logs/artifacts will be written",
     )
-    p.add_argument("--flang", default="flang-20", help="flang executable")
+    p.add_argument("--flang", default="flang-22", help="flang executable")
     p.add_argument(
         "--dump-ast-plugin",
         default="./build/DumpASTPlugin.so",
