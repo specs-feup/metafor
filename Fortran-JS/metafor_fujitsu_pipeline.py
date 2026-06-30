@@ -132,7 +132,7 @@ class MetaforFujitsuPipeline:
         self.noop_script_path.write_text(DEFAULT_NOOP_SCRIPT, encoding="utf-8")
 
     def discover_files(self) -> list[Path]:
-        files = sorted(self.fortran_root.rglob("*.f90"))
+        files = sorted(set(self.fortran_root.rglob("*.f90")) | set(self.fortran_root.rglob("*.f")))
         if self.args.limit:
             files = files[: self.args.limit]
         return files
@@ -146,7 +146,7 @@ class MetaforFujitsuPipeline:
 
         files = self.discover_files()
         if not files:
-            raise PipelineError(f"No .f90 files found under {self.fortran_root}")
+            raise PipelineError(f"No .f90 or .f files found under {self.fortran_root}")
 
         log(f"Discovered {len(files)} Fortran files")
 
@@ -864,7 +864,7 @@ def build_arg_parser() -> argparse.ArgumentParser:
     )
     p.add_argument("--jobs", type=int, default=max(1, (os.cpu_count() or 2) // 2), help="Parallel workers")
     p.add_argument("--timeout", type=int, default=120, help="Per-command timeout in seconds")
-    p.add_argument("--limit", type=int, default=0, help="Optional cap on number of .f90 files to process")
+    p.add_argument("--limit", type=int, default=0, help="Optional cap on number of Fortran files to process")
     p.add_argument("--node-path", default="", help="Optional NODE_PATH value")
     return p
 
