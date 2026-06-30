@@ -358,16 +358,18 @@ class MetaforFujitsuPipeline:
         res.stage42_original_ir = str(original_ir)
         res.stage42_regenerated_ir = str(regenerated_ir)
 
-        original_ir.write_text(
+        original_norm = dest / "original.normalized.ll"
+        regenerated_norm = dest / "regenerated.normalized.ll"
+        original_norm.write_text(
             normalize_llvm_ir(original_ir.read_text(encoding="utf-8", errors="replace")),
             encoding="utf-8",
         )
-        regenerated_ir.write_text(
+        regenerated_norm.write_text(
             normalize_llvm_ir(regenerated_ir.read_text(encoding="utf-8", errors="replace")),
             encoding="utf-8",
         )
 
-        same = files_are_identical(original_ir, regenerated_ir)
+        same = files_are_identical(original_norm, regenerated_norm)
         res.stage42_ok = same
         res.stage42_note = "Normalized LLVM IR match" if same else "Normalized LLVM IR mismatch"
 
