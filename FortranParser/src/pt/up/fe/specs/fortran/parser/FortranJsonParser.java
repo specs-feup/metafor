@@ -58,6 +58,9 @@ public class FortranJsonParser implements JsonReaderParser {
                     case "nodes":
                         parseNodes(reader);
                         break;
+                    case "comments":
+                        parseComments(reader);
+                        break;
                     case "enums":
                         parseEnums(reader);
                         break;
@@ -138,6 +141,23 @@ public class FortranJsonParser implements JsonReaderParser {
         }
 */
         attributes.put(id, nodeData);
+    }
+
+    private void parseComments(JsonReader reader) {
+        try {
+            reader.beginArray();
+            while (reader.hasNext()) {
+                var commentData = nextObject(reader);
+                processCommentData(commentData);
+            }
+            reader.endArray();
+        } catch (IOException e) {
+            throw new RuntimeException("Problem while parsing Fortran json", e);
+        }
+    }
+
+    private void processCommentData(Map<String, Object> commentData) {
+
     }
 
     /**
