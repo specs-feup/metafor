@@ -11,7 +11,7 @@ public class ContinueStmt extends ActionStmt {
     }
 
     @Override
-    public String getCode() {
+    public String getStmtCode() {
         return "continue";
     }
 }

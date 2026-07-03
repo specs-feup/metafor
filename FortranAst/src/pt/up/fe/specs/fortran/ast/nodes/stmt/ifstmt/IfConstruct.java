@@ -41,7 +41,7 @@ public class IfConstruct extends ExecutableStmt {
     }
 
     @Override
-    public String getCode() {
+    public String getStmtCode() {
         var ifThenBlock = getIfThenBlock();
         var elseIfBlocks = getElseIfBlocks();
         var elseBlock = getElseBlock();
