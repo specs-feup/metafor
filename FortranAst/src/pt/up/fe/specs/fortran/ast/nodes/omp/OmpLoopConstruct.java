@@ -43,7 +43,7 @@ public class OmpLoopConstruct extends OmpConstruct {
     }
 
     @Override
-    public String getCode() {
+    public String getStmtCode() {
         var code = new StringBuilder();
         String directive = get(KINDS).stream()
                 .map(OmpDirectiveKind::getString)

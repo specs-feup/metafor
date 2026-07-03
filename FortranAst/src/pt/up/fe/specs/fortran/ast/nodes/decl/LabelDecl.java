@@ -10,6 +10,7 @@ import java.util.Collection;
 /**
  * Represents the declaration of a label, that appears before a statement.
  */
+// TODO(Process-ing): Replace this label for a standard label in ExecutableStmt
 public class LabelDecl extends FortranDecl {
 
     // DATAKEYS BEGIN
@@ -23,5 +24,10 @@ public class LabelDecl extends FortranDecl {
 
     public LabelDecl(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
+    }
+
+    @Override
+    public String getCode() {
+        return get(LABEL).toString();
     }
 }

@@ -47,7 +47,7 @@ public class DoStmt extends ExecutableStmt {
     }
 
     @Override
-    public String getCode() {
+    public String getStmtCode() {
         var code = new StringBuilder();
         Optional<String> name = getName();
 
