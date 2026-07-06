@@ -62,14 +62,11 @@ public class UtilsProcessors extends ANodeProcessor {
 
         var stmtId = attributes().getString(commentStmt, "stmtId");
         var stmtNode = getChild(stmtId);
-        var parentNode = stmtNode.getParent();
-        PrintOnce.info("Statement with id '" + stmtId + "' has " + (parentNode != null ? "" : "no ") + "parent");
-        assert parentNode != null;
 
-        var numComments = (int)commentStmt.getChildren()
+        var numComments = (int)stmtNode.getChildren()
                 .stream()
                 .filter(child -> child instanceof CommentStmt)
                 .count();
-        parentNode.addChild(numComments, commentStmt);
+        stmtNode.addChild(numComments, commentStmt);
     }
 }
