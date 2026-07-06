@@ -1,4 +1,5 @@
 PROGRAM HELLO
+    ! This is a comment line; it is ignored by the compiler
     PRINT *, "Hello, World!"
     PRINT 100, "Hello, World!", 2
     100

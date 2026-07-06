@@ -7,7 +7,9 @@ import pt.up.fe.specs.util.SpecsCollections;
 import pt.up.fe.specs.util.utilities.PrintOnce;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public abstract class Stmt extends FortranNode {
 
@@ -20,6 +22,10 @@ public abstract class Stmt extends FortranNode {
         return SpecsCollections.toOptional(labelDecls);
     }
 
+    public List<CommentStmt> getComments() {
+        return getChildrenOf(CommentStmt.class);
+    }
+
     public String getStmtCode() {
         PrintOnce.info("getStmtCode() not implemented for nodes of type " + getClass());
         return "\n/*<.getStmtCode() not implemented for node " + this.getClass() + ">*/";
@@ -28,6 +34,12 @@ public abstract class Stmt extends FortranNode {
     @Override
     public final String getCode() {
         var labelPrefix = getLabel().map(label -> label.getCode() + " ").orElse("");
-        return labelPrefix + getStmtCode();
+
+        var comments = getComments();
+        var commentsPrefix = comments.stream()
+                .map(comment -> comment.getCode() + ln())
+                .collect(Collectors.joining());
+
+        return commentsPrefix + labelPrefix + getStmtCode();
     }
 }
