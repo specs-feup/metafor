@@ -9,7 +9,7 @@ import pt.up.fe.specs.fortran.ast.nodes.stmt.Stmt;
 
 import java.util.Collection;
 
-public class ElseIfBlock extends Stmt {
+public class ElseIfBlock extends FortranNode {
      public ElseIfBlock(DataStore data, Collection<? extends FortranNode> children) {
          super(data, children);
      }
@@ -23,7 +23,7 @@ public class ElseIfBlock extends Stmt {
     }
 
     @Override
-    public String getStmtCode() {
+    public String getCode() {
         var elseIfStmt = getElseIfStmt();
         var block = getBlock();
 

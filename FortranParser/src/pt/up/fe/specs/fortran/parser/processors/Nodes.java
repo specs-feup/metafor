@@ -152,14 +152,13 @@ public class Nodes {
         processors.put(NameValue.class, u::nameValue);
         processors.put(IoUnit.class, u::ioUnit);
         processors.put(IoControlSpec.class, u::ioControlSpec);
-        processors.put(CommentStmt.class, u::commentStmt);
 
         var l = new LoopProcessors(data);
         processors.put(RangeLoopControl.class, l::loopRange);
         processors.put(ConcurrentLoopControl.class, l::concurrentLoopControl);
         processors.put(ConcurrentRange.class, l::concurrentRange);
 
-        var omp = new OmpProcessors(data);
+        var omp = new OmpProcessors(data, s);
         processors.put(OmpBlockConstruct.class, omp::ompBlockConstruct);
         processors.put(OmpLoopConstruct.class, omp::ompLoopConstruct);
         processors.put(OmpDataSharingClause.class, omp::ompDataSharingClause);
@@ -175,5 +174,4 @@ public class Nodes {
         }
 
     }
-
 }

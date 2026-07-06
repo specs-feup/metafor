@@ -1,11 +1,9 @@
 package pt.up.fe.specs.fortran.parser.processors;
 
-import pt.up.fe.specs.fortran.ast.nodes.stmt.CommentStmt;
 import pt.up.fe.specs.fortran.ast.nodes.utils.*;
 import pt.up.fe.specs.fortran.ast.nodes.utils.enums.IoControlSpecKind;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
-import pt.up.fe.specs.util.utilities.PrintOnce;
 
 public class UtilsProcessors extends ANodeProcessor {
 
@@ -54,19 +52,5 @@ public class UtilsProcessors extends ANodeProcessor {
         );
 
         ioControlSpec.addChild(getChild(attributes().get(childId).getString(FlangName.EXPR)));
-    }
-
-    public void commentStmt(CommentStmt commentStmt) {
-        var content = attributes().getString(commentStmt, "content");
-        commentStmt.set(CommentStmt.CONTENT, content);
-
-        var stmtId = attributes().getString(commentStmt, "stmtId");
-        var stmtNode = getChild(stmtId);
-
-        var numComments = (int)stmtNode.getChildren()
-                .stream()
-                .filter(child -> child instanceof CommentStmt)
-                .count();
-        stmtNode.addChild(numComments, commentStmt);
     }
 }
