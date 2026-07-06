@@ -29,20 +29,4 @@ public abstract class ExecutableStmt extends Stmt {
     public ExecutableStmt(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
     }
-
-    public Optional<LabelDecl> getLabel() {
-        var labelDecls = getChildrenOf(LabelDecl.class);
-        return SpecsCollections.toOptional(labelDecls);
-    }
-
-    public String getStmtCode() {
-        PrintOnce.info("getStmtCode() not implemented for nodes of type " + getClass());
-        return "\n/*<.getStmtCode() not implemented for node " + this.getClass() + ">*/";
-    }
-
-    @Override
-    public final String getCode() {
-        var labelPrefix = getLabel().map(label -> label.getCode() + " ").orElse("");
-        return labelPrefix + getStmtCode();
-    }
 }

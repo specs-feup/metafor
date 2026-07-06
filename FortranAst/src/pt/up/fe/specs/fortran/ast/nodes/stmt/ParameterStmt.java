@@ -19,7 +19,7 @@ public class ParameterStmt extends Stmt {
     }
 
     @Override
-    public String getCode() {
+    public String getStmtCode() {
         var defsCode = getDefs().stream()
                 .map(NamedConstantDef::getCode)
                 .collect(Collectors.joining(", "));

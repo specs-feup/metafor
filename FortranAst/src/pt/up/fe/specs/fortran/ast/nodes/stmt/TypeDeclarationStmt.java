@@ -30,7 +30,7 @@ public class TypeDeclarationStmt extends SpecificationStmt {
     }
 
     @Override
-    public String getCode() {
+    public String getStmtCode() {
         //     integer :: a, b = 1;
         var code = new StringBuilder();
 

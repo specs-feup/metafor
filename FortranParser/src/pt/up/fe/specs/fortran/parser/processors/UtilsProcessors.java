@@ -5,6 +5,7 @@ import pt.up.fe.specs.fortran.ast.nodes.utils.*;
 import pt.up.fe.specs.fortran.ast.nodes.utils.enums.IoControlSpecKind;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
+import pt.up.fe.specs.util.utilities.PrintOnce;
 
 public class UtilsProcessors extends ANodeProcessor {
 
@@ -61,5 +62,14 @@ public class UtilsProcessors extends ANodeProcessor {
 
         var stmtId = attributes().getString(commentStmt, "stmtId");
         var stmtNode = getChild(stmtId);
+        var parentNode = stmtNode.getParent();
+        PrintOnce.info("Statement with id '" + stmtId + "' has " + (parentNode != null ? "" : "no ") + "parent");
+        assert parentNode != null;
+
+        var numComments = (int)commentStmt.getChildren()
+                .stream()
+                .filter(child -> child instanceof CommentStmt)
+                .count();
+        parentNode.addChild(numComments, commentStmt);
     }
 }

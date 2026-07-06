@@ -6,10 +6,11 @@ import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.expr.Expr;
 import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
 import pt.up.fe.specs.fortran.ast.nodes.program.StmtBlock;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.Stmt;
 
 import java.util.Collection;
 
-public class ElseIfBlock extends FortranNode {
+public class ElseIfBlock extends Stmt {
      public ElseIfBlock(DataStore data, Collection<? extends FortranNode> children) {
          super(data, children);
      }
@@ -23,7 +24,7 @@ public class ElseIfBlock extends FortranNode {
     }
 
     @Override
-    public String getCode() {
+    public String getStmtCode() {
         var elseIfStmt = getElseIfStmt();
         var block = getBlock();
 

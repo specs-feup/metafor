@@ -19,7 +19,7 @@ public class CommentStmt extends Stmt {
     }
 
     @Override
-    public String getCode() {
+    public String getStmtCode() {
         return getContent();
     }
 }

@@ -4,10 +4,11 @@ import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
 import pt.up.fe.specs.fortran.ast.nodes.program.StmtBlock;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.Stmt;
 
 import java.util.Collection;
 
-public class ElseBlock extends FortranNode {
+public class ElseBlock extends Stmt {
     public ElseBlock(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
     }
@@ -21,7 +22,7 @@ public class ElseBlock extends FortranNode {
     }
 
     @Override
-    public String getCode() {
+    public String getStmtCode() {
         var elseStmt = getElseStmt();
         var block = getBlock();
 
