@@ -4,7 +4,6 @@ import com.google.gson.stream.JsonReader;
 import org.suikasoft.GsonPlus.JsonReaderParser;
 import pt.up.fe.specs.fortran.ast.FortranContext;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.CommentStmt;
 import pt.up.fe.specs.util.SpecsCheck;
 import pt.up.fe.specs.util.SpecsLogs;
 
@@ -147,9 +146,9 @@ public class FortranJsonParser implements JsonReaderParser {
     private void parseComments(JsonReader reader) {
         try {
             reader.beginArray();
-            for (int index = 0; reader.hasNext(); index++) {
+            while (reader.hasNext()) {
                 var commentData = nextObject(reader);
-                processCommentData(commentData, index);
+                processCommentData(commentData);
             }
             reader.endArray();
         } catch (IOException e) {
@@ -157,21 +156,14 @@ public class FortranJsonParser implements JsonReaderParser {
         }
     }
 
-    private void processCommentData(Map<String, Object> commentData, int index) {
-        var id = "0x" + index + "-CommentStmt";
-        ids.add(id);
-
-        var commentNode = context.get(FortranContext.FACTORY).newNode(CommentStmt.class, Collections.emptyList(), id);
-        fortranNodes.put(id, commentNode);
-
-        var content = commentData.get("text");
+    private void processCommentData(Map<String, Object> commentData) {
+        var content = commentData.get("text").toString();
         var stmtId = commentData.get("stmtId").toString();
-        attributes.put(id, Map.of("content", content, "stmtId", stmtId));
 
         var stmtAttrs = attributes.get(stmtId);
         stmtAttrs.putIfAbsent("comments", new ArrayList<>());
-        var commentsList = (List<String>) stmtAttrs.get("comments");
-        commentsList.add(id);
+        var stmtComments = (List<String>) stmtAttrs.get("comments");
+        stmtComments.add(content);
     }
 
     /**

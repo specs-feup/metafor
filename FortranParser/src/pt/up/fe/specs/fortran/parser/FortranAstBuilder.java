@@ -3,7 +3,6 @@ package pt.up.fe.specs.fortran.parser;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.decl.LabelDecl;
 import pt.up.fe.specs.fortran.ast.nodes.program.ProgramUnit;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.CommentStmt;
 import pt.up.fe.specs.fortran.ast.nodes.utils.LabelRef;
 import pt.up.fe.specs.fortran.parser.processors.Nodes;
 import pt.up.fe.specs.util.SpecsCheck;
@@ -30,16 +29,7 @@ public class FortranAstBuilder {
         // Process each node
         var processor = new Nodes(data);
         for (var node : data.fortranNodes().values()) {
-            if (!(node instanceof CommentStmt)) {
-                processor.process(node);
-            }
-        }
-
-        // Process comments only after all other nodes, since the processor depends on the parents
-        for (var node: data.fortranNodes().values()) {
-            if (node instanceof CommentStmt) {
-                processor.process(node);
-            }
+            processor.process(node);
         }
 
         // Apply post-processing at the file level

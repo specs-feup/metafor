@@ -8,7 +8,7 @@ import pt.up.fe.specs.fortran.ast.nodes.stmt.Stmt;
 
 import java.util.Collection;
 
-public class ElseBlock extends Stmt {
+public class ElseBlock extends FortranNode {
     public ElseBlock(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
     }
@@ -22,7 +22,7 @@ public class ElseBlock extends Stmt {
     }
 
     @Override
-    public String getStmtCode() {
+    public String getCode() {
         var elseStmt = getElseStmt();
         var block = getBlock();
 

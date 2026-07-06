@@ -27,25 +27,42 @@ public class StmtProcessors extends ANodeProcessor {
         super(data);
     }
 
-    private void executableStmt(ExecutableStmt executableStmt) {
-        executableStmt.set(ExecutableStmt.SOURCE, attributes(executableStmt).getString("source"));
+    public void stmt(Stmt stmt) {
+        stmtWithAttrs(stmt, attributes(stmt));
+    }
 
-        var labelOpt = attributes(executableStmt).getOptionalString("label");
+    public void stmtWithAttrs(Stmt stmt, FlangAttributes attrs) {
+        if (attrs.has("comments")) {
+            var comments = attrs.getStringList("comments");
+            stmt.set(Stmt.COMMENTS, comments);
+        } else {
+            stmt.set(Stmt.COMMENTS, List.of());
+        }
+
+        var labelOpt = attrs.getOptionalString("label");
         labelOpt.ifPresent(label -> {
             var labelDecl = factory().labelDecl(Integer.parseInt(label));
             data().processorData().addLabelDecl(labelDecl);
-            executableStmt.addChild(0, labelDecl);
+            stmt.addChild(0, labelDecl);
         });
     }
 
+    public void executableStmt(ExecutableStmt executableStmt) {
+        stmt(executableStmt);
 
-    private void actionStmt(ActionStmt actionStmt) {
+        // Uncomment this if we really need the statement source
+        // executableStmt.set(ExecutableStmt.SOURCE, attributes(executableStmt).getString("source"));
+    }
+
+
+    public void actionStmt(ActionStmt actionStmt) {
         executableStmt(actionStmt);
     }
 
 
     public void printStmt(PrintStmt printStmt) {
         actionStmt(printStmt);
+
         printStmt.addChild(getChild(printStmt, FlangName.FORMAT));
         printStmt.addChildren(getChildren(printStmt, FlangName.OUTPUT_ITEM));
     }
@@ -55,6 +72,8 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void typeDeclarationStmt(TypeDeclarationStmt typeDeclarationStmt) {
+        stmt(typeDeclarationStmt);
+
         var entityDecls = getChildren(typeDeclarationStmt, FlangName.ENTITY_DECL);
 
         var type = getChild(typeDeclarationStmt, FlangName.DECLARATION_TYPE_SPEC);
@@ -76,6 +95,7 @@ public class StmtProcessors extends ANodeProcessor {
 
     public void assignmentStmt(AssignmentStmt assignmentStmt) {
         actionStmt(assignmentStmt);
+
         var variable = getChild(assignmentStmt, FlangName.VARIABLE);
         var expression = getChild(assignmentStmt, FlangName.EXPR);
         assignmentStmt.addChild(variable);
@@ -87,6 +107,8 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void ifConstruct(IfConstruct ifConstruct) {
+        executableStmt(ifConstruct);
+
         // Add if-then block
         var ifThenStmt = getStmtChild(ifConstruct, FlangName.IF_THEN_STMT);
 
@@ -127,6 +149,8 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void ifThenStmt(IfThenStmt ifThenStmt) {
+        actionStmt(ifThenStmt);
+
         var condition = getChild(ifThenStmt, FlangName.EXPR);
 
         ifThenStmt.addChild(0, condition);
@@ -143,6 +167,8 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void elseIfStmt(ElseIfStmt elseIfStmt) {
+        stmt(elseIfStmt);
+
         var condition = getChild(elseIfStmt, FlangName.EXPR);
         elseIfStmt.addChild(condition);
     }
@@ -157,16 +183,17 @@ public class StmtProcessors extends ANodeProcessor {
         elseBlock.addChild(block);
     }
 
-    public void elseStmt(ElseStmt ignoredElseStmt) {
-        // Nothing to do
+    public void elseStmt(ElseStmt elseStmt) {
+        stmt(elseStmt);
     }
 
-    public void endIfStmt(EndIfStmt ignoredEndIfStmt) {
-        // Nothing to do
+    public void endIfStmt(EndIfStmt endIfStmt) {
+        stmt(endIfStmt);
     }
 
     public void ifStmt(IfStmt ifStmt) {
         actionStmt(ifStmt);
+
         var condition = getChild(ifStmt, FlangName.EXPR);
         var thenStmt = getUnlabeledStmtChild(ifStmt, FlangName.ACTION_STMT);
 
@@ -175,6 +202,8 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void caseConstruct(CaseConstruct caseConstruct) {
+        executableStmt(caseConstruct);
+
         var selectCaseStmt = getStmtChild(caseConstruct, FlangName.SELECT_CASE_STMT);
         var caseBlocks = getChildren(caseConstruct, FlangName.CASE);
         var endSelectStmt = getStmtChild(caseConstruct, FlangName.END_SELECT_STMT);
@@ -192,6 +221,8 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void selectCaseStmt(SelectCaseStmt selectCaseStmt) {
+        stmt(selectCaseStmt);
+
         var expr = getChild(selectCaseStmt, FlangName.EXPR);
 
         selectCaseStmt.addChild(expr);
@@ -225,6 +256,7 @@ public class StmtProcessors extends ANodeProcessor {
                     .toList();
 
             var valueCaseStmt = factory().newNode(ValueCaseStmt.class);
+            stmtWithAttrs(valueCaseStmt, caseSelectorAttrs);
             valueCaseStmt.addChildren(caseValueRanges);
 
             return valueCaseStmt;
@@ -232,7 +264,9 @@ public class StmtProcessors extends ANodeProcessor {
 
         // If selector has a default child, build a default case statement
         if (caseSelectorAttrs.has(FlangName.DEFAULT)) {
-            return factory().newNode(DefaultCaseStmt.class);
+            var defaultCaseStmt = factory().newNode(DefaultCaseStmt.class);
+            stmtWithAttrs(defaultCaseStmt, caseSelectorAttrs);
+            return defaultCaseStmt;
         }
 
         throw new RuntimeException("Unknown case selector: " + caseSelectorId);
@@ -290,11 +324,13 @@ public class StmtProcessors extends ANodeProcessor {
         throw new RuntimeException("Could not determine case value range type for id: " + id + " with attributes: " + attrs);
     }
 
-    public void endSelectStmt(EndSelectStmt ignoredEndSelectStmt) {
-        // Nothing to do
+    public void endSelectStmt(EndSelectStmt endSelectStmt) {
+        stmt(endSelectStmt);
     }
 
     public void doStmt(DoStmt doStmt) {
+        executableStmt(doStmt);
+
         Optional<String> control = attributes().getOptionalString(doStmt, "id", FlangName.NON_LABEL_DO_STMT, FlangName.LOOP_CONTROL);
         Optional<String> name = attributes().getOptionalString(doStmt, "source", FlangName.NON_LABEL_DO_STMT, FlangName.NAME);
 
@@ -332,16 +368,21 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void compilerDirective(CompilerDirective compilerDirective) {
+        executableStmt(compilerDirective);
+
         var variantKey = attributes(compilerDirective).getVariantKey();
         compilerDirective.addChildren(getChildren(compilerDirective, variantKey));
     }
 
     public void callStmt(CallStmt callStmt) {
         actionStmt(callStmt);
+
         callStmt.addChild(getChild(callStmt, "call"));
     }
 
     public void gotoStmt(GotoStmt gotoStmt) {
+        actionStmt(gotoStmt);
+
         var strLabel = attributes(gotoStmt).getString("uint64_t");
         var label = Integer.parseInt(strLabel);
 
@@ -350,6 +391,7 @@ public class StmtProcessors extends ANodeProcessor {
 
     public void writeStmt(WriteStmt writeStmt) {
         actionStmt(writeStmt);
+
         if (attributes(writeStmt).has("iounit")) {
             writeStmt.addChild(getChild(writeStmt, "iounit"));
         }
@@ -368,21 +410,25 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void containsStmt(ContainsStmt containsStmt) {
-
+        executableStmt(containsStmt);
     }
 
     public void allocateStmt(AllocateStmt allocateStmt) {
         actionStmt(allocateStmt);
+
         allocateStmt.addChildren(getChildren(allocateStmt, FlangName.ALLOCATION));
         allocateStmt.addChildren(getChildren(allocateStmt, FlangName.ALLOC_OPT));
     }
 
     public void deallocateStmt(DeallocateStmt deallocateStmt) {
         actionStmt(deallocateStmt);
+
         deallocateStmt.addChildren(getChildren(deallocateStmt, FlangName.ALLOCATE_OBJECT));
     }
 
     public void useStmt(UseStmt useStmt) {
+        stmt(useStmt);
+
         String nameId = attributes(useStmt).getString("moduleName");
         String name = attributes().get(nameId).getString("source");
 
@@ -394,6 +440,8 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void parameterStmt(ParameterStmt parameterStmt) {
+        stmt(parameterStmt);
+
         parameterStmt.addChildren(getChildren(parameterStmt, FlangName.NAMED_CONSTANT_DEF));
     }
 
@@ -425,6 +473,8 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void stopStmt(StopStmt stopStmt) {
+        actionStmt(stopStmt);
+
         var kindId = attributes(stopStmt).getString("kind");
         var kind = attributes().get(kindId).getString("value");
         stopStmt.set(StopStmt.ERROR_STOP, kind.equals("ErrorStop"));
@@ -440,6 +490,8 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void dataStmt(DataStmt dataStmt) {
+        stmt(dataStmt);
+
         var dataStmtSets = getChildren(dataStmt, FlangName.DATA_STMT_SET);
         dataStmt.addChildren(dataStmtSets);
     }
@@ -478,6 +530,8 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void commonStmt(CommonStmt commonStmt) {
+        stmt(commonStmt);
+
         var blocks = getChildren(commonStmt, FlangName.COMMON_STMT_BLOCK);
         commonStmt.addChildren(blocks);
     }

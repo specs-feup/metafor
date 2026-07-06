@@ -4,13 +4,14 @@ import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.FortranKeyword;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.expr.Expr;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.ActionStmt;
 
 import java.util.Collection;
 
 /**
  * R1135 if-then-stmt
  */
-public class IfThenStmt extends FortranNode {
+public class IfThenStmt extends ActionStmt {
     public IfThenStmt(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
     }
@@ -20,7 +21,7 @@ public class IfThenStmt extends FortranNode {
     }
 
     @Override
-    public String getCode() {
+    public String getStmtCode() {
         var nameOpt = getAncestor(IfConstruct.class).getName();
         var condition = getCondition();
 
