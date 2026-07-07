@@ -122,6 +122,8 @@ public class Nodes {
         processors.put(DataStmtSet.class, s::dataStmtSet);
         processors.put(ProgramStmt.class, s::programStmt);
         processors.put(EndProgramStmt.class, s::endProgramStmt);
+        processors.put(SubroutineStmt.class, s::subroutineStmt);
+        processors.put(EndSubroutineStmt.class, s::endSubroutineStmt);
 
         var e = new ExprProcessors(data);
         processors.put(StringLiteral.class, e::stringLiteral);
