@@ -15,7 +15,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public abstract class Stmt extends FortranNode {
-    public static final DataKey<List<String>> COMMENTS = KeyFactory.list("comments", String.class);
+    public static final DataKey<List<String>> LEADING_COMMENTS = KeyFactory.list("leading_comments", String.class);
+    public static final DataKey<Optional<String>> TRAILING_COMMENT = KeyFactory.optional("trailing_comment");
 
     public Stmt(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
@@ -27,8 +28,12 @@ public abstract class Stmt extends FortranNode {
         return SpecsCollections.toOptional(labelDecls);
     }
 
-    public List<String> getComments() {
-        return get(COMMENTS);
+    public List<String> getLeadingComments() {
+        return get(LEADING_COMMENTS);
+    }
+
+    public Optional<String> getTrailingComment() {
+        return get(TRAILING_COMMENT);
     }
 
     public String getStmtCode() {
@@ -40,15 +45,18 @@ public abstract class Stmt extends FortranNode {
     public final String getCode() {
         var labelPrefix = getLabel().map(label -> label.getCode() + " ").orElse("");
 
-        var comments = getComments();
-        SpecsCheck.checkArgument(comments != null, () -> "Comment array not initialized in node of class \""
-                + getClass() + "\". Make sure you call the method StmtProcessors::stmt() on the processor for this "
-                + "node kind to initialize comments and labels.");
+        var leadingComments = getLeadingComments();
+        SpecsCheck.checkArgument(leadingComments != null, () -> "Leading comment array not initialized in "
+                + "node of class \"" + getClass() + "\". Make sure you call the method StmtProcessors::stmt() on the "
+                + "processor for this node kind to initialize comments and labels.");
 
-        var commentsPrefix = comments.stream()
+        var trailingComment = getTrailingComment();
+
+        var commentPrefix = leadingComments.stream()
                 .map(comment -> comment + ln())
                 .collect(Collectors.joining());
+        var commentSuffix = trailingComment.map(comment -> "  " + comment).orElse("");
 
-        return commentsPrefix + labelPrefix + getStmtCode();
+        return commentPrefix + labelPrefix + getStmtCode() + commentSuffix;
     }
 }

@@ -159,11 +159,17 @@ public class FortranJsonParser implements JsonReaderParser {
     private void processCommentData(Map<String, Object> commentData) {
         var content = commentData.get("text").toString();
         var stmtId = commentData.get("stmtId").toString();
+        var trailing = commentData.get("trailing").toString();
 
         var stmtAttrs = attributes.get(stmtId);
-        stmtAttrs.putIfAbsent("comments", new ArrayList<>());
-        var stmtComments = (List<String>) stmtAttrs.get("comments");
-        stmtComments.add(content);
+
+        if (trailing.equals("false")) {
+            stmtAttrs.putIfAbsent("leadingComments", new ArrayList<>());
+            var stmtComments = (List<String>) stmtAttrs.get("leadingComments");
+            stmtComments.add(content);
+        } else {
+            stmtAttrs.put("trailingComment", content);
+        }
     }
 
     /**

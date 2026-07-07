@@ -34,12 +34,15 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void stmtWithAttrs(Stmt stmt, FlangAttributes attrs) {
-        if (attrs.has("comments")) {
-            var comments = attrs.getStringList("comments");
-            stmt.set(Stmt.COMMENTS, comments);
+        if (attrs.has("leadingComments")) {
+            var leadingComments = attrs.getStringList("leadingComments");
+            stmt.set(Stmt.LEADING_COMMENTS, leadingComments);
         } else {
-            stmt.set(Stmt.COMMENTS, List.of());
+            stmt.set(Stmt.LEADING_COMMENTS, List.of());
         }
+
+        var trailingComment = attrs.getOptionalString("trailingComment");
+        stmt.set(Stmt.TRAILING_COMMENT, trailingComment);
 
         var labelOpt = attrs.getOptionalString("label");
         labelOpt.ifPresent(label -> {
