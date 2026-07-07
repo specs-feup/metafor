@@ -27,4 +27,4 @@ END IF
 IF (ok) THEN
     PRINT *, "OK"
 END IF
-END
+END PROGRAM

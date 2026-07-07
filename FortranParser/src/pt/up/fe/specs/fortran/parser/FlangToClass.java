@@ -49,6 +49,8 @@ public class FlangToClass {
     static {
         NAME_TO_CLASS.put(FlangName.PROGRAM, FortranFile.class);
         NAME_TO_CLASS.put(FlangName.MAIN_PROGRAM, MainProgram.class);
+        NAME_TO_CLASS.put(FlangName.PROGRAM_STMT, ProgramStmt.class);
+        NAME_TO_CLASS.put(FlangName.END_PROGRAM_STMT, EndProgramStmt.class);
         NAME_TO_CLASS.put(FlangName.SPECIFICATION_PART, Specification.class);
         NAME_TO_CLASS.put(FlangName.EXECUTION_PART, Execution.class);
         NAME_TO_CLASS.put(FlangName.INTERNAL_SUBPROGRAM_PART, InternalSubprogram.class);
