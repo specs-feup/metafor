@@ -15,6 +15,9 @@ import pt.up.fe.specs.fortran.ast.nodes.stmt.datastmt.DataStmtObject;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.datastmt.DataStmtSet;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.datastmt.DataStmtVariable;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.*;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.DoConstruct;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.DoStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.EndDoStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.*;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.DimensionSpec;
 import pt.up.fe.specs.fortran.parser.FlangAttributes;
@@ -330,20 +333,32 @@ public class StmtProcessors extends ANodeProcessor {
         stmt(endSelectStmt);
     }
 
+    public void doConstruct(DoConstruct doConstruct) {
+        executableStmt(doConstruct);
+
+        var name = attributes().getOptionalString(doConstruct, "source", FlangName.NON_LABEL_DO_STMT, FlangName.NAME);
+        name.ifPresent(str -> doConstruct.setOptional(DoConstruct.NAME, str));
+
+        var doStmt = getStmtChild(doConstruct, FlangName.NON_LABEL_DO_STMT);
+        doConstruct.addChild(doStmt);
+
+        var body = factory().newNode(Execution.class, getChildren(doConstruct, FlangName.EXECUTION_PART_CONSTRUCT));
+        doConstruct.addChild(body);
+
+        var endDoStmt = getStmtChild(doConstruct, FlangName.END_DO_STMT);
+        doConstruct.addChild(endDoStmt);
+    }
+
     public void doStmt(DoStmt doStmt) {
-        executableStmt(doStmt);
+        stmt(doStmt);
 
-        Optional<String> control = attributes().getOptionalString(doStmt, "id", FlangName.NON_LABEL_DO_STMT, FlangName.LOOP_CONTROL);
-        Optional<String> name = attributes().getOptionalString(doStmt, "source", FlangName.NON_LABEL_DO_STMT, FlangName.NAME);
-
-        name.ifPresent(str -> doStmt.setOptional(DoStmt.NAME, str));
-
+        var control = attributes(doStmt).getOptionalString(FlangName.LOOP_CONTROL);
         control.ifPresentOrElse(
                 s -> {
-                    FlangAttributes attrs = attributes().getAttrs(s);
+                    var attrs = attributes().getAttrs(s);
 
-                    FlangName childKey = FlangName.convertTry(attrs.getVariantKey()).orElseThrow();
-                    String value = attrs.getString(childKey);
+                    var childKey = FlangName.convertTry(attrs.getVariantKey()).orElseThrow();
+                    var value = attrs.getString(childKey);
 
                     switch (childKey) {
                         case LOOP_BOUNDS, CONCURRENT -> {
@@ -360,13 +375,14 @@ public class StmtProcessors extends ANodeProcessor {
                     }
                 },
                 () -> {
-                    WhileLoopControl empty = factory().newNode(WhileLoopControl.class);
+                    var empty = factory().newNode(WhileLoopControl.class);
                     doStmt.addChild(empty);
                 }
         );
+    }
 
-        Execution body = factory().newNode(Execution.class, getChildren(doStmt, FlangName.EXECUTION_PART_CONSTRUCT));
-        doStmt.addChild(body);
+    public void endDoStmt(EndDoStmt endDoStmt) {
+        stmt(endDoStmt);
     }
 
     public void compilerDirective(CompilerDirective compilerDirective) {

@@ -1,4 +1,4 @@
-package pt.up.fe.specs.fortran.ast.nodes.stmt;
+package pt.up.fe.specs.fortran.ast.nodes.stmt.loop;
 
 import org.suikasoft.jOptions.Datakey.DataKey;
 import org.suikasoft.jOptions.Datakey.KeyFactory;
@@ -7,6 +7,7 @@ import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.loops.LoopControl;
 import pt.up.fe.specs.fortran.ast.nodes.loops.enums.DoKind;
 import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.ExecutableStmt;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -14,20 +15,28 @@ import java.util.Optional;
 import static pt.up.fe.specs.fortran.ast.FortranKeyword.DO;
 import static pt.up.fe.specs.fortran.ast.FortranKeyword.END;
 
-public class DoStmt extends ExecutableStmt {
+public class DoConstruct extends ExecutableStmt {
 
     public static final DataKey<Optional<String>> NAME = KeyFactory.optional("name");
 
-    public DoStmt(DataStore data, Collection<? extends FortranNode> children) {
+    public DoConstruct(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
     }
 
-    public Optional<LoopControl> getControl() {
-        return getChildTry(LoopControl.class);
+    public DoStmt getDoStmt() {
+        return getChild(DoStmt.class);
     }
 
     public Execution getBody() {
         return getChild(Execution.class);
+    }
+
+    public EndDoStmt getEndDoStmt() {
+        return getChild(EndDoStmt.class);
+    }
+
+    public Optional<LoopControl> getControl() {
+        return getDoStmt().getLoopControl();
     }
 
     public Optional<String> getName() {
@@ -48,19 +57,10 @@ public class DoStmt extends ExecutableStmt {
 
     @Override
     public String getStmtCode() {
-        var code = new StringBuilder();
-        Optional<String> name = getName();
+        var doStmt = getDoStmt();
+        var body = getBody();
+        var endDoStmt = getEndDoStmt();
 
-        name.ifPresent(str -> code.append(str).append(" : "));
-
-        code.append(keyword(DO)).append(" ").append(getControlCode()).append(ln());
-
-        code.append(getBody().getCode()).append(ln());
-
-        code.append(keyword(END)).append(" ").append(keyword(DO));
-
-        name.ifPresent(str -> code.append(" ").append(str));
-
-        return code.toString();
+        return doStmt.getCode() + ln() + indent(body.getCode()) + ln() + endDoStmt.getCode();
     }
 }

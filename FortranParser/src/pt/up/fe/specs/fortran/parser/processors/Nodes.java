@@ -24,6 +24,9 @@ import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.datastmt.DataStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.datastmt.DataStmtSet;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.*;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.DoConstruct;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.DoStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.EndDoStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.CaseBlock;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.CaseConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.EndSelectStmt;
@@ -92,7 +95,9 @@ public class Nodes {
         processors.put(ElseStmt.class, s::elseStmt);
         processors.put(EndIfStmt.class, s::endIfStmt);
         processors.put(IfStmt.class, s::ifStmt);
+        processors.put(DoConstruct.class, s::doConstruct);
         processors.put(DoStmt.class, s::doStmt);
+        processors.put(EndDoStmt.class, s::endDoStmt);
 
         processors.put(CaseConstruct.class, s::caseConstruct);
         processors.put(SelectCaseStmt.class, s::selectCaseStmt);
