@@ -3,10 +3,7 @@ package pt.up.fe.specs.fortran.parser.processors;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.expr.Expr;
 import pt.up.fe.specs.fortran.ast.nodes.loops.WhileLoopControl;
-import pt.up.fe.specs.fortran.ast.nodes.program.EndProgramStmt;
-import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
-import pt.up.fe.specs.fortran.ast.nodes.program.ProgramStmt;
-import pt.up.fe.specs.fortran.ast.nodes.program.StmtBlock;
+import pt.up.fe.specs.fortran.ast.nodes.program.*;
 import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
 import pt.up.fe.specs.fortran.ast.nodes.specification.NamedConstantDef;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
@@ -557,5 +554,18 @@ public class StmtProcessors extends ANodeProcessor {
 
     public void endProgramStmt(EndProgramStmt endProgramStmt) {
         stmt(endProgramStmt);
+    }
+
+    public void subroutineStmt(SubroutineStmt subroutineStmt) {
+        stmt(subroutineStmt);
+
+        if (attributes(subroutineStmt).has(FlangName.DUMMY_ARG)) {
+            var dummyArgs = getChildren(subroutineStmt, FlangName.DUMMY_ARG);
+            subroutineStmt.addChildren(dummyArgs);
+        }
+    }
+
+    public void endSubroutineStmt(EndSubroutineStmt endSubroutineStmt) {
+        stmt(endSubroutineStmt);
     }
 }

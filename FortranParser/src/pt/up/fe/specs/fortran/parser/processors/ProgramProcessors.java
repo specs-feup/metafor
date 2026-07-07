@@ -79,19 +79,19 @@ public class ProgramProcessors extends ANodeProcessor {
     }
 
     public void subroutine(Subroutine subroutine) {
+        var subroutineStmt = getStmtChild(subroutine, FlangName.SUBROUTINE_STMT);
+        subroutine.addChild(subroutineStmt);
+
+        var specification = getChild(subroutine, FlangName.SPECIFICATION_PART);
+        subroutine.addChild(specification);
+
+        var execution = getChild(subroutine, FlangName.EXECUTION_PART);
+        subroutine.addChild(execution);
+
+        var endSubroutineStmt = getStmtChild(subroutine, FlangName.END_SUBROUTINE_STMT);
+        subroutine.addChild(endSubroutineStmt);
+
         var name = attributes().getString(subroutine, "source", FlangName.SUBROUTINE_STMT, FlangName.NAME);
-        // [specification-part]
-        subroutine.addChild(getChild(subroutine, FlangName.SPECIFICATION_PART));
-        // [execution-part]
-        subroutine.addChild(getChild(subroutine, FlangName.EXECUTION_PART));
-        // [internal-subprogram-part]
-
-        subroutine.set(Subroutine.SUBROUTINE_NAME, name);
-
-        String statementId = attributes().get(attributes(subroutine).getString(FlangName.SUBROUTINE_STMT.getStmtAttr())).getString("statement");
-
-        if (attributes().has(statementId, FlangName.DUMMY_ARG)) {
-            subroutine.addChildren(getChildren(statementId, FlangName.DUMMY_ARG));
-        }
+        subroutine.set(Subroutine.NAME, name);
     }
 }
