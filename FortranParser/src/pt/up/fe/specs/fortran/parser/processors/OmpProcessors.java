@@ -9,7 +9,7 @@ import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpReductionClause;
 import pt.up.fe.specs.fortran.ast.nodes.omp.enums.OmpClauseKind;
 import pt.up.fe.specs.fortran.ast.nodes.omp.enums.OmpDirectiveKind;
 import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.DoStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.DoConstruct;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 
@@ -52,7 +52,7 @@ public class OmpProcessors extends ANodeProcessor {
 
         ompLoopConstruct.set(OmpBlockConstruct.KINDS, kinds);
 
-        DoStmt loop = (DoStmt) getChildren(ompLoopConstruct, FlangName.EXECUTION_PART_CONSTRUCT).get(0);
+        DoConstruct loop = (DoConstruct) getChildren(ompLoopConstruct, FlangName.EXECUTION_PART_CONSTRUCT).get(0);
         ompLoopConstruct.addChild(loop);
 
         if (attributes().get(clauseList).has(FlangName.OMP_CLAUSE))
