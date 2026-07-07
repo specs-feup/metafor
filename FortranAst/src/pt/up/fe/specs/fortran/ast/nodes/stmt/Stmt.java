@@ -5,6 +5,7 @@ import org.suikasoft.jOptions.Datakey.KeyFactory;
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.decl.LabelDecl;
+import pt.up.fe.specs.util.SpecsCheck;
 import pt.up.fe.specs.util.SpecsCollections;
 import pt.up.fe.specs.util.utilities.PrintOnce;
 
@@ -39,7 +40,12 @@ public abstract class Stmt extends FortranNode {
     public final String getCode() {
         var labelPrefix = getLabel().map(label -> label.getCode() + " ").orElse("");
 
-        var commentsPrefix = getComments().stream()
+        var comments = getComments();
+        SpecsCheck.checkArgument(comments != null, () -> "Comment array not initialized in node of class \""
+                + getClass() + "\". Make sure you call the method StmtProcessors::stmt() on the processor for this "
+                + "node kind to initialize comments and labels.");
+
+        var commentsPrefix = comments.stream()
                 .map(comment -> comment + ln())
                 .collect(Collectors.joining());
 
