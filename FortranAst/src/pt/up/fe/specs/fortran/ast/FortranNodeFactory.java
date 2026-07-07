@@ -126,7 +126,7 @@ public class FortranNodeFactory {
 
     public MainProgram mainProgram(String programName, List<ExecutableStmt> execution) {
         DataStore data = newDataStore(MainProgram.class);
-        data.set(MainProgram.PROGRAM_NAME, Optional.ofNullable(programName));
+        data.set(MainProgram.NAME, Optional.ofNullable(programName));
 
         var executionBlock = execution(execution);
 

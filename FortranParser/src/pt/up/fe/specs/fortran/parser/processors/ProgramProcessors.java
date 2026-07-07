@@ -2,7 +2,6 @@ package pt.up.fe.specs.fortran.parser.processors;
 
 import pt.up.fe.specs.fortran.ast.FortranContext;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
-import pt.up.fe.specs.fortran.ast.nodes.alloc.Allocation;
 import pt.up.fe.specs.fortran.ast.nodes.program.*;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
@@ -31,6 +30,8 @@ public class ProgramProcessors extends ANodeProcessor {
     }
 
     public void mainProgram(MainProgram mainProgram) {
+        var programStmt = getStmtChildOptional(mainProgram, FlangName.PROGRAM_STMT);
+        programStmt.ifPresent(mainProgram::addChild);
 
         var name = attributes().getOptionalString(mainProgram, "source", FlangName.PROGRAM_STMT, FlangName.NAME);
         // [specification-part]
@@ -42,7 +43,10 @@ public class ProgramProcessors extends ANodeProcessor {
             mainProgram.addChild(getChild(mainProgram, FlangName.INTERNAL_SUBPROGRAM_PART));
         }
 
-        mainProgram.set(MainProgram.PROGRAM_NAME, name);
+        var endProgramStmt = getStmtChild(mainProgram, FlangName.END_PROGRAM_STMT);
+        mainProgram.addChild(endProgramStmt);
+
+        mainProgram.set(MainProgram.NAME, name);
     }
 
     public void specification(Specification specification) {

@@ -3,7 +3,9 @@ package pt.up.fe.specs.fortran.parser.processors;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.expr.Expr;
 import pt.up.fe.specs.fortran.ast.nodes.loops.WhileLoopControl;
+import pt.up.fe.specs.fortran.ast.nodes.program.EndProgramStmt;
 import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
+import pt.up.fe.specs.fortran.ast.nodes.program.ProgramStmt;
 import pt.up.fe.specs.fortran.ast.nodes.program.StmtBlock;
 import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
 import pt.up.fe.specs.fortran.ast.nodes.specification.NamedConstantDef;
@@ -531,5 +533,13 @@ public class StmtProcessors extends ANodeProcessor {
 
         var arraySpecOpt = getChildOptional(object, FlangName.ARRAY_SPEC);
         arraySpecOpt.ifPresent(object::addChild);
+    }
+
+    public void programStmt(ProgramStmt programStmt) {
+        stmt(programStmt);
+    }
+
+    public void endProgramStmt(EndProgramStmt endProgramStmt) {
+        stmt(endProgramStmt);
     }
 }
