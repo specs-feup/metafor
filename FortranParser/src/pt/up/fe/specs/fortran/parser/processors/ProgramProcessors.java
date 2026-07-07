@@ -7,6 +7,8 @@ import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 import pt.up.fe.specs.util.SpecsIo;
 
+import java.util.List;
+
 public class ProgramProcessors extends ANodeProcessor {
 
 
@@ -14,7 +16,7 @@ public class ProgramProcessors extends ANodeProcessor {
         super(data);
     }
 
-    public void program(FortranFile fortranFile) {
+    public void fortranFile(FortranFile fortranFile) {
         fortranFile.setChildren(getChildren(fortranFile, FlangName.PROGRAM_UNIT));
 
         var lastParsedFile = fortranFile.get(FortranNode.CONTEXT).get(FortranContext.LAST_PARSED_FILE).orElse(null);
@@ -26,6 +28,14 @@ public class ProgramProcessors extends ANodeProcessor {
 
             fortranFile.set(FortranFile.FILE_NAME, fileName);
             fortranFile.set(FortranFile.FOLDER_NAME, lastParsedFile.getParent());
+        }
+
+        // The JSON parsing assumes this node is also a statement, which is the reason for the name of the key
+        if (attributes(fortranFile).has("leadingComments")) {
+            var finalComments = attributes(fortranFile).getStringList("leadingComments");
+            fortranFile.set(FortranFile.FINAL_COMMENTS, finalComments);
+        } else {
+            fortranFile.set(FortranFile.FINAL_COMMENTS, List.of());
         }
     }
 
