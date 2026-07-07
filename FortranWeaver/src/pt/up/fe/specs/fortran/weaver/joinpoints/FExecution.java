@@ -20,7 +20,7 @@ public class FExecution extends AExecution {
 
     @Override
     public AExecutableStatement[] getExecutableStmtsArrayImpl() {
-        return execution.getExecutableStatements()
+        return execution.getStatements()
                 .stream()
                 .map(FortranJoinpoints::create)
                 .toList()
