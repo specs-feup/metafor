@@ -54,7 +54,7 @@ public class Nodes {
         this.processors = new ConsumerClassMap<>();
 
         var p = new ProgramProcessors(data);
-        processors.put(FortranFile.class, p::program);
+        processors.put(FortranFile.class, p::fortranFile);
         processors.put(MainProgram.class, p::mainProgram);
         processors.put(Specification.class, p::specification);
         processors.put(Execution.class, p::execution);
