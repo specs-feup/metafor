@@ -1,6 +1,7 @@
 ! This is a \comment
-PROGRAM HELLO
+PROGRAM hello
     ! This is "another comment"
     PRINT *, "Hello, ""World!"""  ! This is a trailing comment
-END PROGRAM HELLO
+    PRINT *, "Some"; PRINT *, "thing"  ! This is a comment after a semicolon
+END PROGRAM hello
 ! This is a final comment
