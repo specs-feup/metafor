@@ -464,7 +464,7 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void namedConstantDef(NamedConstantDef namedConstantDef) {
-        var ref = getChild(namedConstantDef, FlangName.NAMED_CONSTANT_DEF);
+var ref = getChild(namedConstantDef, FlangName.NAMED_CONSTANT);
         namedConstantDef.addChild(ref);
 
         var expr = getChild(namedConstantDef, FlangName.EXPR);
