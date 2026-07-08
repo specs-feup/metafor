@@ -1,139 +1,254 @@
 {
   "nodes": [
     {
-      "id": "0x564f41da5f00-Program",
+      "id": "0x5611007d4f00-Program",
       "ProgramUnit": [
-        "0x564f41ddab50-ProgramUnit"
+        "0x561100809c90-ProgramUnit"
       ]
     },
     {
-      "id": "0x564f41ddab50-ProgramUnit",
+      "id": "0x561100809c90-ProgramUnit",
       "variantKey": "MainProgram",
-      "MainProgram": "0x564f41dd8d30-MainProgram"
+      "MainProgram": "0x561100802090-MainProgram"
     },
     {
-      "id": "0x564f41dd8d30-MainProgram",
-      "Statement<ProgramStmt>": "0x564f41dd8e78-Statement",
-      "SpecificationPart": "0x564f41dd8dd0-SpecificationPart",
-      "ExecutionPart": "0x564f41dd8db8-ExecutionPart",
-      "Statement<EndProgramStmt>": "0x564f41dd8d30-Statement"
+      "id": "0x561100802090-MainProgram",
+      "Statement<ProgramStmt>": "0x5611008021d8-Statement",
+      "SpecificationPart": "0x561100802130-SpecificationPart",
+      "ExecutionPart": "0x561100802118-ExecutionPart",
+      "Statement<EndProgramStmt>": "0x561100802090-Statement"
     },
     {
-      "id": "0x564f41dd8e78-Statement",
-      "statement": "0x564f41dd8e88-ProgramStmt",
+      "id": "0x5611008021d8-Statement",
+      "statement": "0x5611008021e8-ProgramStmt",
       "source": "program HELLO"
     },
     {
-      "id": "0x564f41dd8e88-ProgramStmt",
-      "Name": "0x564f41dd8e88-Name"
+      "id": "0x5611008021e8-ProgramStmt",
+      "Name": "0x5611008021e8-Name"
     },
     {
-      "id": "0x564f41dd8e88-Name",
+      "id": "0x5611008021e8-Name",
       "source": "HELLO"
     },
     {
-      "id": "0x564f41dd8dd0-SpecificationPart",
-      "ImplicitPart": "0x564f41dd8de8-ImplicitPart"
+      "id": "0x561100802130-SpecificationPart",
+      "ImplicitPart": "0x561100802148-ImplicitPart"
     },
     {
-      "id": "0x564f41dd8de8-ImplicitPart"
+      "id": "0x561100802148-ImplicitPart"
     },
     {
-      "id": "0x564f41dd8db8-ExecutionPart",
+      "id": "0x561100802118-ExecutionPart",
       "ExecutionPartConstruct": [
-        "0x564f41de3120-ExecutionPartConstruct"
+        "0x561100814a20-ExecutionPartConstruct",
+        "0x561100811470-ExecutionPartConstruct",
+        "0x5611008142c0-ExecutionPartConstruct"
       ]
     },
     {
-      "id": "0x564f41dd8db8-ExecutionPartConstruct"
+      "id": "0x561100802118-ExecutionPartConstruct"
     },
     {
-      "id": "0x564f41de3120-ExecutionPartConstruct",
+      "id": "0x561100814a20-ExecutionPartConstruct",
       "variantKey": "ExecutableConstruct",
-      "ExecutableConstruct": "0x564f41de3120-ExecutableConstruct"
+      "ExecutableConstruct": "0x561100814a20-ExecutableConstruct"
     },
     {
-      "id": "0x564f41de3120-ExecutableConstruct",
+      "id": "0x561100814a20-ExecutableConstruct",
       "variantKey": "Statement",
-      "Statement<ActionStmt>": "0x564f41de3120-Statement"
+      "Statement<ActionStmt>": "0x561100814a20-Statement"
     },
     {
-      "id": "0x564f41de3120-Statement",
-      "statement": "0x564f41de3130-ActionStmt",
+      "id": "0x561100814a20-Statement",
+      "statement": "0x561100814a30-ActionStmt",
       "source": "print *, \"Hello, \"\"World!\"\"\""
     },
     {
-      "id": "0x564f41de3130-ActionStmt",
+      "id": "0x561100814a30-ActionStmt",
       "variantKey": "PrintStmt",
-      "PrintStmt": "0x564f41de6190-PrintStmt"
+      "PrintStmt": "0x56110078a260-PrintStmt"
     },
     {
-      "id": "0x564f41de6190-PrintStmt",
-      "Format": "0x564f41de61a8-Format",
+      "id": "0x56110078a260-PrintStmt",
+      "Format": "0x56110078a278-Format",
       "OutputItem": [
-        "0x564f41de6040-OutputItem"
+        "0x561100815e60-OutputItem"
       ]
     },
     {
-      "id": "0x564f41de61a8-Format",
+      "id": "0x56110078a278-Format",
       "variantKey": "Star",
-      "Star": "0x564f41de61a8-Star"
+      "Star": "0x56110078a278-Star"
     },
     {
-      "id": "0x564f41de61a8-Star"
+      "id": "0x56110078a278-Star"
     },
     {
-      "id": "0x564f41de6040-OutputItem",
+      "id": "0x561100815e60-OutputItem",
       "variantKey": "Expr",
-      "Expr": "0x564f41de6040-Expr"
+      "Expr": "0x561100815e60-Expr"
     },
     {
-      "id": "0x564f41de6040-Expr",
+      "id": "0x561100815e60-Expr",
       "variantKey": "LiteralConstant",
-      "LiteralConstant": "0x564f41de6060-LiteralConstant"
+      "LiteralConstant": "0x561100815e80-LiteralConstant"
     },
     {
-      "id": "0x564f41de6060-LiteralConstant",
+      "id": "0x561100815e80-LiteralConstant",
       "variantKey": "CharLiteralConstant",
-      "CharLiteralConstant": "0x564f41de6060-CharLiteralConstant"
+      "CharLiteralConstant": "0x561100815e80-CharLiteralConstant"
     },
     {
-      "id": "0x564f41de6060-CharLiteralConstant",
+      "id": "0x561100815e80-CharLiteralConstant",
       "string": "Hello, \"World!\""
     },
     {
-      "id": "0x564f41dd8d30-Statement",
-      "statement": "0x564f41dd8d40-EndProgramStmt",
+      "id": "0x561100811470-ExecutionPartConstruct",
+      "variantKey": "ExecutableConstruct",
+      "ExecutableConstruct": "0x561100811470-ExecutableConstruct"
+    },
+    {
+      "id": "0x561100811470-ExecutableConstruct",
+      "variantKey": "Statement",
+      "Statement<ActionStmt>": "0x561100811470-Statement"
+    },
+    {
+      "id": "0x561100811470-Statement",
+      "statement": "0x561100811480-ActionStmt",
+      "source": "print *, \"Some\""
+    },
+    {
+      "id": "0x561100811480-ActionStmt",
+      "variantKey": "PrintStmt",
+      "PrintStmt": "0x561100811360-PrintStmt"
+    },
+    {
+      "id": "0x561100811360-PrintStmt",
+      "Format": "0x561100811378-Format",
+      "OutputItem": [
+        "0x561100813c30-OutputItem"
+      ]
+    },
+    {
+      "id": "0x561100811378-Format",
+      "variantKey": "Star",
+      "Star": "0x561100811378-Star"
+    },
+    {
+      "id": "0x561100811378-Star"
+    },
+    {
+      "id": "0x561100813c30-OutputItem",
+      "variantKey": "Expr",
+      "Expr": "0x561100813c30-Expr"
+    },
+    {
+      "id": "0x561100813c30-Expr",
+      "variantKey": "LiteralConstant",
+      "LiteralConstant": "0x561100813c50-LiteralConstant"
+    },
+    {
+      "id": "0x561100813c50-LiteralConstant",
+      "variantKey": "CharLiteralConstant",
+      "CharLiteralConstant": "0x561100813c50-CharLiteralConstant"
+    },
+    {
+      "id": "0x561100813c50-CharLiteralConstant",
+      "string": "Some"
+    },
+    {
+      "id": "0x5611008142c0-ExecutionPartConstruct",
+      "variantKey": "ExecutableConstruct",
+      "ExecutableConstruct": "0x5611008142c0-ExecutableConstruct"
+    },
+    {
+      "id": "0x5611008142c0-ExecutableConstruct",
+      "variantKey": "Statement",
+      "Statement<ActionStmt>": "0x5611008142c0-Statement"
+    },
+    {
+      "id": "0x5611008142c0-Statement",
+      "statement": "0x5611008142d0-ActionStmt",
+      "source": "print *, \"thing\""
+    },
+    {
+      "id": "0x5611008142d0-ActionStmt",
+      "variantKey": "PrintStmt",
+      "PrintStmt": "0x5611008141b0-PrintStmt"
+    },
+    {
+      "id": "0x5611008141b0-PrintStmt",
+      "Format": "0x5611008141c8-Format",
+      "OutputItem": [
+        "0x5611008114d0-OutputItem"
+      ]
+    },
+    {
+      "id": "0x5611008141c8-Format",
+      "variantKey": "Star",
+      "Star": "0x5611008141c8-Star"
+    },
+    {
+      "id": "0x5611008141c8-Star"
+    },
+    {
+      "id": "0x5611008114d0-OutputItem",
+      "variantKey": "Expr",
+      "Expr": "0x5611008114d0-Expr"
+    },
+    {
+      "id": "0x5611008114d0-Expr",
+      "variantKey": "LiteralConstant",
+      "LiteralConstant": "0x5611008114f0-LiteralConstant"
+    },
+    {
+      "id": "0x5611008114f0-LiteralConstant",
+      "variantKey": "CharLiteralConstant",
+      "CharLiteralConstant": "0x5611008114f0-CharLiteralConstant"
+    },
+    {
+      "id": "0x5611008114f0-CharLiteralConstant",
+      "string": "thing"
+    },
+    {
+      "id": "0x561100802090-Statement",
+      "statement": "0x5611008020a0-EndProgramStmt",
       "source": "end program HELLO"
     },
     {
-      "id": "0x564f41dd8d40-EndProgramStmt",
-      "Name": "0x564f41dd8d40-Name"
+      "id": "0x5611008020a0-EndProgramStmt",
+      "Name": "0x5611008020a0-Name"
     },
     {
-      "id": "0x564f41dd8d40-Name",
+      "id": "0x5611008020a0-Name",
       "source": "HELLO"
     }
   ],
   "comments": [
     {
       "text": "! This is a \\comment",
-      "stmtId": "0x564f41dd8e78-Statement",
+      "stmtId": "0x5611008021d8-Statement",
       "trailing": false
     },
     {
       "text": "! This is \"another comment\"",
-      "stmtId": "0x564f41de3120-Statement",
+      "stmtId": "0x561100814a20-Statement",
       "trailing": false
     },
     {
       "text": "! This is a trailing comment",
-      "stmtId": "0x564f41de3120-Statement",
+      "stmtId": "0x561100814a20-Statement",
+      "trailing": true
+    },
+    {
+      "text": "! This is a comment after a semicolon",
+      "stmtId": "0x5611008142c0-Statement",
       "trailing": true
     },
     {
       "text": "! This is a final comment",
-      "stmtId": "0x564f41da5f00-Program",
+      "stmtId": "0x5611007d4f00-Program",
       "trailing": false
     }
   ],
