@@ -28,6 +28,8 @@ import pt.up.fe.specs.fortran.ast.nodes.omp.enums.OmpDirectiveKind;
 import pt.up.fe.specs.fortran.ast.nodes.program.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.DoConstruct;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.DoStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.EndDoStmt;
 import pt.up.fe.specs.fortran.ast.nodes.utils.Format;
 import pt.up.fe.specs.fortran.ast.nodes.utils.LabelRef;
 import pt.up.fe.specs.fortran.ast.nodes.utils.Star;
@@ -129,9 +131,11 @@ public class FortranNodeFactory {
         DataStore data = newDataStore(MainProgram.class);
         data.set(MainProgram.NAME, Optional.ofNullable(programName));
 
+        var programStmt = new ProgramStmt(data, Collections.emptyList());
         var executionBlock = execution(execution);
+        var endProgramStmt = new EndProgramStmt(data, Collections.emptyList());
 
-        return new MainProgram(data, List.of(executionBlock));
+        return new MainProgram(data, List.of(programStmt, executionBlock, endProgramStmt));
     }
 
     public Execution execution(List<ExecutableStmt> statements) {
@@ -306,10 +310,14 @@ public class FortranNodeFactory {
         return new RangeLoopControl(data, Arrays.asList(var, lower, upper));
     }
 
-    public DoConstruct doStatement(LoopControl control) {
+    public DoConstruct doConstruct(LoopControl control) {
         DataStore data = newDataStore(DoConstruct.class);
+
+        DoStmt doStmt = new DoStmt(data, List.of(control));
         Execution body = execution(Collections.emptyList());
-        return new DoConstruct(data, Arrays.asList(control, body));
+        EndDoStmt endDoStmt = new EndDoStmt(data, Collections.emptyList());
+
+        return new DoConstruct(data, List.of(doStmt, body, endDoStmt));
     }
 
     public Argument argument(Expr expr) {
