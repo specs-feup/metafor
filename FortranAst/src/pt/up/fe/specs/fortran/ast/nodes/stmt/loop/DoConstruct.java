@@ -4,20 +4,19 @@ import org.suikasoft.jOptions.Datakey.DataKey;
 import org.suikasoft.jOptions.Datakey.KeyFactory;
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
+import pt.up.fe.specs.fortran.ast.nodes.decl.LabelDecl;
 import pt.up.fe.specs.fortran.ast.nodes.loops.LoopControl;
 import pt.up.fe.specs.fortran.ast.nodes.loops.enums.DoKind;
 import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.ContinueStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ExecutableStmt;
 
 import java.util.Collection;
 import java.util.Optional;
 
-import static pt.up.fe.specs.fortran.ast.FortranKeyword.DO;
-import static pt.up.fe.specs.fortran.ast.FortranKeyword.END;
-
 public class DoConstruct extends ExecutableStmt {
-
     public static final DataKey<Optional<String>> NAME = KeyFactory.optional("name");
+    public static final DataKey<Optional<String>> DO_LABEL = KeyFactory.optional("doLabel");
 
     public DoConstruct(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
@@ -43,6 +42,10 @@ public class DoConstruct extends ExecutableStmt {
         return get(NAME);
     }
 
+    public Optional<String> getDoLabel() {
+        return get(DO_LABEL);
+    }
+
     public DoKind getKind() {
         return getControl()
                 .map(DoKind::fromControl)
@@ -61,6 +64,32 @@ public class DoConstruct extends ExecutableStmt {
         var body = getBody();
         var endDoStmt = getEndDoStmt();
 
-        return doStmt.getCode() + ln() + indent(body.getCode()) + ln() + endDoStmt.getCode();
+        var code = new StringBuilder();
+
+        code.append(doStmt.getCode()).append(ln())
+                .append(body.getCode());
+
+        var endDoStmtCode = endDoStmt.getStmtCode();
+        if (!endDoStmtCode.isEmpty()) {
+            code.append(ln()).append(endDoStmtCode);
+        }
+
+        return code.toString();
+    }
+
+    public boolean hasContinueEnd() {
+        var doLabelOpt = getDoLabel();
+        if (doLabelOpt.isEmpty()) {
+            return false;
+        }
+
+        var doLabel = doLabelOpt.get();
+        var lastStmt = getBody().getChildTry(getNumChildren() - 1);
+        if (lastStmt.isEmpty() || !(lastStmt.get() instanceof ContinueStmt contLastStmt)) {
+            return false;
+        }
+
+        var contLabel = contLastStmt.getLabel().map(LabelDecl::getCode);
+        return contLabel.map(doLabel::equals).orElse(false);
     }
 }
