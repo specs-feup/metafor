@@ -365,10 +365,22 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     private Optional<Integer> extractLabel(String doStmtSource) {
-        var spaceIdx = doStmtSource.indexOf(' ', 3);  // From index 3 to ignore first space
-        var labelText = doStmtSource.substring(3, spaceIdx);
+        // Ignore spaces, for compatibility with fixed-form (where the provided source lacks spacing)
+        doStmtSource = doStmtSource.replace(" ", "");
 
-        return SpecsStrings.tryGetDecimalInteger(labelText);
+        // Ignore 'do' keyword
+        doStmtSource = doStmtSource.substring(2);
+        var labelText = new StringBuilder();
+        for (var i = 0; i < doStmtSource.length(); i++) {
+            var c = doStmtSource.charAt(i);
+            if (!Character.isDigit(c)) {
+                break;
+            }
+
+            labelText.append(c);
+        }
+
+        return SpecsStrings.tryGetDecimalInteger(labelText.toString());
     }
 
     public void doStmt(DoStmt doStmt) {
