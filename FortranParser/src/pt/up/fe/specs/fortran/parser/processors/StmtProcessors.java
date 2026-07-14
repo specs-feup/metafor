@@ -20,7 +20,9 @@ import pt.up.fe.specs.fortran.ast.nodes.type.attributes.DimensionSpec;
 import pt.up.fe.specs.fortran.parser.FlangAttributes;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
+import pt.up.fe.specs.util.SpecsStrings;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -342,11 +344,31 @@ public class StmtProcessors extends ANodeProcessor {
         var doStmt = getStmtChild(doConstruct, FlangName.NON_LABEL_DO_STMT);
         doConstruct.addChild(doStmt);
 
-        var body = factory().newNode(Execution.class, getChildren(doConstruct, FlangName.EXECUTION_PART_CONSTRUCT));
+        var doStmtSource = attributes(doStmt).getString("source");
+        var doLabel = extractLabel(doStmtSource);
+        doConstruct.set(DoConstruct.DO_LABEL, doLabel);
+
+        var bodyStmts = new ArrayList<>(getChildren(doConstruct, FlangName.EXECUTION_PART_CONSTRUCT));
+
+        // In labeled do loops with no continue statement at the end, Flang will add
+        // an empty continue statement at the end, which we want to ignore
+        var lastStmt = bodyStmts.get(bodyStmts.size() - 1);
+        if (attributes(lastStmt).getOptionalString("source").map(String::isEmpty).orElse(false)) {
+            bodyStmts.remove(bodyStmts.size() - 1);  // Remove last element
+        }
+
+        var body = factory().newNode(Execution.class, bodyStmts);
         doConstruct.addChild(body);
 
         var endDoStmt = getStmtChild(doConstruct, FlangName.END_DO_STMT);
         doConstruct.addChild(endDoStmt);
+    }
+
+    private Optional<Integer> extractLabel(String doStmtSource) {
+        var spaceIdx = doStmtSource.indexOf(' ', 3);  // From index 3 to ignore first space
+        var labelText = doStmtSource.substring(3, spaceIdx);
+
+        return SpecsStrings.tryGetDecimalInteger(labelText);
     }
 
     public void doStmt(DoStmt doStmt) {

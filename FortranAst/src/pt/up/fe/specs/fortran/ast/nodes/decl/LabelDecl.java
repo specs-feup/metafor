@@ -26,6 +26,10 @@ public class LabelDecl extends FortranDecl {
         super(data, children);
     }
 
+    public Integer getValue() {
+        return get(LABEL);
+    }
+
     @Override
     public String getCode() {
         return get(LABEL).toString();

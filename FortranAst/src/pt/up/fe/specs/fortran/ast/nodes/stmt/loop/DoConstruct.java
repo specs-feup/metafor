@@ -16,7 +16,7 @@ import java.util.Optional;
 
 public class DoConstruct extends ExecutableStmt {
     public static final DataKey<Optional<String>> NAME = KeyFactory.optional("name");
-    public static final DataKey<Optional<String>> DO_LABEL = KeyFactory.optional("doLabel");
+    public static final DataKey<Optional<Integer>> DO_LABEL = KeyFactory.optional("doLabel");
 
     public DoConstruct(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
@@ -42,7 +42,7 @@ public class DoConstruct extends ExecutableStmt {
         return get(NAME);
     }
 
-    public Optional<String> getDoLabel() {
+    public Optional<Integer> getDoLabel() {
         return get(DO_LABEL);
     }
 
@@ -84,12 +84,14 @@ public class DoConstruct extends ExecutableStmt {
         }
 
         var doLabel = doLabelOpt.get();
-        var lastStmt = getBody().getChildTry(getNumChildren() - 1);
+        var body = getBody();
+        var lastStmt = body.getChildTry(body.getNumChildren() - 1);
+
         if (lastStmt.isEmpty() || !(lastStmt.get() instanceof ContinueStmt contLastStmt)) {
             return false;
         }
 
-        var contLabel = contLastStmt.getLabel().map(LabelDecl::getCode);
+        var contLabel = contLastStmt.getLabel().map(LabelDecl::getValue);
         return contLabel.map(doLabel::equals).orElse(false);
     }
 }
