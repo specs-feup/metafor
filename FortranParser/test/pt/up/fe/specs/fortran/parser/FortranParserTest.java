@@ -533,6 +533,18 @@ public class FortranParserTest {
     }
 
     @Test
+    void testLegacyDo() {
+        testJson("stmt/legacy_do.json");
+    }
+
+    @Test
+    void testLegacyDoNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("stmt/legacy_do.f90");
+        }
+    }
+
+    @Test
     void testFujitsu0000_0000() {
         testJson("fujitsu/0000/0000_0000.json");
     }
