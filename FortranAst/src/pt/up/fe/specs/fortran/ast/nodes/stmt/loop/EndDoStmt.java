@@ -19,9 +19,12 @@ public class EndDoStmt extends Stmt {
             return "";
         }
 
-        var doNameOpt = parent.getName();
-        var doNameSuffix = doNameOpt.map(name -> " " + name).orElse("");
+        var doLabelOpt = parent.getDoLabel();
+        var labelPrefix = doLabelOpt.map(label -> label + " ").orElse("");
 
-        return keyword(FortranKeyword.END) + " " + keyword(FortranKeyword.DO) + doNameSuffix;
+        var doNameOpt = parent.getName();
+        var nameSuffix = doNameOpt.map(name -> " " + name).orElse("");
+
+        return labelPrefix + keyword(FortranKeyword.END) + " " + keyword(FortranKeyword.DO) + nameSuffix;
     }
 }

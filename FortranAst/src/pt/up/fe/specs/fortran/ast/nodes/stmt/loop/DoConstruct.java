@@ -67,7 +67,7 @@ public class DoConstruct extends ExecutableStmt {
         var code = new StringBuilder();
 
         code.append(doStmt.getCode()).append(ln())
-                .append(body.getCode());
+                .append(indent(body.getCode()));
 
         var endDoStmtCode = endDoStmt.getStmtCode();
         if (!endDoStmtCode.isEmpty()) {
