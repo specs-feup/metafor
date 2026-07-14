@@ -19,19 +19,19 @@ DOUBLE PRECISION, DIMENSION(:, :), ALLOCATABLE :: f
 DOUBLE PRECISION, DIMENSION(:, :), ALLOCATABLE :: g
 INTEGER :: i
 !     Allocation of Arrays
-allocate(a(32 + 0, 32 + 0), STAT=i)
+ALLOCATE(a(32 + 0, 32 + 0), STAT=i)
 CALL check_err(i)
-allocate(b(32 + 0, 32 + 0), STAT=i)
+ALLOCATE(b(32 + 0, 32 + 0), STAT=i)
 CALL check_err(i)
-allocate(c(32 + 0, 32 + 0), STAT=i)
+ALLOCATE(c(32 + 0, 32 + 0), STAT=i)
 CALL check_err(i)
-allocate(d(32 + 0, 32 + 0), STAT=i)
+ALLOCATE(d(32 + 0, 32 + 0), STAT=i)
 CALL check_err(i)
-allocate(e(32 + 0, 32 + 0), STAT=i)
+ALLOCATE(e(32 + 0, 32 + 0), STAT=i)
 CALL check_err(i)
-allocate(f(32 + 0, 32 + 0), STAT=i)
+ALLOCATE(f(32 + 0, 32 + 0), STAT=i)
 CALL check_err(i)
-allocate(g(32 + 0, 32 + 0), STAT=i)
+ALLOCATE(g(32 + 0, 32 + 0), STAT=i)
 CALL check_err(i)
 !     Initialization
 CALL init_array(32, 32, 32, 32, 32, a, b, c, d)
@@ -44,14 +44,14 @@ CALL polybench_timer_print()
 !     by the function call in argument.
 CALL print_array(32, 32, g)
 !     Deallocation of Arrays
-deallocate(a)
-deallocate(b)
-deallocate(c)
-deallocate(d)
-deallocate(e)
-deallocate(f)
-deallocate(g)
-contains
+DEALLOCATE(a)
+DEALLOCATE(b)
+DEALLOCATE(c)
+DEALLOCATE(d)
+DEALLOCATE(e)
+DEALLOCATE(f)
+DEALLOCATE(g)
+CONTAINS
 SUBROUTINE init_array(ni, nj, nk, nl, nm, a, b, c, d)
 DOUBLE PRECISION, DIMENSION(nk, ni) :: a
 DOUBLE PRECISION, DIMENSION(nj, nk) :: b

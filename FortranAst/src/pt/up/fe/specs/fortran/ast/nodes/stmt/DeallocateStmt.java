@@ -1,6 +1,7 @@
 package pt.up.fe.specs.fortran.ast.nodes.stmt;
 
 import org.suikasoft.jOptions.Interfaces.DataStore;
+import pt.up.fe.specs.fortran.ast.FortranKeyword;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.expr.DataRef;
 
@@ -21,7 +22,7 @@ public class DeallocateStmt extends ActionStmt {
     public String getStmtCode() {
         StringBuilder code = new StringBuilder();
 
-        code.append("deallocate(");
+        code.append(keyword(FortranKeyword.DEALLOCATE)).append("(");
 
         code.append(getRefs()
                 .stream()

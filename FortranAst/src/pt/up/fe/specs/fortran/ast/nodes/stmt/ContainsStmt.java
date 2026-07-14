@@ -1,6 +1,7 @@
 package pt.up.fe.specs.fortran.ast.nodes.stmt;
 
 import org.suikasoft.jOptions.Interfaces.DataStore;
+import pt.up.fe.specs.fortran.ast.FortranKeyword;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 
 import java.util.Collection;
@@ -12,6 +13,6 @@ public class ContainsStmt extends ExecutableStmt {
 
     @Override
     public String getStmtCode() {
-        return "contains";
+        return keyword(FortranKeyword.CONTAINS);
     }
 }

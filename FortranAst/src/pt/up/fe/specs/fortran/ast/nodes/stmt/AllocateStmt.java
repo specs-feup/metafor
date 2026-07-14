@@ -1,6 +1,7 @@
 package pt.up.fe.specs.fortran.ast.nodes.stmt;
 
 import org.suikasoft.jOptions.Interfaces.DataStore;
+import pt.up.fe.specs.fortran.ast.FortranKeyword;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.alloc.AllocOption;
 import pt.up.fe.specs.fortran.ast.nodes.alloc.Allocation;
@@ -27,7 +28,7 @@ public class AllocateStmt extends ActionStmt {
     public String getStmtCode() {
         StringBuilder code = new StringBuilder();
 
-        code.append("allocate(");
+        code.append(keyword(FortranKeyword.ALLOCATE)).append("(");
 
         List<String> components = new ArrayList<>();
 

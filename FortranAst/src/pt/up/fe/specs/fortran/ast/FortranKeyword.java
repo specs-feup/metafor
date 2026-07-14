@@ -18,6 +18,10 @@ public enum FortranKeyword {
     ERROR,
     QUIET,
     CALL,
+    CONTINUE,
+    CONTAINS,
+    ALLOCATE,
+    DEALLOCATE,
 
     // Conditional statements
     IF,
