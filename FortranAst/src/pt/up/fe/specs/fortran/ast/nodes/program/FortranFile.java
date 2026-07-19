@@ -3,7 +3,9 @@ package pt.up.fe.specs.fortran.ast.nodes.program;
 import org.suikasoft.jOptions.Datakey.DataKey;
 import org.suikasoft.jOptions.Datakey.KeyFactory;
 import org.suikasoft.jOptions.Interfaces.DataStore;
+import pt.up.fe.specs.fortran.ast.FortranContext;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
+import pt.up.fe.specs.util.SpecsIo;
 
 import java.util.Collection;
 import java.util.List;
@@ -50,6 +52,11 @@ public class FortranFile extends FortranNode {
 
     @Override
     public String getCode() {
+        // To output in the correct form, we set it in the context at the start
+        var fileName = get(FILE_NAME);
+        var fixedForm = List.of("f", "for").contains(SpecsIo.getExtension(fileName));
+        getContext().set(FortranContext.FIXED_FORM, fixedForm);
+
         var finalComments = getFinalComments();
         var commentSuffix = finalComments.stream()
                 .map(comment -> comment + ln())

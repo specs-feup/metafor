@@ -3,6 +3,7 @@ package pt.up.fe.specs.fortran.ast.nodes.stmt;
 import org.suikasoft.jOptions.Datakey.DataKey;
 import org.suikasoft.jOptions.Datakey.KeyFactory;
 import org.suikasoft.jOptions.Interfaces.DataStore;
+import pt.up.fe.specs.fortran.ast.FortranContext;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.decl.LabelDecl;
 import pt.up.fe.specs.util.SpecsCheck;
@@ -43,7 +44,7 @@ public abstract class Stmt extends FortranNode {
 
     @Override
     public final String getCode() {
-        var labelPrefix = getLabel().map(label -> label.getCode() + " ").orElse("");
+        var labelPrefix = getLabelPrefix();
 
         var leadingComments = getLeadingComments();
         SpecsCheck.checkArgument(leadingComments != null, () -> "Leading comment array not initialized in "
@@ -58,5 +59,18 @@ public abstract class Stmt extends FortranNode {
         var commentSuffix = trailingComment.map(comment -> "  " + comment).orElse("");
 
         return commentPrefix + labelPrefix + getStmtCode() + commentSuffix;
+    }
+
+    private String getLabelPrefix() {
+        var labelOpt = getLabel();
+        var fixedForm = getContext().get(FortranContext.FIXED_FORM);
+
+        if (!fixedForm) { // Free form (AKA modern Fortran)
+            return labelOpt.map(label -> label.getCode() + " ").orElse("");
+        }
+
+        // Otherwise, fixed form (AKA legacy Fortran) -> first 5 columns are for labels, with one final separation
+        // column, and only then can statements begin
+        return (labelOpt.map(LabelDecl::getCode).orElse("") + "      ").substring(0, 6);
     }
 }

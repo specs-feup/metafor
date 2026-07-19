@@ -29,6 +29,7 @@ import pt.up.fe.specs.util.utilities.StringLines;
 
 import java.util.Collection;
 import java.util.Optional;
+import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
 /**
@@ -156,9 +157,14 @@ public abstract class FortranNode extends DataNode<FortranNode> {
     }
 
     public String indent(String code) {
+        var fixedForm = getContext().get(FortranContext.FIXED_FORM);
+        if (fixedForm) {  // We will not indent code in fixed form, to prevent using too many columns
+            return code;
+        }
+
         return StringLines.getLines(code).stream()
-            .map(line -> tab() + line)
-            .collect(Collectors.joining(ln()));
+                .map(line -> tab() + line)
+                .collect(Collectors.joining(ln()));
     }
 
 
