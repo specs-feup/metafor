@@ -5,6 +5,7 @@ import org.suikasoft.GsonPlus.JsonReaderParser;
 import pt.up.fe.specs.fortran.ast.FortranContext;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.util.SpecsCheck;
+import pt.up.fe.specs.util.SpecsIo;
 import pt.up.fe.specs.util.SpecsLogs;
 
 import java.io.*;
@@ -31,17 +32,25 @@ public class FortranJsonParser implements JsonReaderParser {
 
 
     public static FortranJsonResult parse(File file, FortranContext context) {
-        try {
-            context.set(FortranContext.LAST_PARSED_FILE, Optional.of(file));
-            return parse(new FileReader(file), context);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException("Could not read file '" + file + "'", e);
+        context.set(FortranContext.LAST_PARSED_FILE, Optional.of(file));
+
+        var parser = new FortranJsonParser(context);
+        var code = SpecsIo.read(file);
+
+        if (code == null) {
+            throw new RuntimeException("Could not read file '" + file + "'");
         }
+
+        return parser.parsePrivate(new StringReader(code), context);
     }
 
-    public static FortranJsonResult parse(Reader input, FortranContext context) {
-        var parser = new FortranJsonParser(context);
-        return parser.parsePrivate(input, context);
+    public static FortranJsonResult parse(String code, FortranContext context) {
+        // Create temporary file for dumping the input
+        var tempFile = SpecsIo.getTempFile("", "json");
+        SpecsIo.write(tempFile, code);
+        var result = parse(tempFile, context);
+        SpecsIo.delete(tempFile);
+        return result;
     }
 
     private FortranJsonResult parsePrivate(Reader input, FortranContext context) {

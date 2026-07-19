@@ -10,8 +10,6 @@ import pt.up.fe.specs.util.SpecsIo;
 import pt.up.fe.specs.util.SpecsStrings;
 import pt.up.fe.specs.util.SpecsSystem;
 
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 import java.util.function.BiFunction;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -42,7 +40,7 @@ public class FortranParserTest {
     }
 
     private static void testJson(String resource, DataStore fortranOptions) {
-        test(resource, (r, c) -> FortranJsonParser.parse(new InputStreamReader(SpecsIo.resourceToStream(r), StandardCharsets.UTF_8), c), fortranOptions);
+        test(resource, (r, c) -> FortranJsonParser.parse(SpecsIo.read(SpecsIo.resourceToStream(r)), c), fortranOptions);
     }
 
     private static void test(String resource, BiFunction<String, FortranContext, FortranJsonResult> parser, DataStore fortranOptions) {

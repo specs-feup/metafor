@@ -79,16 +79,16 @@ public class FortranNativeParser {
     }
 
     private FortranJsonResult parseStream(InputStream stream, File jsonOutput) {
-        if (jsonOutput == null) {
-            return FortranJsonParser.parse(new InputStreamReader(stream), context);
-        }
-
         // Read the stream to a string first
         var json = SpecsIo.read(stream);
 
+        if (jsonOutput == null) {
+            return FortranJsonParser.parse(json, context);
+        }
+
         SpecsIo.write(jsonOutput, json);
         SpecsLogs.info("Wrote JSON output at '" + jsonOutput.getAbsolutePath() + "'");
-        return FortranJsonParser.parse(new StringReader(json), context);
+        return FortranJsonParser.parse(jsonOutput, context);
     }
 
     public FortranJsonResult parse(InputStream input, String extension) {
