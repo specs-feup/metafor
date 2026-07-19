@@ -9,12 +9,13 @@ import pt.up.fe.specs.fortran.ast.nodes.loops.LoopControl;
 import pt.up.fe.specs.fortran.ast.nodes.loops.enums.DoKind;
 import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ContinueStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.ExecutableConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ExecutableStmt;
 
 import java.util.Collection;
 import java.util.Optional;
 
-public class DoConstruct extends ExecutableStmt {
+public class DoConstruct extends ExecutableConstruct {
     public static final DataKey<Optional<String>> NAME = KeyFactory.optional("name");
     public static final DataKey<Optional<Integer>> DO_LABEL = KeyFactory.optional("doLabel");
 
@@ -59,7 +60,7 @@ public class DoConstruct extends ExecutableStmt {
     }
 
     @Override
-    public String getStmtCode() {
+    public String getCode() {
         var doStmt = getDoStmt();
         var body = getBody();
         var endDoStmt = getEndDoStmt();

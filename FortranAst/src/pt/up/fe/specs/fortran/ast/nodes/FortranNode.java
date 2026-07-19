@@ -29,7 +29,6 @@ import pt.up.fe.specs.util.utilities.StringLines;
 
 import java.util.Collection;
 import java.util.Optional;
-import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
 /**

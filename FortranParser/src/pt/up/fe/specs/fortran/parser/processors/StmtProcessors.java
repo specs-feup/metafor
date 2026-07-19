@@ -114,8 +114,6 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void ifConstruct(IfConstruct ifConstruct) {
-        executableStmt(ifConstruct);
-
         // Add if-then block
         var ifThenStmt = getStmtChild(ifConstruct, FlangName.IF_THEN_STMT);
 
@@ -209,8 +207,6 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void caseConstruct(CaseConstruct caseConstruct) {
-        executableStmt(caseConstruct);
-
         var selectCaseStmt = getStmtChild(caseConstruct, FlangName.SELECT_CASE_STMT);
         var caseBlocks = getChildren(caseConstruct, FlangName.CASE);
         var endSelectStmt = getStmtChild(caseConstruct, FlangName.END_SELECT_STMT);
@@ -336,8 +332,6 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void doConstruct(DoConstruct doConstruct) {
-        executableStmt(doConstruct);
-
         var name = attributes().getOptionalString(doConstruct, "source", FlangName.NON_LABEL_DO_STMT, FlangName.NAME);
         name.ifPresent(str -> doConstruct.setOptional(DoConstruct.NAME, str));
 
