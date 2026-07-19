@@ -110,6 +110,9 @@ public abstract class FortranNode extends DataNode<FortranNode> {
         return newNode;
     }
 
+    public FortranContext getContext() {
+        return get(CONTEXT);
+    }
 
     public String getCode() {
         PrintOnce.info("getCode() not implemented for nodes of type " + getClass());

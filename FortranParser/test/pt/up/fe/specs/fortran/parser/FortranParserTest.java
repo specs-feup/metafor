@@ -33,7 +33,8 @@ public class FortranParserTest {
     }
 
     private static void testNative(String resource, DataStore fortranOptions) {
-        test(resource, (r, c) -> new FortranNativeParser(c).parse(SpecsIo.resourceToStream(r)), fortranOptions);
+        test(resource, (r, c) -> new FortranNativeParser(c)
+                .parse(SpecsIo.resourceToStream(r), SpecsIo.getExtension(r)), fortranOptions);
     }
 
     private static void testJson(String resource) {

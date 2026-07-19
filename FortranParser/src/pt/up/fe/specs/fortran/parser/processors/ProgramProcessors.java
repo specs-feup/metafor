@@ -19,16 +19,20 @@ public class ProgramProcessors extends ANodeProcessor {
     public void fortranFile(FortranFile fortranFile) {
         fortranFile.setChildren(getChildren(fortranFile, FlangName.PROGRAM_UNIT));
 
-        var lastParsedFile = fortranFile.get(FortranNode.CONTEXT).get(FortranContext.LAST_PARSED_FILE).orElse(null);
-        if (lastParsedFile != null) {
-            var fileName = lastParsedFile.getName();
+        var context = fortranFile.getContext();
+        var lastParsedFile = context.get(FortranContext.LAST_PARSED_FILE);
+
+        lastParsedFile.ifPresent(parsedFile -> {
+            var fileName = parsedFile.getName();
+
             if (fileName.endsWith(".json")) {
-                fileName = SpecsIo.removeExtension(fileName) + ".f90";
+                var fileExtension = context.get(FortranContext.LAST_PARSED_FILE_EXT).orElseGet(() -> "f90");
+                fileName = SpecsIo.removeExtension(fileName) + "." + fileExtension;
             }
 
             fortranFile.set(FortranFile.FILE_NAME, fileName);
-            fortranFile.set(FortranFile.FOLDER_NAME, lastParsedFile.getParent());
-        }
+            fortranFile.set(FortranFile.FOLDER_NAME, parsedFile.getParent());
+        });
 
         // The JSON parsing assumes this node is also a statement, which is the reason for the name of the key
         if (attributes(fortranFile).has("leadingComments")) {

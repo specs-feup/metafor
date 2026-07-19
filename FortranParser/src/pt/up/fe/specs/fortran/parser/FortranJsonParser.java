@@ -41,10 +41,10 @@ public class FortranJsonParser implements JsonReaderParser {
 
     public static FortranJsonResult parse(Reader input, FortranContext context) {
         var parser = new FortranJsonParser(context);
-        return parser.parsePrivate(input);
+        return parser.parsePrivate(input, context);
     }
 
-    private FortranJsonResult parsePrivate(Reader input) {
+    private FortranJsonResult parsePrivate(Reader input, FortranContext context) {
         JsonReader reader = new JsonReader(input);
 
         try {
@@ -55,6 +55,9 @@ public class FortranJsonParser implements JsonReaderParser {
                 var objectsType = nextName(reader);
 
                 switch (objectsType) {
+                    case "fileExtension":
+                        parseFileExtension(reader, context);
+                        break;
                     case "nodes":
                         parseNodes(reader);
                         break;
@@ -76,6 +79,14 @@ public class FortranJsonParser implements JsonReaderParser {
         }
 
         return new FortranJsonResult(context, firstNode, ids, fortranNodes, FlangData.convert(attributes));
+    }
+
+    private void parseFileExtension(JsonReader reader, FortranContext context) {
+        try {
+            context.setOptional(FortranContext.LAST_PARSED_FILE_EXT, reader.nextString());
+        } catch (IOException e) {
+            throw new RuntimeException("Problem while parsing Fortran json", e);
+        }
     }
 
     private void parseEnums(JsonReader reader) {
