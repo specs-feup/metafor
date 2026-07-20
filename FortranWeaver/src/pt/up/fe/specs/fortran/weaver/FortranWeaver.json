@@ -2209,8 +2209,8 @@
 		},
 		{
 			"type": "joinpoint",
-			"name": "doStatement",
-			"extends": "executableStatement"		,
+			"name": "doConstruct",
+			"extends": "joinpoint"		,
 			"tooltip": "Represents a do loop",
 			"children": [
 					{
@@ -2235,22 +2235,6 @@
 									{
 										"type": "[while| range| concurrent]",
 										"name": "kind"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "isFirst"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "isLast"
 									}]
 					},
 					{
@@ -2367,7 +2351,7 @@
 						"tooltip": "Performs a copy of the do statement, including its controls, but not the body",
 						"children": [
 									{
-										"type": "doStatement",
+										"type": "doConstruct",
 										"name": "copyScope"
 									}]
 					},
@@ -2380,7 +2364,7 @@
 										"name": "sameScope"
 									},
 									{
-										"type": "doStatement",
+										"type": "doConstruct",
 										"name": "loop",
 										"defaultValue": ""
 									}]
@@ -4891,7 +4875,7 @@
 		{
 			"type": "joinpoint",
 			"name": "ifConstruct",
-			"extends": "executableStatement"		,
+			"extends": "joinpoint"		,
 			"tooltip": "Represents the root of an if construct",
 			"children": [
 					{
@@ -4916,22 +4900,6 @@
 									{
 										"type": "ifThenBlock",
 										"name": "ifThenBlock"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "isFirst"
-									}]
-					},
-					{
-						"type": "attribute",
-						"children": [
-									{
-										"type": "Boolean",
-										"name": "isLast"
 									}]
 					},
 					{
@@ -8679,7 +8647,7 @@
 										"name": "setLoop"
 									},
 									{
-										"type": "doStatement",
+										"type": "doConstruct",
 										"name": "loop",
 										"defaultValue": ""
 									}]

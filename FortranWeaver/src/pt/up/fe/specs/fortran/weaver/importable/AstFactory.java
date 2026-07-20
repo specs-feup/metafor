@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class AstFactory {
-    public static AOmpLoopConstruct ompLoopConstruct(ADoStatement loop, Object[] args) {
+    public static AOmpLoopConstruct ompLoopConstruct(ADoConstruct loop, Object[] args) {
         List<OmpClause> clauses = SpecsCollections.asListT(AOmpClause.class, args)
                 .stream()
                 .map(clause -> (OmpClause) clause.getNode())
@@ -108,11 +108,11 @@ public class AstFactory {
         );
     }
 
-    public static ADoStatement doStatement(ARangeLoopControl control) {
+    public static ADoConstruct doStatement(ARangeLoopControl control) {
         RangeLoopControl ctrl = (RangeLoopControl) control.getNode();
         return FortranJoinpoints.create(
                 FortranWeaver.getFactory().doConstruct(ctrl),
-                ADoStatement.class
+                ADoConstruct.class
         );
     }
 

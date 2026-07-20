@@ -3,18 +3,17 @@ package pt.up.fe.specs.fortran.weaver.joinpoints;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.DoConstruct;
 import pt.up.fe.specs.fortran.weaver.FortranJoinpoints;
-import pt.up.fe.specs.fortran.weaver.abstracts.joinpoints.ADoStatement;
+import pt.up.fe.specs.fortran.weaver.abstracts.joinpoints.ADoConstruct;
 import pt.up.fe.specs.fortran.weaver.abstracts.joinpoints.AExecution;
 import pt.up.fe.specs.fortran.weaver.abstracts.joinpoints.ALoopControl;
 
 import java.util.Objects;
 
-public class FDoConstruct extends ADoStatement {
+public class FDoConstruct extends ADoConstruct {
 
     private final DoConstruct doConstruct;
 
     public FDoConstruct(DoConstruct doConstruct) {
-        super(new FExecutableStatement(doConstruct));
         this.doConstruct = doConstruct;
     }
 
@@ -34,14 +33,14 @@ public class FDoConstruct extends ADoStatement {
     }
 
     @Override
-    public ADoStatement copyScopeImpl() {
+    public ADoConstruct copyScopeImpl() {
         DoConstruct copiedDoStmt = (DoConstruct) doConstruct.copy();
         copiedDoStmt.getBody().removeChildren();
         return new FDoConstruct(copiedDoStmt);
     }
 
     @Override
-    public boolean sameScopeImpl(ADoStatement loop) {
+    public boolean sameScopeImpl(ADoConstruct loop) {
         if (!Objects.equals(this.getKindImpl(), loop.getKindImpl())) {
             return false;
         }

@@ -33,7 +33,8 @@
             <parameter name="jp" type="joinpoint"/>
         </attribute>
 
-        <attribute name="indexOfSelf" type="int" tooltip="Returns the index of this join point in relation to its parent"/>
+        <attribute name="indexOfSelf" type="int"
+                   tooltip="Returns the index of this join point in relation to its parent"/>
     </global>
 
     <!-- PROGRAM -->
@@ -85,7 +86,7 @@
     </artifact>
 
     <!-- DO LOOP -->
-    <artifact class="doStatement">
+    <artifact class="doConstruct">
         <attribute name="control" type="loopControl"/>
         <attribute name="body" type="execution"/>
         <attribute name="kind" type="{while, range, concurrent}"/>

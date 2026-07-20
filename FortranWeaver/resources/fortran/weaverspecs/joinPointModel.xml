@@ -32,9 +32,10 @@
 
     <joinpoint class="realLiteral" extends="literal"/>
 
-    <joinpoint class="doStatement" extends="executableStatement" tooltip="Represents a do loop"/>
+    <joinpoint class="doConstruct" tooltip="Represents a do loop"/>
 
-    <joinpoint class="loopControl" tooltip="Represents the loop control structure, with specialized subclasses for different loop kinds"/>
+    <joinpoint class="loopControl"
+               tooltip="Represents the loop control structure, with specialized subclasses for different loop kinds"/>
 
     <joinpoint class="rangeLoopControl" extends="loopControl"/>
 
@@ -44,7 +45,8 @@
 
     <joinpoint class="specification" extends="statementBlock"/>
 
-    <joinpoint class="arraySubscriptExpr" extends="dataRef" tooltip="Represents an access to one (or several) elements of an array"/>
+    <joinpoint class="arraySubscriptExpr" extends="dataRef"
+               tooltip="Represents an access to one (or several) elements of an array"/>
 
     <joinpoint class="compilerDirective" extends="executableStatement"/>
 
@@ -52,13 +54,16 @@
 
     <joinpoint class="ompConstruct" tooltip="Represents a generic OpenMP construct" extends="executableStatement"/>
 
-    <joinpoint class="ompBlockConstruct" tooltip="Represents an OpenMP block construct (such as parallel or task)" extends="ompConstruct"/>
+    <joinpoint class="ompBlockConstruct" tooltip="Represents an OpenMP block construct (such as parallel or task)"
+               extends="ompConstruct"/>
 
-    <joinpoint class="ompLoopConstruct" tooltip="Represents an OpenMP loop construct (such as do or do parallel)" extends="ompConstruct"/>
+    <joinpoint class="ompLoopConstruct" tooltip="Represents an OpenMP loop construct (such as do or do parallel)"
+               extends="ompConstruct"/>
 
     <joinpoint class="ompClause" tooltip="Represents an OpenMP clause"/>
 
-    <joinpoint class="ompDataSharingClause" tooltip="Represents an OpenMP datasharing clause (public, private, ...)" extends="ompClause"/>
+    <joinpoint class="ompDataSharingClause" tooltip="Represents an OpenMP datasharing clause (public, private, ...)"
+               extends="ompClause"/>
 
     <joinpoint class="ompReductionClause" extends="ompClause"/>
 
@@ -92,7 +97,7 @@
 
     <joinpoint class="ifStatement" extends="actionStatement"/>
 
-    <joinpoint class="ifConstruct" extends="executableStatement" tooltip="Represents the root of an if construct"/>
+    <joinpoint class="ifConstruct" tooltip="Represents the root of an if construct"/>
 
     <joinpoint class="ifThenBlock" tooltip="Represents the first block of an if construct"/>
 
