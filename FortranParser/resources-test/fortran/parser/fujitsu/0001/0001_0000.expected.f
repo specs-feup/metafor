@@ -9,10 +9,10 @@
       WRITE(6, *) "ELEMENT NUMBER = A(", i, ")"
       GO TO 20
       END IF
-   10 CONTINUE
+10    CONTINUE
 
       WRITE(6, *) "OK"
 
-   20 CONTINUE
+20    CONTINUE
       STOP
       END PROGRAM
