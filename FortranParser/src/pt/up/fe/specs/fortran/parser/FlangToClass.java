@@ -3,10 +3,7 @@ package pt.up.fe.specs.fortran.parser;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.alloc.Allocation;
 import pt.up.fe.specs.fortran.ast.nodes.alloc.StatVariable;
-import pt.up.fe.specs.fortran.ast.nodes.decl.DataStmtValue;
-import pt.up.fe.specs.fortran.ast.nodes.decl.DummyArgumentDecl;
-import pt.up.fe.specs.fortran.ast.nodes.decl.EntityDecl;
-import pt.up.fe.specs.fortran.ast.nodes.decl.KindSelector;
+import pt.up.fe.specs.fortran.ast.nodes.decl.*;
 import pt.up.fe.specs.fortran.ast.nodes.expr.*;
 import pt.up.fe.specs.fortran.ast.nodes.loops.ConcurrentLoopControl;
 import pt.up.fe.specs.fortran.ast.nodes.loops.ConcurrentRange;
@@ -42,10 +39,12 @@ import pt.up.fe.specs.fortran.ast.nodes.utils.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Function;
 
 public class FlangToClass {
 
     private static final Map<FlangName, Class<? extends FortranNode>> NAME_TO_CLASS = new HashMap<>();
+    private static final Map<FlangName, Function<FlangAttributes, Class<? extends FortranNode>>> NAME_TO_CONCRETE_CLASS = new HashMap<>();
 
     static {
         NAME_TO_CLASS.put(FlangName.PROGRAM, FortranFile.class);
@@ -62,7 +61,8 @@ public class FlangToClass {
 
         /// DECLs
         NAME_TO_CLASS.put(FlangName.ENTITY_DECL, EntityDecl.class);
-        NAME_TO_CLASS.put(FlangName.DUMMY_ARG, DummyArgumentDecl.class);
+        NAME_TO_CLASS.put(FlangName.DUMMY_ARG, Parameter.class);
+        NAME_TO_CONCRETE_CLASS.put(FlangName.DUMMY_ARG, FlangToClass::chooseParameter);
         NAME_TO_CLASS.put(FlangName.DATA_STMT_VALUE, DataStmtValue.class);
 
         /// STMTs
@@ -185,6 +185,10 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.NOWAIT, OmpNowaitClause.class);
     }
 
+    private static Class<? extends Parameter> chooseParameter(FlangAttributes attrs) {
+        return attrs.has("Name") ? NamedParameter.class : StarParameter.class;
+    }
+
     public static boolean isClass(String type) {
         return FlangName.convertTry(type).map(NAME_TO_CLASS::containsKey).orElse(false);
     }
@@ -193,4 +197,12 @@ public class FlangToClass {
         return FlangName.convertTry(type).map(NAME_TO_CLASS::get);
     }
 
+    public static Optional<Class<? extends FortranNode>> getConcreteClass(String type, FlangAttributes attrs) {
+        return FlangName.convertTry(type).map(name -> {
+            if (NAME_TO_CONCRETE_CLASS.containsKey(name)) {
+                return NAME_TO_CONCRETE_CLASS.get(name).apply(attrs);
+            }
+            return NAME_TO_CLASS.get(name);
+        });
+    }
 }

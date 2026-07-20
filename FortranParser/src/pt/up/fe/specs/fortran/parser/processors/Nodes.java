@@ -3,10 +3,7 @@ package pt.up.fe.specs.fortran.parser.processors;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.alloc.Allocation;
 import pt.up.fe.specs.fortran.ast.nodes.alloc.StatVariable;
-import pt.up.fe.specs.fortran.ast.nodes.decl.DataStmtValue;
-import pt.up.fe.specs.fortran.ast.nodes.decl.DummyArgumentDecl;
-import pt.up.fe.specs.fortran.ast.nodes.decl.EntityDecl;
-import pt.up.fe.specs.fortran.ast.nodes.decl.KindSelector;
+import pt.up.fe.specs.fortran.ast.nodes.decl.*;
 import pt.up.fe.specs.fortran.ast.nodes.expr.*;
 import pt.up.fe.specs.fortran.ast.nodes.loops.ConcurrentLoopControl;
 import pt.up.fe.specs.fortran.ast.nodes.loops.ConcurrentRange;
@@ -66,7 +63,8 @@ public class Nodes {
         var d = new DeclProcessors(data);
         processors.put(EntityDecl.class, d::entityDecl);
         processors.put(DataStmtValue.class, d::dataStmtValue);
-        processors.put(DummyArgumentDecl.class, d::dummyArgumentDecl);
+        processors.put(NamedParameter.class, d::namedParameter);
+        processors.put(StarParameter.class, d::starParameter);
 
         var v = new VariableProcessor(data);
         processors.put(DataRef.class, v::dataRefProcessor);

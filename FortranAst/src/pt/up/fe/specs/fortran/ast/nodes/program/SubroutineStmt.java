@@ -2,7 +2,7 @@ package pt.up.fe.specs.fortran.ast.nodes.program;
 
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
-import pt.up.fe.specs.fortran.ast.nodes.decl.DummyArgumentDecl;
+import pt.up.fe.specs.fortran.ast.nodes.decl.Parameter;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.Stmt;
 
 import java.util.Collection;
@@ -16,16 +16,16 @@ public class SubroutineStmt extends Stmt {
         super(data, children);
     }
 
-    public List<DummyArgumentDecl> getDummyArgs() {
-        return getChildrenOf(DummyArgumentDecl.class);
+    public List<Parameter> getParameters() {
+        return getChildrenOf(Parameter.class);
     }
 
     @Override
     public String getStmtCode() {
         var subroutineName = getAncestor(Subroutine.class).getName();
 
-        var argCode = getDummyArgs().stream()
-                .map(DummyArgumentDecl::getCode)
+        var argCode = getParameters().stream()
+                .map(Parameter::getCode)
                 .collect(Collectors.joining(", ", "(", ")"));
 
         return keyword(SUBROUTINE) + " " + subroutineName + argCode;
