@@ -66,6 +66,7 @@ public enum FlangName implements StringProvider {
     COMMON_STMT,
     COMMON_STMT_BLOCK,
     COMMON_BLOCK_OBJECT,
+    RETURN_STMT,
 
     /// Conditional Statements
     IF_CONSTRUCT,

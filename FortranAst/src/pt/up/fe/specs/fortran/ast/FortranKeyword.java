@@ -22,6 +22,7 @@ public enum FortranKeyword {
     CONTAINS,
     ALLOCATE,
     DEALLOCATE,
+    RETURN,
 
     // Conditional statements
     IF,
