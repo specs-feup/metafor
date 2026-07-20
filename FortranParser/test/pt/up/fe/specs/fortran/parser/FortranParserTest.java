@@ -549,6 +549,18 @@ public class FortranParserTest {
     }
 
     @Test
+    void testReturn() {
+        testJson("stmt/return.json");
+    }
+
+    @Test
+    void testReturnNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("stmt/return.f90");
+        }
+    }
+
+    @Test
     void testFujitsu0000_0000() {
         testJson("fujitsu/0000/0000_0000.json");
     }
