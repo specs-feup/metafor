@@ -71,6 +71,7 @@ public abstract class Stmt extends FortranNode {
 
         // Otherwise, fixed form (AKA legacy Fortran) -> first 5 columns are for labels, with one final separation
         // column, and only then can statements begin
-        return (labelOpt.map(LabelDecl::getCode).orElse("") + "      ").substring(0, 6);
+        var labelText = labelOpt.map(LabelDecl::getCode).orElse("");
+        return " ".repeat(5 - labelText.length()) + labelText + " ";
     }
 }
