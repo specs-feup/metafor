@@ -61,9 +61,14 @@ public class FortranParserTest {
         var code = rootNode.getCode();
 
         // Get expected output resource
-        var expectedResourceName = BASE_RESOURCE + SpecsIo.removeExtension(resource) + ".expected.f90";
-        if (!SpecsIo.hasResource(resourceName)) {
-            fail("Could not find expected output resource '" + expectedResourceName + "'. Expected contents:\n" + code);
+        var extension = SpecsIo.getExtension(resource);
+        if (extension.equals("json")) {
+            extension = context.get(FortranContext.LAST_PARSED_FILE_EXT).orElseGet(() -> "f90");
+        }
+
+        var expectedResourceName = BASE_RESOURCE + SpecsIo.removeExtension(resource) + ".expected." + extension;
+        if (!SpecsIo.hasResource(expectedResourceName)) {
+            fail("Could not find expected output resource '" + expectedResourceName + "'. Generated contents:\n" + code);
         }
 
         // Compare resource contents with code, normalized
