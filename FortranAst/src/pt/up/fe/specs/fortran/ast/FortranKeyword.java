@@ -45,6 +45,7 @@ public enum FortranKeyword {
     PARAMETER,
     DATA,
     COMMON,
+    INTENT,
 
     OMP;
 

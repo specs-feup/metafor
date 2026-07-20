@@ -20,4 +20,7 @@ public class FortranKeywords {
         return keyword.getKeyword(lowercase);
     }
 
+    public boolean isLowercase() {
+        return lowercase;
+    }
 }
