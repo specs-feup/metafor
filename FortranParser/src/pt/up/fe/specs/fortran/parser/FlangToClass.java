@@ -103,9 +103,9 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.CONTINUE_STMT, ContinueStmt.class);
         NAME_TO_CLASS.put(FlangName.PARAMETER_STMT, ParameterStmt.class);
         NAME_TO_CLASS.put(FlangName.NAMED_CONSTANT_DEF, NamedConstantDef.class);
-
         NAME_TO_CLASS.put(FlangName.DATA_STMT, DataStmt.class);
         NAME_TO_CLASS.put(FlangName.DATA_STMT_SET, DataStmtSet.class);
+        NAME_TO_CLASS.put(FlangName.RETURN_STMT, ReturnStmt.class);
 
         /// Variables
         //NAME_TO_CLASS.put(FlangName.DATA_REF, DataRef.class);

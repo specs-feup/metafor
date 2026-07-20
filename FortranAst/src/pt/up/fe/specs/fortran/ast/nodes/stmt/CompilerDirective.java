@@ -8,8 +8,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CompilerDirective extends ExecutableStmt {
-
+public class CompilerDirective extends Stmt {
     public CompilerDirective(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
     }

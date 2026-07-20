@@ -10,7 +10,7 @@ import java.util.Optional;
 
 import static pt.up.fe.specs.fortran.ast.FortranKeyword.RETURN;
 
-public class ReturnStmt extends ExecutableStmt {
+public class ReturnStmt extends ActionStmt {
     public static final DataKey<Optional<Integer>> TARGET = KeyFactory.optional("target");
 
     public ReturnStmt(DataStore data, Collection<? extends FortranNode> children) {

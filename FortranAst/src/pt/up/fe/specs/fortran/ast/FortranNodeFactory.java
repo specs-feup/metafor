@@ -127,7 +127,7 @@ public class FortranNodeFactory {
     }
 
 
-    public MainProgram mainProgram(String programName, List<ExecutableStmt> execution) {
+    public MainProgram mainProgram(String programName, List<FortranNode> execution) {
         DataStore data = newDataStore(MainProgram.class);
         data.set(MainProgram.NAME, Optional.ofNullable(programName));
 
@@ -138,7 +138,7 @@ public class FortranNodeFactory {
         return new MainProgram(data, List.of(programStmt, executionBlock, endProgramStmt));
     }
 
-    public Execution execution(List<ExecutableStmt> statements) {
+    public Execution execution(List<FortranNode> statements) {
         DataStore data = newDataStore(Execution.class);
 
         return new Execution(data, statements);

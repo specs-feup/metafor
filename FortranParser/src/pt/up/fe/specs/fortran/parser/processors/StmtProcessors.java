@@ -414,7 +414,7 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void compilerDirective(CompilerDirective compilerDirective) {
-        executableStmt(compilerDirective);
+        stmt(compilerDirective);
 
         var variantKey = attributes(compilerDirective).getVariantKey();
         compilerDirective.addChildren(getChildren(compilerDirective, variantKey));
@@ -598,5 +598,14 @@ var ref = getChild(namedConstantDef, FlangName.NAMED_CONSTANT);
 
     public void endSubroutineStmt(EndSubroutineStmt endSubroutineStmt) {
         stmt(endSubroutineStmt);
+    }
+
+    public void returnStmt(ReturnStmt returnStmt) {
+        executableStmt(returnStmt);
+
+        var target = attributes()
+                .getOptionalString(returnStmt, "CharBlock", FlangName.EXPR, FlangName.LITERAL_CONSTANT, FlangName.INT_LITERAL_CONSTANT)
+                .map(Integer::parseInt);
+        returnStmt.set(ReturnStmt.TARGET, target);
     }
 }

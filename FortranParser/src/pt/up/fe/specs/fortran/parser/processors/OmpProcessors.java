@@ -25,8 +25,6 @@ public class OmpProcessors extends ANodeProcessor {
     }
 
     public void ompBlockConstruct(OmpBlockConstruct ompBlockConstruct) {
-        stmtProcessors.stmt(ompBlockConstruct);
-
         String directive = attributes().getString(ompBlockConstruct, "directive", FlangName.OMP_BEGIN_DIRECTIVE, FlangName.OMP_DIRECTIVE_NAME);
         String clauseList = attributes().getString(ompBlockConstruct, "id", FlangName.OMP_BEGIN_DIRECTIVE, FlangName.OMP_CLAUSE_LIST);
 
@@ -42,8 +40,6 @@ public class OmpProcessors extends ANodeProcessor {
     }
 
     public void ompLoopConstruct(OmpLoopConstruct ompLoopConstruct) {
-        stmtProcessors.stmt(ompLoopConstruct);
-
         String directive = attributes().getString(ompLoopConstruct, "directive", FlangName.OMP_BEGIN_LOOP_DIRECTIVE, FlangName.OMP_DIRECTIVE_NAME);
         String clauseList = attributes().getString(ompLoopConstruct, "id", FlangName.OMP_BEGIN_LOOP_DIRECTIVE, FlangName.OMP_CLAUSE_LIST);
         String endClauseList = attributes().getString(ompLoopConstruct, "id", FlangName.OMP_END_LOOP_DIRECTIVE, FlangName.OMP_CLAUSE_LIST);

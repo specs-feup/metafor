@@ -5,7 +5,6 @@ import org.suikasoft.jOptions.Datakey.KeyFactory;
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ExecutableConstruct;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.ExecutableStmt;
 
 import java.util.Collection;
 import java.util.List;

@@ -10,7 +10,6 @@ import pt.up.fe.specs.fortran.ast.nodes.loops.enums.DoKind;
 import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ContinueStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ExecutableConstruct;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.ExecutableStmt;
 
 import java.util.Collection;
 import java.util.Optional;
