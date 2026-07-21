@@ -4,13 +4,13 @@ C
       code = 0
       CALL sub1(a, b, c, 1000, code)
 C
-      IF (code == 0) WRITE(6,*) "OK"
+      IF (code == 0) WRITE(6, *) "OK"
 C
       STOP
       END PROGRAM
 C
       SUBROUTINE sub1(a, b, c, n, code)
-      INTEGER a(n), b(n), c(n), code
+      INTEGER :: a(n), b(n), c(n), code
 C
       a(1:n) = b(1:n) + 1
       b(1:n) = b(1:n) + 1
@@ -32,7 +32,7 @@ C
       WRITE(6, *) "ELEMENT NUMBER = B(", i, ")"
       code = 1
       GO TO 40
-      ENDIF
+      END IF
    30 CONTINUE
 C
    40 CONTINUE
