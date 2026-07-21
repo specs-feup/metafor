@@ -30,6 +30,6 @@ public enum IntentKind implements StringProvider {
     }
 
     public String getCode(boolean lowercase) {
-        return lowercase ? name().toLowerCase() : name();
+        return lowercase ? string.toLowerCase() : string.toUpperCase();
     }
 }
