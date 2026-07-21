@@ -24,7 +24,7 @@ public class DataStmt extends DeclarationStmt {
 
         var dataSetsCode = dataSets.stream()
                 .map(DataStmtSet::getCode)
-                .collect(Collectors.joining(", "));
+                .collect(Collectors.joining("," + optSpc()));
 
         return keyword(FortranKeyword.DATA) + " " + dataSetsCode;
     }

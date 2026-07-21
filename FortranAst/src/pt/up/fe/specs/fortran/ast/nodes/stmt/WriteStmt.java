@@ -48,15 +48,15 @@ public class WriteStmt extends ActionStmt {
 
         getControlSpecs().forEach(spec -> parts.add(spec.getCode()));
 
-        code.append(String.join(", ", parts));
+        code.append(String.join("," + optSpc(), parts));
 
-        code.append(") ");
+        code.append(")").append(optSpc());
 
         code.append(
                 getOutputItems()
                         .stream()
                         .map(Expr::getCode)
-                        .collect(Collectors.joining(", "))
+                        .collect(Collectors.joining("," + optSpc()))
         );
 
         return code.toString();

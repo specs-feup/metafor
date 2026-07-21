@@ -14,6 +14,10 @@ public class EndProgramStmt extends Stmt {
 
     @Override
     public String getStmtCode() {
+        if (fixedForm()) {
+            return keyword(FortranKeyword.END);
+        }
+
         var nameOpt = getAncestor(MainProgram.class).getName();
         var nameSuffix = nameOpt.map(name -> " " + name).orElse("");
 

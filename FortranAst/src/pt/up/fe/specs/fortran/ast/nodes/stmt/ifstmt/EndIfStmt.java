@@ -22,10 +22,12 @@ public class EndIfStmt extends Stmt {
         var code = new StringBuilder();
 
         code.append(keyword(FortranKeyword.END))
-                .append(" ")
+                .append(optSpc())
                 .append(keyword(FortranKeyword.IF));
 
-        nameOpt.ifPresent(name -> code.append(" ").append(name));
+        if (!fixedForm()) {
+            nameOpt.ifPresent(name -> code.append(" ").append(name));
+        }
 
         return code.toString();
     }

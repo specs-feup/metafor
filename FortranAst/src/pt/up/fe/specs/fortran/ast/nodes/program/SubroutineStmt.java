@@ -26,7 +26,7 @@ public class SubroutineStmt extends Stmt {
 
         var argCode = getParameters().stream()
                 .map(Parameter::getCode)
-                .collect(Collectors.joining(", ", "(", ")"));
+                .collect(Collectors.joining("," + optSpc(), "(", ")"));
 
         return keyword(SUBROUTINE) + " " + subroutineName + argCode;
     }

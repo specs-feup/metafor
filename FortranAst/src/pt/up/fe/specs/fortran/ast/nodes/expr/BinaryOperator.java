@@ -41,7 +41,7 @@ public class BinaryOperator extends Expr {
 
         return getLhs().getCode() +
 
-                " " + get(OP).getOpString() + " " +
+                optSpc() + get(OP).getOpString() + optSpc() +
 
                 getRhs().getCode();
     }

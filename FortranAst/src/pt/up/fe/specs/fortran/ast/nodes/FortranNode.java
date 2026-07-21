@@ -132,6 +132,19 @@ public abstract class FortranNode extends DataNode<FortranNode> {
         return get(CONTEXT).get(FortranContext.FORTRAN_KEYWORDS).get(keyword);
     }
 
+    protected boolean fixedForm() {
+        return getContext().get(FortranContext.FIXED_FORM);
+    }
+
+    protected String getCommentStarter() {
+        return fixedForm() ? "C" : "!";
+    }
+
+    // Represents an optional space, omitted when generating fixed-form code
+    protected String optSpc() {
+        return !fixedForm() ? " " : "";
+    }
+
     public FortranNodeFactory getFactory() {
         return get(FortranNode.CONTEXT).get(FortranContext.FACTORY);
     }
@@ -207,10 +220,5 @@ public abstract class FortranNode extends DataNode<FortranNode> {
         }
 
         return Optional.of(siblings.get(rightIndex));
-    }
-
-    protected String getCommentStarter() {
-        var fixedForm = getContext().get(FortranContext.FIXED_FORM);
-        return fixedForm ? "C" : "!";
     }
 }

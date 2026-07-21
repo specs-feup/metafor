@@ -15,7 +15,8 @@ public class ConcurrentRange extends RangeLoopControl {
     public String getCode() {
         StringBuilder code = new StringBuilder();
 
-        code.append(getVar().getCode()).append(" = ")
+        code.append(getVar().getCode())
+                .append(optSpc()).append("=").append(optSpc())
                 .append(getLower().getCode()).append(":")
                 .append(getUpper().getCode());
 

@@ -26,7 +26,7 @@ public class Call extends Expr {
         return getCallee().getCode() + "(" +
                 getArgs().stream()
                         .map(Argument::getCode)
-                        .collect(Collectors.joining(", ")) +
+                        .collect(Collectors.joining("," + optSpc())) +
                 ")";
     }
 }

@@ -28,7 +28,7 @@ public class AssignmentStmt extends ActionStmt {
         var variable = getVariable();
         code.append(variable.getCode());
 
-        code.append(" = ");
+        code.append(optSpc()).append("=").append(optSpc());
 
         var expression = getExpression();
         code.append(expression.getCode());

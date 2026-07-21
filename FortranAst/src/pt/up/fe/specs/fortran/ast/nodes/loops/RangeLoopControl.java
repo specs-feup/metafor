@@ -45,8 +45,9 @@ public class RangeLoopControl extends LoopControl {
     public String getCode() {
         StringBuilder code = new StringBuilder();
 
-        code.append(getVar().getCode()).append(" = ")
-                .append(getLower().getCode()).append(", ")
+        code.append(getVar().getCode())
+                .append(optSpc()).append("=").append(optSpc())
+                .append(getLower().getCode()).append(",").append(optSpc())
                 .append(getUpper().getCode());
 
         getStep().ifPresent(step -> code.append(", ").append(step.getCode()));

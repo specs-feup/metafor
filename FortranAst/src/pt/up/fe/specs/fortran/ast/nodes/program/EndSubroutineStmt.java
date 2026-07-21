@@ -14,6 +14,10 @@ public class EndSubroutineStmt extends Stmt {
 
     @Override
     public String getStmtCode() {
+        if (fixedForm()) {
+            return keyword(FortranKeyword.END);
+        }
+
         var subroutineName = getAncestor(Subroutine.class).getName();
         return keyword(FortranKeyword.END) + " " + keyword(FortranKeyword.SUBROUTINE) + " " + subroutineName;
     }
