@@ -1,50 +1,50 @@
-      INTEGER :: A(1000), B(1000), C(1000), CODE
-      DATA A/1000*0/, B/1000*0/, C/1000*0/
+      INTEGER :: a(1000), b(1000), c(1000), code
+      DATA a / 1000*0 /, B / 1000*0 /, C / 1000*0 /
 C
-      CODE = 0
-      CALL SUB1(A, B, C, 1000, CODE)
+      code = 0
+      CALL sub1(a, b, c, 1000, code)
 C
-      IF (CODE == 0) WRITE(6,*) 'OK'
+      IF (code == 0) WRITE(6,*) "OK"
 C
       STOP
       END PROGRAM
 C
-      SUBROUTINE SUB1(A, B, C, N, CODE)
-      INTEGER A(N), B(N), C(N), CODE
+      SUBROUTINE sub1(a, b, c, n, code)
+      INTEGER a(n), b(n), c(n), code
 C
-      A(1:N) = B(1:N) + 1
-      B(1:N) = B(1:N) + 1
-      C(1:N) = C(1:N) + 1
+      a(1:n) = b(1:n) + 1
+      b(1:n) = b(1:n) + 1
+      c(1:n) = c(1:n) + 1
 C
-      DO 10 I = 1,1000
-      IF(A(I) /= 1) THEN
-      WRITE(6,*) 'NG'
-      WRITE(6,*) 'ELEMENT NUMBER = A(',I,')'
-      CODE = 1
+      DO 10 i = 1, 1000
+      IF (a(i) /= 1) THEN
+      WRITE(6, *) "NG"
+      WRITE(6, *) "ELEMENT NUMBER = a(", i, ")"
+      code = 1
       GO TO 20
       END IF
    10 CONTINUE
 C
    20 CONTINUE
-      DO 30 I=1,1000
-      IF (B(I) /= 1) THEN
-      WRITE(6,*) 'NG'
-      WRITE(6,*) 'ELEMENT NUMBER = B(',I,')'
-      CODE = 1
+      DO 30 i = 1, 1000
+      IF (b(i) /= 1) THEN
+      WRITE(6, *) "NG"
+      WRITE(6, *) "ELEMENT NUMBER = B(", i, ")"
+      code = 1
       GO TO 40
       ENDIF
    30 CONTINUE
 C
    40 CONTINUE
-      DO 50 I=1,1000
-      IF(C(I).NE.1) THEN
-      WRITE(6,*) 'NG'
-      WRITE(6,*) 'ELEMENT NUMBER = C(',I,')'
-      CODE = 1
+      DO 50 i = 1, 1000
+      IF (c(i) /= 1) THEN
+      WRITE(6, *) "NG"
+      WRITE(6, *) "ELEMENT NUMBER = C(", i, ")"
+      code = 1
       GO TO 60
       END IF
    50 CONTINUE
 C
    60 CONTINUE
       RETURN
-      END SUBROUTINE
+      END SUBROUTINE sub1

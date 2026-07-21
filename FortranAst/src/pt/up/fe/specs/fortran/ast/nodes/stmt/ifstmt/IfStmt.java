@@ -30,7 +30,7 @@ public class IfStmt extends ActionStmt {
                 "%s (%s) %s",
                 keyword(FortranKeyword.IF),
                 condition.getCode(),
-                thenAction.getCode()
+                thenAction.getStmtCode()
         );
     }
 }
