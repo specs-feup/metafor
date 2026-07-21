@@ -5,7 +5,6 @@ import pt.up.fe.specs.fortran.ast.nodes.omp.OmpConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpClause;
 import pt.up.fe.specs.fortran.ast.nodes.omp.enums.OmpDirectiveKind;
 import pt.up.fe.specs.fortran.weaver.FortranJoinpoints;
-import pt.up.fe.specs.fortran.weaver.abstracts.joinpoints.AExpr;
 import pt.up.fe.specs.fortran.weaver.abstracts.joinpoints.AOmpClause;
 import pt.up.fe.specs.fortran.weaver.abstracts.joinpoints.AOmpConstruct;
 
@@ -17,7 +16,7 @@ public class FOmpConstruct extends AOmpConstruct {
     public final OmpConstruct ompConstruct;
 
     public FOmpConstruct(OmpConstruct ompConstruct) {
-        super(new FExecutableStatement(ompConstruct));
+        super(new FExecutableConstruct(ompConstruct));
         this.ompConstruct = ompConstruct;
     }
 

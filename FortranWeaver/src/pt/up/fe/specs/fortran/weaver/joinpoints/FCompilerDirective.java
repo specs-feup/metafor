@@ -4,7 +4,6 @@ import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.CompilerDirective;
 import pt.up.fe.specs.fortran.weaver.FortranJoinpoints;
 import pt.up.fe.specs.fortran.weaver.abstracts.joinpoints.ACompilerDirective;
-import pt.up.fe.specs.fortran.weaver.abstracts.joinpoints.AExpr;
 import pt.up.fe.specs.fortran.weaver.abstracts.joinpoints.ANameValue;
 
 public class FCompilerDirective extends ACompilerDirective {
@@ -12,7 +11,7 @@ public class FCompilerDirective extends ACompilerDirective {
     private final CompilerDirective compilerDirective;
 
     public FCompilerDirective(CompilerDirective compilerDirective) {
-        super(new FExecutableStatement(compilerDirective));
+        super(new FStatement(compilerDirective));
         this.compilerDirective = compilerDirective;
     }
 

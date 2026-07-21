@@ -32,7 +32,9 @@
 
     <joinpoint class="realLiteral" extends="literal"/>
 
-    <joinpoint class="doConstruct" tooltip="Represents a do loop"/>
+    <joinpoint class="executableConstruct"/>
+
+    <joinpoint class="doConstruct" extends="executableConstruct" tooltip="Represents a do loop"/>
 
     <joinpoint class="loopControl"
                tooltip="Represents the loop control structure, with specialized subclasses for different loop kinds"/>
@@ -48,11 +50,11 @@
     <joinpoint class="arraySubscriptExpr" extends="dataRef"
                tooltip="Represents an access to one (or several) elements of an array"/>
 
-    <joinpoint class="compilerDirective" extends="executableStatement"/>
+    <joinpoint class="compilerDirective" extends="statement"/>
 
     <joinpoint class="nameValue" tooltip="Represents a name/value pair in a compiler directive"/>
 
-    <joinpoint class="ompConstruct" tooltip="Represents a generic OpenMP construct" extends="executableStatement"/>
+    <joinpoint class="ompConstruct" extends="executableConstruct" tooltip="Represents a generic OpenMP construct"/>
 
     <joinpoint class="ompBlockConstruct" tooltip="Represents an OpenMP block construct (such as parallel or task)"
                extends="ompConstruct"/>
@@ -97,7 +99,7 @@
 
     <joinpoint class="ifStatement" extends="actionStatement"/>
 
-    <joinpoint class="ifConstruct" tooltip="Represents the root of an if construct"/>
+    <joinpoint class="ifConstruct" extends="executableConstruct" tooltip="Represents the root of an if construct"/>
 
     <joinpoint class="ifThenBlock" tooltip="Represents the first block of an if construct"/>
 

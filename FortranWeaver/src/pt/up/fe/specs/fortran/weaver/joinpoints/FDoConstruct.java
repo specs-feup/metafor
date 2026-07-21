@@ -14,6 +14,7 @@ public class FDoConstruct extends ADoConstruct {
     private final DoConstruct doConstruct;
 
     public FDoConstruct(DoConstruct doConstruct) {
+        super(new FExecutableConstruct(doConstruct));
         this.doConstruct = doConstruct;
     }
 
