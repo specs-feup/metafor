@@ -1,5 +1,5 @@
       INTEGER :: a(1000), b(1000), c(1000), code
-      DATA a / 1000*0 /, B / 1000*0 /, C / 1000*0 /
+      DATA a / 1000*0 /, b / 1000*0 /, c / 1000*0 /
 C
       code = 0
       CALL sub1(a, b, c, 1000, code)
@@ -19,7 +19,7 @@ C
       DO 10 i = 1, 1000
       IF (a(i) /= 1) THEN
       WRITE(6, *) "NG"
-      WRITE(6, *) "ELEMENT NUMBER = a(", i, ")"
+      WRITE(6, *) "ELEMENT NUMBER = A(", i, ")"
       code = 1
       GO TO 20
       END IF
