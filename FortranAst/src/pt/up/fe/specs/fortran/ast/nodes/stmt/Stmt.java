@@ -44,26 +44,28 @@ public abstract class Stmt extends FortranNode {
 
     @Override
     public final String getCode() {
-        var labelPrefix = getLabelPrefix();
+        var fixedForm = getContext().get(FortranContext.FIXED_FORM);
+        var labelPrefix = getLabelPrefix(fixedForm);
 
         var leadingComments = getLeadingComments();
         SpecsCheck.checkArgument(leadingComments != null, () -> "Leading comment array not initialized in "
                 + "node of class \"" + getClass() + "\". Make sure you call the method StmtProcessors::stmt() on the "
                 + "processor for this node kind to initialize comments and labels.");
 
-        var trailingComment = getTrailingComment();
-
+        var commentStarter = getCommentStarter();
         var commentPrefix = leadingComments.stream()
-                .map(comment -> comment + ln())
+                .map(comment -> commentStarter + comment + ln())
                 .collect(Collectors.joining());
-        var commentSuffix = trailingComment.map(comment -> "  " + comment).orElse("");
+
+        var commentSuffix = !fixedForm
+                ? getTrailingComment().map(comment -> "  !" + comment).orElse("")
+                : "";
 
         return commentPrefix + labelPrefix + getStmtCode() + commentSuffix;
     }
 
-    private String getLabelPrefix() {
+    private String getLabelPrefix(boolean fixedForm) {
         var labelOpt = getLabel();
-        var fixedForm = getContext().get(FortranContext.FIXED_FORM);
 
         if (!fixedForm) { // Free form (AKA modern Fortran)
             return labelOpt.map(label -> label.getCode() + " ").orElse("");

@@ -208,4 +208,9 @@ public abstract class FortranNode extends DataNode<FortranNode> {
 
         return Optional.of(siblings.get(rightIndex));
     }
+
+    protected String getCommentStarter() {
+        var fixedForm = getContext().get(FortranContext.FIXED_FORM);
+        return fixedForm ? "C" : "!";
+    }
 }

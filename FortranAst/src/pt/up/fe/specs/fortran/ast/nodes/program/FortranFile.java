@@ -58,8 +58,9 @@ public class FortranFile extends FortranNode {
         getContext().set(FortranContext.FIXED_FORM, fixedForm);
 
         var finalComments = getFinalComments();
+
         var commentSuffix = finalComments.stream()
-                .map(comment -> comment + ln())
+                .map(comment -> getCommentStarter() + comment + ln())
                 .collect(Collectors.joining());
 
         var programUnitsCode = getProgramUnits().stream()
