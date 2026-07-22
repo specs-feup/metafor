@@ -40,6 +40,7 @@ public enum FortranKeyword {
     DOUBLE,
     PRECISION,
     DIMENSION,
+    COMPLEX,
 
     // Declarations
     PARAMETER,
