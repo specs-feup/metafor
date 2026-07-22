@@ -561,6 +561,18 @@ public class FortranParserTest {
     }
 
     @Test
+    void testComplexLiteral() {
+        testJson("expr/complex_literal.json");
+    }
+
+    @Test
+    void testComplexLiteralNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("expr/complex_literal.f90");
+        }
+    }
+
+    @Test
     void testFujitsu0000_0000() {
         testJson("fujitsu/0000/0000_0000.json");
     }

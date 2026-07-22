@@ -5,7 +5,7 @@ import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 
 import java.util.Collection;
 
-public abstract class RealComplexPart extends ComplexPart<RealLiteral> {
+public class RealComplexPart extends ComplexPart<RealLiteral> {
     public RealComplexPart(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
     }
