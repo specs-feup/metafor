@@ -1,4 +1,4 @@
-program complex_literals
+program complex_literal
     use, intrinsic :: iso_fortran_env, only: sp => real32, dp => real64
 
     ! 1. Basic Default Real Literals
@@ -16,4 +16,4 @@ program complex_literals
     ! 5. Kind Parameter Suffixes (Modern Standard)
     complex(dp) :: c_double_kind = (2.5_dp, -5.5_dp)
     complex(sp) :: c_single_kind = (1.0_sp, 0.5_sp)
-end program complex_literals
+end program complex_literal
