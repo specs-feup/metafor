@@ -27,6 +27,7 @@ import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.CaseBlock;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.CaseConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.EndSelectStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.SelectCaseStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.usestmt.UseStmt;
 import pt.up.fe.specs.fortran.ast.nodes.type.*;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.IntentSpec;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.KeywordAttributeSpecifier;

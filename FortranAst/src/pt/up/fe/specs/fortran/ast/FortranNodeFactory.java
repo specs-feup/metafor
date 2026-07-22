@@ -6,14 +6,7 @@ import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.decl.ExprInitialization;
 import pt.up.fe.specs.fortran.ast.nodes.decl.LabelDecl;
 import pt.up.fe.specs.fortran.ast.nodes.decl.ListInitialization;
-import pt.up.fe.specs.fortran.ast.nodes.expr.Argument;
-import pt.up.fe.specs.fortran.ast.nodes.expr.BinaryOperator;
-import pt.up.fe.specs.fortran.ast.nodes.expr.Call;
-import pt.up.fe.specs.fortran.ast.nodes.expr.DataRef;
-import pt.up.fe.specs.fortran.ast.nodes.expr.Expr;
-import pt.up.fe.specs.fortran.ast.nodes.expr.IntLiteral;
-import pt.up.fe.specs.fortran.ast.nodes.expr.Literal;
-import pt.up.fe.specs.fortran.ast.nodes.expr.StringLiteral;
+import pt.up.fe.specs.fortran.ast.nodes.expr.*;
 import pt.up.fe.specs.fortran.ast.nodes.expr.enums.BinaryOperatorKind;
 import pt.up.fe.specs.fortran.ast.nodes.loops.LoopControl;
 import pt.up.fe.specs.fortran.ast.nodes.loops.RangeLoopControl;
@@ -26,10 +19,12 @@ import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpReductionClause;
 import pt.up.fe.specs.fortran.ast.nodes.omp.enums.OmpClauseKind;
 import pt.up.fe.specs.fortran.ast.nodes.omp.enums.OmpDirectiveKind;
 import pt.up.fe.specs.fortran.ast.nodes.program.*;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.LiteralExecutionStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.PrintStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.DoConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.DoStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.EndDoStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.usestmt.UseOnlyStmt;
 import pt.up.fe.specs.fortran.ast.nodes.utils.Format;
 import pt.up.fe.specs.fortran.ast.nodes.utils.LabelRef;
 import pt.up.fe.specs.fortran.ast.nodes.utils.Star;
@@ -273,12 +268,12 @@ public class FortranNodeFactory {
         return newNode;
     }
 
-    public UseStmt useStmt(String moduleName) {
-        DataStore data = newDataStore(UseStmt.class);
+    public UseOnlyStmt useOnlyStmt(String moduleName) {
+        DataStore data = newDataStore(UseOnlyStmt.class);
 
-        UseStmt newNode = new UseStmt(data, Collections.emptyList());
+        UseOnlyStmt newNode = new UseOnlyStmt(data, Collections.emptyList());
 
-        newNode.set(UseStmt.NAME, moduleName);
+        newNode.set(UseOnlyStmt.NAME, moduleName);
 
         return newNode;
     }
@@ -286,7 +281,7 @@ public class FortranNodeFactory {
     public OmpReductionClause ompReductionClause(BinaryOperatorKind operator, List<DataRef> refs) {
         DataStore data = newDataStore(OmpReductionClause.class);
 
-        OmpReductionClause newNode= new OmpReductionClause(data, refs);
+        OmpReductionClause newNode = new OmpReductionClause(data, refs);
 
         newNode.set(OmpReductionClause.KIND, OmpClauseKind.REDUCTION);
 

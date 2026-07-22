@@ -7,6 +7,9 @@ public enum FortranKeyword {
     SUBROUTINE,
     WRITE,
     USE,
+    INTRINSIC,
+    NON_INTRINSIC,
+    ONLY,
 
     // Execution statements
     PRINT,
