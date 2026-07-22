@@ -66,15 +66,18 @@ public class ExprProcessors extends ANodeProcessor {
 
     public void realLiteral(RealLiteral realLiteral) {
         var attrs = attributes(realLiteral);
+        var sign = "";
 
         if (attrs.has(FlangName.REAL_LITERAL_CONSTANT)) {
+            sign = attrs.getOptionalString(FlangName.SIGN).orElseGet(() -> "");
+
             var childId = attrs.getString(FlangName.REAL_LITERAL_CONSTANT);
             attrs = attributes().get(childId);
         }
 
         var realId = attrs.getString("real");
         var realSource = attributes().get(realId).getString("source");
-        realLiteral.set(RealLiteral.SOURCE, realSource);
+        realLiteral.set(RealLiteral.SOURCE, sign + realSource);
 
         var kindParam = attrs.getOptionalString("kind")
                 .flatMap(this::getKindParam);
