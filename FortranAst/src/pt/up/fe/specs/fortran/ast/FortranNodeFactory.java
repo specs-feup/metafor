@@ -25,6 +25,7 @@ import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.DoConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.DoStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.EndDoStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.usestmt.UseOnlyStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.usestmt.UseRenameStmt;
 import pt.up.fe.specs.fortran.ast.nodes.utils.Format;
 import pt.up.fe.specs.fortran.ast.nodes.utils.LabelRef;
 import pt.up.fe.specs.fortran.ast.nodes.utils.Star;
@@ -264,6 +265,16 @@ public class FortranNodeFactory {
         DataRef newNode = new DataRef(data, Collections.emptyList());
 
         newNode.set(DataRef.NAME, name);
+
+        return newNode;
+    }
+
+    public UseRenameStmt useRenameStmt(String moduleName) {
+        DataStore data = newDataStore(UseRenameStmt.class);
+
+        UseRenameStmt newNode = new UseRenameStmt(data, Collections.emptyList());
+
+        newNode.set(UseRenameStmt.NAME, moduleName);
 
         return newNode;
     }

@@ -2,9 +2,8 @@ package pt.up.fe.specs.fortran.weaver.joinpoints;
 
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.program.Specification;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.UseStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.usestmt.UseStmt;
 import pt.up.fe.specs.fortran.weaver.FortranJoinpoints;
-import pt.up.fe.specs.fortran.weaver.abstracts.joinpoints.AExpr;
 import pt.up.fe.specs.fortran.weaver.abstracts.joinpoints.ASpecification;
 import pt.up.fe.specs.fortran.weaver.abstracts.joinpoints.ASpecificationStatement;
 import pt.up.fe.specs.fortran.weaver.abstracts.joinpoints.AUseStatement;

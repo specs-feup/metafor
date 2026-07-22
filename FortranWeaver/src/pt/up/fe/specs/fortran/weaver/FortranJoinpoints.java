@@ -32,6 +32,7 @@ import pt.up.fe.specs.fortran.ast.nodes.program.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.DoConstruct;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.usestmt.UseStmt;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.AttributeSpecifier;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.KeywordAttributeSpecifier;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.ParameterKeyword;

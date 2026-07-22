@@ -73,6 +73,10 @@
 
     <joinpoint class="useStatement" extends="statement"/>
 
+    <joinpoint class="useRenameStatement" extends="useStatement"/>
+
+    <joinpoint class="useOnlyStatement" extends="useStatement"/>
+
     <joinpoint class="programUnit"/>
 
     <joinpoint class="mainProgram" extends="programUnit"/>

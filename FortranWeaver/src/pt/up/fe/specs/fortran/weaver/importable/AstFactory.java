@@ -50,8 +50,12 @@ public class AstFactory {
         return FortranJoinpoints.create(FortranWeaver.getFactory().dataRef(name), ADataRef.class);
     }
 
-    public static AUseStatement useStatement(String moduleName) {
-        return FortranJoinpoints.create(FortranWeaver.getFactory().useStmt(moduleName), AUseStatement.class);
+    public static AUseRenameStatement useRenameStatement(String moduleName) {
+        return FortranJoinpoints.create(FortranWeaver.getFactory().useRenameStmt(moduleName), AUseRenameStatement.class);
+    }
+
+    public static AUseOnlyStatement useOnlyStatement(String moduleName) {
+        return FortranJoinpoints.create(FortranWeaver.getFactory().useOnlyStmt(moduleName), AUseOnlyStatement.class);
     }
 
     public static AOmpReductionClause ompReductionClause(String operator, Object[] args) {
