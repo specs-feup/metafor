@@ -132,6 +132,11 @@ public abstract class FortranNode extends DataNode<FortranNode> {
         return get(CONTEXT).get(FortranContext.FORTRAN_KEYWORDS).get(keyword);
     }
 
+    protected String encase(String code) {
+        var lowercase = get(CONTEXT).get(FortranContext.FORTRAN_KEYWORDS).isLowercase();
+        return lowercase ? code.toLowerCase() : code.toUpperCase();
+    }
+
     protected boolean fixedForm() {
         return getContext().get(FortranContext.FIXED_FORM);
     }

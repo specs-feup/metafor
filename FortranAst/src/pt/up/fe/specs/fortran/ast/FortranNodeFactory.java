@@ -193,7 +193,7 @@ public class FortranNodeFactory {
 
     public StringLiteral stringLiteral(String literal, String kindParam) {
         DataStore data = newDataStore(StringLiteral.class);
-        data.set(Literal.SOURCE_LITERAL, literal);
+        data.set(StringLiteral.CONTENTS, literal);
 
         return new StringLiteral(data, Collections.emptyList());
     }
@@ -299,8 +299,7 @@ public class FortranNodeFactory {
         DataStore data = newDataStore(IntLiteral.class);
 
         IntLiteral newNode = new IntLiteral(data, Collections.emptyList());
-
-        newNode.set(IntLiteral.SOURCE_LITERAL, Integer.toString(value));
+        newNode.set(IntLiteral.SOURCE, Integer.toString(value));
 
         return newNode;
     }

@@ -118,6 +118,7 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.KIND_SELECTOR, KindSelector.class);
         NAME_TO_CLASS.put(FlangName.LOGICAL_LITERAL_CONSTANT, LogicalLiteral.class);
         NAME_TO_CLASS.put(FlangName.REAL_LITERAL_CONSTANT, RealLiteral.class);
+        NAME_TO_CLASS.put(FlangName.SIGNED_REAL_LITERAL_CONSTANT, RealLiteral.class);
         NAME_TO_CLASS.put(FlangName.FORMAT, Format.class);
         NAME_TO_CLASS.put(FlangName.STAR, Star.class);
         NAME_TO_CLASS.put(FlangName.PARENTHESES, ParenExpr.class);
@@ -155,7 +156,7 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.DOUBLE_PRECISION, DoublePrecisionType.class);
         NAME_TO_CLASS.put(FlangName.CHARACTER, CharacterType.class);
         NAME_TO_CLASS.put(FlangName.REAL, RealType.class);
-        NAME_TO_CLASS.put(FlangName.COMPLEX, ComplexLiteral.class);
+        NAME_TO_CLASS.put(FlangName.COMPLEX, ComplexType.class);
         NAME_TO_CLASS.put(FlangName.LENGTH_SELECTOR, LengthSelector.class);
 
         ///  LOOP

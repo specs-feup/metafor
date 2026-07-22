@@ -6,6 +6,8 @@ import pt.up.fe.specs.fortran.ast.nodes.expr.enums.UnaryOperatorKind;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 
+import java.util.Optional;
+
 public class ExprProcessors extends ANodeProcessor {
 
 
@@ -13,24 +15,71 @@ public class ExprProcessors extends ANodeProcessor {
         super(data);
     }
 
-    public void stringLiteral(StringLiteral stringLiteral) {
-        stringLiteral.set(StringLiteral.SOURCE_LITERAL, attributes().getString(stringLiteral, "string"));
-    }
+    public Optional<String> getKindParam(String kindParamId) {
+        var kindParamAttrs = attributes().get(kindParamId);
 
-    public void intLiteral(IntLiteral intLiteral) {
-        intLiteral.set(StringLiteral.SOURCE_LITERAL, attributes().getString(intLiteral, "CharBlock"));
-
-        if (attributes(intLiteral).has(FlangName.KIND_PARAM)) {
-            intLiteral.setOptional(IntLiteral.KIND_PARAM, attributes().getString(intLiteral, "uint64_t", FlangName.KIND_PARAM));
+        switch (kindParamAttrs.getVariantKey()) {
+            case "uint64_t" -> {
+                var kindParam = kindParamAttrs.getString("uint64_t");
+                return Optional.of(kindParam);
+            }
+            case "Expr" -> {
+                var nameAttrs = attributes().get(kindParamAttrs.getString(FlangName.EXPR));
+                var kindParam = nameAttrs.getString("source");
+                return Optional.of(kindParam);
+            }
+            default -> {
+                return Optional.empty();
+            }
         }
     }
 
+    public void stringLiteral(StringLiteral stringLiteral) {
+        var contents = attributes().getString(stringLiteral, "string");
+        stringLiteral.set(StringLiteral.CONTENTS, contents);
+
+        var kindParam = attributes(stringLiteral)
+                .getOptionalString(FlangName.KIND_PARAM)
+                .flatMap(this::getKindParam);
+        stringLiteral.set(StringLiteral.KIND_PARAM, kindParam);
+    }
+
+    public void intLiteral(IntLiteral intLiteral) {
+        var source = attributes().getString(intLiteral, "CharBlock");
+        intLiteral.set(IntLiteral.SOURCE, source);
+
+        var kindParam = attributes(intLiteral)
+                .getOptionalString(FlangName.KIND_PARAM)
+                .flatMap(this::getKindParam);
+        intLiteral.set(IntLiteral.KIND_PARAM, kindParam);
+    }
+
     public void logicalLiteral(LogicalLiteral logicalLiteral) {
-        logicalLiteral.set(StringLiteral.SOURCE_LITERAL, attributes().getString(logicalLiteral, "bool"));
+        var value = attributes().getString(logicalLiteral, "bool").equals("1");
+        logicalLiteral.set(LogicalLiteral.VALUE, value);
+
+        var kindParam = attributes(logicalLiteral)
+                .getOptionalString(FlangName.KIND_PARAM)
+                .flatMap(this::getKindParam);
+        logicalLiteral.set(LogicalLiteral.KIND_PARAM, kindParam);
     }
 
     public void realLiteral(RealLiteral realLiteral) {
-        realLiteral.set(RealLiteral.SOURCE_LITERAL, attributes().get(attributes().getString(realLiteral, "real")).getString("source"));
+        var attrs = attributes(realLiteral);
+
+        if (attrs.has(FlangName.REAL_LITERAL_CONSTANT)) {
+            var childId = attrs.getString(FlangName.REAL_LITERAL_CONSTANT);
+            attrs = attributes().get(childId);
+        }
+
+        var realId = attrs.getString("real");
+        var realSource = attributes().get(realId).getString("source");
+        realLiteral.set(RealLiteral.SOURCE, realSource);
+
+        var kindParam = attrs.getOptionalString("kind")
+                .flatMap(this::getKindParam);
+
+        realLiteral.set(RealLiteral.KIND_PARAM, kindParam);
     }
 
     public void parenExpr(ParenExpr parenExpr) {

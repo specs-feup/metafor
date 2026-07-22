@@ -13,37 +13,27 @@ import java.util.Optional;
 /**
  * R724 char-literal-constant
  */
-public class StringLiteral extends Literal {
-
-    // DATAKEYS BEGIN
-
-    /**
-     * A prefix indicating the kind of the string (e.g., encoding)
-     */
-    public final static DataKey<Optional<String>> KIND_PARAM = KeyFactory.optional("kindParam");
-
-
-    // DATAKEYS END
+public class StringLiteral extends KindedLiteral {
+    public static final DataKey<String> CONTENTS = KeyFactory.string("contents");
 
     public StringLiteral(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
     }
 
+    public String getContents() {
+        return get(CONTENTS);
+    }
+
     @Override
     public String getCode() {
-        char delimiter = get(CONTEXT).get(FortranContext.FORTRAN_OPTIONS).get(FortranAstOptions.SINGLE_QUOTE_STRINGS) ?
-                '\'' : '"';
-
-        var code = new StringBuilder();
-
-        // Get kind param prefix
-        var prefix = get(KIND_PARAM).map(p -> p + "_").orElse("");
+        char delimiter = get(CONTEXT).get(FortranContext.FORTRAN_OPTIONS).get(FortranAstOptions.SINGLE_QUOTE_STRINGS)
+                ? '\'' : '"';
 
         // TODO: Check if needed
         // Escape literal according to delimiter
         var delimiterS = Character.toString(delimiter);
-        var escapedString = getLiteral().replace(delimiterS, delimiterS + delimiterS);
+        var escapedString = getContents().replace(delimiterS, delimiterS + delimiterS);
 
-        return prefix + delimiterS + escapedString + delimiterS;
+        return getKindPrefix() + delimiterS + escapedString + delimiterS;
     }
 }

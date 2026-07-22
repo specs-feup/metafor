@@ -1,17 +1,26 @@
 package pt.up.fe.specs.fortran.ast.nodes.expr;
 
+import org.suikasoft.jOptions.Datakey.DataKey;
+import org.suikasoft.jOptions.Datakey.KeyFactory;
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 
 import java.util.Collection;
+import java.util.Optional;
 
-public class RealLiteral extends Literal {
+public class RealLiteral extends KindedLiteral {
+    public static final DataKey<String> SOURCE = KeyFactory.string("source");
+
     public RealLiteral(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
     }
 
+    public String getSource() {
+        return get(SOURCE);
+    }
+
     @Override
     public String getCode() {
-        return getLiteral();
+        return getSource() + getKindSuffix();
     }
 }

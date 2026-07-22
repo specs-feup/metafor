@@ -185,6 +185,8 @@ public class FortranJsonParser implements JsonReaderParser {
 
         if (trailing.equals("false")) {
             stmtAttrs.putIfAbsent("leadingComments", new ArrayList<>());
+
+            @SuppressWarnings("unchecked")  // leadingComments list will always only contain strings
             var stmtComments = (List<String>) stmtAttrs.get("leadingComments");
             stmtComments.add(content);
         } else {
