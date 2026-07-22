@@ -44,10 +44,11 @@ public class TypeDeclarationStmt extends SpecificationStmt {
         code.append(type.getCode());
         if (!attributes.isEmpty()) {
             var attributesCode = getAttributesCode(attributes);
-            code.append(",").append(optSpc()).append(attributesCode);
+            code.append(",").append(optSpc()).append(attributesCode)
+                    .append(optSpc()).append("::").append(optSpc());
+        } else {
+            code.append(" ");
         }
-
-        code.append(!fixedForm() ? " :: " : " ");
 
         var declsCode = decls.stream().map(EntityDecl::getCode)
                 .collect(Collectors.joining("," + optSpc()));

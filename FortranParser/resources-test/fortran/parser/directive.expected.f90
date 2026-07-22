@@ -1,6 +1,6 @@
 PROGRAM DIR
-    INTEGER :: result
-    INTEGER :: a = 5
+    INTEGER result
+    INTEGER a = 5
 
     !DIR$ scop
     result = (5)

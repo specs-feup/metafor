@@ -1,8 +1,8 @@
 PROGRAM OPENMP_DEMO
     USE omp_lib
 
-    INTEGER :: i, thread_id, num_threads, total_sum
-    INTEGER :: shared_counter = 0
+    INTEGER i, thread_id, num_threads, total_sum
+    INTEGER shared_counter = 0
 
     !$OMP PARALLEL DO reduction(+:total_sum)
     DO i = 1, 2

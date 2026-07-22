@@ -1,6 +1,6 @@
 PROGRAM DECLARATION
 
-    INTEGER :: a, b = 1
+    INTEGER a, b = 1
 
     !integer i;
     ! i = 1

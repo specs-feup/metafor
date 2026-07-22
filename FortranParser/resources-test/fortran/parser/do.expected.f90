@@ -1,6 +1,6 @@
 PROGRAM SIMPLE_LOOP
     !use omp_lib
-    INTEGER :: i, dummy, a = 2
+    INTEGER i, dummy, a = 2
 
     !$OMP PARALLEL DO
     DO i = 1, 5, a

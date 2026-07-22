@@ -1,6 +1,6 @@
 PROGRAM LOGICAL_IF
-    LOGICAL :: cond
-    INTEGER :: result
+    LOGICAL cond
+    INTEGER result
     cond = .false.
     result = 2
     IF (cond) result = 3

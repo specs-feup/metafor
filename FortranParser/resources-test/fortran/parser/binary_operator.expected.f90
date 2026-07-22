@@ -1,6 +1,6 @@
 PROGRAM TEST_EXPRS
-    LOGICAL :: l
-    INTEGER :: i, a = 1, b = 1
+    LOGICAL l
+    INTEGER i, a = 1, b = 1
     l = 0 < a
     l = 2 <= 3
     l = b > 5

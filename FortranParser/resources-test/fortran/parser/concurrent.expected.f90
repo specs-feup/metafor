@@ -1,6 +1,6 @@
 PROGRAM SIMPLE_LOOP
-    INTEGER :: i, j
-    REAL :: x
+    INTEGER i, j
+    REAL x
 
     DO CONCURRENT (i = 1:10:1, j = 1:10, i > 5)
         x = 0.0

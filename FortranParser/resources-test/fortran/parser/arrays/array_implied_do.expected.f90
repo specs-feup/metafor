@@ -1,5 +1,5 @@
 PROGRAM TEST_IMPLIED_DO
-    INTEGER :: i, j
+    INTEGER i, j
     INTEGER, DIMENSION(5) :: arr1, arr2, arr3
     INTEGER, DIMENSION(10) :: arr4, arr5
     INTEGER, DIMENSION(9) :: arr6
