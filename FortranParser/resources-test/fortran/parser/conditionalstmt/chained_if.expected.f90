@@ -1,5 +1,5 @@
 PROGRAM IF
-    LOGICAL cond1, cond2
+    LOGICAL :: cond1, cond2
     cond1 = .FALSE.
     cond2 = .TRUE.
 

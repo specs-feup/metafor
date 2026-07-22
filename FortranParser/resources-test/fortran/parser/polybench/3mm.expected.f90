@@ -17,7 +17,7 @@ DOUBLE PRECISION, DIMENSION(:, :), ALLOCATABLE :: d
 DOUBLE PRECISION, DIMENSION(:, :), ALLOCATABLE :: e
 DOUBLE PRECISION, DIMENSION(:, :), ALLOCATABLE :: f
 DOUBLE PRECISION, DIMENSION(:, :), ALLOCATABLE :: g
-INTEGER i
+INTEGER :: i
 !     Allocation of Arrays
 ALLOCATE(a(32 + 0, 32 + 0), STAT=i)
 CALL check_err(i)
@@ -57,8 +57,8 @@ DOUBLE PRECISION, DIMENSION(nk, ni) :: a
 DOUBLE PRECISION, DIMENSION(nj, nk) :: b
 DOUBLE PRECISION, DIMENSION(nm, nj) :: c
 DOUBLE PRECISION, DIMENSION(nl, nm) :: d
-INTEGER ni, nj, nk, nl, nm
-INTEGER i, j
+INTEGER :: ni, nj, nk, nl, nm
+INTEGER :: i, j
 DO i = 1, ni
 DO j = 1, nk
 a(j, i) = dble(i - 1) * dble(j - 1) / ni
@@ -82,8 +82,8 @@ END DO
 END SUBROUTINE init_array
 SUBROUTINE print_array(ni, nl, g)
 DOUBLE PRECISION, DIMENSION(nl, ni) :: g
-INTEGER ni, nl
-INTEGER i, j
+INTEGER :: ni, nl
+INTEGER :: i, j
 DO i = 1, ni
 DO j = 1, nl
 WRITE(0, "(f0.2,1x)", advance="no") g(j, i)
@@ -102,8 +102,8 @@ DOUBLE PRECISION, DIMENSION(nl, nm) :: d
 DOUBLE PRECISION, DIMENSION(nj, ni) :: e
 DOUBLE PRECISION, DIMENSION(nl, nj) :: f
 DOUBLE PRECISION, DIMENSION(nl, ni) :: g
-INTEGER ni, nj, nk, nl, nm
-INTEGER i, j, k
+INTEGER :: ni, nj, nk, nl, nm
+INTEGER :: i, j, k
 !$pragma scop
 ! E := A*B
 DO i = 1, ni

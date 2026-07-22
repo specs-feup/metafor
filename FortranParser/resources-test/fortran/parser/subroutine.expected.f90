@@ -7,7 +7,7 @@ SUBROUTINE add_numbers(a, b, result, useless)
 END SUBROUTINE add_numbers
 
 PROGRAM MAIN
-    INTEGER x, y, total, useless
+    INTEGER :: x, y, total, useless
 
     x = 5
     y = 12

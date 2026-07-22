@@ -1,6 +1,6 @@
-INTEGER*2 a1, a2
-REAL*4 b1, b2
-LOGICAL ok
+INTEGER*2 :: a1, a2
+REAL*4 :: b1, b2
+LOGICAL :: ok
 
 ok = .TRUE.
 

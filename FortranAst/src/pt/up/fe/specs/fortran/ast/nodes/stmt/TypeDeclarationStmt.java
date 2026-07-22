@@ -47,7 +47,7 @@ public class TypeDeclarationStmt extends SpecificationStmt {
             code.append(",").append(optSpc()).append(attributesCode)
                     .append(optSpc()).append("::").append(optSpc());
         } else {
-            code.append(" ");
+            code.append(!fixedForm() ? " :: " : " ");
         }
 
         var declsCode = decls.stream().map(EntityDecl::getCode)

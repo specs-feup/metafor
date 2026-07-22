@@ -13,8 +13,8 @@ PROGRAM MAIN
     INTEGER(8), PARAMETER :: i8_mzero = -i8_zero
     INTEGER(8), PARAMETER :: i8_mone = -i8_one
 
-    INTEGER(4) i4a, i4b, i4c
-    INTEGER(8) i8a, i8b, i8c
+    INTEGER(4) :: i4a, i4b, i4c
+    INTEGER(8) :: i8a, i8b, i8c
 
     i4a = i4_max
     i4b = i4_zero
