@@ -25,6 +25,6 @@ public class DimensionDecl extends FortranNode {
 
     @Override
     public String getCode() {
-        return getName() + "(" + getArraySpecification().getCode() + ")";
+        return getName() + getArraySpecification().getCode();
     }
 }
