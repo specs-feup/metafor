@@ -25,6 +25,6 @@ public class UnaryOperator extends Expr {
 
     @Override
     public String getCode() {
-        return getOp().getString() + getOperand().getCode();
+        return encase(getOp().getString()) + getOperand().getCode();
     }
 }

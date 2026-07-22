@@ -1,7 +1,7 @@
 PROGRAM IF
     LOGICAL cond1, cond2
-    cond1 = .false.
-    cond2 = .true.
+    cond1 = .FALSE.
+    cond2 = .TRUE.
 
     IF (cond1) THEN
         PRINT *, "cond1 is true"

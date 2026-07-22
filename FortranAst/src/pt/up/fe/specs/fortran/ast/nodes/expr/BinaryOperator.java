@@ -3,6 +3,7 @@ package pt.up.fe.specs.fortran.ast.nodes.expr;
 import org.suikasoft.jOptions.Datakey.DataKey;
 import org.suikasoft.jOptions.Datakey.KeyFactory;
 import org.suikasoft.jOptions.Interfaces.DataStore;
+import pt.up.fe.specs.fortran.ast.FortranContext;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.expr.enums.BinaryOperatorKind;
 
@@ -38,11 +39,8 @@ public class BinaryOperator extends Expr {
 
     @Override
     public String getCode() {
-
         return getLhs().getCode() +
-
-                optSpc() + get(OP).getOpString() + optSpc() +
-
+                optSpc() + encase(get(OP).getString()) + optSpc() +
                 getRhs().getCode();
     }
 }

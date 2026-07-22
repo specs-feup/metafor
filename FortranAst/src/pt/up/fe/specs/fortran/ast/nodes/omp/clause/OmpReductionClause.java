@@ -29,6 +29,6 @@ public class OmpReductionClause extends OmpClause {
                 .map(DataRef::getCode)
                 .collect(Collectors.joining(", "));
 
-        return get(KIND).getCode() + "(" + get(OPERATOR).getOpString() + ":" + names + ")";
+        return get(KIND).getCode() + "(" + encase(get(OPERATOR).getString()) + ":" + names + ")";
     }
 }

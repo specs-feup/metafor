@@ -2,7 +2,7 @@ PROGRAM LOGICAL_EXPRESSION
     INTEGER a1, b1, a2, b2
     LOGICAL ok
 
-    ok = .true.
+    ok = .TRUE.
 
     a1 = 1
     b1 = 2

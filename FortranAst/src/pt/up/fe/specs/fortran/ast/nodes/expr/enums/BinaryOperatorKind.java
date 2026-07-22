@@ -3,61 +3,26 @@ package pt.up.fe.specs.fortran.ast.nodes.expr.enums;
 import pt.up.fe.specs.util.providers.StringProvider;
 
 public enum BinaryOperatorKind implements StringProvider {
-    ADD,
-    SUBTRACT,
-    MULTIPLY,
-    DIVIDE,
-    LT,
-    LE,
-    GT,
-    GE,
-    EQ,
-    NE,
-    AND;
+    ADD("+"),
+    SUBTRACT("-"),
+    MULTIPLY("*"),
+    DIVIDE("/"),
+    LT("<"),
+    LE("<="),
+    GT(">"),
+    GE(">="),
+    EQ("=="),
+    NE("/="),
+    AND(".AND.");
 
-    public String getOpString() {
-        switch (this) {
-            case ADD -> {
-                return "+";
-            }
-            case SUBTRACT -> {
-                return "-";
-            }
-            case MULTIPLY -> {
-                return "*";
-            }
-            case DIVIDE -> {
-                return "/";
-            }
-            case EQ -> {
-                return "==";
-            }
-            case NE -> {
-                return "/=";
-            }
-            case GE -> {
-                return ">=";
-            }
-            case GT -> {
-                return ">";
-            }
-            case LE -> {
-                return "<=";
-            }
-            case LT -> {
-                return "<";
-            }
-            case AND -> {
-                return ".and.";
-            }
-            default -> {
-                return "<UNDEFINED_BINARY_OP_STRING:" + this + ">";
-            }
-        }
+    private final String opString;
+
+    BinaryOperatorKind(String opString) {
+        this.opString = opString;
     }
 
     @Override
     public String getString() {
-        return getOpString();
+        return opString;
     }
 }

@@ -12,5 +12,5 @@ PROGRAM STOP
     ERROR STOP "Fatal error: Something went terribly wrong!"
 
     PRINT *, "Executing quiet STOP..."
-    STOP 55, QUIET = .true.
+    STOP 55, QUIET = .TRUE.
 END PROGRAM STOP

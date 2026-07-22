@@ -2,7 +2,7 @@ INTEGER*2 a1, a2
 REAL*4 b1, b2
 LOGICAL ok
 
-ok = .true.
+ok = .TRUE.
 
 a1 = 3267_2
 b1 = 3267.1e0
@@ -10,7 +10,7 @@ a2 = b1
 b2 = a1
 
 IF ((a2 - b2) /= 0) THEN
-    ok = .false.
+    ok = .FALSE.
     PRINT *, "TEST1-NG =>", a2 - b2
 END IF
 
@@ -20,7 +20,7 @@ a2 = b1
 b2 = a1
 
 IF ((a2 - b2) /= 0) THEN
-    ok = .false.
+    ok = .FALSE.
     PRINT *, "TEST1-NG =>", a2 - b2
 END IF
 
