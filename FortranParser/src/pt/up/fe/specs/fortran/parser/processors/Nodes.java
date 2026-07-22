@@ -126,6 +126,7 @@ public class Nodes {
         processors.put(IntLiteral.class, e::intLiteral);
         processors.put(LogicalLiteral.class, e::logicalLiteral);
         processors.put(RealLiteral.class, e::realLiteral);
+        processors.put(NamedLiteral.class, e::namedLiteral);
         processors.put(ParenExpr.class, e::parenExpr);
         processors.put(UnaryOperator.class, e::unaryOperator);
         processors.put(BinaryOperator.class, e::binaryOperator);

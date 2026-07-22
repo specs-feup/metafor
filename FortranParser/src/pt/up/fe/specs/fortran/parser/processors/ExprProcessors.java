@@ -85,6 +85,11 @@ public class ExprProcessors extends ANodeProcessor {
         realLiteral.set(RealLiteral.KIND_PARAM, kindParam);
     }
 
+    public void namedLiteral(NamedLiteral namedLiteral) {
+        var name = attributes().getString(namedLiteral, "source", FlangName.NAME);
+        namedLiteral.set(NamedLiteral.NAME, name);
+    }
+
     public void parenExpr(ParenExpr parenExpr) {
         parenExpr.addChild(getChild(parenExpr, FlangName.EXPR));
     }
