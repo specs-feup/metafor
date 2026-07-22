@@ -30,7 +30,7 @@ C
       IF(v_b(i)/=s_b(i))THEN
       error=error+1
       ENDIF
-  50  CONTINUE
+   50 CONTINUE
       IF(error==0)THEN
       WRITE(6,*)"OK"
       ELSE
@@ -45,13 +45,13 @@ C
       STOP
       END
 C
-      SUBROUTINE sub1(error,A,B,C)
+      SUBROUTINE sub1(error,a,b,c)
       INTEGER*4 error
-      COMPLEX*8 A,B,C
-      DIMENSION A(10),B(10),C(10)
+      COMPLEX*8 a,b,c
+      DIMENSION a(10),b(10),c(10)
 C
       DO 60 i=1,10,1
-      IF(C(i)/=A(i)+B(i))THEN
+      IF(c(i)/=a(i)+b(i))THEN
       error=error+1
       ENDIF
    60 CONTINUE
@@ -59,13 +59,13 @@ C
       RETURN
       END
 C
-      SUBROUTINE sub2(error,A,B,C)
+      SUBROUTINE sub2(error,a,b,c)
       INTEGER*4 error
-      COMPLEX*8 A,B,C
-      DIMENSION A(10),B(10),C(10)
+      COMPLEX*8 a,b,c
+      DIMENSION a(10),b(10),c(10)
 C
       DO 70 i=1,10,1
-      IF(C(i)/=A(i)-B(i))THEN
+      IF(c(i)/=a(i)-b(i))THEN
       error=error+1
       ENDIF
    70 CONTINUE

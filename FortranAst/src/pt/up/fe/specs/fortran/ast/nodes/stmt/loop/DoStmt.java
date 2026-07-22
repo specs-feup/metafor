@@ -1,7 +1,5 @@
 package pt.up.fe.specs.fortran.ast.nodes.stmt.loop;
 
-import org.suikasoft.jOptions.Datakey.DataKey;
-import org.suikasoft.jOptions.Datakey.KeyFactory;
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.FortranKeyword;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
@@ -30,7 +28,7 @@ public class DoStmt extends Stmt {
 
         var code = new StringBuilder();
 
-        doNameOpt.ifPresent(doName -> code.append(doName).append(" : "));
+        doNameOpt.ifPresent(doName -> code.append(doName).append(optSpc()).append(":").append(optSpc()));
 
         code.append(keyword(FortranKeyword.DO));
 

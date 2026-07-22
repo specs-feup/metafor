@@ -50,7 +50,7 @@ public class RangeLoopControl extends LoopControl {
                 .append(getLower().getCode()).append(",").append(optSpc())
                 .append(getUpper().getCode());
 
-        getStep().ifPresent(step -> code.append(", ").append(step.getCode()));
+        getStep().ifPresent(step -> code.append(",").append(optSpc()).append(step.getCode()));
 
         return code.toString();
     }
