@@ -1,5 +1,5 @@
 PROGRAM COMPLEX_LITERAL
-    USE, INTRINSIC :: iso_fortran_env, ONLY: sp => real32, dp => real64
+    USE, INTRINSIC :: iso_fortran_env, ONLY : sp => real32, dp => real64
 
     ! 1. Basic Default Real Literals
     COMPLEX c_default = (3.0, 4.0)
