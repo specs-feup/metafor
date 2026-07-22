@@ -123,6 +123,9 @@ public enum FlangName implements StringProvider {
     ACTUAL_ARG_SPEC,
     ACTUAL_ARG,
     CALL,
+    NAMED_LITERAL,
+    COMPLEX_PART,
+    COMPLEX_LITERAL_CONSTANT,
 
     // ARRAYs
     ARRAY_CONSTRUCTOR,

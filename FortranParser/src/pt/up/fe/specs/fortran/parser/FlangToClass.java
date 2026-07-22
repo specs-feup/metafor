@@ -144,6 +144,10 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.ACTUAL_ARG_SPEC, Argument.class);
         NAME_TO_CLASS.put(FlangName.AC_IMPLIED_DO, AcImpliedDo.class);
         NAME_TO_CLASS.put(FlangName.AC_IMPLIED_DO_CONTROL, AcImpliedDoControl.class);
+        NAME_TO_CLASS.put(FlangName.NAMED_CONSTANT, NamedLiteral.class);
+        NAME_TO_CLASS.put(FlangName.COMPLEX_LITERAL_CONSTANT, ComplexLiteral.class);
+        NAME_TO_CLASS.put(FlangName.COMPLEX_PART, ComplexPart.class);
+        NAME_TO_CONCRETE_CLASS.put(FlangName.COMPLEX_PART, FlangToClass::chooseComplexPart);
 
         /// TYPEs
         NAME_TO_CLASS.put(FlangName.INTEGER_TYPE_SPEC, IntegerType.class);
@@ -186,8 +190,22 @@ public class FlangToClass {
     }
 
     private static Class<? extends Parameter> chooseParameter(FlangAttributes attrs) {
-        return attrs.has("Name") ? NamedParameter.class : StarParameter.class;
+        return switch (attrs.getVariantKey()) {
+            case "Name" -> NamedParameter.class;
+            case "Star" -> StarParameter.class;
+            default -> throw new RuntimeException("Unknown variant: " + attrs.getVariantKey());
+        };
     }
+
+    private static Class<? extends ComplexPart<?>> chooseComplexPart(FlangAttributes attrs) {
+        return switch (attrs.getVariantKey()) {
+            case "SignedIntLiteralConstant" -> IntComplexPart.class;
+            case "SignedRealLiteralConstant" -> RealComplexPart.class;
+            case "NamedConstant" -> NamedComplexPart.class;
+            default -> throw new RuntimeException("Unknown variant: " + attrs.getVariantKey());
+        };
+    }
+
 
     public static boolean isClass(String type) {
         return FlangName.convertTry(type).map(NAME_TO_CLASS::containsKey).orElse(false);
