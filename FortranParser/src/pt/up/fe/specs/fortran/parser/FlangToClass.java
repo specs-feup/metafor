@@ -238,6 +238,15 @@ public class FlangToClass {
         return FlangName.convertTry(type).map(NAME_TO_CLASS::containsKey).orElse(false);
     }
 
+    public static boolean isConcreteClass(String type, FlangAttributes attrs) {
+        return FlangName.convertTry(type).map(name -> {
+            if (NAME_TO_CONCRETE_CLASS.containsKey(name)) {
+                return NAME_TO_CONCRETE_CLASS.get(name).apply(attrs).isPresent();
+            }
+            return NAME_TO_CLASS.containsKey(name);
+        }).orElse(false);
+    }
+
     public static Optional<Class<? extends FortranNode>> getClass(String type) {
         return FlangName.convertTry(type).map(NAME_TO_CLASS::get);
     }

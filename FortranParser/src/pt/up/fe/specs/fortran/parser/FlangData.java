@@ -53,7 +53,7 @@ public class FlangData {
         }
 
         // If there is already a concrete FortranAst class for this id, there is no derivation
-        if (FlangToClass.isClass(getKind(id))) {
+        if (FlangToClass.isConcreteClass(getKind(id), getAttrs(id))) {
             return Optional.empty();
         }
 
@@ -152,8 +152,6 @@ public class FlangData {
     }
 
     public Optional<Object> getOptional(FortranNode node, String key, FlangName... path) {
-        var currentId = node.get(FortranNode.ID);
-
         // Get base attrs
         var currentAttrs = getAttrs(node);
 

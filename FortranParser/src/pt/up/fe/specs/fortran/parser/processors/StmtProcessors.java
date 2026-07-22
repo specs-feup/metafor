@@ -16,7 +16,7 @@ import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.DoConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.DoStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.EndDoStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.*;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.usestmt.UseStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.usestmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.DimensionSpec;
 import pt.up.fe.specs.fortran.parser.FlangAttributes;
 import pt.up.fe.specs.fortran.parser.FlangName;
@@ -476,10 +476,42 @@ public class StmtProcessors extends ANodeProcessor {
     public void useStmt(UseStmt useStmt) {
         stmt(useStmt);
 
-        String nameId = attributes(useStmt).getString("moduleName");
-        String name = attributes().get(nameId).getString("source");
+        var intrinsic = attributes(useStmt).getOptionalString("nature")
+                .map(nature -> !nature.endsWith("Non_Intrinsic"));
+        useStmt.set(UseStmt.INTRINSIC, intrinsic);
 
+        var nameId = attributes(useStmt).getString("moduleName");
+        var name = attributes().get(nameId).getString("source");
         useStmt.set(UseStmt.NAME, name);
+    }
+
+    public void useRenameStmt(UseRenameStmt useRenameStmt) {
+        useStmt(useRenameStmt);
+
+        var renameList = getChildren(useRenameStmt, "renameList");
+        useRenameStmt.addChildren(renameList);
+    }
+
+    public void useOnlyStmt(UseOnlyStmt useOnlyStmt) {
+        useStmt(useOnlyStmt);
+
+        var onlyList = getChildren(useOnlyStmt, "onlyList");
+        useOnlyStmt.addChildren(onlyList);
+    }
+
+    public void useName(UseName useName) {
+        var name = attributes().getString(useName, "source", FlangName.NAME);
+        useName.set(UseName.NAME, name);
+    }
+
+    public void namesRename(NamesRename namesRename) {
+        var localNameId = attributes().getString(namesRename, "local");
+        var localName = attributes().get(localNameId).getString("source");
+        namesRename.set(NamesRename.LOCAL_NAME, localName);
+
+        var globalNameId = attributes().getString(namesRename, "global");
+        var globalName = attributes().get(globalNameId).getString("source");
+        namesRename.set(NamesRename.GLOBAL_NAME, globalName);
     }
 
     public void continueStmt(ContinueStmt continueStmt) {

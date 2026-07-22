@@ -27,7 +27,7 @@ import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.CaseBlock;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.CaseConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.EndSelectStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.SelectCaseStmt;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.usestmt.UseStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.usestmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.type.*;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.IntentSpec;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.KeywordAttributeSpecifier;
@@ -101,7 +101,10 @@ public class Nodes {
         processors.put(EndSelectStmt.class, s::endSelectStmt);
 
         processors.put(CallStmt.class, s::callStmt);
-        processors.put(UseStmt.class, s::useStmt);
+        processors.put(UseRenameStmt.class, s::useRenameStmt);
+        processors.put(UseOnlyStmt.class, s::useOnlyStmt);
+        processors.put(UseName.class, s::useName);
+        processors.put(NamesRename.class, s::namesRename);
         processors.put(WriteStmt.class, s::writeStmt);
         processors.put(ContainsStmt.class, s::containsStmt);
         processors.put(AllocateStmt.class, s::allocateStmt);
