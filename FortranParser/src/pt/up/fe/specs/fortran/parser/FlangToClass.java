@@ -27,7 +27,7 @@ import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.CaseBlock;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.CaseConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.EndSelectStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.SelectCaseStmt;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.usestmt.UseStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.usestmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.type.*;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.AllocatableKeyword;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.IntentSpec;
@@ -45,7 +45,8 @@ import java.util.function.Function;
 public class FlangToClass {
 
     private static final Map<FlangName, Class<? extends FortranNode>> NAME_TO_CLASS = new HashMap<>();
-    private static final Map<FlangName, Function<FlangAttributes, Class<? extends FortranNode>>> NAME_TO_CONCRETE_CLASS = new HashMap<>();
+    private static final Map<FlangName, Function<FlangAttributes, Optional<Class<? extends FortranNode>>>>
+            NAME_TO_CONCRETE_CLASS = new HashMap<>();
 
     static {
         NAME_TO_CLASS.put(FlangName.PROGRAM, FortranFile.class);
@@ -101,6 +102,11 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.ALLOCATE_STMT, AllocateStmt.class);
         NAME_TO_CLASS.put(FlangName.DEALLOCATE_STMT, DeallocateStmt.class);
         NAME_TO_CLASS.put(FlangName.USE_STMT, UseStmt.class);
+        NAME_TO_CONCRETE_CLASS.put(FlangName.USE_STMT, FlangToClass::chooseUseStmt);
+        NAME_TO_CLASS.put(FlangName.ONLY, Only.class);
+        NAME_TO_CONCRETE_CLASS.put(FlangName.ONLY, FlangToClass::chooseOnly);
+        NAME_TO_CLASS.put(FlangName.NAMES, NamesRename.class);
+        NAME_TO_CLASS.put(FlangName.OPERATORS, OperatorsRename.class);
         NAME_TO_CLASS.put(FlangName.CONTINUE_STMT, ContinueStmt.class);
         NAME_TO_CLASS.put(FlangName.PARAMETER_STMT, ParameterStmt.class);
         NAME_TO_CLASS.put(FlangName.NAMED_CONSTANT_DEF, NamedConstantDef.class);
@@ -192,21 +198,39 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.NOWAIT, OmpNowaitClause.class);
     }
 
-    private static Class<? extends Parameter> chooseParameter(FlangAttributes attrs) {
+    private static Optional<Class<? extends FortranNode>> chooseComplexPart(FlangAttributes attrs) {
         return switch (attrs.getVariantKey()) {
-            case "Name" -> NamedParameter.class;
-            case "Star" -> StarParameter.class;
-            default -> throw new RuntimeException("Unknown variant: " + attrs.getVariantKey());
+            case "SignedIntLiteralConstant" -> Optional.of(IntComplexPart.class);
+            case "SignedRealLiteralConstant" -> Optional.of(RealComplexPart.class);
+            case "NamedConstant" -> Optional.of(NamedComplexPart.class);
+            default -> Optional.empty();
         };
     }
 
-    private static Class<? extends ComplexPart<?>> chooseComplexPart(FlangAttributes attrs) {
+    private static Optional<Class<? extends FortranNode>> chooseOnly(FlangAttributes attrs) {
         return switch (attrs.getVariantKey()) {
-            case "SignedIntLiteralConstant" -> IntComplexPart.class;
-            case "SignedRealLiteralConstant" -> RealComplexPart.class;
-            case "NamedConstant" -> NamedComplexPart.class;
-            default -> throw new RuntimeException("Unknown variant: " + attrs.getVariantKey());
+            case "GenericSpec" -> Optional.of(OnlyGenericSpec.class);
+            case "Name" -> Optional.of(UseName.class);
+            default -> Optional.empty();
         };
+    }
+
+    private static Optional<Class<? extends FortranNode>> chooseParameter(FlangAttributes attrs) {
+        return switch (attrs.getVariantKey()) {
+            case "Name" -> Optional.of(NamedParameter.class);
+            case "Star" -> Optional.of(StarParameter.class);
+            default -> Optional.empty();
+        };
+    }
+
+    private static Optional<Class<? extends FortranNode>> chooseUseStmt(FlangAttributes attrs) {
+        if (attrs.has("renameList")) {
+            return Optional.of(UseRenameStmt.class);
+        }
+        if (attrs.has("onlyList")) {
+            return Optional.of(UseOnlyStmt.class);
+        }
+        return Optional.empty();
     }
 
 
@@ -219,11 +243,11 @@ public class FlangToClass {
     }
 
     public static Optional<Class<? extends FortranNode>> getConcreteClass(String type, FlangAttributes attrs) {
-        return FlangName.convertTry(type).map(name -> {
+        return FlangName.convertTry(type).flatMap(name -> {
             if (NAME_TO_CONCRETE_CLASS.containsKey(name)) {
                 return NAME_TO_CONCRETE_CLASS.get(name).apply(attrs);
             }
-            return NAME_TO_CLASS.get(name);
+            return Optional.ofNullable(NAME_TO_CLASS.get(name));
         });
     }
 }
