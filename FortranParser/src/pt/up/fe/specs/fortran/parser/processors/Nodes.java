@@ -133,6 +133,10 @@ public class Nodes {
         processors.put(Argument.class, e::argument);
         processors.put(AcImpliedDo.class, e::acImpliedDo);
         processors.put(AcImpliedDoControl.class, e::acImpliedDoControl);
+        processors.put(IntComplexPart.class, e::intComplexPart);
+        processors.put(RealComplexPart.class, e::realComplexPart);
+        processors.put(NamedComplexPart.class, e::namedComplexPart);
+        processors.put(ComplexLiteral.class, e::complexLiteral);
 
         var t = new TypeProcessors(data);
         processors.put(IntegerType.class, t::integerType);

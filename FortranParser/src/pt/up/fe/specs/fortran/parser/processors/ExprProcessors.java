@@ -140,4 +140,27 @@ public class ExprProcessors extends ANodeProcessor {
     public void argument(Argument argument) {
         argument.addChild(getChild(argument, FlangName.ACTUAL_ARG));
     }
+
+    public void intComplexPart(IntComplexPart intComplexPart) {
+        var intLiteral = getChild(intComplexPart, FlangName.SIGNED_INT_LITERAL_CONSTANT);
+        intComplexPart.addChild(intLiteral);
+    }
+
+    public void realComplexPart(RealComplexPart realComplexPart) {
+        var realLiteral = getChild(realComplexPart, FlangName.SIGNED_REAL_LITERAL_CONSTANT);
+        realComplexPart.addChild(realLiteral);
+    }
+
+    public void namedComplexPart(NamedComplexPart namedComplexPart) {
+        var namedLiteral = getChild(namedComplexPart, FlangName.NAMED_CONSTANT);
+        namedComplexPart.addChild(namedLiteral);
+    }
+
+    public void complexLiteral(ComplexLiteral complexLiteral) {
+        var real = getChild(complexLiteral, "real");
+        complexLiteral.addChild(real);
+
+        var imaginary = getChild(complexLiteral, "imaginary");
+        complexLiteral.addChild(imaginary);
+    }
 }
