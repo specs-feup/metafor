@@ -26,14 +26,19 @@ public class TypeProcessors extends ANodeProcessor {
             // This is a legacy kind selector (e.g. "integer*8")
             var value = attributes().getString(kindSelector, "uint64_t", FlangName.STAR_SIZE);
 
-            kindSelector.set(KindSelector.VALUE, Integer.parseInt(value));
+            kindSelector.set(KindSelector.VALUE, value);
             kindSelector.set(KindSelector.LEGACY, true);
 
         } else {
             // Otherwise, we assume it's a modern kind selector (e.g. "integer(8)")
-            var value = attributes().getString(kindSelector, "CharBlock", FlangName.EXPR, FlangName.LITERAL_CONSTANT, FlangName.INT_LITERAL_CONSTANT);
+            var value = attributes().getOptionalString(kindSelector, "CharBlock", FlangName.EXPR, FlangName.LITERAL_CONSTANT, FlangName.INT_LITERAL_CONSTANT)
+                    .or(() -> attributes().getOptionalString(kindSelector, "source", FlangName.EXPR, FlangName.DESIGNATOR, FlangName.DATA_REF, FlangName.NAME));
 
-            kindSelector.set(KindSelector.VALUE, Integer.parseInt(value));
+            if (value.isEmpty()) {
+                throw new RuntimeException("Could not find value for kind selector: " + kindSelector);
+            }
+
+            kindSelector.set(KindSelector.VALUE, value.get());
             kindSelector.set(KindSelector.LEGACY, false);
         }
     }
@@ -65,5 +70,12 @@ public class TypeProcessors extends ANodeProcessor {
     public void lengthSelector(LengthSelector lengthSelector) {
         var childId = attributes(lengthSelector).getVariantString();
         lengthSelector.addChild(getChild(attributes().get(childId).getVariantString()));
+    }
+
+    public void complexType(ComplexType complexType) {
+        if (attributes(complexType).has(FlangName.KIND_SELECTOR)) {
+            var kindSelector = getChild(complexType, FlangName.KIND_SELECTOR);
+            complexType.addChild(kindSelector);
+        }
     }
 }

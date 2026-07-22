@@ -149,6 +149,7 @@ public enum FlangName implements StringProvider {
     REAL,
     CHAR_SELECTOR,
     LENGTH_SELECTOR,
+    COMPLEX,
 
     /// LOOP
     LOOP_BOUNDS,

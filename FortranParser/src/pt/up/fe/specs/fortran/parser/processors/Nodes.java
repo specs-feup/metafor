@@ -142,6 +142,7 @@ public class Nodes {
         processors.put(CharacterType.class, t::characterType);
         processors.put(RealType.class, t::realType);
         processors.put(LengthSelector.class, t::lengthSelector);
+        processors.put(ComplexType.class, t::complexType);
 
         var a = new AttributesProcessor(data);
         processors.put(ArraySpecification.class, a::arraySpecification);
