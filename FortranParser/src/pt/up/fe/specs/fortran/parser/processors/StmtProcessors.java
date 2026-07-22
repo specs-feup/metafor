@@ -11,6 +11,8 @@ import pt.up.fe.specs.fortran.ast.nodes.stmt.datastmt.DataStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.datastmt.DataStmtObject;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.datastmt.DataStmtSet;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.datastmt.DataStmtVariable;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.dimstmt.DimensionDecl;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.dimstmt.DimensionStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.DoConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.DoStmt;
@@ -640,5 +642,20 @@ var ref = getChild(namedConstantDef, FlangName.NAMED_CONSTANT);
                 .getOptionalString(returnStmt, "CharBlock", FlangName.EXPR, FlangName.LITERAL_CONSTANT, FlangName.INT_LITERAL_CONSTANT)
                 .map(Integer::parseInt);
         returnStmt.set(ReturnStmt.TARGET, target);
+    }
+
+    public void dimensionStmt(DimensionStmt dimensionStmt) {
+        stmt(dimensionStmt);
+
+        var decls = getChildren(dimensionStmt, FlangName.DECLARATION);
+        dimensionStmt.addChildren(decls);
+    }
+
+    public void dimensionDecl(DimensionDecl dimensionDecl) {
+        var name = attributes().getString(dimensionDecl, "source", FlangName.NAME);
+        dimensionDecl.set(DimensionDecl.NAME, name);
+
+        var arraySpec = getChild(dimensionDecl, FlangName.ARRAY_SPEC);
+        dimensionDecl.addChild(arraySpec);
     }
 }

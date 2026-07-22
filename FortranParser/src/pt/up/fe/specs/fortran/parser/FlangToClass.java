@@ -19,6 +19,8 @@ import pt.up.fe.specs.fortran.ast.nodes.specification.NamedConstantDef;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.datastmt.DataStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.datastmt.DataStmtSet;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.dimstmt.DimensionDecl;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.dimstmt.DimensionStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.DoConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.DoStmt;
@@ -113,6 +115,8 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.DATA_STMT, DataStmt.class);
         NAME_TO_CLASS.put(FlangName.DATA_STMT_SET, DataStmtSet.class);
         NAME_TO_CLASS.put(FlangName.RETURN_STMT, ReturnStmt.class);
+        NAME_TO_CLASS.put(FlangName.DIMENSION_STMT, DimensionStmt.class);
+        NAME_TO_CLASS.put(FlangName.DECLARATION, DimensionDecl.class);
 
         /// Variables
         //NAME_TO_CLASS.put(FlangName.DATA_REF, DataRef.class);

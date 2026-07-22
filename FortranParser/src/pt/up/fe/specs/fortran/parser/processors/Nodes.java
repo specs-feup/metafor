@@ -19,6 +19,8 @@ import pt.up.fe.specs.fortran.ast.nodes.specification.NamedConstantDef;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.datastmt.DataStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.datastmt.DataStmtSet;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.dimstmt.DimensionDecl;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.dimstmt.DimensionStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.DoConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.DoStmt;
@@ -120,6 +122,8 @@ public class Nodes {
         processors.put(SubroutineStmt.class, s::subroutineStmt);
         processors.put(EndSubroutineStmt.class, s::endSubroutineStmt);
         processors.put(ReturnStmt.class, s::returnStmt);
+        processors.put(DimensionStmt.class, s::dimensionStmt);
+        processors.put(DimensionDecl.class, s::dimensionDecl);
 
         var e = new ExprProcessors(data);
         processors.put(StringLiteral.class, e::stringLiteral);
