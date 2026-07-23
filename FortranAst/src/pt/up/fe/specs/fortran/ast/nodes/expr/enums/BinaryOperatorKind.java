@@ -13,7 +13,8 @@ public enum BinaryOperatorKind implements StringProvider {
     GE(">="),
     EQ("=="),
     NE("/="),
-    AND(".AND.");
+    AND(".AND."),
+    CONCAT("//");
 
     private final String opString;
 

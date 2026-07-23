@@ -106,8 +106,7 @@ public class ExprProcessors extends ANodeProcessor {
         binaryOperator.addChild(getChild(binaryOperator, "left"));
         binaryOperator.addChild(getChild(binaryOperator, "right"));
 
-        String opName = attributes().getString(binaryOperator, "op");
-
+        var opName = attributes().getString(binaryOperator, "op");
         binaryOperator.set(BinaryOperator.OP, BinaryOperatorKind.valueOf(opName.toUpperCase()));
     }
 

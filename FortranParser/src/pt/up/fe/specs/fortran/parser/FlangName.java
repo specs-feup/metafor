@@ -125,6 +125,7 @@ public enum FlangName implements StringProvider {
     GT("GT"),
     GE("GE"),
     AND("AND"),
+    CONCAT,
     SCALAR,
     PROCEDURE_DESIGNATOR,
     ACTUAL_ARG_SPEC,
