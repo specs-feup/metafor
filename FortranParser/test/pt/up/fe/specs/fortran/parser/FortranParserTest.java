@@ -585,6 +585,18 @@ public class FortranParserTest {
     }
 
     @Test
+    void testContinuationLine() {
+        testJson("continuation_line.json");
+    }
+
+    @Test
+    void testContinuationLineNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("continuation_line.f");
+        }
+    }
+
+    @Test
     void testFujitsu0000_0000() {
         testJson("fujitsu/0000/0000_0000.json");
     }
