@@ -70,7 +70,8 @@ public class Nodes {
         processors.put(StarParameter.class, d::starParameter);
 
         var v = new VariableProcessor(data);
-        processors.put(DataRef.class, v::dataRefProcessor);
+        processors.put(DataRef.class, v::dataRef);
+        processors.put(DesignatorVariable.class, v::designatorVariable);
 
         var s = new StmtProcessors(data);
         processors.put(PrintStmt.class, s::printStmt);

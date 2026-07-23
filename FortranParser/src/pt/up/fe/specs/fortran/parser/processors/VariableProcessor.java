@@ -1,6 +1,9 @@
 package pt.up.fe.specs.fortran.parser.processors;
 
+import pt.up.fe.specs.fortran.ast.nodes.decl.DesignatorVariable;
+import pt.up.fe.specs.fortran.ast.nodes.decl.Variable;
 import pt.up.fe.specs.fortran.ast.nodes.expr.DataRef;
+import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 
 public class VariableProcessor extends ANodeProcessor {
@@ -8,10 +11,13 @@ public class VariableProcessor extends ANodeProcessor {
         super(data);
     }
 
-    public void dataRefProcessor(DataRef dataRef) {
-
-        String name = attributes(dataRef).getString("source");
-
+    public void dataRef(DataRef dataRef) {
+        var name = attributes(dataRef).getString("source");
         dataRef.set(DataRef.NAME, name);
+    }
+
+    public void designatorVariable(DesignatorVariable variable) {
+        var designator = getChild(variable, FlangName.DESIGNATOR);
+        variable.addChild(designator);
     }
 }
