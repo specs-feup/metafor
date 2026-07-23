@@ -69,7 +69,7 @@ public class DoConstruct extends ExecutableConstruct {
         code.append(doStmt.getCode()).append(ln())
                 .append(indent(body.getCode()));
 
-        var endDoStmtCode = endDoStmt.getStmtCode();
+        var endDoStmtCode = endDoStmt.getCode();
         if (!endDoStmtCode.isEmpty()) {
             code.append(ln()).append(endDoStmtCode);
         }

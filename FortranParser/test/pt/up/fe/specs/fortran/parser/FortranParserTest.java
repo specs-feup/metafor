@@ -573,6 +573,18 @@ public class FortranParserTest {
     }
 
     @Test
+    void testSubstring() {
+        testJson("expr/substring.json");
+    }
+
+    @Test
+    void testSubstringNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("expr/substring.f90");
+        }
+    }
+
+    @Test
     void testFujitsu0000_0000() {
         testJson("fujitsu/0000/0000_0000.json");
     }
