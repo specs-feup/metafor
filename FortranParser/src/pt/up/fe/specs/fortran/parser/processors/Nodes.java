@@ -2,7 +2,7 @@ package pt.up.fe.specs.fortran.parser.processors;
 
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.alloc.Allocation;
-import pt.up.fe.specs.fortran.ast.nodes.alloc.StatVariable;
+import pt.up.fe.specs.fortran.ast.nodes.alloc.StatAllocOption;
 import pt.up.fe.specs.fortran.ast.nodes.decl.*;
 import pt.up.fe.specs.fortran.ast.nodes.expr.*;
 import pt.up.fe.specs.fortran.ast.nodes.loops.ConcurrentLoopControl;
@@ -61,7 +61,7 @@ public class Nodes {
 
         var alloc = new AllocProcessors(data);
         processors.put(Allocation.class, alloc::allocation);
-        processors.put(StatVariable.class, alloc::statVariable);
+        processors.put(StatAllocOption.class, alloc::statAllocOption);
 
         var d = new DeclProcessors(data);
         processors.put(EntityDecl.class, d::entityDecl);
