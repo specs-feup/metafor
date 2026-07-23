@@ -227,10 +227,16 @@ public class ExprProcessors extends ANodeProcessor {
 
         var lowerId = attributes().getOptionalString(substring, "lower", FlangName.SUBSTRING_RANGE);
         var lowerExpr = lowerId.map(this::getChild);
-        lowerExpr.ifPresent(substring::addChild);
+        lowerExpr.ifPresent(lower -> {
+            substring.addChild(lower);
+            substring.setOptional(Substring.LOWER_IDX, lower.indexOfSelf());
+        });
 
         var upperId = attributes().getOptionalString(substring, "upper", FlangName.SUBSTRING_RANGE);
         var upperExpr = upperId.map(this::getChild);
-        upperExpr.ifPresent(substring::addChild);
+        upperExpr.ifPresent(upper -> {
+            substring.addChild(upper);
+            substring.setOptional(Substring.UPPER_IDX, upper.indexOfSelf());
+        });
     }
 }
