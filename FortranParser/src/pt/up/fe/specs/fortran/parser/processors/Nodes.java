@@ -146,6 +146,7 @@ public class Nodes {
         processors.put(RealComplexPart.class, e::realComplexPart);
         processors.put(NamedComplexPart.class, e::namedComplexPart);
         processors.put(ComplexLiteral.class, e::complexLiteral);
+        processors.put(Substring.class, e::substring);
 
         var t = new TypeProcessors(data);
         processors.put(IntegerType.class, t::integerType);

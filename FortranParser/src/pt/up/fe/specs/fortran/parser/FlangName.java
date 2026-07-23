@@ -134,6 +134,7 @@ public enum FlangName implements StringProvider {
     COMPLEX_PART,
     COMPLEX_LITERAL_CONSTANT,
     SUBSTRING,
+    SUBSTRING_RANGE,
 
     // ARRAYs
     ARRAY_CONSTRUCTOR,

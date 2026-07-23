@@ -220,4 +220,17 @@ public class ExprProcessors extends ANodeProcessor {
         var imaginary = getChild(complexLiteral, "imaginary");
         complexLiteral.addChild(imaginary);
     }
+
+    public void substring(Substring substring) {
+        var ref = getChild(substring, FlangName.DATA_REF);
+        substring.addChild(ref);
+
+        var lowerId = attributes().getOptionalString(substring, "lower", FlangName.SUBSTRING_RANGE);
+        var lowerExpr = lowerId.map(this::getChild);
+        lowerExpr.ifPresent(substring::addChild);
+
+        var upperId = attributes().getOptionalString(substring, "upper", FlangName.SUBSTRING_RANGE);
+        var upperExpr = upperId.map(this::getChild);
+        upperExpr.ifPresent(substring::addChild);
+    }
 }
