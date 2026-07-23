@@ -119,8 +119,10 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.DECLARATION, DimensionDecl.class);
 
         /// Variables
-        //NAME_TO_CLASS.put(FlangName.DATA_REF, DataRef.class);
+        //NAME_TO_CLASS.put(FlangName.DATA_REF, DataRef.class);  // TODO(Process-ing): Improve this
         NAME_TO_CLASS.put(FlangName.NAME, DataRef.class);
+        NAME_TO_CLASS.put(FlangName.VARIABLE, Variable.class);
+        NAME_TO_CONCRETE_CLASS.put(FlangName.VARIABLE, FlangToClass::chooseVariable);
 
         /// EXPRs
         NAME_TO_CLASS.put(FlangName.CHAR_LITERAL_CONSTANT, StringLiteral.class);
@@ -236,6 +238,14 @@ public class FlangToClass {
             return Optional.of(UseOnlyStmt.class);
         }
         return Optional.empty();
+    }
+
+    public static Optional<Class<? extends FortranNode>> chooseVariable(FlangAttributes attrs) {
+        return switch (attrs.getVariantKey()) {
+            case "DataRef" -> Optional.of(DesignatorVariable.class);
+            case "FunctionReference" -> Optional.of(FunctionRefVariable.class);
+            default -> Optional.empty();
+        };
     }
 
 
