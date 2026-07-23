@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
  * The root node of a Fortran application. Contains one or more ProgramUnit children.
  */
 public class FortranFile extends FortranNode {
+    public static final int COLUMN_LIMIT = 72;
 
     /**
      * The name of this file.
@@ -78,7 +79,7 @@ public class FortranFile extends FortranNode {
     }
 
     /**
-     * Compacts the code by removing as many spaces as possible in fixed-form Fortran code.
+     * Compacts the code by removing as many spaces as possible dividing lines when needed.
      * This is useful for making sure the code fits within the 72-character limit of fixed-form Fortran.
      *
      * @param code The code to compact.
@@ -91,7 +92,9 @@ public class FortranFile extends FortranNode {
     }
 
     /**
-     * Compacts a line of code by removing spaces after the first 6 characters, except for spaces inside string literals.
+     * Compacts a line of code.
+     * It removes spaces after the first 6 characters, except for spaces inside string literals, and divides lines
+     * when they reach the 72th column to prevent overflow.
      *
      * @param line The line of code to compact.
      * @return The compacted line of code.
@@ -105,6 +108,7 @@ public class FortranFile extends FortranNode {
         var stringDelimiter = getContext().getFortranOptions().get(FortranAstOptions.SINGLE_QUOTE_STRINGS)
                 ? '\'' : '"';
         var inString = false;
+        var lineSize = 6;
 
         for (var i = 6; i < line.length(); i++) {
             var c = line.charAt(i);
@@ -114,7 +118,14 @@ public class FortranFile extends FortranNode {
             if (!inString && c == ' ') {
                 continue;
             }
+
+            if (lineSize == COLUMN_LIMIT - 1) {
+                newLine.append("\n     +");
+                lineSize = 6;
+            }
+
             newLine.append(c);
+            lineSize++;
         }
 
         return newLine.toString();
