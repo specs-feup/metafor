@@ -3,9 +3,11 @@ package pt.up.fe.specs.fortran.ast.nodes.program;
 import org.suikasoft.jOptions.Datakey.DataKey;
 import org.suikasoft.jOptions.Datakey.KeyFactory;
 import org.suikasoft.jOptions.Interfaces.DataStore;
+import pt.up.fe.specs.fortran.ast.FortranAstOptions;
 import pt.up.fe.specs.fortran.ast.FortranContext;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.util.SpecsIo;
+import pt.up.fe.specs.util.utilities.StringLines;
 
 import java.util.Collection;
 import java.util.List;
@@ -67,7 +69,54 @@ public class FortranFile extends FortranNode {
                 .map(ProgramUnit::getCode)
                 .collect(Collectors.joining("\n"));
 
-        return programUnitsCode + commentSuffix;
+        var code = programUnitsCode + commentSuffix;
+        if (fixedForm) {
+            code = compactCode(code);
+        }
 
+        return code;
+    }
+
+    /**
+     * Compacts the code by removing as many spaces as possible in fixed-form Fortran code.
+     * This is useful for making sure the code fits within the 72-character limit of fixed-form Fortran.
+     *
+     * @param code The code to compact.
+     * @return The compacted code.
+     */
+    private String compactCode(String code) {
+        return StringLines.getLines(code).stream()
+                .map(this::compactLine)
+                .collect(Collectors.joining(ln()));
+    }
+
+    /**
+     * Compacts a line of code by removing spaces after the first 6 characters, except for spaces inside string literals.
+     *
+     * @param line The line of code to compact.
+     * @return The compacted line of code.
+     */
+    private String compactLine(String line) {
+        if (line.length() <= 6) {
+            return line;
+        }
+
+        var newLine = new StringBuilder(line.substring(0, 6));
+        var stringDelimiter = getContext().getFortranOptions().get(FortranAstOptions.SINGLE_QUOTE_STRINGS)
+                ? '\'' : '"';
+        var inString = false;
+
+        for (var i = 6; i < line.length(); i++) {
+            var c = line.charAt(i);
+            if (c == stringDelimiter) {
+                inString = !inString;
+            }
+            if (!inString && c == ' ') {
+                continue;
+            }
+            newLine.append(c);
+        }
+
+        return newLine.toString();
     }
 }
