@@ -242,7 +242,7 @@ public class FlangToClass {
 
     public static Optional<Class<? extends FortranNode>> chooseVariable(FlangAttributes attrs) {
         return switch (attrs.getVariantKey()) {
-            case "DataRef" -> Optional.of(DesignatorVariable.class);
+            case "Designator" -> Optional.of(DesignatorVariable.class);
             case "FunctionReference" -> Optional.of(FunctionRefVariable.class);
             default -> Optional.empty();
         };
