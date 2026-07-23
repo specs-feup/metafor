@@ -160,6 +160,7 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.COMPLEX_LITERAL_CONSTANT, ComplexLiteral.class);
         NAME_TO_CLASS.put(FlangName.COMPLEX_PART, ComplexPart.class);
         NAME_TO_CONCRETE_CLASS.put(FlangName.COMPLEX_PART, FlangToClass::chooseComplexPart);
+        NAME_TO_CLASS.put(FlangName.SUBSTRING, Substring.class);
 
         /// TYPEs
         NAME_TO_CLASS.put(FlangName.INTEGER_TYPE_SPEC, IntegerType.class);
