@@ -145,11 +145,6 @@ public abstract class FortranNode extends DataNode<FortranNode> {
         return fixedForm() ? "C" : "!";
     }
 
-    // Represents an optional space, omitted when generating fixed-form code
-    protected String optSpc() {
-        return !fixedForm() ? " " : "";
-    }
-
     public FortranNodeFactory getFactory() {
         return get(FortranNode.CONTEXT).get(FortranContext.FACTORY);
     }
@@ -165,6 +160,7 @@ public abstract class FortranNode extends DataNode<FortranNode> {
         return newNode;
     }
 
+    @Deprecated
     public FortranNode insert(Position position, String code) {
         // By default, transforms code into a literal statement.
         // This might need to evolve in the future, depending on where the code is inserted

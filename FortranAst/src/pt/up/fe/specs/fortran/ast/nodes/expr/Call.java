@@ -23,10 +23,11 @@ public class Call extends Expr {
 
     @Override
     public String getCode() {
-        return getCallee().getCode() + "(" +
-                getArgs().stream()
-                        .map(Argument::getCode)
-                        .collect(Collectors.joining("," + optSpc())) +
-                ")";
+        var calleeCode = getCallee().getCode();
+        var argsCode = getArgs().stream()
+                .map(Argument::getCode)
+                .collect(Collectors.joining(", ", "(", ")"));
+
+        return calleeCode + argsCode;
     }
 }

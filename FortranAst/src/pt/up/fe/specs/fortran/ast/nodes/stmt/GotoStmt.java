@@ -23,6 +23,6 @@ public class GotoStmt extends ActionStmt {
     public String getStmtCode() {
         var label = getGotoLabel();
 
-        return keyword(FortranKeyword.GO) + optSpc() + keyword(FortranKeyword.TO) + " " + label;
+        return keyword(FortranKeyword.GO) + " " + keyword(FortranKeyword.TO) + " " + label;
     }
 }

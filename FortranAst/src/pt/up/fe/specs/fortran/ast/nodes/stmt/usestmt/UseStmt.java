@@ -37,10 +37,9 @@ public abstract class UseStmt extends Stmt {
         intrinsic.ifPresentOrElse(intrinsicVal -> {
             var intrinsicCode = keyword(intrinsicVal ? FortranKeyword.INTRINSIC : FortranKeyword.NON_INTRINSIC);
 
-            code.append(",").append(optSpc()).append(intrinsicCode)
-                    .append(optSpc()).append("::").append(optSpc());
+            code.append(", ").append(intrinsicCode).append(" :: ");
         }, () -> {
-            code.append(" ");
+            code.append(!fixedForm() ? " :: " : " ");
         });
 
         code.append(name);

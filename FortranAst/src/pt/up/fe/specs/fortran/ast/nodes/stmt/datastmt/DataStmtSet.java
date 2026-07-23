@@ -28,11 +28,11 @@ public class DataStmtSet extends FortranNode {
 
         var objectsCode = objects.stream()
                 .map(DataStmtObject::getCode)
-                .collect(Collectors.joining("," + optSpc()));
+                .collect(Collectors.joining(", "));
         var valuesCode = values.stream()
                 .map(DataStmtValue::getCode)
-                .collect(Collectors.joining("," + optSpc()));
+                .collect(Collectors.joining(", "));
 
-        return objectsCode + optSpc() + "/" + optSpc() + valuesCode + optSpc() + "/";
+        return objectsCode + " / " + valuesCode + " /";
     }
 }

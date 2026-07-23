@@ -1,5 +1,5 @@
 PROGRAM OPENMP_DEMO
-    USE omp_lib
+    USE :: omp_lib
 
     INTEGER :: i, thread_id, num_threads, total_sum
     INTEGER :: shared_counter = 0

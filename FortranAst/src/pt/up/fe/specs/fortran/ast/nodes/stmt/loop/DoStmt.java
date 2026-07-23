@@ -28,7 +28,7 @@ public class DoStmt extends Stmt {
 
         var code = new StringBuilder();
 
-        doNameOpt.ifPresent(doName -> code.append(doName).append(optSpc()).append(":").append(optSpc()));
+        doNameOpt.ifPresent(doName -> code.append(doName).append(" : "));
 
         code.append(keyword(FortranKeyword.DO));
 

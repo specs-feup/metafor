@@ -28,6 +28,6 @@ public class NamesRename extends Rename {
         var localName = getLocalName();
         var globalName = getGlobalName();
 
-        return localName + optSpc() + "=>" + optSpc() + globalName;
+        return localName + " => " + globalName;
     }
 }

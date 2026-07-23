@@ -27,12 +27,10 @@ public class IfThenStmt extends ActionStmt {
 
         var code = new StringBuilder();
 
-        nameOpt.ifPresent(name -> code.append(name).append(optSpc()).append(":").append(optSpc()));
+        nameOpt.ifPresent(name -> code.append(name).append(" : "));
 
         code.append(keyword(FortranKeyword.IF))
-                .append(optSpc()).append("(")
-                .append(condition.getCode())
-                .append(")").append(optSpc())
+                .append(" (").append(condition.getCode()).append(") ")
                 .append(keyword(FortranKeyword.THEN));
 
         return code.toString();

@@ -22,6 +22,6 @@ public class ComplexLiteral extends Literal {
         var real = getRealPart();
         var imag = getImaginaryPart();
 
-        return "(" + real.getCode() + "," + optSpc() + imag.getCode() + ")";
+        return "(" + real.getCode() + ", " + imag.getCode() + ")";
     }
 }

@@ -21,7 +21,7 @@ public class UseRenameStmt extends UseStmt {
         var usePrefix = getUseStmtPrefix();
 
         var renamesSuffix = getRenames().stream()
-                .map(rename -> "," + optSpc() + rename.getCode())
+                .map(rename -> ", " + rename.getCode())
                 .collect(Collectors.joining());
 
         return usePrefix + renamesSuffix;

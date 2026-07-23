@@ -40,7 +40,7 @@ public class BinaryOperator extends Expr {
     @Override
     public String getCode() {
         return getLhs().getCode() +
-                optSpc() + encase(get(OP).getString()) + optSpc() +
+                " " + encase(get(OP).getString()) + " " +
                 getRhs().getCode();
     }
 }

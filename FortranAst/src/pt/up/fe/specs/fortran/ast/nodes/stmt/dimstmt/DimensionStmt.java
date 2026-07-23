@@ -28,7 +28,7 @@ public class DimensionStmt extends Stmt {
         var decls = getDimensionDecls();
         var declsCode = decls.stream()
                 .map(DimensionDecl::getCode)
-                .collect(Collectors.joining("," + optSpc()));
+                .collect(Collectors.joining(", "));
         code.append(declsCode);
 
         return code.toString();

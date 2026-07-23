@@ -23,9 +23,8 @@ public class UseOnlyStmt extends UseStmt {
 
         var onlyListSuffix = getOnlySpecs().stream()
                 .map(Only::getCode)
-                .collect(Collectors.joining("," + optSpc()));
+                .collect(Collectors.joining(", "));
 
-        return usePrefix + "," + optSpc() + keyword(FortranKeyword.ONLY)
-                + optSpc() + ":" + optSpc() + onlyListSuffix;
+        return usePrefix + ", " + keyword(FortranKeyword.ONLY) + " : " + onlyListSuffix;
     }
 }

@@ -21,7 +21,7 @@ public class WhileLoopControl extends LoopControl {
     @Override
     public String getCode() {
         return getCond().map(
-                expr -> keyword(FortranKeyword.WHILE) + optSpc() + "(" + expr.getCode() + ")"
+                expr -> keyword(FortranKeyword.WHILE) + " (" + expr.getCode() + ")"
         ).orElse("");
     }
 }
