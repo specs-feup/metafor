@@ -466,8 +466,13 @@ public class StmtProcessors extends ANodeProcessor {
     public void allocateStmt(AllocateStmt allocateStmt) {
         actionStmt(allocateStmt);
 
-        allocateStmt.addChildren(getChildren(allocateStmt, FlangName.ALLOCATION));
-        allocateStmt.addChildren(getChildren(allocateStmt, FlangName.ALLOC_OPT));
+        var allocations = getChildren(allocateStmt, FlangName.ALLOCATION);
+        allocateStmt.addChildren(allocations);
+
+        if (attributes(allocateStmt).has(FlangName.ALLOC_OPT)) {
+            var options = getChildren(allocateStmt, FlangName.ALLOC_OPT);
+            allocateStmt.addChildren(options);
+        }
     }
 
     public void deallocateStmt(DeallocateStmt deallocateStmt) {
