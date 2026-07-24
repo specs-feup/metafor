@@ -4,6 +4,10 @@ import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.alloc.Allocation;
 import pt.up.fe.specs.fortran.ast.nodes.alloc.StatAllocOption;
 import pt.up.fe.specs.fortran.ast.nodes.decl.*;
+import pt.up.fe.specs.fortran.ast.nodes.decl.typeparam.DeferredTypeParamValue;
+import pt.up.fe.specs.fortran.ast.nodes.decl.typeparam.ExprTypeParamValue;
+import pt.up.fe.specs.fortran.ast.nodes.decl.typeparam.StarTypeParamValue;
+import pt.up.fe.specs.fortran.ast.nodes.decl.typeparam.TypeParamValue;
 import pt.up.fe.specs.fortran.ast.nodes.expr.*;
 import pt.up.fe.specs.fortran.ast.nodes.loops.ConcurrentLoopControl;
 import pt.up.fe.specs.fortran.ast.nodes.loops.ConcurrentRange;
@@ -34,6 +38,9 @@ import pt.up.fe.specs.fortran.ast.nodes.type.*;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.AllocatableKeyword;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.IntentSpec;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.ParameterKeyword;
+import pt.up.fe.specs.fortran.ast.nodes.type.lenselector.ConstLenSelector;
+import pt.up.fe.specs.fortran.ast.nodes.type.lenselector.KindParamLenSelector;
+import pt.up.fe.specs.fortran.ast.nodes.type.lenselector.LenSelector;
 import pt.up.fe.specs.fortran.ast.nodes.type.lenselector.ParamLenSelector;
 import pt.up.fe.specs.fortran.ast.nodes.type.shapes.AllocateShapeSpecification;
 import pt.up.fe.specs.fortran.ast.nodes.type.shapes.DeferredShapeSpecList;
@@ -69,6 +76,8 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.DUMMY_ARG, Parameter.class);
         NAME_TO_CONCRETE_CLASS.put(FlangName.DUMMY_ARG, FlangToClass::chooseParameter);
         NAME_TO_CLASS.put(FlangName.DATA_STMT_VALUE, DataStmtValue.class);
+        NAME_TO_CLASS.put(FlangName.TYPE_PARAM_VALUE, TypeParamValue.class);
+        NAME_TO_CONCRETE_CLASS.put(FlangName.TYPE_PARAM_VALUE, FlangToClass::chooseTypeParamValue);
 
         /// STMTs
         NAME_TO_CLASS.put(FlangName.PRINT_STMT, PrintStmt.class);
@@ -173,7 +182,10 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.CHARACTER, CharacterType.class);
         NAME_TO_CLASS.put(FlangName.REAL, RealType.class);
         NAME_TO_CLASS.put(FlangName.COMPLEX, ComplexType.class);
-        NAME_TO_CLASS.put(FlangName.LENGTH_SELECTOR, ParamLenSelector.class);
+        NAME_TO_CLASS.put(FlangName.CHAR_LENGTH, ConstLenSelector.class);
+        NAME_TO_CLASS.put(FlangName.LENGTH_SELECTOR, LenSelector.class);
+        NAME_TO_CONCRETE_CLASS.put(FlangName.LENGTH_SELECTOR, FlangToClass::chooseLengthSelector);
+        NAME_TO_CLASS.put(FlangName.LENGTH_AND_KIND, KindParamLenSelector.class);
 
         ///  LOOP
         NAME_TO_CLASS.put(FlangName.LOOP_BOUNDS, RangeLoopControl.class);
@@ -216,6 +228,12 @@ public class FlangToClass {
         };
     }
 
+    private static Optional<Class<? extends FortranNode>> chooseLengthSelector(FlangAttributes attrs) {
+        return attrs.has("TypeParamValue")
+                ? Optional.of(ParamLenSelector.class)
+                : Optional.empty();
+    }
+
     private static Optional<Class<? extends FortranNode>> chooseOnly(FlangAttributes attrs) {
         return switch (attrs.getVariantKey()) {
             case "GenericSpec" -> Optional.of(OnlyGenericSpec.class);
@@ -228,6 +246,15 @@ public class FlangToClass {
         return switch (attrs.getVariantKey()) {
             case "Name" -> Optional.of(NamedParameter.class);
             case "Star" -> Optional.of(StarParameter.class);
+            default -> Optional.empty();
+        };
+    }
+
+    private static Optional<Class<? extends FortranNode>> chooseTypeParamValue(FlangAttributes attrs) {
+        return switch (attrs.getVariantKey()) {
+            case "Expr" -> Optional.of(ExprTypeParamValue.class);
+            case "Star" -> Optional.of(StarTypeParamValue.class);
+            case "Deferred" -> Optional.of(DeferredTypeParamValue.class);
             default -> Optional.empty();
         };
     }

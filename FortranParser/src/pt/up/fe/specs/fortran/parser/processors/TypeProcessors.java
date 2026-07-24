@@ -7,8 +7,6 @@ import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 
 public class TypeProcessors extends ANodeProcessor {
-
-
     public TypeProcessors(FortranJsonResult data) {
         super(data);
     }

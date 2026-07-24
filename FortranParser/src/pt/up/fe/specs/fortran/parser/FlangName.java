@@ -30,6 +30,7 @@ public enum FlangName implements StringProvider {
     DATA_STMT_VALUE,
     DATA_STMT_REPEAT,
     DATA_STMT_CONSTANT,
+    TYPE_PARAM_VALUE,
 
     /// STMTs
     STATEMENT,
@@ -158,7 +159,9 @@ public enum FlangName implements StringProvider {
     CHARACTER,
     REAL,
     CHAR_SELECTOR,
+    CHAR_LENGTH,
     LENGTH_SELECTOR,
+    LENGTH_AND_KIND,
     COMPLEX,
 
     /// LOOP
