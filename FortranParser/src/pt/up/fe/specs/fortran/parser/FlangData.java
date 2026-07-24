@@ -53,7 +53,7 @@ public class FlangData {
         }
 
         // If there is already a concrete FortranAst class for this id, there is no derivation
-        if (FlangToClass.isConcreteClass(getKind(id), getAttrs(id))) {
+        if (FlangToClass.isClass(getKind(id), getAttrs(id))) {
             return Optional.empty();
         }
 

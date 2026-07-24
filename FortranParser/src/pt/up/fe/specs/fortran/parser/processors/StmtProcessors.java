@@ -496,14 +496,14 @@ public class StmtProcessors extends ANodeProcessor {
     public void useRenameStmt(UseRenameStmt useRenameStmt) {
         useStmt(useRenameStmt);
 
-        var renameList = getChildren(useRenameStmt, "renameList");
+        var renameList = getChildren(useRenameStmt, FlangName.RENAME);
         useRenameStmt.addChildren(renameList);
     }
 
     public void useOnlyStmt(UseOnlyStmt useOnlyStmt) {
         useStmt(useOnlyStmt);
 
-        var onlyList = getChildren(useOnlyStmt, "onlyList");
+        var onlyList = getChildren(useOnlyStmt, FlangName.ONLY);
         useOnlyStmt.addChildren(onlyList);
     }
 

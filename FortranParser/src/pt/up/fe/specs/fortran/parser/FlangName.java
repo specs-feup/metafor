@@ -31,6 +31,8 @@ public enum FlangName implements StringProvider {
     DATA_STMT_REPEAT,
     DATA_STMT_CONSTANT,
     TYPE_PARAM_VALUE,
+    DEFERRED,
+    GENERIC_SPEC,
 
     /// STMTs
     STATEMENT,
@@ -60,6 +62,7 @@ public enum FlangName implements StringProvider {
     DEALLOCATE_STMT,
     USE_STMT,
     ONLY,
+    RENAME,
     NAMES,
     OPERATORS,
     CONTINUE_STMT,
@@ -98,6 +101,7 @@ public enum FlangName implements StringProvider {
     VARIABLE,
     DESIGNATOR,
     DATA_REF,
+    FUNCTION_REFERENCE,
 
     /// EXPRs
     EXPR,
