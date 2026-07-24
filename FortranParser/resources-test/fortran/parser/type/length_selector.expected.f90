@@ -1,5 +1,5 @@
 PROGRAM LENGTH_SELECTOR
-    INTEGER, PARAMETER :: c_kind = selected_char_kind('DEFAULT')
+    INTEGER, PARAMETER :: c_kind = selected_char_kind("DEFAULT")
 
     CHARACTER(LEN=10) :: c_len_keyword  ! Explicit keyword
     CHARACTER(LEN=10) :: c_len_positional  ! Positional shorthand
@@ -14,5 +14,5 @@ PROGRAM LENGTH_SELECTOR
 
     CHARACTER(LEN=:), ALLOCATABLE :: c_deferred  ! Deferred length character
 
-    CHARACTER(LEN=*), PARAMETER :: C_CONST = "Hello, Fortran!"  ! Constant length character
+    CHARACTER(LEN=*), PARAMETER :: c_const = "Hello, Fortran!"  ! Constant length character
 END PROGRAM LENGTH_SELECTOR

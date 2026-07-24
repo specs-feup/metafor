@@ -18,14 +18,22 @@ public class CaseClassMapper<T extends FortranNode> extends ClassMapper<T> {
         this.caseMap = new HashMap<>();
     }
 
+    public CaseClassMapper<T> map(String variantKey, Class<? extends T> clazz) {
+        caseMap.put(variantKey, Optional.of(clazz));
+        return this;
+    }
+
     public CaseClassMapper<T> map(FlangName variantKey, Class<? extends T> clazz) {
-        caseMap.put(variantKey.getString(), Optional.of(clazz));
+        return map(variantKey.getString(), clazz);
+    }
+
+    public CaseClassMapper<T> ignore(String variantKey) {
+        caseMap.put(variantKey, Optional.empty());
         return this;
     }
 
     public CaseClassMapper<T> ignore(FlangName variantKey) {
-        caseMap.put(variantKey.getString(), Optional.empty());
-        return this;
+        return ignore(variantKey.getString());
     }
 
     @Override

@@ -18,7 +18,7 @@ public class ParamLenSelector extends LenSelector {
 
     @Override
     public String getCode() {
-        var lenCode = keyword(FortranKeyword.LEN) + " = " + getLength().getCode();
+        var lenCode = keyword(FortranKeyword.LEN) + "=" + getLength().getCode();
 
         return "(" + lenCode + ")";
     }

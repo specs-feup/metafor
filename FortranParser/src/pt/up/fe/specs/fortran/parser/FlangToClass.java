@@ -52,7 +52,6 @@ import java.util.Map;
 import java.util.Optional;
 
 public class FlangToClass {
-
     private static final Map<FlangName, ClassMapper<? extends FortranNode>> NAME_TO_MAPPER = new HashMap<>();
 
     static {
@@ -188,10 +187,12 @@ public class FlangToClass {
         NAME_TO_MAPPER.put(FlangName.CHARACTER, ClassMapper.always(CharacterType.class));
         NAME_TO_MAPPER.put(FlangName.REAL, ClassMapper.always(RealType.class));
         NAME_TO_MAPPER.put(FlangName.COMPLEX, ClassMapper.always(ComplexType.class));
-        NAME_TO_MAPPER.put(FlangName.CHAR_LENGTH, ClassMapper.always(ConstLenSelector.class));
+        NAME_TO_MAPPER.put(FlangName.CHAR_LENGTH, ClassMapper.caseFor(LenSelector.class)
+                .map(FlangName.TYPE_PARAM_VALUE, ParamLenSelector.class)
+                .map("uint64_t", ConstLenSelector.class));
         NAME_TO_MAPPER.put(FlangName.LENGTH_SELECTOR, ClassMapper.caseFor(LenSelector.class)
                 .map(FlangName.TYPE_PARAM_VALUE, ParamLenSelector.class)
-                .map(FlangName.CHAR_LENGTH, ConstLenSelector.class));
+                .ignore(FlangName.CHAR_LENGTH));
         NAME_TO_MAPPER.put(FlangName.LENGTH_AND_KIND, ClassMapper.always(KindParamLenSelector.class));
 
         ///  LOOP

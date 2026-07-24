@@ -4,7 +4,7 @@ import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.FortranKeyword;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.decl.typeparam.TypeParamValue;
-import pt.up.fe.specs.fortran.ast.nodes.expr.IntLiteral;
+import pt.up.fe.specs.fortran.ast.nodes.expr.Expr;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -14,8 +14,8 @@ public class KindParamLenSelector extends LenSelector {
         super(data, children);
     }
 
-    public IntLiteral getKind() {
-        return getChild(IntLiteral.class, 0);
+    public Expr getKind() {
+        return getChild(Expr.class, 0);
     }
 
     public Optional<TypeParamValue> getLength() {
@@ -24,9 +24,9 @@ public class KindParamLenSelector extends LenSelector {
 
     @Override
     public String getCode() {
-        var kindCode = keyword(FortranKeyword.KIND) + " = " + getKind().getCode();
+        var kindCode = keyword(FortranKeyword.KIND) + "=" + getKind().getCode();
         var lenCode = getLength()
-                .map(len -> ", LEN = " + len.getCode())
+                .map(len -> ", LEN=" + len.getCode())
                 .orElseGet(() -> "");
 
         return "(" + kindCode + lenCode + ")";
