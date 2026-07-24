@@ -597,6 +597,18 @@ public class FortranParserTest {
     }
 
     @Test
+    void testLengthSelector() {
+        testJson("type/length_selector.json");
+    }
+
+    @Test
+    void testLengthSelectorNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("type/length_selector.f90");
+        }
+    }
+
+    @Test
     void testFujitsu0000_0000() {
         testJson("fujitsu/0000/0000_0000.json");
     }
