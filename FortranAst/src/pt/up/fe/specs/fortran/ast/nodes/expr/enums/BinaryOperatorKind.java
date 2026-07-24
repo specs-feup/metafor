@@ -14,6 +14,9 @@ public enum BinaryOperatorKind implements StringProvider {
     EQ("=="),
     NE("/="),
     AND(".AND."),
+    OR(".OR."),
+    EQV(".EQV."),
+    NEQV(".NEQV."),
     CONCAT("//");
 
     private final String opString;
