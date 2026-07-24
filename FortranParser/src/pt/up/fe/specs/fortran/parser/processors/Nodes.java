@@ -4,6 +4,9 @@ import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.alloc.Allocation;
 import pt.up.fe.specs.fortran.ast.nodes.alloc.StatAllocOption;
 import pt.up.fe.specs.fortran.ast.nodes.decl.*;
+import pt.up.fe.specs.fortran.ast.nodes.decl.typeparam.DeferredTypeParamValue;
+import pt.up.fe.specs.fortran.ast.nodes.decl.typeparam.ExprTypeParamValue;
+import pt.up.fe.specs.fortran.ast.nodes.decl.typeparam.StarTypeParamValue;
 import pt.up.fe.specs.fortran.ast.nodes.expr.*;
 import pt.up.fe.specs.fortran.ast.nodes.loops.ConcurrentLoopControl;
 import pt.up.fe.specs.fortran.ast.nodes.loops.ConcurrentRange;
@@ -69,6 +72,9 @@ public class Nodes {
         processors.put(DataStmtValue.class, d::dataStmtValue);
         processors.put(NamedParameter.class, d::namedParameter);
         processors.put(StarParameter.class, d::starParameter);
+        processors.put(ExprTypeParamValue.class, d::exprTypeParamValue);
+        processors.put(StarTypeParamValue.class, d::starTypeParamValue);
+        processors.put(DeferredTypeParamValue.class, d::deferredTypeParamValue);
 
         var v = new VariableProcessor(data);
         processors.put(DataRef.class, v::dataRef);

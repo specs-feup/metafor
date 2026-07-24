@@ -1,6 +1,9 @@
 package pt.up.fe.specs.fortran.parser.processors;
 
 import pt.up.fe.specs.fortran.ast.nodes.decl.*;
+import pt.up.fe.specs.fortran.ast.nodes.decl.typeparam.DeferredTypeParamValue;
+import pt.up.fe.specs.fortran.ast.nodes.decl.typeparam.ExprTypeParamValue;
+import pt.up.fe.specs.fortran.ast.nodes.decl.typeparam.StarTypeParamValue;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 
@@ -70,7 +73,14 @@ public class DeclProcessors extends ANodeProcessor {
         namedParameter.set(NamedParameter.NAME, name);
     }
 
-    public void starParameter(StarParameter starParameter) {
+    public void starParameter(StarParameter ignoredParameter) {}
 
+    public void exprTypeParamValue(ExprTypeParamValue value) {
+        var expr = getChild(value, FlangName.EXPR);
+        value.addChild(expr);
     }
+
+    public void starTypeParamValue(StarTypeParamValue ignoredValue) {}
+
+    public void deferredTypeParamValue(DeferredTypeParamValue ignoredValue) {}
 }
