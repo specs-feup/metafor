@@ -30,8 +30,10 @@ public class CaseClassMapper<T extends FortranNode> extends ClassMapper<T> {
 
     @Override
     public Optional<Class<? extends T>> get(FlangAttributes attrs) {
-        var clazz = caseMap.get(attrs.getVariantKey());
-        Objects.requireNonNull(clazz, "Could not find variant node for node with attributes " + attrs);
+        var variantKey = attrs.getVariantKey();
+        var clazz = caseMap.get(variantKey);
+        Objects.requireNonNull(clazz, () -> "Could not find variant node for node with variant key '"
+            + variantKey + "'");
 
         return clazz;
     }
