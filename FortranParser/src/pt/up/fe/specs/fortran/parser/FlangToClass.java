@@ -162,6 +162,9 @@ public class FlangToClass {
         NAME_TO_MAPPER.put(FlangName.GT, ClassMapper.always(BinaryOperator.class));
         NAME_TO_MAPPER.put(FlangName.GE, ClassMapper.always(BinaryOperator.class));
         NAME_TO_MAPPER.put(FlangName.AND, ClassMapper.always(BinaryOperator.class));
+        NAME_TO_MAPPER.put(FlangName.OR, ClassMapper.always(BinaryOperator.class));
+        NAME_TO_MAPPER.put(FlangName.EQV, ClassMapper.always(BinaryOperator.class));
+        NAME_TO_MAPPER.put(FlangName.NEQV, ClassMapper.always(BinaryOperator.class));
         NAME_TO_MAPPER.put(FlangName.CONCAT, ClassMapper.always(BinaryOperator.class));
         NAME_TO_MAPPER.put(FlangName.ARRAY_CONSTRUCTOR, ClassMapper.always(ArrayConstructor.class));
         NAME_TO_MAPPER.put(FlangName.AC_SPEC, ClassMapper.always(AcSpecification.class));
