@@ -3,6 +3,7 @@ package pt.up.fe.specs.fortran.ast.nodes.type;
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.FortranKeyword;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
+import pt.up.fe.specs.fortran.ast.nodes.type.lenselector.LenSelector;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -12,12 +13,14 @@ public class CharacterType extends IntrinsicType {
         super(data, children);
     }
 
-    public Optional<CharSelector> getSelector() {
-        return getChildTry(CharSelector.class);
+    public Optional<LenSelector> getSelector() {
+        return getChildTry(LenSelector.class);
     }
 
     @Override
     public String getCode() {
-        return keyword(FortranKeyword.CHARACTER) + getSelector().map(CharSelector::getCode).orElse("");
+        var selectorCode = getSelector().map(LenSelector::getCode).orElse("");
+
+        return keyword(FortranKeyword.CHARACTER) + selectorCode;
     }
 }

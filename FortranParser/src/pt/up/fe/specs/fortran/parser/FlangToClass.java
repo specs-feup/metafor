@@ -34,6 +34,7 @@ import pt.up.fe.specs.fortran.ast.nodes.type.*;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.AllocatableKeyword;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.IntentSpec;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.ParameterKeyword;
+import pt.up.fe.specs.fortran.ast.nodes.type.lenselector.ParamLenSelector;
 import pt.up.fe.specs.fortran.ast.nodes.type.shapes.AllocateShapeSpecification;
 import pt.up.fe.specs.fortran.ast.nodes.type.shapes.DeferredShapeSpecList;
 import pt.up.fe.specs.fortran.ast.nodes.type.shapes.ExplicitShapeSpecification;
@@ -172,7 +173,7 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.CHARACTER, CharacterType.class);
         NAME_TO_CLASS.put(FlangName.REAL, RealType.class);
         NAME_TO_CLASS.put(FlangName.COMPLEX, ComplexType.class);
-        NAME_TO_CLASS.put(FlangName.LENGTH_SELECTOR, LengthSelector.class);
+        NAME_TO_CLASS.put(FlangName.LENGTH_SELECTOR, ParamLenSelector.class);
 
         ///  LOOP
         NAME_TO_CLASS.put(FlangName.LOOP_BOUNDS, RangeLoopControl.class);

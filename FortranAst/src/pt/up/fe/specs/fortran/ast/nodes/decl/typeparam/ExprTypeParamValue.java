@@ -1,4 +1,4 @@
-package pt.up.fe.specs.fortran.ast.nodes.type;
+package pt.up.fe.specs.fortran.ast.nodes.decl.typeparam;
 
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
@@ -6,17 +6,17 @@ import pt.up.fe.specs.fortran.ast.nodes.expr.Expr;
 
 import java.util.Collection;
 
-public class LengthSelector extends CharSelector {
-    public LengthSelector(DataStore data, Collection<? extends FortranNode> children) {
+public class ExprTypeParamValue extends TypeParamValue {
+    public ExprTypeParamValue(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
     }
 
     public Expr getExpr() {
-        return getChild(Expr.class);
+        return getChild(Expr.class, 0);
     }
 
     @Override
     public String getCode() {
-        return "(LEN = " + getExpr().getCode() + ")";
+        return getExpr().getCode();
     }
 }

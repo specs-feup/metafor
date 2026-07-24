@@ -51,6 +51,8 @@ public enum FortranKeyword {
     COMMON,
     INTENT,
     STAT,
+    LEN,
+    KIND,
 
     OMP;
 

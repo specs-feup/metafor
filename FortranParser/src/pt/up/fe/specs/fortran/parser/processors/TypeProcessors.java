@@ -2,6 +2,7 @@ package pt.up.fe.specs.fortran.parser.processors;
 
 import pt.up.fe.specs.fortran.ast.nodes.decl.KindSelector;
 import pt.up.fe.specs.fortran.ast.nodes.type.*;
+import pt.up.fe.specs.fortran.ast.nodes.type.lenselector.ParamLenSelector;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 
@@ -67,7 +68,7 @@ public class TypeProcessors extends ANodeProcessor {
         }
     }
 
-    public void lengthSelector(LengthSelector lengthSelector) {
+    public void lengthSelector(ParamLenSelector lengthSelector) {
         var childId = attributes(lengthSelector).getVariantString();
         lengthSelector.addChild(getChild(attributes().get(childId).getVariantString()));
     }

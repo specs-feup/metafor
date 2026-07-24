@@ -33,6 +33,7 @@ import pt.up.fe.specs.fortran.ast.nodes.stmt.usestmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.type.*;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.IntentSpec;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.KeywordAttributeSpecifier;
+import pt.up.fe.specs.fortran.ast.nodes.type.lenselector.ParamLenSelector;
 import pt.up.fe.specs.fortran.ast.nodes.type.shapes.AllocateShapeSpecification;
 import pt.up.fe.specs.fortran.ast.nodes.type.shapes.DeferredShapeSpecList;
 import pt.up.fe.specs.fortran.ast.nodes.type.shapes.ExplicitShapeSpecification;
@@ -156,7 +157,7 @@ public class Nodes {
         processors.put(DoublePrecisionType.class, t::doublePrecisionType);
         processors.put(CharacterType.class, t::characterType);
         processors.put(RealType.class, t::realType);
-        processors.put(LengthSelector.class, t::lengthSelector);
+        processors.put(ParamLenSelector.class, t::lengthSelector);
         processors.put(ComplexType.class, t::complexType);
 
         var a = new AttributesProcessor(data);
