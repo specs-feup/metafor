@@ -2,6 +2,7 @@ package pt.up.fe.specs.fortran.parser.processors;
 
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.expr.Expr;
+import pt.up.fe.specs.fortran.ast.nodes.io.WriteStmt;
 import pt.up.fe.specs.fortran.ast.nodes.loops.WhileLoopControl;
 import pt.up.fe.specs.fortran.ast.nodes.program.*;
 import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;

@@ -231,7 +231,7 @@ public class FlangToClass {
         ///  UTILs
         NAME_TO_MAPPER.put(FlangName.NAME_VALUE, ClassMapper.always(NameValue.class));
         NAME_TO_MAPPER.put(FlangName.IO_UNIT, ClassMapper.always(IoUnit.class));
-        NAME_TO_MAPPER.put(FlangName.IO_CONTROL_SPEC, ClassMapper.always(IoControlSpec.class));
+        NAME_TO_MAPPER.put(FlangName.IO_CONTROL_SPEC, ClassMapper.always(ExprIoControlSpec.class));
         NAME_TO_MAPPER.put(FlangName.STAT_VARIABLE, ClassMapper.always(StatAllocOption.class));
 
         /// OPENMP

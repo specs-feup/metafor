@@ -1,11 +1,11 @@
-package pt.up.fe.specs.fortran.ast.nodes.stmt;
+package pt.up.fe.specs.fortran.ast.nodes.io;
 
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.FortranKeyword;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.expr.Expr;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.ActionStmt;
 import pt.up.fe.specs.fortran.ast.nodes.utils.Format;
-import pt.up.fe.specs.fortran.ast.nodes.io.IoControlSpec;
 import pt.up.fe.specs.fortran.ast.nodes.utils.IoUnit;
 
 import java.util.ArrayList;
@@ -27,8 +27,8 @@ public class WriteStmt extends ActionStmt {
         return getChildTry(Format.class);
     }
 
-    public List<IoControlSpec> getControlSpecs() {
-        return getChildrenOf(IoControlSpec.class);
+    public List<ExprIoControlSpec> getControlSpecs() {
+        return getChildrenOf(ExprIoControlSpec.class);
     }
 
     public List<Expr> getOutputItems() {

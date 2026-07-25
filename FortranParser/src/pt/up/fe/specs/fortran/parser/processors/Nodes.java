@@ -187,7 +187,7 @@ public class Nodes {
         processors.put(Format.class, u::format);
         processors.put(NameValue.class, u::nameValue);
         processors.put(IoUnit.class, u::ioUnit);
-        processors.put(IoControlSpec.class, u::ioControlSpec);
+        processors.put(ExprIoControlSpec.class, u::ioControlSpec);
 
         var l = new LoopProcessors(data);
         processors.put(RangeLoopControl.class, l::loopRange);

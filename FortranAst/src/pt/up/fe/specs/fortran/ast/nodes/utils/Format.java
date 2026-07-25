@@ -8,6 +8,7 @@ import java.util.Collection;
 /**
  * R1215 format
  */
+// TODO(Process-ing): Rewrite this node to have better type consistency
 public class Format extends FortranNode {
 
     public Format(DataStore data, Collection<? extends FortranNode> children) {

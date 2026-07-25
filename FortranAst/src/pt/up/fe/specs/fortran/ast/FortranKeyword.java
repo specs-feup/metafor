@@ -5,7 +5,6 @@ public enum FortranKeyword {
     PROGRAM,
     CONCURRENT,
     SUBROUTINE,
-    WRITE,
     USE,
     INTRINSIC,
     NON_INTRINSIC,
@@ -28,6 +27,10 @@ public enum FortranKeyword {
     RETURN,
     OPEN,
     ERR,
+    WRITE,
+    UNIT,
+    FMT,
+    NML,
 
     // Conditional statements
     IF,
