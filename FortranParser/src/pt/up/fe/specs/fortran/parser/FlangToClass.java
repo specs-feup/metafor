@@ -9,7 +9,7 @@ import pt.up.fe.specs.fortran.ast.nodes.decl.typeparam.ExprTypeParamValue;
 import pt.up.fe.specs.fortran.ast.nodes.decl.typeparam.StarTypeParamValue;
 import pt.up.fe.specs.fortran.ast.nodes.decl.typeparam.TypeParamValue;
 import pt.up.fe.specs.fortran.ast.nodes.expr.*;
-import pt.up.fe.specs.fortran.ast.nodes.io.IoControlSpec;
+import pt.up.fe.specs.fortran.ast.nodes.io.*;
 import pt.up.fe.specs.fortran.ast.nodes.loops.ConcurrentLoopControl;
 import pt.up.fe.specs.fortran.ast.nodes.loops.ConcurrentRange;
 import pt.up.fe.specs.fortran.ast.nodes.loops.RangeLoopControl;
@@ -214,6 +214,19 @@ public class FlangToClass {
         NAME_TO_MAPPER.put(FlangName.EXPLICIT_SHAPE_SPEC, ClassMapper.always(ExplicitShapeSpecification.class));
         NAME_TO_MAPPER.put(FlangName.DEFERRED_SHAPE_SPEC_LIST, ClassMapper.always(DeferredShapeSpecList.class));
         NAME_TO_MAPPER.put(FlangName.ALLOCATE_SHAPE_SPEC, ClassMapper.always(AllocateShapeSpecification.class));
+
+        /// IO
+        NAME_TO_MAPPER.put(FlangName.OPEN_STMT, ClassMapper.always(OpenStmt.class));
+        NAME_TO_MAPPER.put(FlangName.CONNECT_SPEC, ClassMapper.caseFor(ConnectSpec.class)
+                .map(FlangName.FILE_UNIT_NUMBER, ExprConnectSpec.class)
+                .map(FlangName.EXPR, ExprConnectSpec.class)
+                .map(FlangName.CHAR_EXPR, ExprConnectSpec.class)
+                .map(FlangName.MSG_VARIABLE, VarConnectSpec.class)
+                .map(FlangName.STAT_VARIABLE, VarConnectSpec.class)
+                .map(FlangName.RECL, ExprConnectSpec.class)
+                .map(FlangName.NEWUNIT, VarConnectSpec.class)
+                .map(FlangName.ERR_LABEL, ErrConnectSpec.class)
+                .map(FlangName.STATUS_EXPR, ExprConnectSpec.class));
 
         ///  UTILs
         NAME_TO_MAPPER.put(FlangName.NAME_VALUE, ClassMapper.always(NameValue.class));

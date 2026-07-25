@@ -179,6 +179,20 @@ public enum FlangName implements StringProvider {
     CONCURRENT_CONTROL,
     LOCALITY_SPEC,
 
+    /// IO
+    OPEN_STMT,
+    CONNECT_SPEC,
+    KIND,
+    FILE_UNIT_NUMBER,
+    FILE_NAME_EXPR,
+    CHAR_EXPR,
+    MSG_VARIABLE,
+    STAT_VARIABLE,
+    RECL,
+    NEWUNIT,
+    ERR_LABEL,
+    STATUS_EXPR,
+
     /// OPENMP
     OPENMP_CONSTRUCT("OpenMPConstruct"),
     OMP_BLOCK_CONSTRUCT,
@@ -213,13 +227,11 @@ public enum FlangName implements StringProvider {
     INTENT_SPEC,
     PARAMETER,
 
-
     // OTHER
     INITIALIZATION,
     NAME_VALUE,
     ALLOCATE_OBJECT,
     ALLOC_OPT,
-    STAT_VARIABLE,
     NAMED_CONSTANT,
     NAMED_CONSTANT_DEF;
 
