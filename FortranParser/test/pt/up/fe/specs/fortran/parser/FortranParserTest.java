@@ -607,6 +607,17 @@ public class FortranParserTest {
             testNative("type/length_selector.f90");
         }
     }
+    @Test
+    void testIoControl() {
+        testJson("io/io_control.json");
+    }
+
+    @Test
+    void testIoControlNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("io/io_control.f90");
+        }
+    }
 
     @Test
     void testFujitsu0000_0000() {

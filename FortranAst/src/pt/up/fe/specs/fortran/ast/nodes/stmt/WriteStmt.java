@@ -5,7 +5,7 @@ import pt.up.fe.specs.fortran.ast.FortranKeyword;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.expr.Expr;
 import pt.up.fe.specs.fortran.ast.nodes.utils.Format;
-import pt.up.fe.specs.fortran.ast.nodes.utils.IoControlSpec;
+import pt.up.fe.specs.fortran.ast.nodes.io.ctrlspec.IoControlSpec;
 import pt.up.fe.specs.fortran.ast.nodes.utils.IoUnit;
 
 import java.util.ArrayList;

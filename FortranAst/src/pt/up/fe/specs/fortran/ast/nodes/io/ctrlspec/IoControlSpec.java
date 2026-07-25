@@ -1,4 +1,4 @@
-package pt.up.fe.specs.fortran.ast.nodes.utils;
+package pt.up.fe.specs.fortran.ast.nodes.io.ctrlspec;
 
 import org.suikasoft.jOptions.Datakey.DataKey;
 import org.suikasoft.jOptions.Datakey.KeyFactory;
@@ -10,7 +10,6 @@ import pt.up.fe.specs.fortran.ast.nodes.utils.enums.IoControlSpecKind;
 import java.util.Collection;
 
 public class IoControlSpec extends FortranNode {
-
     public static DataKey<IoControlSpecKind> KIND = KeyFactory.enumeration("kind", IoControlSpecKind.class);
 
     public IoControlSpec(DataStore data, Collection<? extends FortranNode> children) {
