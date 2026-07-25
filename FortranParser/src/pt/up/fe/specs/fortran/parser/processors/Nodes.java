@@ -8,7 +8,7 @@ import pt.up.fe.specs.fortran.ast.nodes.decl.typeparam.DeferredTypeParamValue;
 import pt.up.fe.specs.fortran.ast.nodes.decl.typeparam.ExprTypeParamValue;
 import pt.up.fe.specs.fortran.ast.nodes.decl.typeparam.StarTypeParamValue;
 import pt.up.fe.specs.fortran.ast.nodes.expr.*;
-import pt.up.fe.specs.fortran.ast.nodes.io.IoControlSpec;
+import pt.up.fe.specs.fortran.ast.nodes.io.*;
 import pt.up.fe.specs.fortran.ast.nodes.loops.ConcurrentLoopControl;
 import pt.up.fe.specs.fortran.ast.nodes.loops.ConcurrentRange;
 import pt.up.fe.specs.fortran.ast.nodes.loops.RangeLoopControl;
@@ -193,6 +193,12 @@ public class Nodes {
         processors.put(RangeLoopControl.class, l::loopRange);
         processors.put(ConcurrentLoopControl.class, l::concurrentLoopControl);
         processors.put(ConcurrentRange.class, l::concurrentRange);
+
+        var i = new IoProcessors(data, s);
+        processors.put(OpenStmt.class, i::openStmt);
+        processors.put(ExprConnectSpec.class, i::exprConnectSpec);
+        processors.put(VarConnectSpec.class, i::varConnectSpec);
+        processors.put(ErrConnectSpec.class, i::errConnectSpec);
 
         var omp = new OmpProcessors(data, s);
         processors.put(OmpBlockConstruct.class, omp::ompBlockConstruct);

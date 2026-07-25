@@ -20,7 +20,10 @@ public enum ExprConnectSpecKind implements StringProvider {
     RECL,
     ROUND,
     SIGN,
-    STATUS;
+    STATUS,
+    CARRIAGECONTROL,
+    CONVERT,
+    DISPOSE;
 
     private final String string;
 
