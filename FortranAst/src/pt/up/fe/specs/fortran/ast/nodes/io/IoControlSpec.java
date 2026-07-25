@@ -1,4 +1,4 @@
-package pt.up.fe.specs.fortran.ast.nodes.io.ctrlspec;
+package pt.up.fe.specs.fortran.ast.nodes.io;
 
 import org.suikasoft.jOptions.Datakey.DataKey;
 import org.suikasoft.jOptions.Datakey.KeyFactory;

@@ -8,7 +8,7 @@ import pt.up.fe.specs.fortran.ast.nodes.decl.typeparam.DeferredTypeParamValue;
 import pt.up.fe.specs.fortran.ast.nodes.decl.typeparam.ExprTypeParamValue;
 import pt.up.fe.specs.fortran.ast.nodes.decl.typeparam.StarTypeParamValue;
 import pt.up.fe.specs.fortran.ast.nodes.expr.*;
-import pt.up.fe.specs.fortran.ast.nodes.io.ctrlspec.IoControlSpec;
+import pt.up.fe.specs.fortran.ast.nodes.io.IoControlSpec;
 import pt.up.fe.specs.fortran.ast.nodes.loops.ConcurrentLoopControl;
 import pt.up.fe.specs.fortran.ast.nodes.loops.ConcurrentRange;
 import pt.up.fe.specs.fortran.ast.nodes.loops.RangeLoopControl;

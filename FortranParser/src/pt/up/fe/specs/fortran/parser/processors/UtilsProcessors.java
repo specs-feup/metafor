@@ -1,6 +1,6 @@
 package pt.up.fe.specs.fortran.parser.processors;
 
-import pt.up.fe.specs.fortran.ast.nodes.io.ctrlspec.IoControlSpec;
+import pt.up.fe.specs.fortran.ast.nodes.io.IoControlSpec;
 import pt.up.fe.specs.fortran.ast.nodes.utils.*;
 import pt.up.fe.specs.fortran.ast.nodes.utils.enums.IoControlSpecKind;
 import pt.up.fe.specs.fortran.parser.FlangName;

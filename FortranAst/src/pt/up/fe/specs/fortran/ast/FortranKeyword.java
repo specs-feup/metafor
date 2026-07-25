@@ -26,6 +26,8 @@ public enum FortranKeyword {
     ALLOCATE,
     DEALLOCATE,
     RETURN,
+    OPEN,
+    ERR,
 
     // Conditional statements
     IF,
