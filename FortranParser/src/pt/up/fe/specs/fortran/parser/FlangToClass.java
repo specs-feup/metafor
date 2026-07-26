@@ -109,7 +109,6 @@ public class FlangToClass {
         NAME_TO_MAPPER.put(FlangName.END_SELECT_STMT, ClassMapper.always(EndSelectStmt.class));
 
         NAME_TO_MAPPER.put(FlangName.CALL_STMT, ClassMapper.always(CallStmt.class));
-        NAME_TO_MAPPER.put(FlangName.WRITE_STMT, ClassMapper.always(WriteStmt.class));
         NAME_TO_MAPPER.put(FlangName.CONTAINS_STMT, ClassMapper.always(ContainsStmt.class));
         NAME_TO_MAPPER.put(FlangName.ALLOCATE_STMT, ClassMapper.always(AllocateStmt.class));
         NAME_TO_MAPPER.put(FlangName.DEALLOCATE_STMT, ClassMapper.always(DeallocateStmt.class));
@@ -227,11 +226,29 @@ public class FlangToClass {
                 .map(FlangName.NEWUNIT, VarConnectSpec.class)
                 .map(FlangName.ERR_LABEL, ErrConnectSpec.class)
                 .map(FlangName.STATUS_EXPR, ExprConnectSpec.class));
+        NAME_TO_MAPPER.put(FlangName.WRITE_STMT, ClassMapper.always(WriteStmt.class));
+        NAME_TO_MAPPER.put(FlangName.IO_CONTROL_SPEC, ClassMapper.caseFor(IoControlSpec.class)
+                .ignore(FlangName.IO_UNIT)
+                .map(FlangName.FORMAT, FormatIoControlSpec.class)
+                .map(FlangName.NAME, NamelistIoControlSpec.class)
+                .map(FlangName.CHAR_EXPR, ExprIoControlSpec.class)
+                .map(FlangName.ASYNCHRONOUS, ExprIoControlSpec.class)
+                .map(FlangName.END_LABEL, LabelIoControlSpec.class)
+                .map(FlangName.EOR_LABEL, LabelIoControlSpec.class)
+                .map(FlangName.ERR_LABEL, LabelIoControlSpec.class)
+                .map(FlangName.ID_VARIABLE, VarIoControlSpec.class)
+                .map(FlangName.MSG_VARIABLE, VarIoControlSpec.class)
+                .map(FlangName.STAT_VARIABLE, VarIoControlSpec.class)
+                .map(FlangName.POS, ExprIoControlSpec.class)
+                .map(FlangName.REC, ExprIoControlSpec.class)
+                .map(FlangName.SIZE, VarIoControlSpec.class));
+        NAME_TO_MAPPER.put(FlangName.IO_UNIT, ClassMapper.caseFor(IoControlSpec.class)
+                .map(FlangName.EXPR, ExprIoControlSpec.class)
+                .map(FlangName.VARIABLE, VarIoControlSpec.class)
+                .map(FlangName.STAR, StarUnitIoControlSpec.class));
 
         ///  UTILs
         NAME_TO_MAPPER.put(FlangName.NAME_VALUE, ClassMapper.always(NameValue.class));
-        NAME_TO_MAPPER.put(FlangName.IO_UNIT, ClassMapper.always(IoUnit.class));
-        NAME_TO_MAPPER.put(FlangName.IO_CONTROL_SPEC, ClassMapper.always(ExprIoControlSpec.class));
         NAME_TO_MAPPER.put(FlangName.STAT_VARIABLE, ClassMapper.always(StatAllocOption.class));
 
         /// OPENMP
