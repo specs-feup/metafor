@@ -115,6 +115,12 @@ public class FlangAttributes {
         return getString(getVariantKey());
     }
 
+    public FlangName getVariantName() {
+        var variantKey = getVariantKey();
+        return FlangName.convertTry(variantKey).orElseThrow(() -> new RuntimeException(
+                "Variant key '" + variantKey + "' is not a valid Flang name."));
+    }
+
     /**
      * Adds the given attributes to the current attributes, without overwritting existing attributes.
      *

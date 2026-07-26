@@ -118,7 +118,6 @@ public class Nodes {
         processors.put(UseOnlyStmt.class, s::useOnlyStmt);
         processors.put(UseName.class, s::useName);
         processors.put(NamesRename.class, s::namesRename);
-        processors.put(WriteStmt.class, s::writeStmt);
         processors.put(ContainsStmt.class, s::containsStmt);
         processors.put(AllocateStmt.class, s::allocateStmt);
         processors.put(DeallocateStmt.class, s::deallocateStmt);
@@ -199,6 +198,13 @@ public class Nodes {
         processors.put(ExprConnectSpec.class, i::exprConnectSpec);
         processors.put(VarConnectSpec.class, i::varConnectSpec);
         processors.put(ErrConnectSpec.class, i::errConnectSpec);
+        processors.put(WriteStmt.class, i::writeStmt);
+        processors.put(ExprIoControlSpec.class, i::exprIoControlSpec);
+        processors.put(VarIoControlSpec.class, i::varIoControlSpec);
+        processors.put(LabelIoControlSpec.class, i::labelIoControlSpec);
+        processors.put(StarUnitIoControlSpec.class, i::starUnitIoControlSpec);
+        processors.put(FormatIoControlSpec.class, i::formatIoControlSpec);
+        processors.put(NamelistIoControlSpec.class, i::namelistIoControlSpec);
 
         var omp = new OmpProcessors(data, s);
         processors.put(OmpBlockConstruct.class, omp::ompBlockConstruct);

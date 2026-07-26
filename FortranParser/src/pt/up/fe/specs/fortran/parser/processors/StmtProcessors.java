@@ -440,26 +440,6 @@ public class StmtProcessors extends ANodeProcessor {
         gotoStmt.set(GotoStmt.LABEL, label);
     }
 
-    public void writeStmt(WriteStmt writeStmt) {
-        actionStmt(writeStmt);
-
-        if (attributes(writeStmt).has("iounit")) {
-            writeStmt.addChild(getChild(writeStmt, "iounit"));
-        }
-
-        if (attributes(writeStmt).has("format")) {
-            writeStmt.addChild(getChild(writeStmt, "format"));
-        }
-
-        if (attributes(writeStmt).has("controls")) {
-            writeStmt.addChildren(getChildren(writeStmt, "controls"));
-        }
-
-        if (attributes(writeStmt).has("items")) {
-            writeStmt.addChildren(getChildren(writeStmt, "items"));
-        }
-    }
-
     public void containsStmt(ContainsStmt containsStmt) {
         executableStmt(containsStmt);
     }
@@ -534,7 +514,7 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void namedConstantDef(NamedConstantDef namedConstantDef) {
-var ref = getChild(namedConstantDef, FlangName.NAMED_CONSTANT);
+        var ref = getChild(namedConstantDef, FlangName.NAMED_CONSTANT);
         namedConstantDef.addChild(ref);
 
         var expr = getChild(namedConstantDef, FlangName.EXPR);

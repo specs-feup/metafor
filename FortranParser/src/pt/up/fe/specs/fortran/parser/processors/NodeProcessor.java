@@ -146,6 +146,11 @@ public interface NodeProcessor {
     }
 
 */
+    default FlangName getKind(FortranNode node) {
+        var id = attributes(node).getString("id");
+        var kindStr = attributes().getKind(id);
+        return FlangName.valueOf(kindStr);
+    }
 
 
     default FlangData attributes() {
