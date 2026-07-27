@@ -32,6 +32,7 @@ public enum FortranKeyword {
     FMT,
     NML,
     REWIND,
+    NAMELIST,
 
     // Conditional statements
     IF,
