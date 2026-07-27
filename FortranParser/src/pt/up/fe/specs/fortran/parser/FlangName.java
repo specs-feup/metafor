@@ -242,6 +242,11 @@ public enum FlangName implements StringProvider {
     NAME_VALUE,
     ALLOCATE_OBJECT,
     ALLOC_OPT,
+    MOLD,
+    SOURCE,
+    STAT_OR_ERRMSG,
+    STREAM,
+    PINNED,
     NAMED_CONSTANT,
     NAMED_CONSTANT_DEF;
 

@@ -2,6 +2,7 @@ package pt.up.fe.specs.fortran.parser.processors;
 
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.alloc.Allocation;
+import pt.up.fe.specs.fortran.ast.nodes.alloc.ExprAllocOption;
 import pt.up.fe.specs.fortran.ast.nodes.alloc.VarAllocOption;
 import pt.up.fe.specs.fortran.ast.nodes.decl.*;
 import pt.up.fe.specs.fortran.ast.nodes.decl.typeparam.DeferredTypeParamValue;
@@ -68,7 +69,8 @@ public class Nodes {
 
         var alloc = new AllocProcessors(data);
         processors.put(Allocation.class, alloc::allocation);
-        processors.put(VarAllocOption.class, alloc::statAllocOption);
+        processors.put(ExprAllocOption.class, alloc::exprAllocOption);
+        processors.put(VarAllocOption.class, alloc::varAllocOption);
 
         var d = new DeclProcessors(data);
         processors.put(EntityDecl.class, d::entityDecl);

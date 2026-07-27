@@ -1,7 +1,9 @@
 package pt.up.fe.specs.fortran.parser;
 
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
+import pt.up.fe.specs.fortran.ast.nodes.alloc.AllocOption;
 import pt.up.fe.specs.fortran.ast.nodes.alloc.Allocation;
+import pt.up.fe.specs.fortran.ast.nodes.alloc.ExprAllocOption;
 import pt.up.fe.specs.fortran.ast.nodes.alloc.VarAllocOption;
 import pt.up.fe.specs.fortran.ast.nodes.decl.*;
 import pt.up.fe.specs.fortran.ast.nodes.decl.typeparam.DeferredTypeParamValue;
@@ -255,7 +257,12 @@ public class FlangToClass {
 
         ///  UTILs
         NAME_TO_MAPPER.put(FlangName.NAME_VALUE, ClassMapper.always(NameValue.class));
-        NAME_TO_MAPPER.put(FlangName.STAT_VARIABLE, ClassMapper.always(VarAllocOption.class));
+        NAME_TO_MAPPER.put(FlangName.ALLOC_OPT, ClassMapper.caseFor(AllocOption.class)
+                .map(FlangName.MOLD, ExprAllocOption.class)
+                .map(FlangName.SOURCE, ExprAllocOption.class)
+                .map(FlangName.STAT_OR_ERRMSG, VarAllocOption.class)
+                .map(FlangName.STREAM, ExprAllocOption.class)
+                .map(FlangName.PINNED, VarAllocOption.class));
 
         /// OPENMP
         NAME_TO_MAPPER.put(FlangName.OMP_BLOCK_CONSTRUCT, ClassMapper.always(OmpBlockConstruct.class));
