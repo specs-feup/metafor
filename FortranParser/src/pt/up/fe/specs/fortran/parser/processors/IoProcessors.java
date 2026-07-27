@@ -329,4 +329,48 @@ public class IoProcessors extends ANodeProcessor {
         var label = attributes().getString(spec, "uint64_t", variant);
         spec.set(LabelWaitSpec.LABEL, Integer.parseInt(label));
     }
+
+    public void closeStmt(CloseStmt closeStmt) {
+        stmtProcessors.actionStmt(closeStmt);
+
+        if (attributes(closeStmt).has(FlangName.CLOSE_SPEC)) {
+            var closeSpecs = getChildren(closeStmt, FlangName.CLOSE_SPEC);
+            closeStmt.addChildren(closeSpecs);
+        }
+    }
+
+    public void exprCloseSpec(ExprCloseSpec spec) {
+        var variant = attributes(spec).getVariantName();
+
+        var kind = switch (variant) {
+            case FILE_UNIT_NUMBER -> ExprCloseSpecKind.UNIT;
+            case STATUS_EXPR -> ExprCloseSpecKind.STATUS;
+            default -> throw new RuntimeException("Variant '" + variant + "' of ExprCloseSpec is not handled.");
+        };
+        spec.set(ExprCloseSpec.KIND, kind);
+
+        var exprId = attributes().getString(spec, FlangName.EXPR.getString(), variant);
+        var expr = getChild(exprId);
+        spec.addChild(expr);
+    }
+
+    public void varCloseSpec(VarCloseSpec spec) {
+        var variant = attributes(spec).getVariantName();
+
+        var kind = switch (variant) {
+            case STAT_VARIABLE -> VarCloseSpecKind.IOSTAT;
+            case MSG_VARIABLE -> VarCloseSpecKind.IOMSG;
+            default -> throw new RuntimeException("Variant '" + variant + "' of VarCloseSpec is not handled.");
+        };
+        spec.set(VarCloseSpec.KIND, kind);
+
+        var variableId = attributes().getString(spec, FlangName.VARIABLE.getString(), variant);
+        var variable = getChild(variableId);
+        spec.addChild(variable);
+    }
+
+    public void errCloseSpec(ErrCloseSpec spec) {
+        var label = attributes().getString(spec, "uint64_t", FlangName.ERR_LABEL);
+        spec.set(ErrCloseSpec.LABEL, Integer.parseInt(label));
+    }
 }

@@ -271,6 +271,13 @@ public class FlangToClass {
                 .map(FlangName.ID_EXPR, ExprWaitSpec.class)
                 .map(FlangName.MSG_VARIABLE, VarWaitSpec.class)
                 .map(FlangName.STAT_VARIABLE, VarWaitSpec.class));
+        NAME_TO_MAPPER.put(FlangName.CLOSE_STMT, ClassMapper.always(CloseStmt.class));
+        NAME_TO_MAPPER.put(FlangName.CLOSE_SPEC, ClassMapper.caseFor(CloseSpec.class)
+                .map(FlangName.FILE_UNIT_NUMBER, ExprCloseSpec.class)
+                .map(FlangName.STAT_VARIABLE, VarCloseSpec.class)
+                .map(FlangName.MSG_VARIABLE, VarCloseSpec.class)
+                .map(FlangName.ERR_LABEL, ErrCloseSpec.class)
+                .map(FlangName.STATUS_EXPR, ExprCloseSpec.class));
 
         ///  UTILs
         NAME_TO_MAPPER.put(FlangName.NAME_VALUE, ClassMapper.always(NameValue.class));

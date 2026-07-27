@@ -220,6 +220,10 @@ public class Nodes {
         processors.put(ExprWaitSpec.class, i::exprWaitSpec);
         processors.put(VarWaitSpec.class, i::varWaitSpec);
         processors.put(LabelWaitSpec.class, i::labelWaitSpec);
+        processors.put(CloseStmt.class, i::closeStmt);
+        processors.put(ExprCloseSpec.class, i::exprCloseSpec);
+        processors.put(VarCloseSpec.class, i::varCloseSpec);
+        processors.put(ErrCloseSpec.class, i::errCloseSpec);
 
         var omp = new OmpProcessors(data, s);
         processors.put(OmpBlockConstruct.class, omp::ompBlockConstruct);
