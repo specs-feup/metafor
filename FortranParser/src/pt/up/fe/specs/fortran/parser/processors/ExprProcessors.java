@@ -23,8 +23,8 @@ public class ExprProcessors extends ANodeProcessor {
                 var kindParam = kindParamAttrs.getString("uint64_t");
                 return Optional.of(kindParam);
             }
-            case "Expr" -> {
-                var nameAttrs = attributes().get(kindParamAttrs.getString(FlangName.EXPR));
+            case "Name" -> {
+                var nameAttrs = attributes().get(kindParamAttrs.getString(FlangName.NAME));
                 var kindParam = nameAttrs.getString("source");
                 return Optional.of(kindParam);
             }
