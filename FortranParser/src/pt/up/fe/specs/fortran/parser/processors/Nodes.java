@@ -213,6 +213,8 @@ public class Nodes {
         processors.put(UnitPosFlushSpec.class, i::unitPosFlushSpec);
         processors.put(VarPosFlushSpec.class, i::varPosFlushSpec);
         processors.put(ErrPosFlushSpec.class, i::errPosFlushSpec);
+        processors.put(ReadStmt.class, i::readStmt);
+        processors.put(VarInputItem.class, i::varInputItem);
 
         var omp = new OmpProcessors(data, s);
         processors.put(OmpBlockConstruct.class, omp::ompBlockConstruct);

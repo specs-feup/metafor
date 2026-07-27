@@ -241,4 +241,32 @@ public class IoProcessors extends ANodeProcessor {
         var label = attributes().getString(spec, "uint64_t", FlangName.ERR_LABEL);
         spec.set(ErrPosFlushSpec.LABEL, Integer.parseInt(label));
     }
+
+    public void readStmt(ReadStmt readStmt) {
+        if (attributes(readStmt).has(FlangName.IO_UNIT)) {
+            var ioUnit = getChild(readStmt, FlangName.IO_UNIT);
+            readStmt.addChild(ioUnit);
+        }
+
+        if (attributes(readStmt).has(FlangName.FORMAT)) {
+            var format = getChild(readStmt, FlangName.FORMAT);
+            var spec = factory().newNode(FormatIoControlSpec.class, List.of(format));
+            readStmt.addChild(spec);
+        }
+
+        if (attributes(readStmt).has(FlangName.IO_CONTROL_SPEC)) {
+            var ioControlSpecs = getChildren(readStmt, FlangName.IO_CONTROL_SPEC);
+            readStmt.addChildren(ioControlSpecs);
+        }
+
+        if (attributes(readStmt).has(FlangName.INPUT_ITEM)) {
+            var inputItems = getChildren(readStmt, FlangName.INPUT_ITEM);
+            readStmt.addChildren(inputItems);
+        }
+    }
+
+    public void varInputItem(VarInputItem item) {
+        var variable = getChild(item, FlangName.VARIABLE);
+        item.addChild(variable);
+    }
 }

@@ -254,6 +254,10 @@ public class FlangToClass {
                 .map(FlangName.MSG_VARIABLE, VarPosFlushSpec.class)
                 .map(FlangName.STAT_VARIABLE, VarPosFlushSpec.class)
                 .map(FlangName.ERR_LABEL, ErrPosFlushSpec.class));
+        NAME_TO_MAPPER.put(FlangName.READ_STMT, ClassMapper.always(ReadStmt.class));
+        NAME_TO_MAPPER.put(FlangName.INPUT_ITEM, ClassMapper.caseFor(InputItem.class)
+                .map(FlangName.VARIABLE, VarInputItem.class)
+                .map(FlangName.INPUT_IMPLIED_DO, InputImpliedDoItem.class));
 
         ///  UTILs
         NAME_TO_MAPPER.put(FlangName.NAME_VALUE, ClassMapper.always(NameValue.class));
