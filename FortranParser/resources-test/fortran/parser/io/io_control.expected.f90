@@ -30,7 +30,7 @@ PROGRAM IO_CONTROL_SPECS
     ! -----------------------------------------------------------------
     ! 3. Non-Advancing I/O (ADVANCE, SIZE, PAD, EOR, ERR)
     ! -----------------------------------------------------------------
-    REWIND(u_seq)
+    REWIND(UNIT=u_seq)
     READ(UNIT=u_seq, FMT="(A)", ADVANCE="no", PAD="yes", SIZE=chars_read, EOR=100, ERR=900, IOSTAT=ios) text_buffer
 
     100 CONTINUE
@@ -65,9 +65,9 @@ PROGRAM IO_CONTROL_SPECS
     PRINT *, "All 20 io-control-spec items demonstrated successfully!"
 
     ! Clean up files
-    CLOSE(u_seq, STATUS="delete")
-    CLOSE(u_dir, STATUS="delete")
-    CLOSE(u_stream, STATUS="delete")
+    CLOSE(UNIT=u_seq, STATUS="delete")
+    CLOSE(UNIT=u_dir, STATUS="delete")
+    CLOSE(UNIT=u_stream, STATUS="delete")
     STOP
 
     900 PRINT *, "I/O Error Occurred: ", trim(io_message)

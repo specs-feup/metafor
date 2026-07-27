@@ -28,6 +28,6 @@ public class NamelistGroup extends FortranNode {
     public String getCode() {
         var objectsCode = String.join(", ", getObjectNames());
 
-        return "/ " + getGroupName() + " / " + objectsCode;
+        return "/" + getGroupName() + "/ " + objectsCode;
     }
 }

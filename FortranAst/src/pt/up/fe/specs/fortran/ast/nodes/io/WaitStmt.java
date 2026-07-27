@@ -24,6 +24,6 @@ public class WaitStmt extends ActionStmt {
                 .map(WaitSpec::getCode)
                 .collect(Collectors.joining(", ", "(", ")"));
 
-        return keyword(FortranKeyword.WAIT) + " " + specsCode;
+        return keyword(FortranKeyword.WAIT) + specsCode;
     }
 }
