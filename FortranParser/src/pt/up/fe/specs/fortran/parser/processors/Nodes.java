@@ -134,6 +134,8 @@ public class Nodes {
         processors.put(ReturnStmt.class, s::returnStmt);
         processors.put(DimensionStmt.class, s::dimensionStmt);
         processors.put(DimensionDecl.class, s::dimensionDecl);
+        processors.put(NamelistStmt.class, s::namelistStmt);
+        processors.put(NamelistGroup.class, s::namelistGroup);
 
         var e = new ExprProcessors(data);
         processors.put(StringLiteral.class, e::stringLiteral);

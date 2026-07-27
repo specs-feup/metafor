@@ -645,4 +645,22 @@ public class StmtProcessors extends ANodeProcessor {
         var arraySpec = getChild(dimensionDecl, FlangName.ARRAY_SPEC);
         dimensionDecl.addChild(arraySpec);
     }
+
+    public void namelistStmt(NamelistStmt namelistStmt) {
+        var groups = getChildren(namelistStmt, FlangName.GROUP);
+        namelistStmt.addChildren(groups);
+    }
+
+    public void namelistGroup(NamelistGroup namelistGroup) {
+        var attrs = attributes(namelistGroup);
+
+        var groupNameId = attrs.getString("groupName");
+        var groupName = attributes().get(groupNameId).getString("source");
+        namelistGroup.set(NamelistGroup.GROUP_NAME, groupName);
+
+        var objectNames = attrs.getStringList("objectNames").stream()
+                .map(objectNameId -> attributes().get(objectNameId).getString("source"))
+                .toList();
+        namelistGroup.set(NamelistGroup.OBJECT_NAMES, objectNames);
+    }
 }

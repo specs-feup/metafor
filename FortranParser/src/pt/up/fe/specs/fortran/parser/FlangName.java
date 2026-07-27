@@ -72,6 +72,8 @@ public enum FlangName implements StringProvider {
     RETURN_STMT,
     DIMENSION_STMT,
     DECLARATION,
+    NAMELIST_STMT,
+    GROUP,
 
     /// Conditional Statements
     IF_CONSTRUCT,
