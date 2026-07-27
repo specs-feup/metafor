@@ -119,7 +119,7 @@ public class FortranFile extends FortranNode {
                 continue;
             }
 
-            if (lineSize == COLUMN_LIMIT - 1) {
+            if (lineSize == COLUMN_LIMIT) {
                 newLine.append("\n     +");
                 lineSize = 6;
             }
