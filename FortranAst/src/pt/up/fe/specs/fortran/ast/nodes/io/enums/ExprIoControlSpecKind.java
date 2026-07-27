@@ -1,9 +1,6 @@
 package pt.up.fe.specs.fortran.ast.nodes.io.enums;
 
-import pt.up.fe.specs.util.SpecsStrings;
-import pt.up.fe.specs.util.providers.StringProvider;
-
-public enum ExprIoControlSpecKind implements StringProvider {
+public enum ExprIoControlSpecKind {
     ASYNCHRONOUS,
     ADVANCE,
     BLANK,
@@ -16,14 +13,7 @@ public enum ExprIoControlSpecKind implements StringProvider {
     SIGN,
     UNIT;
 
-    private final String string;
-
-    ExprIoControlSpecKind() {
-        string = SpecsStrings.toCamelCase(name());
-    }
-
-    @Override
-    public String getString() {
-        return string;
+    public static ExprIoControlSpecKind convert(String name) {
+        return valueOf(name.toUpperCase());
     }
 }

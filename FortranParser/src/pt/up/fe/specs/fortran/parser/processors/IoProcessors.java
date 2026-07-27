@@ -22,6 +22,11 @@ public class IoProcessors extends ANodeProcessor {
         openStmt.addChildren(specs);
     }
 
+    private String getCharExprKind(FlangAttributes attrs) {
+        var kindId = attrs.getString(FlangName.KIND);
+        return attributes().get(kindId).getString("value");
+    }
+
     public void exprConnectSpec(ExprConnectSpec spec) {
         var attrs = attributes(spec);
         var variant = attrs.getVariantName();
@@ -41,8 +46,7 @@ public class IoProcessors extends ANodeProcessor {
             case CHAR_EXPR -> {
                 attrs = getChildAttrs(attrs);
 
-                var flangKind = attrs.getString(FlangName.KIND);
-                var kind = ExprConnectSpecKind.valueOf(flangKind);
+                var kind = ExprConnectSpecKind.convert(getCharExprKind(attrs));
                 spec.set(ExprConnectSpec.KIND, kind);
             }
 
@@ -115,7 +119,7 @@ public class IoProcessors extends ANodeProcessor {
 
     public void exprIoControlSpec(ExprIoControlSpec spec) {
         var attrs = attributes(spec);
-        var nodeKind = getKind(spec);
+        var nodeKind = getNodeKind(spec);
 
         if (nodeKind == FlangName.IO_UNIT) {  // If original node is IoUnit
             spec.set(ExprIoControlSpec.KIND, ExprIoControlSpecKind.UNIT);
@@ -126,7 +130,7 @@ public class IoProcessors extends ANodeProcessor {
 
             var kind = switch (variant) {
                 // ADVANCE, BLANK, DECIMAL, DELIM, PAD, ROUND, SIGN
-                case CHAR_EXPR -> ExprIoControlSpecKind.valueOf(attrs.getString(FlangName.KIND));
+                case CHAR_EXPR -> ExprIoControlSpecKind.convert(getCharExprKind(attrs));
                 case ASYNCHRONOUS -> ExprIoControlSpecKind.ASYNCHRONOUS;
                 case POS -> ExprIoControlSpecKind.POS;
                 case REC -> ExprIoControlSpecKind.REC;
@@ -145,7 +149,7 @@ public class IoProcessors extends ANodeProcessor {
 
     public void varIoControlSpec(VarIoControlSpec spec) {
         var attrs = attributes(spec);
-        var nodeKind = getKind(spec);
+        var nodeKind = getNodeKind(spec);
 
         if (nodeKind == FlangName.IO_UNIT) {
             spec.set(VarIoControlSpec.KIND, VarIoControlSpecKind.UNIT);
@@ -173,7 +177,8 @@ public class IoProcessors extends ANodeProcessor {
     }
 
     public void labelIoControlSpec(LabelIoControlSpec spec) {
-        var variant = attributes(spec).getVariantName();
+        var attrs = attributes(spec);
+        var variant = attrs.getVariantName();
 
         var kind = switch (variant) {
             case END_LABEL -> LabelIoControlSpecKind.END;
@@ -183,7 +188,7 @@ public class IoProcessors extends ANodeProcessor {
         };
         spec.set(LabelIoControlSpec.KIND, kind);
 
-        var label = attributes(spec).getString("uint64_t");
+        var label = getChildAttrs(attrs).getString("uint64_t");
         spec.set(LabelIoControlSpec.LABEL, Integer.parseInt(label));
     }
 

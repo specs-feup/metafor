@@ -1,9 +1,8 @@
 package pt.up.fe.specs.fortran.ast.nodes.io.enums;
 
-import pt.up.fe.specs.util.SpecsStrings;
 import pt.up.fe.specs.util.providers.StringProvider;
 
-public enum ExprConnectSpecKind implements StringProvider {
+public enum ExprConnectSpecKind {
     UNIT,
     ACCESS,
     ACTION,
@@ -25,13 +24,7 @@ public enum ExprConnectSpecKind implements StringProvider {
     CONVERT,
     DISPOSE;
 
-    private final String string;
-
-    ExprConnectSpecKind() {
-        string = SpecsStrings.toCamelCase(name());
-    }
-
-    public String getString() {
-        return string;
+    public static ExprConnectSpecKind convert(String name) {
+        return valueOf(name.toUpperCase());
     }
 }

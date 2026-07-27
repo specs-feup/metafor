@@ -146,10 +146,11 @@ public interface NodeProcessor {
     }
 
 */
-    default FlangName getKind(FortranNode node) {
+    default FlangName getNodeKind(FortranNode node) {
         var id = attributes(node).getString("id");
         var kindStr = attributes().getKind(id);
-        return FlangName.valueOf(kindStr);
+        return FlangName.convertTry(kindStr).orElseThrow(() ->
+                new RuntimeException("Kind '" + kindStr + "' is not a valid Flang name."));
     }
 
 
