@@ -34,6 +34,7 @@ public enum FortranKeyword {
     REWIND,
     NAMELIST,
     READ,
+    WAIT,
 
     // Conditional statements
     IF,
