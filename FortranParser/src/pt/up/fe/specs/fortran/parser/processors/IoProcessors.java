@@ -224,24 +224,24 @@ public class IoProcessors extends ANodeProcessor {
     public void readStmt(ReadStmt readStmt) {
         stmtProcessors.actionStmt(readStmt);
 
-        if (attributes(readStmt).has(FlangName.IO_UNIT)) {
-            var ioUnit = getChild(readStmt, FlangName.IO_UNIT);
+        if (attributes(readStmt).has("iounit")) {
+            var ioUnit = getChild(readStmt, "iounit");
             readStmt.addChild(ioUnit);
         }
 
-        if (attributes(readStmt).has(FlangName.FORMAT)) {
-            var format = getChild(readStmt, FlangName.FORMAT);
+        if (attributes(readStmt).has("format")) {
+            var format = getChild(readStmt, "format");
             var spec = factory().newNode(FormatIoControlSpec.class, List.of(format));
             readStmt.addChild(spec);
         }
 
-        if (attributes(readStmt).has(FlangName.IO_CONTROL_SPEC)) {
-            var ioControlSpecs = getChildren(readStmt, FlangName.IO_CONTROL_SPEC);
+        if (attributes(readStmt).has("controls")) {
+            var ioControlSpecs = getChildren(readStmt, "controls");
             readStmt.addChildren(ioControlSpecs);
         }
 
-        if (attributes(readStmt).has(FlangName.INPUT_ITEM)) {
-            var inputItems = getChildren(readStmt, FlangName.INPUT_ITEM);
+        if (attributes(readStmt).has("items")) {
+            var inputItems = getChildren(readStmt, "items");
             readStmt.addChildren(inputItems);
         }
     }
@@ -254,22 +254,22 @@ public class IoProcessors extends ANodeProcessor {
     public void writeStmt(WriteStmt writeStmt) {
         stmtProcessors.actionStmt(writeStmt);
 
-        if (attributes(writeStmt).has(FlangName.IO_UNIT)) {
-            writeStmt.addChild(getChild(writeStmt, FlangName.IO_UNIT));
+        if (attributes(writeStmt).has("iounit")) {
+            writeStmt.addChild(getChild(writeStmt, "iounit"));
         }
 
-        if (attributes(writeStmt).has(FlangName.FORMAT)) {
-            var format = getChild(writeStmt, FlangName.FORMAT);
+        if (attributes(writeStmt).has("format")) {
+            var format = getChild(writeStmt, "format");
             var spec = factory().newNode(FormatIoControlSpec.class, List.of(format));
             writeStmt.addChild(spec);
         }
 
-        if (attributes(writeStmt).has(FlangName.IO_CONTROL_SPEC)) {
-            writeStmt.addChildren(getChildren(writeStmt, FlangName.IO_CONTROL_SPEC));
+        if (attributes(writeStmt).has("controls")) {
+            writeStmt.addChildren(getChildren(writeStmt, "controls"));
         }
 
-        if (attributes(writeStmt).has(FlangName.OUTPUT_ITEM)) {
-            writeStmt.addChildren(getChildren(writeStmt, FlangName.OUTPUT_ITEM));
+        if (attributes(writeStmt).has("items")) {
+            writeStmt.addChildren(getChildren(writeStmt, "items"));
         }
     }
 
