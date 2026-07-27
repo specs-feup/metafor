@@ -31,7 +31,7 @@ public class AllocProcessors extends ANodeProcessor {
         };
         option.set(ExprAllocOption.KIND, kind);
 
-        var exprId = attributes().get(variant.toString()).getString(FlangName.EXPR);
+        var exprId = attributes().getString(option, FlangName.EXPR.getString(), variant);
         var expr = getChild(exprId);
         option.addChild(expr);
     }
@@ -53,7 +53,7 @@ public class AllocProcessors extends ANodeProcessor {
         };
         option.set(VarAllocOption.KIND, kind);
 
-        var variableId = attributes().get(variant.toString()).getString(FlangName.VARIABLE);
+        var variableId = attributes().getString(option, FlangName.VARIABLE.getString(), variant);
         var variable = getChild(variableId);
         option.addChild(variable);
     }

@@ -186,6 +186,8 @@ public class IoProcessors extends ANodeProcessor {
     }
 
     public void rewindStmt(RewindStmt rewindStmt) {
+        stmtProcessors.actionStmt(rewindStmt);
+
         if (attributes(rewindStmt).has(FlangName.POSITION_OR_FLUSH_SPEC)) {
             var children = getChildren(rewindStmt, FlangName.POSITION_OR_FLUSH_SPEC);
             rewindStmt.addChildren(children);
@@ -220,6 +222,8 @@ public class IoProcessors extends ANodeProcessor {
     }
 
     public void readStmt(ReadStmt readStmt) {
+        stmtProcessors.actionStmt(readStmt);
+
         if (attributes(readStmt).has(FlangName.IO_UNIT)) {
             var ioUnit = getChild(readStmt, FlangName.IO_UNIT);
             readStmt.addChild(ioUnit);
@@ -272,5 +276,57 @@ public class IoProcessors extends ANodeProcessor {
     public void exprOutputItem(ExprOutputItem item) {
         var expr = getChild(item, FlangName.EXPR);
         item.addChild(expr);
+    }
+
+    public void waitStmt(WaitStmt waitStmt) {
+        stmtProcessors.actionStmt(waitStmt);
+
+        var specs = getChildren(waitStmt, FlangName.WAIT_SPEC);
+        waitStmt.addChildren(specs);
+    }
+
+    public void exprWaitSpec(ExprWaitSpec spec) {
+        var variant = attributes(spec).getVariantName();
+
+        var kind = switch (variant) {
+            case FILE_UNIT_NUMBER -> ExprWaitSpecKind.UNIT;
+            case ID_EXPR -> ExprWaitSpecKind.ID;
+            default -> throw new RuntimeException("Variant '" + variant + "' of ExprWaitSpec is not handled.");
+        };
+        spec.set(ExprWaitSpec.KIND, kind);
+
+        var exprId = attributes().getString(spec, FlangName.EXPR.getString(), variant);
+        var expr = getChild(exprId);
+        spec.addChild(expr);
+    }
+
+    public void varWaitSpec(VarWaitSpec spec) {
+        var variant = attributes(spec).getVariantName();
+
+        var kind = switch (variant) {
+            case MSG_VARIABLE -> VarWaitSpecKind.IOMSG;
+            case STAT_VARIABLE -> VarWaitSpecKind.IOSTAT;
+            default -> throw new RuntimeException("Variant '" + variant + "' of VarWaitSpec is not handled.");
+        };
+        spec.set(VarWaitSpec.KIND, kind);
+
+        var variableId = attributes().getString(spec, FlangName.VARIABLE.getString(), variant);
+        var variable = getChild(variableId);
+        spec.addChild(variable);
+    }
+
+    public void labelWaitSpec(LabelWaitSpec spec) {
+        var variant = attributes(spec).getVariantName();
+
+        var kind = switch (variant) {
+            case END_LABEL -> LabelWaitSpecKind.END;
+            case EOR_LABEL -> LabelWaitSpecKind.EOR;
+            case ERR_LABEL -> LabelWaitSpecKind.ERR;
+            default -> throw new RuntimeException("Variant '" + variant + "' of LabelWaitSpec is not handled.");
+        };
+        spec.set(LabelWaitSpec.KIND, kind);
+
+        var label = attributes().getString(spec, "uint64_t", variant);
+        spec.set(LabelWaitSpec.LABEL, Integer.parseInt(label));
     }
 }

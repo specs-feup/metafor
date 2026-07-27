@@ -262,6 +262,15 @@ public class FlangToClass {
         NAME_TO_MAPPER.put(FlangName.OUTPUT_ITEM, ClassMapper.caseFor(OutputItem.class)
                 .map(FlangName.EXPR, ExprOutputItem.class)
                 .map(FlangName.OUTPUT_IMPLIED_DO, OutputImpliedDoItem.class));
+        NAME_TO_MAPPER.put(FlangName.WAIT_STMT, ClassMapper.always(WaitStmt.class));
+        NAME_TO_MAPPER.put(FlangName.WAIT_SPEC, ClassMapper.caseFor(WaitSpec.class)
+                .map(FlangName.FILE_UNIT_NUMBER, ExprWaitSpec.class)
+                .map(FlangName.END_LABEL, LabelWaitSpec.class)
+                .map(FlangName.EOR_LABEL, LabelWaitSpec.class)
+                .map(FlangName.ERR_LABEL, LabelWaitSpec.class)
+                .map(FlangName.ID_EXPR, ExprWaitSpec.class)
+                .map(FlangName.MSG_VARIABLE, VarWaitSpec.class)
+                .map(FlangName.STAT_VARIABLE, VarWaitSpec.class));
 
         ///  UTILs
         NAME_TO_MAPPER.put(FlangName.NAME_VALUE, ClassMapper.always(NameValue.class));
