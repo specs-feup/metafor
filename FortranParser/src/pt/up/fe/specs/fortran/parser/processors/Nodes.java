@@ -205,6 +205,10 @@ public class Nodes {
         processors.put(StarUnitIoControlSpec.class, i::starUnitIoControlSpec);
         processors.put(FormatIoControlSpec.class, i::formatIoControlSpec);
         processors.put(NamelistIoControlSpec.class, i::namelistIoControlSpec);
+        processors.put(RewindStmt.class, i::rewindStmt);
+        processors.put(UnitPosFlushSpec.class, i::unitPosFlushSpec);
+        processors.put(VarPosFlushSpec.class, i::varPosFlushSpec);
+        processors.put(ErrPosFlushSpec.class, i::errPosFlushSpec);
 
         var omp = new OmpProcessors(data, s);
         processors.put(OmpBlockConstruct.class, omp::ompBlockConstruct);

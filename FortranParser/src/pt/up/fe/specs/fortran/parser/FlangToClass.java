@@ -246,6 +246,12 @@ public class FlangToClass {
                 .map(FlangName.EXPR, ExprIoControlSpec.class)
                 .map(FlangName.VARIABLE, VarIoControlSpec.class)
                 .map(FlangName.STAR, StarUnitIoControlSpec.class));
+        NAME_TO_MAPPER.put(FlangName.REWIND_STMT, ClassMapper.always(RewindStmt.class));
+        NAME_TO_MAPPER.put(FlangName.POSITION_OR_FLUSH_SPEC, ClassMapper.caseFor(PosFlushSpec.class)
+                .map(FlangName.FILE_UNIT_NUMBER, UnitPosFlushSpec.class)
+                .map(FlangName.MSG_VARIABLE, VarPosFlushSpec.class)
+                .map(FlangName.STAT_VARIABLE, VarPosFlushSpec.class)
+                .map(FlangName.ERR_LABEL, ErrPosFlushSpec.class));
 
         ///  UTILs
         NAME_TO_MAPPER.put(FlangName.NAME_VALUE, ClassMapper.always(NameValue.class));

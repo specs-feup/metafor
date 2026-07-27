@@ -207,4 +207,38 @@ public class IoProcessors extends ANodeProcessor {
         var namelistName = attributes().getString(spec, "source", FlangName.NAME);
         spec.set(NamelistIoControlSpec.NAMELIST_NAME, namelistName);
     }
+
+    public void rewindStmt(RewindStmt rewindStmt) {
+        if (attributes(rewindStmt).has(FlangName.POSITION_OR_FLUSH_SPEC)) {
+            var children = getChildren(rewindStmt, FlangName.POSITION_OR_FLUSH_SPEC);
+            rewindStmt.addChildren(children);
+        }
+    }
+
+    public void unitPosFlushSpec(UnitPosFlushSpec spec) {
+        var exprId = attributes().getString(spec, FlangName.EXPR.getString(), FlangName.FILE_UNIT_NUMBER);
+        var expr = getChild(exprId);
+        spec.addChild(expr);
+    }
+
+    public void varPosFlushSpec(VarPosFlushSpec spec) {
+        var attrs = attributes(spec);
+        var variant = attrs.getVariantName();
+
+        var kind = switch (variant) {
+            case MSG_VARIABLE -> VarPosFlushSpecKind.IOMSG;
+            case STAT_VARIABLE -> VarPosFlushSpecKind.IOSTAT;
+            default -> throw new RuntimeException("Variant '" + variant + "' of VarPosFlushSpec is not handled.");
+        };
+        spec.set(VarPosFlushSpec.KIND, kind);
+
+        var variableId = getChildAttrs(attrs).getString(FlangName.VARIABLE);
+        var variable = getChild(variableId);
+        spec.addChild(variable);
+    }
+
+    public void errPosFlushSpec(ErrPosFlushSpec spec) {
+        var label = attributes().getString(spec, "uint64_t", FlangName.ERR_LABEL);
+        spec.set(ErrPosFlushSpec.LABEL, Integer.parseInt(label));
+    }
 }
