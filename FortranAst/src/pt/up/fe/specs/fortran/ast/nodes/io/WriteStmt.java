@@ -5,13 +5,9 @@ import pt.up.fe.specs.fortran.ast.FortranKeyword;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.expr.Expr;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ActionStmt;
-import pt.up.fe.specs.fortran.ast.nodes.utils.Format;
-import pt.up.fe.specs.fortran.ast.nodes.utils.IoUnit;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class WriteStmt extends ActionStmt {
@@ -19,46 +15,24 @@ public class WriteStmt extends ActionStmt {
         super(data, children);
     }
 
-    public Optional<IoUnit> getIoUnit() {
-        return getChildTry(IoUnit.class);
+    public List<IoControlSpec> getSpecs() {
+        return getChildrenOf(IoControlSpec.class);
     }
 
-    public Optional<Format> getFormat() {
-        return getChildTry(Format.class);
-    }
-
-    public List<ExprIoControlSpec> getControlSpecs() {
-        return getChildrenOf(ExprIoControlSpec.class);
-    }
-
-    public List<Expr> getOutputItems() {
-        return getChildrenOf(Expr.class);
+    public List<OutputItem> getItems() {
+        return getChildrenOf(OutputItem.class);
     }
 
     @Override
     public String getStmtCode() {
-        StringBuilder code = new StringBuilder();
-        code.append(FortranKeyword.WRITE).append("(");
+        var specsCode = getSpecs().stream()
+                .map(IoControlSpec::getCode)
+                .collect(Collectors.joining(", ", "(", ")"));
 
-        List<String> parts = new ArrayList<>();
+        var itemsCode = getItems().stream()
+                .map(OutputItem::getCode)
+                .collect(Collectors.joining(", "));
 
-        getIoUnit().ifPresent(unit -> parts.add(unit.getCode()));
-
-        getFormat().ifPresent(fmt -> parts.add(fmt.getCode()));
-
-        getControlSpecs().forEach(spec -> parts.add(spec.getCode()));
-
-        code.append(String.join(", ", parts));
-
-        code.append(") ");
-
-        code.append(
-                getOutputItems()
-                        .stream()
-                        .map(Expr::getCode)
-                        .collect(Collectors.joining(", "))
-        );
-
-        return code.toString();
+        return keyword(FortranKeyword.WRITE) + specsCode + " " + itemsCode;
     }
 }
