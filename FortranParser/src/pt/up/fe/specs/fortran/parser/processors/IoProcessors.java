@@ -6,6 +6,8 @@ import pt.up.fe.specs.fortran.parser.FlangAttributes;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 
+import java.util.List;
+
 public class IoProcessors extends ANodeProcessor {
     private final StmtProcessors stmtProcessors;
 
@@ -100,20 +102,22 @@ public class IoProcessors extends ANodeProcessor {
     public void writeStmt(WriteStmt writeStmt) {
         stmtProcessors.actionStmt(writeStmt);
 
-        if (attributes(writeStmt).has("iounit")) {
-            writeStmt.addChild(getChild(writeStmt, "iounit"));
+        if (attributes(writeStmt).has(FlangName.IO_UNIT)) {
+            writeStmt.addChild(getChild(writeStmt, FlangName.IO_UNIT));
         }
 
-        if (attributes(writeStmt).has("format")) {
-            writeStmt.addChild(getChild(writeStmt, "format"));
+        if (attributes(writeStmt).has(FlangName.FORMAT)) {
+            var format = getChild(writeStmt, FlangName.FORMAT);
+            var spec = factory().newNode(FormatIoControlSpec.class, List.of(format));
+            writeStmt.addChild(spec);
         }
 
-        if (attributes(writeStmt).has("controls")) {
-            writeStmt.addChildren(getChildren(writeStmt, "controls"));
+        if (attributes(writeStmt).has(FlangName.IO_CONTROL_SPEC)) {
+            writeStmt.addChildren(getChildren(writeStmt, FlangName.IO_CONTROL_SPEC));
         }
 
-        if (attributes(writeStmt).has("items")) {
-            writeStmt.addChildren(getChildren(writeStmt, "items"));
+        if (attributes(writeStmt).has(FlangName.OUTPUT_ITEM)) {
+            writeStmt.addChildren(getChildren(writeStmt, FlangName.OUTPUT_ITEM));
         }
     }
 
