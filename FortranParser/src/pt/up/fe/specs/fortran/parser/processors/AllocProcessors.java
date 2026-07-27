@@ -1,7 +1,7 @@
 package pt.up.fe.specs.fortran.parser.processors;
 
 import pt.up.fe.specs.fortran.ast.nodes.alloc.Allocation;
-import pt.up.fe.specs.fortran.ast.nodes.alloc.StatAllocOption;
+import pt.up.fe.specs.fortran.ast.nodes.alloc.VarAllocOption;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 
@@ -15,7 +15,7 @@ public class AllocProcessors extends ANodeProcessor {
         allocation.addChildren(getChildren(allocation, FlangName.ALLOCATE_SHAPE_SPEC));
     }
 
-    public void statAllocOption(StatAllocOption statAllocOption) {
+    public void statAllocOption(VarAllocOption statAllocOption) {
         statAllocOption.addChild(getChild(statAllocOption, FlangName.EXPR));
     }
 }
