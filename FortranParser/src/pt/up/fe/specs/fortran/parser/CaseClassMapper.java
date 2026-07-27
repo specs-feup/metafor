@@ -10,12 +10,13 @@ import java.util.Optional;
 public class CaseClassMapper<T extends FortranNode> extends ClassMapper<T> {
     private final Map<String, Optional<Class<? extends T>>> caseMap;
 
-    public CaseClassMapper(Map<String, Optional<Class<? extends T>>> caseMap) {
+    public CaseClassMapper(Class<T> clazz, Map<String, Optional<Class<? extends T>>> caseMap) {
+        super(clazz);
         this.caseMap = new HashMap<>(caseMap);
     }
 
-    public CaseClassMapper() {
-        this.caseMap = new HashMap<>();
+    public CaseClassMapper(Class<T> clazz) {
+        this(clazz, Map.of());
     }
 
     public CaseClassMapper<T> map(String variantKey, Class<? extends T> clazz) {
@@ -40,8 +41,8 @@ public class CaseClassMapper<T extends FortranNode> extends ClassMapper<T> {
     public Optional<Class<? extends T>> get(FlangAttributes attrs) {
         var variantKey = attrs.getVariantKey();
         var clazz = caseMap.get(variantKey);
-        Objects.requireNonNull(clazz, () -> "Could not find variant node for node with variant key '"
-            + variantKey + "'");
+        Objects.requireNonNull(clazz, () -> "Could not find variant node of '" + gerSuperClass().getName()
+                + "' for variant key '" + variantKey + "'");
 
         return clazz;
     }
