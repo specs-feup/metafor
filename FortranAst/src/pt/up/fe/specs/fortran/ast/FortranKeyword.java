@@ -33,6 +33,7 @@ public enum FortranKeyword {
     NML,
     REWIND,
     NAMELIST,
+    READ,
 
     // Conditional statements
     IF,
