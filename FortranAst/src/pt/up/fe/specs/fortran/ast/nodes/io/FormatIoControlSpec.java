@@ -18,6 +18,13 @@ public class FormatIoControlSpec extends IoControlSpec {
 
     @Override
     public String getCode() {
-        return keyword(FortranKeyword.FMT) + "=" + getFormat().getCode();
+        var formatCode = getFormat().getCode();
+
+        // We can omit "FMT=" on a format specifier right after the first unit specifier (if non-labeled too)
+        if (indexOfSelf() == 1) {
+            return formatCode;
+        }
+
+        return keyword(FortranKeyword.FMT) + "=" + formatCode;
     }
 }

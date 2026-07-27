@@ -86,7 +86,7 @@ INTEGER :: ni, nl
 INTEGER :: i, j
 DO i = 1, ni
 DO j = 1, nl
-WRITE(0, "(f0.2,1x)", advance="no") g(j, i)
+WRITE(0, "(f0.2,1x)", ADVANCE="no") g(j, i)
 IF (mod(((i - 1) * ni) + j - 1, 20) == 0) THEN
 WRITE(0, *)
 END IF

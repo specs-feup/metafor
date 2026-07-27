@@ -26,9 +26,14 @@ public class ExprIoControlSpec extends IoControlSpec {
 
     @Override
     public String getCode() {
-        var kindCode = encase(getKind().name());
+        var kind = getKind();
         var exprCode = getExpr().getCode();
 
-        return kindCode + "=" + exprCode;
+        // We can omit "UNIT=" from the first specifier
+        if (kind == ExprIoControlSpecKind.UNIT && indexOfSelf() == 0) {
+            return exprCode;
+        }
+
+        return encase(kind.name()) + "=" + exprCode;
     }
 }

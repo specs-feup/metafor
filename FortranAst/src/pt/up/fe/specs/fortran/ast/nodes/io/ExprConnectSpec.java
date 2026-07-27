@@ -6,6 +6,7 @@ import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.expr.Expr;
 import pt.up.fe.specs.fortran.ast.nodes.io.enums.ExprConnectSpecKind;
+import pt.up.fe.specs.fortran.ast.nodes.io.enums.ExprIoControlSpecKind;
 
 import java.util.Collection;
 
@@ -26,9 +27,14 @@ public class ExprConnectSpec extends ConnectSpec {
 
     @Override
     public String getCode() {
-        var kindCode = encase(getKind().name());
+        var kind = getKind();
         var exprCode = getExpr().getCode();
 
-        return kindCode + "=" + exprCode;
+        // We can omit "UNIT=" from the first specifier
+        if (kind == ExprConnectSpecKind.UNIT && indexOfSelf() == 0) {
+            return exprCode;
+        }
+
+        return encase(kind.name()) + "=" + exprCode;
     }
 }

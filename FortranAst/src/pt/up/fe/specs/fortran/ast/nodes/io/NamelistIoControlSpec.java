@@ -21,6 +21,11 @@ public class NamelistIoControlSpec extends IoControlSpec {
 
     @Override
     public String getCode() {
+        // We can omit "NML=" on a namelist specifier right after the first unit specifier (if non-labeled too)
+        if (indexOfSelf() == 1) {
+            return getNamelistName();
+        }
+
         return keyword(FortranKeyword.NML) + "=" + getNamelistName();
     }
 }

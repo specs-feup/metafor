@@ -6,6 +6,7 @@ import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.expr.Expr;
 import pt.up.fe.specs.fortran.ast.nodes.io.enums.ExprCloseSpecKind;
+import pt.up.fe.specs.fortran.ast.nodes.io.enums.ExprConnectSpecKind;
 
 import java.util.Collection;
 
@@ -26,6 +27,14 @@ public class ExprCloseSpec extends CloseSpec {
 
     @Override
     public String getCode() {
-        return encase(getKind().name()) + "=" + getExpr().getCode();
+        var kind = getKind();
+        var exprCode = getExpr().getCode();
+
+        // We can omit "UNIT=" from the first specifier
+        if (kind == ExprCloseSpecKind.UNIT && indexOfSelf() == 0) {
+            return exprCode;
+        }
+
+        return encase(kind.name()) + "=" + exprCode;
     }
 }

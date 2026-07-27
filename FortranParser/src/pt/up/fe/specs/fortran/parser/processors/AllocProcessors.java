@@ -41,7 +41,7 @@ public class AllocProcessors extends ANodeProcessor {
         var variant = attrs.getVariantName();
 
         if (variant == FlangName.STAT_OR_ERRMSG) {
-            attrs = attributes().get(variant.toString());
+            attrs = attributes().get(attrs.getVariantString());
             variant = attrs.getVariantName();
         }
 
@@ -53,7 +53,8 @@ public class AllocProcessors extends ANodeProcessor {
         };
         option.set(VarAllocOption.KIND, kind);
 
-        var variableId = attributes().getString(option, FlangName.VARIABLE.getString(), variant);
+        var childId = attrs.getVariantString();
+        var variableId = attributes().get(childId).getString(FlangName.VARIABLE);
         var variable = getChild(variableId);
         option.addChild(variable);
     }

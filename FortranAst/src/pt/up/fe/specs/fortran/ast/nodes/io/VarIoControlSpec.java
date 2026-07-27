@@ -5,6 +5,7 @@ import org.suikasoft.jOptions.Datakey.KeyFactory;
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.decl.Variable;
+import pt.up.fe.specs.fortran.ast.nodes.io.enums.ExprIoControlSpecKind;
 import pt.up.fe.specs.fortran.ast.nodes.io.enums.VarIoControlSpecKind;
 
 import java.util.Collection;
@@ -26,9 +27,14 @@ public class VarIoControlSpec extends IoControlSpec {
 
     @Override
     public String getCode() {
-        var kindCode = encase(getKind().name());
-        var varCode = getVariable().getCode();
+        var kind = getKind();
+        var variableCode = getVariable().getCode();
 
-        return kindCode + "=" + varCode;
+        // We can omit "UNIT=" from the first specifier
+        if (kind == VarIoControlSpecKind.UNIT && indexOfSelf() == 0) {
+            return variableCode;
+        }
+
+        return encase(kind.name()) + "=" + variableCode;
     }
 }

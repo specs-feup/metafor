@@ -3,6 +3,7 @@ package pt.up.fe.specs.fortran.ast.nodes.io;
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.FortranKeyword;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
+import pt.up.fe.specs.fortran.ast.nodes.io.enums.ExprIoControlSpecKind;
 
 import java.util.Collection;
 
@@ -13,6 +14,7 @@ public class StarUnitIoControlSpec extends IoControlSpec {
 
     @Override
     public String getCode() {
-        return keyword(FortranKeyword.UNIT) + "=*";
+        // We can omit "UNIT=" from the first specifier
+        return indexOfSelf() == 0 ? "*" : keyword(FortranKeyword.UNIT) + "=*";
     }
 }

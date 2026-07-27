@@ -29,7 +29,9 @@ public class FlangData {
     }
 
     public FlangAttributes get(String id) {
-        return attributes.get(id);
+        var attrs = attributes.get(id);
+        Objects.requireNonNull(attrs, () -> "Could not find attributes for id '" + id + "'");
+        return attrs;
     }
 
     public boolean isIdInteger(String id) {
