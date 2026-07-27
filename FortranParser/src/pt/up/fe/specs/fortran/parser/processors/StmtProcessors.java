@@ -647,6 +647,8 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void namelistStmt(NamelistStmt namelistStmt) {
+        stmt(namelistStmt);
+
         var groups = getChildren(namelistStmt, FlangName.GROUP);
         namelistStmt.addChildren(groups);
     }

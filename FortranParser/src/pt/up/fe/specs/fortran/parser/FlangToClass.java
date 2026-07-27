@@ -132,6 +132,8 @@ public class FlangToClass {
         NAME_TO_MAPPER.put(FlangName.RETURN_STMT, ClassMapper.always(ReturnStmt.class));
         NAME_TO_MAPPER.put(FlangName.DIMENSION_STMT, ClassMapper.always(DimensionStmt.class));
         NAME_TO_MAPPER.put(FlangName.DECLARATION, ClassMapper.always(DimensionDecl.class));
+        NAME_TO_MAPPER.put(FlangName.NAMELIST_STMT, ClassMapper.always(NamelistStmt.class));
+        NAME_TO_MAPPER.put(FlangName.GROUP, ClassMapper.always(NamelistGroup.class));
 
         /// Variables
         //NAME_TO_CLASS.put(FlangName.DATA_REF, DataRef.class);  // TODO(Process-ing): Improve this
