@@ -53,6 +53,7 @@ import pt.up.fe.specs.fortran.ast.nodes.utils.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.jar.Attributes;
 
 public class FlangToClass {
     private static final Map<FlangName, ClassMapper<? extends FortranNode>> NAME_TO_MAPPER = new HashMap<>();
@@ -228,7 +229,16 @@ public class FlangToClass {
                 .map(FlangName.NEWUNIT, VarConnectSpec.class)
                 .map(FlangName.ERR_LABEL, ErrConnectSpec.class)
                 .map(FlangName.STATUS_EXPR, ExprConnectSpec.class));
-        NAME_TO_MAPPER.put(FlangName.WRITE_STMT, ClassMapper.always(WriteStmt.class));
+        NAME_TO_MAPPER.put(FlangName.IO_UNIT, ClassMapper.caseFor(IoControlSpec.class)
+                .map(FlangName.EXPR, ExprIoControlSpec.class)
+                .map(FlangName.VARIABLE, VarIoControlSpec.class)
+                .map(FlangName.STAR, StarUnitIoControlSpec.class));
+        NAME_TO_MAPPER.put(FlangName.REWIND_STMT, ClassMapper.always(RewindStmt.class));
+        NAME_TO_MAPPER.put(FlangName.POSITION_OR_FLUSH_SPEC, ClassMapper.caseFor(PosFlushSpec.class)
+                .map(FlangName.FILE_UNIT_NUMBER, UnitPosFlushSpec.class)
+                .map(FlangName.MSG_VARIABLE, VarPosFlushSpec.class)
+                .map(FlangName.STAT_VARIABLE, VarPosFlushSpec.class)
+                .map(FlangName.ERR_LABEL, ErrPosFlushSpec.class));
         NAME_TO_MAPPER.put(FlangName.IO_CONTROL_SPEC, ClassMapper.caseFor(IoControlSpec.class)
                 .ignore(FlangName.IO_UNIT)
                 .map(FlangName.FORMAT, FormatIoControlSpec.class)
@@ -244,20 +254,14 @@ public class FlangToClass {
                 .map(FlangName.POS, ExprIoControlSpec.class)
                 .map(FlangName.REC, ExprIoControlSpec.class)
                 .map(FlangName.SIZE, VarIoControlSpec.class));
-        NAME_TO_MAPPER.put(FlangName.IO_UNIT, ClassMapper.caseFor(IoControlSpec.class)
-                .map(FlangName.EXPR, ExprIoControlSpec.class)
-                .map(FlangName.VARIABLE, VarIoControlSpec.class)
-                .map(FlangName.STAR, StarUnitIoControlSpec.class));
-        NAME_TO_MAPPER.put(FlangName.REWIND_STMT, ClassMapper.always(RewindStmt.class));
-        NAME_TO_MAPPER.put(FlangName.POSITION_OR_FLUSH_SPEC, ClassMapper.caseFor(PosFlushSpec.class)
-                .map(FlangName.FILE_UNIT_NUMBER, UnitPosFlushSpec.class)
-                .map(FlangName.MSG_VARIABLE, VarPosFlushSpec.class)
-                .map(FlangName.STAT_VARIABLE, VarPosFlushSpec.class)
-                .map(FlangName.ERR_LABEL, ErrPosFlushSpec.class));
         NAME_TO_MAPPER.put(FlangName.READ_STMT, ClassMapper.always(ReadStmt.class));
         NAME_TO_MAPPER.put(FlangName.INPUT_ITEM, ClassMapper.caseFor(InputItem.class)
                 .map(FlangName.VARIABLE, VarInputItem.class)
                 .map(FlangName.INPUT_IMPLIED_DO, InputImpliedDoItem.class));
+        NAME_TO_MAPPER.put(FlangName.WRITE_STMT, ClassMapper.always(WriteStmt.class));
+        NAME_TO_MAPPER.put(FlangName.OUTPUT_ITEM, ClassMapper.caseFor(OutputItem.class)
+                .map(FlangName.EXPR, ExprOutputItem.class)
+                .map(FlangName.OUTPUT_IMPLIED_DO, OutputImpliedDoItem.class));
 
         ///  UTILs
         NAME_TO_MAPPER.put(FlangName.NAME_VALUE, ClassMapper.always(NameValue.class));

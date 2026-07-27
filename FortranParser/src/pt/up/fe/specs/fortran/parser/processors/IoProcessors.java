@@ -98,29 +98,6 @@ public class IoProcessors extends ANodeProcessor {
         spec.set(ErrConnectSpec.LABEL, Integer.parseInt(label));
     }
 
-
-    public void writeStmt(WriteStmt writeStmt) {
-        stmtProcessors.actionStmt(writeStmt);
-
-        if (attributes(writeStmt).has(FlangName.IO_UNIT)) {
-            writeStmt.addChild(getChild(writeStmt, FlangName.IO_UNIT));
-        }
-
-        if (attributes(writeStmt).has(FlangName.FORMAT)) {
-            var format = getChild(writeStmt, FlangName.FORMAT);
-            var spec = factory().newNode(FormatIoControlSpec.class, List.of(format));
-            writeStmt.addChild(spec);
-        }
-
-        if (attributes(writeStmt).has(FlangName.IO_CONTROL_SPEC)) {
-            writeStmt.addChildren(getChildren(writeStmt, FlangName.IO_CONTROL_SPEC));
-        }
-
-        if (attributes(writeStmt).has(FlangName.OUTPUT_ITEM)) {
-            writeStmt.addChildren(getChildren(writeStmt, FlangName.OUTPUT_ITEM));
-        }
-    }
-
     public void exprIoControlSpec(ExprIoControlSpec spec) {
         var attrs = attributes(spec);
         var nodeKind = getNodeKind(spec);
@@ -268,5 +245,32 @@ public class IoProcessors extends ANodeProcessor {
     public void varInputItem(VarInputItem item) {
         var variable = getChild(item, FlangName.VARIABLE);
         item.addChild(variable);
+    }
+
+    public void writeStmt(WriteStmt writeStmt) {
+        stmtProcessors.actionStmt(writeStmt);
+
+        if (attributes(writeStmt).has(FlangName.IO_UNIT)) {
+            writeStmt.addChild(getChild(writeStmt, FlangName.IO_UNIT));
+        }
+
+        if (attributes(writeStmt).has(FlangName.FORMAT)) {
+            var format = getChild(writeStmt, FlangName.FORMAT);
+            var spec = factory().newNode(FormatIoControlSpec.class, List.of(format));
+            writeStmt.addChild(spec);
+        }
+
+        if (attributes(writeStmt).has(FlangName.IO_CONTROL_SPEC)) {
+            writeStmt.addChildren(getChildren(writeStmt, FlangName.IO_CONTROL_SPEC));
+        }
+
+        if (attributes(writeStmt).has(FlangName.OUTPUT_ITEM)) {
+            writeStmt.addChildren(getChildren(writeStmt, FlangName.OUTPUT_ITEM));
+        }
+    }
+
+    public void exprOutputItem(ExprOutputItem item) {
+        var expr = getChild(item, FlangName.EXPR);
+        item.addChild(expr);
     }
 }

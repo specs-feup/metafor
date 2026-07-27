@@ -205,7 +205,8 @@ public enum FlangName implements StringProvider {
     READ_STMT,
     INPUT_ITEM,
     INPUT_IMPLIED_DO,
-
+    OUTPUT_IMPLIED_DO,
+    WAIT_STMT,
 
     /// OPENMP
     OPENMP_CONSTRUCT("OpenMPConstruct"),

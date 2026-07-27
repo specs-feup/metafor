@@ -202,7 +202,6 @@ public class Nodes {
         processors.put(ExprConnectSpec.class, i::exprConnectSpec);
         processors.put(VarConnectSpec.class, i::varConnectSpec);
         processors.put(ErrConnectSpec.class, i::errConnectSpec);
-        processors.put(WriteStmt.class, i::writeStmt);
         processors.put(ExprIoControlSpec.class, i::exprIoControlSpec);
         processors.put(VarIoControlSpec.class, i::varIoControlSpec);
         processors.put(LabelIoControlSpec.class, i::labelIoControlSpec);
@@ -215,6 +214,8 @@ public class Nodes {
         processors.put(ErrPosFlushSpec.class, i::errPosFlushSpec);
         processors.put(ReadStmt.class, i::readStmt);
         processors.put(VarInputItem.class, i::varInputItem);
+        processors.put(WriteStmt.class, i::writeStmt);
+        processors.put(ExprOutputItem.class, i::exprOutputItem);
 
         var omp = new OmpProcessors(data, s);
         processors.put(OmpBlockConstruct.class, omp::ompBlockConstruct);
