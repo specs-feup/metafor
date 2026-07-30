@@ -9,6 +9,7 @@ import pt.up.fe.specs.lang.SpecsPlatforms;
 import pt.up.fe.specs.util.SpecsIo;
 import pt.up.fe.specs.util.SpecsStrings;
 import pt.up.fe.specs.util.SpecsSystem;
+import pt.up.fe.specs.util.utilities.StringLines;
 
 import java.util.function.BiFunction;
 
@@ -75,9 +76,40 @@ public class FortranParserTest {
         var expectedNormalized = SpecsStrings.normalizeFileContents(SpecsIo.getResource(expectedResourceName), true);
         var codeNormalized = SpecsStrings.normalizeFileContents(code, true);
 
-        assertEquals(expectedNormalized, codeNormalized, "Codes do not match.\nAST code:\n" + code);
+        compareCode(expectedNormalized, codeNormalized, code);
+    }
 
+    private static void compareCode(String expected, String normalized, String original) {
+        var expectedLines = StringLines.getLines(expected);
+        var normalizedLines = StringLines.getLines(normalized);
+        var numLines = Math.min(expectedLines.size(), normalizedLines.size());
 
+        for (var line = 0; line < numLines; line++) {
+            var expectedLine = expectedLines.get(line);
+            var normalizedLine = normalizedLines.get(line);
+
+            var col = 0;
+            while (col < expectedLine.length() && col < normalizedLine.length()
+                    && expectedLine.charAt(col) == normalizedLine.charAt(col)) {
+                col++;
+            }
+
+            if (col != expectedLine.length() || col != normalizedLine.length()) {
+                reportMismatch(line, col, expectedLine, normalizedLine, original);
+                return;
+            }
+        }
+
+        if (expectedLines.size() > numLines) {
+            reportMismatch(numLines, 0, expectedLines.get(numLines), "", original);
+        } else if (normalizedLines.size() > numLines) {
+            reportMismatch(numLines, 0, "", normalizedLines.get(numLines), original);
+        }
+    }
+
+    private static void reportMismatch(int line, int col, String expected, String got, String code) {
+        fail("Encountered a code mismatch on line " + line + " column " + col + ".\nExpected: '" + expected +
+                "'\nGot:      '" + got + "'\n\nGenerated code:\n" + code);
     }
 
     @Test
