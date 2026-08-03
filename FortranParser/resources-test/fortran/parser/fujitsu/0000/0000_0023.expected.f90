@@ -1,131 +1,131 @@
-PROGRAM main
-    INTEGER(4), PARAMETER :: I4_MAX = 2147483647_4
-    INTEGER(4), PARAMETER :: I4_MIN = -I4_MAX-1_4
-    INTEGER(4), PARAMETER :: I4_ZERO = 0_4
-    INTEGER(4), PARAMETER :: I4_ONE = 1_4
-    INTEGER(4), PARAMETER :: I4_MZERO = -I4_ZERO
-    INTEGER(4), PARAMETER :: I4_MONE = -I4_ONE
+PROGRAM MAIN
+    INTEGER(4), PARAMETER :: i4_max = 2147483647_4
+    INTEGER(4), PARAMETER :: i4_min = -i4_max - 1_4
+    INTEGER(4), PARAMETER :: i4_zero = 0_4
+    INTEGER(4), PARAMETER :: i4_one = 1_4
+    INTEGER(4), PARAMETER :: i4_mzero = -i4_zero
+    INTEGER(4), PARAMETER :: i4_mone = -i4_one
 
-    INTEGER(8), PARAMETER :: I8_MAX = 9223372036854775807_8
-    INTEGER(8), PARAMETER :: I8_MIN = -I8_MAX-1_8
-    INTEGER(8), PARAMETER :: I8_ZERO = 0_8
-    INTEGER(8), PARAMETER :: I8_ONE = 1_8
-    INTEGER(8), PARAMETER :: I8_MZERO = -I8_ZERO
-    INTEGER(8), PARAMETER :: I8_MONE = -I8_ONE
+    INTEGER(8), PARAMETER :: i8_max = 9223372036854775807_8
+    INTEGER(8), PARAMETER :: i8_min = -i8_max - 1_8
+    INTEGER(8), PARAMETER :: i8_zero = 0_8
+    INTEGER(8), PARAMETER :: i8_one = 1_8
+    INTEGER(8), PARAMETER :: i8_mzero = -i8_zero
+    INTEGER(8), PARAMETER :: i8_mone = -i8_one
 
     INTEGER(4) :: i4a, i4b, i4c
     INTEGER(8) :: i8a, i8b, i8c
 
-    i4a = I4_MAX
-    i4b = I4_ZERO
+    i4a = i4_max
+    i4b = i4_zero
     i4c = i4a + i4b
-    IF (i4c /= I4_MAX) THEN
+    IF (i4c /= i4_max) THEN
         PRINT *, "NG : I4_MAX + I4_ZERO"
-        GOTO 10
+        GO TO 10
     END IF
 
-    i4a = I4_MAX
-    i4b = I4_MZERO
+    i4a = i4_max
+    i4b = i4_mzero
     i4c = i4a + i4b
-    IF (i4c /= I4_MAX) THEN
+    IF (i4c /= i4_max) THEN
         PRINT *, "NG : I4_MAX + I4_MZERO"
-        GOTO 10
+        GO TO 10
     END IF
 
-    i4a = I4_MAX
-    i4b = I4_MONE
+    i4a = i4_max
+    i4b = i4_mone
     i4c = i4a + i4b
-    IF (i4c /= I4_MAX-1) THEN
+    IF (i4c /= i4_max - 1) THEN
         PRINT *, "NG : I4_MAX + I4_MONE"
-        GOTO 10
+        GO TO 10
     END IF
 
-    i4a = I4_MIN
-    i4b = I4_ZERO
+    i4a = i4_min
+    i4b = i4_zero
     i4c = i4a + i4b
-    IF (i4c /= I4_MIN) THEN
+    IF (i4c /= i4_min) THEN
         PRINT *, "NG : I4_MIN + I4_ZERO"
-        GOTO 10
+        GO TO 10
     END IF
 
-    i4a = I4_MIN
-    i4b = I4_MZERO
+    i4a = i4_min
+    i4b = i4_mzero
     i4c = i4a + i4b
-    IF (i4c /= I4_MIN) THEN
+    IF (i4c /= i4_min) THEN
         PRINT *, "NG : I4_MIN + I4_MZERO"
-        GOTO 10
+        GO TO 10
     END IF
 
-    i4a = I4_MIN
-    i4b = I4_ONE
+    i4a = i4_min
+    i4b = i4_one
     i4c = i4a + i4b
-    IF (i4c /= -I4_MAX) THEN
+    IF (i4c /= -i4_max) THEN
         PRINT *, "NG : I4_MIN + I4_ONE"
-        GOTO 10
+        GO TO 10
     END IF
 
-    i4a = I4_MAX
-    i4b = I4_MIN
+    i4a = i4_max
+    i4b = i4_min
     i4c = i4a + i4b
-    IF (i4c /= I4_MONE) THEN
+    IF (i4c /= i4_mone) THEN
         PRINT *, "NG : I4_MAX + I4_MIN"
-        GOTO 10
+        GO TO 10
     END IF
 
-    i8a = I8_MAX
-    i8b = I8_ZERO
+    i8a = i8_max
+    i8b = i8_zero
     i8c = i8a + i8b
-    IF (i8c /= I8_MAX) THEN
+    IF (i8c /= i8_max) THEN
         PRINT *, "NG : I8_MAX + I8_ZERO"
-        GOTO 10
+        GO TO 10
     END IF
 
-    i8a = I8_MAX
-    i8b = I8_MZERO
+    i8a = i8_max
+    i8b = i8_mzero
     i8c = i8a + i8b
-    IF (i8c /= I8_MAX) THEN
+    IF (i8c /= i8_max) THEN
         PRINT *, "NG : I8_MAX + I8_MZERO"
-        GOTO 10
+        GO TO 10
     END IF
 
-    i8a = I8_MAX
-    i8b = I8_MONE
+    i8a = i8_max
+    i8b = i8_mone
     i8c = i8a + i8b
-    IF (i8c /= I8_MAX-1) THEN
+    IF (i8c /= i8_max - 1) THEN
         PRINT *, "NG : I8_MAX + I8_MONE"
-        GOTO 10
+        GO TO 10
     END IF
 
-    i8a = I8_MIN
-    i8b = I8_ZERO
+    i8a = i8_min
+    i8b = i8_zero
     i8c = i8a + i8b
-    IF (i8c /= I8_MIN) THEN
+    IF (i8c /= i8_min) THEN
         PRINT *, "NG : I8_MIN + I8_ZERO"
-        GOTO 10
+        GO TO 10
     END IF
 
-    i8a = I8_MIN
-    i8b = I8_MZERO
+    i8a = i8_min
+    i8b = i8_mzero
     i8c = i8a + i8b
-    IF (i8c /= I8_MIN) THEN
+    IF (i8c /= i8_min) THEN
         PRINT *, "NG : I8_MIN + I8_MZERO"
-        GOTO 10
+        GO TO 10
     END IF
 
-    i8a = I8_MIN
-    i8b = I8_ONE
+    i8a = i8_min
+    i8b = i8_one
     i8c = i8a + i8b
-    IF (i8c /= -I8_MAX) THEN
+    IF (i8c /= -i8_max) THEN
         PRINT *, "NG : I8_MIN + I8_ONE"
-        GOTO 10
+        GO TO 10
     END IF
 
-    i8a = I8_MAX
-    i8b = I8_MIN
+    i8a = i8_max
+    i8b = i8_min
     i8c = i8a + i8b
-    IF (i8c /= I8_MONE) THEN
+    IF (i8c /= i8_mone) THEN
         PRINT *, "NG : I8_MAX + I8_MIN"
-        GOTO 10
+        GO TO 10
     END IF
 
     PRINT *, "OK"
@@ -133,4 +133,4 @@ PROGRAM main
 
     10 PRINT *, "NG"
 
-END PROGRAM main
+END PROGRAM MAIN

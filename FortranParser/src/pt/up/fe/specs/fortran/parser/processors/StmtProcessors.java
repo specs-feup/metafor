@@ -6,6 +6,7 @@ import pt.up.fe.specs.fortran.ast.nodes.loops.WhileLoopControl;
 import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
 import pt.up.fe.specs.fortran.ast.nodes.program.StmtBlock;
 import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
+import pt.up.fe.specs.fortran.ast.nodes.specification.NamedConstantDef;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.*;
@@ -16,6 +17,9 @@ import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 
 import java.util.List;
 import java.util.Optional;
+
+import static pt.up.fe.specs.fortran.parser.FlangName.EXPR;
+import static pt.up.fe.specs.fortran.parser.FlangName.NAMED_CONSTANT;
 
 public class StmtProcessors extends ANodeProcessor {
     public StmtProcessors(FortranJsonResult data) {
@@ -336,6 +340,13 @@ public class StmtProcessors extends ANodeProcessor {
         callStmt.addChild(getChild(callStmt, "call"));
     }
 
+    public void gotoStmt(GotoStmt gotoStmt) {
+        var strLabel = attributes(gotoStmt).getString("uint64_t");
+        var label = Integer.parseInt(strLabel);
+
+        gotoStmt.set(GotoStmt.LABEL, label);
+    }
+
     public void writeStmt(WriteStmt writeStmt) {
         actionStmt(writeStmt);
         if (attributes(writeStmt).has("iounit")) {
@@ -415,10 +426,6 @@ public class StmtProcessors extends ANodeProcessor {
         dataStmt.addChildren(getChildren(dataStmt, FlangName.DATA_STMT_SET));
     }
 
-    public void stopStmt(StopStmt stopStmt) {
-        actionStmt(stopStmt);
-    }
-
     public void openStmt(OpenStmt openStmt) {
         actionStmt(openStmt);
     }
@@ -427,10 +434,26 @@ public class StmtProcessors extends ANodeProcessor {
         actionStmt(closeStmt);
     }
 
-    public void gotoStmt(GotoStmt gotoStmt) {
-        var strLabel = attributes(gotoStmt).getString("uint64_t");
-        var label = Integer.parseInt(strLabel);
+    public void namedConstantDef(NamedConstantDef namedConstantDef) {
+        var ref = getChild(namedConstantDef, NAMED_CONSTANT);
+        namedConstantDef.addChild(ref);
 
-        gotoStmt.set(GotoStmt.LABEL, label);
+        var expr = getChild(namedConstantDef, EXPR);
+        namedConstantDef.addChild(expr);
+    }
+
+    public void stopStmt(StopStmt stopStmt) {
+        var kindId = attributes(stopStmt).getString("kind");
+        var kind = attributes().get(kindId).getString("value");
+        stopStmt.set(StopStmt.ERROR_STOP, kind.equals("ErrorStop"));
+
+        var stopCodeOpt = getChildOptional(stopStmt, "code");
+        stopCodeOpt.ifPresent(stopCode -> {
+            stopStmt.addChild(stopCode);
+            stopStmt.set(StopStmt.HAS_CODE, true);
+        });
+
+        var quietOpt = getChildOptional(stopStmt, "quiet");
+        quietOpt.ifPresent(stopStmt::addChild);
     }
 }

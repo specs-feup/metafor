@@ -118,11 +118,85 @@
 					},
 					{
 						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, but not of the nodes in its fields",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, including the nodes in their fields (only the first level of field nodes, this function is not recursive)",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "deepCopy"
+									}]
+					},
+					{
+						"type": "action",
 						"tooltip": "Removes node associated to the joinpoint from the AST",
 						"children": [
 									{
 										"type": "joinpoint",
 										"name": "detach"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point after this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "String",
+										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point before this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "String",
+										"name": "node",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -135,6 +209,20 @@
 									},
 									{
 										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a list of join points",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "replaceWith"
+									},
+									{
+										"type": "joinpoint[]",
 										"name": "node",
 										"defaultValue": ""
 									}]
@@ -273,11 +361,85 @@
 					},
 					{
 						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, but not of the nodes in its fields",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, including the nodes in their fields (only the first level of field nodes, this function is not recursive)",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "deepCopy"
+									}]
+					},
+					{
+						"type": "action",
 						"tooltip": "Removes node associated to the joinpoint from the AST",
 						"children": [
 									{
 										"type": "joinpoint",
 										"name": "detach"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point after this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "String",
+										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point before this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "String",
+										"name": "node",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -290,6 +452,20 @@
 									},
 									{
 										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a list of join points",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "replaceWith"
+									},
+									{
+										"type": "joinpoint[]",
 										"name": "node",
 										"defaultValue": ""
 									}]
@@ -436,11 +612,85 @@
 					},
 					{
 						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, but not of the nodes in its fields",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, including the nodes in their fields (only the first level of field nodes, this function is not recursive)",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "deepCopy"
+									}]
+					},
+					{
+						"type": "action",
 						"tooltip": "Removes node associated to the joinpoint from the AST",
 						"children": [
 									{
 										"type": "joinpoint",
 										"name": "detach"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point after this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "String",
+										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point before this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "String",
+										"name": "node",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -453,6 +703,20 @@
 									},
 									{
 										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a list of join points",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "replaceWith"
+									},
+									{
+										"type": "joinpoint[]",
 										"name": "node",
 										"defaultValue": ""
 									}]
@@ -607,11 +871,85 @@
 					},
 					{
 						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, but not of the nodes in its fields",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, including the nodes in their fields (only the first level of field nodes, this function is not recursive)",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "deepCopy"
+									}]
+					},
+					{
+						"type": "action",
 						"tooltip": "Removes node associated to the joinpoint from the AST",
 						"children": [
 									{
 										"type": "joinpoint",
 										"name": "detach"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point after this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "String",
+										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point before this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "String",
+										"name": "node",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -624,6 +962,20 @@
 									},
 									{
 										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a list of join points",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "replaceWith"
+									},
+									{
+										"type": "joinpoint[]",
 										"name": "node",
 										"defaultValue": ""
 									}]
@@ -936,11 +1288,85 @@
 					},
 					{
 						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, but not of the nodes in its fields",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, including the nodes in their fields (only the first level of field nodes, this function is not recursive)",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "deepCopy"
+									}]
+					},
+					{
+						"type": "action",
 						"tooltip": "Removes node associated to the joinpoint from the AST",
 						"children": [
 									{
 										"type": "joinpoint",
 										"name": "detach"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point after this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "String",
+										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point before this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "String",
+										"name": "node",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -953,6 +1379,20 @@
 									},
 									{
 										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a list of join points",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "replaceWith"
+									},
+									{
+										"type": "joinpoint[]",
 										"name": "node",
 										"defaultValue": ""
 									}]
@@ -1107,11 +1547,85 @@
 					},
 					{
 						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, but not of the nodes in its fields",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, including the nodes in their fields (only the first level of field nodes, this function is not recursive)",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "deepCopy"
+									}]
+					},
+					{
+						"type": "action",
 						"tooltip": "Removes node associated to the joinpoint from the AST",
 						"children": [
 									{
 										"type": "joinpoint",
 										"name": "detach"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point after this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "String",
+										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point before this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "String",
+										"name": "node",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -1124,6 +1638,20 @@
 									},
 									{
 										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a list of join points",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "replaceWith"
+									},
+									{
+										"type": "joinpoint[]",
 										"name": "node",
 										"defaultValue": ""
 									}]
@@ -1254,11 +1782,85 @@
 					},
 					{
 						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, but not of the nodes in its fields",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, including the nodes in their fields (only the first level of field nodes, this function is not recursive)",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "deepCopy"
+									}]
+					},
+					{
+						"type": "action",
 						"tooltip": "Removes node associated to the joinpoint from the AST",
 						"children": [
 									{
 										"type": "joinpoint",
 										"name": "detach"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point after this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "String",
+										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point before this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "String",
+										"name": "node",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -1271,6 +1873,20 @@
 									},
 									{
 										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a list of join points",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "replaceWith"
+									},
+									{
+										"type": "joinpoint[]",
 										"name": "node",
 										"defaultValue": ""
 									}]
@@ -1393,11 +2009,85 @@
 					},
 					{
 						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, but not of the nodes in its fields",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, including the nodes in their fields (only the first level of field nodes, this function is not recursive)",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "deepCopy"
+									}]
+					},
+					{
+						"type": "action",
 						"tooltip": "Removes node associated to the joinpoint from the AST",
 						"children": [
 									{
 										"type": "joinpoint",
 										"name": "detach"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point after this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "String",
+										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point before this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "String",
+										"name": "node",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -1410,6 +2100,20 @@
 									},
 									{
 										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a list of join points",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "replaceWith"
+									},
+									{
+										"type": "joinpoint[]",
 										"name": "node",
 										"defaultValue": ""
 									}]
@@ -1435,6 +2139,14 @@
 									{
 										"type": "loopControl",
 										"name": "control"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "[while| range| concurrent]",
+										"name": "kind"
 									}]
 					},
 					{
@@ -1564,11 +2276,108 @@
 					},
 					{
 						"type": "action",
+						"tooltip": "Performs a copy of the do statement, including its controls, but not the body",
+						"children": [
+									{
+										"type": "doStatement",
+										"name": "copyScope"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Returns true if the given do statement has the same loop control as this do statement",
+						"children": [
+									{
+										"type": "boolean",
+										"name": "sameScope"
+									},
+									{
+										"type": "doStatement",
+										"name": "loop",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, but not of the nodes in its fields",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, including the nodes in their fields (only the first level of field nodes, this function is not recursive)",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "deepCopy"
+									}]
+					},
+					{
+						"type": "action",
 						"tooltip": "Removes node associated to the joinpoint from the AST",
 						"children": [
 									{
 										"type": "joinpoint",
 										"name": "detach"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point after this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "String",
+										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point before this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "String",
+										"name": "node",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -1581,6 +2390,20 @@
 									},
 									{
 										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a list of join points",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "replaceWith"
+									},
+									{
+										"type": "joinpoint[]",
 										"name": "node",
 										"defaultValue": ""
 									}]
@@ -2314,11 +3137,85 @@
 					},
 					{
 						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, but not of the nodes in its fields",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, including the nodes in their fields (only the first level of field nodes, this function is not recursive)",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "deepCopy"
+									}]
+					},
+					{
+						"type": "action",
 						"tooltip": "Removes node associated to the joinpoint from the AST",
 						"children": [
 									{
 										"type": "joinpoint",
 										"name": "detach"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point after this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "String",
+										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point before this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "String",
+										"name": "node",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -2331,6 +3228,20 @@
 									},
 									{
 										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a list of join points",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "replaceWith"
+									},
+									{
+										"type": "joinpoint[]",
 										"name": "node",
 										"defaultValue": ""
 									}]
@@ -2494,11 +3405,85 @@
 					},
 					{
 						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, but not of the nodes in its fields",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, including the nodes in their fields (only the first level of field nodes, this function is not recursive)",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "deepCopy"
+									}]
+					},
+					{
+						"type": "action",
 						"tooltip": "Removes node associated to the joinpoint from the AST",
 						"children": [
 									{
 										"type": "joinpoint",
 										"name": "detach"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point after this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "String",
+										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point before this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "String",
+										"name": "node",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -2511,6 +3496,20 @@
 									},
 									{
 										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a list of join points",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "replaceWith"
+									},
+									{
+										"type": "joinpoint[]",
 										"name": "node",
 										"defaultValue": ""
 									}]
@@ -2633,11 +3632,85 @@
 					},
 					{
 						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, but not of the nodes in its fields",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, including the nodes in their fields (only the first level of field nodes, this function is not recursive)",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "deepCopy"
+									}]
+					},
+					{
+						"type": "action",
 						"tooltip": "Removes node associated to the joinpoint from the AST",
 						"children": [
 									{
 										"type": "joinpoint",
 										"name": "detach"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point after this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "String",
+										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point before this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "String",
+										"name": "node",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -2650,6 +3723,20 @@
 									},
 									{
 										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a list of join points",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "replaceWith"
+									},
+									{
+										"type": "joinpoint[]",
 										"name": "node",
 										"defaultValue": ""
 									}]
@@ -2937,11 +4024,85 @@
 					},
 					{
 						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, but not of the nodes in its fields",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, including the nodes in their fields (only the first level of field nodes, this function is not recursive)",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "deepCopy"
+									}]
+					},
+					{
+						"type": "action",
 						"tooltip": "Removes node associated to the joinpoint from the AST",
 						"children": [
 									{
 										"type": "joinpoint",
 										"name": "detach"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point after this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "String",
+										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point before this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "String",
+										"name": "node",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -2954,6 +4115,20 @@
 									},
 									{
 										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a list of join points",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "replaceWith"
+									},
+									{
+										"type": "joinpoint[]",
 										"name": "node",
 										"defaultValue": ""
 									}]
@@ -4010,11 +5185,85 @@
 					},
 					{
 						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, but not of the nodes in its fields",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, including the nodes in their fields (only the first level of field nodes, this function is not recursive)",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "deepCopy"
+									}]
+					},
+					{
+						"type": "action",
 						"tooltip": "Removes node associated to the joinpoint from the AST",
 						"children": [
 									{
 										"type": "joinpoint",
 										"name": "detach"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point after this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "String",
+										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point before this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "String",
+										"name": "node",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -4027,6 +5276,20 @@
 									},
 									{
 										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a list of join points",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "replaceWith"
+									},
+									{
+										"type": "joinpoint[]",
 										"name": "node",
 										"defaultValue": ""
 									}]
@@ -4295,11 +5558,85 @@
 					},
 					{
 						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, but not of the nodes in its fields",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, including the nodes in their fields (only the first level of field nodes, this function is not recursive)",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "deepCopy"
+									}]
+					},
+					{
+						"type": "action",
 						"tooltip": "Removes node associated to the joinpoint from the AST",
 						"children": [
 									{
 										"type": "joinpoint",
 										"name": "detach"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point after this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "String",
+										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point before this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "String",
+										"name": "node",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -4312,6 +5649,20 @@
 									},
 									{
 										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a list of join points",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "replaceWith"
+									},
+									{
+										"type": "joinpoint[]",
 										"name": "node",
 										"defaultValue": ""
 									}]
@@ -4434,11 +5785,85 @@
 					},
 					{
 						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, but not of the nodes in its fields",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, including the nodes in their fields (only the first level of field nodes, this function is not recursive)",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "deepCopy"
+									}]
+					},
+					{
+						"type": "action",
 						"tooltip": "Removes node associated to the joinpoint from the AST",
 						"children": [
 									{
 										"type": "joinpoint",
 										"name": "detach"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point after this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "String",
+										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point before this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "String",
+										"name": "node",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -4451,6 +5876,20 @@
 									},
 									{
 										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a list of join points",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "replaceWith"
+									},
+									{
+										"type": "joinpoint[]",
 										"name": "node",
 										"defaultValue": ""
 									}]
@@ -4581,11 +6020,85 @@
 					},
 					{
 						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, but not of the nodes in its fields",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, including the nodes in their fields (only the first level of field nodes, this function is not recursive)",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "deepCopy"
+									}]
+					},
+					{
+						"type": "action",
 						"tooltip": "Removes node associated to the joinpoint from the AST",
 						"children": [
 									{
 										"type": "joinpoint",
 										"name": "detach"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point after this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "String",
+										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point before this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "String",
+										"name": "node",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -4598,6 +6111,20 @@
 									},
 									{
 										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a list of join points",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "replaceWith"
+									},
+									{
+										"type": "joinpoint[]",
 										"name": "node",
 										"defaultValue": ""
 									}]
@@ -4728,11 +6255,85 @@
 					},
 					{
 						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, but not of the nodes in its fields",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, including the nodes in their fields (only the first level of field nodes, this function is not recursive)",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "deepCopy"
+									}]
+					},
+					{
+						"type": "action",
 						"tooltip": "Removes node associated to the joinpoint from the AST",
 						"children": [
 									{
 										"type": "joinpoint",
 										"name": "detach"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point after this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "String",
+										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point before this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "String",
+										"name": "node",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -4745,6 +6346,20 @@
 									},
 									{
 										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a list of join points",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "replaceWith"
+									},
+									{
+										"type": "joinpoint[]",
 										"name": "node",
 										"defaultValue": ""
 									}]
@@ -4931,11 +6546,85 @@
 					},
 					{
 						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, but not of the nodes in its fields",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, including the nodes in their fields (only the first level of field nodes, this function is not recursive)",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "deepCopy"
+									}]
+					},
+					{
+						"type": "action",
 						"tooltip": "Removes node associated to the joinpoint from the AST",
 						"children": [
 									{
 										"type": "joinpoint",
 										"name": "detach"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point after this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "String",
+										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point before this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "String",
+										"name": "node",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -4948,6 +6637,20 @@
 									},
 									{
 										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a list of join points",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "replaceWith"
+									},
+									{
+										"type": "joinpoint[]",
 										"name": "node",
 										"defaultValue": ""
 									}]
@@ -5070,11 +6773,85 @@
 					},
 					{
 						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, but not of the nodes in its fields",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, including the nodes in their fields (only the first level of field nodes, this function is not recursive)",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "deepCopy"
+									}]
+					},
+					{
+						"type": "action",
 						"tooltip": "Removes node associated to the joinpoint from the AST",
 						"children": [
 									{
 										"type": "joinpoint",
 										"name": "detach"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point after this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "String",
+										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point before this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "String",
+										"name": "node",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -5087,6 +6864,20 @@
 									},
 									{
 										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a list of join points",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "replaceWith"
+									},
+									{
+										"type": "joinpoint[]",
 										"name": "node",
 										"defaultValue": ""
 									}]
@@ -5260,11 +7051,85 @@
 					},
 					{
 						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, but not of the nodes in its fields",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, including the nodes in their fields (only the first level of field nodes, this function is not recursive)",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "deepCopy"
+									}]
+					},
+					{
+						"type": "action",
 						"tooltip": "Removes node associated to the joinpoint from the AST",
 						"children": [
 									{
 										"type": "joinpoint",
 										"name": "detach"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point after this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "String",
+										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point before this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "String",
+										"name": "node",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -5277,6 +7142,20 @@
 									},
 									{
 										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a list of join points",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "replaceWith"
+									},
+									{
+										"type": "joinpoint[]",
 										"name": "node",
 										"defaultValue": ""
 									}]
@@ -5399,11 +7278,85 @@
 					},
 					{
 						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, but not of the nodes in its fields",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, including the nodes in their fields (only the first level of field nodes, this function is not recursive)",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "deepCopy"
+									}]
+					},
+					{
+						"type": "action",
 						"tooltip": "Removes node associated to the joinpoint from the AST",
 						"children": [
 									{
 										"type": "joinpoint",
 										"name": "detach"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point after this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "String",
+										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point before this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "String",
+										"name": "node",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -5416,6 +7369,20 @@
 									},
 									{
 										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a list of join points",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "replaceWith"
+									},
+									{
+										"type": "joinpoint[]",
 										"name": "node",
 										"defaultValue": ""
 									}]
@@ -5602,11 +7569,85 @@
 					},
 					{
 						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, but not of the nodes in its fields",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, including the nodes in their fields (only the first level of field nodes, this function is not recursive)",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "deepCopy"
+									}]
+					},
+					{
+						"type": "action",
 						"tooltip": "Removes node associated to the joinpoint from the AST",
 						"children": [
 									{
 										"type": "joinpoint",
 										"name": "detach"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point after this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "String",
+										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point before this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "String",
+										"name": "node",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -5619,6 +7660,20 @@
 									},
 									{
 										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a list of join points",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "replaceWith"
+									},
+									{
+										"type": "joinpoint[]",
 										"name": "node",
 										"defaultValue": ""
 									}]
@@ -5740,11 +7795,85 @@
 					},
 					{
 						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, but not of the nodes in its fields",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, including the nodes in their fields (only the first level of field nodes, this function is not recursive)",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "deepCopy"
+									}]
+					},
+					{
+						"type": "action",
 						"tooltip": "Removes node associated to the joinpoint from the AST",
 						"children": [
 									{
 										"type": "joinpoint",
 										"name": "detach"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point after this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "String",
+										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point before this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "String",
+										"name": "node",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -5757,6 +7886,20 @@
 									},
 									{
 										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a list of join points",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "replaceWith"
+									},
+									{
+										"type": "joinpoint[]",
 										"name": "node",
 										"defaultValue": ""
 									}]
@@ -5878,11 +8021,85 @@
 					},
 					{
 						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, but not of the nodes in its fields",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, including the nodes in their fields (only the first level of field nodes, this function is not recursive)",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "deepCopy"
+									}]
+					},
+					{
+						"type": "action",
 						"tooltip": "Removes node associated to the joinpoint from the AST",
 						"children": [
 									{
 										"type": "joinpoint",
 										"name": "detach"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point after this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "String",
+										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point before this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "String",
+										"name": "node",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -5895,6 +8112,20 @@
 									},
 									{
 										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a list of join points",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "replaceWith"
+									},
+									{
+										"type": "joinpoint[]",
 										"name": "node",
 										"defaultValue": ""
 									}]
@@ -6155,11 +8386,85 @@
 					},
 					{
 						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, but not of the nodes in its fields",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, including the nodes in their fields (only the first level of field nodes, this function is not recursive)",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "deepCopy"
+									}]
+					},
+					{
+						"type": "action",
 						"tooltip": "Removes node associated to the joinpoint from the AST",
 						"children": [
 									{
 										"type": "joinpoint",
 										"name": "detach"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point after this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "String",
+										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point before this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "String",
+										"name": "node",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -6172,6 +8477,20 @@
 									},
 									{
 										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a list of join points",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "replaceWith"
+									},
+									{
+										"type": "joinpoint[]",
 										"name": "node",
 										"defaultValue": ""
 									}]
@@ -6302,11 +8621,85 @@
 					},
 					{
 						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, but not of the nodes in its fields",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, including the nodes in their fields (only the first level of field nodes, this function is not recursive)",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "deepCopy"
+									}]
+					},
+					{
+						"type": "action",
 						"tooltip": "Removes node associated to the joinpoint from the AST",
 						"children": [
 									{
 										"type": "joinpoint",
 										"name": "detach"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point after this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "String",
+										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point before this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "String",
+										"name": "node",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -6319,6 +8712,20 @@
 									},
 									{
 										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a list of join points",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "replaceWith"
+									},
+									{
+										"type": "joinpoint[]",
 										"name": "node",
 										"defaultValue": ""
 									}]
@@ -6335,6 +8742,14 @@
 									{
 										"type": "expr",
 										"name": "lower"
+									}]
+					},
+					{
+						"type": "attribute",
+						"children": [
+									{
+										"type": "expr",
+										"name": "step"
 									}]
 					},
 					{
@@ -6464,11 +8879,111 @@
 					},
 					{
 						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setStep"
+									},
+									{
+										"type": "expr",
+										"name": "step",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"children": [
+									{
+										"type": "void",
+										"name": "setUpper"
+									},
+									{
+										"type": "expr",
+										"name": "upper",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, but not of the nodes in its fields",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, including the nodes in their fields (only the first level of field nodes, this function is not recursive)",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "deepCopy"
+									}]
+					},
+					{
+						"type": "action",
 						"tooltip": "Removes node associated to the joinpoint from the AST",
 						"children": [
 									{
 										"type": "joinpoint",
 										"name": "detach"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point after this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "String",
+										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point before this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "String",
+										"name": "node",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -6481,6 +8996,20 @@
 									},
 									{
 										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a list of join points",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "replaceWith"
+									},
+									{
+										"type": "joinpoint[]",
 										"name": "node",
 										"defaultValue": ""
 									}]
@@ -6610,11 +9139,85 @@
 					},
 					{
 						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, but not of the nodes in its fields",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, including the nodes in their fields (only the first level of field nodes, this function is not recursive)",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "deepCopy"
+									}]
+					},
+					{
+						"type": "action",
 						"tooltip": "Removes node associated to the joinpoint from the AST",
 						"children": [
 									{
 										"type": "joinpoint",
 										"name": "detach"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point after this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "String",
+										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point before this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "String",
+										"name": "node",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -6627,6 +9230,20 @@
 									},
 									{
 										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a list of join points",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "replaceWith"
+									},
+									{
+										"type": "joinpoint[]",
 										"name": "node",
 										"defaultValue": ""
 									}]
@@ -6778,11 +9395,85 @@
 					},
 					{
 						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, but not of the nodes in its fields",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, including the nodes in their fields (only the first level of field nodes, this function is not recursive)",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "deepCopy"
+									}]
+					},
+					{
+						"type": "action",
 						"tooltip": "Removes node associated to the joinpoint from the AST",
 						"children": [
 									{
 										"type": "joinpoint",
 										"name": "detach"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point after this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "String",
+										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point before this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "String",
+										"name": "node",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -6795,6 +9486,20 @@
 									},
 									{
 										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a list of join points",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "replaceWith"
+									},
+									{
+										"type": "joinpoint[]",
 										"name": "node",
 										"defaultValue": ""
 									}]
@@ -7087,11 +9792,85 @@
 					},
 					{
 						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, but not of the nodes in its fields",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, including the nodes in their fields (only the first level of field nodes, this function is not recursive)",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "deepCopy"
+									}]
+					},
+					{
+						"type": "action",
 						"tooltip": "Removes node associated to the joinpoint from the AST",
 						"children": [
 									{
 										"type": "joinpoint",
 										"name": "detach"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point after this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "String",
+										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point before this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "String",
+										"name": "node",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -7104,6 +9883,20 @@
 									},
 									{
 										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a list of join points",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "replaceWith"
+									},
+									{
+										"type": "joinpoint[]",
 										"name": "node",
 										"defaultValue": ""
 									}]
@@ -7233,11 +10026,85 @@
 					},
 					{
 						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, but not of the nodes in its fields",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, including the nodes in their fields (only the first level of field nodes, this function is not recursive)",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "deepCopy"
+									}]
+					},
+					{
+						"type": "action",
 						"tooltip": "Removes node associated to the joinpoint from the AST",
 						"children": [
 									{
 										"type": "joinpoint",
 										"name": "detach"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point after this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "String",
+										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point before this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "String",
+										"name": "node",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -7250,6 +10117,20 @@
 									},
 									{
 										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a list of join points",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "replaceWith"
+									},
+									{
+										"type": "joinpoint[]",
 										"name": "node",
 										"defaultValue": ""
 									}]
@@ -7379,11 +10260,85 @@
 					},
 					{
 						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, but not of the nodes in its fields",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, including the nodes in their fields (only the first level of field nodes, this function is not recursive)",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "deepCopy"
+									}]
+					},
+					{
+						"type": "action",
 						"tooltip": "Removes node associated to the joinpoint from the AST",
 						"children": [
 									{
 										"type": "joinpoint",
 										"name": "detach"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point after this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "String",
+										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point before this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "String",
+										"name": "node",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -7396,6 +10351,20 @@
 									},
 									{
 										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a list of join points",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "replaceWith"
+									},
+									{
+										"type": "joinpoint[]",
 										"name": "node",
 										"defaultValue": ""
 									}]
@@ -7534,11 +10503,85 @@
 					},
 					{
 						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, but not of the nodes in its fields",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, including the nodes in their fields (only the first level of field nodes, this function is not recursive)",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "deepCopy"
+									}]
+					},
+					{
+						"type": "action",
 						"tooltip": "Removes node associated to the joinpoint from the AST",
 						"children": [
 									{
 										"type": "joinpoint",
 										"name": "detach"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point after this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "String",
+										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point before this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "String",
+										"name": "node",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -7551,6 +10594,20 @@
 									},
 									{
 										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a list of join points",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "replaceWith"
+									},
+									{
+										"type": "joinpoint[]",
 										"name": "node",
 										"defaultValue": ""
 									}]
@@ -7866,11 +10923,85 @@
 					},
 					{
 						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, but not of the nodes in its fields",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "copy"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Performs a copy of the node and its children, including the nodes in their fields (only the first level of field nodes, this function is not recursive)",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "deepCopy"
+									}]
+					},
+					{
+						"type": "action",
 						"tooltip": "Removes node associated to the joinpoint from the AST",
 						"children": [
 									{
 										"type": "joinpoint",
 										"name": "detach"
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point after this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertAfter"
+									},
+									{
+										"type": "String",
+										"name": "code",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Inserts the given join point before this join point",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a string",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "insertBefore"
+									},
+									{
+										"type": "String",
+										"name": "node",
+										"defaultValue": ""
 									}]
 					},
 					{
@@ -7883,6 +11014,20 @@
 									},
 									{
 										"type": "joinpoint",
+										"name": "node",
+										"defaultValue": ""
+									}]
+					},
+					{
+						"type": "action",
+						"tooltip": "Overload which accepts a list of join points",
+						"children": [
+									{
+										"type": "joinpoint",
+										"name": "replaceWith"
+									},
+									{
+										"type": "joinpoint[]",
 										"name": "node",
 										"defaultValue": ""
 									}]

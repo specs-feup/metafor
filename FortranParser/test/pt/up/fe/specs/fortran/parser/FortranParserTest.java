@@ -389,6 +389,18 @@ public class FortranParserTest {
     }
 
     @Test
+    void testParameter() {
+        testJson("parameter.json");
+    }
+
+    @Test
+    void testParameterNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("parameter.f90");
+        }
+    }
+
+    @Test
     void testNoProgramStmt() {
         testJson("program/no_program_stmt.json");
     }
@@ -461,6 +473,18 @@ public class FortranParserTest {
     }
 
     @Test
+    void testStop() {
+        testJson("stmt/stop.json");
+    }
+
+    @Test
+    void testStopNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("stmt/stop.f90");
+        }
+    }
+
+    @Test
     void testFujitsu0000_0000() {
         testJson("fujitsu/0000/0000_0000.json");
     }
@@ -472,17 +496,18 @@ public class FortranParserTest {
         }
     }
 
-    @Test
-    void testFujitsu0000_0001() {
-        testJson("fujitsu/0000/0000_0001.json");
-    }
-
-    @Test
-    void testFujitsu0000_0001Native() {
-        if (SpecsPlatforms.isLinux()) {
-            testNative("fujitsu/0000/0000_0001.f90");
-        }
-    }
+//    These tests are commented due to lack of support for 128-bit floating point values on most machines
+//    @Test
+//    void testFujitsu0000_0001() {
+//        testJson("fujitsu/0000/0000_0001.json");
+//    }
+//
+//    @Test
+//    void testFujitsu0000_0001Native() {
+//        if (SpecsPlatforms.isLinux()) {
+//            testNative("fujitsu/0000/0000_0001.f90");
+//        }
+//    }
 
     @Test
     void testFujitsu0000_0002() {
@@ -540,7 +565,7 @@ public class FortranParserTest {
     @Test
     void testFujitsu0000_0019Native() {
         if (SpecsPlatforms.isLinux()) {
-            testJson("fujitsu/0000/0000_0019.json");
+            testNative("fujitsu/0000/0000_0019.f90");
         }
     }
 
@@ -552,19 +577,19 @@ public class FortranParserTest {
     @Test
     void testFujitsu0000_0023Native() {
         if (SpecsPlatforms.isLinux()) {
-            testJson("fujitsu/0000/0000_0023.json");
+            testNative("fujitsu/0000/0000_0023.f90");
         }
     }
 
     @Test
-    void testParameter() {
-        testJson("parameter.json");
+    void testFujitsu0000_0024() {
+        testJson("fujitsu/0000/0000_0024.json");
     }
 
     @Test
-    void testParameterNative() {
+    void testFujitsu0000_0024Native() {
         if (SpecsPlatforms.isLinux()) {
-            testNative("parameter.f90");
+            testNative("fujitsu/0000/0000_0024.f90");
         }
     }
 }

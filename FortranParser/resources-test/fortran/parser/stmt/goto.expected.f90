@@ -1,4 +1,4 @@
-PROGRAM goto
+PROGRAM GOTO
     GO TO 10
     10 PRINT *, "Hello, World!"
-END PROGRAM goto
+END PROGRAM GOTO

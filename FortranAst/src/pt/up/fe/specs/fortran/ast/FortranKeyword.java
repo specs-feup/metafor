@@ -21,6 +21,8 @@ public enum FortranKeyword {
     WHILE,
     GO,
     TO,
+    ERROR,
+    QUIET,
 
     // Conditional statements
     IF,
@@ -38,6 +40,9 @@ public enum FortranKeyword {
     DOUBLE,
     PRECISION,
     DIMENSION,
+
+    // Declarations
+    PARAMETER,
 
     OMP;
 

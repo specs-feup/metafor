@@ -2,22 +2,16 @@ package pt.up.fe.specs.fortran.parser;
 
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.decl.*;
-import pt.up.fe.specs.fortran.ast.nodes.expr.*;
 import pt.up.fe.specs.fortran.ast.nodes.alloc.Allocation;
 import pt.up.fe.specs.fortran.ast.nodes.alloc.StatVariable;
-import pt.up.fe.specs.fortran.ast.nodes.expr.BinaryOperator;
-import pt.up.fe.specs.fortran.ast.nodes.expr.IntLiteral;
-import pt.up.fe.specs.fortran.ast.nodes.expr.LogicalLiteral;
-import pt.up.fe.specs.fortran.ast.nodes.expr.ParenExpr;
-import pt.up.fe.specs.fortran.ast.nodes.expr.StringLiteral;
+import pt.up.fe.specs.fortran.ast.nodes.decl.DataStmtValue;
+import pt.up.fe.specs.fortran.ast.nodes.decl.DummyArgumentDecl;
+import pt.up.fe.specs.fortran.ast.nodes.decl.EntityDecl;
+import pt.up.fe.specs.fortran.ast.nodes.decl.KindSelector;
+import pt.up.fe.specs.fortran.ast.nodes.expr.*;
 import pt.up.fe.specs.fortran.ast.nodes.loops.ConcurrentLoopControl;
 import pt.up.fe.specs.fortran.ast.nodes.loops.ConcurrentRange;
 import pt.up.fe.specs.fortran.ast.nodes.loops.RangeLoopControl;
-import pt.up.fe.specs.fortran.ast.nodes.expr.*;
-import pt.up.fe.specs.fortran.ast.nodes.omp.OmpBlockConstruct;
-import pt.up.fe.specs.fortran.ast.nodes.omp.OmpLoopConstruct;
-import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpDataSharingClause;
-import pt.up.fe.specs.fortran.ast.nodes.expr.*;
 import pt.up.fe.specs.fortran.ast.nodes.omp.OmpBlockConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.omp.OmpLoopConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpDataSharingClause;
@@ -74,6 +68,7 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.DO_CONSTRUCT, DoStmt.class);
         NAME_TO_CLASS.put(FlangName.COMPILER_DIRECTIVE, CompilerDirective.class);
         NAME_TO_CLASS.put(FlangName.GOTO_STMT, GotoStmt.class);
+        NAME_TO_CLASS.put(FlangName.STOP_STMT, StopStmt.class);
 
         NAME_TO_CLASS.put(FlangName.IF_CONSTRUCT, IfConstruct.class);
         NAME_TO_CLASS.put(FlangName.IF_THEN_STMT, IfThenStmt.class);
@@ -101,9 +96,9 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.EXTERNAL_STMT, ExternalStmt.class);
         NAME_TO_CLASS.put(FlangName.RETURN_STMT, ReturnStmt.class);
         NAME_TO_CLASS.put(FlangName.DATA_STMT, DataStmt.class);
-        NAME_TO_CLASS.put(FlangName.STOP_STMT, StopStmt.class);
         NAME_TO_CLASS.put(FlangName.OPEN_STMT, OpenStmt.class);
         NAME_TO_CLASS.put(FlangName.CLOSE_STMT, CloseStmt.class);
+        NAME_TO_CLASS.put(FlangName.NAMED_CONSTANT_DEF, NamedConstantDef.class);
 
         /// Variables
         //NAME_TO_CLASS.put(FlangName.DATA_REF, DataRef.class);

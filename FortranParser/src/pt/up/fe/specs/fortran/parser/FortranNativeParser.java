@@ -67,7 +67,6 @@ public class FortranNativeParser {
         //var flangExecution = SpecsSystem.runProcess(command, TEMP_FOLDER.get(), true, false);
         var flangExecution = SpecsSystem.runProcess(command, TEMP_FOLDER.get(), outputProcessor, stderrProcessor);
 
-
         if (flangExecution.getReturnValue() != 0) {
             throw new RuntimeException("Problems executing flang: " + flangExecution.getStdErr());
         }

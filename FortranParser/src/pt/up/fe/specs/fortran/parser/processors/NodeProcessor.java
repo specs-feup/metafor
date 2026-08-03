@@ -10,6 +10,7 @@ import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.regex.Pattern;
 
 public interface NodeProcessor {
@@ -52,6 +53,21 @@ public interface NodeProcessor {
 
     default FortranNode getChild(FortranNode node, Pattern attribute) {
         return getNode(attributes().getChildId(node, attribute));
+    }
+
+    default Optional<String> getChildIdOptional(FortranNode node, String attribute) {
+        return attributes(node).has(attribute)
+                ? Optional.of(attributes().getChildId(node, attribute))
+                : Optional.empty();
+    }
+
+    default Optional<FortranNode> getChildOptional(FortranNode node, String attribute) {
+        return getChildIdOptional(node, attribute)
+                .map(this::getNode);
+    }
+
+    default Optional<FortranNode> getChildOptional(FortranNode node, FlangName name) {
+        return getChildOptional(node, name.getString());
     }
 
     default FortranNode getStmtChild(FortranNode node, FlangName name) {

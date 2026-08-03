@@ -81,13 +81,14 @@
         <attribute name="var" type="dataRef"/>
         <attribute name="lower" type="expr"/>
         <attribute name="upper" type="expr"/>
-        <!-- TODO how to represent optionals? -->
+        <attribute name="step" type="expr"/>
     </artifact>
 
     <!-- DO LOOP -->
     <artifact class="doStatement">
         <attribute name="control" type="loopControl"/>
         <attribute name="body" type="execution"/>
+        <attribute name="kind" type="{while, range, concurrent}"/>
     </artifact>
 
     <!-- STATEMENT BLOCKS -->

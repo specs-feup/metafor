@@ -8,8 +8,43 @@
         <parameter name="node" type="joinpoint"/>
     </action>
 
+    <!-- Replaces the current node with a list of nodes -->
+    <action name="replaceWith" return="joinpoint" tooltip="Overload which accepts a list of join points">
+        <parameter name="node" type="joinpoint[]"/>
+    </action>
+
     <!-- Removes node associated to the joinpoint from the AST -->
     <action name="detach" return="joinpoint" tooltip="Removes node associated to the joinpoint from the AST"/>
+
+    <!-- Inserts node before the given node -->
+    <action name="insertBefore" return="joinpoint"
+            tooltip="Inserts the given join point before this join point">
+        <parameter name="node" type="joinpoint"/>
+    </action>
+
+    <!-- Overload which accepts String -->
+    <action name="insertBefore" return="joinpoint" tooltip="Overload which accepts a string">
+        <parameter name="node" type="String"/>
+    </action>
+
+    <!-- Inserts node after the given node -->
+    <action name="insertAfter" return="joinpoint"
+            tooltip="Inserts the given join point after this join point">
+        <parameter name="node" type="joinpoint"/>
+    </action>
+
+    <!-- Overload which accepts String -->
+    <action name="insertAfter" return="joinpoint" tooltip="Overload which accepts a string">
+        <parameter name="code" type="String"/>
+    </action>
+
+    <!-- Performs a copy of the node and its children, but not of the nodes in its fields -->
+    <action name="copy" return="joinpoint"
+            tooltip="Performs a copy of the node and its children, but not of the nodes in its fields"/>
+
+    <action name="deepCopy" return="joinpoint"
+            tooltip="Performs a copy of the node and its children, including the nodes in their fields (only the first level of field nodes, this function is not recursive)"/>
+
 
     <!-- PROGRAM -->
 
@@ -54,5 +89,24 @@
 
     <action name="insertEnd" class="execution">
         <parameter name="stmt" type="executableStatement"/>
+    </action>
+
+    <!-- RangeLoopControl -->
+    <action name="setUpper" class="rangeLoopControl">
+        <parameter name="upper" type="expr"/>
+    </action>
+
+    <action name="setStep" class="rangeLoopControl">
+        <parameter name="step" type="expr"/>
+    </action>
+
+    <!-- DoStatement -->
+    <action name="copyScope" class="doStatement" return="doStatement"
+            tooltip="Performs a copy of the do statement, including its controls, but not the body"
+    />
+
+    <action name="sameScope" class="doStatement" return="boolean"
+            tooltip="Returns true if the given do statement has the same loop control as this do statement">
+        <parameter name="loop" type="doStatement"/>
     </action>
 </actions>

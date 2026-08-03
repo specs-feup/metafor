@@ -7,6 +7,9 @@ const config = {
   globalTeardown: "@specs-feup/lara/jest/jestGlobalTeardown.js",
   setupFiles: ["@specs-feup/lara/jest/setupFiles/sharedJavaModule.js"],
   setupFilesAfterEnv: ["@specs-feup/lara/jest/setupFiles/importSideEffects.js"],
+  transformIgnorePatterns: [
+    "/node_modules/(?!(@specs-feup/lara|@specs-feup/metafor)/)",
+  ],
   moduleNameMapper: {
     "@specs-feup/metafor/api/(.+).js": "@specs-feup/metafor/src-api/$1",
     "(.+)\\.js": "$1",

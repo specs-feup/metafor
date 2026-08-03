@@ -31,7 +31,8 @@ public class OmpProcessors extends ANodeProcessor {
         Execution body = factory().newNode(Execution.class, getChildren(ompBlockConstruct, FlangName.EXECUTION_PART_CONSTRUCT));
         ompBlockConstruct.addChild(body);
 
-        if (attributes().get(clauseList).has(FlangName.OMP_CLAUSE)) ompBlockConstruct.addChildren(getChildren(clauseList, FlangName.OMP_CLAUSE));
+        if (attributes().get(clauseList).has(FlangName.OMP_CLAUSE))
+            ompBlockConstruct.addChildren(getChildren(clauseList, FlangName.OMP_CLAUSE));
     }
 
     public void ompLoopConstruct(OmpLoopConstruct ompLoopConstruct) {
@@ -43,11 +44,13 @@ public class OmpProcessors extends ANodeProcessor {
 
         ompLoopConstruct.set(OmpBlockConstruct.KINDS, kinds);
 
-        DoStmt loop = (DoStmt) getChildren(ompLoopConstruct, FlangName.EXECUTION_PART_CONSTRUCT).getFirst();
+        DoStmt loop = (DoStmt) getChildren(ompLoopConstruct, FlangName.EXECUTION_PART_CONSTRUCT).get(0);
         ompLoopConstruct.addChild(loop);
 
-        if (attributes().get(clauseList).has(FlangName.OMP_CLAUSE)) ompLoopConstruct.addChildren(getChildren(clauseList, FlangName.OMP_CLAUSE));
-        if (attributes().get(endClauseList).has(FlangName.OMP_CLAUSE)) ompLoopConstruct.addChildren(getChildren(endClauseList, FlangName.OMP_CLAUSE));
+        if (attributes().get(clauseList).has(FlangName.OMP_CLAUSE))
+            ompLoopConstruct.addChildren(getChildren(clauseList, FlangName.OMP_CLAUSE));
+        if (attributes().get(endClauseList).has(FlangName.OMP_CLAUSE))
+            ompLoopConstruct.addChildren(getChildren(endClauseList, FlangName.OMP_CLAUSE));
     }
 
     public void ompDataSharingClause(OmpDataSharingClause ompDataSharingClause) {
@@ -69,7 +72,7 @@ public class OmpProcessors extends ANodeProcessor {
                 attributes(ompReductionClause).getString(FlangName.OMP_REDUCTION_CLAUSE)
         ).getStringList(FlangName.MODIFIER);
 
-        String identifier = attributes().get(modifiers.getFirst()).getVariantString();
+        String identifier = attributes().get(modifiers.get(0)).getVariantString();
         String operatorId = attributes().get(identifier).getVariantString();
         String operator = attributes().get(operatorId).getString("op");
 

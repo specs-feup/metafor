@@ -10,6 +10,8 @@ import pt.up.fe.specs.util.SpecsLogs;
 import pt.up.fe.specs.util.exceptions.NotImplementedException;
 import pt.up.fe.specs.util.treenode.NodeInsertUtils;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Objects;
 import java.util.stream.Stream;
 
@@ -86,6 +88,21 @@ public abstract class AFortranWeaverJoinPoint extends AJoinPoint {
         return new AJoinPoint[]{FortranJoinpoints.create(insertedNode, AJoinPoint.class)};
     }
 
+    @Override
+    public AJoinPoint insertAfterImpl(AJoinPoint node) {
+        var insertedNode = getNode().insert(Position.AFTER, node.getNode());
+
+        return FortranJoinpoints.create(insertedNode);
+    }
+
+    @Override
+    public AJoinPoint insertBeforeImpl(AJoinPoint node) {
+        var insertedNode = getNode().insert(Position.AFTER, node.getNode());
+
+        return FortranJoinpoints.create(insertedNode);
+    }
+
+
     public static FortranNode replace(FortranNode target, FortranNode newNode) {
         return NodeInsertUtils.replace(target, newNode);
     }
@@ -93,6 +110,24 @@ public abstract class AFortranWeaverJoinPoint extends AJoinPoint {
     @Override
     public AJoinPoint replaceWithImpl(AJoinPoint node) {
         return FortranJoinpoints.create(replace(getNode(), node.getNode()));
+    }
+
+    @Override
+    public AJoinPoint replaceWithImpl(AJoinPoint[] node) {
+        // Insert nodes after in reverse order, to preserve order of comments and pragmas
+        var reverseNodes = Arrays.asList(node);
+        Collections.reverse(reverseNodes);
+
+        AJoinPoint topInserted = null;
+        for (var nodeToInsert : reverseNodes) {
+            topInserted = insertAfterImpl(nodeToInsert);
+        }
+
+        // Remove current node from the tree
+        detach();
+
+        // Return the first inserted element
+        return topInserted;
     }
 
     @Override
@@ -167,5 +202,17 @@ public abstract class AFortranWeaverJoinPoint extends AJoinPoint {
     @Override
     public Integer getIndexOfSelfImpl() {
         return getNode().indexOfSelf();
+    }
+
+    @Override
+    public AJoinPoint copyImpl() {
+        FortranNode copiedNode = getNode().copyShallow();
+        return FortranJoinpoints.create(copiedNode);
+    }
+
+    @Override
+    public AJoinPoint deepCopyImpl() {
+        FortranNode copiedNode = getNode().copy();
+        return FortranJoinpoints.create(copiedNode);
     }
 }
