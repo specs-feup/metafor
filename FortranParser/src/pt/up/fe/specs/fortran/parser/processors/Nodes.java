@@ -1,6 +1,7 @@
 package pt.up.fe.specs.fortran.parser.processors;
 
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
+import pt.up.fe.specs.fortran.ast.nodes.decl.*;
 import pt.up.fe.specs.fortran.ast.nodes.alloc.Allocation;
 import pt.up.fe.specs.fortran.ast.nodes.alloc.StatVariable;
 import pt.up.fe.specs.fortran.ast.nodes.decl.DataStmtValue;
@@ -31,6 +32,7 @@ import pt.up.fe.specs.fortran.ast.nodes.type.*;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.IntentSpec;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.KeywordAttributeSpecifier;
 import pt.up.fe.specs.fortran.ast.nodes.type.shapes.AllocateShapeSpecification;
+import pt.up.fe.specs.fortran.ast.nodes.type.shapes.AssumedImpliedShapeSpec;
 import pt.up.fe.specs.fortran.ast.nodes.type.shapes.DeferredShapeSpecList;
 import pt.up.fe.specs.fortran.ast.nodes.type.shapes.ExplicitShapeSpecification;
 import pt.up.fe.specs.fortran.ast.nodes.utils.*;
@@ -55,6 +57,7 @@ public class Nodes {
         processors.put(Execution.class, p::execution);
         processors.put(Subroutine.class, p::subroutine);
         processors.put(InternalSubprogram.class, p::internalSubprogram);
+        processors.put(Function.class, p::function);
 
         var alloc = new AllocProcessors(data);
         processors.put(Allocation.class, alloc::allocation);
@@ -104,6 +107,10 @@ public class Nodes {
         processors.put(DeallocateStmt.class, s::deallocateStmt);
         processors.put(ContinueStmt.class, s::continueStmt);
         processors.put(ParameterStmt.class, s::parameterStmt);
+        processors.put(ExternalStmt.class, s::externalStmt);
+        processors.put(ReturnStmt.class, s::returnStmt);
+        processors.put(OpenStmt.class, s::openStmt);
+        processors.put(CloseStmt.class, s::closeStmt);
         processors.put(NamedConstantDef.class, s::namedConstantDef);
 
         processors.put(DataStmt.class, s::dataStmt);
@@ -145,6 +152,7 @@ public class Nodes {
         processors.put(ExplicitShapeSpecification.class, shapes::explicitShapeSpec);
         processors.put(DeferredShapeSpecList.class, shapes::deferredShapeSpecLis);
         processors.put(AllocateShapeSpecification.class, shapes::allocateShapeSpec);
+        processors.put(AssumedImpliedShapeSpec.class, shapes::assumedImpliedShapeSpec);
 
         var u = new UtilsProcessors(data);
         processors.put(Star.class, u::star);

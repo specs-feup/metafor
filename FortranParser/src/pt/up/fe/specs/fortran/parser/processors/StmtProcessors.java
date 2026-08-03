@@ -75,6 +75,7 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void assignmentStmt(AssignmentStmt assignmentStmt) {
+        actionStmt(assignmentStmt);
         var variable = getChild(assignmentStmt, FlangName.VARIABLE);
         var expression = getChild(assignmentStmt, FlangName.EXPR);
         assignmentStmt.addChild(variable);
@@ -89,7 +90,7 @@ public class StmtProcessors extends ANodeProcessor {
         // Add if-then block
         var ifThenStmt = getStmtChild(ifConstruct, FlangName.IF_THEN_STMT);
 
-        var thenBlock = factory().newNode(StmtBlock.class);
+        var thenBlock = factory().newNode(Execution.class);
         if (attributes(ifConstruct).has(FlangName.EXECUTION_PART_CONSTRUCT)) {
             var blockStatements = getChildren(ifConstruct, FlangName.EXECUTION_PART_CONSTRUCT);
             thenBlock.addChildren(blockStatements);
@@ -136,7 +137,7 @@ public class StmtProcessors extends ANodeProcessor {
         ifElseBlock.addChild(elseIfStmt);
 
         var blockStatements = getChildren(ifElseBlock, FlangName.EXECUTION_PART_CONSTRUCT);
-        var block = factory().newNode(StmtBlock.class);
+        var block = factory().newNode(Execution.class);
         block.addChildren(blockStatements);
         ifElseBlock.addChild(block);
     }
@@ -151,7 +152,7 @@ public class StmtProcessors extends ANodeProcessor {
         elseBlock.addChild(elseStmt);
 
         var blockStatements = getChildren(elseBlock, FlangName.EXECUTION_PART_CONSTRUCT);
-        var block = factory().newNode(StmtBlock.class);
+        var block = factory().newNode(Execution.class);
         block.addChildren(blockStatements);
         elseBlock.addChild(block);
     }
@@ -165,6 +166,7 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void ifStmt(IfStmt ifStmt) {
+        actionStmt(ifStmt);
         var condition = getChild(ifStmt, FlangName.EXPR);
         var thenStmt = getUnlabeledStmtChild(ifStmt, FlangName.ACTION_STMT);
 
@@ -335,6 +337,7 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void callStmt(CallStmt callStmt) {
+        actionStmt(callStmt);
         callStmt.addChild(getChild(callStmt, "call"));
     }
 
@@ -346,6 +349,7 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void writeStmt(WriteStmt writeStmt) {
+        actionStmt(writeStmt);
         if (attributes(writeStmt).has("iounit")) {
             writeStmt.addChild(getChild(writeStmt, "iounit"));
         }
@@ -368,11 +372,13 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void allocateStmt(AllocateStmt allocateStmt) {
+        actionStmt(allocateStmt);
         allocateStmt.addChildren(getChildren(allocateStmt, FlangName.ALLOCATION));
         allocateStmt.addChildren(getChildren(allocateStmt, FlangName.ALLOC_OPT));
     }
 
     public void deallocateStmt(DeallocateStmt deallocateStmt) {
+        actionStmt(deallocateStmt);
         deallocateStmt.addChildren(getChildren(deallocateStmt, FlangName.ALLOCATE_OBJECT));
     }
 
@@ -384,11 +390,30 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void continueStmt(ContinueStmt continueStmt) {
-
+        actionStmt(continueStmt);
     }
 
     public void parameterStmt(ParameterStmt parameterStmt) {
         parameterStmt.addChildren(getChildren(parameterStmt, FlangName.NAMED_CONSTANT_DEF));
+    }
+
+    public void externalStmt(ExternalStmt externalStmt) {
+        externalStmt.addChildren(getChildren(externalStmt, FlangName.NAME));
+    }
+
+    public void returnStmt(ReturnStmt returnStmt) {
+        actionStmt(returnStmt);
+        if (attributes(returnStmt).has(FlangName.EXPR)) {
+            returnStmt.addChild(getChild(returnStmt, FlangName.EXPR));
+        }
+    }
+
+    public void openStmt(OpenStmt openStmt) {
+        actionStmt(openStmt);
+    }
+
+    public void closeStmt(CloseStmt closeStmt) {
+        actionStmt(closeStmt);
     }
 
     public void namedConstantDef(NamedConstantDef namedConstantDef) {

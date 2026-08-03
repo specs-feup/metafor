@@ -90,4 +90,18 @@ public class ProgramProcessors extends ANodeProcessor {
             subroutine.addChildren(getChildren(statementId, FlangName.DUMMY_ARG));
         }
     }
+
+    public void function(Function function) {
+        var name = attributes().getString(function, "source", FlangName.FUNCTION_STMT, FlangName.NAME);
+        // [specification-part]
+        function.addChild(getChild(function, FlangName.SPECIFICATION_PART));
+        // [execution-part]
+        function.addChild(getChild(function, FlangName.EXECUTION_PART));
+        // [internal-subprogram-part]
+
+        function.set(Function.FUNCTION_NAME, name);
+
+        String statementId = attributes().get(attributes(function).getString(FlangName.FUNCTION_STMT.getStmtAttr())).getString("statement");
+        function.addChildren(getChildren(statementId, FlangName.FUNCTION_ARGUMENT_DECL));
+    }
 }
