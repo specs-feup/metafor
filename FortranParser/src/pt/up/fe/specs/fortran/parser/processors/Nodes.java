@@ -67,7 +67,6 @@ public class Nodes {
         processors.put(EntityDecl.class, d::entityDecl);
         processors.put(DataStmtValue.class, d::dataStmtValue);
         processors.put(DummyArgumentDecl.class, d::dummyArgumentDecl);
-        processors.put(DataStmtSet.class, d::dataStmtSet);
 
         var v = new VariableProcessor(data);
         processors.put(DataRef.class, v::dataRefProcessor);
