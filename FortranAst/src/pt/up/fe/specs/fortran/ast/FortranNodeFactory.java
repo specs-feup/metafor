@@ -8,6 +8,7 @@ import pt.up.fe.specs.fortran.ast.nodes.decl.LabelDecl;
 import pt.up.fe.specs.fortran.ast.nodes.decl.ListInitialization;
 import pt.up.fe.specs.fortran.ast.nodes.expr.*;
 import pt.up.fe.specs.fortran.ast.nodes.expr.enums.BinaryOperatorKind;
+import pt.up.fe.specs.fortran.ast.nodes.io.StarFormat;
 import pt.up.fe.specs.fortran.ast.nodes.loops.LoopControl;
 import pt.up.fe.specs.fortran.ast.nodes.loops.RangeLoopControl;
 import pt.up.fe.specs.fortran.ast.nodes.omp.OmpBlockConstruct;
@@ -196,14 +197,9 @@ public class FortranNodeFactory {
 
     // UTIL
 
-    public Format format(FortranNode formatType) {
-        // Check if node is of allowed type
-        if (!(formatType instanceof Star)) {
-            throw new RuntimeException("Unsupported type for Format child: " + formatType.getClass());
-        }
-
+    public StarFormat starFormat() {
         DataStore data = newDataStore(Format.class);
-        return new Format(data, List.of(formatType));
+        return new StarFormat(data, List.of());
     }
 
     public Star star() {
