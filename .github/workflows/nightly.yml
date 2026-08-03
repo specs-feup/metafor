@@ -136,7 +136,8 @@ jobs:
       matrix:
         #node-version: ['latest', '22.x', '20.x']
         node-version: ['22.x', '20.x']
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        # node-gyp not working on the lastest windows (2025), needs to be updated
+        os: [ubuntu-latest, windows-2022, macos-latest]
 
     runs-on: ${{ matrix.os }}
 

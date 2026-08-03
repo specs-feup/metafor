@@ -13,6 +13,7 @@ import pt.up.fe.specs.fortran.ast.nodes.expr.DataRef;
 import pt.up.fe.specs.fortran.ast.nodes.expr.Expr;
 import pt.up.fe.specs.fortran.ast.nodes.expr.IntLiteral;
 import pt.up.fe.specs.fortran.ast.nodes.expr.Literal;
+import pt.up.fe.specs.fortran.ast.nodes.expr.ParenExpr;
 import pt.up.fe.specs.fortran.ast.nodes.expr.StringLiteral;
 import pt.up.fe.specs.fortran.ast.nodes.expr.enums.BinaryOperatorKind;
 import pt.up.fe.specs.fortran.ast.nodes.loops.LoopControl;
@@ -329,6 +330,11 @@ public class FortranNodeFactory {
         BinaryOperator node = new BinaryOperator(data, Arrays.asList(lhs, rhs));
         node.set(BinaryOperator.OP, kind);
         return node;
+    }
+
+    public ParenExpr parenExpr(Expr expr) {
+        DataStore data = newDataStore(ParenExpr.class);
+        return new ParenExpr(data, Collections.singletonList(expr));
     }
 
     public OmpOrderedClause ompOrderedClause(int value) {

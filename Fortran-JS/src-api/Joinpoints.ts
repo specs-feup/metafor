@@ -738,6 +738,19 @@ const JoinpointMapper = {
   ifStatement: IfStatement,
   ompBlockConstruct: OmpBlockConstruct,
   arraySubscriptExpr: ArraySubscriptExpr,
+  // Declaration/specification node types present in the Java weaverspecs but
+  // without dedicated TypeScript classes. Mapped to Statement so that
+  // Query.search and $jp.descendants traversals do not crash when encountering
+  // variable type declarations (e.g. `integer :: i, j`).
+  typeDeclarationStatement: Statement,
+  specificationStatement: Statement,
+  entityDecl: Statement,
+  fortranDecl: Statement,
+  exprInitialization: Statement,
+  initialization: Statement,
+  attributeSpecifier: Statement,
+  keywordAttributeSpecifier: Statement,
+  parameterKeyword: Statement,
 };
 
 let registered = false;

@@ -97,4 +97,8 @@ export default class FortranJoinPoints {
             name, args.map(unwrapJoinPoint)
         ));
     }
+
+    static parenExpr(expr: Joinpoints.Expr): Joinpoints.Expr {
+        return wrapJoinPoint(FortranJavaTypes.AstFactory.parenExpr(unwrapJoinPoint(expr)));
+    }
 }

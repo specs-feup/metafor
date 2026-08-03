@@ -4,14 +4,21 @@ import { DataRef, DoStatement, ExecutableStatement, RangeLoopControl } from "../
 
 /**
  * Deep-copies a body statement and replaces every reference to `varName` with
- * `varName+offset` using AST-level substitution (only real variable references
+ * `(varName+offset)` using AST-level substitution (only real variable references
  * are affected, not occurrences inside string literals or comments).
+ *
+ * The replacement is wrapped in parenExpr() so that when it appears as the
+ * right operand of a surrounding subtraction (e.g. `n - i`) the emitted code
+ * is `n - (i + 1)` rather than `n - i + 1` (which Fortran evaluates as
+ * `n - i + 1`, flipping the sign of the offset).
  */
 function substituteVar(stmt: ExecutableStatement, varName: string, offset: number): ExecutableStatement {
   const copy = stmt.deepCopy() as ExecutableStatement;
   if (offset === 0) return copy;
   for (const ref of Query.searchFrom(copy, DataRef, { name: varName })) {
-    const binOp = FortranJoinPoints.binaryOperatorAdd(ref.deepCopy(), FortranJoinPoints.intLiteral(offset));
+    const binOp = FortranJoinPoints.parenExpr(
+      FortranJoinPoints.binaryOperatorAdd(ref.deepCopy(), FortranJoinPoints.intLiteral(offset))
+    );
     ref.replaceWith(binOp)
   }
   return copy;
@@ -22,7 +29,7 @@ function substituteVar(stmt: ExecutableStatement, varName: string, offset: numbe
  *
  * Two loops replace the original:
  *  - A **main loop** that steps by `factor`, with the body replicated `factor`
- *    times (each copy substitutes `var` with `var+offset` for offset 0..factor-1).
+ *    times (each copy substitutes `var` with `(var+offset)` for offset 0..factor-1).
  *  - A **cleanup loop** that handles the remaining < `factor` iterations with the
  *    original body. When `factor` exactly divides the trip count, the cleanup
  *    loop's bounds produce a no-op and it generates no iterations.
@@ -37,10 +44,10 @@ function substituteVar(stmt: ExecutableStatement, varName: string, offset: numbe
  * // end do
  *
  * // After:
- * // do i = 1, (n) - 3, 4
- * //   a(i) = b(i); a(i+1) = b(i+1); a(i+2) = b(i+2); a(i+3) = b(i+3)
+ * // do i = 1, n - 3, 4
+ * //   a(i) = b(i); a((i+1)) = b((i+1)); a((i+2)) = b((i+2)); a((i+3)) = b((i+3))
  * // end do
- * // do i = (1) + (((n) - (1) + 1) / 4) * 4, n
+ * // do i = n + 1 - MOD(n - (1) + 1, 4), n
  * //   a(i) = b(i)
  * // end do
  *
@@ -59,7 +66,7 @@ export default function loopUnroll($loop: DoStatement, factor: number): DoStatem
   const mainCtrl = mainDo.control as RangeLoopControl;
 
   mainCtrl.setUpper(FortranJoinPoints.binaryOperatorSubtract(
-    ctrl.upper.deepCopy(), 
+    ctrl.upper.deepCopy(),
     FortranJoinPoints.intLiteral(factor - 1))
   );
   mainCtrl.setStep(FortranJoinPoints.intLiteral(factor));
@@ -70,21 +77,28 @@ export default function loopUnroll($loop: DoStatement, factor: number): DoStatem
     }
   }
 
-  // Cleanup loop: lo + ((hi - lo + 1) / factor) * factor  ..  hi
-  // Integer division makes this a no-op when factor exactly divides the trip count.
-  const cleanupLower = FortranJoinPoints.binaryOperatorAdd(
-    ctrl.lower.deepCopy(),
-    FortranJoinPoints.binaryOperatorMultiply(
-      FortranJoinPoints.binaryOperatorDivide(
-        FortranJoinPoints.binaryOperatorAdd(
-          FortranJoinPoints.binaryOperatorSubtract(ctrl.upper.deepCopy(), ctrl.lower.deepCopy()),
-          FortranJoinPoints.intLiteral(1)
-        ),
-        FortranJoinPoints.intLiteral(factor)
-      ),
-      FortranJoinPoints.intLiteral(factor)
-    )
+  // Cleanup loop: hi + 1 - MOD(hi - (lo) + 1, factor)  ..  hi
+  //
+  // lo is wrapped in parenExpr() so compound lower bounds like (k+1) or (i+1)
+  // emit as `hi - (k+1) + 1 = hi - k` instead of `hi - k + 1 + 1 = hi - k + 2`.
+  // MOD's argument list is syntactically parenthesized, so the full tripCount
+  // expression inside it is evaluated correctly regardless of complexity.
+  const tripCount = FortranJoinPoints.binaryOperatorAdd(
+    FortranJoinPoints.binaryOperatorSubtract(
+      ctrl.upper.deepCopy(),
+      FortranJoinPoints.parenExpr(ctrl.lower.deepCopy())
+    ),
+    FortranJoinPoints.intLiteral(1)
   );
+  const remainder = FortranJoinPoints.intrinsicCall("MOD", [
+    tripCount,
+    FortranJoinPoints.intLiteral(factor)
+  ]);
+  const cleanupLower = FortranJoinPoints.binaryOperatorSubtract(
+    FortranJoinPoints.binaryOperatorAdd(ctrl.upper.deepCopy(), FortranJoinPoints.intLiteral(1)),
+    remainder
+  );
+
   const cleanupCtrl = FortranJoinPoints.rangeLoopControl(ctrl.var.deepCopy() as DataRef, cleanupLower, ctrl.upper.deepCopy());
   const cleanupDo = FortranJoinPoints.doStatement(cleanupCtrl);
   for (const stmt of bodyStmts) {
