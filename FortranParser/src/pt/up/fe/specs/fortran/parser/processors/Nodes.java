@@ -108,10 +108,8 @@ public class Nodes {
         processors.put(DeallocateStmt.class, s::deallocateStmt);
         processors.put(ContinueStmt.class, s::continueStmt);
         processors.put(ParameterStmt.class, s::parameterStmt);
-        processors.put(CommonStmt.class, s::commonStmt);
         processors.put(ExternalStmt.class, s::externalStmt);
         processors.put(ReturnStmt.class, s::returnStmt);
-        processors.put(DataStmt.class, s::dataStmt);
         processors.put(OpenStmt.class, s::openStmt);
         processors.put(CloseStmt.class, s::closeStmt);
         processors.put(NamedConstantDef.class, s::namedConstantDef);
