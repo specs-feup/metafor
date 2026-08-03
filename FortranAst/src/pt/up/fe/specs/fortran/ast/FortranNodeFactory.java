@@ -34,7 +34,6 @@ import pt.up.fe.specs.fortran.ast.nodes.stmt.usestmt.UseOnlyStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.usestmt.UseRenameStmt;
 import pt.up.fe.specs.fortran.ast.nodes.io.Format;
 import pt.up.fe.specs.fortran.ast.nodes.utils.LabelRef;
-import pt.up.fe.specs.fortran.ast.nodes.utils.Star;
 import pt.up.fe.specs.util.SpecsCheck;
 import pt.up.fe.specs.util.SpecsCollections;
 
@@ -205,11 +204,6 @@ public class FortranNodeFactory {
     public StarFormat starFormat() {
         DataStore data = newDataStore(Format.class);
         return new StarFormat(data, List.of());
-    }
-
-    public Star star() {
-        DataStore data = newDataStore(Star.class);
-        return new Star(data, Collections.emptyList());
     }
 
     public LabelRef labelRef(LabelDecl labelDecl) {
