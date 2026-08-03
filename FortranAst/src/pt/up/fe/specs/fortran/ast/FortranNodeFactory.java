@@ -26,7 +26,7 @@ import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.DoStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.EndDoStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.usestmt.UseOnlyStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.usestmt.UseRenameStmt;
-import pt.up.fe.specs.fortran.ast.nodes.utils.Format;
+import pt.up.fe.specs.fortran.ast.nodes.io.Format;
 import pt.up.fe.specs.fortran.ast.nodes.utils.LabelRef;
 import pt.up.fe.specs.fortran.ast.nodes.utils.Star;
 import pt.up.fe.specs.util.SpecsCheck;

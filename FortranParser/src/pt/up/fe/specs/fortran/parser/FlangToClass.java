@@ -53,7 +53,6 @@ import pt.up.fe.specs.fortran.ast.nodes.utils.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import java.util.jar.Attributes;
 
 public class FlangToClass {
     private static final Map<FlangName, ClassMapper<? extends FortranNode>> NAME_TO_MAPPER = new HashMap<>();

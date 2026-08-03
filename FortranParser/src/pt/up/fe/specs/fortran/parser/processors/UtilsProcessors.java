@@ -1,6 +1,7 @@
 package pt.up.fe.specs.fortran.parser.processors;
 
 import pt.up.fe.specs.fortran.ast.nodes.io.ExprIoControlSpec;
+import pt.up.fe.specs.fortran.ast.nodes.io.Format;
 import pt.up.fe.specs.fortran.ast.nodes.utils.*;
 import pt.up.fe.specs.fortran.ast.nodes.io.enums.ExprIoControlSpecKind;
 import pt.up.fe.specs.fortran.parser.FlangName;
