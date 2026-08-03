@@ -69,6 +69,7 @@ public class Nodes {
         processors.put(Specification.class, p::specification);
         processors.put(Execution.class, p::execution);
         processors.put(Subroutine.class, p::subroutine);
+        processors.put(Function.class, p::function);
         processors.put(InternalPart.class, p::internalSubprogram);
 
         var alloc = new AllocProcessors(data);
@@ -142,6 +143,8 @@ public class Nodes {
         processors.put(DimensionDecl.class, s::dimensionDecl);
         processors.put(NamelistStmt.class, s::namelistStmt);
         processors.put(NamelistGroup.class, s::namelistGroup);
+        processors.put(FunctionStmt.class, s::functionStmt);
+        processors.put(EndFunctionStmt.class, s::endFunctionStmt);
 
         var e = new ExprProcessors(data);
         processors.put(StringLiteral.class, e::stringLiteral);

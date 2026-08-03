@@ -65,7 +65,8 @@ public class FlangToClass {
         NAME_TO_MAPPER.put(FlangName.PROGRAM, ClassMapper.always(FortranFile.class));
         NAME_TO_MAPPER.put(FlangName.PROGRAM_UNIT, ClassMapper.caseFor(ProgramUnit.class)
                 .ignore(FlangName.MAIN_PROGRAM)
-                .map(FlangName.SUBROUTINE_SUBPROGRAM, SubprogramUnit.class));
+                .map(FlangName.SUBROUTINE_SUBPROGRAM, SubprogramUnit.class)
+                .map(FlangName.FUNCTION_SUBPROGRAM, SubprogramUnit.class));
         NAME_TO_MAPPER.put(FlangName.MAIN_PROGRAM, ClassMapper.always(MainProgram.class));
         NAME_TO_MAPPER.put(FlangName.PROGRAM_STMT, ClassMapper.always(ProgramStmt.class));
         NAME_TO_MAPPER.put(FlangName.END_PROGRAM_STMT, ClassMapper.always(EndProgramStmt.class));
@@ -73,6 +74,7 @@ public class FlangToClass {
         NAME_TO_MAPPER.put(FlangName.EXECUTION_PART, ClassMapper.always(Execution.class));
         NAME_TO_MAPPER.put(FlangName.INTERNAL_SUBPROGRAM_PART, ClassMapper.always(InternalPart.class));
         NAME_TO_MAPPER.put(FlangName.SUBROUTINE_SUBPROGRAM, ClassMapper.always(Subroutine.class));
+        NAME_TO_MAPPER.put(FlangName.FUNCTION_SUBPROGRAM, ClassMapper.always(Function.class));
         NAME_TO_MAPPER.put(FlangName.SUBROUTINE_STMT, ClassMapper.always(SubroutineStmt.class));
         NAME_TO_MAPPER.put(FlangName.END_SUBROUTINE_STMT, ClassMapper.always(EndSubroutineStmt.class));
         NAME_TO_MAPPER.put(FlangName.ALLOCATION, ClassMapper.always(Allocation.class));
@@ -140,6 +142,8 @@ public class FlangToClass {
         NAME_TO_MAPPER.put(FlangName.DECLARATION, ClassMapper.always(DimensionDecl.class));
         NAME_TO_MAPPER.put(FlangName.NAMELIST_STMT, ClassMapper.always(NamelistStmt.class));
         NAME_TO_MAPPER.put(FlangName.GROUP, ClassMapper.always(NamelistGroup.class));
+        NAME_TO_MAPPER.put(FlangName.FUNCTION_STMT, ClassMapper.always(FunctionStmt.class));
+        NAME_TO_MAPPER.put(FlangName.END_FUNCTION_STMT, ClassMapper.always(EndFunctionStmt.class));
 
         /// Variables
         //NAME_TO_CLASS.put(FlangName.DATA_REF, DataRef.class);  // TODO(Process-ing): Improve this

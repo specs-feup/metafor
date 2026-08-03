@@ -3,6 +3,7 @@ package pt.up.fe.specs.fortran.parser.processors;
 import pt.up.fe.specs.fortran.ast.FortranContext;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.program.*;
+import pt.up.fe.specs.fortran.ast.nodes.program.subprogram.Function;
 import pt.up.fe.specs.fortran.ast.nodes.program.unit.MainProgram;
 import pt.up.fe.specs.fortran.ast.nodes.program.subprogram.Subroutine;
 import pt.up.fe.specs.fortran.ast.nodes.program.unit.SubprogramUnit;
@@ -122,5 +123,19 @@ public class ProgramProcessors extends ANodeProcessor {
 
         var endSubroutineStmt = getStmtChild(subroutine, FlangName.END_SUBROUTINE_STMT);
         subroutine.addChild(endSubroutineStmt);
+    }
+
+    public void function(Function function) {
+        var functionStmt = getStmtChild(function, FlangName.FUNCTION_STMT);
+        function.addChild(functionStmt);
+
+        var functionNameId = attributes(functionStmt).getString("functionName");
+        var functionName = attributes().get(functionNameId).getString("source");
+        function.set(Function.NAME, functionName);
+
+        addSubprogramBody(function);
+
+        var endFunctionStmt = getStmtChild(function, FlangName.END_FUNCTION_STMT);
+        function.addChild(endFunctionStmt);
     }
 }

@@ -6,6 +6,7 @@ import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.decl.ExprInitialization;
 import pt.up.fe.specs.fortran.ast.nodes.decl.LabelDecl;
 import pt.up.fe.specs.fortran.ast.nodes.decl.ListInitialization;
+import pt.up.fe.specs.fortran.ast.nodes.decl.NamedParameter;
 import pt.up.fe.specs.fortran.ast.nodes.expr.*;
 import pt.up.fe.specs.fortran.ast.nodes.expr.enums.BinaryOperatorKind;
 import pt.up.fe.specs.fortran.ast.nodes.io.StarFormat;
@@ -355,5 +356,14 @@ public class FortranNodeFactory {
         newNode.addChild(intLiteral(value));
 
         return newNode;
+    }
+
+    public NamedParameter namedParameter(String name) {
+        var data = newDataStore(NamedParameter.class);
+
+        var node = new NamedParameter(data, Collections.emptyList());
+        node.set(NamedParameter.NAME, name);
+
+        return node;
     }
 }
