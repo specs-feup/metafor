@@ -9,10 +9,8 @@ public enum FortranKeyword {
     WRITE,
     USE,
     GOTO,
-    COMMON,
     EXTERNAL,
     RETURN,
-    DATA,
     STOP,
 
     // Execution statements
