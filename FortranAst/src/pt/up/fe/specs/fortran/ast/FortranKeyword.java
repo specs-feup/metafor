@@ -64,6 +64,11 @@ public enum FortranKeyword {
     STAT,
     LEN,
     KIND,
+    BIND,
+    C,
+    NAME,
+    CDEFINED,
+    RESULT,
 
     OMP;
 
