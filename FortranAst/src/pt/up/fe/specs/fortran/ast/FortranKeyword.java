@@ -5,6 +5,7 @@ public enum FortranKeyword {
     PROGRAM,
     CONCURRENT,
     SUBROUTINE,
+    FUNCTION,
     USE,
     INTRINSIC,
     NON_INTRINSIC,

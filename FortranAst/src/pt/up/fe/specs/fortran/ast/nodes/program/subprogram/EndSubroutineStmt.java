@@ -14,6 +14,7 @@ public class EndSubroutineStmt extends Stmt {
 
     @Override
     public String getStmtCode() {
+        // TODO(Process-ing): Remove this special case
         if (fixedForm()) {
             return keyword(FortranKeyword.END);
         }
