@@ -373,4 +373,16 @@ public class IoProcessors extends ANodeProcessor {
         var label = attributes().getString(spec, "uint64_t", FlangName.ERR_LABEL);
         spec.set(ErrCloseSpec.LABEL, Integer.parseInt(label));
     }
+
+    public void exprFormat(ExprFormat format) {
+        var expr = getChild(format, FlangName.EXPR);
+        format.addChild(expr);
+    }
+
+    public void labelFormat(LabelFormat format) {
+        var label = attributes(format).getString("uint64_t");
+        format.set(LabelFormat.LABEL, Integer.parseInt(label));
+    }
+
+    public void starFormat(StarFormat ignoredFormat) {}
 }

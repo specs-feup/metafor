@@ -149,8 +149,6 @@ public class FlangToClass {
         NAME_TO_MAPPER.put(FlangName.LOGICAL_LITERAL_CONSTANT, ClassMapper.always(LogicalLiteral.class));
         NAME_TO_MAPPER.put(FlangName.REAL_LITERAL_CONSTANT, ClassMapper.always(RealLiteral.class));
         NAME_TO_MAPPER.put(FlangName.SIGNED_REAL_LITERAL_CONSTANT, ClassMapper.always(RealLiteral.class));
-        NAME_TO_MAPPER.put(FlangName.FORMAT, ClassMapper.always(Format.class));
-        NAME_TO_MAPPER.put(FlangName.STAR, ClassMapper.always(Star.class));
         NAME_TO_MAPPER.put(FlangName.PARENTHESES, ClassMapper.always(ParenExpr.class));
         NAME_TO_MAPPER.put(FlangName.UNARY_PLUS, ClassMapper.always(UnaryOperator.class));
         NAME_TO_MAPPER.put(FlangName.NEGATE, ClassMapper.always(UnaryOperator.class));
@@ -279,6 +277,10 @@ public class FlangToClass {
                 .map(FlangName.MSG_VARIABLE, VarCloseSpec.class)
                 .map(FlangName.ERR_LABEL, ErrCloseSpec.class)
                 .map(FlangName.STATUS_EXPR, ExprCloseSpec.class));
+        NAME_TO_MAPPER.put(FlangName.FORMAT, ClassMapper.caseFor(Format.class)
+                .map(FlangName.EXPR, ExprFormat.class)
+                .map("uint64_t", LabelFormat.class)
+                .map(FlangName.STAR, StarFormat.class));
 
         ///  UTILs
         NAME_TO_MAPPER.put(FlangName.NAME_VALUE, ClassMapper.always(NameValue.class));

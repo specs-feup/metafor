@@ -186,8 +186,6 @@ public class Nodes {
         processors.put(AllocateShapeSpecification.class, shapes::allocateShapeSpec);
 
         var u = new UtilsProcessors(data);
-        processors.put(Star.class, u::star);
-        processors.put(Format.class, u::format);
         processors.put(NameValue.class, u::nameValue);
         processors.put(IoUnit.class, u::ioUnit);
         processors.put(ExprIoControlSpec.class, u::ioControlSpec);
@@ -224,6 +222,9 @@ public class Nodes {
         processors.put(ExprCloseSpec.class, i::exprCloseSpec);
         processors.put(VarCloseSpec.class, i::varCloseSpec);
         processors.put(ErrCloseSpec.class, i::errCloseSpec);
+        processors.put(ExprFormat.class, i::exprFormat);
+        processors.put(LabelFormat.class, i::labelFormat);
+        processors.put(StarFormat.class, i::starFormat);
 
         var omp = new OmpProcessors(data, s);
         processors.put(OmpBlockConstruct.class, omp::ompBlockConstruct);
