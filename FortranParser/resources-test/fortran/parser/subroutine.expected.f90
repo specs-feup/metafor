@@ -12,7 +12,7 @@ PROGRAM MAIN
     x = 5
     y = 12
 
-    call add_numbers(x, y, total, useless)
+    CALL add_numbers(x, y, total, useless)
 
     PRINT *, "The sum is:", total
 END PROGRAM MAIN

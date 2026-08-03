@@ -223,5 +223,11 @@ public class FlangData {
                 .toList();
     }
 
+    public boolean has(String key, FlangName attribute) {
+        return getAttrs(key).has(attribute);
+    }
 
+    public boolean has(String key, String attribute) {
+        return getAttrs(key).has(attribute);
+    }
 }

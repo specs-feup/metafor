@@ -27,11 +27,10 @@ public enum FlangName implements StringProvider {
     /// DECLs
     ENTITY_DECL,
     DUMMY_ARG,
+    DATA_STMT_OBJECT,
     DATA_STMT_VALUE,
     DATA_STMT_REPEAT,
     DATA_STMT_CONSTANT,
-    DATA_STMT_SET,
-    DATA_STMT_OBJECT,
 
     /// STMTs
     STATEMENT,
@@ -62,11 +61,14 @@ public enum FlangName implements StringProvider {
     USE_STMT,
     CONTINUE_STMT,
     PARAMETER_STMT,
-    COMMON_STMT,
     EXTERNAL_STMT,
     RETURN_STMT,
-    DATA_STMT,
     STOP_STMT,
+    DATA_STMT,
+    DATA_STMT_SET,
+    COMMON_STMT,
+    COMMON_STMT_BLOCK,
+    COMMON_BLOCK_OBJECT,
     OPEN_STMT,
     CLOSE_STMT,
 
@@ -94,7 +96,6 @@ public enum FlangName implements StringProvider {
     VARIABLE,
     DESIGNATOR,
     DATA_REF,
-    COMMON_BLOCK_OBJECT,
 
     /// EXPRs
     EXPR,
@@ -133,6 +134,9 @@ public enum FlangName implements StringProvider {
     AC_SPEC,
     AC_VALUE,
     ARRAY_ELEMENT,
+    SECTION_SUBSCRIPT,
+    SUBSCRIPT,
+    SUBSCRIPT_TRIPLET,
     AC_IMPLIED_DO,
     AC_IMPLIED_DO_CONTROL,
 

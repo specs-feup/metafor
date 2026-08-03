@@ -1,0 +1,3 @@
+PROGRAM DATA_STMT
+    DATA i, j, k / 1, 2, 3 /
+END PROGRAM DATA_STMT

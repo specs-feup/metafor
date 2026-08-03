@@ -33,11 +33,9 @@ public class Subroutine extends ProgramUnit {
 
         var code = new StringBuilder();
 
-        var argCode = "(" +
-                getDummyArgs().stream()
-                        .map(DummyArgumentDecl::getCode)
-                        .collect(Collectors.joining(", ")) +
-                ")";
+        var argCode = getDummyArgs().stream()
+                .map(DummyArgumentDecl::getCode)
+                .collect(Collectors.joining(", ", "(", ")"));
 
         var subroutineName = get(SUBROUTINE_NAME);
 

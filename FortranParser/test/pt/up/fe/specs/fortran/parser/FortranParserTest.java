@@ -485,6 +485,42 @@ public class FortranParserTest {
     }
 
     @Test
+    void testDataStmt() {
+        testJson("stmt/data_stmt.json");
+    }
+
+    @Test
+    void testDataStmtNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("stmt/data_stmt.f90");
+        }
+    }
+
+    @Test
+    void testSubscriptTriplet() {
+        testJson("expr/subscript_triplet.json");
+    }
+
+    @Test
+    void testSubscriptTripletNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("expr/subscript_triplet.f90");
+        }
+    }
+
+    @Test
+    void testCommonStmt() {
+        testJson("stmt/common_stmt.json");
+    }
+
+    @Test
+    void testCommonStmtNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("stmt/common_stmt.f90");
+        }
+    }
+
+    @Test
     void testFujitsu0000_0000() {
         testJson("fujitsu/0000/0000_0000.json");
     }
@@ -590,6 +626,42 @@ public class FortranParserTest {
     void testFujitsu0000_0024Native() {
         if (SpecsPlatforms.isLinux()) {
             testNative("fujitsu/0000/0000_0024.f90");
+        }
+    }
+
+    @Test
+    void testFujitsu0000_0029() {
+        testJson("fujitsu/0000/0000_0029.json");
+    }
+
+    @Test
+    void testFujitsu0000_0029Native() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("fujitsu/0000/0000_0029.f90");
+        }
+    }
+
+    @Test
+    void testFujitsu0000_0030() {
+        testJson("fujitsu/0000/0000_0030.json");
+    }
+
+    @Test
+    void testFujitsu0000_0030Native() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("fujitsu/0000/0000_0030.f90");
+        }
+    }
+
+    @Test
+    void testFujitsu0000_0033() {
+        testJson("fujitsu/0000/0000_0033.json");
+    }
+
+    @Test
+    void testFujitsu0000_0033Native() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("fujitsu/0000/0000_0033.f90");
         }
     }
 }
