@@ -20,6 +20,8 @@ import pt.up.fe.specs.fortran.ast.nodes.program.*;
 import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
 import pt.up.fe.specs.fortran.ast.nodes.specification.NamedConstantDef;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.datastmt.DataStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.datastmt.DataStmtSet;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.CaseBlock;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.CaseConstruct;
@@ -65,6 +67,9 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.COMPILER_DIRECTIVE, CompilerDirective.class);
         NAME_TO_CLASS.put(FlangName.GOTO_STMT, GotoStmt.class);
         NAME_TO_CLASS.put(FlangName.STOP_STMT, StopStmt.class);
+        NAME_TO_CLASS.put(FlangName.COMMON_STMT, CommonStmt.class);
+        NAME_TO_CLASS.put(FlangName.COMMON_STMT_BLOCK, CommonBlock.class);
+        NAME_TO_CLASS.put(FlangName.COMMON_BLOCK_OBJECT, CommonBlockObject.class);
 
         NAME_TO_CLASS.put(FlangName.IF_CONSTRUCT, IfConstruct.class);
         NAME_TO_CLASS.put(FlangName.IF_THEN_STMT, IfThenStmt.class);
@@ -89,6 +94,9 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.CONTINUE_STMT, ContinueStmt.class);
         NAME_TO_CLASS.put(FlangName.PARAMETER_STMT, ParameterStmt.class);
         NAME_TO_CLASS.put(FlangName.NAMED_CONSTANT_DEF, NamedConstantDef.class);
+
+        NAME_TO_CLASS.put(FlangName.DATA_STMT, DataStmt.class);
+        NAME_TO_CLASS.put(FlangName.DATA_STMT_SET, DataStmtSet.class);
 
         /// Variables
         //NAME_TO_CLASS.put(FlangName.DATA_REF, DataRef.class);
@@ -121,6 +129,8 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.ARRAY_CONSTRUCTOR, ArrayConstructor.class);
         NAME_TO_CLASS.put(FlangName.AC_SPEC, AcSpecification.class);
         NAME_TO_CLASS.put(FlangName.ARRAY_ELEMENT, ArraySubscriptExpr.class);
+        NAME_TO_CLASS.put(FlangName.SUBSCRIPT, Subscript.class);
+        NAME_TO_CLASS.put(FlangName.SUBSCRIPT_TRIPLET, SubscriptTriplet.class);
         NAME_TO_CLASS.put(FlangName.CALL, Call.class);
         NAME_TO_CLASS.put(FlangName.ACTUAL_ARG_SPEC, Argument.class);
         NAME_TO_CLASS.put(FlangName.AC_IMPLIED_DO, AcImpliedDo.class);

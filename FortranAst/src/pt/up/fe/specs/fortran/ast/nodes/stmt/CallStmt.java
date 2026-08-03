@@ -1,6 +1,7 @@
 package pt.up.fe.specs.fortran.ast.nodes.stmt;
 
 import org.suikasoft.jOptions.Interfaces.DataStore;
+import pt.up.fe.specs.fortran.ast.FortranKeyword;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.expr.Call;
 
@@ -17,6 +18,6 @@ public class CallStmt extends ActionStmt {
 
     @Override
     public String getCode() {
-        return "call " + getCall().getCode();
+        return keyword(FortranKeyword.CALL) + " " + getCall().getCode();
     }
 }

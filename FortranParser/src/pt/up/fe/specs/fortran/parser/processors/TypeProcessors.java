@@ -39,7 +39,10 @@ public class TypeProcessors extends ANodeProcessor {
     }
 
     public void logicalType(LogicalType logicalType) {
-
+        if (attributes(logicalType).has(FlangName.KIND_SELECTOR)) {
+            var kindSelector = getChild(logicalType, FlangName.KIND_SELECTOR);
+            logicalType.addChild(kindSelector);
+        }
     }
 
     public void doublePrecisionType(DoublePrecisionType doublePrecisionType) {
