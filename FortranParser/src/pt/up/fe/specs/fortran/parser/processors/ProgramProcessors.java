@@ -1,9 +1,11 @@
 package pt.up.fe.specs.fortran.parser.processors;
 
 import pt.up.fe.specs.fortran.ast.FortranContext;
+import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.program.*;
 import pt.up.fe.specs.fortran.ast.nodes.program.unit.MainProgram;
 import pt.up.fe.specs.fortran.ast.nodes.program.subprogram.Subroutine;
+import pt.up.fe.specs.fortran.ast.nodes.program.unit.SubprogramUnit;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 import pt.up.fe.specs.util.SpecsIo;
@@ -44,24 +46,40 @@ public class ProgramProcessors extends ANodeProcessor {
         }
     }
 
+    public void addSubprogramBody(FortranNode node) {
+        var specification = getChild(node, FlangName.SPECIFICATION_PART);
+        node.addChild(specification);
+
+        var execution = getChild(node, FlangName.EXECUTION_PART);
+        node.addChild(execution);
+
+        var internalPart = getChildOptional(node, FlangName.INTERNAL_SUBPROGRAM_PART);
+        internalPart.ifPresent(node::addChild);
+    }
+
     public void mainProgram(MainProgram mainProgram) {
         var programStmt = getStmtChildOptional(mainProgram, FlangName.PROGRAM_STMT);
-        programStmt.ifPresent(mainProgram::addChild);
+        programStmt.ifPresent(stmt -> {
+            mainProgram.addChild(stmt);
 
-        var name = attributes().getOptionalString(mainProgram, "source", FlangName.PROGRAM_STMT, FlangName.NAME);
-        // [specification-part]
-        mainProgram.addChild(getChild(mainProgram, FlangName.SPECIFICATION_PART));
-        // [execution-part]
-        mainProgram.addChild(getChild(mainProgram, FlangName.EXECUTION_PART));
-        // [internal-subprogram-part]
-        if (attributes(mainProgram).has(FlangName.INTERNAL_SUBPROGRAM_PART)) {
-            mainProgram.addChild(getChild(mainProgram, FlangName.INTERNAL_SUBPROGRAM_PART));
-        }
+            var name = attributes().getString(stmt, "source", FlangName.NAME);
+            mainProgram.setOptional(MainProgram.NAME, name);
+        });
+
+        addSubprogramBody(mainProgram);
 
         var endProgramStmt = getStmtChild(mainProgram, FlangName.END_PROGRAM_STMT);
         mainProgram.addChild(endProgramStmt);
+    }
 
-        mainProgram.set(MainProgram.NAME, name);
+    public void subprogramUnit(SubprogramUnit subprogramUnit) {
+        var variant = attributes(subprogramUnit).getVariantName();
+        if (variant != FlangName.SUBROUTINE_SUBPROGRAM) {
+            throw new RuntimeException("Unknown variant: " + variant);
+        }
+
+        var child = getChild(subprogramUnit, variant);
+        subprogramUnit.addChild(child);
     }
 
     public void specification(Specification specification) {
@@ -97,16 +115,12 @@ public class ProgramProcessors extends ANodeProcessor {
         var subroutineStmt = getStmtChild(subroutine, FlangName.SUBROUTINE_STMT);
         subroutine.addChild(subroutineStmt);
 
-        var specification = getChild(subroutine, FlangName.SPECIFICATION_PART);
-        subroutine.addChild(specification);
+        var name = attributes().getString(subroutineStmt, "source", FlangName.NAME);
+        subroutine.set(Subroutine.NAME, name);
 
-        var execution = getChild(subroutine, FlangName.EXECUTION_PART);
-        subroutine.addChild(execution);
+        addSubprogramBody(subroutine);
 
         var endSubroutineStmt = getStmtChild(subroutine, FlangName.END_SUBROUTINE_STMT);
         subroutine.addChild(endSubroutineStmt);
-
-        var name = attributes().getString(subroutine, "source", FlangName.SUBROUTINE_STMT, FlangName.NAME);
-        subroutine.set(Subroutine.NAME, name);
     }
 }

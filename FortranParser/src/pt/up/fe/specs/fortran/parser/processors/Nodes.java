@@ -21,6 +21,7 @@ import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpReductionClause;
 import pt.up.fe.specs.fortran.ast.nodes.program.*;
 import pt.up.fe.specs.fortran.ast.nodes.program.subprogram.*;
 import pt.up.fe.specs.fortran.ast.nodes.program.unit.MainProgram;
+import pt.up.fe.specs.fortran.ast.nodes.program.unit.SubprogramUnit;
 import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
 import pt.up.fe.specs.fortran.ast.nodes.specification.NamedConstantDef;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
@@ -64,6 +65,7 @@ public class Nodes {
         var p = new ProgramProcessors(data);
         processors.put(FortranFile.class, p::fortranFile);
         processors.put(MainProgram.class, p::mainProgram);
+        processors.put(SubprogramUnit.class, p::subprogramUnit);
         processors.put(Specification.class, p::specification);
         processors.put(Execution.class, p::execution);
         processors.put(Subroutine.class, p::subroutine);

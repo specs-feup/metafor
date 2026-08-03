@@ -23,6 +23,8 @@ import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpReductionClause;
 import pt.up.fe.specs.fortran.ast.nodes.program.*;
 import pt.up.fe.specs.fortran.ast.nodes.program.subprogram.*;
 import pt.up.fe.specs.fortran.ast.nodes.program.unit.MainProgram;
+import pt.up.fe.specs.fortran.ast.nodes.program.unit.ProgramUnit;
+import pt.up.fe.specs.fortran.ast.nodes.program.unit.SubprogramUnit;
 import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
 import pt.up.fe.specs.fortran.ast.nodes.specification.NamedConstantDef;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
@@ -61,6 +63,9 @@ public class FlangToClass {
 
     static {
         NAME_TO_MAPPER.put(FlangName.PROGRAM, ClassMapper.always(FortranFile.class));
+        NAME_TO_MAPPER.put(FlangName.PROGRAM_UNIT, ClassMapper.caseFor(ProgramUnit.class)
+                .ignore(FlangName.MAIN_PROGRAM)
+                .map(FlangName.SUBROUTINE_SUBPROGRAM, SubprogramUnit.class));
         NAME_TO_MAPPER.put(FlangName.MAIN_PROGRAM, ClassMapper.always(MainProgram.class));
         NAME_TO_MAPPER.put(FlangName.PROGRAM_STMT, ClassMapper.always(ProgramStmt.class));
         NAME_TO_MAPPER.put(FlangName.END_PROGRAM_STMT, ClassMapper.always(EndProgramStmt.class));
