@@ -397,21 +397,6 @@ public class StmtProcessors extends ANodeProcessor {
         parameterStmt.addChildren(getChildren(parameterStmt, FlangName.NAMED_CONSTANT_DEF));
     }
 
-    public void commonStmt(CommonStmt commonStmt) {
-        String block = attributes(commonStmt).getStringList(FlangName.BLOCK).getFirst();
-
-        if (attributes().get(block).has(FlangName.NAME)) {
-            commonStmt.addChild(getChild(attributes().get(block).getString(FlangName.NAME)));
-            commonStmt.set(CommonStmt.HAS_NAME, true);
-        }
-        else {
-            commonStmt.set(CommonStmt.HAS_NAME, false);
-        }
-
-        commonStmt.addChildren(getChildren(block, FlangName.COMMON_BLOCK_OBJECT));
-    }
-
-
     public void externalStmt(ExternalStmt externalStmt) {
         externalStmt.addChildren(getChildren(externalStmt, FlangName.NAME));
     }
@@ -421,10 +406,6 @@ public class StmtProcessors extends ANodeProcessor {
         if (attributes(returnStmt).has(FlangName.EXPR)) {
             returnStmt.addChild(getChild(returnStmt, FlangName.EXPR));
         }
-    }
-
-    public void dataStmt(DataStmt dataStmt) {
-        dataStmt.addChildren(getChildren(dataStmt, FlangName.DATA_STMT_SET));
     }
 
     public void openStmt(OpenStmt openStmt) {
