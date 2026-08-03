@@ -21,6 +21,8 @@ import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpDataSharingClause;
 import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpNowaitClause;
 import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpReductionClause;
 import pt.up.fe.specs.fortran.ast.nodes.program.*;
+import pt.up.fe.specs.fortran.ast.nodes.program.subprogram.*;
+import pt.up.fe.specs.fortran.ast.nodes.program.unit.MainProgram;
 import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
 import pt.up.fe.specs.fortran.ast.nodes.specification.NamedConstantDef;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
@@ -64,7 +66,7 @@ public class FlangToClass {
         NAME_TO_MAPPER.put(FlangName.END_PROGRAM_STMT, ClassMapper.always(EndProgramStmt.class));
         NAME_TO_MAPPER.put(FlangName.SPECIFICATION_PART, ClassMapper.always(Specification.class));
         NAME_TO_MAPPER.put(FlangName.EXECUTION_PART, ClassMapper.always(Execution.class));
-        NAME_TO_MAPPER.put(FlangName.INTERNAL_SUBPROGRAM_PART, ClassMapper.always(InternalSubprogram.class));
+        NAME_TO_MAPPER.put(FlangName.INTERNAL_SUBPROGRAM_PART, ClassMapper.always(InternalPart.class));
         NAME_TO_MAPPER.put(FlangName.SUBROUTINE_SUBPROGRAM, ClassMapper.always(Subroutine.class));
         NAME_TO_MAPPER.put(FlangName.SUBROUTINE_STMT, ClassMapper.always(SubroutineStmt.class));
         NAME_TO_MAPPER.put(FlangName.END_SUBROUTINE_STMT, ClassMapper.always(EndSubroutineStmt.class));

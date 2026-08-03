@@ -9,7 +9,6 @@ import java.util.Collection;
 import java.util.List;
 
 public class Specification extends StmtBlock {
-
     public Specification(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
     }

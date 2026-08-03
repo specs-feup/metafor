@@ -2,9 +2,12 @@ package pt.up.fe.specs.fortran.parser.processors;
 
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.expr.Expr;
-import pt.up.fe.specs.fortran.ast.nodes.io.WriteStmt;
 import pt.up.fe.specs.fortran.ast.nodes.loops.WhileLoopControl;
 import pt.up.fe.specs.fortran.ast.nodes.program.*;
+import pt.up.fe.specs.fortran.ast.nodes.program.subprogram.EndProgramStmt;
+import pt.up.fe.specs.fortran.ast.nodes.program.subprogram.EndSubroutineStmt;
+import pt.up.fe.specs.fortran.ast.nodes.program.subprogram.ProgramStmt;
+import pt.up.fe.specs.fortran.ast.nodes.program.subprogram.SubroutineStmt;
 import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
 import pt.up.fe.specs.fortran.ast.nodes.specification.NamedConstantDef;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.*;

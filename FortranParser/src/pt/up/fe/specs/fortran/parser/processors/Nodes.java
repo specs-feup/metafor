@@ -19,6 +19,8 @@ import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpDataSharingClause;
 import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpNowaitClause;
 import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpReductionClause;
 import pt.up.fe.specs.fortran.ast.nodes.program.*;
+import pt.up.fe.specs.fortran.ast.nodes.program.subprogram.*;
+import pt.up.fe.specs.fortran.ast.nodes.program.unit.MainProgram;
 import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
 import pt.up.fe.specs.fortran.ast.nodes.specification.NamedConstantDef;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
@@ -65,7 +67,7 @@ public class Nodes {
         processors.put(Specification.class, p::specification);
         processors.put(Execution.class, p::execution);
         processors.put(Subroutine.class, p::subroutine);
-        processors.put(InternalSubprogram.class, p::internalSubprogram);
+        processors.put(InternalPart.class, p::internalSubprogram);
 
         var alloc = new AllocProcessors(data);
         processors.put(Allocation.class, alloc::allocation);

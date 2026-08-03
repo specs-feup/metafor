@@ -1,4 +1,4 @@
-package pt.up.fe.specs.fortran.ast.nodes.program;
+package pt.up.fe.specs.fortran.ast.nodes.program.subprogram;
 
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.FortranKeyword;
@@ -7,8 +7,8 @@ import pt.up.fe.specs.fortran.ast.nodes.stmt.Stmt;
 
 import java.util.Collection;
 
-public class EndProgramStmt extends Stmt {
-    public EndProgramStmt(DataStore data, Collection<? extends FortranNode> children) {
+public class EndSubroutineStmt extends Stmt {
+    public EndSubroutineStmt(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
     }
 
@@ -18,9 +18,7 @@ public class EndProgramStmt extends Stmt {
             return keyword(FortranKeyword.END);
         }
 
-        var nameOpt = getAncestor(MainProgram.class).getName();
-        var nameSuffix = nameOpt.map(name -> " " + name).orElse("");
-
-        return keyword(FortranKeyword.END) + " " + keyword(FortranKeyword.PROGRAM) + nameSuffix;
+        var subroutineName = getAncestor(Subroutine.class).getName();
+        return keyword(FortranKeyword.END) + " " + keyword(FortranKeyword.SUBROUTINE) + " " + subroutineName;
     }
 }

@@ -2,7 +2,7 @@ package pt.up.fe.specs.fortran.parser;
 
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.decl.LabelDecl;
-import pt.up.fe.specs.fortran.ast.nodes.program.ProgramUnit;
+import pt.up.fe.specs.fortran.ast.nodes.program.unit.ProgramUnit;
 import pt.up.fe.specs.fortran.ast.nodes.utils.LabelRef;
 import pt.up.fe.specs.fortran.parser.processors.Nodes;
 

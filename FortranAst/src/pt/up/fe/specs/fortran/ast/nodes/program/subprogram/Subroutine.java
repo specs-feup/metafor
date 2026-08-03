@@ -1,4 +1,4 @@
-package pt.up.fe.specs.fortran.ast.nodes.program;
+package pt.up.fe.specs.fortran.ast.nodes.program.subprogram;
 
 import org.suikasoft.jOptions.Datakey.DataKey;
 import org.suikasoft.jOptions.Datakey.KeyFactory;
@@ -7,8 +7,7 @@ import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 
 import java.util.Collection;
 
-public class Subroutine extends ProgramUnit {
-
+public class Subroutine extends InternalSubprogram {
     public final static DataKey<String> NAME = KeyFactory.string("name");
 
     public Subroutine(DataStore data, Collection<? extends FortranNode> children) {
@@ -20,18 +19,10 @@ public class Subroutine extends ProgramUnit {
     }
 
     public SubroutineStmt getSubroutineStmt() {
-        return getChild(SubroutineStmt.class);
+        return (SubroutineStmt) getStartStmt();
     }
 
     public EndSubroutineStmt getEndSubroutineStmt() {
-        return getChild(EndSubroutineStmt.class);
-    }
-
-    @Override
-    public String getCode() {
-        var subroutineStmt = getSubroutineStmt();
-        var endSubroutineStmt = getEndSubroutineStmt();
-
-        return subroutineStmt.getCode() + ln() + getBodyCode() + ln() + endSubroutineStmt.getCode();
+        return (EndSubroutineStmt) getEndStmt();
     }
 }
