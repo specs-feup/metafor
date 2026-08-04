@@ -27,9 +27,11 @@ import pt.up.fe.specs.fortran.ast.nodes.program.Specification;
 import pt.up.fe.specs.fortran.ast.nodes.program.subprogram.*;
 import pt.up.fe.specs.fortran.ast.nodes.program.unit.*;
 import pt.up.fe.specs.fortran.ast.nodes.program.unit.Module;
-import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
-import pt.up.fe.specs.fortran.ast.nodes.specification.LanguageBindingSpec;
-import pt.up.fe.specs.fortran.ast.nodes.specification.NamedConstantDef;
+import pt.up.fe.specs.fortran.ast.nodes.specification.*;
+import pt.up.fe.specs.fortran.ast.nodes.specification.genericspec.GenericSpec;
+import pt.up.fe.specs.fortran.ast.nodes.specification.genericspec.NameGenericSpec;
+import pt.up.fe.specs.fortran.ast.nodes.specification.genericspec.OpGenericSpec;
+import pt.up.fe.specs.fortran.ast.nodes.specification.genericspec.OtherGenericSpec;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.datastmt.DataStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.datastmt.DataStmtSet;
@@ -98,6 +100,16 @@ public class FlangToClass {
                 .map(FlangName.EXPR, ExprTypeParamValue.class)
                 .map(FlangName.STAR, StarTypeParamValue.class)
                 .map(FlangName.DEFERRED, DeferredTypeParamValue.class));
+        NAME_TO_MAPPER.put(FlangName.DEFINED_OP_NAME, ClassMapper.always(NamedOperator.class));
+        NAME_TO_MAPPER.put(FlangName.INTRINSIC_OPERATOR, ClassMapper.always(IntrinsicOperator.class));
+        NAME_TO_MAPPER.put(FlangName.GENERIC_SPEC, ClassMapper.caseFor(GenericSpec.class)
+                .map(FlangName.NAME, NameGenericSpec.class)
+                .map(FlangName.DEFINED_OPERATOR, OpGenericSpec.class)
+                .map(FlangName.ASSIGNMENT, OtherGenericSpec.class)
+                .map(FlangName.READ_FORMATTED, OtherGenericSpec.class)
+                .map(FlangName.READ_UNFORMATTED, OtherGenericSpec.class)
+                .map(FlangName.WRITE_FORMATTED, OtherGenericSpec.class)
+                .map(FlangName.WRITE_UNFORMATTED, OtherGenericSpec.class));
 
         /// STMTs
         NAME_TO_MAPPER.put(FlangName.PRINT_STMT, ClassMapper.always(PrintStmt.class));
@@ -155,6 +167,7 @@ public class FlangToClass {
         NAME_TO_MAPPER.put(FlangName.LANGUAGE_BINDING_SPEC, ClassMapper.always(LanguageBindingSpec.class));
         NAME_TO_MAPPER.put(FlangName.END_FUNCTION_STMT, ClassMapper.always(EndFunctionStmt.class));
         NAME_TO_MAPPER.put(FlangName.EXTERNAL_STMT, ClassMapper.always(ExternalStmt.class));
+        NAME_TO_MAPPER.put(FlangName.ACCESS_STMT, ClassMapper.always(AccessStmt.class));
 
         /// Variables
         //NAME_TO_CLASS.put(FlangName.DATA_REF, DataRef.class);  // TODO(Process-ing): Improve this

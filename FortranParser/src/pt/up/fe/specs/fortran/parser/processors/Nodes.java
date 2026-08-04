@@ -22,9 +22,10 @@ import pt.up.fe.specs.fortran.ast.nodes.program.*;
 import pt.up.fe.specs.fortran.ast.nodes.program.subprogram.*;
 import pt.up.fe.specs.fortran.ast.nodes.program.unit.*;
 import pt.up.fe.specs.fortran.ast.nodes.program.unit.Module;
-import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
-import pt.up.fe.specs.fortran.ast.nodes.specification.LanguageBindingSpec;
-import pt.up.fe.specs.fortran.ast.nodes.specification.NamedConstantDef;
+import pt.up.fe.specs.fortran.ast.nodes.specification.*;
+import pt.up.fe.specs.fortran.ast.nodes.specification.genericspec.NameGenericSpec;
+import pt.up.fe.specs.fortran.ast.nodes.specification.genericspec.OpGenericSpec;
+import pt.up.fe.specs.fortran.ast.nodes.specification.genericspec.OtherGenericSpec;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.datastmt.DataStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.datastmt.DataStmtSet;
@@ -93,6 +94,11 @@ public class Nodes {
         processors.put(ExprTypeParamValue.class, d::exprTypeParamValue);
         processors.put(StarTypeParamValue.class, d::starTypeParamValue);
         processors.put(DeferredTypeParamValue.class, d::deferredTypeParamValue);
+        processors.put(NamedOperator.class, d::namedOperator);
+        processors.put(IntrinsicOperator.class, d::intrinsicOperator);
+        processors.put(NameGenericSpec.class, d::nameGenericSpec);
+        processors.put(OpGenericSpec.class, d::opGenericSpec);
+        processors.put(OtherGenericSpec.class, d::otherGenericSpec);
 
         var v = new VariableProcessor(data);
         processors.put(DataRef.class, v::dataRef);
@@ -157,6 +163,7 @@ public class Nodes {
         processors.put(EndFunctionStmt.class, s::endFunctionStmt);
         processors.put(ModuleStmt.class, s::moduleStmt);
         processors.put(EndModuleStmt.class, s::endModuleStmt);
+        processors.put(AccessStmt.class, s::accessStmt);
 
         var e = new ExprProcessors(data);
         processors.put(StringLiteral.class, e::stringLiteral);

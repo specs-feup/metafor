@@ -14,6 +14,7 @@ import pt.up.fe.specs.fortran.ast.nodes.program.unit.ProgramStmt;
 import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
 import pt.up.fe.specs.fortran.ast.nodes.specification.LanguageBindingSpec;
 import pt.up.fe.specs.fortran.ast.nodes.specification.NamedConstantDef;
+import pt.up.fe.specs.fortran.ast.nodes.specification.enums.AccessKind;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.datastmt.DataStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.datastmt.DataStmtObject;
@@ -741,5 +742,18 @@ public class StmtProcessors extends ANodeProcessor {
 
     public void endModuleStmt(EndModuleStmt endModuleStmt) {
         stmt(endModuleStmt);
+    }
+
+    public void accessStmt(AccessStmt accessStmt) {
+        stmt(accessStmt);
+
+        var accessKindSrc = attributes().getString(accessStmt, "value", FlangName.ACCESS_SPEC, FlangName.KIND);
+        var accessKind = AccessKind.valueOf(accessKindSrc.toUpperCase());
+        accessStmt.set(AccessStmt.ACCESS_KIND, accessKind);
+
+        if (attributes(accessStmt).has(FlangName.ACCESS_ID)) {
+            var accessIds = getChildren(accessStmt, FlangName.ACCESS_ID);
+            accessStmt.addChildren(accessIds);
+        }
     }
 }

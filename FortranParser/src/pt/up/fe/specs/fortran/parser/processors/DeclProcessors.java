@@ -4,6 +4,13 @@ import pt.up.fe.specs.fortran.ast.nodes.decl.*;
 import pt.up.fe.specs.fortran.ast.nodes.decl.typeparam.DeferredTypeParamValue;
 import pt.up.fe.specs.fortran.ast.nodes.decl.typeparam.ExprTypeParamValue;
 import pt.up.fe.specs.fortran.ast.nodes.decl.typeparam.StarTypeParamValue;
+import pt.up.fe.specs.fortran.ast.nodes.expr.enums.BinaryOperatorKind;
+import pt.up.fe.specs.fortran.ast.nodes.specification.IntrinsicOperator;
+import pt.up.fe.specs.fortran.ast.nodes.specification.NamedOperator;
+import pt.up.fe.specs.fortran.ast.nodes.specification.enums.GenericSpecKind;
+import pt.up.fe.specs.fortran.ast.nodes.specification.genericspec.NameGenericSpec;
+import pt.up.fe.specs.fortran.ast.nodes.specification.genericspec.OpGenericSpec;
+import pt.up.fe.specs.fortran.ast.nodes.specification.genericspec.OtherGenericSpec;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 
@@ -83,4 +90,39 @@ public class DeclProcessors extends ANodeProcessor {
     public void starTypeParamValue(StarTypeParamValue ignoredValue) {}
 
     public void deferredTypeParamValue(DeferredTypeParamValue ignoredValue) {}
+
+    public void namedOperator(NamedOperator namedOperator) {
+        var operatorName = attributes().getString(namedOperator, "source", FlangName.NAME);
+        namedOperator.set(NamedOperator.OPERATOR_NAME, operatorName);
+    }
+
+    public void intrinsicOperator(IntrinsicOperator intrinsicOperator) {
+        var operatorKindSource = attributes(intrinsicOperator).getString("value");
+        var operatorKind = BinaryOperatorKind.valueOf(operatorKindSource.toUpperCase());
+        intrinsicOperator.set(IntrinsicOperator.OPERATOR_KIND, operatorKind);
+    }
+
+    public void nameGenericSpec(NameGenericSpec spec) {
+        var name = attributes().getString(spec, "source", FlangName.NAME);
+        spec.set(NameGenericSpec.NAME, name);
+    }
+
+    public void opGenericSpec(OpGenericSpec spec) {
+        var definedOperator = getChild(spec, FlangName.DEFINED_OPERATOR);
+        spec.addChild(definedOperator);
+    }
+
+    public void otherGenericSpec(OtherGenericSpec spec) {
+        var variant = attributes(spec).getVariantName();
+
+        var kind = switch (variant) {
+            case ASSIGNMENT -> GenericSpecKind.ASSIGNMENT;
+            case READ_FORMATTED -> GenericSpecKind.READ_FORMATTED;
+            case READ_UNFORMATTED -> GenericSpecKind.READ_UNFORMATTED;
+            case WRITE_FORMATTED -> GenericSpecKind.WRITE_FORMATTED;
+            case WRITE_UNFORMATTED -> GenericSpecKind.WRITE_UNFORMATTED;
+            default -> throw new RuntimeException("Unknown generic spec kind: " + variant);
+        };
+        spec.set(OtherGenericSpec.KIND, kind);
+    }
 }

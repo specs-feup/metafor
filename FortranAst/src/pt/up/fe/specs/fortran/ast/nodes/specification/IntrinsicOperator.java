@@ -9,13 +9,18 @@ import pt.up.fe.specs.fortran.ast.nodes.expr.enums.BinaryOperatorKind;
 import java.util.Collection;
 
 public class IntrinsicOperator extends DefinedOperator {
-    public static final DataKey<BinaryOperatorKind> KIND = KeyFactory.enumeration("kind", BinaryOperatorKind.class);
+    public static final DataKey<BinaryOperatorKind> OPERATOR_KIND = KeyFactory.enumeration("kind", BinaryOperatorKind.class);
 
     public IntrinsicOperator(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
     }
 
-    public BinaryOperatorKind getKind() {
-        return get(KIND);
+    public BinaryOperatorKind getOperatorKind() {
+        return get(OPERATOR_KIND);
+    }
+
+    @Override
+    public String getCode() {
+        return getOperatorKind().getString();
     }
 }

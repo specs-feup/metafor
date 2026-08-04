@@ -36,7 +36,15 @@ public enum FlangName implements StringProvider {
     DATA_STMT_CONSTANT,
     TYPE_PARAM_VALUE,
     DEFERRED,
+    DEFINED_OPERATOR,
+    DEFINED_OP_NAME,
+    INTRINSIC_OPERATOR,
     GENERIC_SPEC,
+    ASSIGNMENT,
+    READ_FORMATTED,
+    READ_UNFORMATTED,
+    WRITE_FORMATTED,
+    WRITE_UNFORMATTED,
 
     /// STMTs
     STATEMENT,
@@ -105,6 +113,9 @@ public enum FlangName implements StringProvider {
     RANGE,
     DEFAULT,
     END_SELECT_STMT,
+    ACCESS_STMT,
+    ACCESS_SPEC,
+    ACCESS_ID,
 
     // Variables
     VARIABLE,
