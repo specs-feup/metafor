@@ -24,6 +24,7 @@ import pt.up.fe.specs.fortran.ast.nodes.omp.enums.OmpDirectiveKind;
 import pt.up.fe.specs.fortran.ast.nodes.program.Application;
 import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
 import pt.up.fe.specs.fortran.ast.nodes.program.FortranFile;
+import pt.up.fe.specs.fortran.ast.nodes.program.Specification;
 import pt.up.fe.specs.fortran.ast.nodes.program.subprogram.EndProgramStmt;
 import pt.up.fe.specs.fortran.ast.nodes.program.subprogram.ProgramStmt;
 import pt.up.fe.specs.fortran.ast.nodes.program.unit.MainProgram;
@@ -146,11 +147,12 @@ public class FortranNodeFactory {
 
         var programStmt = newNode(ProgramStmt.class, Collections.emptyList());
         initComments(programStmt);
+        var specificationBlock = newNode(Specification.class, Collections.emptyList());
         var executionBlock = execution(execution);
         var endProgramStmt = newNode(EndProgramStmt.class, Collections.emptyList());
         initComments(endProgramStmt);
 
-        return new MainProgram(data, List.of(programStmt, executionBlock, endProgramStmt));
+        return new MainProgram(data, List.of(programStmt, specificationBlock, executionBlock, endProgramStmt));
     }
 
     public Execution execution(List<FortranNode> statements) {
