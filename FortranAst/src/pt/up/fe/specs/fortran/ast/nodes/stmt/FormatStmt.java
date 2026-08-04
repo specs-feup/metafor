@@ -13,7 +13,7 @@ public class FormatStmt extends ExecutableStmt {
 
     //TODO properly support the statement
     @Override
-    public String getCode() {
+    public String getStmtCode() {
         return get(SOURCE).replaceFirst("^\\d+", "");
     }
 }
