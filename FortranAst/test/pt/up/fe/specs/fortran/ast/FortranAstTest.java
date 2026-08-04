@@ -12,6 +12,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class FortranAstTest {
@@ -61,6 +62,20 @@ public class FortranAstTest {
         var print = factory.printStmt(factory.format(factory.star()), factory.stringLiteral("Hello, World!"));
         var program = factory.fortranFile(List.of(factory.mainProgram("hello", List.of(print))));
         test("hello.f90", program);
+    }
+
+    @Test
+    void testDoConstructInitializesStatementMetadata() {
+        var control = factory.rangeLoopControl(
+                factory.dataRef("i"),
+                factory.intLiteral(1),
+                factory.intLiteral(4)
+        );
+
+        var code = factory.doConstruct(control).getCode();
+
+        assertTrue(code.contains("DO i = 1, 4"));
+        assertTrue(code.contains("END DO"));
     }
 
 

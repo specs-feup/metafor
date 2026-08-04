@@ -30,7 +30,7 @@ function substituteVar(stmt: ExecutableStatement, varName: string, offset: numbe
  * Two loops replace the original:
  *  - A **main loop** that steps by `factor`, with the body replicated `factor`
  *    times (each copy substitutes `var` with `(var+offset)` for offset 0..factor-1).
- *  - A **cleanup loop** that handles the remaining < `factor` iterations with the
+ *  - A **cleanup loop** that handles the iterations left after the main loop with the
  *    original body. When `factor` exactly divides the trip count, the cleanup
  *    loop's bounds produce a no-op and it generates no iterations.
  *
@@ -111,6 +111,6 @@ export default function loopUnroll($loop: DoStatement, factor: number): DoStatem
 
 export function canUnroll($loop: DoStatement, factor: number = 2): boolean {
   if (!($loop.control instanceof RangeLoopControl)) return false;
-  if (factor <= 1) return false;
+  if (!Number.isInteger(factor) || factor <= 1) return false;
   return ($loop.control as RangeLoopControl).step === undefined;
 }

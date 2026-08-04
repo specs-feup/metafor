@@ -1,3 +1,14 @@
+!******************************************************************************
+!
+!  3mm.F90: This file is part of the PolyBench/Fortran 1.0 test suite.
+!
+!  Contact: Louis-Noel Pouchet <pouchet@cse.ohio-state.edu>
+!  Web address: http://polybench.sourceforge.net
+!
+!******************************************************************************
+! Include polybench common header.
+! Include benchmark-specific header.
+! Default data type is double, default size is 4000.
 PROGRAM THREE_MM
 DOUBLE PRECISION, DIMENSION(:, :), ALLOCATABLE :: a
 DOUBLE PRECISION, DIMENSION(:, :), ALLOCATABLE :: b
@@ -7,26 +18,32 @@ DOUBLE PRECISION, DIMENSION(:, :), ALLOCATABLE :: e
 DOUBLE PRECISION, DIMENSION(:, :), ALLOCATABLE :: f
 DOUBLE PRECISION, DIMENSION(:, :), ALLOCATABLE :: g
 INTEGER :: i
+!     Allocation of Arrays
 allocate(a(32 + 0, 32 + 0), STAT=i)
-call check_err(i)
+CALL check_err(i)
 allocate(b(32 + 0, 32 + 0), STAT=i)
-call check_err(i)
+CALL check_err(i)
 allocate(c(32 + 0, 32 + 0), STAT=i)
-call check_err(i)
+CALL check_err(i)
 allocate(d(32 + 0, 32 + 0), STAT=i)
-call check_err(i)
+CALL check_err(i)
 allocate(e(32 + 0, 32 + 0), STAT=i)
-call check_err(i)
+CALL check_err(i)
 allocate(f(32 + 0, 32 + 0), STAT=i)
-call check_err(i)
+CALL check_err(i)
 allocate(g(32 + 0, 32 + 0), STAT=i)
-call check_err(i)
-call init_array(32, 32, 32, 32, 32, a, b, c, d)
-call polybench_timer_start()
-call kernel_3mm(32, 32, 32, 32, 32, e, a, b, f, c, d, g)
-call polybench_timer_stop()
-call polybench_timer_print()
-call print_array(32, 32, g)
+CALL check_err(i)
+!     Initialization
+CALL init_array(32, 32, 32, 32, 32, a, b, c, d)
+!     Kernel Execution
+CALL polybench_timer_start()
+CALL kernel_3mm(32, 32, 32, 32, 32, e, a, b, f, c, d, g)
+CALL polybench_timer_stop()
+CALL polybench_timer_print()
+!     Prevent dead-code elimination. All live-out data must be printed
+!     by the function call in argument.
+CALL print_array(32, 32, g)
+!     Deallocation of Arrays
 deallocate(a)
 deallocate(b)
 deallocate(c)
@@ -87,6 +104,8 @@ DOUBLE PRECISION, DIMENSION(nl, nj) :: f
 DOUBLE PRECISION, DIMENSION(nl, ni) :: g
 INTEGER :: ni, nj, nk, nl, nm
 INTEGER :: i, j, k
+!$pragma scop
+! E := A*B
 DO i = 1, ni
 DO j = 1, nj
 e(j, i) = 0.0
@@ -95,6 +114,7 @@ e(j, i) = e(j, i) + a(k, i) * b(j, k)
 END DO
 END DO
 END DO
+! F := C*D
 DO i = 1, nj
 DO j = 1, nl
 f(j, i) = 0.0
@@ -103,6 +123,7 @@ f(j, i) = f(j, i) + c(k, i) * d(j, k)
 END DO
 END DO
 END DO
+! G := E*F
 DO i = 1, ni
 DO j = 1, nl
 g(j, i) = 0.0
@@ -111,5 +132,6 @@ g(j, i) = g(j, i) + e(k, i) * f(j, k)
 END DO
 END DO
 END DO
+!$pragma endscop
 END SUBROUTINE kernel_3mm
 END PROGRAM THREE_MM

@@ -28,6 +28,9 @@ import pt.up.fe.specs.fortran.ast.nodes.omp.enums.OmpClauseKind;
 import pt.up.fe.specs.fortran.ast.nodes.omp.enums.OmpDirectiveKind;
 import pt.up.fe.specs.fortran.ast.nodes.program.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.DoConstruct;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.DoStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.EndDoStmt;
 import pt.up.fe.specs.fortran.ast.nodes.utils.Format;
 import pt.up.fe.specs.fortran.ast.nodes.utils.LabelRef;
 import pt.up.fe.specs.fortran.ast.nodes.utils.Star;
@@ -77,6 +80,12 @@ public class FortranNodeFactory {
             data.set(FortranNode.ID, context.get(FortranContext.ID_GENERATOR).next("node_"));
         }
 
+        // Factory-created statements do not pass through StmtProcessors::stmt(),
+        // which normally initializes this required key.
+        if (Stmt.class.isAssignableFrom(nodeClass)) {
+            initComments(data);
+        }
+
 
         return data;
     }
@@ -121,17 +130,30 @@ public class FortranNodeFactory {
 
     public FortranFile fortranFile(List<ProgramUnit> units) {
         DataStore data = newDataStore(FortranFile.class);
+        data.set(FortranFile.FINAL_COMMENTS, List.of());
+
         return new FortranFile(data, units);
     }
 
+    private void initComments(DataStore data) {
+        data.set(Stmt.LEADING_COMMENTS, List.of());
+    }
+
+    private void initComments(Stmt stmt) {
+        stmt.set(Stmt.LEADING_COMMENTS, List.of());
+    }
 
     public MainProgram mainProgram(String programName, List<ExecutableStmt> execution) {
         DataStore data = newDataStore(MainProgram.class);
-        data.set(MainProgram.PROGRAM_NAME, Optional.ofNullable(programName));
+        data.set(MainProgram.NAME, Optional.ofNullable(programName));
 
+        var programStmt = newNode(ProgramStmt.class, Collections.emptyList());
+        initComments(programStmt);
         var executionBlock = execution(execution);
+        var endProgramStmt = newNode(EndProgramStmt.class, Collections.emptyList());
+        initComments(endProgramStmt);
 
-        return new MainProgram(data, List.of(executionBlock));
+        return new MainProgram(data, List.of(programStmt, executionBlock, endProgramStmt));
     }
 
     public Execution execution(List<ExecutableStmt> statements) {
@@ -148,6 +170,7 @@ public class FortranNodeFactory {
 
     public PrintStmt printStmt(Format format, List<FortranNode> outputItems) {
         DataStore data = newDataStore(PrintStmt.class);
+        initComments(data);
 
         return new PrintStmt(data, SpecsCollections.concat(format, outputItems));
     }
@@ -155,6 +178,7 @@ public class FortranNodeFactory {
     public LiteralExecutionStmt literalExecutionStmt(String code) {
         DataStore data = newDataStore(LiteralExecutionStmt.class);
         data.set(LiteralExecutionStmt.LITERAL_CODE, code);
+        initComments(data);
 
         return new LiteralExecutionStmt(data, Collections.emptyList());
     }
@@ -219,12 +243,12 @@ public class FortranNodeFactory {
         return new LabelRef(data, Collections.emptyList());
     }
 
-    public OmpLoopConstruct ompLoopConstruct(DoStmt doStmt, List<OmpClause> clauses) {
+    public OmpLoopConstruct ompLoopConstruct(DoConstruct doConstruct, List<OmpClause> clauses) {
         DataStore data = newDataStore(OmpLoopConstruct.class);
 
         OmpLoopConstruct newNode = new OmpLoopConstruct(data, clauses);
 
-        newNode.addChild(doStmt);
+        newNode.addChild(doConstruct);
 
         return newNode;
     }
@@ -306,10 +330,14 @@ public class FortranNodeFactory {
         return new RangeLoopControl(data, Arrays.asList(var, lower, upper));
     }
 
-    public DoStmt doStatement(LoopControl control) {
-        DataStore data = newDataStore(DoStmt.class);
+    public DoConstruct doConstruct(LoopControl control) {
+        DataStore data = newDataStore(DoConstruct.class);
+
+        DoStmt doStmt = newNode(DoStmt.class, List.of(control));
         Execution body = execution(Collections.emptyList());
-        return new DoStmt(data, Arrays.asList(control, body));
+        EndDoStmt endDoStmt = newNode(EndDoStmt.class, Collections.emptyList());
+
+        return new DoConstruct(data, List.of(doStmt, body, endDoStmt));
     }
 
     public Argument argument(Expr expr) {

@@ -34,6 +34,6 @@ public class FSpecification extends ASpecification {
 
     @Override
     public FortranNode getNode() {
-        return null;
+        return specification;
     }
 }

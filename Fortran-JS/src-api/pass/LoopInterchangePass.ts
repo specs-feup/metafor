@@ -1,7 +1,7 @@
 import Pass from "@specs-feup/lara/api/lara/pass/Pass.js";
 import PassResult from "@specs-feup/lara/api/lara/pass/results/PassResult.js";
 import Query from "@specs-feup/lara/api/weaver/Query.js";
-import { DoStatement, Joinpoint, RangeLoopControl } from "../Joinpoints.js";
+import { DoStatement, Joinpoint } from "../Joinpoints.js";
 import loopInterchange, { canInterchange } from "../code/LoopInterchange.js";
 
 /**
@@ -34,33 +34,23 @@ export default class LoopInterchangePass extends Pass {
   }
 
   protected _findInterchangeablePairs($jp: Joinpoint): { outer: DoStatement; inner: DoStatement }[] {
-    // Collect all structural 2-deep perfect nests regardless of legality.
-    // innerSet must be built from ALL pairs so that nests deeper than 2 are
-    // handled correctly: an inner pair nested inside an illegal outer pair must
-    // not be interchanged either (its "outer" loop is still the inner of an
-    // unprocessed pair and evaluation-order constraints may still apply).
+    // Collect all structural pairs before applying legality checks. Filtering
+    // with AST containment keeps independent nests that reuse the same loop
+    // variable eligible and avoids relying on proxy object identity.
     const allPairs: { outer: DoStatement; inner: DoStatement }[] = [];
-    for (const loop of Query.searchFrom($jp, DoStatement)) {
+    for (const loop of Query.searchFromInclusive($jp, DoStatement)) {
       const stmts = loop.body.executableStmts;
       if (stmts.length === 1 && stmts[0] instanceof DoStatement) {
         allPairs.push({ outer: loop, inner: stmts[0] as DoStatement });
       }
     }
-    // LARA wraps each AST node in a new JS proxy on every access, so JS object
-    // identity cannot be used to detect that the same loop appears as both an
-    // outer in one pair and an inner in another. Key by loop variable name
-    // instead — unique per subroutine for PolyBench's affine loops.
-    const innerVarNames = new Set(
-      allPairs
-        .map(p => p.inner.control)
-        .filter((c): c is RangeLoopControl => c instanceof RangeLoopControl)
-        .map(c => c.var.name)
+
+    const outermostPairs = allPairs.filter(({ outer }, index) =>
+      !allPairs.some((candidate, candidateIndex) =>
+        candidateIndex !== index && candidate.outer.contains(outer),
+      ),
     );
-    return allPairs
-      .filter(({ outer }) => {
-        const oc = outer.control;
-        return !(oc instanceof RangeLoopControl && innerVarNames.has(oc.var.name));
-      })
-      .filter(({ outer, inner }) => canInterchange(outer, inner));
+
+    return outermostPairs.filter(({ outer, inner }) => canInterchange(outer, inner));
   }
 }

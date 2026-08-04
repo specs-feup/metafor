@@ -43,6 +43,10 @@ public class FlangAttributes {
         return Optional.of(value.toString());
     }
 
+    public Optional<String> getOptionalString(FlangName name) {
+        return getOptionalString(name.getString());
+    }
+
     public Optional<String> getOptionalString(Pattern pattern) {
 
         // Go over all keys in attributes, check which ones match the pattern

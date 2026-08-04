@@ -21,7 +21,7 @@ public class UseStmt extends Stmt {
     }
 
     @Override
-    public String getCode() {
-        return FortranKeyword.USE.toString() + " " + getName();
+    public String getStmtCode() {
+        return FortranKeyword.USE + " " + getName();
     }
 }

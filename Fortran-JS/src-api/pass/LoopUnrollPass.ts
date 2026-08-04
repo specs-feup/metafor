@@ -38,28 +38,16 @@ export default class LoopUnrollPass extends Pass {
    * A loop is innermost when none of its descendants is a do-loop.
    * Recursion does not descend into innermost loops.
    *
-   * The try/catch around children access guards against staging-branch AST
-   * nodes (e.g. attributeSpecifier) whose underlying Java joinpoint has a null
-   * node, causing a NullPointerException when `.children` is accessed.
    */
   protected *_findInnermostLoops($jp: Joinpoint): Generator<DoStatement> {
     if ($jp instanceof DoStatement) {
-      let hasNestedLoop = false;
-      try {
-        hasNestedLoop = $jp.descendants.some(d => d instanceof DoStatement);
-      } catch (_) { /* unmapped descendant — treat as no nested loop */ }
+      const hasNestedLoop = $jp.descendants.some((d) => d instanceof DoStatement);
       if (!hasNestedLoop && canUnroll($jp, this.factor)) {
         yield $jp;
         return;
       }
     }
-    let children: Joinpoint[];
-    try {
-      children = [...$jp.children];
-    } catch (_) {
-      return; // skip nodes whose children cannot be accessed
-    }
-    for (const child of children) {
+    for (const child of $jp.children) {
       yield* this._findInnermostLoops(child);
     }
   }

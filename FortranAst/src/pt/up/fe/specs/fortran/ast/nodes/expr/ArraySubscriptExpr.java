@@ -17,15 +17,15 @@ public class ArraySubscriptExpr extends DataRef {
         return getChild(DataRef.class, 0);
     }
 
-    public List<Expr> getSubscripts() {
-        return getChildren(Expr.class, 1);
+    public List<SectionSubscript> getSubscripts() {
+        return getChildren(SectionSubscript.class, 1);
     }
 
     @Override
     public String getCode() {
         return getRef().getCode() + "(" +
                 getSubscripts().stream()
-                        .map(Expr::getCode)
+                        .map(SectionSubscript::getCode)
                         .collect(Collectors.joining(", ")) +
                 ")";
     }

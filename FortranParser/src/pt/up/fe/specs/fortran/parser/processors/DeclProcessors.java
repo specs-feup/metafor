@@ -1,9 +1,6 @@
 package pt.up.fe.specs.fortran.parser.processors;
 
-import pt.up.fe.specs.fortran.ast.nodes.decl.DataStmtValue;
-import pt.up.fe.specs.fortran.ast.nodes.decl.DummyArgumentDecl;
-import pt.up.fe.specs.fortran.ast.nodes.decl.EntityDecl;
-import pt.up.fe.specs.fortran.ast.nodes.decl.Initialization;
+import pt.up.fe.specs.fortran.ast.nodes.decl.*;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 
@@ -73,5 +70,10 @@ public class DeclProcessors extends ANodeProcessor {
         var name = attributes().get(nameId).getString("source");
 
         dummyArgumentDecl.set(DummyArgumentDecl.NAME, name);
+    }
+
+    public void dataStmtSet(DataStmtSet dataStmtSet) {
+        dataStmtSet.addChildren(getChildren(dataStmtSet, FlangName.DATA_STMT_OBJECT));
+        dataStmtSet.addChildren(getChildren(dataStmtSet, FlangName.DATA_STMT_VALUE));
     }
 }

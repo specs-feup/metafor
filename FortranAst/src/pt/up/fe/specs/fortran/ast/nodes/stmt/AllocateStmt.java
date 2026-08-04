@@ -24,7 +24,7 @@ public class AllocateStmt extends ActionStmt {
     }
 
     @Override
-    public String getCode() {
+    public String getStmtCode() {
         StringBuilder code = new StringBuilder();
 
         code.append("allocate(");

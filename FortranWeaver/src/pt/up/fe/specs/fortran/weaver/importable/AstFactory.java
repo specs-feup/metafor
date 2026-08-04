@@ -1,18 +1,14 @@
 package pt.up.fe.specs.fortran.weaver.importable;
 
 import pt.up.fe.specs.fortran.ast.nodes.expr.Argument;
-import pt.up.fe.specs.fortran.ast.nodes.expr.Call;
 import pt.up.fe.specs.fortran.ast.nodes.expr.DataRef;
 import pt.up.fe.specs.fortran.ast.nodes.expr.Expr;
 import pt.up.fe.specs.fortran.ast.nodes.expr.enums.BinaryOperatorKind;
-import pt.up.fe.specs.fortran.ast.nodes.omp.OmpLoopConstruct;
-import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpClause;
-import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpDataSharingClause;
-import pt.up.fe.specs.fortran.ast.nodes.omp.enums.OmpClauseKind;
-import pt.up.fe.specs.fortran.ast.nodes.loops.LoopControl;
 import pt.up.fe.specs.fortran.ast.nodes.loops.RangeLoopControl;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.DoStmt;
+import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpClause;
+import pt.up.fe.specs.fortran.ast.nodes.omp.enums.OmpClauseKind;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ExecutableStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.DoConstruct;
 import pt.up.fe.specs.fortran.weaver.FortranJoinpoints;
 import pt.up.fe.specs.fortran.weaver.FortranWeaver;
 import pt.up.fe.specs.fortran.weaver.abstracts.joinpoints.*;
@@ -28,9 +24,9 @@ public class AstFactory {
                 .map(clause -> (OmpClause) clause.getNode())
                 .toList();
 
-        DoStmt doStmt = (DoStmt) loop.getNode();
+        var doConstruct = (DoConstruct) loop.getNode();
 
-        return FortranJoinpoints.create(FortranWeaver.getFactory().ompLoopConstruct(doStmt, clauses), AOmpLoopConstruct.class);
+        return FortranJoinpoints.create(FortranWeaver.getFactory().ompLoopConstruct(doConstruct, clauses), AOmpLoopConstruct.class);
     }
 
     public static AOmpLoopConstruct emptyOmpLoopConstruct() {
@@ -107,16 +103,16 @@ public class AstFactory {
         Expr lowerNode = (Expr) lower.getNode();
         Expr upperNode = (Expr) upper.getNode();
         return FortranJoinpoints.create(
-            FortranWeaver.getFactory().rangeLoopControl(varNode, lowerNode, upperNode),
-            ARangeLoopControl.class
+                FortranWeaver.getFactory().rangeLoopControl(varNode, lowerNode, upperNode),
+                ARangeLoopControl.class
         );
     }
 
     public static ADoStatement doStatement(ARangeLoopControl control) {
         RangeLoopControl ctrl = (RangeLoopControl) control.getNode();
         return FortranJoinpoints.create(
-            FortranWeaver.getFactory().doStatement(ctrl),
-            ADoStatement.class
+                FortranWeaver.getFactory().doConstruct(ctrl),
+                ADoStatement.class
         );
     }
 
@@ -142,8 +138,8 @@ public class AstFactory {
         Expr lhsNode = (Expr) lhs.getNode();
         Expr rhsNode = (Expr) rhs.getNode();
         return FortranJoinpoints.create(
-            FortranWeaver.getFactory().binaryOperator(kind, lhsNode, rhsNode),
-            ABinaryOperator.class
+                FortranWeaver.getFactory().binaryOperator(kind, lhsNode, rhsNode),
+                ABinaryOperator.class
         );
     }
 }

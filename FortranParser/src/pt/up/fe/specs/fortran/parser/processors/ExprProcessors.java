@@ -76,8 +76,55 @@ public class ExprProcessors extends ANodeProcessor {
     }
 
     public void arraySubscriptExpr(ArraySubscriptExpr arraySubscriptExpr) {
-        arraySubscriptExpr.addChild(getChild(arraySubscriptExpr, "base"));
-        arraySubscriptExpr.addChildren(getChildren(arraySubscriptExpr, "subscripts"));
+        var base = getChild(arraySubscriptExpr, "base");
+        arraySubscriptExpr.addChild(base);
+
+        var subscriptIds = attributes(arraySubscriptExpr).getStringList("subscripts");
+        var subscripts = subscriptIds.stream()
+                .map(this::getSectionSubscript)
+                .toList();
+
+        arraySubscriptExpr.addChildren(subscripts);
+    }
+
+    public SectionSubscript getSectionSubscript(String id) {
+        var attrs = attributes().get(id);
+
+        if (attrs.has(FlangName.SUBSCRIPT_TRIPLET)) {
+            return (SubscriptTriplet) getChild(id);
+        }
+
+        if (attrs.has(FlangName.EXPR)) {
+            var subscript = factory().newNode(Subscript.class);
+            var value = getChild(id);
+            subscript.addChild(value);
+
+            return subscript;
+        }
+
+        throw new RuntimeException("Section subscript with id '" + id + "' does not have a valid variant, expected either SubscriptTriplet or Subscript, but got attributes: " + attrs);
+    }
+
+    public void subscriptTriplet(SubscriptTriplet subscriptTriplet) {
+        var attrs = attributes(subscriptTriplet);
+
+        if (attrs.has("start")) {
+            var start = getChild(subscriptTriplet, "start");
+            subscriptTriplet.addChild(start);
+            subscriptTriplet.set(SubscriptTriplet.HAS_START, true);
+        }
+
+        if (attrs.has("end")) {
+            var end = getChild(subscriptTriplet, "end");
+            subscriptTriplet.addChild(end);
+            subscriptTriplet.set(SubscriptTriplet.HAS_END, true);
+        }
+
+        if (attrs.has("stride")) {
+            var stride = getChild(subscriptTriplet, "stride");
+            subscriptTriplet.addChild(stride);
+            subscriptTriplet.set(SubscriptTriplet.HAS_STRIDE, true);
+        }
     }
 
     public void acImpliedDo(AcImpliedDo acImpliedDo) {
