@@ -123,17 +123,28 @@ public class FortranNodeFactory {
 
     public FortranFile fortranFile(List<ProgramUnit> units) {
         DataStore data = newDataStore(FortranFile.class);
+        data.set(FortranFile.FINAL_COMMENTS, List.of());
+
         return new FortranFile(data, units);
     }
 
+    private void initComments(DataStore data) {
+        data.set(Stmt.LEADING_COMMENTS, List.of());
+    }
+
+    private void initComments(Stmt stmt) {
+        stmt.set(Stmt.LEADING_COMMENTS, List.of());
+    }
 
     public MainProgram mainProgram(String programName, List<ExecutableStmt> execution) {
         DataStore data = newDataStore(MainProgram.class);
         data.set(MainProgram.NAME, Optional.ofNullable(programName));
 
-        var programStmt = new ProgramStmt(data, Collections.emptyList());
+        var programStmt = newNode(ProgramStmt.class, Collections.emptyList());
+        initComments(programStmt);
         var executionBlock = execution(execution);
-        var endProgramStmt = new EndProgramStmt(data, Collections.emptyList());
+        var endProgramStmt = newNode(EndProgramStmt.class, Collections.emptyList());
+        initComments(endProgramStmt);
 
         return new MainProgram(data, List.of(programStmt, executionBlock, endProgramStmt));
     }
@@ -152,6 +163,7 @@ public class FortranNodeFactory {
 
     public PrintStmt printStmt(Format format, List<FortranNode> outputItems) {
         DataStore data = newDataStore(PrintStmt.class);
+        initComments(data);
 
         return new PrintStmt(data, SpecsCollections.concat(format, outputItems));
     }
@@ -159,6 +171,7 @@ public class FortranNodeFactory {
     public LiteralExecutionStmt literalExecutionStmt(String code) {
         DataStore data = newDataStore(LiteralExecutionStmt.class);
         data.set(LiteralExecutionStmt.LITERAL_CODE, code);
+        initComments(data);
 
         return new LiteralExecutionStmt(data, Collections.emptyList());
     }

@@ -29,6 +29,10 @@ public abstract class Stmt extends FortranNode {
     }
 
     public List<String> getLeadingComments() {
+        SpecsCheck.checkArgument(hasValue(LEADING_COMMENTS), () -> "Leading comment array not initialized in "
+                + "node of class \"" + getClass() + "\". Make sure you call the method StmtProcessors::stmt() on the "
+                + "processor for this node kind to initialize comments and labels.");
+
         return get(LEADING_COMMENTS);
     }
 
@@ -46,10 +50,6 @@ public abstract class Stmt extends FortranNode {
         var labelPrefix = getLabel().map(label -> label.getCode() + " ").orElse("");
 
         var leadingComments = getLeadingComments();
-        SpecsCheck.checkArgument(leadingComments != null, () -> "Leading comment array not initialized in "
-                + "node of class \"" + getClass() + "\". Make sure you call the method StmtProcessors::stmt() on the "
-                + "processor for this node kind to initialize comments and labels.");
-
         var trailingComment = getTrailingComment();
 
         var commentPrefix = leadingComments.stream()
