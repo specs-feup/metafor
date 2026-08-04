@@ -26,6 +26,7 @@ import pt.up.fe.specs.fortran.ast.nodes.program.unit.MainProgram;
 import pt.up.fe.specs.fortran.ast.nodes.program.unit.ProgramUnit;
 import pt.up.fe.specs.fortran.ast.nodes.program.unit.SubprogramUnit;
 import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
+import pt.up.fe.specs.fortran.ast.nodes.specification.LanguageBindingSpec;
 import pt.up.fe.specs.fortran.ast.nodes.specification.NamedConstantDef;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.datastmt.DataStmt;
@@ -143,6 +144,7 @@ public class FlangToClass {
         NAME_TO_MAPPER.put(FlangName.NAMELIST_STMT, ClassMapper.always(NamelistStmt.class));
         NAME_TO_MAPPER.put(FlangName.GROUP, ClassMapper.always(NamelistGroup.class));
         NAME_TO_MAPPER.put(FlangName.FUNCTION_STMT, ClassMapper.always(FunctionStmt.class));
+        NAME_TO_MAPPER.put(FlangName.LANGUAGE_BINDING_SPEC, ClassMapper.always(LanguageBindingSpec.class));
         NAME_TO_MAPPER.put(FlangName.END_FUNCTION_STMT, ClassMapper.always(EndFunctionStmt.class));
 
         /// Variables

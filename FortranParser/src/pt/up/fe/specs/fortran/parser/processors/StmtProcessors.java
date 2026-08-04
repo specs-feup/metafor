@@ -7,6 +7,7 @@ import pt.up.fe.specs.fortran.ast.nodes.loops.WhileLoopControl;
 import pt.up.fe.specs.fortran.ast.nodes.program.*;
 import pt.up.fe.specs.fortran.ast.nodes.program.subprogram.*;
 import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
+import pt.up.fe.specs.fortran.ast.nodes.specification.LanguageBindingSpec;
 import pt.up.fe.specs.fortran.ast.nodes.specification.NamedConstantDef;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.datastmt.DataStmt;
@@ -670,16 +671,38 @@ public class StmtProcessors extends ANodeProcessor {
     public void functionStmt(FunctionStmt functionStmt) {
         stmt(functionStmt);
 
-        var parameterNames = attributes(functionStmt).getStringList("argNames");
+        var parameterNames = attributes(functionStmt).getStringList("paramNames");
         var parameters = parameterNames.stream()
                 .map(this::toNamedParameter)
                 .toList();
         functionStmt.addChildren(parameters);
+
+        var suffixId = attributes(functionStmt).getOptionalString("suffix");
+        suffixId.map(id -> attributes().get(id))
+                .ifPresent(suffixAttrs -> {
+            var bindingId = suffixAttrs.getOptionalString("binding");
+            bindingId.ifPresent(id -> {
+                var binding = getChild(id);
+                functionStmt.addChild(binding);
+            });
+
+            var resultName = suffixAttrs.getOptionalString("resultName")
+                    .map(nameId -> attributes().get(nameId).getString("source"));
+            functionStmt.set(FunctionStmt.RESULT_NAME, resultName);
+        });
     }
 
     private NamedParameter toNamedParameter(String nameId) {
         var name = attributes().get(nameId).getString("source");
         return factory().namedParameter(name);
+    }
+
+    public void languageBindingSpec(LanguageBindingSpec languageBindingSpec) {
+        var name = getChild(languageBindingSpec, FlangName.EXPR);
+        languageBindingSpec.addChild(name);
+
+        var cDefined = attributes(languageBindingSpec).getString("bool");
+        languageBindingSpec.set(LanguageBindingSpec.C_DEFINED, cDefined.equals("1"));
     }
 
     public void endFunctionStmt(EndFunctionStmt endFunctionStmt) {

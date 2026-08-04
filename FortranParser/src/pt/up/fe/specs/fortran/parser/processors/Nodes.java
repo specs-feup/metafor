@@ -23,6 +23,7 @@ import pt.up.fe.specs.fortran.ast.nodes.program.subprogram.*;
 import pt.up.fe.specs.fortran.ast.nodes.program.unit.MainProgram;
 import pt.up.fe.specs.fortran.ast.nodes.program.unit.SubprogramUnit;
 import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
+import pt.up.fe.specs.fortran.ast.nodes.specification.LanguageBindingSpec;
 import pt.up.fe.specs.fortran.ast.nodes.specification.NamedConstantDef;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.datastmt.DataStmt;
@@ -144,6 +145,7 @@ public class Nodes {
         processors.put(NamelistStmt.class, s::namelistStmt);
         processors.put(NamelistGroup.class, s::namelistGroup);
         processors.put(FunctionStmt.class, s::functionStmt);
+        processors.put(LanguageBindingSpec.class, s::languageBindingSpec);
         processors.put(EndFunctionStmt.class, s::endFunctionStmt);
 
         var e = new ExprProcessors(data);
