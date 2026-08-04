@@ -9,7 +9,7 @@ public class FStringLiteral extends AStringLiteral {
     private final StringLiteral stringLiteral;
 
     public FStringLiteral(StringLiteral stringLiteral) {
-        super(new FLiteral(stringLiteral));
+        super(new FKindedLiteral(stringLiteral));
         this.stringLiteral = stringLiteral;
     }
 

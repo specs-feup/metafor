@@ -29,6 +29,8 @@ import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpDataSharingClause;
 import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpOrderedClause;
 import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpReductionClause;
 import pt.up.fe.specs.fortran.ast.nodes.program.*;
+import pt.up.fe.specs.fortran.ast.nodes.program.subprogram.Subroutine;
+import pt.up.fe.specs.fortran.ast.nodes.program.unit.ProgramUnit;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.DoConstruct;
@@ -93,7 +95,6 @@ public class FortranJoinpoints {
         JOINPOINT_FACTORY.put(ElseIfBlock.class, FElseIfBlock::new);
         JOINPOINT_FACTORY.put(ElseIfStmt.class, FElseIfStatement::new);
         JOINPOINT_FACTORY.put(ElseBlock.class, FElseBlock::new);
-        JOINPOINT_FACTORY.put(Subroutine.class, FSubroutine::new);
         JOINPOINT_FACTORY.put(SpecificationStmt.class, FSpecificationStatement::new);
         JOINPOINT_FACTORY.put(TypeDeclarationStmt.class, FTypeDeclarationStatement::new);
         JOINPOINT_FACTORY.put(AttributeSpecifier.class, FAttributeSpecifier::new);

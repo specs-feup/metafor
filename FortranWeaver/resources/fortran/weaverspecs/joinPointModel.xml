@@ -26,11 +26,13 @@
 
     <joinpoint class="literal" extends="expr" tooltip="Represents a literal"/>
 
-    <joinpoint class="intLiteral" extends="literal"/>
+    <joinpoint class="kindedLiteral" extends="literal" tooltip="Represents a literal with a kind specifier"/>
 
-    <joinpoint class="stringLiteral" extends="literal"/>
+    <joinpoint class="intLiteral" extends="kindedLiteral"/>
 
-    <joinpoint class="realLiteral" extends="literal"/>
+    <joinpoint class="stringLiteral" extends="kindedLiteral"/>
+
+    <joinpoint class="realLiteral" extends="kindedLiteral"/>
 
     <joinpoint class="executableConstruct"/>
 
@@ -81,7 +83,11 @@
 
     <joinpoint class="mainProgram" extends="programUnit"/>
 
-    <joinpoint class="subroutine" extends="programUnit"/>
+    <joinpoint class="subprogram"/>
+
+    <joinpoint class="internalSubprogram" extends="subprogram"/>
+
+    <joinpoint class="subroutine" extends="internalSubprogram"/>
 
     <joinpoint class="specificationStatement" extends="statement"/>
 
