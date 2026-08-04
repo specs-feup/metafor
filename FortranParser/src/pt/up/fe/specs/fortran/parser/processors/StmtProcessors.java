@@ -74,6 +74,10 @@ public class StmtProcessors extends ANodeProcessor {
 
     public void formatStmt(FormatStmt formatStmt) {
         executableStmt(formatStmt);
+
+        // TODO(Process-ing): Remove this
+        var source = attributes(formatStmt).getString("source");
+        formatStmt.set(FormatStmt.SOURCE, source);
     }
 
     public void typeDeclarationStmt(TypeDeclarationStmt typeDeclarationStmt) {
