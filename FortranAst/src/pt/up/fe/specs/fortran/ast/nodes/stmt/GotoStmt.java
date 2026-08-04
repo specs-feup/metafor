@@ -20,7 +20,7 @@ public class GotoStmt extends ActionStmt {
     }
 
     @Override
-    public String getCode() {
+    public String getStmtCode() {
         var label = getGotoLabel();
 
         return keyword(FortranKeyword.GO) + " " + keyword(FortranKeyword.TO) + " " + label;

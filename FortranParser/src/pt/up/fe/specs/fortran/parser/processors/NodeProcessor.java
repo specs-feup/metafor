@@ -74,8 +74,16 @@ public interface NodeProcessor {
         return getChild(node, name.getStmtAttr());
     }
 
+    default Optional<FortranNode> getStmtChildOptional(FortranNode node, FlangName name) {
+        return getChildOptional(node, name.getStmtAttr());
+    }
+
     default FortranNode getUnlabeledStmtChild(FortranNode node, FlangName name) {
         return getChild(node, name.getUnlabeledStmtAttr());
+    }
+
+    default Optional<FortranNode> getUnlabeledStmtChildOptional(FortranNode node, FlangName name) {
+        return getChildOptional(node, name.getUnlabeledStmtAttr());
     }
 
     default String getVariantChildId(FortranNode node) {

@@ -18,7 +18,7 @@ public class SelectCaseStmt extends Stmt {
     }
 
     @Override
-    public String getCode() {
+    public String getStmtCode() {
         var nameOpt = getAncestor(CaseConstruct.class).getName();
         var expr = getExpr();
 

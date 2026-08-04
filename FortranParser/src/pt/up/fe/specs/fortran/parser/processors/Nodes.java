@@ -24,6 +24,9 @@ import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.datastmt.DataStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.datastmt.DataStmtSet;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.*;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.DoConstruct;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.DoStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.EndDoStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.CaseBlock;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.CaseConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.EndSelectStmt;
@@ -51,7 +54,7 @@ public class Nodes {
         this.processors = new ConsumerClassMap<>();
 
         var p = new ProgramProcessors(data);
-        processors.put(FortranFile.class, p::program);
+        processors.put(FortranFile.class, p::fortranFile);
         processors.put(MainProgram.class, p::mainProgram);
         processors.put(Specification.class, p::specification);
         processors.put(Execution.class, p::execution);
@@ -92,7 +95,9 @@ public class Nodes {
         processors.put(ElseStmt.class, s::elseStmt);
         processors.put(EndIfStmt.class, s::endIfStmt);
         processors.put(IfStmt.class, s::ifStmt);
+        processors.put(DoConstruct.class, s::doConstruct);
         processors.put(DoStmt.class, s::doStmt);
+        processors.put(EndDoStmt.class, s::endDoStmt);
 
         processors.put(CaseConstruct.class, s::caseConstruct);
         processors.put(SelectCaseStmt.class, s::selectCaseStmt);
@@ -115,6 +120,10 @@ public class Nodes {
 
         processors.put(DataStmt.class, s::dataStmt);
         processors.put(DataStmtSet.class, s::dataStmtSet);
+        processors.put(ProgramStmt.class, s::programStmt);
+        processors.put(EndProgramStmt.class, s::endProgramStmt);
+        processors.put(SubroutineStmt.class, s::subroutineStmt);
+        processors.put(EndSubroutineStmt.class, s::endSubroutineStmt);
 
         var e = new ExprProcessors(data);
         processors.put(StringLiteral.class, e::stringLiteral);
@@ -166,7 +175,7 @@ public class Nodes {
         processors.put(ConcurrentLoopControl.class, l::concurrentLoopControl);
         processors.put(ConcurrentRange.class, l::concurrentRange);
 
-        var omp = new OmpProcessors(data);
+        var omp = new OmpProcessors(data, s);
         processors.put(OmpBlockConstruct.class, omp::ompBlockConstruct);
         processors.put(OmpLoopConstruct.class, omp::ompLoopConstruct);
         processors.put(OmpDataSharingClause.class, omp::ompDataSharingClause);
@@ -182,5 +191,4 @@ public class Nodes {
         }
 
     }
-
 }

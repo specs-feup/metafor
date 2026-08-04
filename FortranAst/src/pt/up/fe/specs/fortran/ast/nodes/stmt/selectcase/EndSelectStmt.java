@@ -13,7 +13,7 @@ public class EndSelectStmt extends Stmt {
     }
 
     @Override
-    public String getCode() {
+    public String getStmtCode() {
         var nameOpt = getAncestor(CaseConstruct.class).getName();
 
         var code = new StringBuilder();

@@ -19,7 +19,7 @@ public class ExternalStmt extends SpecificationStmt {
     }
 
     @Override
-    public String getCode() {
+    public String getStmtCode() {
         StringBuilder code = new StringBuilder();
 
         code.append(FortranKeyword.EXTERNAL.getKeyword(false)).append(" ");

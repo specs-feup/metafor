@@ -30,7 +30,7 @@ public class PrintStmt extends ActionStmt {
     }
 
     @Override
-    public String getCode() {
+    public String getStmtCode() {
         var code = new StringBuilder();
         code.append(keyword(FortranKeyword.PRINT));
         code.append(" ").append(getFormat().getCode());
