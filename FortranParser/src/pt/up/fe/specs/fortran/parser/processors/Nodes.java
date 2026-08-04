@@ -20,10 +20,8 @@ import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpNowaitClause;
 import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpReductionClause;
 import pt.up.fe.specs.fortran.ast.nodes.program.*;
 import pt.up.fe.specs.fortran.ast.nodes.program.subprogram.*;
-import pt.up.fe.specs.fortran.ast.nodes.program.unit.EndProgramStmt;
-import pt.up.fe.specs.fortran.ast.nodes.program.unit.MainProgram;
-import pt.up.fe.specs.fortran.ast.nodes.program.unit.ProgramStmt;
-import pt.up.fe.specs.fortran.ast.nodes.program.unit.SubprogramUnit;
+import pt.up.fe.specs.fortran.ast.nodes.program.unit.*;
+import pt.up.fe.specs.fortran.ast.nodes.program.unit.Module;
 import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
 import pt.up.fe.specs.fortran.ast.nodes.specification.LanguageBindingSpec;
 import pt.up.fe.specs.fortran.ast.nodes.specification.NamedConstantDef;
@@ -79,6 +77,8 @@ public class Nodes {
         processors.put(Subroutine.class, p::subroutine);
         processors.put(Function.class, p::function);
         processors.put(InternalSubprogramPart.class, p::internalSubprogramPart);
+        processors.put(Module.class, p::module);
+        processors.put(ModuleSubprogramPart.class, p::moduleSubprogramPart);
 
         var alloc = new AllocProcessors(data);
         processors.put(Allocation.class, alloc::allocation);
@@ -155,6 +155,8 @@ public class Nodes {
         processors.put(FunctionStmt.class, s::functionStmt);
         processors.put(LanguageBindingSpec.class, s::languageBindingSpec);
         processors.put(EndFunctionStmt.class, s::endFunctionStmt);
+        processors.put(ModuleStmt.class, s::moduleStmt);
+        processors.put(EndModuleStmt.class, s::endModuleStmt);
 
         var e = new ExprProcessors(data);
         processors.put(StringLiteral.class, e::stringLiteral);

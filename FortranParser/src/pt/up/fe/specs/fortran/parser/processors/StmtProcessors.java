@@ -7,7 +7,9 @@ import pt.up.fe.specs.fortran.ast.nodes.loops.WhileLoopControl;
 import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
 import pt.up.fe.specs.fortran.ast.nodes.program.StmtBlock;
 import pt.up.fe.specs.fortran.ast.nodes.program.subprogram.*;
+import pt.up.fe.specs.fortran.ast.nodes.program.unit.EndModuleStmt;
 import pt.up.fe.specs.fortran.ast.nodes.program.unit.EndProgramStmt;
+import pt.up.fe.specs.fortran.ast.nodes.program.unit.ModuleStmt;
 import pt.up.fe.specs.fortran.ast.nodes.program.unit.ProgramStmt;
 import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
 import pt.up.fe.specs.fortran.ast.nodes.specification.LanguageBindingSpec;
@@ -728,5 +730,16 @@ public class StmtProcessors extends ANodeProcessor {
 
     public void endFunctionStmt(EndFunctionStmt endFunctionStmt) {
         stmt(endFunctionStmt);
+    }
+
+    public void moduleStmt(ModuleStmt moduleStmt) {
+        stmt(moduleStmt);
+
+        var moduleName = attributes().getString(moduleStmt, "source", FlangName.NAME);
+        moduleStmt.set(ModuleStmt.MODULE_NAME, moduleName);
+    }
+
+    public void endModuleStmt(EndModuleStmt endModuleStmt) {
+        stmt(endModuleStmt);
     }
 }

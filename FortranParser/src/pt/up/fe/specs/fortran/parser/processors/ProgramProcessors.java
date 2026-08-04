@@ -9,6 +9,8 @@ import pt.up.fe.specs.fortran.ast.nodes.program.Specification;
 import pt.up.fe.specs.fortran.ast.nodes.program.subprogram.Function;
 import pt.up.fe.specs.fortran.ast.nodes.program.subprogram.Subroutine;
 import pt.up.fe.specs.fortran.ast.nodes.program.unit.MainProgram;
+import pt.up.fe.specs.fortran.ast.nodes.program.unit.Module;
+import pt.up.fe.specs.fortran.ast.nodes.program.unit.ModuleSubprogramPart;
 import pt.up.fe.specs.fortran.ast.nodes.program.unit.SubprogramUnit;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
@@ -109,12 +111,12 @@ public class ProgramProcessors extends ANodeProcessor {
     }
 
     public void internalSubprogramPart(InternalSubprogramPart part) {
-        if (attributes(part).has(FlangName.CONTAINS_STMT.getStmtAttr())) {
-            part.addChild(getChild(part, FlangName.CONTAINS_STMT.getStmtAttr()));
-        }
+        var containsStmt = getStmtChild(part, FlangName.CONTAINS_STMT);
+        part.addChild(containsStmt);
 
         if (attributes(part).has(FlangName.INTERNAL_SUBPROGRAM)) {
-            part.addChildren(getChildren(part, FlangName.INTERNAL_SUBPROGRAM));
+            var subprograms = getChildren(part, FlangName.INTERNAL_SUBPROGRAM);
+            part.addChildren(subprograms);
         }
     }
 
@@ -136,5 +138,29 @@ public class ProgramProcessors extends ANodeProcessor {
 
         var endFunctionStmt = getStmtChild(function, FlangName.END_FUNCTION_STMT);
         function.addChild(endFunctionStmt);
+    }
+
+    public void module(Module module) {
+        var moduleStmt = getStmtChild(module, FlangName.MODULE_STMT);
+        module.addChild(moduleStmt);
+
+        var specification = getChild(module, FlangName.SPECIFICATION_PART);
+        module.addChild(specification);
+
+        var subprogramPart = getChildOptional(module, FlangName.MODULE_SUBPROGRAM_PART);
+        subprogramPart.ifPresent(module::addChild);
+
+        var endModuleStmt = getStmtChild(module, FlangName.END_MODULE_STMT);
+        module.addChild(endModuleStmt);
+    }
+
+    public void moduleSubprogramPart(ModuleSubprogramPart part) {
+        var containsStmt = getStmtChild(part, FlangName.CONTAINS_STMT);
+        part.addChild(containsStmt);
+
+        if (attributes(part).has(FlangName.MODULE_SUBPROGRAM)) {
+            var subprograms = getChildren(part, FlangName.MODULE_SUBPROGRAM);
+            part.addChildren(subprograms);
+        }
     }
 }

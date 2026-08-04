@@ -26,6 +26,7 @@ import pt.up.fe.specs.fortran.ast.nodes.program.InternalSubprogramPart;
 import pt.up.fe.specs.fortran.ast.nodes.program.Specification;
 import pt.up.fe.specs.fortran.ast.nodes.program.subprogram.*;
 import pt.up.fe.specs.fortran.ast.nodes.program.unit.*;
+import pt.up.fe.specs.fortran.ast.nodes.program.unit.Module;
 import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
 import pt.up.fe.specs.fortran.ast.nodes.specification.LanguageBindingSpec;
 import pt.up.fe.specs.fortran.ast.nodes.specification.NamedConstantDef;
@@ -69,7 +70,8 @@ public class FlangToClass {
         NAME_TO_MAPPER.put(FlangName.PROGRAM_UNIT, ClassMapper.caseFor(ProgramUnit.class)
                 .ignore(FlangName.MAIN_PROGRAM)
                 .map(FlangName.SUBROUTINE_SUBPROGRAM, SubprogramUnit.class)
-                .map(FlangName.FUNCTION_SUBPROGRAM, SubprogramUnit.class));
+                .map(FlangName.FUNCTION_SUBPROGRAM, SubprogramUnit.class)
+                .ignore(FlangName.MODULE));
         NAME_TO_MAPPER.put(FlangName.MAIN_PROGRAM, ClassMapper.always(MainProgram.class));
         NAME_TO_MAPPER.put(FlangName.PROGRAM_STMT, ClassMapper.always(ProgramStmt.class));
         NAME_TO_MAPPER.put(FlangName.END_PROGRAM_STMT, ClassMapper.always(EndProgramStmt.class));
@@ -80,6 +82,10 @@ public class FlangToClass {
         NAME_TO_MAPPER.put(FlangName.FUNCTION_SUBPROGRAM, ClassMapper.always(Function.class));
         NAME_TO_MAPPER.put(FlangName.SUBROUTINE_STMT, ClassMapper.always(SubroutineStmt.class));
         NAME_TO_MAPPER.put(FlangName.END_SUBROUTINE_STMT, ClassMapper.always(EndSubroutineStmt.class));
+        NAME_TO_MAPPER.put(FlangName.MODULE, ClassMapper.always(Module.class));
+        NAME_TO_MAPPER.put(FlangName.MODULE_SUBPROGRAM_PART, ClassMapper.always(ModuleSubprogramPart.class));
+        NAME_TO_MAPPER.put(FlangName.MODULE_STMT, ClassMapper.always(ModuleStmt.class));
+        NAME_TO_MAPPER.put(FlangName.END_MODULE_STMT, ClassMapper.always(EndModuleStmt.class));
         NAME_TO_MAPPER.put(FlangName.ALLOCATION, ClassMapper.always(Allocation.class));
 
         /// DECLs
