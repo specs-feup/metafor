@@ -23,7 +23,6 @@ public enum FlangName implements StringProvider {
     EXECUTION_PART_CONSTRUCT,
     EXECUTABLE_CONSTRUCT,
     ALLOCATION,
-    FUNCTION_SUBPROGRAM,
 
     /// DECLs
     ENTITY_DECL,
@@ -41,7 +40,6 @@ public enum FlangName implements StringProvider {
     PROGRAM_STMT,
     END_PROGRAM_STMT,
     SUBROUTINE_STMT,
-    FUNCTION_STMT,
     END_SUBROUTINE_STMT,
     FUNCTION_STMT,
     SUFFIX,
@@ -78,7 +76,6 @@ public enum FlangName implements StringProvider {
     COMMON_STMT,
     COMMON_STMT_BLOCK,
     COMMON_BLOCK_OBJECT,
-    RETURN_STMT,
     DIMENSION_STMT,
     DECLARATION,
     NAMELIST_STMT,

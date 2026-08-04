@@ -34,7 +34,7 @@ public class CaseConstruct extends ExecutableConstruct {
     }
 
     @Override
-    public String getStmtCode() {
+    public String getCode() {
         var selectCaseStmt = getSelectCaseStmt();
         var caseBlocks = getCaseBlocks();
         var endSelectStmt = getEndSelectStmt();

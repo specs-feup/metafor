@@ -2,10 +2,13 @@ package pt.up.fe.specs.fortran.parser.processors;
 
 import pt.up.fe.specs.fortran.ast.FortranContext;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
-import pt.up.fe.specs.fortran.ast.nodes.program.*;
+import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
+import pt.up.fe.specs.fortran.ast.nodes.program.FortranFile;
+import pt.up.fe.specs.fortran.ast.nodes.program.InternalSubprogramPart;
+import pt.up.fe.specs.fortran.ast.nodes.program.Specification;
 import pt.up.fe.specs.fortran.ast.nodes.program.subprogram.Function;
-import pt.up.fe.specs.fortran.ast.nodes.program.unit.MainProgram;
 import pt.up.fe.specs.fortran.ast.nodes.program.subprogram.Subroutine;
+import pt.up.fe.specs.fortran.ast.nodes.program.unit.MainProgram;
 import pt.up.fe.specs.fortran.ast.nodes.program.unit.SubprogramUnit;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
@@ -126,7 +129,6 @@ public class ProgramProcessors extends ANodeProcessor {
 
         var name = attributes().getString(subroutineStmt, "source", FlangName.NAME);
         subroutine.set(Subroutine.NAME, name);
-        function.set(Function.FUNCTION_NAME, name);
 
         addSubprogramBody(subroutine);
 

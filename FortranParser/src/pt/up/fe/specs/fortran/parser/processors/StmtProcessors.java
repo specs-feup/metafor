@@ -4,7 +4,8 @@ import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.decl.NamedParameter;
 import pt.up.fe.specs.fortran.ast.nodes.expr.Expr;
 import pt.up.fe.specs.fortran.ast.nodes.loops.WhileLoopControl;
-import pt.up.fe.specs.fortran.ast.nodes.program.*;
+import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
+import pt.up.fe.specs.fortran.ast.nodes.program.StmtBlock;
 import pt.up.fe.specs.fortran.ast.nodes.program.subprogram.*;
 import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
 import pt.up.fe.specs.fortran.ast.nodes.specification.LanguageBindingSpec;
@@ -125,8 +126,6 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void ifConstruct(IfConstruct ifConstruct) {
-        executableStmt(ifConstruct);
-
         // Add if-then block
         var ifThenStmt = getStmtChild(ifConstruct, FlangName.IF_THEN_STMT);
 
@@ -220,8 +219,6 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void caseConstruct(CaseConstruct caseConstruct) {
-        executableStmt(caseConstruct);
-
         var selectCaseStmt = getStmtChild(caseConstruct, FlangName.SELECT_CASE_STMT);
         var caseBlocks = getChildren(caseConstruct, FlangName.CASE);
         var endSelectStmt = getStmtChild(caseConstruct, FlangName.END_SELECT_STMT);
@@ -527,23 +524,8 @@ public class StmtProcessors extends ANodeProcessor {
         externalStmt.addChildren(getChildren(externalStmt, FlangName.NAME));
     }
 
-    public void returnStmt(ReturnStmt returnStmt) {
-        actionStmt(returnStmt);
-        if (attributes(returnStmt).has(FlangName.EXPR)) {
-            returnStmt.addChild(getChild(returnStmt, FlangName.EXPR));
-        }
-    }
-
-    public void openStmt(OpenStmt openStmt) {
-        actionStmt(openStmt);
-    }
-
-    public void closeStmt(CloseStmt closeStmt) {
-        actionStmt(closeStmt);
-    }
-
     public void namedConstantDef(NamedConstantDef namedConstantDef) {
-var ref = getChild(namedConstantDef, FlangName.NAMED_CONSTANT);
+        var ref = getChild(namedConstantDef, FlangName.NAMED_CONSTANT);
         namedConstantDef.addChild(ref);
 
         var expr = getChild(namedConstantDef, FlangName.EXPR);
@@ -707,16 +689,16 @@ var ref = getChild(namedConstantDef, FlangName.NAMED_CONSTANT);
         var suffixId = attributes(functionStmt).getOptionalString("suffix");
         suffixId.map(id -> attributes().get(id))
                 .ifPresent(suffixAttrs -> {
-            var bindingId = suffixAttrs.getOptionalString("binding");
-            bindingId.ifPresent(id -> {
-                var binding = getChild(id);
-                functionStmt.addChild(binding);
-            });
+                    var bindingId = suffixAttrs.getOptionalString("binding");
+                    bindingId.ifPresent(id -> {
+                        var binding = getChild(id);
+                        functionStmt.addChild(binding);
+                    });
 
-            var resultName = suffixAttrs.getOptionalString("resultName")
-                    .map(nameId -> attributes().get(nameId).getString("source"));
-            functionStmt.set(FunctionStmt.RESULT_NAME, resultName);
-        });
+                    var resultName = suffixAttrs.getOptionalString("resultName")
+                            .map(nameId -> attributes().get(nameId).getString("source"));
+                    functionStmt.set(FunctionStmt.RESULT_NAME, resultName);
+                });
     }
 
     private NamedParameter toNamedParameter(String nameId) {

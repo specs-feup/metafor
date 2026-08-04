@@ -8,7 +8,10 @@ import pt.up.fe.specs.util.SpecsCheck;
 import pt.up.fe.specs.util.SpecsIo;
 import pt.up.fe.specs.util.SpecsLogs;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.StringReader;
 import java.util.*;
 
 public class FortranJsonParser implements JsonReaderParser {
@@ -69,9 +72,6 @@ public class FortranJsonParser implements JsonReaderParser {
                         break;
                     case "nodes":
                         parseNodes(reader);
-                        break;
-                    case "comments":
-                        parseComments(reader);
                         break;
                     case "comments":
                         parseComments(reader);

@@ -12,7 +12,6 @@ import pt.up.fe.specs.fortran.ast.nodes.decl.typeparam.StarTypeParamValue;
 import pt.up.fe.specs.fortran.ast.nodes.decl.typeparam.TypeParamValue;
 import pt.up.fe.specs.fortran.ast.nodes.expr.*;
 import pt.up.fe.specs.fortran.ast.nodes.io.*;
-import pt.up.fe.specs.fortran.ast.nodes.io.WriteStmt;
 import pt.up.fe.specs.fortran.ast.nodes.loops.ConcurrentLoopControl;
 import pt.up.fe.specs.fortran.ast.nodes.loops.ConcurrentRange;
 import pt.up.fe.specs.fortran.ast.nodes.loops.RangeLoopControl;
@@ -33,8 +32,6 @@ import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
 import pt.up.fe.specs.fortran.ast.nodes.specification.LanguageBindingSpec;
 import pt.up.fe.specs.fortran.ast.nodes.specification.NamedConstantDef;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.CloseStmt;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.OpenStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.datastmt.DataStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.datastmt.DataStmtSet;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.dimstmt.DimensionDecl;
@@ -90,13 +87,13 @@ public class FlangToClass {
         /// DECLs
         NAME_TO_MAPPER.put(FlangName.ENTITY_DECL, ClassMapper.always(EntityDecl.class));
         NAME_TO_MAPPER.put(FlangName.DUMMY_ARG, ClassMapper.caseFor(Parameter.class)
-            .map(FlangName.NAME, NamedParameter.class)
-            .map(FlangName.STAR, StarParameter.class));
+                .map(FlangName.NAME, NamedParameter.class)
+                .map(FlangName.STAR, StarParameter.class));
         NAME_TO_MAPPER.put(FlangName.DATA_STMT_VALUE, ClassMapper.always(DataStmtValue.class));
         NAME_TO_MAPPER.put(FlangName.TYPE_PARAM_VALUE, ClassMapper.caseFor(TypeParamValue.class)
-            .map(FlangName.EXPR, ExprTypeParamValue.class)
-            .map(FlangName.STAR, StarTypeParamValue.class)
-            .map(FlangName.DEFERRED, DeferredTypeParamValue.class));
+                .map(FlangName.EXPR, ExprTypeParamValue.class)
+                .map(FlangName.STAR, StarTypeParamValue.class)
+                .map(FlangName.DEFERRED, DeferredTypeParamValue.class));
 
         /// STMTs
         NAME_TO_MAPPER.put(FlangName.PRINT_STMT, ClassMapper.always(PrintStmt.class));
