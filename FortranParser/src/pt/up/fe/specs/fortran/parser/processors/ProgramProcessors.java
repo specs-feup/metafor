@@ -102,13 +102,13 @@ public class ProgramProcessors extends ANodeProcessor {
         }
     }
 
-    public void internalSubprogram(InternalPart internalSubprogram) {
-        if (attributes(internalSubprogram).has(FlangName.CONTAINS_STMT.getStmtAttr())) {
-            internalSubprogram.addChild(getChild(internalSubprogram, FlangName.CONTAINS_STMT.getStmtAttr()));
+    public void internalSubprogramPart(InternalSubprogramPart part) {
+        if (attributes(part).has(FlangName.CONTAINS_STMT.getStmtAttr())) {
+            part.addChild(getChild(part, FlangName.CONTAINS_STMT.getStmtAttr()));
         }
 
-        if (attributes(internalSubprogram).has(FlangName.INTERNAL_SUBPROGRAM)) {
-            internalSubprogram.addChildren(getChildren(internalSubprogram, FlangName.INTERNAL_SUBPROGRAM));
+        if (attributes(part).has(FlangName.INTERNAL_SUBPROGRAM)) {
+            part.addChildren(getChildren(part, FlangName.INTERNAL_SUBPROGRAM));
         }
     }
 

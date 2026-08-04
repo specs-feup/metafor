@@ -71,7 +71,7 @@ public class Nodes {
         processors.put(Execution.class, p::execution);
         processors.put(Subroutine.class, p::subroutine);
         processors.put(Function.class, p::function);
-        processors.put(InternalPart.class, p::internalSubprogram);
+        processors.put(InternalSubprogramPart.class, p::internalSubprogramPart);
 
         var alloc = new AllocProcessors(data);
         processors.put(Allocation.class, alloc::allocation);

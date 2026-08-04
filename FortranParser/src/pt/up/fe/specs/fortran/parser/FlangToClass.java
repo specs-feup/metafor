@@ -73,7 +73,7 @@ public class FlangToClass {
         NAME_TO_MAPPER.put(FlangName.END_PROGRAM_STMT, ClassMapper.always(EndProgramStmt.class));
         NAME_TO_MAPPER.put(FlangName.SPECIFICATION_PART, ClassMapper.always(Specification.class));
         NAME_TO_MAPPER.put(FlangName.EXECUTION_PART, ClassMapper.always(Execution.class));
-        NAME_TO_MAPPER.put(FlangName.INTERNAL_SUBPROGRAM_PART, ClassMapper.always(InternalPart.class));
+        NAME_TO_MAPPER.put(FlangName.INTERNAL_SUBPROGRAM_PART, ClassMapper.always(InternalSubprogramPart.class));
         NAME_TO_MAPPER.put(FlangName.SUBROUTINE_SUBPROGRAM, ClassMapper.always(Subroutine.class));
         NAME_TO_MAPPER.put(FlangName.FUNCTION_SUBPROGRAM, ClassMapper.always(Function.class));
         NAME_TO_MAPPER.put(FlangName.SUBROUTINE_STMT, ClassMapper.always(SubroutineStmt.class));

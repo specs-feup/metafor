@@ -5,7 +5,7 @@ import org.suikasoft.jOptions.Datakey.KeyFactory;
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
-import pt.up.fe.specs.fortran.ast.nodes.program.InternalPart;
+import pt.up.fe.specs.fortran.ast.nodes.program.InternalSubprogramPart;
 import pt.up.fe.specs.fortran.ast.nodes.program.Specification;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.Stmt;
 
@@ -39,8 +39,8 @@ public abstract class Subprogram extends FortranNode {
         return getChild(Execution.class);
     }
 
-    public Optional<InternalPart> getInternalPart() {
-        return getChildOf(InternalPart.class);
+    public Optional<InternalSubprogramPart> getInternalPart() {
+        return getChildOf(InternalSubprogramPart.class);
     }
 
     public String getCode() {

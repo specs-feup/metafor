@@ -7,11 +7,10 @@ import pt.up.fe.specs.fortran.ast.nodes.stmt.ContainsStmt;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class InternalPart extends FortranNode {
-    public InternalPart(DataStore data, Collection<? extends FortranNode> children) {
+public class InternalSubprogramPart extends FortranNode {
+    public InternalSubprogramPart(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
     }
 
