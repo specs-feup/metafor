@@ -71,12 +71,7 @@ public class ProgramProcessors extends ANodeProcessor {
 
     public void mainProgram(MainProgram mainProgram) {
         var programStmt = getStmtChildOptional(mainProgram, FlangName.PROGRAM_STMT);
-        programStmt.ifPresent(stmt -> {
-            mainProgram.addChild(stmt);
-
-            var name = attributes().getString(stmt, "source", FlangName.NAME);
-            mainProgram.setOptional(MainProgram.NAME, name);
-        });
+        programStmt.ifPresent(mainProgram::addChild);
 
         addSubprogramBody(mainProgram);
 

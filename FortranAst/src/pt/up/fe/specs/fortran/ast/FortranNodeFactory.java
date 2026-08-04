@@ -25,8 +25,8 @@ import pt.up.fe.specs.fortran.ast.nodes.program.Application;
 import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
 import pt.up.fe.specs.fortran.ast.nodes.program.FortranFile;
 import pt.up.fe.specs.fortran.ast.nodes.program.Specification;
-import pt.up.fe.specs.fortran.ast.nodes.program.subprogram.EndProgramStmt;
-import pt.up.fe.specs.fortran.ast.nodes.program.subprogram.ProgramStmt;
+import pt.up.fe.specs.fortran.ast.nodes.program.unit.EndProgramStmt;
+import pt.up.fe.specs.fortran.ast.nodes.program.unit.ProgramStmt;
 import pt.up.fe.specs.fortran.ast.nodes.program.unit.MainProgram;
 import pt.up.fe.specs.fortran.ast.nodes.program.unit.ProgramUnit;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.LiteralExecutionStmt;
@@ -143,12 +143,14 @@ public class FortranNodeFactory {
 
     public MainProgram mainProgram(String programName, List<FortranNode> execution) {
         DataStore data = newDataStore(MainProgram.class);
-        data.set(MainProgram.NAME, Optional.ofNullable(programName));
 
         var programStmt = newNode(ProgramStmt.class, Collections.emptyList());
+        programStmt.set(ProgramStmt.NAME, programName);
         initComments(programStmt);
+
         var specificationBlock = newNode(Specification.class, Collections.emptyList());
         var executionBlock = execution(execution);
+
         var endProgramStmt = newNode(EndProgramStmt.class, Collections.emptyList());
         initComments(endProgramStmt);
 

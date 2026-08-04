@@ -1,27 +1,21 @@
 package pt.up.fe.specs.fortran.ast.nodes.program.unit;
 
-import org.suikasoft.jOptions.Datakey.DataKey;
-import org.suikasoft.jOptions.Datakey.KeyFactory;
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
 import pt.up.fe.specs.fortran.ast.nodes.program.InternalSubprogramPart;
 import pt.up.fe.specs.fortran.ast.nodes.program.Specification;
-import pt.up.fe.specs.fortran.ast.nodes.program.subprogram.EndProgramStmt;
-import pt.up.fe.specs.fortran.ast.nodes.program.subprogram.ProgramStmt;
 
 import java.util.Collection;
 import java.util.Optional;
 
 public class MainProgram extends ProgramUnit {
-    public final static DataKey<Optional<String>> NAME = KeyFactory.optional("name");
-
     public MainProgram(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
     }
 
     public Optional<String> getName() {
-        return get(NAME);
+        return getProgramStmt().map(ProgramStmt::getName);
     }
 
     public Optional<ProgramStmt> getProgramStmt() {
