@@ -1,4 +1,8 @@
 import { DoStatement } from "../Joinpoints.js";
+import {
+  hasCrossGroupDependency,
+  summarizeLoop,
+} from "./LoopAnalysis.js";
 
 /**
  * Fuses an array of do-loops with identical range controls into a single loop.
@@ -28,7 +32,9 @@ import { DoStatement } from "../Joinpoints.js";
  * @returns The surviving first loop with all statements merged in.
  */
 export default function loopFusion($loops: DoStatement[]): DoStatement {
-  if (!canFuse($loops)) throw new Error("Loops cannot be fused: need ≥2 range loops with identical boundaries");
+  if (!canFuse($loops)) {
+    throw new Error("Loops cannot be fused: incompatible ranges, scopes, or dependencies");
+  }
 
   const firstLoop = $loops[0];
 
@@ -44,6 +50,23 @@ export default function loopFusion($loops: DoStatement[]): DoStatement {
 
 export function canFuse($loops: DoStatement[]): boolean {
   if ($loops.length < 2) return false;
-  if ($loops.some(l => l.kind !== 'range')) return false;
-  return $loops.slice(1).every(l => $loops[0].sameScope(l));
+  if ($loops.some((loop) => loop.kind !== "range")) return false;
+  if (!$loops.slice(1).every((loop) => $loops[0].sameScope(loop))) {
+    return false;
+  }
+
+  for (let first = 0; first < $loops.length; first++) {
+    for (let second = first + 1; second < $loops.length; second++) {
+      if (!canFusePair($loops[first], $loops[second])) return false;
+    }
+  }
+  return true;
+}
+
+export function canFusePair(first: DoStatement, second: DoStatement): boolean {
+  if (first.kind !== "range" || second.kind !== "range") return false;
+  if (!first.sameScope(second)) return false;
+  if (!first.parent?.equals(second.parent)) return false;
+
+  return !hasCrossGroupDependency(summarizeLoop(first), summarizeLoop(second));
 }

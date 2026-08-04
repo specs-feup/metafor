@@ -14,6 +14,6 @@ public class FAttributeSpecifier extends AAttributeSpecifier {
 
     @Override
     public FortranNode getNode() {
-        return null;
+        return attributeSpecifier;
     }
 }

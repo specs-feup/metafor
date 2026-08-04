@@ -15,6 +15,6 @@ public class FMainProgram extends AMainProgram {
 
     @Override
     public FortranNode getNode() {
-        return null;
+        return mainProgram;
     }
 }

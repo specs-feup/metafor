@@ -24,6 +24,10 @@ export default class LoopTilingPass extends Pass {
   }
 
   protected _apply_impl($jp: Joinpoint): PassResult {
+    if (!Number.isInteger(this.tileSize) || this.tileSize <= 0) {
+      return new PassResult(this, $jp, { appliedPass: false, insertedLiteralCode: false });
+    }
+
     const pairs = this._findTileablePairs($jp);
     let appliedPass = false;
     for (const { outer, inner } of pairs) {
@@ -35,14 +39,17 @@ export default class LoopTilingPass extends Pass {
 
   protected _findTileablePairs($jp: Joinpoint): { outer: DoStatement; inner: DoStatement }[] {
     const pairs: { outer: DoStatement; inner: DoStatement }[] = [];
-    for (const loop of Query.searchFrom($jp, DoStatement)) {
+    for (const loop of Query.searchFromInclusive($jp, DoStatement)) {
       const stmts = loop.body.executableStmts;
       if (stmts.length === 1 && stmts[0] instanceof DoStatement
           && canTile(loop, stmts[0] as DoStatement)) {
         pairs.push({ outer: loop, inner: stmts[0] as DoStatement });
       }
     }
-    const innerSet = new Set(pairs.map(p => p.inner));
-    return pairs.filter(p => !innerSet.has(p.outer));
+    return pairs.filter(({ outer }, index) =>
+      !pairs.some((candidate, candidateIndex) =>
+        candidateIndex !== index && candidate.outer.contains(outer),
+      ),
+    );
   }
 }

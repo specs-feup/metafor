@@ -14,6 +14,6 @@ public class FInitialization extends AInitialization {
 
     @Override
     public FortranNode getNode() {
-        return null;
+        return initialization;
     }
 }

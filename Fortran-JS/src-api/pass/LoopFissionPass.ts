@@ -30,9 +30,7 @@ export default class LoopFissionPass extends Pass {
 
   /** Yields every eligible do-loop in the subtree: range loops with more than one body statement. */
   protected *_findLoops($jp: Joinpoint): Generator<DoStatement> {
-    let children: Joinpoint[];
-    try { children = [...$jp.children]; } catch (_) { return; }
-    for (const child of children) {
+    for (const child of $jp.children) {
       yield* this._findLoops(child);
     }
     if ($jp instanceof DoStatement && canFission($jp)) {
@@ -42,6 +40,6 @@ export default class LoopFissionPass extends Pass {
 
   /** Applies loop fission to a single loop, replacing it in the AST with one loop per body statement. */
   protected _loopFission(loop: DoStatement) {
-    loopFission(loop)
+    loopFission(loop);
   }
 }

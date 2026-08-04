@@ -80,6 +80,12 @@ public class FortranNodeFactory {
             data.set(FortranNode.ID, context.get(FortranContext.ID_GENERATOR).next("node_"));
         }
 
+        // Factory-created statements do not pass through StmtProcessors::stmt(),
+        // which normally initializes this required key.
+        if (Stmt.class.isAssignableFrom(nodeClass)) {
+            initComments(data);
+        }
+
 
         return data;
     }
@@ -327,9 +333,9 @@ public class FortranNodeFactory {
     public DoConstruct doConstruct(LoopControl control) {
         DataStore data = newDataStore(DoConstruct.class);
 
-        DoStmt doStmt = new DoStmt(data, List.of(control));
+        DoStmt doStmt = newNode(DoStmt.class, List.of(control));
         Execution body = execution(Collections.emptyList());
-        EndDoStmt endDoStmt = new EndDoStmt(data, Collections.emptyList());
+        EndDoStmt endDoStmt = newNode(EndDoStmt.class, Collections.emptyList());
 
         return new DoConstruct(data, List.of(doStmt, body, endDoStmt));
     }

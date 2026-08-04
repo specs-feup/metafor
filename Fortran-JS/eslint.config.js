@@ -3,13 +3,17 @@ import tsdoc from "eslint-plugin-tsdoc";
 import jest from "eslint-plugin-jest";
 import js from "@eslint/js";
 import eslintConfigPrettier from "eslint-config-prettier";
+import { dirname } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const tsconfigRootDir = dirname(fileURLToPath(import.meta.url));
 
 export default [
   js.configs.recommended,
   eslintConfigPrettier,
   ...typescriptEslint.configs.recommended,
   {
-    ignores: ["**/*.d.ts", "**/*.config.js"],
+    ignores: ["api/**", "code/**", "**/*.d.ts", "**/*.config.js"],
   },
   {
     plugins: {
@@ -18,13 +22,12 @@ export default [
     },
 
     languageOptions: {
-      tsconfigRootDir: __dirname,
-
       parser: typescriptEslint.parser,
       ecmaVersion: 5,
       sourceType: "script",
 
       parserOptions: {
+        tsconfigRootDir,
         project: ["./*/tsconfig.json", "./tsconfig.*.json"],
       },
     },

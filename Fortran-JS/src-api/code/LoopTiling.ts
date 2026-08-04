@@ -1,6 +1,19 @@
 import Query from "@specs-feup/lara/api/weaver/Query.js";
 import FortranJoinPoints from "../FortranJoinPoints.js";
-import { DataRef, DoStatement, ExecutableStatement, RangeLoopControl } from "../Joinpoints.js";
+import {
+  ArraySubscriptExpr,
+  DataRef,
+  DoStatement,
+  EntityDecl,
+  ExecutableStatement,
+  RangeLoopControl,
+} from "../Joinpoints.js";
+import {
+  controlExpressions,
+  hasLoopCarriedDependency,
+  referencesName,
+  summarizeLoop,
+} from "./LoopAnalysis.js";
 
 /**
  * Tiles a perfect 2-deep loop nest by `tileSize`.
@@ -29,12 +42,21 @@ import { DataRef, DoStatement, ExecutableStatement, RangeLoopControl } from "../
  * Returns unchanged `[outer]` if either loop is not a unit-step range loop.
  */
 export default function loopTile(outer: DoStatement, inner: DoStatement, tileSize: number): DoStatement[] {
-  if (!canTile(outer, inner)) return [outer];
+  if (!Number.isInteger(tileSize) || tileSize <= 0 || !canTile(outer, inner)) {
+    return [outer];
+  }
   const oc = outer.control as RangeLoopControl;
   const ic = inner.control as RangeLoopControl;
 
-  const ovt = oc.var.name.repeat(2);
-  const ivt = ic.var.name.repeat(2);
+  const usedNames = new Set([
+    ...[...Query.searchFromInclusive(outer.root, DataRef)].map((reference) =>
+      reference instanceof ArraySubscriptExpr ? reference.var.name : reference.name,
+    ),
+    ...[...Query.searchFromInclusive(outer.root, EntityDecl)].map((declaration) => declaration.name),
+  ]);
+  const ovt = freshName(`${oc.var.name}_tile`, usedNames);
+  usedNames.add(ovt);
+  const ivt = freshName(`${ic.var.name}_tile`, usedNames);
 
   // Outer tile loop: ii = lo_i, hi_i, TILE
   const outerTileCtrl = FortranJoinPoints.rangeLoopControl(
@@ -86,26 +108,42 @@ export default function loopTile(outer: DoStatement, inner: DoStatement, tileSiz
   return [outerTileDo];
 }
 
-function containsVar(code: string, varName: string): boolean {
-  return new RegExp(`\\b${varName}\\b`).test(code);
+function freshName(preferred: string, usedNames: Set<string>): string {
+  let name = preferred;
+  let suffix = 2;
+  while (usedNames.has(name)) {
+    name = `${preferred}_${suffix}`;
+    suffix++;
+  }
+  return name;
 }
 
 export function canTile(outer: DoStatement, inner: DoStatement): boolean {
   const oc = outer.control, ic = inner.control;
   if (!(oc instanceof RangeLoopControl && ic instanceof RangeLoopControl)) return false;
+  const outerBody = outer.body.executableStmts;
+  if (outerBody.length !== 1 || !(outerBody[0] instanceof DoStatement)) return false;
+  if (!outerBody[0].equals(inner)) return false;
+  if (oc.var.name === ic.var.name) return false;
   if (oc.step !== undefined || ic.step !== undefined) return false;
 
   const outerVar = oc.var.name;
 
-  // Check 1: triangular inner bounds — inner bound references outer variable
-  if (containsVar(ic.lower.code, outerVar) || containsVar(ic.upper.code, outerVar)) return false;
+  // A control expression that references the outer variable describes a
+  // triangular or otherwise non-rectangular iteration space. Strip-mining it
+  // would change the set of iterations.
+  if (controlExpressions(ic).some((expression) => referencesName(expression, outerVar))) {
+    return false;
+  }
 
-  // Check 2: nested DO inside inner body uses outer variable in its bounds
+  // Nested controls are also evaluated at a different point after tiling.
   for (const nested of Query.searchFrom(inner.body, DoStatement)) {
     const nc = nested.control;
     if (!(nc instanceof RangeLoopControl)) continue;
-    if (containsVar(nc.lower.code, outerVar) || containsVar(nc.upper.code, outerVar)) return false;
+    if (controlExpressions(nc).some((expression) => referencesName(expression, outerVar))) {
+      return false;
+    }
   }
 
-  return true;
+  return !hasLoopCarriedDependency(summarizeLoop(inner));
 }
