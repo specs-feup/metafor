@@ -39,7 +39,7 @@ public class StopStmt extends ActionStmt {
     }
 
     @Override
-    public String getCode() {
+    public String getStmtCode() {
         var errorStop = isErrorStop();
         var stopCodeOpt = getStopCode();
         var quietOpt = getQuiet();

@@ -2,11 +2,12 @@ package pt.up.fe.specs.fortran.parser.processors;
 
 import pt.up.fe.specs.fortran.ast.FortranContext;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
-import pt.up.fe.specs.fortran.ast.nodes.alloc.Allocation;
 import pt.up.fe.specs.fortran.ast.nodes.program.*;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 import pt.up.fe.specs.util.SpecsIo;
+
+import java.util.List;
 
 public class ProgramProcessors extends ANodeProcessor {
 
@@ -15,7 +16,7 @@ public class ProgramProcessors extends ANodeProcessor {
         super(data);
     }
 
-    public void program(FortranFile fortranFile) {
+    public void fortranFile(FortranFile fortranFile) {
         fortranFile.setChildren(getChildren(fortranFile, FlangName.PROGRAM_UNIT));
 
         var lastParsedFile = fortranFile.get(FortranNode.CONTEXT).get(FortranContext.LAST_PARSED_FILE).orElse(null);
@@ -28,9 +29,19 @@ public class ProgramProcessors extends ANodeProcessor {
             fortranFile.set(FortranFile.FILE_NAME, fileName);
             fortranFile.set(FortranFile.FOLDER_NAME, lastParsedFile.getParent());
         }
+
+        // The JSON parsing assumes this node is also a statement, which is the reason for the name of the key
+        if (attributes(fortranFile).has("leadingComments")) {
+            var finalComments = attributes(fortranFile).getStringList("leadingComments");
+            fortranFile.set(FortranFile.FINAL_COMMENTS, finalComments);
+        } else {
+            fortranFile.set(FortranFile.FINAL_COMMENTS, List.of());
+        }
     }
 
     public void mainProgram(MainProgram mainProgram) {
+        var programStmt = getStmtChildOptional(mainProgram, FlangName.PROGRAM_STMT);
+        programStmt.ifPresent(mainProgram::addChild);
 
         var name = attributes().getOptionalString(mainProgram, "source", FlangName.PROGRAM_STMT, FlangName.NAME);
         // [specification-part]
@@ -42,7 +53,10 @@ public class ProgramProcessors extends ANodeProcessor {
             mainProgram.addChild(getChild(mainProgram, FlangName.INTERNAL_SUBPROGRAM_PART));
         }
 
-        mainProgram.set(MainProgram.PROGRAM_NAME, name);
+        var endProgramStmt = getStmtChild(mainProgram, FlangName.END_PROGRAM_STMT);
+        mainProgram.addChild(endProgramStmt);
+
+        mainProgram.set(MainProgram.NAME, name);
     }
 
     public void specification(Specification specification) {
@@ -75,16 +89,33 @@ public class ProgramProcessors extends ANodeProcessor {
     }
 
     public void subroutine(Subroutine subroutine) {
+        var subroutineStmt = getStmtChild(subroutine, FlangName.SUBROUTINE_STMT);
+        subroutine.addChild(subroutineStmt);
+
+        var specification = getChild(subroutine, FlangName.SPECIFICATION_PART);
+        subroutine.addChild(specification);
+
+        var execution = getChild(subroutine, FlangName.EXECUTION_PART);
+        subroutine.addChild(execution);
+
+        var endSubroutineStmt = getStmtChild(subroutine, FlangName.END_SUBROUTINE_STMT);
+        subroutine.addChild(endSubroutineStmt);
+
         var name = attributes().getString(subroutine, "source", FlangName.SUBROUTINE_STMT, FlangName.NAME);
+        subroutine.set(Subroutine.NAME, name);
+    }
+
+    public void function(Function function) {
+        var name = attributes().getString(function, "source", FlangName.FUNCTION_STMT, FlangName.NAME);
         // [specification-part]
-        subroutine.addChild(getChild(subroutine, FlangName.SPECIFICATION_PART));
+        function.addChild(getChild(function, FlangName.SPECIFICATION_PART));
         // [execution-part]
-        subroutine.addChild(getChild(subroutine, FlangName.EXECUTION_PART));
+        function.addChild(getChild(function, FlangName.EXECUTION_PART));
         // [internal-subprogram-part]
 
-        subroutine.set(Subroutine.SUBROUTINE_NAME, name);
+        function.set(Function.FUNCTION_NAME, name);
 
-        String statementId = attributes().get(attributes(subroutine).getString(FlangName.SUBROUTINE_STMT.getStmtAttr())).getString("statement");
-        subroutine.addChildren(getChildren(statementId, FlangName.DUMMY_ARG));
+        String statementId = attributes().get(attributes(function).getString(FlangName.FUNCTION_STMT.getStmtAttr())).getString("statement");
+        function.addChildren(getChildren(statementId, FlangName.FUNCTION_ARGUMENT_DECL));
     }
 }

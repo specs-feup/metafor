@@ -33,6 +33,9 @@ public class FortranFile extends FortranNode {
      */
     public static final DataKey<String> INPUT_SOURCE_PATH = KeyFactory.string("inputSourcePath");
 
+    // Final comments of the program (which are, therefore, not associated with any statement)
+    public static final DataKey<List<String>> FINAL_COMMENTS = KeyFactory.list("finalComments", String.class);
+
     public FortranFile(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
     }
@@ -41,13 +44,22 @@ public class FortranFile extends FortranNode {
         return getChildren(ProgramUnit.class);
     }
 
+    public List<String> getFinalComments() {
+        return get(FINAL_COMMENTS);
+    }
+
     @Override
     public String getCode() {
+        var finalComments = getFinalComments();
+        var commentSuffix = finalComments.stream()
+                .map(comment -> comment + ln())
+                .collect(Collectors.joining());
 
-        // Print each program unit
-        return getProgramUnits().stream()
+        var programUnitsCode = getProgramUnits().stream()
                 .map(ProgramUnit::getCode)
                 .collect(Collectors.joining("\n"));
+
+        return programUnitsCode + commentSuffix;
 
     }
 }

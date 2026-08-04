@@ -6,6 +6,7 @@ import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.decl.LabelDecl;
 import pt.up.fe.specs.util.SpecsCollections;
+import pt.up.fe.specs.util.utilities.PrintOnce;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -27,10 +28,5 @@ public abstract class ExecutableStmt extends Stmt {
 
     public ExecutableStmt(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
-    }
-
-    public Optional<LabelDecl> getLabel() {
-        var labelDecls = getChildrenOf(LabelDecl.class);
-        return SpecsCollections.toOptional(labelDecls);
     }
 }

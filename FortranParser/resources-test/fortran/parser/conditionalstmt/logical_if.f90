@@ -1,4 +1,4 @@
-program logical_if
+program LOGICAL_IF
     logical :: cond
     integer :: result
 
@@ -6,4 +6,4 @@ program logical_if
     result = 2
 
     if (cond) result = 3
-end program logical_if
+end program LOGICAL_IF

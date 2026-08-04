@@ -21,7 +21,7 @@ public class AssignmentStmt extends ActionStmt {
     }
 
     @Override
-    public String getCode() {
+    public String getStmtCode() {
         // a = 1;
         var code = new StringBuilder();
 

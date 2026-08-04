@@ -36,7 +36,7 @@ public class WriteStmt extends ActionStmt {
     }
 
     @Override
-    public String getCode() {
+    public String getStmtCode() {
         StringBuilder code = new StringBuilder();
         code.append(FortranKeyword.WRITE).append("(");
 

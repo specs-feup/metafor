@@ -5,8 +5,13 @@ public enum FortranKeyword {
     PROGRAM,
     CONCURRENT,
     SUBROUTINE,
+    FUNCTION,
     WRITE,
     USE,
+    GOTO,
+    EXTERNAL,
+    RETURN,
+    STOP,
 
     // Execution statements
     PRINT,
@@ -14,9 +19,9 @@ public enum FortranKeyword {
     WHILE,
     GO,
     TO,
-    STOP,
     ERROR,
     QUIET,
+    CALL,
 
     // Conditional statements
     IF,
@@ -37,6 +42,8 @@ public enum FortranKeyword {
 
     // Declarations
     PARAMETER,
+    DATA,
+    COMMON,
 
     OMP;
 

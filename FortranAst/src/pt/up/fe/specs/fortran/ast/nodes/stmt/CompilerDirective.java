@@ -19,7 +19,7 @@ public class CompilerDirective extends ExecutableStmt {
     }
 
     @Override
-    public String getCode() {
+    public String getStmtCode() {
         return "!DIR$ " + getPairs().stream()
                 .map(NameValue::getCode)
                 .collect(Collectors.joining(" "));

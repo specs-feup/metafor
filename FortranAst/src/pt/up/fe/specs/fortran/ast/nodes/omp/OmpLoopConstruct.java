@@ -7,7 +7,7 @@ import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpClause;
 import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpNowaitClause;
 import pt.up.fe.specs.fortran.ast.nodes.omp.enums.OmpClauseKind;
 import pt.up.fe.specs.fortran.ast.nodes.omp.enums.OmpDirectiveKind;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.DoStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.DoConstruct;
 
 import java.util.Collection;
 import java.util.List;
@@ -18,14 +18,14 @@ public class OmpLoopConstruct extends OmpConstruct {
         super(data, children);
     }
 
-    public DoStmt getLoop() {
-        return getChild(DoStmt.class);
+    public DoConstruct getLoop() {
+        return getChild(DoConstruct.class);
     }
 
-    public DoStmt setLoop(DoStmt loop) {
-        removeChildren(DoStmt.class);
+    public DoConstruct setLoop(DoConstruct loop) {
+        removeChildren(DoConstruct.class);
 
-        return (DoStmt) addChild(loop);
+        return (DoConstruct) addChild(loop);
     }
 
     // For code generation purposes, since the nowait clause must be placed at the end
@@ -43,7 +43,7 @@ public class OmpLoopConstruct extends OmpConstruct {
     }
 
     @Override
-    public String getCode() {
+    public String getStmtCode() {
         var code = new StringBuilder();
         String directive = get(KINDS).stream()
                 .map(OmpDirectiveKind::getString)

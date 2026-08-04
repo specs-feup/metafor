@@ -13,7 +13,7 @@ public class LiteralExecutionStmt extends ExecutableStmt implements LiteralNode 
     }
 
     @Override
-    public String getCode() {
+    public String getStmtCode() {
         return getLiteralCode();
     }
 }
