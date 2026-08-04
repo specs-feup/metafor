@@ -591,8 +591,6 @@ describe("Query", () => {
       lst.push(stmt.code);
     }
 
-    console.log(lst);
-
     expect(lst.length).toBe(4);
     expect(lst[0]).toEqual('PROGRAM HELLO');
     expect(lst[1]).toEqual('PRINT *, "Hello, World!"');
