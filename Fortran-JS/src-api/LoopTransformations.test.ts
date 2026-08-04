@@ -9,6 +9,7 @@ import { canInterchange } from "./code/LoopInterchange.js";
 import { canTile } from "./code/LoopTiling.js";
 import LoopFissionPass from "./pass/LoopFissionPass.js";
 import LoopFusionPass from "./pass/LoopFusionPass.js";
+import LoopInterchangePass from "./pass/LoopInterchangePass.js";
 import LoopUnrollPass from "./pass/LoopUnrollPass.js";
 import { DoStatement, Joinpoint, RangeLoopControl } from "./Joinpoints.js";
 
@@ -118,5 +119,45 @@ describe("loop transformations", () => {
 
     expect(result.appliedPass).toBe(true);
     expect(scope.executableStmts).toHaveLength(1);
+  });
+
+  it("keeps independent interchange pairs separate when iterator names are reused", () => {
+    const makeNest = (outerName: string, innerName: string): DoStatement => {
+      const outer = FortranJoinPoints.doStatement(
+        FortranJoinPoints.rangeLoopControl(
+          FortranJoinPoints.dataRef(outerName),
+          FortranJoinPoints.intLiteral(1),
+          FortranJoinPoints.dataRef("n"),
+        ),
+      );
+      const inner = FortranJoinPoints.doStatement(
+        FortranJoinPoints.rangeLoopControl(
+          FortranJoinPoints.dataRef(innerName),
+          FortranJoinPoints.intLiteral(1),
+          FortranJoinPoints.dataRef("m"),
+        ),
+      );
+      outer.body.insertEnd(inner);
+      return outer;
+    };
+
+    const scope = FortranJoinPoints.execution([
+      makeNest("i", "j"),
+      makeNest("j", "k"),
+    ]);
+
+    const result = new LoopInterchangePass().apply(scope);
+
+    expect(result.appliedPass).toBe(true);
+    const loops = scope.executableStmts.filter(
+      (statement): statement is DoStatement => statement instanceof DoStatement,
+    );
+    expect(loops).toHaveLength(2);
+    const loopVariables = loops.map((loop) => {
+      const control = loop.control;
+      if (!(control instanceof RangeLoopControl)) throw new Error("Expected a range loop");
+      return control.var.name;
+    });
+    expect(loopVariables).toEqual(["j", "k"]);
   });
 });
