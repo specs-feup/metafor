@@ -6,10 +6,15 @@ public enum FortranKeyword {
     CONCURRENT,
     SUBROUTINE,
     FUNCTION,
+    WRITE,
     USE,
     INTRINSIC,
     NON_INTRINSIC,
     ONLY,
+    GOTO,
+    EXTERNAL,
+    RETURN,
+    STOP,
 
     // Execution statements
     PRINT,
@@ -17,7 +22,6 @@ public enum FortranKeyword {
     WHILE,
     GO,
     TO,
-    STOP,
     ERROR,
     QUIET,
     CALL,

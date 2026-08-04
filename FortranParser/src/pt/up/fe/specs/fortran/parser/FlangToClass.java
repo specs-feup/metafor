@@ -12,6 +12,7 @@ import pt.up.fe.specs.fortran.ast.nodes.decl.typeparam.StarTypeParamValue;
 import pt.up.fe.specs.fortran.ast.nodes.decl.typeparam.TypeParamValue;
 import pt.up.fe.specs.fortran.ast.nodes.expr.*;
 import pt.up.fe.specs.fortran.ast.nodes.io.*;
+import pt.up.fe.specs.fortran.ast.nodes.io.WriteStmt;
 import pt.up.fe.specs.fortran.ast.nodes.loops.ConcurrentLoopControl;
 import pt.up.fe.specs.fortran.ast.nodes.loops.ConcurrentRange;
 import pt.up.fe.specs.fortran.ast.nodes.loops.RangeLoopControl;
@@ -20,7 +21,10 @@ import pt.up.fe.specs.fortran.ast.nodes.omp.OmpLoopConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpDataSharingClause;
 import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpNowaitClause;
 import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpReductionClause;
-import pt.up.fe.specs.fortran.ast.nodes.program.*;
+import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
+import pt.up.fe.specs.fortran.ast.nodes.program.FortranFile;
+import pt.up.fe.specs.fortran.ast.nodes.program.InternalSubprogramPart;
+import pt.up.fe.specs.fortran.ast.nodes.program.Specification;
 import pt.up.fe.specs.fortran.ast.nodes.program.subprogram.*;
 import pt.up.fe.specs.fortran.ast.nodes.program.unit.MainProgram;
 import pt.up.fe.specs.fortran.ast.nodes.program.unit.ProgramUnit;
@@ -29,6 +33,8 @@ import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
 import pt.up.fe.specs.fortran.ast.nodes.specification.LanguageBindingSpec;
 import pt.up.fe.specs.fortran.ast.nodes.specification.NamedConstantDef;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.CloseStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.OpenStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.datastmt.DataStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.datastmt.DataStmtSet;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.dimstmt.DimensionDecl;
@@ -51,9 +57,10 @@ import pt.up.fe.specs.fortran.ast.nodes.type.lenselector.KindParamLenSelector;
 import pt.up.fe.specs.fortran.ast.nodes.type.lenselector.LenSelector;
 import pt.up.fe.specs.fortran.ast.nodes.type.lenselector.ParamLenSelector;
 import pt.up.fe.specs.fortran.ast.nodes.type.shapes.AllocateShapeSpecification;
+import pt.up.fe.specs.fortran.ast.nodes.type.shapes.AssumedImpliedShapeSpec;
 import pt.up.fe.specs.fortran.ast.nodes.type.shapes.DeferredShapeSpecList;
 import pt.up.fe.specs.fortran.ast.nodes.type.shapes.ExplicitShapeSpecification;
-import pt.up.fe.specs.fortran.ast.nodes.utils.*;
+import pt.up.fe.specs.fortran.ast.nodes.utils.NameValue;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -146,6 +153,7 @@ public class FlangToClass {
         NAME_TO_MAPPER.put(FlangName.FUNCTION_STMT, ClassMapper.always(FunctionStmt.class));
         NAME_TO_MAPPER.put(FlangName.LANGUAGE_BINDING_SPEC, ClassMapper.always(LanguageBindingSpec.class));
         NAME_TO_MAPPER.put(FlangName.END_FUNCTION_STMT, ClassMapper.always(EndFunctionStmt.class));
+        NAME_TO_MAPPER.put(FlangName.EXTERNAL_STMT, ClassMapper.always(ExternalStmt.class));
 
         /// Variables
         //NAME_TO_CLASS.put(FlangName.DATA_REF, DataRef.class);  // TODO(Process-ing): Improve this
@@ -170,6 +178,7 @@ public class FlangToClass {
         NAME_TO_MAPPER.put(FlangName.SUBTRACT, ClassMapper.always(BinaryOperator.class));
         NAME_TO_MAPPER.put(FlangName.MULTIPLY, ClassMapper.always(BinaryOperator.class));
         NAME_TO_MAPPER.put(FlangName.DIVIDE, ClassMapper.always(BinaryOperator.class));
+        NAME_TO_MAPPER.put(FlangName.POWER, ClassMapper.always(BinaryOperator.class));
         NAME_TO_MAPPER.put(FlangName.EQ, ClassMapper.always(BinaryOperator.class));
         NAME_TO_MAPPER.put(FlangName.NE, ClassMapper.always(BinaryOperator.class));
         NAME_TO_MAPPER.put(FlangName.LT, ClassMapper.always(BinaryOperator.class));
@@ -294,6 +303,7 @@ public class FlangToClass {
                 .map(FlangName.EXPR, ExprFormat.class)
                 .map("uint64_t", LabelFormat.class)
                 .map(FlangName.STAR, StarFormat.class));
+        NAME_TO_MAPPER.put(FlangName.ASSUMED_IMPLIED_SPEC, ClassMapper.always(AssumedImpliedShapeSpec.class));
 
         ///  UTILs
         NAME_TO_MAPPER.put(FlangName.NAME_VALUE, ClassMapper.always(NameValue.class));

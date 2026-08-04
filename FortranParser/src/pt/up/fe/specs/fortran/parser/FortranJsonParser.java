@@ -73,6 +73,9 @@ public class FortranJsonParser implements JsonReaderParser {
                     case "comments":
                         parseComments(reader);
                         break;
+                    case "comments":
+                        parseComments(reader);
+                        break;
                     case "enums":
                         parseEnums(reader);
                         break;

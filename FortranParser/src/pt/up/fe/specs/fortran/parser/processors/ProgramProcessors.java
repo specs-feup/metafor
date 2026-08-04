@@ -45,6 +45,14 @@ public class ProgramProcessors extends ANodeProcessor {
         } else {
             fortranFile.set(FortranFile.FINAL_COMMENTS, List.of());
         }
+
+        // The JSON parsing assumes this node is also a statement, which is the reason for the name of the key
+        if (attributes(fortranFile).has("leadingComments")) {
+            var finalComments = attributes(fortranFile).getStringList("leadingComments");
+            fortranFile.set(FortranFile.FINAL_COMMENTS, finalComments);
+        } else {
+            fortranFile.set(FortranFile.FINAL_COMMENTS, List.of());
+        }
     }
 
     public void addSubprogramBody(FortranNode node) {
@@ -118,6 +126,7 @@ public class ProgramProcessors extends ANodeProcessor {
 
         var name = attributes().getString(subroutineStmt, "source", FlangName.NAME);
         subroutine.set(Subroutine.NAME, name);
+        function.set(Function.FUNCTION_NAME, name);
 
         addSubprogramBody(subroutine);
 

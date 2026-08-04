@@ -19,7 +19,9 @@ import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpDataSharingClause;
 import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpNowaitClause;
 import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpReductionClause;
 import pt.up.fe.specs.fortran.ast.nodes.program.*;
-import pt.up.fe.specs.fortran.ast.nodes.program.subprogram.*;
+import pt.up.fe.specs.fortran.ast.nodes.program.subprogram.EndFunctionStmt;
+import pt.up.fe.specs.fortran.ast.nodes.program.subprogram.FunctionStmt;
+import pt.up.fe.specs.fortran.ast.nodes.program.subprogram.ProgramStmt;
 import pt.up.fe.specs.fortran.ast.nodes.program.unit.MainProgram;
 import pt.up.fe.specs.fortran.ast.nodes.program.unit.SubprogramUnit;
 import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
@@ -38,7 +40,10 @@ import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.CaseBlock;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.CaseConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.EndSelectStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.SelectCaseStmt;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.usestmt.*;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.usestmt.NamesRename;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.usestmt.UseName;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.usestmt.UseOnlyStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.usestmt.UseRenameStmt;
 import pt.up.fe.specs.fortran.ast.nodes.type.*;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.IntentSpec;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.KeywordAttributeSpecifier;
@@ -46,9 +51,11 @@ import pt.up.fe.specs.fortran.ast.nodes.type.lenselector.ConstLenSelector;
 import pt.up.fe.specs.fortran.ast.nodes.type.lenselector.KindParamLenSelector;
 import pt.up.fe.specs.fortran.ast.nodes.type.lenselector.ParamLenSelector;
 import pt.up.fe.specs.fortran.ast.nodes.type.shapes.AllocateShapeSpecification;
+import pt.up.fe.specs.fortran.ast.nodes.type.shapes.AssumedImpliedShapeSpec;
 import pt.up.fe.specs.fortran.ast.nodes.type.shapes.DeferredShapeSpecList;
 import pt.up.fe.specs.fortran.ast.nodes.type.shapes.ExplicitShapeSpecification;
-import pt.up.fe.specs.fortran.ast.nodes.utils.*;
+import pt.up.fe.specs.fortran.ast.nodes.utils.IoUnit;
+import pt.up.fe.specs.fortran.ast.nodes.utils.NameValue;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 import pt.up.fe.specs.util.classmap.ConsumerClassMap;
 import pt.up.fe.specs.util.exceptions.NotImplementedException;
@@ -72,6 +79,7 @@ public class Nodes {
         processors.put(Subroutine.class, p::subroutine);
         processors.put(Function.class, p::function);
         processors.put(InternalSubprogramPart.class, p::internalSubprogramPart);
+        processors.put(Function.class, p::function);
 
         var alloc = new AllocProcessors(data);
         processors.put(Allocation.class, alloc::allocation);
@@ -131,6 +139,8 @@ public class Nodes {
         processors.put(DeallocateStmt.class, s::deallocateStmt);
         processors.put(ContinueStmt.class, s::continueStmt);
         processors.put(ParameterStmt.class, s::parameterStmt);
+        processors.put(ExternalStmt.class, s::externalStmt);
+        processors.put(ReturnStmt.class, s::returnStmt);
         processors.put(NamedConstantDef.class, s::namedConstantDef);
 
         processors.put(DataStmt.class, s::dataStmt);
@@ -193,6 +203,7 @@ public class Nodes {
         processors.put(ExplicitShapeSpecification.class, shapes::explicitShapeSpec);
         processors.put(DeferredShapeSpecList.class, shapes::deferredShapeSpecLis);
         processors.put(AllocateShapeSpecification.class, shapes::allocateShapeSpec);
+        processors.put(AssumedImpliedShapeSpec.class, shapes::assumedImpliedShapeSpec);
 
         var u = new UtilsProcessors(data);
         processors.put(NameValue.class, u::nameValue);

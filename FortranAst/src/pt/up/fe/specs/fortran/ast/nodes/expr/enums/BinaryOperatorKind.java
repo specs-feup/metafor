@@ -7,6 +7,7 @@ public enum BinaryOperatorKind implements StringProvider {
     SUBTRACT("-"),
     MULTIPLY("*"),
     DIVIDE("/"),
+    POWER("**"),
     LT("<"),
     LE("<="),
     GT(">"),

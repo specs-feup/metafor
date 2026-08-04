@@ -1,9 +1,6 @@
 package pt.up.fe.specs.fortran.parser.processors;
 
-import pt.up.fe.specs.fortran.ast.nodes.type.shapes.AllocateShapeSpecification;
-import pt.up.fe.specs.fortran.ast.nodes.type.shapes.BoundedShapeSpecification;
-import pt.up.fe.specs.fortran.ast.nodes.type.shapes.DeferredShapeSpecList;
-import pt.up.fe.specs.fortran.ast.nodes.type.shapes.ExplicitShapeSpecification;
+import pt.up.fe.specs.fortran.ast.nodes.type.shapes.*;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 
@@ -32,5 +29,9 @@ public class ShapesProcessor extends ANodeProcessor {
     public void deferredShapeSpecLis(DeferredShapeSpecList deferredShapeSpecList) {
         var numberOfColons = attributes(deferredShapeSpecList).getString("int");
         deferredShapeSpecList.set(DeferredShapeSpecList.RANK, Integer.parseInt(numberOfColons));
+    }
+
+    public void assumedImpliedShapeSpec(AssumedImpliedShapeSpec assumedImpliedShapeSpec) {
+
     }
 }

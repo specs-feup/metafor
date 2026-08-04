@@ -23,6 +23,7 @@ public enum FlangName implements StringProvider {
     EXECUTION_PART_CONSTRUCT,
     EXECUTABLE_CONSTRUCT,
     ALLOCATION,
+    FUNCTION_SUBPROGRAM,
 
     /// DECLs
     ENTITY_DECL,
@@ -40,6 +41,7 @@ public enum FlangName implements StringProvider {
     PROGRAM_STMT,
     END_PROGRAM_STMT,
     SUBROUTINE_STMT,
+    FUNCTION_STMT,
     END_SUBROUTINE_STMT,
     FUNCTION_STMT,
     SUFFIX,
@@ -68,6 +70,8 @@ public enum FlangName implements StringProvider {
     OPERATORS,
     CONTINUE_STMT,
     PARAMETER_STMT,
+    EXTERNAL_STMT,
+    RETURN_STMT,
     STOP_STMT,
     DATA_STMT,
     DATA_STMT_SET,
@@ -126,6 +130,7 @@ public enum FlangName implements StringProvider {
     SUBTRACT,
     MULTIPLY,
     DIVIDE,
+    POWER,
     EQ("EQ"),
     NE("NE"),
     LT("LT"),
@@ -246,10 +251,13 @@ public enum FlangName implements StringProvider {
     ARRAY_SPEC,
     EXPLICIT_SHAPE_SPEC,
     ALLOCATE_SHAPE_SPEC,
+    IMPLIED_SHAPE_SPEC,
     ALLOCATABLE,
     ASYNCHRONOUS,
     INTENT_SPEC,
     PARAMETER,
+    ASSUMED_SIZE_SPEC,
+    ASSUMED_IMPLIED_SPEC,
 
     // OTHER
     INITIALIZATION,
@@ -262,7 +270,10 @@ public enum FlangName implements StringProvider {
     STREAM,
     PINNED,
     NAMED_CONSTANT,
-    NAMED_CONSTANT_DEF;
+    NAMED_CONSTANT_DEF,
+
+    // EXTRA
+    FUNCTION_ARGUMENT_DECL;
 
     private static final Lazy<EnumHelper<FlangName>> HELPER = EnumHelper.newLazyHelper(FlangName.class);
 

@@ -590,9 +590,12 @@ describe("Query", () => {
     for (const stmt of Query.search(Statement)) {
       lst.push(stmt.code);
     }
-    expect(lst.length).toBe(2);
-    expect(lst[0]).toEqual('PRINT *, "Hello, World!"');
-    expect(lst[1]).toEqual('PRINT "(A, F6.3)", "Value = ", 3');
+
+    expect(lst.length).toBe(4);
+    expect(lst[0]).toEqual('PROGRAM HELLO');
+    expect(lst[1]).toEqual('PRINT *, "Hello, World!"');
+    expect(lst[2]).toEqual('PRINT "(A, F6.3)", "Value = ", 3');
+    expect(lst[3]).toEqual('END PROGRAM HELLO');
   });
 
   it("should be able to insert code", () => {
