@@ -10,18 +10,18 @@ import pt.up.fe.specs.fortran.ast.nodes.stmt.Stmt;
 import java.util.Collection;
 
 public class ProgramStmt extends Stmt {
-    public final static DataKey<String> NAME = KeyFactory.string("name");
+    public final static DataKey<String> PROGRAM_NAME = KeyFactory.string("program_name");
 
     public ProgramStmt(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
     }
 
-    public String getName() {
-        return get(NAME);
+    public String getProgramName() {
+        return get(PROGRAM_NAME);
     }
 
     @Override
     public String getStmtCode() {
-        return keyword(FortranKeyword.PROGRAM) + " " + getName();
+        return keyword(FortranKeyword.PROGRAM) + " " + getProgramName();
     }
 }

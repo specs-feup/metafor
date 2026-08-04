@@ -15,7 +15,7 @@ public class MainProgram extends ProgramUnit {
     }
 
     public Optional<String> getName() {
-        return getProgramStmt().map(ProgramStmt::getName);
+        return getProgramStmt().map(ProgramStmt::getProgramName);
     }
 
     public Optional<ProgramStmt> getProgramStmt() {

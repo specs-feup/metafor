@@ -145,7 +145,7 @@ public class FortranNodeFactory {
         DataStore data = newDataStore(MainProgram.class);
 
         var programStmt = newNode(ProgramStmt.class, Collections.emptyList());
-        programStmt.set(ProgramStmt.NAME, programName);
+        programStmt.set(ProgramStmt.PROGRAM_NAME, programName);
         initComments(programStmt);
 
         var specificationBlock = newNode(Specification.class, Collections.emptyList());

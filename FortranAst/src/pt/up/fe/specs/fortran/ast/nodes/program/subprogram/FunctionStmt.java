@@ -17,10 +17,15 @@ import java.util.stream.Stream;
 
 // TODO(Process-ing): Include support for `prefix`
 public class FunctionStmt extends Stmt {
+    public static final DataKey<String> FUNCTION_NAME = KeyFactory.string("function_name");
     public static final DataKey<Optional<String>> RESULT_NAME = KeyFactory.optional("result_name");
 
     public FunctionStmt(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
+    }
+
+    public String getFunctionName() {
+        return get(FUNCTION_NAME);
     }
 
     public List<NamedParameter> getParameters() {
@@ -37,7 +42,7 @@ public class FunctionStmt extends Stmt {
 
     @Override
     public String getStmtCode() {
-        var functionName = getAncestor(Function.class).getName();
+        var functionName = getFunctionName();
 
         var argCode = getParameters().stream()
                 .map(NamedParameter::getCode)

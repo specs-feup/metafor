@@ -122,9 +122,6 @@ public class ProgramProcessors extends ANodeProcessor {
         var subroutineStmt = getStmtChild(subroutine, FlangName.SUBROUTINE_STMT);
         subroutine.addChild(subroutineStmt);
 
-        var name = attributes().getString(subroutineStmt, "source", FlangName.NAME);
-        subroutine.set(Subroutine.NAME, name);
-
         addSubprogramBody(subroutine);
 
         var endSubroutineStmt = getStmtChild(subroutine, FlangName.END_SUBROUTINE_STMT);
@@ -134,10 +131,6 @@ public class ProgramProcessors extends ANodeProcessor {
     public void function(Function function) {
         var functionStmt = getStmtChild(function, FlangName.FUNCTION_STMT);
         function.addChild(functionStmt);
-
-        var functionNameId = attributes(functionStmt).getString("functionName");
-        var functionName = attributes().get(functionNameId).getString("source");
-        function.set(Function.NAME, functionName);
 
         addSubprogramBody(function);
 

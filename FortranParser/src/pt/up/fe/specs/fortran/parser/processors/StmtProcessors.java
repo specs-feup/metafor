@@ -618,7 +618,7 @@ public class StmtProcessors extends ANodeProcessor {
         stmt(programStmt);
 
         var name = attributes().getString(programStmt, "source", FlangName.NAME);
-        programStmt.set(ProgramStmt.NAME, name);
+        programStmt.set(ProgramStmt.PROGRAM_NAME, name);
     }
 
     public void endProgramStmt(EndProgramStmt endProgramStmt) {
@@ -627,6 +627,9 @@ public class StmtProcessors extends ANodeProcessor {
 
     public void subroutineStmt(SubroutineStmt subroutineStmt) {
         stmt(subroutineStmt);
+
+        var name = attributes().getString(subroutineStmt, "source", FlangName.NAME);
+        subroutineStmt.set(SubroutineStmt.SUBROUTINE_NAME, name);
 
         if (attributes(subroutineStmt).has(FlangName.DUMMY_ARG)) {
             var dummyArgs = getChildren(subroutineStmt, FlangName.DUMMY_ARG);
@@ -684,6 +687,10 @@ public class StmtProcessors extends ANodeProcessor {
 
     public void functionStmt(FunctionStmt functionStmt) {
         stmt(functionStmt);
+
+        var functionNameId = attributes(functionStmt).getString("functionName");
+        var functionName = attributes().get(functionNameId).getString("source");
+        functionStmt.set(FunctionStmt.FUNCTION_NAME, functionName);
 
         var parameterNames = attributes(functionStmt).getStringList("paramNames");
         var parameters = parameterNames.stream()

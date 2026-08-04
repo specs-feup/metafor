@@ -13,22 +13,12 @@ import java.util.Collection;
 import java.util.Optional;
 
 public abstract class Subprogram extends FortranNode {
-    public final static DataKey<String> NAME = KeyFactory.string("name");
-
     public Subprogram(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
     }
 
-    public String getName() {
-        return get(NAME);
-    }
-
     protected Stmt getStartStmt() {
         return getChild(Stmt.class, 0);
-    }
-
-    protected Stmt getEndStmt() {
-        return getChild(Stmt.class, getNumChildren() - 1);
     }
 
     public Specification getSpecification() {
@@ -36,11 +26,15 @@ public abstract class Subprogram extends FortranNode {
     }
 
     public Execution getExecution() {
-        return getChild(Execution.class);
+        return getChild(Execution.class, 2);
     }
 
     public Optional<InternalSubprogramPart> getInternalPart() {
-        return getChildOf(InternalSubprogramPart.class);
+        return getChildTry(InternalSubprogramPart.class, 3);
+    }
+
+    protected Stmt getEndStmt() {
+        return getChild(Stmt.class, getNumChildren() - 1);
     }
 
     public String getCode() {
