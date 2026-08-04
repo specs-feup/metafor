@@ -69,7 +69,7 @@ public class FortranFile extends FortranNode {
 
         var programUnitsCode = getProgramUnits().stream()
                 .map(programUnit -> programUnit.getCode() + ln())
-                .collect(Collectors.joining());
+                .collect(Collectors.joining(ln()));
 
         var code = programUnitsCode + commentSuffix;
         if (fixedForm) {

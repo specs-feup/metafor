@@ -47,7 +47,7 @@ public abstract class Subprogram extends FortranNode {
         var endStmtCode = getEndStmt().getCode();
 
         return startStmtCode + ln()
-                + indent(specificationCode + executionCode + internalPartCode) + ln()
+                + indent(specificationCode + executionCode) + internalPartCode + ln()
                 + endStmtCode;
     }
 }

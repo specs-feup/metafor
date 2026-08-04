@@ -13,6 +13,7 @@ public enum FortranKeyword {
     GOTO,
     EXTERNAL,
     STOP,
+    MODULE,
 
     // Execution statements
     PRINT,
