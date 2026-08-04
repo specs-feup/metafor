@@ -72,6 +72,10 @@ public enum FortranKeyword {
     NAME,
     CDEFINED,
     RESULT,
+    OPERATOR,
+    ASSIGNMENT,
+    FORMATTED,
+    UNFORMATTED,
 
     OMP;
 
