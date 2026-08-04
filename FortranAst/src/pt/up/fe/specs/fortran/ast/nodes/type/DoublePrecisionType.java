@@ -1,6 +1,7 @@
 package pt.up.fe.specs.fortran.ast.nodes.type;
 
 import org.suikasoft.jOptions.Interfaces.DataStore;
+import pt.up.fe.specs.fortran.ast.FortranKeyword;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 
 import java.util.Collection;
@@ -13,6 +14,6 @@ public class DoublePrecisionType extends IntrinsicType {
 
     @Override
     public String getCode() {
-        return "double precision";
+        return keyword(FortranKeyword.DOUBLE) + " " + keyword(FortranKeyword.PRECISION);
     }
 }

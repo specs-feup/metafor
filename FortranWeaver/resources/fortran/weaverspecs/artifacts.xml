@@ -81,13 +81,14 @@
         <attribute name="var" type="dataRef"/>
         <attribute name="lower" type="expr"/>
         <attribute name="upper" type="expr"/>
-        <!-- TODO how to represent optionals? -->
+        <attribute name="step" type="expr"/>
     </artifact>
 
     <!-- DO LOOP -->
     <artifact class="doStatement">
         <attribute name="control" type="loopControl"/>
         <attribute name="body" type="execution"/>
+        <attribute name="kind" type="{while, range, concurrent}"/>
     </artifact>
 
     <!-- STATEMENT BLOCKS -->
@@ -97,6 +98,10 @@
 
     <artifact class="execution">
         <attribute name="executableStmts" type="executableStatement[]"/>
+    </artifact>
+
+    <artifact class="specification">
+        <attribute name="specificationStmts" type="specificationStatement[]"/>
     </artifact>
 
     <!-- ARRAY SUBSCRIPT -->
@@ -122,6 +127,11 @@
         <attribute name="specification" type="specification" tooltip="Returns the unit's specification part"/>
     </artifact>
 
+    <!-- SUBROUTINE -->
+    <artifact class="subroutine">
+        <attribute name="moduleName" type="String"/>
+    </artifact>
+
     <!-- USE STATEMENT -->
     <artifact class="useStatement">
         <attribute name="moduleName" type="String"/>
@@ -130,5 +140,53 @@
     <!-- OPENMP -->
     <artifact class="ompConstruct">
         <attribute name="clauses" type="ompClause[]"/>
+    </artifact>
+
+    <!-- CONDITIONALS -->
+    <artifact class="ifStatement">
+        <attribute name="condition" type="expr"/>
+        <attribute name="statement" type="actionStatement"/>
+    </artifact>
+
+    <artifact class="ifConstruct">
+        <attribute name="ifThenBlock" type="ifThenBlock"/>
+        <attribute name="elseIfBlocks" type="elseIfBlock[]"/>
+        <attribute name="elseBlock" type="elseBlock"/>
+    </artifact>
+
+    <artifact class="ifThenBlock">
+        <attribute name="header" type="ifThenStatement"/>
+        <attribute name="body" type="statementBlock"/>
+    </artifact>
+
+    <artifact class="ifThenStatement">
+        <attribute name="condition" type="expr"/>
+    </artifact>
+
+    <artifact class="elseIfBlock">
+        <attribute name="header" type="elseIfStatement"/>
+        <attribute name="body" type="statementBlock"/>
+    </artifact>
+
+    <artifact class="elseIfStatement">
+        <attribute name="condition" type="expr"/>
+    </artifact>
+
+    <artifact class="elseBlock">
+        <attribute name="body" type="statementBlock"/>
+    </artifact>
+
+    <!-- DECLARATIONS -->
+    <artifact class="typeDeclarationStatement">
+        <attribute name="decls" type="entityDecl[]"/>
+        <attribute name="attrs" type="attributeSpecifier[]"/>
+    </artifact>
+
+    <artifact class="exprInitialization">
+        <attribute name="expr" type="expr"/>
+    </artifact>
+
+    <artifact class="entityDecl">
+        <attribute name="name" type="String"/>
     </artifact>
 </artifacts>

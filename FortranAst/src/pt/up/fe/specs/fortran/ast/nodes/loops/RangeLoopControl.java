@@ -29,6 +29,18 @@ public class RangeLoopControl extends LoopControl {
         return getChildTry(Expr.class, 3);
     }
 
+    public Expr setUpper(Expr newUpper) {
+        return (Expr) setChild(2, newUpper);
+    }
+
+    public void setStep(Expr newStep) {
+        if (getStep().isPresent()) {
+            setChild(3, newStep);
+        } else {
+            addChild(newStep);
+        }
+    }
+
     @Override
     public String getCode() {
         StringBuilder code = new StringBuilder();

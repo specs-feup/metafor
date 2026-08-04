@@ -22,10 +22,12 @@ public enum FlangName implements StringProvider {
     EXECUTION_PART_CONSTRUCT,
     EXECUTABLE_CONSTRUCT,
     ALLOCATION,
+    FUNCTION_SUBPROGRAM,
 
     /// DECLs
     ENTITY_DECL,
     DUMMY_ARG,
+    DATA_STMT_OBJECT,
     DATA_STMT_VALUE,
     DATA_STMT_REPEAT,
     DATA_STMT_CONSTANT,
@@ -35,6 +37,7 @@ public enum FlangName implements StringProvider {
     PROGRAM_STMT,
     END_PROGRAM_STMT,
     SUBROUTINE_STMT,
+    FUNCTION_STMT,
     END_SUBROUTINE_STMT,
     ACTION_STMT,
     PRINT_STMT,
@@ -45,9 +48,11 @@ public enum FlangName implements StringProvider {
     TYPE_DECLARATION_STMT,
     ASSIGNMENT_STMT,
     NON_LABEL_DO_STMT,
+    END_DO_STMT,
     DO_CONSTRUCT,
     CALL_STMT,
     COMPILER_DIRECTIVE,
+    GOTO_STMT,
     WRITE_STMT,
     IO_UNIT,
     IO_CONTROL_SPEC,
@@ -57,6 +62,16 @@ public enum FlangName implements StringProvider {
     USE_STMT,
     CONTINUE_STMT,
     PARAMETER_STMT,
+    EXTERNAL_STMT,
+    RETURN_STMT,
+    STOP_STMT,
+    DATA_STMT,
+    DATA_STMT_SET,
+    COMMON_STMT,
+    COMMON_STMT_BLOCK,
+    COMMON_BLOCK_OBJECT,
+    OPEN_STMT,
+    CLOSE_STMT,
 
     /// Conditional Statements
     IF_CONSTRUCT,
@@ -91,12 +106,17 @@ public enum FlangName implements StringProvider {
     SIGNED_INT_LITERAL_CONSTANT,
     LOGICAL_LITERAL_CONSTANT,
     REAL_LITERAL_CONSTANT,
+    KIND_PARAM,
     STAR,
     PARENTHESES,
+    UNARY_PLUS,
+    NEGATE,
+    NOT("NOT"),
     ADD,
     SUBTRACT,
     MULTIPLY,
     DIVIDE,
+    POWER,
     EQ("EQ"),
     NE("NE"),
     LT("LT"),
@@ -115,6 +135,9 @@ public enum FlangName implements StringProvider {
     AC_SPEC,
     AC_VALUE,
     ARRAY_ELEMENT,
+    SECTION_SUBSCRIPT,
+    SUBSCRIPT,
+    SUBSCRIPT_TRIPLET,
     AC_IMPLIED_DO,
     AC_IMPLIED_DO_CONTROL,
 
@@ -167,9 +190,13 @@ public enum FlangName implements StringProvider {
     ARRAY_SPEC,
     EXPLICIT_SHAPE_SPEC,
     ALLOCATE_SHAPE_SPEC,
+    IMPLIED_SHAPE_SPEC,
     ALLOCATABLE,
     ASYNCHRONOUS,
     INTENT_SPEC,
+    PARAMETER,
+    ASSUMED_SIZE_SPEC,
+    ASSUMED_IMPLIED_SPEC,
 
 
     // OTHER
@@ -179,7 +206,10 @@ public enum FlangName implements StringProvider {
     ALLOC_OPT,
     STAT_VARIABLE,
     NAMED_CONSTANT,
-    NAMED_CONSTANT_DEF;
+    NAMED_CONSTANT_DEF,
+
+    // EXTRA
+    FUNCTION_ARGUMENT_DECL;
 
     private static final Lazy<EnumHelper<FlangName>> HELPER = EnumHelper.newLazyHelper(FlangName.class);
 

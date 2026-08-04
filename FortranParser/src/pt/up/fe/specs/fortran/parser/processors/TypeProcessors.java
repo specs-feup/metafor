@@ -39,7 +39,10 @@ public class TypeProcessors extends ANodeProcessor {
     }
 
     public void logicalType(LogicalType logicalType) {
-
+        if (attributes(logicalType).has(FlangName.KIND_SELECTOR)) {
+            var kindSelector = getChild(logicalType, FlangName.KIND_SELECTOR);
+            logicalType.addChild(kindSelector);
+        }
     }
 
     public void doublePrecisionType(DoublePrecisionType doublePrecisionType) {
@@ -53,7 +56,10 @@ public class TypeProcessors extends ANodeProcessor {
     }
 
     public void realType(RealType realType) {
-
+        if (attributes(realType).has(FlangName.KIND_SELECTOR)) {
+            var kindSelector = getChild(realType, FlangName.KIND_SELECTOR);
+            realType.addChild(kindSelector);
+        }
     }
 
     public void lengthSelector(LengthSelector lengthSelector) {

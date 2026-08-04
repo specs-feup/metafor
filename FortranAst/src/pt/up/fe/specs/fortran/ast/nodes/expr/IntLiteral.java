@@ -33,15 +33,7 @@ public class IntLiteral extends Literal {
 
     @Override
     public String getCode() {
-
-        var code = new StringBuilder();
-
-        // Get kind param prefix
-        var prefix = get(KIND_PARAM).map(p -> p + "_").orElse("");
-        code.append(prefix);
-
-        code.append(getLiteral());
-
-        return code.toString();
+        var suffix = get(KIND_PARAM).map(k -> "_" + k).orElse("");
+        return get(SOURCE_LITERAL) + suffix;
     }
 }

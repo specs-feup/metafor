@@ -2,6 +2,7 @@ package pt.up.fe.specs.fortran.parser.processors;
 
 import pt.up.fe.specs.fortran.ast.nodes.expr.*;
 import pt.up.fe.specs.fortran.ast.nodes.expr.enums.BinaryOperatorKind;
+import pt.up.fe.specs.fortran.ast.nodes.expr.enums.UnaryOperatorKind;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 
@@ -18,6 +19,10 @@ public class ExprProcessors extends ANodeProcessor {
 
     public void intLiteral(IntLiteral intLiteral) {
         intLiteral.set(StringLiteral.SOURCE_LITERAL, attributes().getString(intLiteral, "CharBlock"));
+
+        if (attributes(intLiteral).has(FlangName.KIND_PARAM)) {
+            intLiteral.setOptional(IntLiteral.KIND_PARAM, attributes().getString(intLiteral, "uint64_t", FlangName.KIND_PARAM));
+        }
     }
 
     public void logicalLiteral(LogicalLiteral logicalLiteral) {
@@ -30,6 +35,14 @@ public class ExprProcessors extends ANodeProcessor {
 
     public void parenExpr(ParenExpr parenExpr) {
         parenExpr.addChild(getChild(parenExpr, FlangName.EXPR));
+    }
+
+    public void unaryOperator(UnaryOperator unaryOperator) {
+        unaryOperator.addChild(getChild(unaryOperator, FlangName.EXPR));
+
+        String opName = attributes().getString(unaryOperator, "op");
+
+        unaryOperator.set(UnaryOperator.OP, UnaryOperatorKind.valueOf(opName.toUpperCase()));
     }
 
     public void binaryOperator(BinaryOperator binaryOperator) {
@@ -63,8 +76,55 @@ public class ExprProcessors extends ANodeProcessor {
     }
 
     public void arraySubscriptExpr(ArraySubscriptExpr arraySubscriptExpr) {
-        arraySubscriptExpr.addChild(getChild(arraySubscriptExpr, "base"));
-        arraySubscriptExpr.addChildren(getChildren(arraySubscriptExpr, "subscripts"));
+        var base = getChild(arraySubscriptExpr, "base");
+        arraySubscriptExpr.addChild(base);
+
+        var subscriptIds = attributes(arraySubscriptExpr).getStringList("subscripts");
+        var subscripts = subscriptIds.stream()
+                .map(this::getSectionSubscript)
+                .toList();
+
+        arraySubscriptExpr.addChildren(subscripts);
+    }
+
+    public SectionSubscript getSectionSubscript(String id) {
+        var attrs = attributes().get(id);
+
+        if (attrs.has(FlangName.SUBSCRIPT_TRIPLET)) {
+            return (SubscriptTriplet) getChild(id);
+        }
+
+        if (attrs.has(FlangName.EXPR)) {
+            var subscript = factory().newNode(Subscript.class);
+            var value = getChild(id);
+            subscript.addChild(value);
+
+            return subscript;
+        }
+
+        throw new RuntimeException("Section subscript with id '" + id + "' does not have a valid variant, expected either SubscriptTriplet or Subscript, but got attributes: " + attrs);
+    }
+
+    public void subscriptTriplet(SubscriptTriplet subscriptTriplet) {
+        var attrs = attributes(subscriptTriplet);
+
+        if (attrs.has("start")) {
+            var start = getChild(subscriptTriplet, "start");
+            subscriptTriplet.addChild(start);
+            subscriptTriplet.set(SubscriptTriplet.HAS_START, true);
+        }
+
+        if (attrs.has("end")) {
+            var end = getChild(subscriptTriplet, "end");
+            subscriptTriplet.addChild(end);
+            subscriptTriplet.set(SubscriptTriplet.HAS_END, true);
+        }
+
+        if (attrs.has("stride")) {
+            var stride = getChild(subscriptTriplet, "stride");
+            subscriptTriplet.addChild(stride);
+            subscriptTriplet.set(SubscriptTriplet.HAS_STRIDE, true);
+        }
     }
 
     public void acImpliedDo(AcImpliedDo acImpliedDo) {
@@ -76,7 +136,6 @@ public class ExprProcessors extends ANodeProcessor {
         var rangeControl = getChild(control, "value");
         control.addChild(rangeControl);
     }
-
 
     public void argument(Argument argument) {
         argument.addChild(getChild(argument, FlangName.ACTUAL_ARG));

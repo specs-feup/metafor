@@ -10,6 +10,7 @@ import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.regex.Pattern;
 
 public interface NodeProcessor {
@@ -54,12 +55,35 @@ public interface NodeProcessor {
         return getNode(attributes().getChildId(node, attribute));
     }
 
+    default Optional<String> getChildIdOptional(FortranNode node, String attribute) {
+        return attributes(node).has(attribute)
+                ? Optional.of(attributes().getChildId(node, attribute))
+                : Optional.empty();
+    }
+
+    default Optional<FortranNode> getChildOptional(FortranNode node, String attribute) {
+        return getChildIdOptional(node, attribute)
+                .map(this::getNode);
+    }
+
+    default Optional<FortranNode> getChildOptional(FortranNode node, FlangName name) {
+        return getChildOptional(node, name.getString());
+    }
+
     default FortranNode getStmtChild(FortranNode node, FlangName name) {
         return getChild(node, name.getStmtAttr());
     }
 
+    default Optional<FortranNode> getStmtChildOptional(FortranNode node, FlangName name) {
+        return getChildOptional(node, name.getStmtAttr());
+    }
+
     default FortranNode getUnlabeledStmtChild(FortranNode node, FlangName name) {
         return getChild(node, name.getUnlabeledStmtAttr());
+    }
+
+    default Optional<FortranNode> getUnlabeledStmtChildOptional(FortranNode node, FlangName name) {
+        return getChildOptional(node, name.getUnlabeledStmtAttr());
     }
 
     default String getVariantChildId(FortranNode node) {

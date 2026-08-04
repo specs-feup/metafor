@@ -6,11 +6,17 @@ import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.decl.ExprInitialization;
 import pt.up.fe.specs.fortran.ast.nodes.decl.LabelDecl;
 import pt.up.fe.specs.fortran.ast.nodes.decl.ListInitialization;
+import pt.up.fe.specs.fortran.ast.nodes.expr.Argument;
+import pt.up.fe.specs.fortran.ast.nodes.expr.BinaryOperator;
+import pt.up.fe.specs.fortran.ast.nodes.expr.Call;
 import pt.up.fe.specs.fortran.ast.nodes.expr.DataRef;
+import pt.up.fe.specs.fortran.ast.nodes.expr.Expr;
 import pt.up.fe.specs.fortran.ast.nodes.expr.IntLiteral;
 import pt.up.fe.specs.fortran.ast.nodes.expr.Literal;
 import pt.up.fe.specs.fortran.ast.nodes.expr.StringLiteral;
 import pt.up.fe.specs.fortran.ast.nodes.expr.enums.BinaryOperatorKind;
+import pt.up.fe.specs.fortran.ast.nodes.loops.LoopControl;
+import pt.up.fe.specs.fortran.ast.nodes.loops.RangeLoopControl;
 import pt.up.fe.specs.fortran.ast.nodes.omp.OmpBlockConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.omp.OmpLoopConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpClause;
@@ -21,6 +27,9 @@ import pt.up.fe.specs.fortran.ast.nodes.omp.enums.OmpClauseKind;
 import pt.up.fe.specs.fortran.ast.nodes.omp.enums.OmpDirectiveKind;
 import pt.up.fe.specs.fortran.ast.nodes.program.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.DoConstruct;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.DoStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.EndDoStmt;
 import pt.up.fe.specs.fortran.ast.nodes.utils.Format;
 import pt.up.fe.specs.fortran.ast.nodes.utils.LabelRef;
 import pt.up.fe.specs.fortran.ast.nodes.utils.Star;
@@ -114,17 +123,30 @@ public class FortranNodeFactory {
 
     public FortranFile fortranFile(List<ProgramUnit> units) {
         DataStore data = newDataStore(FortranFile.class);
+        data.set(FortranFile.FINAL_COMMENTS, List.of());
+
         return new FortranFile(data, units);
     }
 
+    private void initComments(DataStore data) {
+        data.set(Stmt.LEADING_COMMENTS, List.of());
+    }
+
+    private void initComments(Stmt stmt) {
+        stmt.set(Stmt.LEADING_COMMENTS, List.of());
+    }
 
     public MainProgram mainProgram(String programName, List<ExecutableStmt> execution) {
         DataStore data = newDataStore(MainProgram.class);
-        data.set(MainProgram.PROGRAM_NAME, Optional.ofNullable(programName));
+        data.set(MainProgram.NAME, Optional.ofNullable(programName));
 
+        var programStmt = newNode(ProgramStmt.class, Collections.emptyList());
+        initComments(programStmt);
         var executionBlock = execution(execution);
+        var endProgramStmt = newNode(EndProgramStmt.class, Collections.emptyList());
+        initComments(endProgramStmt);
 
-        return new MainProgram(data, List.of(executionBlock));
+        return new MainProgram(data, List.of(programStmt, executionBlock, endProgramStmt));
     }
 
     public Execution execution(List<ExecutableStmt> statements) {
@@ -141,6 +163,7 @@ public class FortranNodeFactory {
 
     public PrintStmt printStmt(Format format, List<FortranNode> outputItems) {
         DataStore data = newDataStore(PrintStmt.class);
+        initComments(data);
 
         return new PrintStmt(data, SpecsCollections.concat(format, outputItems));
     }
@@ -148,6 +171,7 @@ public class FortranNodeFactory {
     public LiteralExecutionStmt literalExecutionStmt(String code) {
         DataStore data = newDataStore(LiteralExecutionStmt.class);
         data.set(LiteralExecutionStmt.LITERAL_CODE, code);
+        initComments(data);
 
         return new LiteralExecutionStmt(data, Collections.emptyList());
     }
@@ -212,12 +236,12 @@ public class FortranNodeFactory {
         return new LabelRef(data, Collections.emptyList());
     }
 
-    public OmpLoopConstruct ompLoopConstruct(DoStmt doStmt, List<OmpClause> clauses) {
+    public OmpLoopConstruct ompLoopConstruct(DoConstruct doConstruct, List<OmpClause> clauses) {
         DataStore data = newDataStore(OmpLoopConstruct.class);
 
         OmpLoopConstruct newNode = new OmpLoopConstruct(data, clauses);
 
-        newNode.addChild(doStmt);
+        newNode.addChild(doConstruct);
 
         return newNode;
     }
@@ -292,6 +316,41 @@ public class FortranNodeFactory {
         newNode.set(IntLiteral.SOURCE_LITERAL, Integer.toString(value));
 
         return newNode;
+    }
+
+    public RangeLoopControl rangeLoopControl(DataRef var, Expr lower, Expr upper) {
+        DataStore data = newDataStore(RangeLoopControl.class);
+        return new RangeLoopControl(data, Arrays.asList(var, lower, upper));
+    }
+
+    public DoConstruct doConstruct(LoopControl control) {
+        DataStore data = newDataStore(DoConstruct.class);
+
+        DoStmt doStmt = new DoStmt(data, List.of(control));
+        Execution body = execution(Collections.emptyList());
+        EndDoStmt endDoStmt = new EndDoStmt(data, Collections.emptyList());
+
+        return new DoConstruct(data, List.of(doStmt, body, endDoStmt));
+    }
+
+    public Argument argument(Expr expr) {
+        DataStore data = newDataStore(Argument.class);
+        return new Argument(data, Collections.singletonList(expr));
+    }
+
+    public Call functionCall(DataRef callee, List<Argument> args) {
+        DataStore data = newDataStore(Call.class);
+        List<FortranNode> children = new ArrayList<>(args.size() + 1);
+        children.add(callee);
+        children.addAll(args);
+        return new Call(data, children);
+    }
+
+    public BinaryOperator binaryOperator(BinaryOperatorKind kind, Expr lhs, Expr rhs) {
+        DataStore data = newDataStore(BinaryOperator.class);
+        BinaryOperator node = new BinaryOperator(data, Arrays.asList(lhs, rhs));
+        node.set(BinaryOperator.OP, kind);
+        return node;
     }
 
     public OmpOrderedClause ompOrderedClause(int value) {

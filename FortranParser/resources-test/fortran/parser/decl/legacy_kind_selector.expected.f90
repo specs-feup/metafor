@@ -1,5 +1,6 @@
 PROGRAM LEGACY_KIND_SELECTOR
-    integer*8 :: i8
+    INTEGER*4 :: i4 = 1
+    REAL*8 :: r8 = 2.0
 
-    PRINT *, i8
+    PRINT *, i4, r8
 END PROGRAM LEGACY_KIND_SELECTOR

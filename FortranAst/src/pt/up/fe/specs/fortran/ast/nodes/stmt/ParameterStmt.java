@@ -1,6 +1,7 @@
 package pt.up.fe.specs.fortran.ast.nodes.stmt;
 
 import org.suikasoft.jOptions.Interfaces.DataStore;
+import pt.up.fe.specs.fortran.ast.FortranKeyword;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.specification.NamedConstantDef;
 
@@ -18,9 +19,11 @@ public class ParameterStmt extends Stmt {
     }
 
     @Override
-    public String getCode() {
-        return "parameter(" + getDefs().stream()
+    public String getStmtCode() {
+        var defsCode = getDefs().stream()
                 .map(NamedConstantDef::getCode)
-                .collect(Collectors.joining(", ")) + ")";
+                .collect(Collectors.joining(", "));
+
+        return keyword(FortranKeyword.PARAMETER) + " (" + defsCode + ")";
     }
 }

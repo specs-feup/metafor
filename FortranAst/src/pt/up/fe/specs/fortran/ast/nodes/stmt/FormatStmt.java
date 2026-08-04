@@ -10,4 +10,10 @@ public class FormatStmt extends ExecutableStmt {
     public FormatStmt(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
     }
+
+    //TODO properly support the statement
+    @Override
+    public String getStmtCode() {
+        return get(SOURCE).replaceFirst("^\\d+", "");
+    }
 }

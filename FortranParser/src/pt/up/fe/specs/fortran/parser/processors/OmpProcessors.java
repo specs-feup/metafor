@@ -9,18 +9,24 @@ import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpReductionClause;
 import pt.up.fe.specs.fortran.ast.nodes.omp.enums.OmpClauseKind;
 import pt.up.fe.specs.fortran.ast.nodes.omp.enums.OmpDirectiveKind;
 import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.DoStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.DoConstruct;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 
 import java.util.List;
 
 public class OmpProcessors extends ANodeProcessor {
-    public OmpProcessors(FortranJsonResult data) {
+    private StmtProcessors stmtProcessors;
+
+    public OmpProcessors(FortranJsonResult data, StmtProcessors stmtProcessors) {
         super(data);
+
+        this.stmtProcessors = stmtProcessors;
     }
 
     public void ompBlockConstruct(OmpBlockConstruct ompBlockConstruct) {
+        stmtProcessors.stmt(ompBlockConstruct);
+
         String directive = attributes().getString(ompBlockConstruct, "directive", FlangName.OMP_BEGIN_DIRECTIVE, FlangName.OMP_DIRECTIVE_NAME);
         String clauseList = attributes().getString(ompBlockConstruct, "id", FlangName.OMP_BEGIN_DIRECTIVE, FlangName.OMP_CLAUSE_LIST);
 
@@ -31,10 +37,13 @@ public class OmpProcessors extends ANodeProcessor {
         Execution body = factory().newNode(Execution.class, getChildren(ompBlockConstruct, FlangName.EXECUTION_PART_CONSTRUCT));
         ompBlockConstruct.addChild(body);
 
-        if (attributes().get(clauseList).has(FlangName.OMP_CLAUSE)) ompBlockConstruct.addChildren(getChildren(clauseList, FlangName.OMP_CLAUSE));
+        if (attributes().get(clauseList).has(FlangName.OMP_CLAUSE))
+            ompBlockConstruct.addChildren(getChildren(clauseList, FlangName.OMP_CLAUSE));
     }
 
     public void ompLoopConstruct(OmpLoopConstruct ompLoopConstruct) {
+        stmtProcessors.stmt(ompLoopConstruct);
+
         String directive = attributes().getString(ompLoopConstruct, "directive", FlangName.OMP_BEGIN_LOOP_DIRECTIVE, FlangName.OMP_DIRECTIVE_NAME);
         String clauseList = attributes().getString(ompLoopConstruct, "id", FlangName.OMP_BEGIN_LOOP_DIRECTIVE, FlangName.OMP_CLAUSE_LIST);
         String endClauseList = attributes().getString(ompLoopConstruct, "id", FlangName.OMP_END_LOOP_DIRECTIVE, FlangName.OMP_CLAUSE_LIST);
@@ -43,11 +52,13 @@ public class OmpProcessors extends ANodeProcessor {
 
         ompLoopConstruct.set(OmpBlockConstruct.KINDS, kinds);
 
-        DoStmt loop = (DoStmt) getChildren(ompLoopConstruct, FlangName.EXECUTION_PART_CONSTRUCT).getFirst();
+        DoConstruct loop = (DoConstruct) getChildren(ompLoopConstruct, FlangName.EXECUTION_PART_CONSTRUCT).get(0);
         ompLoopConstruct.addChild(loop);
 
-        if (attributes().get(clauseList).has(FlangName.OMP_CLAUSE)) ompLoopConstruct.addChildren(getChildren(clauseList, FlangName.OMP_CLAUSE));
-        if (attributes().get(endClauseList).has(FlangName.OMP_CLAUSE)) ompLoopConstruct.addChildren(getChildren(endClauseList, FlangName.OMP_CLAUSE));
+        if (attributes().get(clauseList).has(FlangName.OMP_CLAUSE))
+            ompLoopConstruct.addChildren(getChildren(clauseList, FlangName.OMP_CLAUSE));
+        if (attributes().get(endClauseList).has(FlangName.OMP_CLAUSE))
+            ompLoopConstruct.addChildren(getChildren(endClauseList, FlangName.OMP_CLAUSE));
     }
 
     public void ompDataSharingClause(OmpDataSharingClause ompDataSharingClause) {
@@ -69,7 +80,7 @@ public class OmpProcessors extends ANodeProcessor {
                 attributes(ompReductionClause).getString(FlangName.OMP_REDUCTION_CLAUSE)
         ).getStringList(FlangName.MODIFIER);
 
-        String identifier = attributes().get(modifiers.getFirst()).getVariantString();
+        String identifier = attributes().get(modifiers.get(0)).getVariantString();
         String operatorId = attributes().get(identifier).getVariantString();
         String operator = attributes().get(operatorId).getString("op");
 

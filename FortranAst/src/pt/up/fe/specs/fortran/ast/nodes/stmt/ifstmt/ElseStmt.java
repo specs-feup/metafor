@@ -3,18 +3,19 @@ package pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt;
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.FortranKeyword;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.Stmt;
 
 import java.util.Collection;
 
 /**
  * R1137 else-stmt
  */
-public class ElseStmt extends FortranNode {
+public class ElseStmt extends Stmt {
     public ElseStmt(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
     }
 
-    public String getCode() {
+    public String getStmtCode() {
         var nameOpt = ((IfConstruct) getParent().getParent()).getName();
 
         var code = new StringBuilder();

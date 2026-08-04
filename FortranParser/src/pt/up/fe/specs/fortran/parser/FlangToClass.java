@@ -1,26 +1,17 @@
 package pt.up.fe.specs.fortran.parser;
 
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
+import pt.up.fe.specs.fortran.ast.nodes.decl.*;
+import pt.up.fe.specs.fortran.ast.nodes.alloc.Allocation;
+import pt.up.fe.specs.fortran.ast.nodes.alloc.StatVariable;
 import pt.up.fe.specs.fortran.ast.nodes.decl.DataStmtValue;
 import pt.up.fe.specs.fortran.ast.nodes.decl.DummyArgumentDecl;
 import pt.up.fe.specs.fortran.ast.nodes.decl.EntityDecl;
 import pt.up.fe.specs.fortran.ast.nodes.decl.KindSelector;
 import pt.up.fe.specs.fortran.ast.nodes.expr.*;
-import pt.up.fe.specs.fortran.ast.nodes.alloc.Allocation;
-import pt.up.fe.specs.fortran.ast.nodes.alloc.StatVariable;
-import pt.up.fe.specs.fortran.ast.nodes.expr.BinaryOperator;
-import pt.up.fe.specs.fortran.ast.nodes.expr.IntLiteral;
-import pt.up.fe.specs.fortran.ast.nodes.expr.LogicalLiteral;
-import pt.up.fe.specs.fortran.ast.nodes.expr.ParenExpr;
-import pt.up.fe.specs.fortran.ast.nodes.expr.StringLiteral;
 import pt.up.fe.specs.fortran.ast.nodes.loops.ConcurrentLoopControl;
 import pt.up.fe.specs.fortran.ast.nodes.loops.ConcurrentRange;
 import pt.up.fe.specs.fortran.ast.nodes.loops.RangeLoopControl;
-import pt.up.fe.specs.fortran.ast.nodes.expr.*;
-import pt.up.fe.specs.fortran.ast.nodes.omp.OmpBlockConstruct;
-import pt.up.fe.specs.fortran.ast.nodes.omp.OmpLoopConstruct;
-import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpDataSharingClause;
-import pt.up.fe.specs.fortran.ast.nodes.expr.*;
 import pt.up.fe.specs.fortran.ast.nodes.omp.OmpBlockConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.omp.OmpLoopConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpDataSharingClause;
@@ -30,7 +21,12 @@ import pt.up.fe.specs.fortran.ast.nodes.program.*;
 import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
 import pt.up.fe.specs.fortran.ast.nodes.specification.NamedConstantDef;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.datastmt.DataStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.datastmt.DataStmtSet;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.*;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.DoConstruct;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.DoStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.EndDoStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.CaseBlock;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.CaseConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.EndSelectStmt;
@@ -38,7 +34,9 @@ import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.SelectCaseStmt;
 import pt.up.fe.specs.fortran.ast.nodes.type.*;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.AllocatableKeyword;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.IntentSpec;
+import pt.up.fe.specs.fortran.ast.nodes.type.attributes.ParameterKeyword;
 import pt.up.fe.specs.fortran.ast.nodes.type.shapes.AllocateShapeSpecification;
+import pt.up.fe.specs.fortran.ast.nodes.type.shapes.AssumedImpliedShapeSpec;
 import pt.up.fe.specs.fortran.ast.nodes.type.shapes.DeferredShapeSpecList;
 import pt.up.fe.specs.fortran.ast.nodes.type.shapes.ExplicitShapeSpecification;
 import pt.up.fe.specs.fortran.ast.nodes.utils.*;
@@ -54,24 +52,37 @@ public class FlangToClass {
     static {
         NAME_TO_CLASS.put(FlangName.PROGRAM, FortranFile.class);
         NAME_TO_CLASS.put(FlangName.MAIN_PROGRAM, MainProgram.class);
+        NAME_TO_CLASS.put(FlangName.PROGRAM_STMT, ProgramStmt.class);
+        NAME_TO_CLASS.put(FlangName.END_PROGRAM_STMT, EndProgramStmt.class);
         NAME_TO_CLASS.put(FlangName.SPECIFICATION_PART, Specification.class);
         NAME_TO_CLASS.put(FlangName.EXECUTION_PART, Execution.class);
         NAME_TO_CLASS.put(FlangName.INTERNAL_SUBPROGRAM_PART, InternalSubprogram.class);
         NAME_TO_CLASS.put(FlangName.SUBROUTINE_SUBPROGRAM, Subroutine.class);
+        NAME_TO_CLASS.put(FlangName.SUBROUTINE_STMT, SubroutineStmt.class);
+        NAME_TO_CLASS.put(FlangName.END_SUBROUTINE_STMT, EndSubroutineStmt.class);
         NAME_TO_CLASS.put(FlangName.ALLOCATION, Allocation.class);
+        NAME_TO_CLASS.put(FlangName.FUNCTION_SUBPROGRAM, Function.class);
 
         /// DECLs
         NAME_TO_CLASS.put(FlangName.ENTITY_DECL, EntityDecl.class);
         NAME_TO_CLASS.put(FlangName.DUMMY_ARG, DummyArgumentDecl.class);
         NAME_TO_CLASS.put(FlangName.DATA_STMT_VALUE, DataStmtValue.class);
+        NAME_TO_CLASS.put(FlangName.DATA_STMT_SET, DataStmtSet.class);
 
         /// STMTs
         NAME_TO_CLASS.put(FlangName.PRINT_STMT, PrintStmt.class);
         NAME_TO_CLASS.put(FlangName.FORMAT_STMT, FormatStmt.class);
         NAME_TO_CLASS.put(FlangName.TYPE_DECLARATION_STMT, TypeDeclarationStmt.class);
         NAME_TO_CLASS.put(FlangName.ASSIGNMENT_STMT, AssignmentStmt.class);
-        NAME_TO_CLASS.put(FlangName.DO_CONSTRUCT, DoStmt.class);
+        NAME_TO_CLASS.put(FlangName.DO_CONSTRUCT, DoConstruct.class);
+        NAME_TO_CLASS.put(FlangName.NON_LABEL_DO_STMT, DoStmt.class);
+        NAME_TO_CLASS.put(FlangName.END_DO_STMT, EndDoStmt.class);
         NAME_TO_CLASS.put(FlangName.COMPILER_DIRECTIVE, CompilerDirective.class);
+        NAME_TO_CLASS.put(FlangName.GOTO_STMT, GotoStmt.class);
+        NAME_TO_CLASS.put(FlangName.STOP_STMT, StopStmt.class);
+        NAME_TO_CLASS.put(FlangName.COMMON_STMT, CommonStmt.class);
+        NAME_TO_CLASS.put(FlangName.COMMON_STMT_BLOCK, CommonBlock.class);
+        NAME_TO_CLASS.put(FlangName.COMMON_BLOCK_OBJECT, CommonBlockObject.class);
 
         NAME_TO_CLASS.put(FlangName.IF_CONSTRUCT, IfConstruct.class);
         NAME_TO_CLASS.put(FlangName.IF_THEN_STMT, IfThenStmt.class);
@@ -95,6 +106,16 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.USE_STMT, UseStmt.class);
         NAME_TO_CLASS.put(FlangName.CONTINUE_STMT, ContinueStmt.class);
         NAME_TO_CLASS.put(FlangName.PARAMETER_STMT, ParameterStmt.class);
+        NAME_TO_CLASS.put(FlangName.COMMON_STMT, CommonStmt.class);
+        NAME_TO_CLASS.put(FlangName.EXTERNAL_STMT, ExternalStmt.class);
+        NAME_TO_CLASS.put(FlangName.RETURN_STMT, ReturnStmt.class);
+        NAME_TO_CLASS.put(FlangName.DATA_STMT, DataStmt.class);
+        NAME_TO_CLASS.put(FlangName.OPEN_STMT, OpenStmt.class);
+        NAME_TO_CLASS.put(FlangName.CLOSE_STMT, CloseStmt.class);
+        NAME_TO_CLASS.put(FlangName.NAMED_CONSTANT_DEF, NamedConstantDef.class);
+
+        NAME_TO_CLASS.put(FlangName.DATA_STMT, DataStmt.class);
+        NAME_TO_CLASS.put(FlangName.DATA_STMT_SET, DataStmtSet.class);
 
         /// Variables
         //NAME_TO_CLASS.put(FlangName.DATA_REF, DataRef.class);
@@ -110,10 +131,14 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.FORMAT, Format.class);
         NAME_TO_CLASS.put(FlangName.STAR, Star.class);
         NAME_TO_CLASS.put(FlangName.PARENTHESES, ParenExpr.class);
+        NAME_TO_CLASS.put(FlangName.UNARY_PLUS, UnaryOperator.class);
+        NAME_TO_CLASS.put(FlangName.NEGATE, UnaryOperator.class);
+        NAME_TO_CLASS.put(FlangName.NOT, UnaryOperator.class);
         NAME_TO_CLASS.put(FlangName.ADD, BinaryOperator.class);
         NAME_TO_CLASS.put(FlangName.SUBTRACT, BinaryOperator.class);
         NAME_TO_CLASS.put(FlangName.MULTIPLY, BinaryOperator.class);
         NAME_TO_CLASS.put(FlangName.DIVIDE, BinaryOperator.class);
+        NAME_TO_CLASS.put(FlangName.POWER, BinaryOperator.class);
         NAME_TO_CLASS.put(FlangName.EQ, BinaryOperator.class);
         NAME_TO_CLASS.put(FlangName.NE, BinaryOperator.class);
         NAME_TO_CLASS.put(FlangName.LT, BinaryOperator.class);
@@ -124,6 +149,8 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.ARRAY_CONSTRUCTOR, ArrayConstructor.class);
         NAME_TO_CLASS.put(FlangName.AC_SPEC, AcSpecification.class);
         NAME_TO_CLASS.put(FlangName.ARRAY_ELEMENT, ArraySubscriptExpr.class);
+        NAME_TO_CLASS.put(FlangName.SUBSCRIPT, Subscript.class);
+        NAME_TO_CLASS.put(FlangName.SUBSCRIPT_TRIPLET, SubscriptTriplet.class);
         NAME_TO_CLASS.put(FlangName.CALL, Call.class);
         NAME_TO_CLASS.put(FlangName.ACTUAL_ARG_SPEC, Argument.class);
         NAME_TO_CLASS.put(FlangName.AC_IMPLIED_DO, AcImpliedDo.class);
@@ -146,11 +173,14 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.ARRAY_SPEC, ArraySpecification.class);
         NAME_TO_CLASS.put(FlangName.ALLOCATABLE, AllocatableKeyword.class);
         NAME_TO_CLASS.put(FlangName.INTENT_SPEC, IntentSpec.class);
+        NAME_TO_CLASS.put(FlangName.PARAMETER, ParameterKeyword.class);
+        NAME_TO_CLASS.put(FlangName.NAMED_CONSTANT_DEF, NamedConstantDef.class);
 
         ///  SHAPES
         NAME_TO_CLASS.put(FlangName.EXPLICIT_SHAPE_SPEC, ExplicitShapeSpecification.class);
         NAME_TO_CLASS.put(FlangName.DEFERRED_SHAPE_SPEC_LIST, DeferredShapeSpecList.class);
         NAME_TO_CLASS.put(FlangName.ALLOCATE_SHAPE_SPEC, AllocateShapeSpecification.class);
+        NAME_TO_CLASS.put(FlangName.ASSUMED_IMPLIED_SPEC, AssumedImpliedShapeSpec.class);
 
         ///  UTILs
         NAME_TO_CLASS.put(FlangName.NAME_VALUE, NameValue.class);

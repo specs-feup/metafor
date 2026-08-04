@@ -3,13 +3,25 @@ package pt.up.fe.specs.fortran.ast;
 public enum FortranKeyword {
     END,
     PROGRAM,
+    CONCURRENT,
+    SUBROUTINE,
+    FUNCTION,
+    WRITE,
+    USE,
+    GOTO,
+    EXTERNAL,
+    RETURN,
+    STOP,
+
+    // Execution statements
     PRINT,
     DO,
     WHILE,
-    CONCURRENT,
-    SUBROUTINE,
-    WRITE,
-    USE,
+    GO,
+    TO,
+    ERROR,
+    QUIET,
+    CALL,
 
     // Conditional statements
     IF,
@@ -18,6 +30,20 @@ public enum FortranKeyword {
     SELECT,
     CASE,
     DEFAULT,
+
+    // Types
+    INTEGER,
+    REAL,
+    CHARACTER,
+    LOGICAL,
+    DOUBLE,
+    PRECISION,
+    DIMENSION,
+
+    // Declarations
+    PARAMETER,
+    DATA,
+    COMMON,
 
     OMP;
 

@@ -389,14 +389,291 @@ public class FortranParserTest {
     }
 
     @Test
+    void testParameter() {
+        testJson("parameter.json");
+    }
+
+    @Test
+    void testParameterNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("parameter.f90");
+        }
+    }
+
+    @Test
+    void testNoProgramStmt() {
+        testJson("program/no_program_stmt.json");
+    }
+
+    @Test
+    void testNoProgramStmtNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("program/no_program_stmt.f90");
+        }
+    }
+
+    @Test
+    void testNegate() {
+        testJson("expr/negate.json");
+    }
+
+    @Test
+    void testNegateNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("expr/negate.f90");
+        }
+    }
+
+    @Test
+    void testParenteses() {
+        testJson("expr/parentheses.json");
+    }
+
+    @Test
+    void testParentesesNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("expr/parentheses.f90");
+        }
+    }
+
+    @Test
+    void testUnaryPlus() {
+        testJson("expr/unary_plus.json");
+    }
+
+    @Test
+    void testUnaryPlusNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("expr/unary_plus.f90");
+        }
+    }
+
+    @Test
+    void testNot() {
+        testJson("expr/not.json");
+    }
+
+    @Test
+    void testNotNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("expr/not.f90");
+        }
+    }
+
+    @Test
+    void testGoto() {
+        testJson("stmt/goto.json");
+    }
+
+    @Test
+    void testGotoNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("stmt/goto.f90");
+        }
+    }
+
+    @Test
+    void testStop() {
+        testJson("stmt/stop.json");
+    }
+
+    @Test
+    void testStopNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("stmt/stop.f90");
+        }
+    }
+
+    @Test
+    void testDataStmt() {
+        testJson("stmt/data_stmt.json");
+    }
+
+    @Test
+    void testDataStmtNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("stmt/data_stmt.f90");
+        }
+    }
+
+    @Test
+    void testSubscriptTriplet() {
+        testJson("expr/subscript_triplet.json");
+    }
+
+    @Test
+    void testSubscriptTripletNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("expr/subscript_triplet.f90");
+        }
+    }
+
+    @Test
+    void testCommonStmt() {
+        testJson("stmt/common_stmt.json");
+    }
+
+    @Test
+    void testCommonStmtNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("stmt/common_stmt.f90");
+        }
+    }
+
+    @Test
+    void testComment() {
+        testJson("comment.json");
+    }
+
+    @Test
+    void testCommentNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("comment.f90");
+        }
+    }
+
+    @Test
     void testFujitsu0000_0000() {
-        testJson("fujitsu/0000_0000.json");
+        testJson("fujitsu/0000/0000_0000.json");
     }
 
     @Test
     void testFujitsu0000_0000Native() {
         if (SpecsPlatforms.isLinux()) {
-            testNative("fujitsu/0000_0000.f90");
+            testNative("fujitsu/0000/0000_0000.f90");
+        }
+    }
+
+//    These tests are commented due to lack of support for 128-bit floating point values on most machines
+//    @Test
+//    void testFujitsu0000_0001() {
+//        testJson("fujitsu/0000/0000_0001.json");
+//    }
+//
+//    @Test
+//    void testFujitsu0000_0001Native() {
+//        if (SpecsPlatforms.isLinux()) {
+//            testNative("fujitsu/0000/0000_0001.f90");
+//        }
+//    }
+
+    @Test
+    void testFujitsu0000_0002() {
+        testJson("fujitsu/0000/0000_0002.json");
+    }
+
+    @Test
+    void testFujitsu0000_0002Native() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("fujitsu/0000/0000_0002.f90");
+        }
+    }
+
+    @Test
+    void testFujitsu0000_0003() {
+        testJson("fujitsu/0000/0000_0003.json");
+    }
+
+    @Test
+    void testFujitsu0000_0003Native() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("fujitsu/0000/0000_0003.f90");
+        }
+    }
+
+    @Test
+    void testFujitsu0000_0004() {
+        testJson("fujitsu/0000/0000_0004.json");
+    }
+
+    @Test
+    void testFujitsu0000_0004Native() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("fujitsu/0000/0000_0004.f90");
+        }
+    }
+
+    @Test
+    void testFujitsu0000_0007() {
+        testJson("fujitsu/0000/0000_0007.json");
+    }
+
+    @Test
+    void testFujitsu0000_0007Native() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("fujitsu/0000/0000_0007.f90");
+        }
+    }
+
+    @Test
+    void testFujitsu0000_0019() {
+        testJson("fujitsu/0000/0000_0019.json");
+    }
+
+    @Test
+    void testFujitsu0000_0019Native() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("fujitsu/0000/0000_0019.f90");
+        }
+    }
+
+    @Test
+    void testFujitsu0000_0023() {
+        testJson("fujitsu/0000/0000_0023.json");
+    }
+
+    @Test
+    void testFujitsu0000_0023Native() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("fujitsu/0000/0000_0023.f90");
+        }
+    }
+
+    @Test
+    void testFujitsu0000_0024() {
+        testJson("fujitsu/0000/0000_0024.json");
+    }
+
+    @Test
+    void testFujitsu0000_0024Native() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("fujitsu/0000/0000_0024.f90");
+        }
+    }
+
+    @Test
+    void testFujitsu0000_0029() {
+        testJson("fujitsu/0000/0000_0029.json");
+    }
+
+    @Test
+    void testFujitsu0000_0029Native() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("fujitsu/0000/0000_0029.f90");
+        }
+    }
+
+    @Test
+    void testFujitsu0000_0030() {
+        testJson("fujitsu/0000/0000_0030.json");
+    }
+
+    @Test
+    void testFujitsu0000_0030Native() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("fujitsu/0000/0000_0030.f90");
+        }
+    }
+
+    @Test
+    void testFujitsu0000_0033() {
+        testJson("fujitsu/0000/0000_0033.json");
+    }
+
+    @Test
+    void testFujitsu0000_0033Native() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("fujitsu/0000/0000_0033.f90");
         }
     }
 }
