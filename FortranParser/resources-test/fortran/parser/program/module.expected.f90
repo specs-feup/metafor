@@ -1,4 +1,4 @@
-MODULE MATH_UTILS_MOD
+MODULE math_utils_mod
     IMPLICIT NONE
 
     PRIVATE
@@ -18,4 +18,4 @@ CONTAINS
         res = x * x
     END FUNCTION square
 
-END MODULE MATH_UTILS_MOD
+END MODULE math_utils_mod
