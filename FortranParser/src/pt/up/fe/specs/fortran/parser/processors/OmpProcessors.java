@@ -9,18 +9,24 @@ import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpReductionClause;
 import pt.up.fe.specs.fortran.ast.nodes.omp.enums.OmpClauseKind;
 import pt.up.fe.specs.fortran.ast.nodes.omp.enums.OmpDirectiveKind;
 import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.DoStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.DoConstruct;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 
 import java.util.List;
 
 public class OmpProcessors extends ANodeProcessor {
-    public OmpProcessors(FortranJsonResult data) {
+    private StmtProcessors stmtProcessors;
+
+    public OmpProcessors(FortranJsonResult data, StmtProcessors stmtProcessors) {
         super(data);
+
+        this.stmtProcessors = stmtProcessors;
     }
 
     public void ompBlockConstruct(OmpBlockConstruct ompBlockConstruct) {
+        stmtProcessors.stmt(ompBlockConstruct);
+
         String directive = attributes().getString(ompBlockConstruct, "directive", FlangName.OMP_BEGIN_DIRECTIVE, FlangName.OMP_DIRECTIVE_NAME);
         String clauseList = attributes().getString(ompBlockConstruct, "id", FlangName.OMP_BEGIN_DIRECTIVE, FlangName.OMP_CLAUSE_LIST);
 
@@ -36,6 +42,8 @@ public class OmpProcessors extends ANodeProcessor {
     }
 
     public void ompLoopConstruct(OmpLoopConstruct ompLoopConstruct) {
+        stmtProcessors.stmt(ompLoopConstruct);
+
         String directive = attributes().getString(ompLoopConstruct, "directive", FlangName.OMP_BEGIN_LOOP_DIRECTIVE, FlangName.OMP_DIRECTIVE_NAME);
         String clauseList = attributes().getString(ompLoopConstruct, "id", FlangName.OMP_BEGIN_LOOP_DIRECTIVE, FlangName.OMP_CLAUSE_LIST);
         String endClauseList = attributes().getString(ompLoopConstruct, "id", FlangName.OMP_END_LOOP_DIRECTIVE, FlangName.OMP_CLAUSE_LIST);
@@ -44,7 +52,7 @@ public class OmpProcessors extends ANodeProcessor {
 
         ompLoopConstruct.set(OmpBlockConstruct.KINDS, kinds);
 
-        DoStmt loop = (DoStmt) getChildren(ompLoopConstruct, FlangName.EXECUTION_PART_CONSTRUCT).get(0);
+        DoConstruct loop = (DoConstruct) getChildren(ompLoopConstruct, FlangName.EXECUTION_PART_CONSTRUCT).get(0);
         ompLoopConstruct.addChild(loop);
 
         if (attributes().get(clauseList).has(FlangName.OMP_CLAUSE))

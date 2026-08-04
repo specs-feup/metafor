@@ -10,4 +10,4 @@ ELSE
     PRINT *, "NG", sum(a)
 END IF
 
-END
+END PROGRAM

@@ -18,7 +18,7 @@ public class ValueCaseStmt extends CaseStmt {
     }
 
     @Override
-    public String getCode() {
+    public String getStmtCode() {
         var nameOpt = getAncestor(CaseConstruct.class).getName();
         var caseValueRanges = getCaseValueRanges();
 

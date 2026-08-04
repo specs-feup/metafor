@@ -18,7 +18,7 @@ public class CommonStmt extends SpecificationStmt {
     }
 
     @Override
-    public String getCode() {
+    public String getStmtCode() {
         var blocks = getBlocks();
         var blocksCode =  blocks.stream()
                 .map(CommonBlock::getCode)

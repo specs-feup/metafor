@@ -17,7 +17,7 @@ public class CallStmt extends ActionStmt {
     }
 
     @Override
-    public String getCode() {
+    public String getStmtCode() {
         return keyword(FortranKeyword.CALL) + " " + getCall().getCode();
     }
 }

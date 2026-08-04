@@ -19,7 +19,7 @@ public class DataStmt extends DeclarationStmt {
     }
 
     @Override
-    public String getCode() {
+    public String getStmtCode() {
         var dataSets = getDataSets();
 
         var dataSetsCode = dataSets.stream()

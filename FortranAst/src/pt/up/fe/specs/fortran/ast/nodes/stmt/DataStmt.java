@@ -19,7 +19,7 @@ public class DataStmt extends DeclarationStmt {
     }
 
     @Override
-    public String getCode() {
+    public String getStmtCode() {
         StringBuilder code = new StringBuilder();
 
         code.append(FortranKeyword.DATA.getKeyword(false)).append(" ");

@@ -11,7 +11,7 @@ IF (ok) THEN
 END IF
 
 STOP
-END
+END PROGRAM
 
 SUBROUTINE test1()
     COMMON /com/ ok

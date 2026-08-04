@@ -9,4 +9,4 @@ ELSE
     PRINT *, "NG", a
 END IF
 
-END
+END PROGRAM

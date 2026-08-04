@@ -22,7 +22,7 @@ public class MainProgram extends ProgramUnit {
 
     // DATAKEYS BEGIN
 
-    public final static DataKey<Optional<String>> PROGRAM_NAME = KeyFactory.optional("programName");
+    public final static DataKey<Optional<String>> NAME = KeyFactory.optional("programName");
 
     // DATAKEYS END
 
@@ -30,27 +30,30 @@ public class MainProgram extends ProgramUnit {
         super(data, children);
     }
 
+    public Optional<String> getName() {
+        return get(NAME);
+    }
+
+    public Optional<ProgramStmt> getProgramStmt() {
+        return getChildOf(ProgramStmt.class);
+    }
+
+    public EndProgramStmt getEndProgramStmt() {
+        return getChild(EndProgramStmt.class);
+    }
+
     @Override
     public String getCode() {
+        var programStmtOpt = getProgramStmt();
+        var endProgramStmt = getEndProgramStmt();
 
         var code = new StringBuilder();
 
-        var programName = get(PROGRAM_NAME).orElse(null);
-
-        // Only write header if name is present
-        if (programName != null) {
-            code.append(keyword(PROGRAM))
-                    .append(" " + programName).append(ln());
-        }
+        programStmtOpt.ifPresent(stmt -> code.append(stmt.getCode()).append(ln()));
 
         code.append(getBodyCode()).append(ln());
 
-        // Write closing
-        code.append(keyword(END));
-        if (programName != null) {
-            code.append(" " + keyword(PROGRAM) + " ").append(programName);
-        }
-        code.append(ln());
+        code.append(endProgramStmt.getCode()).append(ln());
 
         return code.toString();
     }

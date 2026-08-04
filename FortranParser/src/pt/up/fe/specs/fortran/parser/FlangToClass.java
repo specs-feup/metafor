@@ -24,6 +24,9 @@ import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.datastmt.DataStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.datastmt.DataStmtSet;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.*;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.DoConstruct;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.DoStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.EndDoStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.CaseBlock;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.CaseConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.EndSelectStmt;
@@ -49,10 +52,14 @@ public class FlangToClass {
     static {
         NAME_TO_CLASS.put(FlangName.PROGRAM, FortranFile.class);
         NAME_TO_CLASS.put(FlangName.MAIN_PROGRAM, MainProgram.class);
+        NAME_TO_CLASS.put(FlangName.PROGRAM_STMT, ProgramStmt.class);
+        NAME_TO_CLASS.put(FlangName.END_PROGRAM_STMT, EndProgramStmt.class);
         NAME_TO_CLASS.put(FlangName.SPECIFICATION_PART, Specification.class);
         NAME_TO_CLASS.put(FlangName.EXECUTION_PART, Execution.class);
         NAME_TO_CLASS.put(FlangName.INTERNAL_SUBPROGRAM_PART, InternalSubprogram.class);
         NAME_TO_CLASS.put(FlangName.SUBROUTINE_SUBPROGRAM, Subroutine.class);
+        NAME_TO_CLASS.put(FlangName.SUBROUTINE_STMT, SubroutineStmt.class);
+        NAME_TO_CLASS.put(FlangName.END_SUBROUTINE_STMT, EndSubroutineStmt.class);
         NAME_TO_CLASS.put(FlangName.ALLOCATION, Allocation.class);
         NAME_TO_CLASS.put(FlangName.FUNCTION_SUBPROGRAM, Function.class);
 
@@ -67,7 +74,9 @@ public class FlangToClass {
         NAME_TO_CLASS.put(FlangName.FORMAT_STMT, FormatStmt.class);
         NAME_TO_CLASS.put(FlangName.TYPE_DECLARATION_STMT, TypeDeclarationStmt.class);
         NAME_TO_CLASS.put(FlangName.ASSIGNMENT_STMT, AssignmentStmt.class);
-        NAME_TO_CLASS.put(FlangName.DO_CONSTRUCT, DoStmt.class);
+        NAME_TO_CLASS.put(FlangName.DO_CONSTRUCT, DoConstruct.class);
+        NAME_TO_CLASS.put(FlangName.NON_LABEL_DO_STMT, DoStmt.class);
+        NAME_TO_CLASS.put(FlangName.END_DO_STMT, EndDoStmt.class);
         NAME_TO_CLASS.put(FlangName.COMPILER_DIRECTIVE, CompilerDirective.class);
         NAME_TO_CLASS.put(FlangName.GOTO_STMT, GotoStmt.class);
         NAME_TO_CLASS.put(FlangName.STOP_STMT, StopStmt.class);

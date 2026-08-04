@@ -22,7 +22,7 @@ public class IfStmt extends ActionStmt {
     }
 
     @Override
-    public String getCode() {
+    public String getStmtCode() {
         var condition = getCondition();
         var thenAction = getThenAction();
 
