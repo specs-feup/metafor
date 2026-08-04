@@ -14,7 +14,7 @@ public class EndModuleStmt extends Stmt {
 
     @Override
     public String getStmtCode() {
-        var moduleName = getAncestor(ModuleStmt.class).getModuleName();
+        var moduleName = getAncestor(Module.class).getName();
 
         return keyword(FortranKeyword.END) + " " + keyword(FortranKeyword.MODULE) + " " + moduleName;
     }
