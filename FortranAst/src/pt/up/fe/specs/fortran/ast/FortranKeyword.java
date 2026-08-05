@@ -76,6 +76,9 @@ public enum FortranKeyword {
     ASSIGNMENT,
     FORMATTED,
     UNFORMATTED,
+    IMPORT,
+    NONE,
+    ALL,
 
     OMP;
 
