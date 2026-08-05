@@ -26,8 +26,8 @@ public class InternalSubprogramPart extends FortranNode {
     public String getCode() {
         var containsStmtCode = getContainsStmt().getCode();
         var subprogramsCode = getSubprograms().stream()
-                .map(subprogram -> ln() + ln() + indent(subprogram.getCode()))
-                .collect(Collectors.joining());
+                .map(subprogram -> ln() + indent(subprogram.getCode()))
+                .collect(Collectors.joining(ln()));
 
         return containsStmtCode + subprogramsCode;
     }
