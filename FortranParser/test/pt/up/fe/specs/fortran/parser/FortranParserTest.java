@@ -664,14 +664,26 @@ public class FortranParserTest {
     }
 
     @Test
-    void testModule() {
-        testJson("program/module.json");
+    void testModule1() {
+        testJson("program/module1.json");
     }
 
     @Test
-    void testModuleNative() {
+    void testModule1Native() {
         if (SpecsPlatforms.isLinux()) {
-            testNative("program/module.f90");
+            testNative("program/module1.f90");
+        }
+    }
+
+    @Test
+    void testModule2() {
+        testJson("program/module2.json");
+    }
+
+    @Test
+    void testModule2Native() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("program/module2.f90");
         }
     }
 
