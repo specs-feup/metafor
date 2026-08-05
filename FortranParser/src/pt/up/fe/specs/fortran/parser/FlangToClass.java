@@ -168,6 +168,7 @@ public class FlangToClass {
         NAME_TO_MAPPER.put(FlangName.END_FUNCTION_STMT, ClassMapper.always(EndFunctionStmt.class));
         NAME_TO_MAPPER.put(FlangName.EXTERNAL_STMT, ClassMapper.always(ExternalStmt.class));
         NAME_TO_MAPPER.put(FlangName.ACCESS_STMT, ClassMapper.always(AccessStmt.class));
+        NAME_TO_MAPPER.put(FlangName.IMPORT_STMT, ClassMapper.always(ImportStmt.class));
 
         /// Variables
         //NAME_TO_CLASS.put(FlangName.DATA_REF, DataRef.class);  // TODO(Process-ing): Improve this

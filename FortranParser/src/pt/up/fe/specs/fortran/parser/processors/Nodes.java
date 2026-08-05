@@ -164,6 +164,7 @@ public class Nodes {
         processors.put(ModuleStmt.class, s::moduleStmt);
         processors.put(EndModuleStmt.class, s::endModuleStmt);
         processors.put(AccessStmt.class, s::accessStmt);
+        processors.put(ImportStmt.class, s::importStmt);
 
         var e = new ExprProcessors(data);
         processors.put(StringLiteral.class, e::stringLiteral);

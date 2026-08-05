@@ -116,6 +116,8 @@ public enum FlangName implements StringProvider {
     ACCESS_STMT,
     ACCESS_SPEC,
     ACCESS_ID,
+    IMPORT_STMT,
+    IMPORT_KIND,
 
     // Variables
     VARIABLE,

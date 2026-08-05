@@ -22,6 +22,7 @@ import pt.up.fe.specs.fortran.ast.nodes.stmt.datastmt.DataStmtSet;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.datastmt.DataStmtVariable;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.dimstmt.DimensionDecl;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.dimstmt.DimensionStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.enums.ImportKind;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.DoConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.DoStmt;
@@ -754,6 +755,22 @@ public class StmtProcessors extends ANodeProcessor {
         if (attributes(accessStmt).has(FlangName.ACCESS_ID)) {
             var accessIds = getChildren(accessStmt, FlangName.ACCESS_ID);
             accessStmt.addChildren(accessIds);
+        }
+    }
+
+    public void importStmt(ImportStmt importStmt) {
+        stmt(importStmt);
+
+        var kindSrc = attributes().getString(importStmt, "value", FlangName.IMPORT_KIND);
+        var kind = ImportKind.valueOf(kindSrc.toUpperCase());
+        importStmt.set(ImportStmt.KIND, kind);
+
+        if (attributes(importStmt).has(FlangName.NAME)) {
+            var nameIds = attributes(importStmt).getStringList(FlangName.NAME);
+            var names = nameIds.stream()
+                    .map(nameId -> attributes().get(nameId).getString("source"))
+                    .toList();
+            importStmt.set(ImportStmt.NAMES, names);
         }
     }
 }
