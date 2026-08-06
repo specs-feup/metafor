@@ -783,14 +783,16 @@ public class StmtProcessors extends ANodeProcessor {
         implicitStmt.addChildren(specs);
     }
 
-    public void implicitNoneStmt(ImplicitNoneStmt implicitNoneStmt) {
-        var attrs = attributes(implicitNoneStmt);
+    public void implicitNoneStmt(ImplicitNoneStmt implicitStmt) {
+        stmt(implicitStmt);
+
+        var attrs = attributes(implicitStmt);
         var specs = attrs.getStringList(FlangName.IMPLICIT_NONE_NAME_SPEC);
         var specValues = specs.stream()
                 .map(id -> attributes().get(id).getString("value"))
                 .toList();
 
-        implicitNoneStmt.set(ImplicitNoneStmt.EXPLICIT_TYPES, specValues.contains("Type"));
-        implicitNoneStmt.set(ImplicitNoneStmt.EXPLICIT_EXTERNAL, specValues.contains("External"));
+        implicitStmt.set(ImplicitNoneStmt.EXPLICIT_TYPES, specValues.contains("Type"));
+        implicitStmt.set(ImplicitNoneStmt.EXPLICIT_EXTERNAL, specValues.contains("External"));
     }
 }
