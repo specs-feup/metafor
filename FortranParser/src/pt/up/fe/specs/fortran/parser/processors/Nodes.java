@@ -103,6 +103,8 @@ public class Nodes {
         processors.put(NameGenericSpec.class, d::nameGenericSpec);
         processors.put(OpGenericSpec.class, d::opGenericSpec);
         processors.put(OtherGenericSpec.class, d::otherGenericSpec);
+        processors.put(LetterSpec.class, d::letterSpec);
+        processors.put(ImplicitSpec.class, d::implicitSpec);
 
         var v = new VariableProcessor(data);
         processors.put(DataRef.class, v::dataRef);
@@ -169,6 +171,8 @@ public class Nodes {
         processors.put(EndModuleStmt.class, s::endModuleStmt);
         processors.put(AccessStmt.class, s::accessStmt);
         processors.put(ImportStmt.class, s::importStmt);
+        processors.put(DefaultImplicitStmt.class, s::defaultImplicitStmt);
+        processors.put(ImplicitNoneStmt.class, s::implicitNoneStmt);
 
         var e = new ExprProcessors(data);
         processors.put(StringLiteral.class, e::stringLiteral);

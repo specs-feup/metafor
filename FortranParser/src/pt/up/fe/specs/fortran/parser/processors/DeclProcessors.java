@@ -1,6 +1,8 @@
 package pt.up.fe.specs.fortran.parser.processors;
 
 import pt.up.fe.specs.fortran.ast.nodes.decl.*;
+import pt.up.fe.specs.fortran.ast.nodes.specification.ImplicitSpec;
+import pt.up.fe.specs.fortran.ast.nodes.specification.LetterSpec;
 import pt.up.fe.specs.fortran.ast.nodes.type.typeparam.DeferredTypeParamValue;
 import pt.up.fe.specs.fortran.ast.nodes.type.typeparam.ExprTypeParamValue;
 import pt.up.fe.specs.fortran.ast.nodes.type.typeparam.StarTypeParamValue;
@@ -124,5 +126,23 @@ public class DeclProcessors extends ANodeProcessor {
             default -> throw new RuntimeException("Unknown generic spec kind: " + variant);
         };
         spec.set(OtherGenericSpec.KIND, kind);
+    }
+
+    public void letterSpec(LetterSpec letterSpec) {
+        var firstLetter = (int) attributes(letterSpec).getString("firstLetter").charAt(0);
+        letterSpec.set(LetterSpec.FIRST_LETTER, firstLetter);
+
+        var lastLetter = attributes(letterSpec)
+                .getOptionalString("lastLetter")
+                .map(s -> (int) s.charAt(0));
+        letterSpec.set(LetterSpec.LAST_LETTER, lastLetter);
+    }
+
+    public void implicitSpec(ImplicitSpec implicitSpec) {
+        var declType = getChild(implicitSpec, FlangName.DECLARATION_TYPE_SPEC);
+        implicitSpec.addChild(declType);
+
+        var letterSpecs = getChildren(implicitSpec, FlangName.LETTER_SPEC);
+        implicitSpec.addChildren(letterSpecs);
     }
 }
