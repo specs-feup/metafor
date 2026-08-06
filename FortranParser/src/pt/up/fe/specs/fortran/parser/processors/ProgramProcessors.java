@@ -99,13 +99,13 @@ public class ProgramProcessors extends ANodeProcessor {
     public void specification(Specification specification) {
         var attrs = attributes(specification);
 
-        if (attrs.has(FlangName.USE_STMT)) {
-            var useStmts = getChildren(specification, FlangName.USE_STMT);
+        if (attrs.has(FlangName.USE_STMT.getStmtAttr())) {
+            var useStmts = getChildren(specification, FlangName.USE_STMT.getStmtAttr());
             specification.addChildren(useStmts);
         }
 
-        if (attrs.has(FlangName.IMPORT_STMT)) {
-            var importStmts = getChildren(specification, FlangName.IMPORT_STMT);
+        if (attrs.has(FlangName.IMPORT_STMT.getStmtAttr())) {
+            var importStmts = getChildren(specification, FlangName.IMPORT_STMT.getStmtAttr());
             specification.addChildren(importStmts);
         }
 

@@ -25,7 +25,7 @@ public class Specification extends FortranNode {
     }
 
     public ImplicitPart getImplicitPart() {
-        return getChild(ImplicitPart.class, 0);
+        return getChild(ImplicitPart.class);
     }
 
     public List<DeclConstruct> getDeclarationConstructs() {
