@@ -5,6 +5,9 @@ import pt.up.fe.specs.fortran.ast.nodes.alloc.Allocation;
 import pt.up.fe.specs.fortran.ast.nodes.alloc.ExprAllocOption;
 import pt.up.fe.specs.fortran.ast.nodes.alloc.VarAllocOption;
 import pt.up.fe.specs.fortran.ast.nodes.decl.*;
+import pt.up.fe.specs.fortran.ast.nodes.type.decltype.DerivedDeclType;
+import pt.up.fe.specs.fortran.ast.nodes.type.decltype.IntrinsicDeclType;
+import pt.up.fe.specs.fortran.ast.nodes.type.decltype.StarDeclType;
 import pt.up.fe.specs.fortran.ast.nodes.type.typeparam.DeferredTypeParamValue;
 import pt.up.fe.specs.fortran.ast.nodes.type.typeparam.ExprTypeParamValue;
 import pt.up.fe.specs.fortran.ast.nodes.type.typeparam.StarTypeParamValue;
@@ -200,6 +203,9 @@ public class Nodes {
         processors.put(KindParamLenSelector.class, t::kindParamLenSelector);
         processors.put(RealType.class, t::realType);
         processors.put(ComplexType.class, t::complexType);
+        processors.put(IntrinsicDeclType.class, t::intrinsicDeclType);
+        processors.put(DerivedDeclType.class, t::derivedDeclType);
+        processors.put(StarDeclType.class, t::starDeclType);
 
         var a = new AttributesProcessor(data);
         processors.put(ArraySpecification.class, a::arraySpecification);

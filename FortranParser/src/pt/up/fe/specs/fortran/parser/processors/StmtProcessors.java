@@ -101,7 +101,9 @@ public class StmtProcessors extends ANodeProcessor {
         var entityDecls = getChildren(typeDeclarationStmt, FlangName.ENTITY_DECL);
 
         var type = getChild(typeDeclarationStmt, FlangName.DECLARATION_TYPE_SPEC);
+        typeDeclarationStmt.addChild(type);
 
+        // TODO(Process-ing): See why this is needed
         entityDecls.stream().forEach(entityDecl -> entityDecl.addChild(0, type));
 
         typeDeclarationStmt.addChildren(entityDecls);

@@ -4,6 +4,7 @@ import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.decl.EntityDecl;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.AttributeSpecifier;
+import pt.up.fe.specs.fortran.ast.nodes.type.decltype.DeclType;
 import pt.up.fe.specs.util.SpecsCheck;
 
 import java.util.Collection;
@@ -13,12 +14,15 @@ import java.util.stream.Collectors;
 /**
  * Has EntityDecl as children, each one representing an entity declaration.
  */
+// TODO(Process-ing): Correct this node
 public class TypeDeclarationStmt extends SpecStmt {
-
     public TypeDeclarationStmt(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
     }
 
+    public DeclType getDeclType() {
+        return getChild(DeclType.class, 0);
+    }
 
     public List<EntityDecl> getDecls() {
         return getChildrenOf(EntityDecl.class);
@@ -38,9 +42,9 @@ public class TypeDeclarationStmt extends SpecStmt {
 
         SpecsCheck.checkArgument(!decls.isEmpty(), () -> "TypeDeclarationStmt should have at least one EntityDecl");
 
-        var type = decls.get(0).getType();
-
+        var type = getDeclType();
         code.append(type.getCode());
+
         if (!attributes.isEmpty()) {
             var attributesCode = getAttributesCode(attributes);
             code.append(", ").append(attributesCode).append(" :: ");
@@ -48,7 +52,8 @@ public class TypeDeclarationStmt extends SpecStmt {
             code.append(!fixedForm() ? " :: " : " ");
         }
 
-        var declsCode = decls.stream().map(EntityDecl::getCode)
+        var declsCode = decls.stream()
+                .map(EntityDecl::getCode)
                 .collect(Collectors.joining(", "));
         code.append(declsCode);
 

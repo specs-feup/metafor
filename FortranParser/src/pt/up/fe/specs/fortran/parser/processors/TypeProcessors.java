@@ -2,6 +2,9 @@ package pt.up.fe.specs.fortran.parser.processors;
 
 import pt.up.fe.specs.fortran.ast.nodes.decl.KindSelector;
 import pt.up.fe.specs.fortran.ast.nodes.type.*;
+import pt.up.fe.specs.fortran.ast.nodes.type.decltype.DerivedDeclType;
+import pt.up.fe.specs.fortran.ast.nodes.type.decltype.IntrinsicDeclType;
+import pt.up.fe.specs.fortran.ast.nodes.type.decltype.StarDeclType;
 import pt.up.fe.specs.fortran.ast.nodes.type.lenselector.ConstLenSelector;
 import pt.up.fe.specs.fortran.ast.nodes.type.lenselector.KindParamLenSelector;
 import pt.up.fe.specs.fortran.ast.nodes.type.lenselector.ParamLenSelector;
@@ -94,5 +97,18 @@ public class TypeProcessors extends ANodeProcessor {
             var kindSelector = getChild(complexType, FlangName.KIND_SELECTOR);
             complexType.addChild(kindSelector);
         }
+    }
+
+    public void intrinsicDeclType(IntrinsicDeclType declType) {
+        var intrinsicType = getChild(declType, FlangName.INTRINSIC_TYPE_SPEC);
+        declType.addChild(intrinsicType);
+    }
+
+    public void derivedDeclType(DerivedDeclType declType) {
+
+    }
+
+    public void starDeclType(StarDeclType declType) {
+
     }
 }
