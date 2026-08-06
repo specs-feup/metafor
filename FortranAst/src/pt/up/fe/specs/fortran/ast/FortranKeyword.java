@@ -79,6 +79,7 @@ public enum FortranKeyword {
     IMPORT,
     NONE,
     ALL,
+    IMPLICIT,
 
     OMP;
 
