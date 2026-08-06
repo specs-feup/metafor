@@ -5,6 +5,7 @@ import pt.up.fe.specs.fortran.ast.nodes.type.*;
 import pt.up.fe.specs.fortran.ast.nodes.type.decltype.DerivedDeclType;
 import pt.up.fe.specs.fortran.ast.nodes.type.decltype.IntrinsicDeclType;
 import pt.up.fe.specs.fortran.ast.nodes.type.decltype.StarDeclType;
+import pt.up.fe.specs.fortran.ast.nodes.type.enums.DeclTypeKind;
 import pt.up.fe.specs.fortran.ast.nodes.type.lenselector.ConstLenSelector;
 import pt.up.fe.specs.fortran.ast.nodes.type.lenselector.KindParamLenSelector;
 import pt.up.fe.specs.fortran.ast.nodes.type.lenselector.ParamLenSelector;
@@ -105,10 +106,17 @@ public class TypeProcessors extends ANodeProcessor {
     }
 
     public void derivedDeclType(DerivedDeclType declType) {
+        var variantKey = attributes(declType).getVariantKey();
+        var kind = DeclTypeKind.valueOf(variantKey.toUpperCase());
+        declType.set(DerivedDeclType.KIND, kind);
 
+        var derivedType = getChild(declType, FlangName.DERIVED_TYPE_SPEC);
+        declType.addChild(derivedType);
     }
 
     public void starDeclType(StarDeclType declType) {
-
+        var variantKey = attributes(declType).getVariantKey();
+        var kind = DeclTypeKind.valueOf(variantKey.toUpperCase());
+        declType.set(DerivedDeclType.KIND, kind);
     }
 }
