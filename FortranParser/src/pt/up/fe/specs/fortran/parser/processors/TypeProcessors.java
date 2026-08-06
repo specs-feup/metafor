@@ -105,16 +105,18 @@ public class TypeProcessors extends ANodeProcessor {
         var keyword = attributes().getOptionalString(typeParam, "source", FlangName.KEYWORD, FlangName.NAME);
         typeParam.set(TypeParam.KEYWORD, keyword);
 
-        var values = getChildren(typeParam, FlangName.TYPE_PARAM_VALUE);
-        typeParam.addChildren(values);
+        var values = getChild(typeParam, FlangName.TYPE_PARAM_VALUE);
+        typeParam.addChild(values);
     }
 
     public void derivedType(DerivedType derivedType) {
         var name = attributes().getString(derivedType, "source", FlangName.NAME);
         derivedType.set(DerivedType.NAME, name);
 
-        var typeParams = getChildren(derivedType, FlangName.TYPE_PARAM_SPEC);
-        derivedType.addChildren(typeParams);
+        if (attributes(derivedType).has(FlangName.TYPE_PARAM_SPEC)) {
+            var typeParams = getChildren(derivedType, FlangName.TYPE_PARAM_SPEC);
+            derivedType.addChildren(typeParams);
+        }
     }
 
     public void intrinsicDeclType(IntrinsicDeclType declType) {
@@ -127,7 +129,7 @@ public class TypeProcessors extends ANodeProcessor {
         var kind = DeclTypeKind.valueOf(variantKey.toUpperCase());
         declType.set(DerivedDeclType.KIND, kind);
 
-        var derivedType = getChild(declType, FlangName.DERIVED_TYPE_SPEC);
+        var derivedType = getVariantChild(declType);
         declType.addChild(derivedType);
     }
 
