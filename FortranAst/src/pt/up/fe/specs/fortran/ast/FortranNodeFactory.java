@@ -379,10 +379,6 @@ public class FortranNodeFactory {
         return node;
     }
 
-    public ImplicitPart implicitPart(List<ImplicitPartStmt> stmts) {
-        return newNode(ImplicitPart.class, stmts);
-    }
-
     public DeclStmtAdapter declStmtAdapter(DeclStmt declStmt) {
         return newNode(DeclStmtAdapter.class, List.of(declStmt));
     }

@@ -2,10 +2,7 @@ package pt.up.fe.specs.fortran.parser.processors;
 
 import pt.up.fe.specs.fortran.ast.FortranContext;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
-import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
-import pt.up.fe.specs.fortran.ast.nodes.program.FortranFile;
-import pt.up.fe.specs.fortran.ast.nodes.program.InternalSubprogramPart;
-import pt.up.fe.specs.fortran.ast.nodes.program.Specification;
+import pt.up.fe.specs.fortran.ast.nodes.program.*;
 import pt.up.fe.specs.fortran.ast.nodes.program.construct.DeclConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.program.construct.SpecConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.program.subprogram.Function;
@@ -109,9 +106,14 @@ public class ProgramProcessors extends ANodeProcessor {
             specification.addChildren(importStmts);
         }
 
-//        var implicitPart = getChild(specification, FlangName.IMPLICIT_PART);
-//        specification.addChild(implicitPart);
-        specification.addChild(factory().implicitPart(List.of()));
+        var implicitPartAttrs = attributes().get(attrs.getString(FlangName.IMPLICIT_PART));
+        if (implicitPartAttrs.has(FlangName.IMPLICIT_PART_STMT)) {
+            var implicitPartIds = implicitPartAttrs.getStringList(FlangName.IMPLICIT_PART_STMT);
+            var implicitPartStmts = implicitPartIds.stream()
+                    .map(this::getChild)
+                    .toList();
+            specification.addChildren(implicitPartStmts);
+        }
 
         if (attrs.has(FlangName.DECLARATION_CONSTRUCT)) {
             var rawDeclConstructs = getChildren(specification, FlangName.DECLARATION_CONSTRUCT);

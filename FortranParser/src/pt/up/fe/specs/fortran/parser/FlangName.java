@@ -20,6 +20,7 @@ public enum FlangName implements StringProvider {
     MODULE_SUBPROGRAM,
     DECLARATION_CONSTRUCT,
     IMPLICIT_PART,
+    IMPLICIT_PART_STMT,
     EXECUTION_PART,
     INTERNAL_SUBPROGRAM,
     BLOCK,

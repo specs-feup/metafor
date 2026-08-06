@@ -3,6 +3,7 @@ package pt.up.fe.specs.fortran.ast.nodes.program;
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.program.construct.DeclConstruct;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.ImplicitPartStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ImportStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.usestmt.UseStmt;
 
@@ -24,8 +25,8 @@ public class Specification extends FortranNode {
         return getChildrenOf(ImportStmt.class);
     }
 
-    public ImplicitPart getImplicitPart() {
-        return getChild(ImplicitPart.class);
+    public List<ImplicitPartStmt> getImplicitPartStmts() {
+        return getChildrenOf(ImplicitPartStmt.class);
     }
 
     public List<DeclConstruct> getDeclarationConstructs() {
@@ -46,7 +47,9 @@ public class Specification extends FortranNode {
                 .map(ImportStmt::getCode)
                 .collect(Collectors.joining(ln()));
 
-        var implicitPartCode = getImplicitPart().getCode();
+        var implicitPartCode = getImplicitPartStmts().stream()
+                .map(ImplicitPartStmt::getCode)
+                .collect(Collectors.joining(ln()));
 
         var declConstructsCode = getDeclarationConstructs().stream()
                 .map(DeclConstruct::getCode)
