@@ -1,9 +1,9 @@
 package pt.up.fe.specs.fortran.parser.processors;
 
 import pt.up.fe.specs.fortran.ast.nodes.decl.*;
-import pt.up.fe.specs.fortran.ast.nodes.decl.typeparam.DeferredTypeParamValue;
-import pt.up.fe.specs.fortran.ast.nodes.decl.typeparam.ExprTypeParamValue;
-import pt.up.fe.specs.fortran.ast.nodes.decl.typeparam.StarTypeParamValue;
+import pt.up.fe.specs.fortran.ast.nodes.type.typeparam.DeferredTypeParamValue;
+import pt.up.fe.specs.fortran.ast.nodes.type.typeparam.ExprTypeParamValue;
+import pt.up.fe.specs.fortran.ast.nodes.type.typeparam.StarTypeParamValue;
 import pt.up.fe.specs.fortran.ast.nodes.expr.enums.BinaryOperatorKind;
 import pt.up.fe.specs.fortran.ast.nodes.specification.IntrinsicOperator;
 import pt.up.fe.specs.fortran.ast.nodes.specification.NamedOperator;

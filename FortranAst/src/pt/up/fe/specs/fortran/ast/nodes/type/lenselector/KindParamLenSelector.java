@@ -3,7 +3,7 @@ package pt.up.fe.specs.fortran.ast.nodes.type.lenselector;
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.FortranKeyword;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
-import pt.up.fe.specs.fortran.ast.nodes.decl.typeparam.TypeParamValue;
+import pt.up.fe.specs.fortran.ast.nodes.type.typeparam.TypeParamValue;
 import pt.up.fe.specs.fortran.ast.nodes.expr.Expr;
 
 import java.util.Collection;
