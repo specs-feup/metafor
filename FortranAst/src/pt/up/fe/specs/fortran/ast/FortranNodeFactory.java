@@ -21,17 +21,14 @@ import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpOrderedClause;
 import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpReductionClause;
 import pt.up.fe.specs.fortran.ast.nodes.omp.enums.OmpClauseKind;
 import pt.up.fe.specs.fortran.ast.nodes.omp.enums.OmpDirectiveKind;
-import pt.up.fe.specs.fortran.ast.nodes.program.Application;
-import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
-import pt.up.fe.specs.fortran.ast.nodes.program.FortranFile;
-import pt.up.fe.specs.fortran.ast.nodes.program.Specification;
+import pt.up.fe.specs.fortran.ast.nodes.program.*;
+import pt.up.fe.specs.fortran.ast.nodes.program.construct.DeclStmtAdapter;
+import pt.up.fe.specs.fortran.ast.nodes.program.construct.SpecStmtAdapter;
 import pt.up.fe.specs.fortran.ast.nodes.program.unit.EndProgramStmt;
 import pt.up.fe.specs.fortran.ast.nodes.program.unit.ProgramStmt;
 import pt.up.fe.specs.fortran.ast.nodes.program.unit.MainProgram;
 import pt.up.fe.specs.fortran.ast.nodes.program.unit.ProgramUnit;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.LiteralExecutionStmt;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.PrintStmt;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.Stmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.DoConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.DoStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.EndDoStmt;
@@ -379,5 +376,17 @@ public class FortranNodeFactory {
         node.set(NamedParameter.NAME, name);
 
         return node;
+    }
+
+    public ImplicitPart implicitPart(List<ImplicitPartStmt> stmts) {
+        return newNode(ImplicitPart.class, stmts);
+    }
+
+    public DeclStmtAdapter declStmtAdapter(DeclStmt declStmt) {
+        return newNode(DeclStmtAdapter.class, List.of(declStmt));
+    }
+
+    public SpecStmtAdapter specStmtAdapter(SpecStmt specStmt) {
+        return newNode(SpecStmtAdapter.class, List.of(specStmt));
     }
 }

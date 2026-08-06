@@ -6,12 +6,15 @@ import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
 import pt.up.fe.specs.fortran.ast.nodes.program.FortranFile;
 import pt.up.fe.specs.fortran.ast.nodes.program.InternalSubprogramPart;
 import pt.up.fe.specs.fortran.ast.nodes.program.Specification;
+import pt.up.fe.specs.fortran.ast.nodes.program.construct.DeclConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.program.subprogram.Function;
 import pt.up.fe.specs.fortran.ast.nodes.program.subprogram.Subroutine;
 import pt.up.fe.specs.fortran.ast.nodes.program.unit.MainProgram;
 import pt.up.fe.specs.fortran.ast.nodes.program.unit.Module;
 import pt.up.fe.specs.fortran.ast.nodes.program.unit.ModuleSubprogramPart;
 import pt.up.fe.specs.fortran.ast.nodes.program.unit.SubprogramUnit;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.DeclStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.SpecStmt;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 import pt.up.fe.specs.util.SpecsIo;
@@ -92,16 +95,47 @@ public class ProgramProcessors extends ANodeProcessor {
     }
 
     public void specification(Specification specification) {
+        var attrs = attributes(specification);
 
-        if (attributes(specification).has(FlangName.STATEMENT)) {
-            specification.addChildren(getChildren(specification, FlangName.STATEMENT));
+        if (attrs.has(FlangName.USE_STMT)) {
+            var useStmts = getChildren(specification, FlangName.USE_STMT);
+            specification.addChildren(useStmts);
         }
 
-        if (attributes(specification).has(FlangName.DECLARATION_CONSTRUCT)) {
-            specification.addChildren(getChildren(specification, FlangName.DECLARATION_CONSTRUCT));
+        if (attrs.has(FlangName.IMPORT_STMT)) {
+            var importStmts = getChildren(specification, FlangName.IMPORT_STMT);
+            specification.addChildren(importStmts);
         }
 
+//        var implicitPart = getChild(specification, FlangName.IMPLICIT_PART);
+//        specification.addChild(implicitPart);
+        specification.addChild(factory().implicitPart(List.of()));
 
+        if (attrs.has(FlangName.DECLARATION_CONSTRUCT)) {
+            var rawDeclConstructs = getChildren(specification, FlangName.DECLARATION_CONSTRUCT);
+
+            var declConstructs = rawDeclConstructs.stream()
+                    .map(this::toDeclConstruct)
+                    .toList();
+
+            specification.addChildren(declConstructs);
+        }
+    }
+
+    public DeclConstruct toDeclConstruct(FortranNode node) {
+        if (node instanceof DeclConstruct declConstruct) {
+            return declConstruct;
+        }
+
+        if (node instanceof DeclStmt declStmt) {
+            return factory().declStmtAdapter(declStmt);
+        }
+
+        if (node instanceof SpecStmt specStmt) {
+            return factory().specStmtAdapter(specStmt);
+        }
+
+        throw new RuntimeException("Cannot convert node to DeclConstruct: " + node);
     }
 
     public void execution(Execution execution) {
