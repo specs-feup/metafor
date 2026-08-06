@@ -688,6 +688,18 @@ public class FortranParserTest {
     }
 
     @Test
+    void testImplicit() {
+        testJson("program/implicit.json");
+    }
+
+    @Test
+    void testImplicitNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("program/implicit.f90");
+        }
+    }
+
+    @Test
     void testFujitsu0000_0000() {
         testJson("fujitsu/0000/0000_0000.json");
     }
