@@ -242,7 +242,7 @@ public class FlangToClass {
                 .map(FlangName.EXPR, ExprTypeParamValue.class)
                 .map(FlangName.STAR, StarTypeParamValue.class)
                 .map(FlangName.DEFERRED, DeferredTypeParamValue.class));
-        NAME_TO_MAPPER.put(FlangName.TYPE_PARAM, ClassMapper.always(TypeParam.class));
+        NAME_TO_MAPPER.put(FlangName.TYPE_PARAM_SPEC, ClassMapper.always(TypeParam.class));
         NAME_TO_MAPPER.put(FlangName.DERIVED_TYPE_SPEC, ClassMapper.always(DerivedType.class));
         NAME_TO_MAPPER.put(FlangName.DECLARATION_TYPE_SPEC, ClassMapper.caseFor(DeclType.class)
                 .map(FlangName.INTRINSIC_TYPE_SPEC, IntrinsicDeclType.class)

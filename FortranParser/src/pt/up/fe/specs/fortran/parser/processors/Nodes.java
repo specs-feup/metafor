@@ -56,6 +56,7 @@ import pt.up.fe.specs.fortran.ast.nodes.type.shapes.AllocateShapeSpecification;
 import pt.up.fe.specs.fortran.ast.nodes.type.shapes.AssumedImpliedShapeSpec;
 import pt.up.fe.specs.fortran.ast.nodes.type.shapes.DeferredShapeSpecList;
 import pt.up.fe.specs.fortran.ast.nodes.type.shapes.ExplicitShapeSpecification;
+import pt.up.fe.specs.fortran.ast.nodes.type.typeparam.TypeParam;
 import pt.up.fe.specs.fortran.ast.nodes.utils.IoUnit;
 import pt.up.fe.specs.fortran.ast.nodes.utils.NameValue;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
@@ -203,6 +204,8 @@ public class Nodes {
         processors.put(KindParamLenSelector.class, t::kindParamLenSelector);
         processors.put(RealType.class, t::realType);
         processors.put(ComplexType.class, t::complexType);
+        processors.put(DerivedType.class, t::derivedType);
+        processors.put(TypeParam.class, t::typeParam);
         processors.put(IntrinsicDeclType.class, t::intrinsicDeclType);
         processors.put(DerivedDeclType.class, t::derivedDeclType);
         processors.put(StarDeclType.class, t::starDeclType);

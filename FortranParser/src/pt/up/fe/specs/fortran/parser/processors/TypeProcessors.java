@@ -9,6 +9,7 @@ import pt.up.fe.specs.fortran.ast.nodes.type.enums.DeclTypeKind;
 import pt.up.fe.specs.fortran.ast.nodes.type.lenselector.ConstLenSelector;
 import pt.up.fe.specs.fortran.ast.nodes.type.lenselector.KindParamLenSelector;
 import pt.up.fe.specs.fortran.ast.nodes.type.lenselector.ParamLenSelector;
+import pt.up.fe.specs.fortran.ast.nodes.type.typeparam.TypeParam;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 
@@ -98,6 +99,22 @@ public class TypeProcessors extends ANodeProcessor {
             var kindSelector = getChild(complexType, FlangName.KIND_SELECTOR);
             complexType.addChild(kindSelector);
         }
+    }
+
+    public void typeParam(TypeParam typeParam) {
+        var keyword = attributes().getOptionalString(typeParam, "source", FlangName.KEYWORD, FlangName.NAME);
+        typeParam.set(TypeParam.KEYWORD, keyword);
+
+        var values = getChildren(typeParam, FlangName.TYPE_PARAM_VALUE);
+        typeParam.addChildren(values);
+    }
+
+    public void derivedType(DerivedType derivedType) {
+        var name = attributes().getString(derivedType, "source", FlangName.NAME);
+        derivedType.set(DerivedType.NAME, name);
+
+        var typeParams = getChildren(derivedType, FlangName.TYPE_PARAM_SPEC);
+        derivedType.addChildren(typeParams);
     }
 
     public void intrinsicDeclType(IntrinsicDeclType declType) {
