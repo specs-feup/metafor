@@ -93,6 +93,12 @@ public enum FlangName implements StringProvider {
     DECLARATION,
     NAMELIST_STMT,
     GROUP,
+    IMPLICIT_STMT,
+    IMPLICIT_SPEC,
+    LETTER_SPEC,
+    LOCATION,
+    IMPLICIT_NONE_NAME_SPEC,
+    EXTERNAL,
 
     /// Conditional Statements
     IF_CONSTRUCT,
@@ -180,7 +186,6 @@ public enum FlangName implements StringProvider {
     AC_IMPLIED_DO_CONTROL,
 
     /// TYPEs
-    DECLARATION_TYPE_SPEC,
     INTEGER_TYPE_SPEC,
     KIND_SELECTOR,
     STAR_SIZE,
@@ -193,6 +198,14 @@ public enum FlangName implements StringProvider {
     LENGTH_SELECTOR,
     LENGTH_AND_KIND,
     COMPLEX,
+    TYPE_PARAM,
+    DERIVED_TYPE_SPEC,
+    DECLARATION_TYPE_SPEC,
+    TYPE,
+    CLASS,
+    CLASS_STAR,
+    TYPE_STAR,
+    INTRINSIC_TYPE_SPEC,
 
     /// LOOP
     LOOP_BOUNDS,

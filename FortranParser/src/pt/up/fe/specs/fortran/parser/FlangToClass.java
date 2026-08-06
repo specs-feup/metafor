@@ -6,10 +6,11 @@ import pt.up.fe.specs.fortran.ast.nodes.alloc.Allocation;
 import pt.up.fe.specs.fortran.ast.nodes.alloc.ExprAllocOption;
 import pt.up.fe.specs.fortran.ast.nodes.alloc.VarAllocOption;
 import pt.up.fe.specs.fortran.ast.nodes.decl.*;
-import pt.up.fe.specs.fortran.ast.nodes.type.typeparam.DeferredTypeParamValue;
-import pt.up.fe.specs.fortran.ast.nodes.type.typeparam.ExprTypeParamValue;
-import pt.up.fe.specs.fortran.ast.nodes.type.typeparam.StarTypeParamValue;
-import pt.up.fe.specs.fortran.ast.nodes.type.typeparam.TypeParamValue;
+import pt.up.fe.specs.fortran.ast.nodes.type.decltype.DeclType;
+import pt.up.fe.specs.fortran.ast.nodes.type.decltype.DerivedDeclType;
+import pt.up.fe.specs.fortran.ast.nodes.type.decltype.IntrinsicDeclType;
+import pt.up.fe.specs.fortran.ast.nodes.type.decltype.StarDeclType;
+import pt.up.fe.specs.fortran.ast.nodes.type.typeparam.*;
 import pt.up.fe.specs.fortran.ast.nodes.expr.*;
 import pt.up.fe.specs.fortran.ast.nodes.io.*;
 import pt.up.fe.specs.fortran.ast.nodes.loops.ConcurrentLoopControl;
@@ -96,10 +97,6 @@ public class FlangToClass {
                 .map(FlangName.NAME, NamedParameter.class)
                 .map(FlangName.STAR, StarParameter.class));
         NAME_TO_MAPPER.put(FlangName.DATA_STMT_VALUE, ClassMapper.always(DataStmtValue.class));
-        NAME_TO_MAPPER.put(FlangName.TYPE_PARAM_VALUE, ClassMapper.caseFor(TypeParamValue.class)
-                .map(FlangName.EXPR, ExprTypeParamValue.class)
-                .map(FlangName.STAR, StarTypeParamValue.class)
-                .map(FlangName.DEFERRED, DeferredTypeParamValue.class));
         NAME_TO_MAPPER.put(FlangName.DEFINED_OP_NAME, ClassMapper.always(NamedOperator.class));
         NAME_TO_MAPPER.put(FlangName.INTRINSIC_OPERATOR, ClassMapper.always(IntrinsicOperator.class));
         NAME_TO_MAPPER.put(FlangName.GENERIC_SPEC, ClassMapper.caseFor(GenericSpec.class)
@@ -169,6 +166,11 @@ public class FlangToClass {
         NAME_TO_MAPPER.put(FlangName.EXTERNAL_STMT, ClassMapper.always(ExternalStmt.class));
         NAME_TO_MAPPER.put(FlangName.ACCESS_STMT, ClassMapper.always(AccessStmt.class));
         NAME_TO_MAPPER.put(FlangName.IMPORT_STMT, ClassMapper.always(ImportStmt.class));
+        NAME_TO_MAPPER.put(FlangName.IMPLICIT_STMT, ClassMapper.caseFor(ImplicitStmt.class)
+                .map(FlangName.IMPLICIT_SPEC, DefaultImplicitStmt.class)
+                .map(FlangName.IMPLICIT_NONE_NAME_SPEC, ImplicitNoneStmt.class));
+        NAME_TO_MAPPER.put(FlangName.IMPLICIT_SPEC, ClassMapper.always(ImplicitSpec.class));
+        NAME_TO_MAPPER.put(FlangName.LETTER_SPEC, ClassMapper.always(LetterSpec.class));
 
         /// Variables
         //NAME_TO_CLASS.put(FlangName.DATA_REF, DataRef.class);  // TODO(Process-ing): Improve this
@@ -236,6 +238,18 @@ public class FlangToClass {
                 .map(FlangName.TYPE_PARAM_VALUE, ParamLenSelector.class)
                 .ignore(FlangName.CHAR_LENGTH));
         NAME_TO_MAPPER.put(FlangName.LENGTH_AND_KIND, ClassMapper.always(KindParamLenSelector.class));
+        NAME_TO_MAPPER.put(FlangName.TYPE_PARAM_VALUE, ClassMapper.caseFor(TypeParamValue.class)
+                .map(FlangName.EXPR, ExprTypeParamValue.class)
+                .map(FlangName.STAR, StarTypeParamValue.class)
+                .map(FlangName.DEFERRED, DeferredTypeParamValue.class));
+        NAME_TO_MAPPER.put(FlangName.TYPE_PARAM, ClassMapper.always(TypeParam.class));
+        NAME_TO_MAPPER.put(FlangName.DERIVED_TYPE_SPEC, ClassMapper.always(DerivedType.class));
+        NAME_TO_MAPPER.put(FlangName.DECLARATION_TYPE_SPEC, ClassMapper.caseFor(DeclType.class)
+                .map(FlangName.INTRINSIC_TYPE_SPEC, IntrinsicDeclType.class)
+                .map(FlangName.TYPE, DerivedDeclType.class)
+                .map(FlangName.CLASS, DerivedDeclType.class)
+                .map(FlangName.CLASS_STAR, StarDeclType.class)
+                .map(FlangName.TYPE_STAR, StarDeclType.class));
 
         ///  LOOP
         NAME_TO_MAPPER.put(FlangName.LOOP_BOUNDS, ClassMapper.always(RangeLoopControl.class));
