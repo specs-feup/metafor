@@ -5,9 +5,9 @@ import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 
 import java.util.Collection;
 
-public abstract class DeclarationStmt extends Stmt {
+public abstract class SpecStmt extends DeclStmt {
 
-    public DeclarationStmt(DataStore data, Collection<? extends FortranNode> children) {
+    public SpecStmt(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
     }
 }

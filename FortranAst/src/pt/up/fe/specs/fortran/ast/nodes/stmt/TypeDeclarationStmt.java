@@ -3,7 +3,6 @@ package pt.up.fe.specs.fortran.ast.nodes.stmt;
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.decl.EntityDecl;
-import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.AttributeSpecifier;
 import pt.up.fe.specs.util.SpecsCheck;
 
@@ -14,7 +13,7 @@ import java.util.stream.Collectors;
 /**
  * Has EntityDecl as children, each one representing an entity declaration.
  */
-public class TypeDeclarationStmt extends SpecificationStmt {
+public class TypeDeclarationStmt extends SpecStmt {
 
     public TypeDeclarationStmt(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);

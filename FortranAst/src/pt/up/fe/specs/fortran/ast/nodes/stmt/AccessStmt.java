@@ -11,7 +11,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class AccessStmt extends SpecificationStmt {
+public class AccessStmt extends SpecStmt {
     public static final DataKey<AccessKind> ACCESS_KIND = KeyFactory.enumeration("access_kind", AccessKind.class);
 
     public AccessStmt(DataStore data, Collection<? extends FortranNode> children) {

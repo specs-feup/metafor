@@ -3,13 +3,13 @@ package pt.up.fe.specs.fortran.ast.nodes.stmt.datastmt;
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.FortranKeyword;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.DeclarationStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.DeclStmt;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class DataStmt extends DeclarationStmt {
+public class DataStmt extends DeclStmt {
     public DataStmt(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
     }

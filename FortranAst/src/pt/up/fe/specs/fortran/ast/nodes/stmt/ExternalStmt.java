@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ExternalStmt extends SpecificationStmt {
+public class ExternalStmt extends SpecStmt {
     public ExternalStmt(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
     }

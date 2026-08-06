@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CommonStmt extends SpecificationStmt {
+public class CommonStmt extends SpecStmt {
     public CommonStmt(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
     }
