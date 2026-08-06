@@ -80,6 +80,7 @@ public enum FortranKeyword {
     NONE,
     ALL,
     IMPLICIT,
+    TYPE,
 
     OMP;
 

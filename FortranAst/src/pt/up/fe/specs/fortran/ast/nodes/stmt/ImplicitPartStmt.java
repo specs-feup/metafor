@@ -5,7 +5,7 @@ import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 
 import java.util.Collection;
 
-public class ImplicitPartStmt extends Stmt {
+public abstract class ImplicitPartStmt extends Stmt {
     public ImplicitPartStmt(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
     }
