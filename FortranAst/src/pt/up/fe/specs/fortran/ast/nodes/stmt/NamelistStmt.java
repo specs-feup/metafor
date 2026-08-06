@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class NamelistStmt extends Stmt {
+public class NamelistStmt extends SpecStmt {
     public NamelistStmt(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
     }

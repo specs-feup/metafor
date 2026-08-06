@@ -137,6 +137,7 @@ public abstract class FortranNode extends DataNode<FortranNode> {
         return lowercase ? code.toLowerCase() : code.toUpperCase();
     }
 
+    // TODO(Process-ing): Remove the need to use this
     protected boolean fixedForm() {
         return getContext().get(FortranContext.FIXED_FORM);
     }
