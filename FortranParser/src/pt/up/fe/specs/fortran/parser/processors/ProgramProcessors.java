@@ -7,12 +7,14 @@ import pt.up.fe.specs.fortran.ast.nodes.program.FortranFile;
 import pt.up.fe.specs.fortran.ast.nodes.program.InternalSubprogramPart;
 import pt.up.fe.specs.fortran.ast.nodes.program.Specification;
 import pt.up.fe.specs.fortran.ast.nodes.program.construct.DeclConstruct;
+import pt.up.fe.specs.fortran.ast.nodes.program.construct.SpecConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.program.subprogram.Function;
 import pt.up.fe.specs.fortran.ast.nodes.program.subprogram.Subroutine;
 import pt.up.fe.specs.fortran.ast.nodes.program.unit.MainProgram;
 import pt.up.fe.specs.fortran.ast.nodes.program.unit.Module;
 import pt.up.fe.specs.fortran.ast.nodes.program.unit.ModuleSubprogramPart;
 import pt.up.fe.specs.fortran.ast.nodes.program.unit.SubprogramUnit;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.CompilerDirective;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.DeclStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.SpecStmt;
 import pt.up.fe.specs.fortran.parser.FlangName;
@@ -131,11 +133,27 @@ public class ProgramProcessors extends ANodeProcessor {
             return factory().declStmtAdapter(declStmt);
         }
 
+        if (node instanceof SpecStmt || node instanceof CompilerDirective) {
+            return toSpecConstruct(node);
+        }
+
+        throw new RuntimeException("Cannot convert node to DeclConstruct: " + node);
+    }
+
+    public SpecConstruct toSpecConstruct(FortranNode node) {
+        if (node instanceof SpecConstruct specConstruct) {
+            return specConstruct;
+        }
+
         if (node instanceof SpecStmt specStmt) {
             return factory().specStmtAdapter(specStmt);
         }
 
-        throw new RuntimeException("Cannot convert node to DeclConstruct: " + node);
+        if (node instanceof CompilerDirective compilerDirective) {
+            return factory().specDirectiveAdapter(compilerDirective);
+        }
+
+        throw new RuntimeException("Cannot convert node to SpecConstruct: " + node);
     }
 
     public void execution(Execution execution) {

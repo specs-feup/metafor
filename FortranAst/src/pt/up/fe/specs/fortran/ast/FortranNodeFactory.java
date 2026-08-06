@@ -23,6 +23,7 @@ import pt.up.fe.specs.fortran.ast.nodes.omp.enums.OmpClauseKind;
 import pt.up.fe.specs.fortran.ast.nodes.omp.enums.OmpDirectiveKind;
 import pt.up.fe.specs.fortran.ast.nodes.program.*;
 import pt.up.fe.specs.fortran.ast.nodes.program.construct.DeclStmtAdapter;
+import pt.up.fe.specs.fortran.ast.nodes.program.construct.SpecDirectiveAdapter;
 import pt.up.fe.specs.fortran.ast.nodes.program.construct.SpecStmtAdapter;
 import pt.up.fe.specs.fortran.ast.nodes.program.unit.EndProgramStmt;
 import pt.up.fe.specs.fortran.ast.nodes.program.unit.ProgramStmt;
@@ -388,5 +389,9 @@ public class FortranNodeFactory {
 
     public SpecStmtAdapter specStmtAdapter(SpecStmt specStmt) {
         return newNode(SpecStmtAdapter.class, List.of(specStmt));
+    }
+
+    public SpecDirectiveAdapter specDirectiveAdapter(CompilerDirective compilerDirective) {
+        return newNode(SpecDirectiveAdapter.class, List.of(compilerDirective));
     }
 }
