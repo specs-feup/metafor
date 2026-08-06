@@ -95,15 +95,15 @@ public class FortranParserTest {
             }
 
             if (col != expectedLine.length() || col != normalizedLine.length()) {
-                reportMismatch(line, col, expectedLine, normalizedLine, original);
+                reportMismatch(line + 1, col + 1, expectedLine, normalizedLine, original);
                 return;
             }
         }
 
         if (expectedLines.size() > numLines) {
-            reportMismatch(numLines, 0, expectedLines.get(numLines), "", original);
+            reportMismatch(numLines + 1, 0, expectedLines.get(numLines), "", original);
         } else if (normalizedLines.size() > numLines) {
-            reportMismatch(numLines, 0, "", normalizedLines.get(numLines), original);
+            reportMismatch(numLines + 1, 0, "", normalizedLines.get(numLines), original);
         }
     }
 
