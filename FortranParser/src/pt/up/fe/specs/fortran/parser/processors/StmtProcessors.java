@@ -694,6 +694,11 @@ public class StmtProcessors extends ANodeProcessor {
     public void functionStmt(FunctionStmt functionStmt) {
         stmt(functionStmt);
 
+        if (attributes(functionStmt).has("prefix")) {
+            var prefixSpecs = getChildren(functionStmt, "prefix");
+            functionStmt.addChildren(prefixSpecs);
+        }
+
         var functionNameId = attributes(functionStmt).getString("functionName");
         var functionName = attributes().get(functionNameId).getString("source");
         functionStmt.set(FunctionStmt.FUNCTION_NAME, functionName);

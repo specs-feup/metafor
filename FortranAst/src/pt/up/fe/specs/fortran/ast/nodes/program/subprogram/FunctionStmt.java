@@ -7,6 +7,7 @@ import pt.up.fe.specs.fortran.ast.FortranKeyword;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.decl.NamedParameter;
 import pt.up.fe.specs.fortran.ast.nodes.specification.LanguageBindingSpec;
+import pt.up.fe.specs.fortran.ast.nodes.specification.funcspec.FunctionSpec;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.Stmt;
 
 import java.util.Collection;
@@ -22,6 +23,10 @@ public class FunctionStmt extends Stmt {
 
     public FunctionStmt(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
+    }
+
+    public List<FunctionSpec> getFunctionSpecs() {
+        return getChildrenOf(FunctionSpec.class);
     }
 
     public String getFunctionName() {
@@ -42,6 +47,10 @@ public class FunctionStmt extends Stmt {
 
     @Override
     public String getStmtCode() {
+        var prefix = getFunctionSpecs().stream()
+                .map(spec -> spec.getCode() + " ")
+                .collect(Collectors.joining());
+
         var functionName = getFunctionName();
 
         var argCode = getParameters().stream()
@@ -56,6 +65,6 @@ public class FunctionStmt extends Stmt {
                 .orElse("");
         var suffix = resultNameCode + bindingCode;
 
-        return keyword(FortranKeyword.FUNCTION) + " " + functionName + argCode + suffix;
+        return prefix + keyword(FortranKeyword.FUNCTION) + " " + functionName + argCode + suffix;
     }
 }
