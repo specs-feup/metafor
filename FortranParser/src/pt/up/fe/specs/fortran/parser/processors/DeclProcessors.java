@@ -3,6 +3,9 @@ package pt.up.fe.specs.fortran.parser.processors;
 import pt.up.fe.specs.fortran.ast.nodes.decl.*;
 import pt.up.fe.specs.fortran.ast.nodes.specification.ImplicitSpec;
 import pt.up.fe.specs.fortran.ast.nodes.specification.LetterSpec;
+import pt.up.fe.specs.fortran.ast.nodes.specification.enums.EmptyFunctionSpecKind;
+import pt.up.fe.specs.fortran.ast.nodes.specification.funcspec.DeclTypeFunctionSpec;
+import pt.up.fe.specs.fortran.ast.nodes.specification.funcspec.EmptyFunctionSpec;
 import pt.up.fe.specs.fortran.ast.nodes.type.typeparam.DeferredTypeParamValue;
 import pt.up.fe.specs.fortran.ast.nodes.type.typeparam.ExprTypeParamValue;
 import pt.up.fe.specs.fortran.ast.nodes.type.typeparam.StarTypeParamValue;
@@ -144,5 +147,16 @@ public class DeclProcessors extends ANodeProcessor {
 
         var letterSpecs = getChildren(implicitSpec, FlangName.LETTER_SPEC);
         implicitSpec.addChildren(letterSpecs);
+    }
+
+    public void declTypeFunctionSpec(DeclTypeFunctionSpec functionSpec) {
+        var declType = getChild(functionSpec, FlangName.DECLARATION_TYPE_SPEC);
+        functionSpec.addChild(declType);
+    }
+
+    public void emptyFunctionSpec(EmptyFunctionSpec functionSpec) {
+        var variantKey = attributes(functionSpec).getVariantKey();
+        var kind = EmptyFunctionSpecKind.valueOf(variantKey.toUpperCase());
+        functionSpec.set(EmptyFunctionSpec.KIND, kind);
     }
 }

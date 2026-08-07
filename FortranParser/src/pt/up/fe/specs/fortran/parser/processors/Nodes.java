@@ -5,6 +5,8 @@ import pt.up.fe.specs.fortran.ast.nodes.alloc.Allocation;
 import pt.up.fe.specs.fortran.ast.nodes.alloc.ExprAllocOption;
 import pt.up.fe.specs.fortran.ast.nodes.alloc.VarAllocOption;
 import pt.up.fe.specs.fortran.ast.nodes.decl.*;
+import pt.up.fe.specs.fortran.ast.nodes.specification.funcspec.DeclTypeFunctionSpec;
+import pt.up.fe.specs.fortran.ast.nodes.specification.funcspec.EmptyFunctionSpec;
 import pt.up.fe.specs.fortran.ast.nodes.type.decltype.DerivedDeclType;
 import pt.up.fe.specs.fortran.ast.nodes.type.decltype.IntrinsicDeclType;
 import pt.up.fe.specs.fortran.ast.nodes.type.decltype.StarDeclType;
@@ -105,6 +107,8 @@ public class Nodes {
         processors.put(OtherGenericSpec.class, d::otherGenericSpec);
         processors.put(LetterSpec.class, d::letterSpec);
         processors.put(ImplicitSpec.class, d::implicitSpec);
+        processors.put(DeclTypeFunctionSpec.class, d::declTypeFunctionSpec);
+        processors.put(EmptyFunctionSpec.class, d::emptyFunctionSpec);
 
         var v = new VariableProcessor(data);
         processors.put(DataRef.class, v::dataRef);

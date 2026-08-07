@@ -6,6 +6,9 @@ import pt.up.fe.specs.fortran.ast.nodes.alloc.Allocation;
 import pt.up.fe.specs.fortran.ast.nodes.alloc.ExprAllocOption;
 import pt.up.fe.specs.fortran.ast.nodes.alloc.VarAllocOption;
 import pt.up.fe.specs.fortran.ast.nodes.decl.*;
+import pt.up.fe.specs.fortran.ast.nodes.specification.funcspec.DeclTypeFunctionSpec;
+import pt.up.fe.specs.fortran.ast.nodes.specification.funcspec.EmptyFunctionSpec;
+import pt.up.fe.specs.fortran.ast.nodes.specification.funcspec.FunctionSpec;
 import pt.up.fe.specs.fortran.ast.nodes.type.decltype.DeclType;
 import pt.up.fe.specs.fortran.ast.nodes.type.decltype.DerivedDeclType;
 import pt.up.fe.specs.fortran.ast.nodes.type.decltype.IntrinsicDeclType;
@@ -107,6 +110,14 @@ public class FlangToClass {
                 .map(FlangName.READ_UNFORMATTED, OtherGenericSpec.class)
                 .map(FlangName.WRITE_FORMATTED, OtherGenericSpec.class)
                 .map(FlangName.WRITE_UNFORMATTED, OtherGenericSpec.class));
+        NAME_TO_MAPPER.put(FlangName.PREFIX_SPEC, ClassMapper.caseFor(FunctionSpec.class)
+                .map(FlangName.DECLARATION_TYPE_SPEC, DeclTypeFunctionSpec.class)
+                .map(FlangName.ELEMENTAL, EmptyFunctionSpec.class)
+                .map(FlangName.IMPURE, EmptyFunctionSpec.class)
+                .map(FlangName.MODULE, EmptyFunctionSpec.class)
+                .map(FlangName.NON_RECURSIVE, EmptyFunctionSpec.class)
+                .map(FlangName.PURE, EmptyFunctionSpec.class)
+                .map(FlangName.RECURSIVE, EmptyFunctionSpec.class));
 
         /// STMTs
         NAME_TO_MAPPER.put(FlangName.PRINT_STMT, ClassMapper.always(PrintStmt.class));

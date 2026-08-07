@@ -46,6 +46,12 @@ public enum FlangName implements StringProvider {
     READ_UNFORMATTED,
     WRITE_FORMATTED,
     WRITE_UNFORMATTED,
+    PREFIX_SPEC,
+    ELEMENTAL,
+    IMPURE,
+    NON_RECURSIVE("Non_Recursive"),
+    PURE,
+    RECURSIVE,
 
     /// STMTs
     STATEMENT,
