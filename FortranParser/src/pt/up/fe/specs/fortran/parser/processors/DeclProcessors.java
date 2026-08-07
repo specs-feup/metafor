@@ -129,12 +129,12 @@ public class DeclProcessors extends ANodeProcessor {
     }
 
     public void letterSpec(LetterSpec letterSpec) {
-        var firstLetter = (int) attributes(letterSpec).getString("firstLetter").charAt(0);
+        var firstLetter = attributes(letterSpec).getString("firstLetter").charAt(0);
         letterSpec.set(LetterSpec.FIRST_LETTER, firstLetter);
 
         var lastLetter = attributes(letterSpec)
                 .getOptionalString("lastLetter")
-                .map(s -> (int) s.charAt(0));
+                .map(s -> s.charAt(0));
         letterSpec.set(LetterSpec.LAST_LETTER, lastLetter);
     }
 
