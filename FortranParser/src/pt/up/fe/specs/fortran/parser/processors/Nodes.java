@@ -5,6 +5,7 @@ import pt.up.fe.specs.fortran.ast.nodes.alloc.Allocation;
 import pt.up.fe.specs.fortran.ast.nodes.alloc.ExprAllocOption;
 import pt.up.fe.specs.fortran.ast.nodes.alloc.VarAllocOption;
 import pt.up.fe.specs.fortran.ast.nodes.decl.*;
+import pt.up.fe.specs.fortran.ast.nodes.specification.shape.ArraySpec;
 import pt.up.fe.specs.fortran.ast.nodes.specification.funcspec.DeclTypeFunctionSpec;
 import pt.up.fe.specs.fortran.ast.nodes.specification.funcspec.EmptyFunctionSpec;
 import pt.up.fe.specs.fortran.ast.nodes.type.decltype.DerivedDeclType;
@@ -54,10 +55,9 @@ import pt.up.fe.specs.fortran.ast.nodes.type.attributes.KeywordAttributeSpecifie
 import pt.up.fe.specs.fortran.ast.nodes.type.lenselector.ConstLenSelector;
 import pt.up.fe.specs.fortran.ast.nodes.type.lenselector.KindParamLenSelector;
 import pt.up.fe.specs.fortran.ast.nodes.type.lenselector.ParamLenSelector;
-import pt.up.fe.specs.fortran.ast.nodes.type.shapes.AllocateShapeSpecification;
-import pt.up.fe.specs.fortran.ast.nodes.type.shapes.AssumedImpliedShapeSpec;
-import pt.up.fe.specs.fortran.ast.nodes.type.shapes.DeferredShapeSpecList;
-import pt.up.fe.specs.fortran.ast.nodes.type.shapes.ExplicitShapeSpecification;
+import pt.up.fe.specs.fortran.ast.nodes.specification.shape.AssumedImpliedShape;
+import pt.up.fe.specs.fortran.ast.nodes.specification.shape.DeferredShapeArraySpec;
+import pt.up.fe.specs.fortran.ast.nodes.specification.shape.ExplicitShape;
 import pt.up.fe.specs.fortran.ast.nodes.type.typeparam.TypeParam;
 import pt.up.fe.specs.fortran.ast.nodes.utils.IoUnit;
 import pt.up.fe.specs.fortran.ast.nodes.utils.NameValue;
@@ -219,16 +219,15 @@ public class Nodes {
         processors.put(StarDeclType.class, t::starDeclType);
 
         var a = new AttributesProcessor(data);
-        processors.put(ArraySpecification.class, a::arraySpecification);
+        processors.put(ArraySpec.class, a::arraySpecification);
         processors.put(KeywordAttributeSpecifier.class, a::keywordSpecifier);
         processors.put(IntentSpec.class, a::intentSpec);
         processors.put(NamedConstantDef.class, a::namedConstantDef);
 
         var shapes = new ShapesProcessor(data);
-        processors.put(ExplicitShapeSpecification.class, shapes::explicitShapeSpec);
-        processors.put(DeferredShapeSpecList.class, shapes::deferredShapeSpecLis);
-        processors.put(AllocateShapeSpecification.class, shapes::allocateShapeSpec);
-        processors.put(AssumedImpliedShapeSpec.class, shapes::assumedImpliedShapeSpec);
+        processors.put(ExplicitShape.class, shapes::explicitShapeSpec);
+        processors.put(DeferredShapeArraySpec.class, shapes::deferredShapeSpecLis);
+        processors.put(AssumedImpliedShape.class, shapes::assumedImpliedShapeSpec);
 
         var u = new UtilsProcessors(data);
         processors.put(NameValue.class, u::nameValue);

@@ -1,12 +1,11 @@
 package pt.up.fe.specs.fortran.parser.processors;
 
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
-import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
+import pt.up.fe.specs.fortran.ast.nodes.specification.shape.ArraySpec;
 import pt.up.fe.specs.fortran.ast.nodes.specification.NamedConstantDef;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.IntentSpec;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.KeywordAttributeSpecifier;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.enums.IntentKind;
-import pt.up.fe.specs.fortran.parser.FlangData;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 
@@ -25,7 +24,7 @@ public class AttributesProcessor extends ANodeProcessor {
         super(data);
     }
 
-    public void arraySpecification(ArraySpecification arraySpecification) {
+    public void arraySpecification(ArraySpec arraySpecification) {
         var variantKey = attributes(arraySpecification).getVariantKey();
         List<FortranNode> shapes;
         Optional<FortranNode> additionalShape = Optional.empty();

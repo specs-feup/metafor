@@ -11,7 +11,7 @@ import pt.up.fe.specs.fortran.ast.nodes.program.unit.EndModuleStmt;
 import pt.up.fe.specs.fortran.ast.nodes.program.unit.EndProgramStmt;
 import pt.up.fe.specs.fortran.ast.nodes.program.unit.ModuleStmt;
 import pt.up.fe.specs.fortran.ast.nodes.program.unit.ProgramStmt;
-import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
+import pt.up.fe.specs.fortran.ast.nodes.specification.shape.ArraySpec;
 import pt.up.fe.specs.fortran.ast.nodes.specification.LanguageBindingSpec;
 import pt.up.fe.specs.fortran.ast.nodes.specification.NamedConstantDef;
 import pt.up.fe.specs.fortran.ast.nodes.specification.enums.AccessKind;
@@ -111,7 +111,7 @@ public class StmtProcessors extends ANodeProcessor {
         if (attributes(typeDeclarationStmt).has(FlangName.ATTR_SPEC)) {
             var attributes = getChildren(typeDeclarationStmt, FlangName.ATTR_SPEC);
             var processedAttributes = attributes.stream()
-                    .map(attr -> attr instanceof ArraySpecification
+                    .map(attr -> attr instanceof ArraySpec
                             ? factory().newNode(DimensionSpec.class, List.of(attr))
                             : attr)
                     .toList();

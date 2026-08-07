@@ -1,33 +1,28 @@
-package pt.up.fe.specs.fortran.ast.nodes.type.shapes;
+package pt.up.fe.specs.fortran.ast.nodes.specification.shape;
 
 import org.suikasoft.jOptions.Datakey.DataKey;
 import org.suikasoft.jOptions.Datakey.KeyFactory;
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
-import pt.up.fe.specs.fortran.ast.nodes.expr.IntLiteral;
 
 import java.util.Collection;
-import java.util.Collections;
 
-public class DeferredShapeSpecList extends ShapeSpecification {
-    // DATAKEYS BEGIN
-
+public class DeferredShapeArraySpec extends ArraySpec {
     /**
      * DeferredShapeSpecList is just a count of the colons (i.e., the rank).
      */
     public final static DataKey<Integer> RANK = KeyFactory.integer("rank");
 
-
-    // DATAKEYS END
-
-    public DeferredShapeSpecList(DataStore data, Collection<? extends FortranNode> children) {
+    public DeferredShapeArraySpec(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
+    }
+
+    public int getRank() {
+        return get(RANK);
     }
 
     @Override
     public String getCode() {
-        var rank = get(RANK);
-
-        return String.join(", ", Collections.nCopies(rank, ":"));
+        return ":" + ", :".repeat(getRank() - 1);
     }
 }

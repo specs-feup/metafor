@@ -5,7 +5,7 @@ import org.suikasoft.jOptions.Datakey.DataKey;
 import org.suikasoft.jOptions.Datakey.KeyFactory;
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
-import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
+import pt.up.fe.specs.fortran.ast.nodes.specification.shape.ArraySpec;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -21,14 +21,14 @@ public class CommonBlockObject extends FortranNode {
         return get(NAME);
     }
 
-    public Optional<ArraySpecification> getArraySpec() {
-        return getChildOf(ArraySpecification.class);
+    public Optional<ArraySpec> getArraySpec() {
+        return getChildOf(ArraySpec.class);
     }
 
     @Override
     public String getCode() {
         var name = getName();
-        var arraySpecCode = getArraySpec().map(ArraySpecification::getCode);
+        var arraySpecCode = getArraySpec().map(ArraySpec::getCode);
 
         return name + arraySpecCode.orElse("");
     }

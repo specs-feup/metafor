@@ -4,7 +4,7 @@ import org.suikasoft.jOptions.Datakey.DataKey;
 import org.suikasoft.jOptions.Datakey.KeyFactory;
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
-import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
+import pt.up.fe.specs.fortran.ast.nodes.specification.shape.ArraySpec;
 import pt.up.fe.specs.fortran.ast.nodes.type.decltype.DeclType;
 
 import java.util.Collection;
@@ -35,8 +35,8 @@ public class EntityDecl extends FortranDecl {
         return getChildOf(Initialization.class);
     }
 
-    public Optional<ArraySpecification> getArraySpec() {
-        return getChildOf(ArraySpecification.class);
+    public Optional<ArraySpec> getArraySpec() {
+        return getChildOf(ArraySpec.class);
     }
 
 
