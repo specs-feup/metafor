@@ -5,6 +5,7 @@ import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 
 import java.util.Collection;
 
+// TODO(Process-ing): Refactor shapes
 public abstract class ShapeSpecification extends FortranNode {
     public ShapeSpecification(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
