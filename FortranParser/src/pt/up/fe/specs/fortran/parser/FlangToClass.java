@@ -11,6 +11,7 @@ import pt.up.fe.specs.fortran.ast.nodes.specification.funcspec.DeclTypeFunctionS
 import pt.up.fe.specs.fortran.ast.nodes.specification.funcspec.EmptyFunctionSpec;
 import pt.up.fe.specs.fortran.ast.nodes.specification.funcspec.FunctionSpec;
 import pt.up.fe.specs.fortran.ast.nodes.specification.type.*;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.typedef.DataComponentDefStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.typedef.DerivedTypeStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.typedef.EndTypeStmt;
 import pt.up.fe.specs.fortran.ast.nodes.type.decltype.DeclType;
@@ -186,6 +187,7 @@ public class FlangToClass {
         NAME_TO_MAPPER.put(FlangName.IMPLICIT_SPEC, ClassMapper.always(ImplicitSpec.class));
         NAME_TO_MAPPER.put(FlangName.LETTER_SPEC, ClassMapper.always(LetterSpec.class));
         NAME_TO_MAPPER.put(FlangName.DERIVED_TYPE_STMT, ClassMapper.always(DerivedTypeStmt.class));
+        NAME_TO_MAPPER.put(FlangName.DATA_COMPONENT_DEF_STMT, ClassMapper.always(DataComponentDefStmt.class));
         NAME_TO_MAPPER.put(FlangName.END_TYPE_STMT, ClassMapper.always(EndTypeStmt.class));
 
         /// Variables

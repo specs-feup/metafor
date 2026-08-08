@@ -58,6 +58,8 @@ public enum FlangName implements StringProvider {
     ABSTRACT,
     BIND_C,
     EXTENDS,
+    COMPONENT_DEF_STMT,
+    DATA_COMPONENT_DEF_STMT,
     END_TYPE_STMT,
 
     /// STMTs
