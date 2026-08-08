@@ -227,7 +227,7 @@ public class DeclProcessors extends ANodeProcessor {
     }
 
     public void derivedTypeDef(DerivedTypeDef derivedTypeDef) {
-        var derivedTypeStmt = getChild(derivedTypeDef, FlangName.DERIVED_TYPE_STMT);
+        var derivedTypeStmt = getStmtChild(derivedTypeDef, FlangName.DERIVED_TYPE_STMT);
         derivedTypeDef.addChild(derivedTypeStmt);
 
 //        var typeParamDefStmts = getChildren(derivedTypeDef, FlangName.TYPE_PARAM_DEF_STMT);
@@ -236,46 +236,46 @@ public class DeclProcessors extends ANodeProcessor {
 //        var privateOrSequenceStmts = getChildren(derivedTypeDef, FlangName.PRIVATE_OR_SEQUENCE);
 //        derivedTypeDef.addChildren(privateOrSequenceStmts);
 
-        var componentDefStmts = getChildren(derivedTypeDef, FlangName.COMPONENT_DEF_STMT);
+        var componentDefStmts = getChildren(derivedTypeDef, FlangName.COMPONENT_DEF_STMT.getStmtAttr());
         derivedTypeDef.addChildren(componentDefStmts);
 
 //        var typeBoundProcedurePart = getChildOptional(derivedTypeDef, FlangName.TYPE_BOUND_PROCEDURE_PART);
 //        typeBoundProcedurePart.ifPresent(derivedTypeDef::addChild);
 
-        var endTypeStmt = getChild(derivedTypeDef, FlangName.END_TYPE_STMT);
+        var endTypeStmt = getStmtChild(derivedTypeDef, FlangName.END_TYPE_STMT);
         derivedTypeDef.addChild(endTypeStmt);
     }
 
     public void interfaceBlock(InterfaceBlock interfaceBlock) {
-        var interfaceStmt = getChild(interfaceBlock, FlangName.INTERFACE_STMT);
+        var interfaceStmt = getStmtChild(interfaceBlock, FlangName.INTERFACE_STMT);
         interfaceBlock.addChild(interfaceStmt);
 
         var interfaceSpecifications = getChildren(interfaceBlock, FlangName.INTERFACE_SPECIFICATION);
         interfaceBlock.addChildren(interfaceSpecifications);
 
-        var endInterfaceStmt = getChild(interfaceBlock, FlangName.END_INTERFACE_STMT);
+        var endInterfaceStmt = getStmtChild(interfaceBlock, FlangName.END_INTERFACE_STMT);
         interfaceBlock.addChild(endInterfaceStmt);
     }
 
     public void interfaceFunction(InterfaceFunction interfaceFunction) {
-        var functionStmt = getChild(interfaceFunction, FlangName.FUNCTION_STMT);
+        var functionStmt = getStmtChild(interfaceFunction, FlangName.FUNCTION_STMT);
         interfaceFunction.addChild(functionStmt);
 
         var specification = getChild(interfaceFunction, FlangName.SPECIFICATION_PART);
         interfaceFunction.addChild(specification);
 
-        var endFunctionStmt = getChild(interfaceFunction, FlangName.END_FUNCTION_STMT);
+        var endFunctionStmt = getStmtChild(interfaceFunction, FlangName.END_FUNCTION_STMT);
         interfaceFunction.addChild(endFunctionStmt);
     }
 
     public void interfaceSubroutine(InterfaceSubroutine interfaceSubroutine) {
-        var subroutineStmt = getChild(interfaceSubroutine, FlangName.SUBROUTINE_STMT);
+        var subroutineStmt = getStmtChild(interfaceSubroutine, FlangName.SUBROUTINE_STMT);
         interfaceSubroutine.addChild(subroutineStmt);
 
         var specification = getChild(interfaceSubroutine, FlangName.SPECIFICATION_PART);
         interfaceSubroutine.addChild(specification);
 
-        var endSubroutineStmt = getChild(interfaceSubroutine, FlangName.END_SUBROUTINE_STMT);
+        var endSubroutineStmt = getStmtChild(interfaceSubroutine, FlangName.END_SUBROUTINE_STMT);
         interfaceSubroutine.addChild(endSubroutineStmt);
     }
 }
