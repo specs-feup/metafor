@@ -206,18 +206,29 @@ public class FlangData {
     }
 
     public List<String> getChildrenIds(FortranNode node, FlangName attribute) {
+        // TODO(Process-ing): Do this also on getStringList
+        // TODO(Process-ing): Make processors better use this
+        if (!getAttrs(node).has(attribute))
+            return List.of();
+
         return getAttrs(node).getStringList(attribute).stream()
                 .map(this::getChildId)
                 .toList();
     }
 
     public List<String> getChildrenIds(String key, FlangName attribute) {
+        if (!getAttrs(key).has(attribute))
+            return List.of();
+
         return getAttrs(key).getStringList(attribute).stream()
                 .map(this::getChildId)
                 .toList();
     }
 
     public List<String> getChildrenIds(FortranNode node, String attribute) {
+        if (!getAttrs(node).has(attribute))
+            return List.of();
+
         return getAttrs(node).getStringList(attribute).stream()
                 .map(this::getChildId)
                 .toList();
