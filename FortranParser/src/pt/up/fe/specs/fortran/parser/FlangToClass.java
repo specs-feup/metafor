@@ -10,6 +10,9 @@ import pt.up.fe.specs.fortran.ast.nodes.specification.shape.*;
 import pt.up.fe.specs.fortran.ast.nodes.specification.funcspec.DeclTypeFunctionSpec;
 import pt.up.fe.specs.fortran.ast.nodes.specification.funcspec.EmptyFunctionSpec;
 import pt.up.fe.specs.fortran.ast.nodes.specification.funcspec.FunctionSpec;
+import pt.up.fe.specs.fortran.ast.nodes.specification.type.*;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.typedef.DerivedTypeStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.typedef.EndTypeStmt;
 import pt.up.fe.specs.fortran.ast.nodes.type.decltype.DeclType;
 import pt.up.fe.specs.fortran.ast.nodes.type.decltype.DerivedDeclType;
 import pt.up.fe.specs.fortran.ast.nodes.type.decltype.IntrinsicDeclType;
@@ -112,6 +115,12 @@ public class FlangToClass {
                 .map(FlangName.NON_RECURSIVE, EmptyFunctionSpec.class)
                 .map(FlangName.PURE, EmptyFunctionSpec.class)
                 .map(FlangName.RECURSIVE, EmptyFunctionSpec.class));
+        NAME_TO_MAPPER.put(FlangName.DERIVED_TYPE_DEF, ClassMapper.always(DerivedTypeDef.class));
+        NAME_TO_MAPPER.put(FlangName.TYPE_ATTR_SPEC, ClassMapper.caseFor(TypeAttr.class)
+                .map(FlangName.ABSTRACT, AbstractTypeAttr.class)
+                .map(FlangName.ACCESS_SPEC, AccessTypeAttr.class)
+                .map(FlangName.BIND_C, BindTypeAttr.class)
+                .map(FlangName.EXTENDS, ExtendsTypeAttr.class));
 
         /// STMTs
         NAME_TO_MAPPER.put(FlangName.PRINT_STMT, ClassMapper.always(PrintStmt.class));
@@ -176,6 +185,8 @@ public class FlangToClass {
                 .map(FlangName.IMPLICIT_NONE_NAME_SPEC, ImplicitNoneStmt.class));
         NAME_TO_MAPPER.put(FlangName.IMPLICIT_SPEC, ClassMapper.always(ImplicitSpec.class));
         NAME_TO_MAPPER.put(FlangName.LETTER_SPEC, ClassMapper.always(LetterSpec.class));
+        NAME_TO_MAPPER.put(FlangName.DERIVED_TYPE_STMT, ClassMapper.always(DerivedTypeStmt.class));
+        NAME_TO_MAPPER.put(FlangName.END_TYPE_STMT, ClassMapper.always(EndTypeStmt.class));
 
         /// Variables
         //NAME_TO_CLASS.put(FlangName.DATA_REF, DataRef.class);  // TODO(Process-ing): Improve this

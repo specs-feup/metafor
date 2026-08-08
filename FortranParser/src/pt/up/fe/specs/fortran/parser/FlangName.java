@@ -52,6 +52,13 @@ public enum FlangName implements StringProvider {
     NON_RECURSIVE("Non_Recursive"),
     PURE,
     RECURSIVE,
+    DERIVED_TYPE_DEF,
+    DERIVED_TYPE_STMT,
+    TYPE_ATTR_SPEC,
+    ABSTRACT,
+    BIND_C,
+    EXTENDS,
+    END_TYPE_STMT,
 
     /// STMTs
     STATEMENT,
