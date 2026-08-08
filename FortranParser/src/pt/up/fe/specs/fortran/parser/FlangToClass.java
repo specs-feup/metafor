@@ -282,10 +282,10 @@ public class FlangToClass {
                 .ignore(FlangName.ASSUMED_SIZE_SPEC)
                 .ignore(FlangName.IMPLIED_SHAPE_SPEC)
                 .ignore(FlangName.ASSUMED_RANK_SPEC));
-        NAME_TO_MAPPER.put(FlangName.DEFERRED_SHAPE_SPEC_LIST, ClassMapper.always(DeferredShapeArraySpec.class));
-        NAME_TO_MAPPER.put(FlangName.ASSUMED_SIZE_SPEC, ClassMapper.always(AssumedSizeArraySpec.class));
-        NAME_TO_MAPPER.put(FlangName.IMPLIED_SHAPE_SPEC, ClassMapper.always(ImpliedShapeArraySpec.class));
-        NAME_TO_MAPPER.put(FlangName.ASSUMED_RANK_SPEC, ClassMapper.always(AssumedSizeArraySpec.class));
+        NAME_TO_MAPPER.put(FlangName.DEFERRED_SHAPE_SPEC_LIST, ClassMapper.always(DeferredShapeSpec.class));
+        NAME_TO_MAPPER.put(FlangName.ASSUMED_SIZE_SPEC, ClassMapper.always(AssumedSizeSpec.class));
+        NAME_TO_MAPPER.put(FlangName.IMPLIED_SHAPE_SPEC, ClassMapper.always(ImpliedShapeSpec.class));
+        NAME_TO_MAPPER.put(FlangName.ASSUMED_RANK_SPEC, ClassMapper.always(AssumedSizeSpec.class));
 
         /// IO
         NAME_TO_MAPPER.put(FlangName.OPEN_STMT, ClassMapper.always(OpenStmt.class));

@@ -7,13 +7,13 @@ import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 
 import java.util.Collection;
 
-public class DeferredShapeArraySpec extends ArraySpec {
+public class DeferredShapeSpec extends ArraySpec {
     /**
      * DeferredShapeSpecList is just a count of the colons (i.e., the rank).
      */
     public final static DataKey<Integer> RANK = KeyFactory.integer("rank");
 
-    public DeferredShapeArraySpec(DataStore data, Collection<? extends FortranNode> children) {
+    public DeferredShapeSpec(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
     }
 

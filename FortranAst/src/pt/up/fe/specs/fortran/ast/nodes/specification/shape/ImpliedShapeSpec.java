@@ -7,8 +7,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ImpliedShapeArraySpec extends ArraySpec {
-    public ImpliedShapeArraySpec(DataStore data, Collection<? extends FortranNode> children) {
+public class ImpliedShapeSpec extends ArraySpec {
+    public ImpliedShapeSpec(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
     }
 

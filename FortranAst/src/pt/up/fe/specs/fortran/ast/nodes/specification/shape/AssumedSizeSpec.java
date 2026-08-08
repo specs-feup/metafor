@@ -7,8 +7,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class AssumedSizeArraySpec extends ArraySpec {
-    public AssumedSizeArraySpec(DataStore data, Collection<? extends FortranNode> children) {
+public class AssumedSizeSpec extends ArraySpec {
+    public AssumedSizeSpec(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
     }
 

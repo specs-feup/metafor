@@ -56,7 +56,7 @@ import pt.up.fe.specs.fortran.ast.nodes.type.lenselector.ConstLenSelector;
 import pt.up.fe.specs.fortran.ast.nodes.type.lenselector.KindParamLenSelector;
 import pt.up.fe.specs.fortran.ast.nodes.type.lenselector.ParamLenSelector;
 import pt.up.fe.specs.fortran.ast.nodes.specification.shape.AssumedImpliedShape;
-import pt.up.fe.specs.fortran.ast.nodes.specification.shape.DeferredShapeArraySpec;
+import pt.up.fe.specs.fortran.ast.nodes.specification.shape.DeferredShapeSpec;
 import pt.up.fe.specs.fortran.ast.nodes.specification.shape.ExplicitShape;
 import pt.up.fe.specs.fortran.ast.nodes.type.typeparam.TypeParam;
 import pt.up.fe.specs.fortran.ast.nodes.utils.IoUnit;
@@ -225,8 +225,8 @@ public class Nodes {
         processors.put(NamedConstantDef.class, a::namedConstantDef);
 
         var shapes = new ShapesProcessor(data);
-        processors.put(ExplicitShape.class, shapes::explicitShapeSpec);
-        processors.put(DeferredShapeArraySpec.class, shapes::deferredShapeSpecLis);
+        processors.put(ExplicitShape.class, shapes::explicitShape);
+        processors.put(DeferredShapeSpec.class, shapes::deferredShapeSpecList);
         processors.put(AssumedImpliedShape.class, shapes::assumedImpliedShapeSpec);
 
         var u = new UtilsProcessors(data);
