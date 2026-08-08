@@ -29,7 +29,9 @@ public class FlangData {
     }
 
     public FlangAttributes get(String id) {
-        return attributes.get(id);
+        var attrs = attributes.get(id);
+        Objects.requireNonNull(attrs, () -> "Could not find attributes for id '" + id + "'");
+        return attrs;
     }
 
     public boolean isIdInteger(String id) {
@@ -53,7 +55,7 @@ public class FlangData {
         }
 
         // If there is already a concrete FortranAst class for this id, there is no derivation
-        if (FlangToClass.isClass(getKind(id))) {
+        if (FlangToClass.isClass(getKind(id), getAttrs(id))) {
             return Optional.empty();
         }
 
@@ -152,8 +154,6 @@ public class FlangData {
     }
 
     public Optional<Object> getOptional(FortranNode node, String key, FlangName... path) {
-        var currentId = node.get(FortranNode.ID);
-
         // Get base attrs
         var currentAttrs = getAttrs(node);
 
@@ -206,18 +206,29 @@ public class FlangData {
     }
 
     public List<String> getChildrenIds(FortranNode node, FlangName attribute) {
+        // TODO(Process-ing): Do this also on getStringList
+        // TODO(Process-ing): Make processors better use this
+        if (!getAttrs(node).has(attribute))
+            return List.of();
+
         return getAttrs(node).getStringList(attribute).stream()
                 .map(this::getChildId)
                 .toList();
     }
 
     public List<String> getChildrenIds(String key, FlangName attribute) {
+        if (!getAttrs(key).has(attribute))
+            return List.of();
+
         return getAttrs(key).getStringList(attribute).stream()
                 .map(this::getChildId)
                 .toList();
     }
 
     public List<String> getChildrenIds(FortranNode node, String attribute) {
+        if (!getAttrs(node).has(attribute))
+            return List.of();
+
         return getAttrs(node).getStringList(attribute).stream()
                 .map(this::getChildId)
                 .toList();

@@ -63,6 +63,9 @@ public class FortranContext extends ADataClass<FortranContext> {
     public final static DataKey<Optional<File>> LAST_PARSED_FILE = KeyFactory
             .optional("lastParsedFile");
 
+    public final static DataKey<Optional<String>> LAST_PARSED_FILE_EXT = KeyFactory.optional("lastParsedFileExt");
+
+    public final static DataKey<Boolean> FIXED_FORM = KeyFactory.bool("fixedObject").setDefault(() -> false);
 
     /**
      * A DataStore with options from {@link FortranAstOptions}.
@@ -85,5 +88,7 @@ public class FortranContext extends ADataClass<FortranContext> {
         return "FortranContext " + hashCode();
     }
 
-
+    public DataStore getFortranOptions() {
+        return get(FORTRAN_OPTIONS);
+    }
 }

@@ -1,6 +1,6 @@
 PROGRAM IF
     LOGICAL :: cond
-    cond = .false.
+    cond = .FALSE.
 
     IF (cond) THEN
         PRINT *, "cond is true"

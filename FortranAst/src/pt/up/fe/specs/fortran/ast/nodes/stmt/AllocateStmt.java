@@ -1,6 +1,7 @@
 package pt.up.fe.specs.fortran.ast.nodes.stmt;
 
 import org.suikasoft.jOptions.Interfaces.DataStore;
+import pt.up.fe.specs.fortran.ast.FortranKeyword;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.alloc.AllocOption;
 import pt.up.fe.specs.fortran.ast.nodes.alloc.Allocation;
@@ -25,24 +26,14 @@ public class AllocateStmt extends ActionStmt {
 
     @Override
     public String getStmtCode() {
-        StringBuilder code = new StringBuilder();
-
-        code.append("allocate(");
-
-        List<String> components = new ArrayList<>();
-
-        getAllocations().stream()
+        var allocationsCode = getAllocations().stream()
                 .map(FortranNode::getCode)
-                .forEach(components::add);
+                .collect(Collectors.joining(", "));
 
-        getOptions().stream()
-                .map(FortranNode::getCode)
-                .forEach(components::add);
+        var optionsCode = getOptions().stream()
+                .map(option -> ", " + option.getCode())
+                .collect(Collectors.joining());
 
-        code.append(String.join(", ", components));
-
-        code.append(")");
-
-        return code.toString();
+        return keyword(FortranKeyword.ALLOCATE) + "(" + allocationsCode + optionsCode + ")";
     }
 }

@@ -9,9 +9,8 @@ import pt.up.fe.specs.lang.SpecsPlatforms;
 import pt.up.fe.specs.util.SpecsIo;
 import pt.up.fe.specs.util.SpecsStrings;
 import pt.up.fe.specs.util.SpecsSystem;
+import pt.up.fe.specs.util.utilities.StringLines;
 
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 import java.util.function.BiFunction;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -33,7 +32,8 @@ public class FortranParserTest {
     }
 
     private static void testNative(String resource, DataStore fortranOptions) {
-        test(resource, (r, c) -> new FortranNativeParser(c).parse(SpecsIo.resourceToStream(r)), fortranOptions);
+        test(resource, (r, c) -> new FortranNativeParser(c)
+                .parse(SpecsIo.resourceToStream(r), SpecsIo.getExtension(r)), fortranOptions);
     }
 
     private static void testJson(String resource) {
@@ -41,7 +41,7 @@ public class FortranParserTest {
     }
 
     private static void testJson(String resource, DataStore fortranOptions) {
-        test(resource, (r, c) -> FortranJsonParser.parse(new InputStreamReader(SpecsIo.resourceToStream(r), StandardCharsets.UTF_8), c), fortranOptions);
+        test(resource, (r, c) -> FortranJsonParser.parse(SpecsIo.read(SpecsIo.resourceToStream(r)), c), fortranOptions);
     }
 
     private static void test(String resource, BiFunction<String, FortranContext, FortranJsonResult> parser, DataStore fortranOptions) {
@@ -62,18 +62,54 @@ public class FortranParserTest {
         var code = rootNode.getCode();
 
         // Get expected output resource
-        var expectedResourceName = BASE_RESOURCE + SpecsIo.removeExtension(resource) + ".expected.f90";
-        if (!SpecsIo.hasResource(resourceName)) {
-            fail("Could not find expected output resource '" + expectedResourceName + "'. Expected contents:\n" + code);
+        var extension = SpecsIo.getExtension(resource);
+        if (extension.equals("json")) {
+            extension = context.get(FortranContext.LAST_PARSED_FILE_EXT).orElseGet(() -> "f90");
+        }
+
+        var expectedResourceName = BASE_RESOURCE + SpecsIo.removeExtension(resource) + ".expected." + extension;
+        if (!SpecsIo.hasResource(expectedResourceName)) {
+            fail("Could not find expected output resource '" + expectedResourceName + "'. Generated contents:\n" + code);
         }
 
         // Compare resource contents with code, normalized
         var expectedNormalized = SpecsStrings.normalizeFileContents(SpecsIo.getResource(expectedResourceName), true);
         var codeNormalized = SpecsStrings.normalizeFileContents(code, true);
 
-        assertEquals(expectedNormalized, codeNormalized, "Codes do not match.\nAST code:\n" + code);
+        compareCode(expectedNormalized, codeNormalized, code);
+    }
 
+    private static void compareCode(String expected, String normalized, String original) {
+        var expectedLines = StringLines.getLines(expected);
+        var normalizedLines = StringLines.getLines(normalized);
+        var numLines = Math.min(expectedLines.size(), normalizedLines.size());
 
+        for (var line = 0; line < numLines; line++) {
+            var expectedLine = expectedLines.get(line);
+            var normalizedLine = normalizedLines.get(line);
+
+            var col = 0;
+            while (col < expectedLine.length() && col < normalizedLine.length()
+                    && expectedLine.charAt(col) == normalizedLine.charAt(col)) {
+                col++;
+            }
+
+            if (col != expectedLine.length() || col != normalizedLine.length()) {
+                reportMismatch(line + 1, col + 1, expectedLine, normalizedLine, original);
+                return;
+            }
+        }
+
+        if (expectedLines.size() > numLines) {
+            reportMismatch(numLines + 1, 0, expectedLines.get(numLines), "", original);
+        } else if (normalizedLines.size() > numLines) {
+            reportMismatch(numLines + 1, 0, "", normalizedLines.get(numLines), original);
+        }
+    }
+
+    private static void reportMismatch(int line, int col, String expected, String got, String code) {
+        fail("Encountered a code mismatch on line " + line + " column " + col + ".\nExpected: '" + expected +
+                "'\nGot:      '" + got + "'\n\nGenerated code:\n" + code);
     }
 
     @Test
@@ -533,6 +569,137 @@ public class FortranParserTest {
     }
 
     @Test
+    void testLegacyDo() {
+        testJson("stmt/legacy_do.json");
+    }
+
+    @Test
+    void testLegacyDoNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("stmt/legacy_do.f90");
+        }
+    }
+
+    @Test
+    void testReturn() {
+        testJson("stmt/return.json");
+    }
+
+    @Test
+    void testReturnNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("stmt/return.f90");
+        }
+    }
+
+    @Test
+    void testComplexLiteral() {
+        testJson("expr/complex_literal.json");
+    }
+
+    @Test
+    void testComplexLiteralNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("expr/complex_literal.f90");
+        }
+    }
+
+    @Test
+    void testSubstring() {
+        testJson("expr/substring.json");
+    }
+
+    @Test
+    void testSubstringNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("expr/substring.f90");
+        }
+    }
+
+    @Test
+    void testContinuationLine() {
+        testJson("continuation_line.json");
+    }
+
+    @Test
+    void testContinuationLineNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("continuation_line.f");
+        }
+    }
+
+    @Test
+    void testLengthSelector() {
+        testJson("type/length_selector.json");
+    }
+
+    @Test
+    void testLengthSelectorNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("type/length_selector.f90");
+        }
+    }
+    @Test
+    void testIoControl() {
+        testJson("io/io_control.json");
+    }
+
+    @Test
+    void testIoControlNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("io/io_control.f90");
+        }
+    }
+
+    @Test
+    void testFunction() {
+        testJson("program/function.json");
+    }
+
+    @Test
+    void testFunctionNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("program/function.f90");
+        }
+    }
+
+    @Test
+    void testModule1() {
+        testJson("program/module1.json");
+    }
+
+    @Test
+    void testModule1Native() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("program/module1.f90");
+        }
+    }
+
+    @Test
+    void testModule2() {
+        testJson("program/module2.json");
+    }
+
+    @Test
+    void testModule2Native() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("program/module2.f90");
+        }
+    }
+
+    @Test
+    void testImplicit() {
+        testJson("program/implicit.json");
+    }
+
+    @Test
+    void testImplicitNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("program/implicit.f90");
+        }
+    }
+
+    @Test
     void testFujitsu0000_0000() {
         testJson("fujitsu/0000/0000_0000.json");
     }
@@ -674,6 +841,54 @@ public class FortranParserTest {
     void testFujitsu0000_0033Native() {
         if (SpecsPlatforms.isLinux()) {
             testNative("fujitsu/0000/0000_0033.f90");
+        }
+    }
+
+    @Test
+    void testFujitsu0001_0000() {
+        testJson("fujitsu/0001/0001_0000.json");
+    }
+
+    @Test
+    void testFujitsu0001_0000Native() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("fujitsu/0001/0001_0000.f");
+        }
+    }
+
+    @Test
+    void testFujitsu0001_0007() {
+        testJson("fujitsu/0001/0001_0007.json");
+    }
+
+    @Test
+    void testFujitsu0001_0007Native() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("fujitsu/0001/0001_0007.f");
+        }
+    }
+
+    @Test
+    void testFujitsu0001_0011() {
+        testJson("fujitsu/0001/0001_0011.json");
+    }
+
+    @Test
+    void testFujitsu0001_0011Native() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("fujitsu/0001/0001_0011.f");
+        }
+    }
+
+    @Test
+    void testFujitsu0001_0032() {
+        testJson("fujitsu/0001/0001_0032.json");
+    }
+
+    @Test
+    void testFujitsu0001_0032Native() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("fujitsu/0001/0001_0032.f");
         }
     }
 }

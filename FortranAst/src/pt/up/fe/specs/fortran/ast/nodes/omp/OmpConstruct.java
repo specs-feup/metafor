@@ -6,13 +6,13 @@ import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpClause;
 import pt.up.fe.specs.fortran.ast.nodes.omp.enums.OmpDirectiveKind;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.ExecutableStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.ExecutableConstruct;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-abstract public class OmpConstruct extends ExecutableStmt {
+abstract public class OmpConstruct extends ExecutableConstruct {
 
     public final static DataKey<List<OmpDirectiveKind>> KINDS = KeyFactory.enumerationMulti("kinds", OmpDirectiveKind.class);
 

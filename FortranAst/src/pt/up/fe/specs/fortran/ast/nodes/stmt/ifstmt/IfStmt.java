@@ -26,11 +26,6 @@ public class IfStmt extends ActionStmt {
         var condition = getCondition();
         var thenAction = getThenAction();
 
-        return String.format(
-                "%s (%s) %s",
-                keyword(FortranKeyword.IF),
-                condition.getCode(),
-                thenAction.getCode()
-        );
+        return keyword(FortranKeyword.IF) + " (" + condition.getCode() + ") " + thenAction.getStmtCode();
     }
 }

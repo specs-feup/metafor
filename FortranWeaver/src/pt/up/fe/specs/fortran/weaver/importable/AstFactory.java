@@ -1,5 +1,6 @@
 package pt.up.fe.specs.fortran.weaver.importable;
 
+import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.expr.Argument;
 import pt.up.fe.specs.fortran.ast.nodes.expr.DataRef;
 import pt.up.fe.specs.fortran.ast.nodes.expr.Expr;
@@ -7,7 +8,6 @@ import pt.up.fe.specs.fortran.ast.nodes.expr.enums.BinaryOperatorKind;
 import pt.up.fe.specs.fortran.ast.nodes.loops.RangeLoopControl;
 import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpClause;
 import pt.up.fe.specs.fortran.ast.nodes.omp.enums.OmpClauseKind;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.ExecutableStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.DoConstruct;
 import pt.up.fe.specs.fortran.weaver.FortranJoinpoints;
 import pt.up.fe.specs.fortran.weaver.FortranWeaver;
@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class AstFactory {
-    public static AOmpLoopConstruct ompLoopConstruct(ADoStatement loop, Object[] args) {
+    public static AOmpLoopConstruct ompLoopConstruct(ADoConstruct loop, Object[] args) {
         List<OmpClause> clauses = SpecsCollections.asListT(AOmpClause.class, args)
                 .stream()
                 .map(clause -> (OmpClause) clause.getNode())
@@ -50,8 +50,12 @@ public class AstFactory {
         return FortranJoinpoints.create(FortranWeaver.getFactory().dataRef(name), ADataRef.class);
     }
 
-    public static AUseStatement useStatement(String moduleName) {
-        return FortranJoinpoints.create(FortranWeaver.getFactory().useStmt(moduleName), AUseStatement.class);
+    public static AUseRenameStatement useRenameStatement(String moduleName) {
+        return FortranJoinpoints.create(FortranWeaver.getFactory().useRenameStmt(moduleName), AUseRenameStatement.class);
+    }
+
+    public static AUseOnlyStatement useOnlyStatement(String moduleName) {
+        return FortranJoinpoints.create(FortranWeaver.getFactory().useOnlyStmt(moduleName), AUseOnlyStatement.class);
     }
 
     public static AOmpReductionClause ompReductionClause(String operator, Object[] args) {
@@ -66,9 +70,9 @@ public class AstFactory {
     }
 
     public static AExecution execution(Object[] args) {
-        List<ExecutableStmt> stmts = SpecsCollections.asListT(AExecutableStatement.class, args)
+        List<FortranNode> stmts = SpecsCollections.asListT(AExecutableStatement.class, args)
                 .stream()
-                .map(stmt -> (ExecutableStmt) stmt.getNode())
+                .map(AExecutableStatement::getNode)
                 .toList();
 
         return FortranJoinpoints.create(FortranWeaver.getFactory().execution(stmts), AExecution.class);
@@ -108,11 +112,11 @@ public class AstFactory {
         );
     }
 
-    public static ADoStatement doStatement(ARangeLoopControl control) {
+    public static ADoConstruct doStatement(ARangeLoopControl control) {
         RangeLoopControl ctrl = (RangeLoopControl) control.getNode();
         return FortranJoinpoints.create(
                 FortranWeaver.getFactory().doConstruct(ctrl),
-                ADoStatement.class
+                ADoConstruct.class
         );
     }
 

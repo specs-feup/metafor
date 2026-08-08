@@ -1,7 +1,5 @@
 package pt.up.fe.specs.fortran.ast.nodes.stmt.loop;
 
-import org.suikasoft.jOptions.Datakey.DataKey;
-import org.suikasoft.jOptions.Datakey.KeyFactory;
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.FortranKeyword;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
@@ -12,8 +10,6 @@ import java.util.Collection;
 import java.util.Optional;
 
 public class DoStmt extends Stmt {
-    public static final DataKey<Optional<String>> DO_LABEL = KeyFactory.optional("do_label");
-
     public DoStmt(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
     }
@@ -22,14 +18,12 @@ public class DoStmt extends Stmt {
         return getChildOf(LoopControl.class);
     }
 
-    public Optional<String> getDoLabel() {
-        return get(DO_LABEL);
-    }
-
     @Override
     public String getStmtCode() {
-        var doNameOpt = getAncestor(DoConstruct.class).getName();
-        var doLabelOpt = getDoLabel();
+        var parent = getAncestor(DoConstruct.class);
+
+        var doNameOpt = parent.getName();
+        var doLabelOpt = parent.getDoLabel();
         var loopControlOpt = getLoopControl();
 
         var code = new StringBuilder();

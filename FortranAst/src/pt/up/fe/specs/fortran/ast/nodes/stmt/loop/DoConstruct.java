@@ -4,20 +4,19 @@ import org.suikasoft.jOptions.Datakey.DataKey;
 import org.suikasoft.jOptions.Datakey.KeyFactory;
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
+import pt.up.fe.specs.fortran.ast.nodes.decl.LabelDecl;
 import pt.up.fe.specs.fortran.ast.nodes.loops.LoopControl;
 import pt.up.fe.specs.fortran.ast.nodes.loops.enums.DoKind;
 import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.ExecutableStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.ContinueStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.ExecutableConstruct;
 
 import java.util.Collection;
 import java.util.Optional;
 
-import static pt.up.fe.specs.fortran.ast.FortranKeyword.DO;
-import static pt.up.fe.specs.fortran.ast.FortranKeyword.END;
-
-public class DoConstruct extends ExecutableStmt {
-
+public class DoConstruct extends ExecutableConstruct {
     public static final DataKey<Optional<String>> NAME = KeyFactory.optional("name");
+    public static final DataKey<Optional<Integer>> DO_LABEL = KeyFactory.optional("doLabel");
 
     public DoConstruct(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
@@ -43,6 +42,10 @@ public class DoConstruct extends ExecutableStmt {
         return get(NAME);
     }
 
+    public Optional<Integer> getDoLabel() {
+        return get(DO_LABEL);
+    }
+
     public DoKind getKind() {
         return getControl()
                 .map(DoKind::fromControl)
@@ -56,11 +59,39 @@ public class DoConstruct extends ExecutableStmt {
     }
 
     @Override
-    public String getStmtCode() {
+    public String getCode() {
         var doStmt = getDoStmt();
         var body = getBody();
         var endDoStmt = getEndDoStmt();
 
-        return doStmt.getCode() + ln() + indent(body.getCode()) + ln() + endDoStmt.getCode();
+        var code = new StringBuilder();
+
+        code.append(doStmt.getCode()).append(ln())
+                .append(indent(body.getCode()));
+
+        var endDoStmtCode = endDoStmt.getCode();
+        if (!endDoStmtCode.isEmpty()) {
+            code.append(ln()).append(endDoStmtCode);
+        }
+
+        return code.toString();
+    }
+
+    public boolean hasContinueEnd() {
+        var doLabelOpt = getDoLabel();
+        if (doLabelOpt.isEmpty()) {
+            return false;
+        }
+
+        var doLabel = doLabelOpt.get();
+        var body = getBody();
+        var lastStmt = body.getChildTry(body.getNumChildren() - 1);
+
+        if (lastStmt.isEmpty() || !(lastStmt.get() instanceof ContinueStmt contLastStmt)) {
+            return false;
+        }
+
+        var contLabel = contLastStmt.getLabel().map(LabelDecl::getValue);
+        return contLabel.map(doLabel::equals).orElse(false);
     }
 }

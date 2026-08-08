@@ -6,6 +6,8 @@ import pt.up.fe.specs.fortran.ast.nodes.expr.enums.UnaryOperatorKind;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 
+import java.util.Optional;
+
 public class ExprProcessors extends ANodeProcessor {
 
 
@@ -13,24 +15,79 @@ public class ExprProcessors extends ANodeProcessor {
         super(data);
     }
 
-    public void stringLiteral(StringLiteral stringLiteral) {
-        stringLiteral.set(StringLiteral.SOURCE_LITERAL, attributes().getString(stringLiteral, "string"));
-    }
+    public Optional<String> getKindParam(String kindParamId) {
+        var kindParamAttrs = attributes().get(kindParamId);
 
-    public void intLiteral(IntLiteral intLiteral) {
-        intLiteral.set(StringLiteral.SOURCE_LITERAL, attributes().getString(intLiteral, "CharBlock"));
-
-        if (attributes(intLiteral).has(FlangName.KIND_PARAM)) {
-            intLiteral.setOptional(IntLiteral.KIND_PARAM, attributes().getString(intLiteral, "uint64_t", FlangName.KIND_PARAM));
+        switch (kindParamAttrs.getVariantKey()) {
+            case "uint64_t" -> {
+                var kindParam = kindParamAttrs.getString("uint64_t");
+                return Optional.of(kindParam);
+            }
+            case "Name" -> {
+                var nameAttrs = attributes().get(kindParamAttrs.getString(FlangName.NAME));
+                var kindParam = nameAttrs.getString("source");
+                return Optional.of(kindParam);
+            }
+            default -> {
+                return Optional.empty();
+            }
         }
     }
 
+    public void stringLiteral(StringLiteral stringLiteral) {
+        var contents = attributes().getString(stringLiteral, "string");
+        stringLiteral.set(StringLiteral.CONTENTS, contents);
+
+        var kindParam = attributes(stringLiteral)
+                .getOptionalString(FlangName.KIND_PARAM)
+                .flatMap(this::getKindParam);
+        stringLiteral.set(StringLiteral.KIND_PARAM, kindParam);
+    }
+
+    public void intLiteral(IntLiteral intLiteral) {
+        var source = attributes().getString(intLiteral, "CharBlock");
+        intLiteral.set(IntLiteral.SOURCE, source);
+
+        var kindParam = attributes(intLiteral)
+                .getOptionalString(FlangName.KIND_PARAM)
+                .flatMap(this::getKindParam);
+        intLiteral.set(IntLiteral.KIND_PARAM, kindParam);
+    }
+
     public void logicalLiteral(LogicalLiteral logicalLiteral) {
-        logicalLiteral.set(StringLiteral.SOURCE_LITERAL, attributes().getString(logicalLiteral, "bool"));
+        var value = attributes().getString(logicalLiteral, "bool").equals("1");
+        logicalLiteral.set(LogicalLiteral.VALUE, value);
+
+        var kindParam = attributes(logicalLiteral)
+                .getOptionalString(FlangName.KIND_PARAM)
+                .flatMap(this::getKindParam);
+        logicalLiteral.set(LogicalLiteral.KIND_PARAM, kindParam);
     }
 
     public void realLiteral(RealLiteral realLiteral) {
-        realLiteral.set(RealLiteral.SOURCE_LITERAL, attributes().get(attributes().getString(realLiteral, "real")).getString("source"));
+        var attrs = attributes(realLiteral);
+        var sign = "";
+
+        if (attrs.has(FlangName.REAL_LITERAL_CONSTANT)) {
+            sign = attrs.getOptionalString(FlangName.SIGN).orElseGet(() -> "");
+
+            var childId = attrs.getString(FlangName.REAL_LITERAL_CONSTANT);
+            attrs = attributes().get(childId);
+        }
+
+        var realId = attrs.getString("real");
+        var realSource = attributes().get(realId).getString("source");
+        realLiteral.set(RealLiteral.SOURCE, sign + realSource);
+
+        var kindParam = attrs.getOptionalString("kind")
+                .flatMap(this::getKindParam);
+
+        realLiteral.set(RealLiteral.KIND_PARAM, kindParam);
+    }
+
+    public void namedLiteral(NamedLiteral namedLiteral) {
+        var name = attributes().getString(namedLiteral, "source", FlangName.NAME);
+        namedLiteral.set(NamedLiteral.NAME, name);
     }
 
     public void parenExpr(ParenExpr parenExpr) {
@@ -49,8 +106,7 @@ public class ExprProcessors extends ANodeProcessor {
         binaryOperator.addChild(getChild(binaryOperator, "left"));
         binaryOperator.addChild(getChild(binaryOperator, "right"));
 
-        String opName = attributes().getString(binaryOperator, "op");
-
+        var opName = attributes().getString(binaryOperator, "op");
         binaryOperator.set(BinaryOperator.OP, BinaryOperatorKind.valueOf(opName.toUpperCase()));
     }
 
@@ -139,5 +195,47 @@ public class ExprProcessors extends ANodeProcessor {
 
     public void argument(Argument argument) {
         argument.addChild(getChild(argument, FlangName.ACTUAL_ARG));
+    }
+
+    public void intComplexPart(IntComplexPart intComplexPart) {
+        var intLiteral = getChild(intComplexPart, FlangName.SIGNED_INT_LITERAL_CONSTANT);
+        intComplexPart.addChild(intLiteral);
+    }
+
+    public void realComplexPart(RealComplexPart realComplexPart) {
+        var realLiteral = getChild(realComplexPart, FlangName.SIGNED_REAL_LITERAL_CONSTANT);
+        realComplexPart.addChild(realLiteral);
+    }
+
+    public void namedComplexPart(NamedComplexPart namedComplexPart) {
+        var namedLiteral = getChild(namedComplexPart, FlangName.NAMED_CONSTANT);
+        namedComplexPart.addChild(namedLiteral);
+    }
+
+    public void complexLiteral(ComplexLiteral complexLiteral) {
+        var real = getChild(complexLiteral, "real");
+        complexLiteral.addChild(real);
+
+        var imaginary = getChild(complexLiteral, "imaginary");
+        complexLiteral.addChild(imaginary);
+    }
+
+    public void substring(Substring substring) {
+        var ref = getChild(substring, FlangName.DATA_REF);
+        substring.addChild(ref);
+
+        var lowerId = attributes().getOptionalString(substring, "lower", FlangName.SUBSTRING_RANGE);
+        var lowerExpr = lowerId.map(this::getChild);
+        lowerExpr.ifPresent(lower -> {
+            substring.addChild(lower);
+            substring.setOptional(Substring.LOWER_IDX, lower.indexOfSelf());
+        });
+
+        var upperId = attributes().getOptionalString(substring, "upper", FlangName.SUBSTRING_RANGE);
+        var upperExpr = upperId.map(this::getChild);
+        upperExpr.ifPresent(upper -> {
+            substring.addChild(upper);
+            substring.setOptional(Substring.UPPER_IDX, upper.indexOfSelf());
+        });
     }
 }

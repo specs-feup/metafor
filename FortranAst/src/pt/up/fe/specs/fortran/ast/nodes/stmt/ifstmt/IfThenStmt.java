@@ -30,9 +30,7 @@ public class IfThenStmt extends ActionStmt {
         nameOpt.ifPresent(name -> code.append(name).append(" : "));
 
         code.append(keyword(FortranKeyword.IF))
-                .append(" (")
-                .append(condition.getCode())
-                .append(") ")
+                .append(" (").append(condition.getCode()).append(") ")
                 .append(keyword(FortranKeyword.THEN));
 
         return code.toString();

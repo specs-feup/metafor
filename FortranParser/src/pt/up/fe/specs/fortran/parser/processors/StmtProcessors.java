@@ -1,26 +1,47 @@
 package pt.up.fe.specs.fortran.parser.processors;
 
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
+import pt.up.fe.specs.fortran.ast.nodes.decl.NamedParameter;
 import pt.up.fe.specs.fortran.ast.nodes.expr.Expr;
 import pt.up.fe.specs.fortran.ast.nodes.loops.WhileLoopControl;
-import pt.up.fe.specs.fortran.ast.nodes.program.*;
-import pt.up.fe.specs.fortran.ast.nodes.specification.ArraySpecification;
+import pt.up.fe.specs.fortran.ast.nodes.program.Execution;
+import pt.up.fe.specs.fortran.ast.nodes.program.StmtBlock;
+import pt.up.fe.specs.fortran.ast.nodes.program.subprogram.*;
+import pt.up.fe.specs.fortran.ast.nodes.program.unit.EndModuleStmt;
+import pt.up.fe.specs.fortran.ast.nodes.program.unit.EndProgramStmt;
+import pt.up.fe.specs.fortran.ast.nodes.program.unit.ModuleStmt;
+import pt.up.fe.specs.fortran.ast.nodes.program.unit.ProgramStmt;
+import pt.up.fe.specs.fortran.ast.nodes.specification.shape.ArraySpec;
+import pt.up.fe.specs.fortran.ast.nodes.specification.LanguageBindingSpec;
 import pt.up.fe.specs.fortran.ast.nodes.specification.NamedConstantDef;
+import pt.up.fe.specs.fortran.ast.nodes.specification.enums.AccessKind;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.datastmt.DataStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.datastmt.DataStmtObject;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.datastmt.DataStmtSet;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.datastmt.DataStmtVariable;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.dimstmt.DimensionDecl;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.dimstmt.DimensionStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.enums.ImportKind;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.*;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.interfaces.AbstractInterfaceStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.interfaces.DefaultInterfaceStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.interfaces.EndInterfaceStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.DoConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.DoStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.EndDoStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.*;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.typedef.DataComponentDefStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.typedef.DerivedTypeStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.typedef.EndTypeStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.usestmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.DimensionSpec;
 import pt.up.fe.specs.fortran.parser.FlangAttributes;
 import pt.up.fe.specs.fortran.parser.FlangName;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
+import pt.up.fe.specs.util.SpecsStrings;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -86,7 +107,9 @@ public class StmtProcessors extends ANodeProcessor {
         var entityDecls = getChildren(typeDeclarationStmt, FlangName.ENTITY_DECL);
 
         var type = getChild(typeDeclarationStmt, FlangName.DECLARATION_TYPE_SPEC);
+        typeDeclarationStmt.addChild(type);
 
+        // TODO(Process-ing): See why this is needed
         entityDecls.stream().forEach(entityDecl -> entityDecl.addChild(0, type));
 
         typeDeclarationStmt.addChildren(entityDecls);
@@ -94,7 +117,7 @@ public class StmtProcessors extends ANodeProcessor {
         if (attributes(typeDeclarationStmt).has(FlangName.ATTR_SPEC)) {
             var attributes = getChildren(typeDeclarationStmt, FlangName.ATTR_SPEC);
             var processedAttributes = attributes.stream()
-                    .map(attr -> attr instanceof ArraySpecification
+                    .map(attr -> attr instanceof ArraySpec
                             ? factory().newNode(DimensionSpec.class, List.of(attr))
                             : attr)
                     .toList();
@@ -106,8 +129,9 @@ public class StmtProcessors extends ANodeProcessor {
         actionStmt(assignmentStmt);
 
         var variable = getChild(assignmentStmt, FlangName.VARIABLE);
-        var expression = getChild(assignmentStmt, FlangName.EXPR);
         assignmentStmt.addChild(variable);
+
+        var expression = getChild(assignmentStmt, FlangName.EXPR);
         assignmentStmt.addChild(expression);
     }
 
@@ -116,8 +140,6 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void ifConstruct(IfConstruct ifConstruct) {
-        executableStmt(ifConstruct);
-
         // Add if-then block
         var ifThenStmt = getStmtChild(ifConstruct, FlangName.IF_THEN_STMT);
 
@@ -211,8 +233,6 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void caseConstruct(CaseConstruct caseConstruct) {
-        executableStmt(caseConstruct);
-
         var selectCaseStmt = getStmtChild(caseConstruct, FlangName.SELECT_CASE_STMT);
         var caseBlocks = getChildren(caseConstruct, FlangName.CASE);
         var endSelectStmt = getStmtChild(caseConstruct, FlangName.END_SELECT_STMT);
@@ -338,19 +358,49 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void doConstruct(DoConstruct doConstruct) {
-        executableStmt(doConstruct);
-
         var name = attributes().getOptionalString(doConstruct, "source", FlangName.NON_LABEL_DO_STMT, FlangName.NAME);
         name.ifPresent(str -> doConstruct.setOptional(DoConstruct.NAME, str));
 
         var doStmt = getStmtChild(doConstruct, FlangName.NON_LABEL_DO_STMT);
         doConstruct.addChild(doStmt);
 
-        var body = factory().newNode(Execution.class, getChildren(doConstruct, FlangName.EXECUTION_PART_CONSTRUCT));
+        var doStmtSource = attributes(doStmt).getString("source");
+        var doLabel = extractLabel(doStmtSource);
+        doConstruct.set(DoConstruct.DO_LABEL, doLabel);
+
+        var bodyStmts = new ArrayList<>(getChildren(doConstruct, FlangName.EXECUTION_PART_CONSTRUCT));
+
+        // In labeled do loops with no continue statement at the end, Flang will add
+        // an empty continue statement at the end, which we want to ignore
+        var lastStmt = bodyStmts.get(bodyStmts.size() - 1);
+        if (attributes(lastStmt).getOptionalString("source").map(String::isEmpty).orElse(false)) {
+            bodyStmts.remove(bodyStmts.size() - 1);  // Remove last element
+        }
+
+        var body = factory().newNode(Execution.class, bodyStmts);
         doConstruct.addChild(body);
 
         var endDoStmt = getStmtChild(doConstruct, FlangName.END_DO_STMT);
         doConstruct.addChild(endDoStmt);
+    }
+
+    private Optional<Integer> extractLabel(String doStmtSource) {
+        // Ignore spaces, for compatibility with fixed-form (where the provided source lacks spacing)
+        doStmtSource = doStmtSource.replace(" ", "");
+
+        // Ignore 'do' keyword
+        doStmtSource = doStmtSource.substring(2);
+        var labelText = new StringBuilder();
+        for (var i = 0; i < doStmtSource.length(); i++) {
+            var c = doStmtSource.charAt(i);
+            if (!Character.isDigit(c)) {
+                break;
+            }
+
+            labelText.append(c);
+        }
+
+        return SpecsStrings.tryGetDecimalInteger(labelText.toString());
     }
 
     public void doStmt(DoStmt doStmt) {
@@ -390,7 +440,7 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void compilerDirective(CompilerDirective compilerDirective) {
-        executableStmt(compilerDirective);
+        stmt(compilerDirective);
 
         var variantKey = attributes(compilerDirective).getVariantKey();
         compilerDirective.addChildren(getChildren(compilerDirective, variantKey));
@@ -411,26 +461,6 @@ public class StmtProcessors extends ANodeProcessor {
         gotoStmt.set(GotoStmt.LABEL, label);
     }
 
-    public void writeStmt(WriteStmt writeStmt) {
-        actionStmt(writeStmt);
-
-        if (attributes(writeStmt).has("iounit")) {
-            writeStmt.addChild(getChild(writeStmt, "iounit"));
-        }
-
-        if (attributes(writeStmt).has("format")) {
-            writeStmt.addChild(getChild(writeStmt, "format"));
-        }
-
-        if (attributes(writeStmt).has("controls")) {
-            writeStmt.addChildren(getChildren(writeStmt, "controls"));
-        }
-
-        if (attributes(writeStmt).has("items")) {
-            writeStmt.addChildren(getChildren(writeStmt, "items"));
-        }
-    }
-
     public void containsStmt(ContainsStmt containsStmt) {
         executableStmt(containsStmt);
     }
@@ -438,8 +468,13 @@ public class StmtProcessors extends ANodeProcessor {
     public void allocateStmt(AllocateStmt allocateStmt) {
         actionStmt(allocateStmt);
 
-        allocateStmt.addChildren(getChildren(allocateStmt, FlangName.ALLOCATION));
-        allocateStmt.addChildren(getChildren(allocateStmt, FlangName.ALLOC_OPT));
+        var allocations = getChildren(allocateStmt, FlangName.ALLOCATION);
+        allocateStmt.addChildren(allocations);
+
+        if (attributes(allocateStmt).has(FlangName.ALLOC_OPT)) {
+            var options = getChildren(allocateStmt, FlangName.ALLOC_OPT);
+            allocateStmt.addChildren(options);
+        }
     }
 
     public void deallocateStmt(DeallocateStmt deallocateStmt) {
@@ -451,10 +486,42 @@ public class StmtProcessors extends ANodeProcessor {
     public void useStmt(UseStmt useStmt) {
         stmt(useStmt);
 
-        String nameId = attributes(useStmt).getString("moduleName");
-        String name = attributes().get(nameId).getString("source");
+        var intrinsic = attributes(useStmt).getOptionalString("nature")
+                .map(nature -> !nature.endsWith("Non_Intrinsic"));
+        useStmt.set(UseStmt.INTRINSIC, intrinsic);
 
+        var nameId = attributes(useStmt).getString("moduleName");
+        var name = attributes().get(nameId).getString("source");
         useStmt.set(UseStmt.NAME, name);
+    }
+
+    public void useRenameStmt(UseRenameStmt useRenameStmt) {
+        useStmt(useRenameStmt);
+
+        var renameList = getChildren(useRenameStmt, FlangName.RENAME);
+        useRenameStmt.addChildren(renameList);
+    }
+
+    public void useOnlyStmt(UseOnlyStmt useOnlyStmt) {
+        useStmt(useOnlyStmt);
+
+        var onlyList = getChildren(useOnlyStmt, FlangName.ONLY);
+        useOnlyStmt.addChildren(onlyList);
+    }
+
+    public void useName(UseName useName) {
+        var name = attributes().getString(useName, "source", FlangName.NAME);
+        useName.set(UseName.NAME, name);
+    }
+
+    public void namesRename(NamesRename namesRename) {
+        var localNameId = attributes().getString(namesRename, "local");
+        var localName = attributes().get(localNameId).getString("source");
+        namesRename.set(NamesRename.LOCAL_NAME, localName);
+
+        var globalNameId = attributes().getString(namesRename, "global");
+        var globalName = attributes().get(globalNameId).getString("source");
+        namesRename.set(NamesRename.GLOBAL_NAME, globalName);
     }
 
     public void continueStmt(ContinueStmt continueStmt) {
@@ -471,23 +538,8 @@ public class StmtProcessors extends ANodeProcessor {
         externalStmt.addChildren(getChildren(externalStmt, FlangName.NAME));
     }
 
-    public void returnStmt(ReturnStmt returnStmt) {
-        actionStmt(returnStmt);
-        if (attributes(returnStmt).has(FlangName.EXPR)) {
-            returnStmt.addChild(getChild(returnStmt, FlangName.EXPR));
-        }
-    }
-
-    public void openStmt(OpenStmt openStmt) {
-        actionStmt(openStmt);
-    }
-
-    public void closeStmt(CloseStmt closeStmt) {
-        actionStmt(closeStmt);
-    }
-
     public void namedConstantDef(NamedConstantDef namedConstantDef) {
-var ref = getChild(namedConstantDef, FlangName.NAMED_CONSTANT);
+        var ref = getChild(namedConstantDef, FlangName.NAMED_CONSTANT);
         namedConstantDef.addChild(ref);
 
         var expr = getChild(namedConstantDef, FlangName.EXPR);
@@ -576,6 +628,9 @@ var ref = getChild(namedConstantDef, FlangName.NAMED_CONSTANT);
 
     public void programStmt(ProgramStmt programStmt) {
         stmt(programStmt);
+
+        var name = attributes().getString(programStmt, "source", FlangName.NAME);
+        programStmt.set(ProgramStmt.PROGRAM_NAME, name);
     }
 
     public void endProgramStmt(EndProgramStmt endProgramStmt) {
@@ -585,6 +640,9 @@ var ref = getChild(namedConstantDef, FlangName.NAMED_CONSTANT);
     public void subroutineStmt(SubroutineStmt subroutineStmt) {
         stmt(subroutineStmt);
 
+        var name = attributes().getString(subroutineStmt, "source", FlangName.NAME);
+        subroutineStmt.set(SubroutineStmt.SUBROUTINE_NAME, name);
+
         if (attributes(subroutineStmt).has(FlangName.DUMMY_ARG)) {
             var dummyArgs = getChildren(subroutineStmt, FlangName.DUMMY_ARG);
             subroutineStmt.addChildren(dummyArgs);
@@ -593,5 +651,208 @@ var ref = getChild(namedConstantDef, FlangName.NAMED_CONSTANT);
 
     public void endSubroutineStmt(EndSubroutineStmt endSubroutineStmt) {
         stmt(endSubroutineStmt);
+    }
+
+    public void returnStmt(ReturnStmt returnStmt) {
+        executableStmt(returnStmt);
+
+        var target = attributes()
+                .getOptionalString(returnStmt, "CharBlock", FlangName.EXPR, FlangName.LITERAL_CONSTANT, FlangName.INT_LITERAL_CONSTANT)
+                .map(Integer::parseInt);
+        returnStmt.set(ReturnStmt.TARGET, target);
+    }
+
+    public void dimensionStmt(DimensionStmt dimensionStmt) {
+        stmt(dimensionStmt);
+
+        var decls = getChildren(dimensionStmt, FlangName.DECLARATION);
+        dimensionStmt.addChildren(decls);
+    }
+
+    public void dimensionDecl(DimensionDecl dimensionDecl) {
+        var name = attributes().getString(dimensionDecl, "source", FlangName.NAME);
+        dimensionDecl.set(DimensionDecl.NAME, name);
+
+        var arraySpec = getChild(dimensionDecl, FlangName.ARRAY_SPEC);
+        dimensionDecl.addChild(arraySpec);
+    }
+
+    public void namelistStmt(NamelistStmt namelistStmt) {
+        stmt(namelistStmt);
+
+        var groups = getChildren(namelistStmt, FlangName.GROUP);
+        namelistStmt.addChildren(groups);
+    }
+
+    public void namelistGroup(NamelistGroup namelistGroup) {
+        var attrs = attributes(namelistGroup);
+
+        var groupNameId = attrs.getString("groupName");
+        var groupName = attributes().get(groupNameId).getString("source");
+        namelistGroup.set(NamelistGroup.GROUP_NAME, groupName);
+
+        var objectNames = attrs.getStringList("objectNames").stream()
+                .map(objectNameId -> attributes().get(objectNameId).getString("source"))
+                .toList();
+        namelistGroup.set(NamelistGroup.OBJECT_NAMES, objectNames);
+    }
+
+    public void functionStmt(FunctionStmt functionStmt) {
+        stmt(functionStmt);
+
+        if (attributes(functionStmt).has("prefix")) {
+            var prefixSpecs = getChildren(functionStmt, "prefix");
+            functionStmt.addChildren(prefixSpecs);
+        }
+
+        var functionNameId = attributes(functionStmt).getString("functionName");
+        var functionName = attributes().get(functionNameId).getString("source");
+        functionStmt.set(FunctionStmt.FUNCTION_NAME, functionName);
+
+        var parameterNames = attributes(functionStmt).getStringList("paramNames");
+        var parameters = parameterNames.stream()
+                .map(this::toNamedParameter)
+                .toList();
+        functionStmt.addChildren(parameters);
+
+        var suffixId = attributes(functionStmt).getOptionalString("suffix");
+        suffixId.map(id -> attributes().get(id))
+                .ifPresent(suffixAttrs -> {
+                    var bindingId = suffixAttrs.getOptionalString("binding");
+                    bindingId.ifPresent(id -> {
+                        var binding = getChild(id);
+                        functionStmt.addChild(binding);
+                    });
+
+                    var resultName = suffixAttrs.getOptionalString("resultName")
+                            .map(nameId -> attributes().get(nameId).getString("source"));
+                    functionStmt.set(FunctionStmt.RESULT_NAME, resultName);
+                });
+    }
+
+    private NamedParameter toNamedParameter(String nameId) {
+        var name = attributes().get(nameId).getString("source");
+        return factory().namedParameter(name);
+    }
+
+    public void languageBindingSpec(LanguageBindingSpec languageBindingSpec) {
+        var name = getChild(languageBindingSpec, FlangName.EXPR);
+        languageBindingSpec.addChild(name);
+
+        var cDefined = attributes(languageBindingSpec).getString("bool");
+        languageBindingSpec.set(LanguageBindingSpec.C_DEFINED, cDefined.equals("1"));
+    }
+
+    public void endFunctionStmt(EndFunctionStmt endFunctionStmt) {
+        stmt(endFunctionStmt);
+    }
+
+    public void moduleStmt(ModuleStmt moduleStmt) {
+        stmt(moduleStmt);
+
+        var moduleName = attributes().getString(moduleStmt, "source", FlangName.NAME);
+        moduleStmt.set(ModuleStmt.MODULE_NAME, moduleName);
+    }
+
+    public void endModuleStmt(EndModuleStmt endModuleStmt) {
+        stmt(endModuleStmt);
+    }
+
+    public void accessStmt(AccessStmt accessStmt) {
+        stmt(accessStmt);
+
+        var accessKindSrc = attributes().getString(accessStmt, "value", FlangName.ACCESS_SPEC, FlangName.KIND);
+        var accessKind = AccessKind.valueOf(accessKindSrc.toUpperCase());
+        accessStmt.set(AccessStmt.ACCESS_KIND, accessKind);
+
+        if (attributes(accessStmt).has(FlangName.ACCESS_ID)) {
+            var accessIds = getChildren(accessStmt, FlangName.ACCESS_ID);
+            accessStmt.addChildren(accessIds);
+        }
+    }
+
+    public void importStmt(ImportStmt importStmt) {
+        stmt(importStmt);
+
+        var kindSrc = attributes().getString(importStmt, "value", FlangName.IMPORT_KIND);
+        var kind = ImportKind.valueOf(kindSrc.toUpperCase());
+        importStmt.set(ImportStmt.KIND, kind);
+
+        if (attributes(importStmt).has(FlangName.NAME)) {
+            var nameIds = attributes(importStmt).getStringList(FlangName.NAME);
+            var names = nameIds.stream()
+                    .map(nameId -> attributes().get(nameId).getString("source"))
+                    .toList();
+            importStmt.set(ImportStmt.NAMES, names);
+        }
+    }
+
+    public void defaultImplicitStmt(DefaultImplicitStmt implicitStmt) {
+        stmt(implicitStmt);
+
+        var specs = getChildren(implicitStmt, FlangName.IMPLICIT_SPEC);
+        implicitStmt.addChildren(specs);
+    }
+
+    public void implicitNoneStmt(ImplicitNoneStmt implicitStmt) {
+        stmt(implicitStmt);
+
+        var attrs = attributes(implicitStmt);
+        var specs = attrs.getStringList(FlangName.IMPLICIT_NONE_NAME_SPEC);
+        var specValues = specs.stream()
+                .map(id -> attributes().get(id).getString("value"))
+                .toList();
+
+        implicitStmt.set(ImplicitNoneStmt.EXPLICIT_TYPES, specValues.contains("Type"));
+        implicitStmt.set(ImplicitNoneStmt.EXPLICIT_EXTERNAL, specValues.contains("External"));
+    }
+
+    public void derivedTypeStmt(DerivedTypeStmt derivedTypeStmt) {
+        stmt(derivedTypeStmt);
+
+        var typeAttrs = getChildren(derivedTypeStmt, FlangName.TYPE_ATTR_SPEC);
+        derivedTypeStmt.addChildren(typeAttrs);
+
+        var typeNameId = attributes().getString(derivedTypeStmt, "TypeName");
+        var typeName = attributes().get(typeNameId).getString("source");
+        derivedTypeStmt.set(DerivedTypeStmt.TYPE_NAME, typeName);
+
+        var paramNameIds = attributes(derivedTypeStmt).getStringList("ParamNames");
+        var paramNames = paramNameIds.stream()
+                .map(this::toNamedParameter)
+                .toList();
+        derivedTypeStmt.addChildren(paramNames);
+    }
+
+    public void dataComponentDefStmt(DataComponentDefStmt dataComponentDefStmt) {
+        stmt(dataComponentDefStmt);
+
+        var declType = getChild(dataComponentDefStmt, FlangName.DECLARATION_TYPE_SPEC);
+        dataComponentDefStmt.addChild(declType);
+
+        var componentAttrs = getChildren(dataComponentDefStmt, FlangName.COMPONENT_ATTR_SPEC);
+        dataComponentDefStmt.addChildren(componentAttrs);
+
+        var componentDecls = getChildren(dataComponentDefStmt, FlangName.COMPONENT_OR_FILL);
+        dataComponentDefStmt.addChildren(componentDecls);
+    }
+
+    public void endTypeStmt(EndTypeStmt endTypeStmt) {
+        stmt(endTypeStmt);
+    }
+
+    public void defaultInterfaceStmt(DefaultInterfaceStmt defaultInterfaceStmt) {
+        stmt(defaultInterfaceStmt);
+
+        var genericSpec = getChildOptional(defaultInterfaceStmt, FlangName.GENERIC_SPEC);
+        genericSpec.ifPresent(defaultInterfaceStmt::addChild);
+    }
+
+    public void abstractInterfaceStmt(AbstractInterfaceStmt abstractInterfaceStmt) {
+        stmt(abstractInterfaceStmt);
+    }
+
+    public void endInterfaceStmt(EndInterfaceStmt endInterfaceStmt) {
+        stmt(endInterfaceStmt);
     }
 }

@@ -1,5 +1,5 @@
 PROGRAM OPENMP_DEMO
-    USE omp_lib
+    USE :: omp_lib
 
     INTEGER :: total_sum
 

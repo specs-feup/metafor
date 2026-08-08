@@ -1,7 +1,7 @@
 package pt.up.fe.specs.fortran.weaver.joinpoints;
 
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.UseStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.usestmt.UseStmt;
 import pt.up.fe.specs.fortran.weaver.abstracts.joinpoints.AUseStatement;
 
 public class FUseStatement extends AUseStatement {

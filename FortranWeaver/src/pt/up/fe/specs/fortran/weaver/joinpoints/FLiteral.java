@@ -15,11 +15,6 @@ public class FLiteral extends ALiteral {
     }
 
     @Override
-    public String getLiteralImpl() {
-        return literal.getLiteral();
-    }
-
-    @Override
     public FortranNode getNode() {
         return literal;
     }

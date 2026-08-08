@@ -9,7 +9,6 @@ import pt.up.fe.specs.util.SpecsCollections;
 import pt.up.fe.specs.util.utilities.PrintOnce;
 
 import java.util.Collection;
-import java.util.Optional;
 
 /**
  * R514 executable-construct

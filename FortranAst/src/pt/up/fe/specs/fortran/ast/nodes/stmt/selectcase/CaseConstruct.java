@@ -4,13 +4,13 @@ import org.suikasoft.jOptions.Datakey.DataKey;
 import org.suikasoft.jOptions.Datakey.KeyFactory;
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
-import pt.up.fe.specs.fortran.ast.nodes.stmt.ExecutableStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.ExecutableConstruct;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-public class CaseConstruct extends ExecutableStmt {
+public class CaseConstruct extends ExecutableConstruct {
     public static final DataKey<Optional<String>> NAME = KeyFactory.optional("name");
 
     public CaseConstruct(DataStore data, Collection<? extends FortranNode> children) {
@@ -34,7 +34,7 @@ public class CaseConstruct extends ExecutableStmt {
     }
 
     @Override
-    public String getStmtCode() {
+    public String getCode() {
         var selectCaseStmt = getSelectCaseStmt();
         var caseBlocks = getCaseBlocks();
         var endSelectStmt = getEndSelectStmt();

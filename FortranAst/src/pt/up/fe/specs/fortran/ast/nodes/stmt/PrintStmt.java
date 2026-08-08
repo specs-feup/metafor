@@ -3,7 +3,7 @@ package pt.up.fe.specs.fortran.ast.nodes.stmt;
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.FortranKeyword;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
-import pt.up.fe.specs.fortran.ast.nodes.utils.Format;
+import pt.up.fe.specs.fortran.ast.nodes.io.Format;
 import pt.up.fe.specs.util.SpecsCheck;
 
 import java.util.Collection;

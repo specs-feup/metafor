@@ -3,14 +3,17 @@ package pt.up.fe.specs.fortran.weaver.joinpoints;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.IfConstruct;
 import pt.up.fe.specs.fortran.weaver.FortranJoinpoints;
-import pt.up.fe.specs.fortran.weaver.abstracts.joinpoints.*;
+import pt.up.fe.specs.fortran.weaver.abstracts.joinpoints.AElseBlock;
+import pt.up.fe.specs.fortran.weaver.abstracts.joinpoints.AElseIfBlock;
+import pt.up.fe.specs.fortran.weaver.abstracts.joinpoints.AIfConstruct;
+import pt.up.fe.specs.fortran.weaver.abstracts.joinpoints.AIfThenBlock;
 
 public class FIfConstruct extends AIfConstruct {
 
     public final IfConstruct ifConstruct;
 
     public FIfConstruct(IfConstruct ifConstruct) {
-        super(new FExecutableStatement(ifConstruct));
+        super(new FExecutableConstruct(ifConstruct));
         this.ifConstruct = ifConstruct;
     }
 

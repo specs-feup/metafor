@@ -9,7 +9,7 @@ public class FIntLiteral extends AIntLiteral {
     private final IntLiteral intLiteral;
 
     public FIntLiteral(IntLiteral intLiteral) {
-        super(new FLiteral(intLiteral));
+        super(new FKindedLiteral(intLiteral));
 
         this.intLiteral = intLiteral;
     }

@@ -58,7 +58,7 @@ public class FortranAstTest {
     @Test
     void testHelloWorld() {
         // Build AST
-        var print = factory.printStmt(factory.format(factory.star()), factory.stringLiteral("Hello, World!"));
+        var print = factory.printStmt(factory.starFormat(), factory.stringLiteral("Hello, World!"));
         var program = factory.fortranFile(List.of(factory.mainProgram("hello", List.of(print))));
         test("hello.f90", program);
     }

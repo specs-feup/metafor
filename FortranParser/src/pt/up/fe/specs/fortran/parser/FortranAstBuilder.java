@@ -2,13 +2,13 @@ package pt.up.fe.specs.fortran.parser;
 
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.decl.LabelDecl;
-import pt.up.fe.specs.fortran.ast.nodes.program.ProgramUnit;
+import pt.up.fe.specs.fortran.ast.nodes.program.unit.ProgramUnit;
 import pt.up.fe.specs.fortran.ast.nodes.utils.LabelRef;
 import pt.up.fe.specs.fortran.parser.processors.Nodes;
-import pt.up.fe.specs.util.SpecsCheck;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -75,7 +75,7 @@ public class FortranAstBuilder {
 
             var id = getLabelDeclId(prefix, labelRef.getLabel());
             var labelDecl = labelDecls.get(id);
-            SpecsCheck.checkNotNull(labelDecl, () -> "Expected to find a LabelDecl for '" + id + "', but none was found: " + labelDecls);
+            Objects.requireNonNull(labelDecl, () -> "Expected to find a LabelDecl for '" + id + "', but none was found: " + labelDecls);
             labelRef.set(LabelRef.LABEL_DECL, labelDecl);
         }
     }

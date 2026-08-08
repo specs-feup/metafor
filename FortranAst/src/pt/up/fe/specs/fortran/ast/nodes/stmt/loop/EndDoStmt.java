@@ -14,9 +14,18 @@ public class EndDoStmt extends Stmt {
 
     @Override
     public String getStmtCode() {
-        var doNameOpt = getAncestor(DoConstruct.class).getName();
-        var doNameSuffix = doNameOpt.map(name -> " " + name).orElse("");
+        var parent = getAncestor(DoConstruct.class);
+        if (parent.hasContinueEnd()) {
+            return "";
+        }
 
-        return keyword(FortranKeyword.END) + " " + keyword(FortranKeyword.DO) + doNameSuffix;
+        var doLabelOpt = parent.getDoLabel();
+        var labelPrefix = doLabelOpt.map(label -> label + " ").orElse("");
+
+        var nameSuffix = !fixedForm()
+                ? parent.getName().map(name -> " " + name).orElse("")
+                : "";
+
+        return labelPrefix + keyword(FortranKeyword.END) + " " + keyword(FortranKeyword.DO) + nameSuffix;
     }
 }

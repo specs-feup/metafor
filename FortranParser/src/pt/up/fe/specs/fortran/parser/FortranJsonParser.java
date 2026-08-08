@@ -5,9 +5,13 @@ import org.suikasoft.GsonPlus.JsonReaderParser;
 import pt.up.fe.specs.fortran.ast.FortranContext;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.util.SpecsCheck;
+import pt.up.fe.specs.util.SpecsIo;
 import pt.up.fe.specs.util.SpecsLogs;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.StringReader;
 import java.util.*;
 
 public class FortranJsonParser implements JsonReaderParser {
@@ -31,20 +35,28 @@ public class FortranJsonParser implements JsonReaderParser {
 
 
     public static FortranJsonResult parse(File file, FortranContext context) {
-        try {
-            context.set(FortranContext.LAST_PARSED_FILE, Optional.of(file));
-            return parse(new FileReader(file), context);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException("Could not read file '" + file + "'", e);
-        }
-    }
+        context.set(FortranContext.LAST_PARSED_FILE, Optional.of(file));
 
-    public static FortranJsonResult parse(Reader input, FortranContext context) {
         var parser = new FortranJsonParser(context);
-        return parser.parsePrivate(input);
+        var code = SpecsIo.read(file);
+
+        if (code == null) {
+            throw new RuntimeException("Could not read file '" + file + "'");
+        }
+
+        return parser.parsePrivate(new StringReader(code), context);
     }
 
-    private FortranJsonResult parsePrivate(Reader input) {
+    public static FortranJsonResult parse(String code, FortranContext context) {
+        // Create temporary file for dumping the input
+        var tempFile = SpecsIo.getTempFile("", "json");
+        SpecsIo.write(tempFile, code);
+        var result = parse(tempFile, context);
+        SpecsIo.delete(tempFile);
+        return result;
+    }
+
+    private FortranJsonResult parsePrivate(Reader input, FortranContext context) {
         JsonReader reader = new JsonReader(input);
 
         try {
@@ -55,6 +67,9 @@ public class FortranJsonParser implements JsonReaderParser {
                 var objectsType = nextName(reader);
 
                 switch (objectsType) {
+                    case "fileExtension":
+                        parseFileExtension(reader, context);
+                        break;
                     case "nodes":
                         parseNodes(reader);
                         break;
@@ -76,6 +91,14 @@ public class FortranJsonParser implements JsonReaderParser {
         }
 
         return new FortranJsonResult(context, firstNode, ids, fortranNodes, FlangData.convert(attributes));
+    }
+
+    private void parseFileExtension(JsonReader reader, FortranContext context) {
+        try {
+            context.setOptional(FortranContext.LAST_PARSED_FILE_EXT, reader.nextString());
+        } catch (IOException e) {
+            throw new RuntimeException("Problem while parsing Fortran json", e);
+        }
     }
 
     private void parseEnums(JsonReader reader) {
@@ -128,7 +151,7 @@ public class FortranJsonParser implements JsonReaderParser {
 
 
         // Get class corresponding to the kind
-        var fortranClassTry = FlangToClass.getClass(kind);
+        var fortranClassTry = FlangToClass.getClass(kind, new FlangAttributes(nodeData));
 
         // If no class assume that kind is to be ignored
         // Otherwise, create node
@@ -165,6 +188,8 @@ public class FortranJsonParser implements JsonReaderParser {
 
         if (trailing.equals("false")) {
             stmtAttrs.putIfAbsent("leadingComments", new ArrayList<>());
+
+            @SuppressWarnings("unchecked")  // leadingComments list will always only contain strings
             var stmtComments = (List<String>) stmtAttrs.get("leadingComments");
             stmtComments.add(content);
         } else {

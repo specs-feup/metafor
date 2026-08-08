@@ -66,7 +66,7 @@
     </action>
 
     <action name="setLoop" class="ompLoopConstruct">
-        <parameter name="loop" type="doStatement"/>
+        <parameter name="loop" type="doConstruct"/>
     </action>
 
     <action name="setBody" class="ompBlockConstruct">
@@ -78,7 +78,8 @@
     </action>
 
     <!-- SPECIFICATION -->
-    <action name="addUseStmt" class="specification" tooltip="Adds a UseStmt to a specification part. The statement is inserted at the beginning.">
+    <action name="addUseStmt" class="specification"
+            tooltip="Adds a UseStmt to a specification part. The statement is inserted at the beginning.">
         <parameter name="stmt" type="useStatement"/>
     </action>
 
@@ -100,13 +101,13 @@
         <parameter name="step" type="expr"/>
     </action>
 
-    <!-- DoStatement -->
-    <action name="copyScope" class="doStatement" return="doStatement"
+    <!-- DoConstruct -->
+    <action name="copyScope" class="doConstruct" return="doConstruct"
             tooltip="Performs a copy of the do statement, including its controls, but not the body"
     />
 
-    <action name="sameScope" class="doStatement" return="boolean"
+    <action name="sameScope" class="doConstruct" return="boolean"
             tooltip="Returns true if the given do statement has the same loop control as this do statement">
-        <parameter name="loop" type="doStatement"/>
+        <parameter name="loop" type="doConstruct"/>
     </action>
 </actions>

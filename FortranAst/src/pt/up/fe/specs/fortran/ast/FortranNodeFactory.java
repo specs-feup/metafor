@@ -6,15 +6,11 @@ import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.decl.ExprInitialization;
 import pt.up.fe.specs.fortran.ast.nodes.decl.LabelDecl;
 import pt.up.fe.specs.fortran.ast.nodes.decl.ListInitialization;
-import pt.up.fe.specs.fortran.ast.nodes.expr.Argument;
-import pt.up.fe.specs.fortran.ast.nodes.expr.BinaryOperator;
-import pt.up.fe.specs.fortran.ast.nodes.expr.Call;
-import pt.up.fe.specs.fortran.ast.nodes.expr.DataRef;
-import pt.up.fe.specs.fortran.ast.nodes.expr.Expr;
-import pt.up.fe.specs.fortran.ast.nodes.expr.IntLiteral;
-import pt.up.fe.specs.fortran.ast.nodes.expr.Literal;
-import pt.up.fe.specs.fortran.ast.nodes.expr.StringLiteral;
+import pt.up.fe.specs.fortran.ast.nodes.decl.NamedParameter;
+import pt.up.fe.specs.fortran.ast.nodes.expr.*;
 import pt.up.fe.specs.fortran.ast.nodes.expr.enums.BinaryOperatorKind;
+import pt.up.fe.specs.fortran.ast.nodes.io.Format;
+import pt.up.fe.specs.fortran.ast.nodes.io.StarFormat;
 import pt.up.fe.specs.fortran.ast.nodes.loops.LoopControl;
 import pt.up.fe.specs.fortran.ast.nodes.loops.RangeLoopControl;
 import pt.up.fe.specs.fortran.ast.nodes.omp.OmpBlockConstruct;
@@ -26,13 +22,20 @@ import pt.up.fe.specs.fortran.ast.nodes.omp.clause.OmpReductionClause;
 import pt.up.fe.specs.fortran.ast.nodes.omp.enums.OmpClauseKind;
 import pt.up.fe.specs.fortran.ast.nodes.omp.enums.OmpDirectiveKind;
 import pt.up.fe.specs.fortran.ast.nodes.program.*;
+import pt.up.fe.specs.fortran.ast.nodes.program.construct.DeclStmtAdapter;
+import pt.up.fe.specs.fortran.ast.nodes.program.construct.SpecDirectiveAdapter;
+import pt.up.fe.specs.fortran.ast.nodes.program.construct.SpecStmtAdapter;
+import pt.up.fe.specs.fortran.ast.nodes.program.unit.EndProgramStmt;
+import pt.up.fe.specs.fortran.ast.nodes.program.unit.ProgramStmt;
+import pt.up.fe.specs.fortran.ast.nodes.program.unit.MainProgram;
+import pt.up.fe.specs.fortran.ast.nodes.program.unit.ProgramUnit;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.DoConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.DoStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.EndDoStmt;
-import pt.up.fe.specs.fortran.ast.nodes.utils.Format;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.usestmt.UseOnlyStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.usestmt.UseRenameStmt;
 import pt.up.fe.specs.fortran.ast.nodes.utils.LabelRef;
-import pt.up.fe.specs.fortran.ast.nodes.utils.Star;
 import pt.up.fe.specs.util.SpecsCheck;
 import pt.up.fe.specs.util.SpecsCollections;
 
@@ -136,20 +139,23 @@ public class FortranNodeFactory {
         stmt.set(Stmt.LEADING_COMMENTS, List.of());
     }
 
-    public MainProgram mainProgram(String programName, List<ExecutableStmt> execution) {
+    public MainProgram mainProgram(String programName, List<FortranNode> execution) {
         DataStore data = newDataStore(MainProgram.class);
-        data.set(MainProgram.NAME, Optional.ofNullable(programName));
 
         var programStmt = newNode(ProgramStmt.class, Collections.emptyList());
+        programStmt.set(ProgramStmt.PROGRAM_NAME, programName);
         initComments(programStmt);
+
+        var specificationBlock = newNode(Specification.class, Collections.emptyList());
         var executionBlock = execution(execution);
+
         var endProgramStmt = newNode(EndProgramStmt.class, Collections.emptyList());
         initComments(endProgramStmt);
 
-        return new MainProgram(data, List.of(programStmt, executionBlock, endProgramStmt));
+        return new MainProgram(data, List.of(programStmt, specificationBlock, executionBlock, endProgramStmt));
     }
 
-    public Execution execution(List<ExecutableStmt> statements) {
+    public Execution execution(List<FortranNode> statements) {
         DataStore data = newDataStore(Execution.class);
 
         return new Execution(data, statements);
@@ -206,26 +212,16 @@ public class FortranNodeFactory {
 
     public StringLiteral stringLiteral(String literal, String kindParam) {
         DataStore data = newDataStore(StringLiteral.class);
-        data.set(Literal.SOURCE_LITERAL, literal);
+        data.set(StringLiteral.CONTENTS, literal);
 
         return new StringLiteral(data, Collections.emptyList());
     }
 
     // UTIL
 
-    public Format format(FortranNode formatType) {
-        // Check if node is of allowed type
-        if (!(formatType instanceof Star)) {
-            throw new RuntimeException("Unsupported type for Format child: " + formatType.getClass());
-        }
-
+    public StarFormat starFormat() {
         DataStore data = newDataStore(Format.class);
-        return new Format(data, List.of(formatType));
-    }
-
-    public Star star() {
-        DataStore data = newDataStore(Star.class);
-        return new Star(data, Collections.emptyList());
+        return new StarFormat(data, List.of());
     }
 
     public LabelRef labelRef(LabelDecl labelDecl) {
@@ -286,12 +282,22 @@ public class FortranNodeFactory {
         return newNode;
     }
 
-    public UseStmt useStmt(String moduleName) {
-        DataStore data = newDataStore(UseStmt.class);
+    public UseRenameStmt useRenameStmt(String moduleName) {
+        DataStore data = newDataStore(UseRenameStmt.class);
 
-        UseStmt newNode = new UseStmt(data, Collections.emptyList());
+        UseRenameStmt newNode = new UseRenameStmt(data, Collections.emptyList());
 
-        newNode.set(UseStmt.NAME, moduleName);
+        newNode.set(UseRenameStmt.NAME, moduleName);
+
+        return newNode;
+    }
+
+    public UseOnlyStmt useOnlyStmt(String moduleName) {
+        DataStore data = newDataStore(UseOnlyStmt.class);
+
+        UseOnlyStmt newNode = new UseOnlyStmt(data, Collections.emptyList());
+
+        newNode.set(UseOnlyStmt.NAME, moduleName);
 
         return newNode;
     }
@@ -299,7 +305,7 @@ public class FortranNodeFactory {
     public OmpReductionClause ompReductionClause(BinaryOperatorKind operator, List<DataRef> refs) {
         DataStore data = newDataStore(OmpReductionClause.class);
 
-        OmpReductionClause newNode= new OmpReductionClause(data, refs);
+        OmpReductionClause newNode = new OmpReductionClause(data, refs);
 
         newNode.set(OmpReductionClause.KIND, OmpClauseKind.REDUCTION);
 
@@ -312,8 +318,7 @@ public class FortranNodeFactory {
         DataStore data = newDataStore(IntLiteral.class);
 
         IntLiteral newNode = new IntLiteral(data, Collections.emptyList());
-
-        newNode.set(IntLiteral.SOURCE_LITERAL, Integer.toString(value));
+        newNode.set(IntLiteral.SOURCE, Integer.toString(value));
 
         return newNode;
     }
@@ -363,5 +368,26 @@ public class FortranNodeFactory {
         newNode.addChild(intLiteral(value));
 
         return newNode;
+    }
+
+    public NamedParameter namedParameter(String name) {
+        var data = newDataStore(NamedParameter.class);
+
+        var node = new NamedParameter(data, Collections.emptyList());
+        node.set(NamedParameter.NAME, name);
+
+        return node;
+    }
+
+    public DeclStmtAdapter declStmtAdapter(DeclStmt declStmt) {
+        return newNode(DeclStmtAdapter.class, List.of(declStmt));
+    }
+
+    public SpecStmtAdapter specStmtAdapter(SpecStmt specStmt) {
+        return newNode(SpecStmtAdapter.class, List.of(specStmt));
+    }
+
+    public SpecDirectiveAdapter specDirectiveAdapter(CompilerDirective compilerDirective) {
+        return newNode(SpecDirectiveAdapter.class, List.of(compilerDirective));
     }
 }

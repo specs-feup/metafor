@@ -95,7 +95,11 @@ public class FlangAttributes {
 
     public <T> List<T> getList(String key, Function<Object, T> converter) {
         var value = attributes.get(key);
-        Objects.requireNonNull(value, () -> "Attrs do not have a value for key '" + key + "': " + attributes);
+//        Objects.requireNonNull(value, () -> "Attrs do not have a value for key '" + key + "': " + attributes);
+        if (value == null) {
+            return List.of();
+        }
+
         if (value instanceof List<?> list) {
             return list.stream().map(o -> converter.apply(o)).toList();
         }
@@ -113,6 +117,12 @@ public class FlangAttributes {
 
     public String getVariantString() {
         return getString(getVariantKey());
+    }
+
+    public FlangName getVariantName() {
+        var variantKey = getVariantKey();
+        return FlangName.convertTry(variantKey).orElseThrow(() -> new RuntimeException(
+                "Variant key '" + variantKey + "' is not a valid Flang name."));
     }
 
     /**

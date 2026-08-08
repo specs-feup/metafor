@@ -110,6 +110,9 @@ public abstract class FortranNode extends DataNode<FortranNode> {
         return newNode;
     }
 
+    public FortranContext getContext() {
+        return get(CONTEXT);
+    }
 
     public String getCode() {
         PrintOnce.info("getCode() not implemented for nodes of type " + getClass());
@@ -129,6 +132,20 @@ public abstract class FortranNode extends DataNode<FortranNode> {
         return get(CONTEXT).get(FortranContext.FORTRAN_KEYWORDS).get(keyword);
     }
 
+    protected String encase(String code) {
+        var lowercase = get(CONTEXT).get(FortranContext.FORTRAN_KEYWORDS).isLowercase();
+        return lowercase ? code.toLowerCase() : code.toUpperCase();
+    }
+
+    // TODO(Process-ing): Remove the need to use this
+    protected boolean fixedForm() {
+        return getContext().get(FortranContext.FIXED_FORM);
+    }
+
+    protected String getCommentStarter() {
+        return fixedForm() ? "C" : "!";
+    }
+
     public FortranNodeFactory getFactory() {
         return get(FortranNode.CONTEXT).get(FortranContext.FACTORY);
     }
@@ -144,6 +161,7 @@ public abstract class FortranNode extends DataNode<FortranNode> {
         return newNode;
     }
 
+    @Deprecated
     public FortranNode insert(Position position, String code) {
         // By default, transforms code into a literal statement.
         // This might need to evolve in the future, depending on where the code is inserted
@@ -153,9 +171,14 @@ public abstract class FortranNode extends DataNode<FortranNode> {
     }
 
     public String indent(String code) {
+        var fixedForm = getContext().get(FortranContext.FIXED_FORM);
+        if (fixedForm) {  // We will not indent code in fixed form, to prevent using too many columns
+            return code;
+        }
+
         return StringLines.getLines(code).stream()
-            .map(line -> tab() + line)
-            .collect(Collectors.joining(ln()));
+                .map(line -> tab() + line)
+                .collect(Collectors.joining(ln()));
     }
 
 

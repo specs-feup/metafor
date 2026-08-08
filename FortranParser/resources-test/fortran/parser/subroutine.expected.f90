@@ -1,7 +1,7 @@
 SUBROUTINE add_numbers(a, b, result, useless)
-    INTEGER, intent(in) :: a, b
-    INTEGER, intent(out) :: result
-    INTEGER, intent(inout) :: useless
+    INTEGER, INTENT(IN) :: a, b
+    INTEGER, INTENT(OUT) :: result
+    INTEGER, INTENT(INOUT) :: useless
 
     result = a + b
 END SUBROUTINE add_numbers

@@ -1,6 +1,6 @@
 COMMON /com/ ok
 LOGICAL(1) :: ok
-ok = .true.
+ok = .TRUE.
 
 CALL test1()
 CALL test2()
@@ -20,7 +20,7 @@ SUBROUTINE test1()
     PARAMETER (m = 19, d = 3, ans = 1)
 
     IF (mod(m, d) /= ans) THEN
-        ok = .false.
+        ok = .FALSE.
         PRINT *, "TEST1-NG =>", mod(m, d)
     END IF
 END SUBROUTINE test1
@@ -32,7 +32,7 @@ SUBROUTINE test2()
     PARAMETER (m = 19, d = 3, ans = 1)
 
     IF (mod(m, d) /= ans) THEN
-        ok = .false.
+        ok = .FALSE.
         PRINT *, "TEST2-NG =>", mod(m, d)
     END IF
 END SUBROUTINE test2
@@ -44,7 +44,7 @@ SUBROUTINE test3()
     PARAMETER (m = 19, d = 3, ans = 1)
 
     IF (mod(m, d) /= ans) THEN
-        ok = .false.
+        ok = .FALSE.
         PRINT *, "TEST3-NG =>", mod(m, d)
     END IF
 END SUBROUTINE test3

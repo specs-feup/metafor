@@ -53,7 +53,6 @@ public class FortranNativeParser {
         context.set(FortranContext.LAST_PARSED_FILE, Optional.of(file));
 
         var plugin = FLANG_DUMPER.get();
-        System.out.println("PLUGIN : " + plugin.getAbsolutePath());
 
         // Execute flang to obtain json
         var command = List.of(getFlangCommand(), "-fc1", "-fopenmp", "-load", plugin.getAbsolutePath(), "-plugin", "dump-ast", file.getAbsolutePath());
@@ -80,21 +79,21 @@ public class FortranNativeParser {
     }
 
     private FortranJsonResult parseStream(InputStream stream, File jsonOutput) {
-        if (jsonOutput == null) {
-            return FortranJsonParser.parse(new InputStreamReader(stream), context);
-        }
-
         // Read the stream to a string first
         var json = SpecsIo.read(stream);
 
+        if (jsonOutput == null) {
+            return FortranJsonParser.parse(json, context);
+        }
+
         SpecsIo.write(jsonOutput, json);
         SpecsLogs.info("Wrote JSON output at '" + jsonOutput.getAbsolutePath() + "'");
-        return FortranJsonParser.parse(new StringReader(json), context);
+        return FortranJsonParser.parse(jsonOutput, context);
     }
 
-    public FortranJsonResult parse(InputStream input) {
+    public FortranJsonResult parse(InputStream input, String extension) {
         // Create temporary file for dumping the input
-        var tempFile = SpecsIo.getTempFile("", "f90");
+        var tempFile = SpecsIo.getTempFile("", extension);
         var code = SpecsIo.read(input);
         SpecsIo.write(tempFile, code);
         var result = parse(tempFile);

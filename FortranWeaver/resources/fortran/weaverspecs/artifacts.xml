@@ -33,7 +33,8 @@
             <parameter name="jp" type="joinpoint"/>
         </attribute>
 
-        <attribute name="indexOfSelf" type="int" tooltip="Returns the index of this join point in relation to its parent"/>
+        <attribute name="indexOfSelf" type="int"
+                   tooltip="Returns the index of this join point in relation to its parent"/>
     </global>
 
     <!-- PROGRAM -->
@@ -73,7 +74,6 @@
 
     <!-- LITEARL -->
     <artifact class="literal">
-        <attribute name="literal" type="String"/>
     </artifact>
 
     <!-- LOOP CONTROL -->
@@ -85,7 +85,7 @@
     </artifact>
 
     <!-- DO LOOP -->
-    <artifact class="doStatement">
+    <artifact class="doConstruct">
         <attribute name="control" type="loopControl"/>
         <attribute name="body" type="execution"/>
         <attribute name="kind" type="{while, range, concurrent}"/>
@@ -122,14 +122,15 @@
         <!-- TODO how to represent optionals? -->
     </artifact>
 
-    <!-- PROGRAM UNIT -->
-    <artifact class="programUnit">
-        <attribute name="specification" type="specification" tooltip="Returns the unit's specification part"/>
+    <!-- MAIN PROGRAM -->
+    <artifact class="mainProgram">
+        <attribute name="specification" type="specification" tooltip="Returns the main program's specification part"/>
     </artifact>
 
-    <!-- SUBROUTINE -->
-    <artifact class="subroutine">
+    <!-- SUBPROGRAM -->
+    <artifact class="subprogram">
         <attribute name="moduleName" type="String"/>
+        <attribute name="specification" type="specification" tooltip="Returns the subprogram's specification part"/>
     </artifact>
 
     <!-- USE STATEMENT -->
