@@ -84,6 +84,7 @@ public enum FortranKeyword {
     CODIMENSION,
     EXTENDS,
     ABSTRACT,
+    INTERFACE,
 
     OMP;
 
