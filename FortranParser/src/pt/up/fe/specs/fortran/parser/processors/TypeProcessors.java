@@ -8,6 +8,7 @@ import pt.up.fe.specs.fortran.ast.nodes.type.decltype.StarDeclType;
 import pt.up.fe.specs.fortran.ast.nodes.type.enums.DeclTypeKind;
 import pt.up.fe.specs.fortran.ast.nodes.type.lenselector.ConstLenSelector;
 import pt.up.fe.specs.fortran.ast.nodes.type.lenselector.KindParamLenSelector;
+import pt.up.fe.specs.fortran.ast.nodes.type.lenselector.ParamCharLenSelector;
 import pt.up.fe.specs.fortran.ast.nodes.type.lenselector.ParamLenSelector;
 import pt.up.fe.specs.fortran.ast.nodes.type.typeparam.TypeParam;
 import pt.up.fe.specs.fortran.parser.FlangName;
@@ -74,9 +75,13 @@ public class TypeProcessors extends ANodeProcessor {
     }
 
     public void constLenSelector(ConstLenSelector selector) {
-        System.out.println(attributes(selector));
         var length = attributes().getString(selector, "uint64_t");
         selector.set(ConstLenSelector.LENGTH, Long.parseLong(length));
+    }
+
+    public void paramCharLenSelector(ParamCharLenSelector selector) {
+        var param = getChild(selector, FlangName.TYPE_PARAM_VALUE);
+        selector.addChild(param);
     }
 
     public void paramLenSelector(ParamLenSelector selector) {

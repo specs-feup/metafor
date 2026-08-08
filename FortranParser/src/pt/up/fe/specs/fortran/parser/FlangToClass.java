@@ -14,6 +14,7 @@ import pt.up.fe.specs.fortran.ast.nodes.type.decltype.DeclType;
 import pt.up.fe.specs.fortran.ast.nodes.type.decltype.DerivedDeclType;
 import pt.up.fe.specs.fortran.ast.nodes.type.decltype.IntrinsicDeclType;
 import pt.up.fe.specs.fortran.ast.nodes.type.decltype.StarDeclType;
+import pt.up.fe.specs.fortran.ast.nodes.type.lenselector.*;
 import pt.up.fe.specs.fortran.ast.nodes.type.typeparam.*;
 import pt.up.fe.specs.fortran.ast.nodes.expr.*;
 import pt.up.fe.specs.fortran.ast.nodes.io.*;
@@ -55,10 +56,6 @@ import pt.up.fe.specs.fortran.ast.nodes.type.*;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.AllocatableKeyword;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.IntentSpec;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.ParameterKeyword;
-import pt.up.fe.specs.fortran.ast.nodes.type.lenselector.ConstLenSelector;
-import pt.up.fe.specs.fortran.ast.nodes.type.lenselector.KindParamLenSelector;
-import pt.up.fe.specs.fortran.ast.nodes.type.lenselector.LenSelector;
-import pt.up.fe.specs.fortran.ast.nodes.type.lenselector.ParamLenSelector;
 import pt.up.fe.specs.fortran.ast.nodes.utils.NameValue;
 
 import java.util.HashMap;
@@ -239,8 +236,8 @@ public class FlangToClass {
         NAME_TO_MAPPER.put(FlangName.CHARACTER, ClassMapper.always(CharacterType.class));
         NAME_TO_MAPPER.put(FlangName.REAL, ClassMapper.always(RealType.class));
         NAME_TO_MAPPER.put(FlangName.COMPLEX, ClassMapper.always(ComplexType.class));
-        NAME_TO_MAPPER.put(FlangName.CHAR_LENGTH, ClassMapper.caseFor(LenSelector.class)
-                .map(FlangName.TYPE_PARAM_VALUE, ParamLenSelector.class)
+        NAME_TO_MAPPER.put(FlangName.CHAR_LENGTH, ClassMapper.caseFor(CharLenSelector.class)
+                .map(FlangName.TYPE_PARAM_VALUE, ParamCharLenSelector.class)
                 .map("uint64_t", ConstLenSelector.class));
         NAME_TO_MAPPER.put(FlangName.LENGTH_SELECTOR, ClassMapper.caseFor(LenSelector.class)
                 .map(FlangName.TYPE_PARAM_VALUE, ParamLenSelector.class)

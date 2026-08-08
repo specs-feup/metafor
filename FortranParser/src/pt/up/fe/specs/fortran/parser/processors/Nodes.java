@@ -11,6 +11,7 @@ import pt.up.fe.specs.fortran.ast.nodes.specification.funcspec.EmptyFunctionSpec
 import pt.up.fe.specs.fortran.ast.nodes.type.decltype.DerivedDeclType;
 import pt.up.fe.specs.fortran.ast.nodes.type.decltype.IntrinsicDeclType;
 import pt.up.fe.specs.fortran.ast.nodes.type.decltype.StarDeclType;
+import pt.up.fe.specs.fortran.ast.nodes.type.lenselector.ParamCharLenSelector;
 import pt.up.fe.specs.fortran.ast.nodes.type.typeparam.DeferredTypeParamValue;
 import pt.up.fe.specs.fortran.ast.nodes.type.typeparam.ExprTypeParamValue;
 import pt.up.fe.specs.fortran.ast.nodes.type.typeparam.StarTypeParamValue;
@@ -205,6 +206,7 @@ public class Nodes {
         processors.put(DoublePrecisionType.class, t::doublePrecisionType);
         processors.put(CharacterType.class, t::characterType);
         processors.put(ConstLenSelector.class, t::constLenSelector);
+        processors.put(ParamCharLenSelector.class, t::paramCharLenSelector);
         processors.put(ParamLenSelector.class, t::paramLenSelector);
         processors.put(KindParamLenSelector.class, t::kindParamLenSelector);
         processors.put(RealType.class, t::realType);

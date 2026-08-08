@@ -6,7 +6,7 @@ import pt.up.fe.specs.fortran.ast.nodes.type.typeparam.TypeParamValue;
 
 import java.util.Collection;
 
-public class ParamCharLenSelector extends LenSelector {
+public class ParamCharLenSelector extends CharLenSelector {
     public ParamCharLenSelector(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
     }
