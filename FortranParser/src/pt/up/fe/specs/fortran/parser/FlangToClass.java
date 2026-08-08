@@ -10,11 +10,18 @@ import pt.up.fe.specs.fortran.ast.nodes.decl.component.ComponentDecl;
 import pt.up.fe.specs.fortran.ast.nodes.decl.component.attr.*;
 import pt.up.fe.specs.fortran.ast.nodes.specification.coshape.DeferredCoshapeSpec;
 import pt.up.fe.specs.fortran.ast.nodes.specification.coshape.ExplicitCoshapeSpec;
+import pt.up.fe.specs.fortran.ast.nodes.specification.interfaces.InterfaceBlock;
+import pt.up.fe.specs.fortran.ast.nodes.specification.interfaces.InterfaceFunction;
+import pt.up.fe.specs.fortran.ast.nodes.specification.interfaces.InterfaceSubroutine;
 import pt.up.fe.specs.fortran.ast.nodes.specification.shape.*;
 import pt.up.fe.specs.fortran.ast.nodes.specification.funcspec.DeclTypeFunctionSpec;
 import pt.up.fe.specs.fortran.ast.nodes.specification.funcspec.EmptyFunctionSpec;
 import pt.up.fe.specs.fortran.ast.nodes.specification.funcspec.FunctionSpec;
 import pt.up.fe.specs.fortran.ast.nodes.specification.type.*;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.interfaces.AbstractInterfaceStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.interfaces.DefaultInterfaceStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.interfaces.EndInterfaceStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.interfaces.InterfaceStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.typedef.DataComponentDefStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.typedef.DerivedTypeStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.typedef.EndTypeStmt;
@@ -126,6 +133,9 @@ public class FlangToClass {
                 .map(FlangName.ACCESS_SPEC, AccessTypeAttr.class)
                 .map(FlangName.BIND_C, BindTypeAttr.class)
                 .map(FlangName.EXTENDS, ExtendsTypeAttr.class));
+        NAME_TO_MAPPER.put(FlangName.INTERFACE_BLOCK, ClassMapper.always(InterfaceBlock.class));
+        NAME_TO_MAPPER.put(FlangName.FUNCTION, ClassMapper.always(InterfaceFunction.class));
+        NAME_TO_MAPPER.put(FlangName.SUBROUTINE, ClassMapper.always(InterfaceSubroutine.class));
 
         /// STMTs
         NAME_TO_MAPPER.put(FlangName.PRINT_STMT, ClassMapper.always(PrintStmt.class));
@@ -201,6 +211,10 @@ public class FlangToClass {
                 .map(FlangName.POINTER, OtherComponentAttr.class));
         NAME_TO_MAPPER.put(FlangName.COMPONENT_DECL, ClassMapper.always(ComponentDecl.class));
         NAME_TO_MAPPER.put(FlangName.END_TYPE_STMT, ClassMapper.always(EndTypeStmt.class));
+        NAME_TO_MAPPER.put(FlangName.INTERFACE_STMT, ClassMapper.caseFor(InterfaceStmt.class)
+                .map(FlangName.GENERIC_SPEC, DefaultInterfaceStmt.class)
+                .map(FlangName.ABSTRACT, AbstractInterfaceStmt.class));
+        NAME_TO_MAPPER.put(FlangName.END_INTERFACE_STMT, ClassMapper.always(EndInterfaceStmt.class));
 
         /// Variables
         //NAME_TO_CLASS.put(FlangName.DATA_REF, DataRef.class);  // TODO(Process-ing): Improve this
