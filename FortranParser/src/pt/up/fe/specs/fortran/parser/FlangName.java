@@ -60,6 +60,12 @@ public enum FlangName implements StringProvider {
     EXTENDS,
     COMPONENT_DEF_STMT,
     DATA_COMPONENT_DEF_STMT,
+    COMPONENT_ATTR_SPEC,
+    CONTIGUOUS,
+    COMPONENT_ARRAY_SPEC,
+    POINTER,
+    CUDA_DATA_ATTR("CUDADataAttr"),
+    COMPONENT_DECL,
     END_TYPE_STMT,
 
     /// STMTs
@@ -300,6 +306,9 @@ public enum FlangName implements StringProvider {
     ASSUMED_SHAPE_SPEC,
     ASSUMED_SIZE_SPEC,
     IMPLIED_SHAPE_SPEC,
+    COARRAY_SPEC,
+    DEFERRED_COSHAPE_SPEC_LIST,
+    EXPLICIT_COSHAPE_SPEC,
     ALLOCATABLE,
     ASYNCHRONOUS,
     INTENT_SPEC,

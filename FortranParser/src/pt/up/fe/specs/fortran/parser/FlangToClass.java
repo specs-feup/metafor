@@ -6,6 +6,10 @@ import pt.up.fe.specs.fortran.ast.nodes.alloc.Allocation;
 import pt.up.fe.specs.fortran.ast.nodes.alloc.ExprAllocOption;
 import pt.up.fe.specs.fortran.ast.nodes.alloc.VarAllocOption;
 import pt.up.fe.specs.fortran.ast.nodes.decl.*;
+import pt.up.fe.specs.fortran.ast.nodes.decl.component.ComponentDecl;
+import pt.up.fe.specs.fortran.ast.nodes.decl.component.attr.*;
+import pt.up.fe.specs.fortran.ast.nodes.specification.coshape.DeferredCoshapeSpec;
+import pt.up.fe.specs.fortran.ast.nodes.specification.coshape.ExplicitCoshapeSpec;
 import pt.up.fe.specs.fortran.ast.nodes.specification.shape.*;
 import pt.up.fe.specs.fortran.ast.nodes.specification.funcspec.DeclTypeFunctionSpec;
 import pt.up.fe.specs.fortran.ast.nodes.specification.funcspec.EmptyFunctionSpec;
@@ -188,6 +192,14 @@ public class FlangToClass {
         NAME_TO_MAPPER.put(FlangName.LETTER_SPEC, ClassMapper.always(LetterSpec.class));
         NAME_TO_MAPPER.put(FlangName.DERIVED_TYPE_STMT, ClassMapper.always(DerivedTypeStmt.class));
         NAME_TO_MAPPER.put(FlangName.DATA_COMPONENT_DEF_STMT, ClassMapper.always(DataComponentDefStmt.class));
+        NAME_TO_MAPPER.put(FlangName.COMPONENT_ATTR_SPEC, ClassMapper.caseFor(ComponentAttr.class)
+                .map(FlangName.ACCESS_SPEC, AccessComponentAttr.class)
+                .map(FlangName.ALLOCATABLE, OtherComponentAttr.class)
+                .map(FlangName.COARRAY_SPEC, CodimComponentAttr.class)
+                .map(FlangName.CONTIGUOUS, OtherComponentAttr.class)
+                .map(FlangName.COMPONENT_ARRAY_SPEC, DimComponentAttr.class)
+                .map(FlangName.POINTER, OtherComponentAttr.class));
+        NAME_TO_MAPPER.put(FlangName.COMPONENT_DECL, ClassMapper.always(ComponentDecl.class));
         NAME_TO_MAPPER.put(FlangName.END_TYPE_STMT, ClassMapper.always(EndTypeStmt.class));
 
         /// Variables
@@ -296,6 +308,8 @@ public class FlangToClass {
         NAME_TO_MAPPER.put(FlangName.ASSUMED_SIZE_SPEC, ClassMapper.always(AssumedSizeSpec.class));
         NAME_TO_MAPPER.put(FlangName.IMPLIED_SHAPE_SPEC, ClassMapper.always(ImpliedShapeSpec.class));
         NAME_TO_MAPPER.put(FlangName.ASSUMED_RANK_SPEC, ClassMapper.always(AssumedSizeSpec.class));
+        NAME_TO_MAPPER.put(FlangName.DEFERRED_COSHAPE_SPEC_LIST, ClassMapper.always(DeferredCoshapeSpec.class));
+        NAME_TO_MAPPER.put(FlangName.EXPLICIT_COSHAPE_SPEC, ClassMapper.always(ExplicitCoshapeSpec.class));
 
         /// IO
         NAME_TO_MAPPER.put(FlangName.OPEN_STMT, ClassMapper.always(OpenStmt.class));
