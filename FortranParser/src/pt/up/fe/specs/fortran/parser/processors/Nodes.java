@@ -8,6 +8,10 @@ import pt.up.fe.specs.fortran.ast.nodes.decl.*;
 import pt.up.fe.specs.fortran.ast.nodes.specification.shape.*;
 import pt.up.fe.specs.fortran.ast.nodes.specification.funcspec.DeclTypeFunctionSpec;
 import pt.up.fe.specs.fortran.ast.nodes.specification.funcspec.EmptyFunctionSpec;
+import pt.up.fe.specs.fortran.ast.nodes.specification.type.AbstractTypeAttr;
+import pt.up.fe.specs.fortran.ast.nodes.specification.type.AccessTypeAttr;
+import pt.up.fe.specs.fortran.ast.nodes.specification.type.BindTypeAttr;
+import pt.up.fe.specs.fortran.ast.nodes.specification.type.ExtendsTypeAttr;
 import pt.up.fe.specs.fortran.ast.nodes.type.decltype.DerivedDeclType;
 import pt.up.fe.specs.fortran.ast.nodes.type.decltype.IntrinsicDeclType;
 import pt.up.fe.specs.fortran.ast.nodes.type.decltype.StarDeclType;
@@ -107,6 +111,10 @@ public class Nodes {
         processors.put(ImplicitSpec.class, d::implicitSpec);
         processors.put(DeclTypeFunctionSpec.class, d::declTypeFunctionSpec);
         processors.put(EmptyFunctionSpec.class, d::emptyFunctionSpec);
+        processors.put(AbstractTypeAttr.class, d::abstractTypeAttr);
+        processors.put(AccessTypeAttr.class, d::accessTypeAttr);
+        processors.put(BindTypeAttr.class, d::bindTypeAttr);
+        processors.put(ExtendsTypeAttr.class, d::extendsTypeAttr);
 
         var v = new VariableProcessor(data);
         processors.put(DataRef.class, v::dataRef);

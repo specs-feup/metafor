@@ -3,9 +3,15 @@ package pt.up.fe.specs.fortran.parser.processors;
 import pt.up.fe.specs.fortran.ast.nodes.decl.*;
 import pt.up.fe.specs.fortran.ast.nodes.specification.ImplicitSpec;
 import pt.up.fe.specs.fortran.ast.nodes.specification.LetterSpec;
+import pt.up.fe.specs.fortran.ast.nodes.specification.enums.AccessKind;
 import pt.up.fe.specs.fortran.ast.nodes.specification.enums.EmptyFunctionSpecKind;
 import pt.up.fe.specs.fortran.ast.nodes.specification.funcspec.DeclTypeFunctionSpec;
 import pt.up.fe.specs.fortran.ast.nodes.specification.funcspec.EmptyFunctionSpec;
+import pt.up.fe.specs.fortran.ast.nodes.specification.type.AbstractTypeAttr;
+import pt.up.fe.specs.fortran.ast.nodes.specification.type.AccessTypeAttr;
+import pt.up.fe.specs.fortran.ast.nodes.specification.type.BindTypeAttr;
+import pt.up.fe.specs.fortran.ast.nodes.specification.type.ExtendsTypeAttr;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.AccessStmt;
 import pt.up.fe.specs.fortran.ast.nodes.type.typeparam.DeferredTypeParamValue;
 import pt.up.fe.specs.fortran.ast.nodes.type.typeparam.ExprTypeParamValue;
 import pt.up.fe.specs.fortran.ast.nodes.type.typeparam.StarTypeParamValue;
@@ -158,5 +164,20 @@ public class DeclProcessors extends ANodeProcessor {
         var variantKey = attributes(functionSpec).getVariantKey();
         var kind = EmptyFunctionSpecKind.valueOf(variantKey.toUpperCase());
         functionSpec.set(EmptyFunctionSpec.KIND, kind);
+    }
+
+    public void abstractTypeAttr(AbstractTypeAttr ignoredAttr) {}
+
+    public void accessTypeAttr(AccessTypeAttr accessTypeAttr) {
+        var accessSpec = attributes().getString(accessTypeAttr, "value", FlangName.ACCESS_SPEC, FlangName.KIND);
+        var accessKind = AccessKind.valueOf(accessSpec.toUpperCase());
+        accessTypeAttr.set(AccessStmt.ACCESS_KIND, accessKind);
+    }
+
+    public void bindTypeAttr(BindTypeAttr ignoredAttr) {}
+
+    public void extendsTypeAttr(ExtendsTypeAttr extendsTypeAttr) {
+        var parentType = attributes().getString(extendsTypeAttr, "source", FlangName.EXTENDS, FlangName.NAME);
+        extendsTypeAttr.set(ExtendsTypeAttr.PARENT_TYPE, parentType);
     }
 }
