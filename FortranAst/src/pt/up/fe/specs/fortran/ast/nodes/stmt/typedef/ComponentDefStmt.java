@@ -1,4 +1,4 @@
-package pt.up.fe.specs.fortran.ast.nodes.stmt.componentdef;
+package pt.up.fe.specs.fortran.ast.nodes.stmt.typedef;
 
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
