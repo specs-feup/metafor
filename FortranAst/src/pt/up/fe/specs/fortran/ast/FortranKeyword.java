@@ -81,6 +81,7 @@ public enum FortranKeyword {
     ALL,
     IMPLICIT,
     TYPE,
+    CODIMENSION,
 
     OMP;
 
