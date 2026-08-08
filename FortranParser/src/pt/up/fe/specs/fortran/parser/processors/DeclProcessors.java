@@ -1,6 +1,11 @@
 package pt.up.fe.specs.fortran.parser.processors;
 
 import pt.up.fe.specs.fortran.ast.nodes.decl.*;
+import pt.up.fe.specs.fortran.ast.nodes.decl.component.attr.AccessComponentAttr;
+import pt.up.fe.specs.fortran.ast.nodes.decl.component.attr.CodimComponentAttr;
+import pt.up.fe.specs.fortran.ast.nodes.decl.component.attr.DimComponentAttr;
+import pt.up.fe.specs.fortran.ast.nodes.decl.component.attr.OtherComponentAttr;
+import pt.up.fe.specs.fortran.ast.nodes.decl.enums.ComponentAttrKind;
 import pt.up.fe.specs.fortran.ast.nodes.specification.ImplicitSpec;
 import pt.up.fe.specs.fortran.ast.nodes.specification.LetterSpec;
 import pt.up.fe.specs.fortran.ast.nodes.specification.enums.AccessKind;
@@ -179,5 +184,27 @@ public class DeclProcessors extends ANodeProcessor {
     public void extendsTypeAttr(ExtendsTypeAttr extendsTypeAttr) {
         var parentType = attributes().getString(extendsTypeAttr, "source", FlangName.EXTENDS, FlangName.NAME);
         extendsTypeAttr.set(ExtendsTypeAttr.PARENT_TYPE, parentType);
+    }
+
+    public void accessComponentAttr(AccessComponentAttr accessComponentAttr) {
+        var accessSpec = attributes().getString(accessComponentAttr, "value", FlangName.ACCESS_SPEC, FlangName.KIND);
+        var accessKind = AccessKind.valueOf(accessSpec.toUpperCase());
+        accessComponentAttr.set(AccessStmt.ACCESS_KIND, accessKind);
+    }
+
+    public void codimComponentAttr(CodimComponentAttr codimComponentAttr) {
+        var coarraySpec = getChild(codimComponentAttr, FlangName.COARRAY_SPEC);
+        codimComponentAttr.addChild(coarraySpec);
+    }
+
+    public void dimComponentAttr(DimComponentAttr dimComponentAttr) {
+        var arraySpec = getChild(dimComponentAttr, FlangName.COMPONENT_ARRAY_SPEC);
+        dimComponentAttr.addChild(arraySpec);
+    }
+
+    public void otherComponentAttr(OtherComponentAttr otherComponentAttr) {
+        var variantKey = attributes(otherComponentAttr).getVariantKey();
+        var kind = ComponentAttrKind.valueOf(variantKey.toUpperCase());
+        otherComponentAttr.set(OtherComponentAttr.KIND, kind);
     }
 }

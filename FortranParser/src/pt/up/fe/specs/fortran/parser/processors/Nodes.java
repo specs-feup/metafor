@@ -5,6 +5,10 @@ import pt.up.fe.specs.fortran.ast.nodes.alloc.Allocation;
 import pt.up.fe.specs.fortran.ast.nodes.alloc.ExprAllocOption;
 import pt.up.fe.specs.fortran.ast.nodes.alloc.VarAllocOption;
 import pt.up.fe.specs.fortran.ast.nodes.decl.*;
+import pt.up.fe.specs.fortran.ast.nodes.decl.component.attr.AccessComponentAttr;
+import pt.up.fe.specs.fortran.ast.nodes.decl.component.attr.CodimComponentAttr;
+import pt.up.fe.specs.fortran.ast.nodes.decl.component.attr.DimComponentAttr;
+import pt.up.fe.specs.fortran.ast.nodes.decl.component.attr.OtherComponentAttr;
 import pt.up.fe.specs.fortran.ast.nodes.specification.shape.*;
 import pt.up.fe.specs.fortran.ast.nodes.specification.funcspec.DeclTypeFunctionSpec;
 import pt.up.fe.specs.fortran.ast.nodes.specification.funcspec.EmptyFunctionSpec;
@@ -115,6 +119,10 @@ public class Nodes {
         processors.put(AccessTypeAttr.class, d::accessTypeAttr);
         processors.put(BindTypeAttr.class, d::bindTypeAttr);
         processors.put(ExtendsTypeAttr.class, d::extendsTypeAttr);
+        processors.put(AccessComponentAttr.class, d::accessComponentAttr);
+        processors.put(CodimComponentAttr.class, d::codimComponentAttr);
+        processors.put(DimComponentAttr.class, d::dimComponentAttr);
+        processors.put(OtherComponentAttr.class, d::otherComponentAttr);
 
         var v = new VariableProcessor(data);
         processors.put(DataRef.class, v::dataRef);
