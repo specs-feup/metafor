@@ -7,7 +7,7 @@ import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 
 import java.util.Collection;
 
-public class ConstLenSelector extends LenSelector {
+public class ConstLenSelector extends CharLenSelector {
     public static final DataKey<Long> LENGTH = KeyFactory.longInt("length");
 
     public ConstLenSelector(DataStore data, Collection<? extends FortranNode> children) {
