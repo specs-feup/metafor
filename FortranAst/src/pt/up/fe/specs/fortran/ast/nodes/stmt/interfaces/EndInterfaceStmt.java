@@ -3,6 +3,7 @@ package pt.up.fe.specs.fortran.ast.nodes.stmt.interfaces;
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.FortranKeyword;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
+import pt.up.fe.specs.fortran.ast.nodes.specification.interfaces.InterfaceBlock;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.Stmt;
 
 import java.util.Collection;
@@ -14,7 +15,7 @@ public class EndInterfaceStmt extends Stmt {
 
     @Override
     public String getStmtCode() {
-        var genericSpecCode = getAncestor(InterfaceStmt.class).getGenericSpec()
+        var genericSpecCode = getAncestor(InterfaceBlock.class).getGenericSpec()
                 .map(spec -> " " + spec.getCode())
                 .orElse("");
 
