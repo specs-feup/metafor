@@ -15,6 +15,10 @@ public class DerivedTypeDef extends SpecConstruct {
         super(data, children);
     }
 
+    public String getTypeName() {
+        return getDerivedTypeStmt().getTypeName();
+    }
+
     public DerivedTypeStmt getDerivedTypeStmt() {
         return getChild(DerivedTypeStmt.class, 0);
     }
