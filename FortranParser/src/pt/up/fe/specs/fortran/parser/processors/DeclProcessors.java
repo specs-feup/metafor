@@ -1,13 +1,13 @@
 package pt.up.fe.specs.fortran.parser.processors;
 
 import pt.up.fe.specs.fortran.ast.nodes.decl.*;
+import pt.up.fe.specs.fortran.ast.nodes.decl.component.ComponentDecl;
 import pt.up.fe.specs.fortran.ast.nodes.decl.component.attr.AccessComponentAttr;
 import pt.up.fe.specs.fortran.ast.nodes.decl.component.attr.CodimComponentAttr;
 import pt.up.fe.specs.fortran.ast.nodes.decl.component.attr.DimComponentAttr;
 import pt.up.fe.specs.fortran.ast.nodes.decl.component.attr.OtherComponentAttr;
 import pt.up.fe.specs.fortran.ast.nodes.decl.enums.ComponentAttrKind;
-import pt.up.fe.specs.fortran.ast.nodes.specification.ImplicitSpec;
-import pt.up.fe.specs.fortran.ast.nodes.specification.LetterSpec;
+import pt.up.fe.specs.fortran.ast.nodes.specification.*;
 import pt.up.fe.specs.fortran.ast.nodes.specification.enums.AccessKind;
 import pt.up.fe.specs.fortran.ast.nodes.specification.enums.EmptyFunctionSpecKind;
 import pt.up.fe.specs.fortran.ast.nodes.specification.funcspec.DeclTypeFunctionSpec;
@@ -21,8 +21,6 @@ import pt.up.fe.specs.fortran.ast.nodes.type.typeparam.DeferredTypeParamValue;
 import pt.up.fe.specs.fortran.ast.nodes.type.typeparam.ExprTypeParamValue;
 import pt.up.fe.specs.fortran.ast.nodes.type.typeparam.StarTypeParamValue;
 import pt.up.fe.specs.fortran.ast.nodes.expr.enums.BinaryOperatorKind;
-import pt.up.fe.specs.fortran.ast.nodes.specification.IntrinsicOperator;
-import pt.up.fe.specs.fortran.ast.nodes.specification.NamedOperator;
 import pt.up.fe.specs.fortran.ast.nodes.specification.enums.GenericSpecKind;
 import pt.up.fe.specs.fortran.ast.nodes.specification.genericspec.NameGenericSpec;
 import pt.up.fe.specs.fortran.ast.nodes.specification.genericspec.OpGenericSpec;
@@ -206,5 +204,42 @@ public class DeclProcessors extends ANodeProcessor {
         var variantKey = attributes(otherComponentAttr).getVariantKey();
         var kind = ComponentAttrKind.valueOf(variantKey.toUpperCase());
         otherComponentAttr.set(OtherComponentAttr.KIND, kind);
+    }
+
+    public void componentDecl(ComponentDecl componentDecl) {
+        var componentName = attributes().getString(componentDecl, "source", FlangName.NAME);
+        componentDecl.set(ComponentDecl.COMPONENT_NAME, componentName);
+
+        var arraySpec = getChildOptional(componentDecl, FlangName.COMPONENT_ARRAY_SPEC);
+        arraySpec.ifPresent(componentDecl::addChild);
+
+        var coarraySpec = getChildOptional(componentDecl, FlangName.COARRAY_SPEC);
+        coarraySpec.ifPresent(componentDecl::addChild);
+
+        var charLenSelector = getChildOptional(componentDecl, FlangName.CHAR_LENGTH);
+        charLenSelector.ifPresent(componentDecl::addChild);
+
+        var initialization = getChildOptional(componentDecl, FlangName.INITIALIZATION);
+        initialization.ifPresent(componentDecl::addChild);
+    }
+
+    public void derivedTypeDef(DerivedTypeDef derivedTypeDef) {
+        var derivedTypeStmt = getChild(derivedTypeDef, FlangName.DERIVED_TYPE_STMT);
+        derivedTypeDef.addChild(derivedTypeStmt);
+
+//        var typeParamDefStmts = getChildren(derivedTypeDef, FlangName.TYPE_PARAM_DEF_STMT);
+//        derivedTypeDef.addChildren(typeParamDefStmts);
+//
+//        var privateOrSequenceStmts = getChildren(derivedTypeDef, FlangName.PRIVATE_OR_SEQUENCE);
+//        derivedTypeDef.addChildren(privateOrSequenceStmts);
+
+        var componentDefStmts = getChildren(derivedTypeDef, FlangName.COMPONENT_DEF_STMT);
+        derivedTypeDef.addChildren(componentDefStmts);
+
+//        var typeBoundProcedurePart = getChildOptional(derivedTypeDef, FlangName.TYPE_BOUND_PROCEDURE_PART);
+//        typeBoundProcedurePart.ifPresent(derivedTypeDef::addChild);
+
+        var endTypeStmt = getChild(derivedTypeDef, FlangName.END_TYPE_STMT);
+        derivedTypeDef.addChild(endTypeStmt);
     }
 }

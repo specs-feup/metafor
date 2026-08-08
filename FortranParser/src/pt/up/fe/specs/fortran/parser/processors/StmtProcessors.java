@@ -28,6 +28,9 @@ import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.DoConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.DoStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.EndDoStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.selectcase.*;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.typedef.DataComponentDefStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.typedef.DerivedTypeStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.typedef.EndTypeStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.usestmt.*;
 import pt.up.fe.specs.fortran.ast.nodes.type.attributes.DimensionSpec;
 import pt.up.fe.specs.fortran.parser.FlangAttributes;
@@ -799,5 +802,39 @@ public class StmtProcessors extends ANodeProcessor {
 
         implicitStmt.set(ImplicitNoneStmt.EXPLICIT_TYPES, specValues.contains("Type"));
         implicitStmt.set(ImplicitNoneStmt.EXPLICIT_EXTERNAL, specValues.contains("External"));
+    }
+
+    public void derivedTypeStmt(DerivedTypeStmt derivedTypeStmt) {
+        stmt(derivedTypeStmt);
+
+        var typeAttrs = getChildren(derivedTypeStmt, FlangName.TYPE_ATTR_SPEC);
+        derivedTypeStmt.addChildren(typeAttrs);
+
+        var typeNameId = attributes().getString(derivedTypeStmt, "TypeName");
+        var typeName = attributes().get(typeNameId).getString("source");
+        derivedTypeStmt.set(DerivedTypeStmt.TYPE_NAME, typeName);
+
+        var paramNameIds = attributes(derivedTypeStmt).getStringList("ParamNames");
+        var paramNames = paramNameIds.stream()
+                .map(this::toNamedParameter)
+                .toList();
+        derivedTypeStmt.addChildren(paramNames);
+    }
+
+    public void dataComponentDefStmt(DataComponentDefStmt dataComponentDefStmt) {
+        stmt(dataComponentDefStmt);
+
+        var declType = getChild(dataComponentDefStmt, FlangName.DECLARATION_TYPE_SPEC);
+        dataComponentDefStmt.addChild(declType);
+
+        var componentAttrs = getChildren(dataComponentDefStmt, FlangName.COMPONENT_ATTR_SPEC);
+        dataComponentDefStmt.addChildren(componentAttrs);
+
+        var componentDecls = getChildren(dataComponentDefStmt, FlangName.COMPONENT_OR_FILL);
+        dataComponentDefStmt.addChildren(componentDecls);
+    }
+
+    public void endTypeStmt(EndTypeStmt endTypeStmt) {
+        stmt(endTypeStmt);
     }
 }

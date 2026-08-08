@@ -5,6 +5,7 @@ import pt.up.fe.specs.fortran.ast.nodes.alloc.Allocation;
 import pt.up.fe.specs.fortran.ast.nodes.alloc.ExprAllocOption;
 import pt.up.fe.specs.fortran.ast.nodes.alloc.VarAllocOption;
 import pt.up.fe.specs.fortran.ast.nodes.decl.*;
+import pt.up.fe.specs.fortran.ast.nodes.decl.component.ComponentDecl;
 import pt.up.fe.specs.fortran.ast.nodes.decl.component.attr.AccessComponentAttr;
 import pt.up.fe.specs.fortran.ast.nodes.decl.component.attr.CodimComponentAttr;
 import pt.up.fe.specs.fortran.ast.nodes.decl.component.attr.DimComponentAttr;
@@ -16,6 +17,9 @@ import pt.up.fe.specs.fortran.ast.nodes.specification.type.AbstractTypeAttr;
 import pt.up.fe.specs.fortran.ast.nodes.specification.type.AccessTypeAttr;
 import pt.up.fe.specs.fortran.ast.nodes.specification.type.BindTypeAttr;
 import pt.up.fe.specs.fortran.ast.nodes.specification.type.ExtendsTypeAttr;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.typedef.DataComponentDefStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.typedef.DerivedTypeStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.typedef.EndTypeStmt;
 import pt.up.fe.specs.fortran.ast.nodes.type.decltype.DerivedDeclType;
 import pt.up.fe.specs.fortran.ast.nodes.type.decltype.IntrinsicDeclType;
 import pt.up.fe.specs.fortran.ast.nodes.type.decltype.StarDeclType;
@@ -123,6 +127,8 @@ public class Nodes {
         processors.put(CodimComponentAttr.class, d::codimComponentAttr);
         processors.put(DimComponentAttr.class, d::dimComponentAttr);
         processors.put(OtherComponentAttr.class, d::otherComponentAttr);
+        processors.put(ComponentDecl.class, d::componentDecl);
+        processors.put(DerivedTypeDef.class, d::derivedTypeDef);
 
         var v = new VariableProcessor(data);
         processors.put(DataRef.class, v::dataRef);
@@ -191,6 +197,9 @@ public class Nodes {
         processors.put(ImportStmt.class, s::importStmt);
         processors.put(DefaultImplicitStmt.class, s::defaultImplicitStmt);
         processors.put(ImplicitNoneStmt.class, s::implicitNoneStmt);
+        processors.put(DerivedTypeStmt.class, s::derivedTypeStmt);
+        processors.put(DataComponentDefStmt.class, s::dataComponentDefStmt);
+        processors.put(EndTypeStmt.class, s::endTypeStmt);
 
         var e = new ExprProcessors(data);
         processors.put(StringLiteral.class, e::stringLiteral);

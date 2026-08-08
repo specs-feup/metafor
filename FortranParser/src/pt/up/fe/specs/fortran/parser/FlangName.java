@@ -58,6 +58,8 @@ public enum FlangName implements StringProvider {
     ABSTRACT,
     BIND_C,
     EXTENDS,
+    TYPE_PARAM_DEF_STMT,
+    PRIVATE_OR_SEQUENCE,
     COMPONENT_DEF_STMT,
     DATA_COMPONENT_DEF_STMT,
     COMPONENT_ATTR_SPEC,
@@ -65,7 +67,9 @@ public enum FlangName implements StringProvider {
     COMPONENT_ARRAY_SPEC,
     POINTER,
     CUDA_DATA_ATTR("CUDADataAttr"),
+    COMPONENT_OR_FILL,
     COMPONENT_DECL,
+    TYPE_BOUND_PROCEDURE_PART,
     END_TYPE_STMT,
 
     /// STMTs
