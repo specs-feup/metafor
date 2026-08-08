@@ -6,7 +6,7 @@ import pt.up.fe.specs.fortran.ast.nodes.alloc.Allocation;
 import pt.up.fe.specs.fortran.ast.nodes.alloc.ExprAllocOption;
 import pt.up.fe.specs.fortran.ast.nodes.alloc.VarAllocOption;
 import pt.up.fe.specs.fortran.ast.nodes.decl.*;
-import pt.up.fe.specs.fortran.ast.nodes.specification.shape.ArraySpec;
+import pt.up.fe.specs.fortran.ast.nodes.specification.shape.*;
 import pt.up.fe.specs.fortran.ast.nodes.specification.funcspec.DeclTypeFunctionSpec;
 import pt.up.fe.specs.fortran.ast.nodes.specification.funcspec.EmptyFunctionSpec;
 import pt.up.fe.specs.fortran.ast.nodes.specification.funcspec.FunctionSpec;
@@ -59,9 +59,6 @@ import pt.up.fe.specs.fortran.ast.nodes.type.lenselector.ConstLenSelector;
 import pt.up.fe.specs.fortran.ast.nodes.type.lenselector.KindParamLenSelector;
 import pt.up.fe.specs.fortran.ast.nodes.type.lenselector.LenSelector;
 import pt.up.fe.specs.fortran.ast.nodes.type.lenselector.ParamLenSelector;
-import pt.up.fe.specs.fortran.ast.nodes.specification.shape.AssumedImpliedShape;
-import pt.up.fe.specs.fortran.ast.nodes.specification.shape.DeferredShapeArraySpec;
-import pt.up.fe.specs.fortran.ast.nodes.specification.shape.ExplicitShape;
 import pt.up.fe.specs.fortran.ast.nodes.utils.NameValue;
 
 import java.util.HashMap;
@@ -268,7 +265,6 @@ public class FlangToClass {
         NAME_TO_MAPPER.put(FlangName.CONCURRENT_CONTROL, ClassMapper.always(ConcurrentRange.class));
 
         ///  ATTRIBUTES
-        NAME_TO_MAPPER.put(FlangName.ARRAY_SPEC, ClassMapper.always(ArraySpec.class));
         NAME_TO_MAPPER.put(FlangName.ALLOCATABLE, ClassMapper.always(AllocatableKeyword.class));
         NAME_TO_MAPPER.put(FlangName.INTENT_SPEC, ClassMapper.always(IntentSpec.class));
         NAME_TO_MAPPER.put(FlangName.PARAMETER, ClassMapper.always(ParameterKeyword.class));
@@ -276,7 +272,21 @@ public class FlangToClass {
         ///  SHAPES
         NAME_TO_MAPPER.put(FlangName.EXPLICIT_SHAPE_SPEC, ClassMapper.always(ExplicitShape.class));
         NAME_TO_MAPPER.put(FlangName.ALLOCATE_SHAPE_SPEC, ClassMapper.always(ExplicitShape.class));
+        NAME_TO_MAPPER.put(FlangName.ALLOCATE_COSHAPE_SPEC, ClassMapper.always(ExplicitShape.class));
+        NAME_TO_MAPPER.put(FlangName.ASSUMED_SHAPE_SPEC, ClassMapper.always(AssumedShape.class));
+        NAME_TO_MAPPER.put(FlangName.ASSUMED_IMPLIED_SPEC, ClassMapper.always(AssumedImpliedShape.class));
+        NAME_TO_MAPPER.put(FlangName.ARRAY_SPEC, ClassMapper.caseFor(ArraySpec.class)
+                .map(FlangName.EXPLICIT_SHAPE_SPEC, ExplicitShapeArraySpec.class)
+                .map(FlangName.ASSUMED_SHAPE_SPEC, AssumedShapeArraySpec.class)
+                .ignore(FlangName.DEFERRED_SHAPE_SPEC_LIST)
+                .ignore(FlangName.ASSUMED_SIZE_SPEC)
+                .ignore(FlangName.IMPLIED_SHAPE_SPEC)
+                .ignore(FlangName.ASSUMED_RANK_SPEC));
         NAME_TO_MAPPER.put(FlangName.DEFERRED_SHAPE_SPEC_LIST, ClassMapper.always(DeferredShapeArraySpec.class));
+        NAME_TO_MAPPER.put(FlangName.ASSUMED_SIZE_SPEC, ClassMapper.always(AssumedSizeArraySpec.class));
+        NAME_TO_MAPPER.put(FlangName.IMPLIED_SHAPE_SPEC, ClassMapper.always(ImpliedShapeArraySpec.class));
+        NAME_TO_MAPPER.put(FlangName.ASSUMED_RANK_SPEC, ClassMapper.always(AssumedSizeArraySpec.class));
+
         /// IO
         NAME_TO_MAPPER.put(FlangName.OPEN_STMT, ClassMapper.always(OpenStmt.class));
         NAME_TO_MAPPER.put(FlangName.CONNECT_SPEC, ClassMapper.caseFor(ConnectSpec.class)
@@ -342,7 +352,6 @@ public class FlangToClass {
                 .map(FlangName.EXPR, ExprFormat.class)
                 .map("uint64_t", LabelFormat.class)
                 .map(FlangName.STAR, StarFormat.class));
-        NAME_TO_MAPPER.put(FlangName.ASSUMED_IMPLIED_SPEC, ClassMapper.always(AssumedImpliedShape.class));
 
         ///  UTILs
         NAME_TO_MAPPER.put(FlangName.NAME_VALUE, ClassMapper.always(NameValue.class));
