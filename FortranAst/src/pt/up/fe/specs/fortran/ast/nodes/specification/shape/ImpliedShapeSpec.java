@@ -20,6 +20,6 @@ public class ImpliedShapeSpec extends ArraySpec {
     public String getCode() {
         return getShapes().stream()
                 .map(AssumedImpliedShape::getCode)
-                .collect(Collectors.joining(", "));
+                .collect(Collectors.joining(", ", "(", ")"));
     }
 }

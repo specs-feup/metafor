@@ -20,6 +20,6 @@ public class ExplicitShapeArraySpec extends ArraySpec {
     public String getCode() {
         return getExplicitShapes().stream()
                 .map(ExplicitShape::getCode)
-                .collect(Collectors.joining(", "));
+                .collect(Collectors.joining(", ", "(", ")"));
     }
 }

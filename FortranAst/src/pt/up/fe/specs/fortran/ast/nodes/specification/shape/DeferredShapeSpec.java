@@ -23,6 +23,6 @@ public class DeferredShapeSpec extends ArraySpec {
 
     @Override
     public String getCode() {
-        return ":" + ", :".repeat(getRank() - 1);
+        return "(:" + ", :".repeat(getRank() - 1) + ")";
     }
 }

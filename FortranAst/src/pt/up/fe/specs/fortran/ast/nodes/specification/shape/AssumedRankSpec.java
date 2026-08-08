@@ -12,6 +12,6 @@ public class AssumedRankSpec extends ArraySpec {
 
     @Override
     public String getCode() {
-        return "..";
+        return "(..)";
     }
 }

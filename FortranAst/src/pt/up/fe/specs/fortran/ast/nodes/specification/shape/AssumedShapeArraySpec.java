@@ -20,6 +20,6 @@ public class AssumedShapeArraySpec extends ArraySpec {
     public String getCode() {
         return getAssumedShapes().stream()
                 .map(AssumedShape::getCode)
-                .collect(Collectors.joining(", "));
+                .collect(Collectors.joining(", ", "(", ")"));
     }
 }

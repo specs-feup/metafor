@@ -28,6 +28,6 @@ public class AssumedSizeSpec extends ArraySpec {
 
         var assumedImpliedShapeCode = getAssumedImpliedShape().getCode();
 
-        return explicitShapesCode + ", " + assumedImpliedShapeCode;
+        return "(" + explicitShapesCode + ", " + assumedImpliedShapeCode + ")";
     }
 }
