@@ -10,6 +10,9 @@ import pt.up.fe.specs.fortran.ast.nodes.decl.component.attr.AccessComponentAttr;
 import pt.up.fe.specs.fortran.ast.nodes.decl.component.attr.CodimComponentAttr;
 import pt.up.fe.specs.fortran.ast.nodes.decl.component.attr.DimComponentAttr;
 import pt.up.fe.specs.fortran.ast.nodes.decl.component.attr.OtherComponentAttr;
+import pt.up.fe.specs.fortran.ast.nodes.specification.interfaces.InterfaceBlock;
+import pt.up.fe.specs.fortran.ast.nodes.specification.interfaces.InterfaceFunction;
+import pt.up.fe.specs.fortran.ast.nodes.specification.interfaces.InterfaceSubroutine;
 import pt.up.fe.specs.fortran.ast.nodes.specification.shape.*;
 import pt.up.fe.specs.fortran.ast.nodes.specification.funcspec.DeclTypeFunctionSpec;
 import pt.up.fe.specs.fortran.ast.nodes.specification.funcspec.EmptyFunctionSpec;
@@ -17,6 +20,9 @@ import pt.up.fe.specs.fortran.ast.nodes.specification.type.AbstractTypeAttr;
 import pt.up.fe.specs.fortran.ast.nodes.specification.type.AccessTypeAttr;
 import pt.up.fe.specs.fortran.ast.nodes.specification.type.BindTypeAttr;
 import pt.up.fe.specs.fortran.ast.nodes.specification.type.ExtendsTypeAttr;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.interfaces.AbstractInterfaceStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.interfaces.DefaultInterfaceStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.interfaces.EndInterfaceStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.typedef.DataComponentDefStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.typedef.DerivedTypeStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.typedef.EndTypeStmt;
@@ -129,6 +135,9 @@ public class Nodes {
         processors.put(OtherComponentAttr.class, d::otherComponentAttr);
         processors.put(ComponentDecl.class, d::componentDecl);
         processors.put(DerivedTypeDef.class, d::derivedTypeDef);
+        processors.put(InterfaceBlock.class, d::interfaceBlock);
+        processors.put(InterfaceFunction.class, d::interfaceFunction);
+        processors.put(InterfaceSubroutine.class, d::interfaceSubroutine);
 
         var v = new VariableProcessor(data);
         processors.put(DataRef.class, v::dataRef);
@@ -200,6 +209,9 @@ public class Nodes {
         processors.put(DerivedTypeStmt.class, s::derivedTypeStmt);
         processors.put(DataComponentDefStmt.class, s::dataComponentDefStmt);
         processors.put(EndTypeStmt.class, s::endTypeStmt);
+        processors.put(DefaultInterfaceStmt.class, s::defaultInterfaceStmt);
+        processors.put(AbstractInterfaceStmt.class, s::abstractInterfaceStmt);
+        processors.put(EndInterfaceStmt.class, s::endInterfaceStmt);
 
         var e = new ExprProcessors(data);
         processors.put(StringLiteral.class, e::stringLiteral);

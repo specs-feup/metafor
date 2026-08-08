@@ -12,6 +12,9 @@ import pt.up.fe.specs.fortran.ast.nodes.specification.enums.AccessKind;
 import pt.up.fe.specs.fortran.ast.nodes.specification.enums.EmptyFunctionSpecKind;
 import pt.up.fe.specs.fortran.ast.nodes.specification.funcspec.DeclTypeFunctionSpec;
 import pt.up.fe.specs.fortran.ast.nodes.specification.funcspec.EmptyFunctionSpec;
+import pt.up.fe.specs.fortran.ast.nodes.specification.interfaces.InterfaceBlock;
+import pt.up.fe.specs.fortran.ast.nodes.specification.interfaces.InterfaceFunction;
+import pt.up.fe.specs.fortran.ast.nodes.specification.interfaces.InterfaceSubroutine;
 import pt.up.fe.specs.fortran.ast.nodes.specification.type.AbstractTypeAttr;
 import pt.up.fe.specs.fortran.ast.nodes.specification.type.AccessTypeAttr;
 import pt.up.fe.specs.fortran.ast.nodes.specification.type.BindTypeAttr;
@@ -241,5 +244,38 @@ public class DeclProcessors extends ANodeProcessor {
 
         var endTypeStmt = getChild(derivedTypeDef, FlangName.END_TYPE_STMT);
         derivedTypeDef.addChild(endTypeStmt);
+    }
+
+    public void interfaceBlock(InterfaceBlock interfaceBlock) {
+        var interfaceStmt = getChild(interfaceBlock, FlangName.INTERFACE_STMT);
+        interfaceBlock.addChild(interfaceStmt);
+
+        var interfaceSpecifications = getChildren(interfaceBlock, FlangName.INTERFACE_SPECIFICATION);
+        interfaceBlock.addChildren(interfaceSpecifications);
+
+        var endInterfaceStmt = getChild(interfaceBlock, FlangName.END_INTERFACE_STMT);
+        interfaceBlock.addChild(endInterfaceStmt);
+    }
+
+    public void interfaceFunction(InterfaceFunction interfaceFunction) {
+        var functionStmt = getChild(interfaceFunction, FlangName.FUNCTION_STMT);
+        interfaceFunction.addChild(functionStmt);
+
+        var specification = getChild(interfaceFunction, FlangName.SPECIFICATION_PART);
+        interfaceFunction.addChild(specification);
+
+        var endFunctionStmt = getChild(interfaceFunction, FlangName.END_FUNCTION_STMT);
+        interfaceFunction.addChild(endFunctionStmt);
+    }
+
+    public void interfaceSubroutine(InterfaceSubroutine interfaceSubroutine) {
+        var subroutineStmt = getChild(interfaceSubroutine, FlangName.SUBROUTINE_STMT);
+        interfaceSubroutine.addChild(subroutineStmt);
+
+        var specification = getChild(interfaceSubroutine, FlangName.SPECIFICATION_PART);
+        interfaceSubroutine.addChild(specification);
+
+        var endSubroutineStmt = getChild(interfaceSubroutine, FlangName.END_SUBROUTINE_STMT);
+        interfaceSubroutine.addChild(endSubroutineStmt);
     }
 }

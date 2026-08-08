@@ -24,6 +24,9 @@ import pt.up.fe.specs.fortran.ast.nodes.stmt.dimstmt.DimensionDecl;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.dimstmt.DimensionStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.enums.ImportKind;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.ifstmt.*;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.interfaces.AbstractInterfaceStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.interfaces.DefaultInterfaceStmt;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.interfaces.EndInterfaceStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.DoConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.DoStmt;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.loop.EndDoStmt;
@@ -836,5 +839,20 @@ public class StmtProcessors extends ANodeProcessor {
 
     public void endTypeStmt(EndTypeStmt endTypeStmt) {
         stmt(endTypeStmt);
+    }
+
+    public void defaultInterfaceStmt(DefaultInterfaceStmt defaultInterfaceStmt) {
+        stmt(defaultInterfaceStmt);
+
+        var genericSpec = getChildOptional(defaultInterfaceStmt, FlangName.GENERIC_SPEC);
+        genericSpec.ifPresent(defaultInterfaceStmt::addChild);
+    }
+
+    public void abstractInterfaceStmt(AbstractInterfaceStmt abstractInterfaceStmt) {
+        stmt(abstractInterfaceStmt);
+    }
+
+    public void endInterfaceStmt(EndInterfaceStmt endInterfaceStmt) {
+        stmt(endInterfaceStmt);
     }
 }
