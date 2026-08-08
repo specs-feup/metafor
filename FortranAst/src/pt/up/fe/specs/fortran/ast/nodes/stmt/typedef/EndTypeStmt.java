@@ -3,6 +3,7 @@ package pt.up.fe.specs.fortran.ast.nodes.stmt.typedef;
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.FortranKeyword;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
+import pt.up.fe.specs.fortran.ast.nodes.specification.DerivedTypeDef;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.Stmt;
 
 import java.util.Collection;
@@ -14,7 +15,7 @@ public class EndTypeStmt extends Stmt {
 
     @Override
     public String getStmtCode() {
-        var typeName = getAncestor(DerivedTypeStmt.class).getTypeName();
+        var typeName = getAncestor(DerivedTypeDef.class).getTypeName();
 
         return keyword(FortranKeyword.END) + " " + keyword(FortranKeyword.TYPE) + " " + typeName;
     }
