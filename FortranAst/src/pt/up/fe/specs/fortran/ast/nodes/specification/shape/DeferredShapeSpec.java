@@ -7,7 +7,7 @@ import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 
 import java.util.Collection;
 
-public class DeferredShapeSpec extends ArraySpec {
+public class DeferredShapeSpec extends ComponentArraySpec {
     /**
      * DeferredShapeSpecList is just a count of the colons (i.e., the rank).
      */

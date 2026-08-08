@@ -7,7 +7,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ExplicitShapeArraySpec extends ArraySpec {
+public class ExplicitShapeArraySpec extends ComponentArraySpec {
     public ExplicitShapeArraySpec(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
     }
