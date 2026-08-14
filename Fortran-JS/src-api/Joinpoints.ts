@@ -34,10 +34,12 @@ type PrivateMapper = {
   "ProgramUnit": typeof ProgramUnit,
   "RangeLoopControl": typeof RangeLoopControl,
   "RealLiteral": typeof RealLiteral,
+  "SectionSubscript": typeof SectionSubscript,
   "Statement": typeof Statement,
   "StatementBlock": typeof StatementBlock,
   "StringLiteral": typeof StringLiteral,
   "Subroutine": typeof Subroutine,
+  "Subscript": typeof Subscript,
   "UseStatement": typeof UseStatement,
   "BinaryOperator": typeof BinaryOperator,
   "Designator": typeof Designator,
@@ -444,6 +446,18 @@ export class RealLiteral extends Literal {
 }
 
   /**
+   * Represent a generic subscript for an array
+   */
+export class SectionSubscript extends Joinpoint {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+}
+
+  /**
    * Represents a Fortran statement
    */
 export class Statement extends Joinpoint {
@@ -484,6 +498,19 @@ export class Subroutine extends ProgramUnit {
     name: null,
   };
   get moduleName(): string { return wrapJoinPoint(this._javaObject.getModuleName()) }
+}
+
+  /**
+   * Represent an integer subscript for an array
+   */
+export class Subscript extends SectionSubscript {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+  get expr(): Expr { return wrapJoinPoint(this._javaObject.getExpr()) }
 }
 
 export class UseStatement extends Statement {
@@ -786,7 +813,7 @@ export class ArraySubscriptExpr extends DataRef {
   static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
     name: null,
   };
-  get subscripts(): Expr[] { return wrapJoinPoint(this._javaObject.getSubscripts()) }
+  get subscripts(): SectionSubscript[] { return wrapJoinPoint(this._javaObject.getSubscripts()) }
   get var(): DataRef { return wrapJoinPoint(this._javaObject.getVar()) }
 }
 
@@ -815,10 +842,12 @@ const JoinpointMapper = {
   programUnit: ProgramUnit,
   rangeLoopControl: RangeLoopControl,
   realLiteral: RealLiteral,
+  sectionSubscript: SectionSubscript,
   statement: Statement,
   statementBlock: StatementBlock,
   stringLiteral: StringLiteral,
   subroutine: Subroutine,
+  subscript: Subscript,
   useStatement: UseStatement,
   binaryOperator: BinaryOperator,
   designator: Designator,

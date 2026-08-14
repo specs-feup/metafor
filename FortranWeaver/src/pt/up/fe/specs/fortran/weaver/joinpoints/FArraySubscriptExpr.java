@@ -3,10 +3,7 @@ package pt.up.fe.specs.fortran.weaver.joinpoints;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.expr.ArraySubscriptExpr;
 import pt.up.fe.specs.fortran.weaver.FortranJoinpoints;
-import pt.up.fe.specs.fortran.weaver.abstracts.joinpoints.AArraySubscriptExpr;
-import pt.up.fe.specs.fortran.weaver.abstracts.joinpoints.ADataRef;
-import pt.up.fe.specs.fortran.weaver.abstracts.joinpoints.AExecutableStatement;
-import pt.up.fe.specs.fortran.weaver.abstracts.joinpoints.AExpr;
+import pt.up.fe.specs.fortran.weaver.abstracts.joinpoints.*;
 
 public class FArraySubscriptExpr extends AArraySubscriptExpr {
 
@@ -18,12 +15,12 @@ public class FArraySubscriptExpr extends AArraySubscriptExpr {
     }
 
     @Override
-    public AExpr[] getSubscriptsArrayImpl() {
+    public ASectionSubscript[] getSubscriptsArrayImpl() {
         return arraySubscriptExpr.getSubscripts()
                 .stream()
                 .map(FortranJoinpoints::create)
                 .toList()
-                .toArray(new AExpr[0]);
+                .toArray(new ASectionSubscript[0]);
     }
 
     @Override
