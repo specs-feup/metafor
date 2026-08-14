@@ -107,7 +107,7 @@
     <!-- ARRAY SUBSCRIPT -->
     <artifact class="arraySubscriptExpr">
         <attribute name="var" type="dataRef"/>
-        <attribute name="subscripts" type="expr[]"/>
+        <attribute name="subscripts" type="sectionSubscript[]"/>
     </artifact>
 
     <!-- COMPILER DIRECTIVE -->
@@ -188,5 +188,9 @@
 
     <artifact class="entityDecl">
         <attribute name="name" type="String"/>
+    </artifact>
+
+    <artifact class="subscript">
+        <attribute name="expr" type="expr"/>
     </artifact>
 </artifacts>

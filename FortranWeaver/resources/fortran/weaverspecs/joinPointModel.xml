@@ -103,4 +103,8 @@
     <joinpoint class="elseIfStatement" tooltip="Represents the header of an 'else if' block"/>
 
     <joinpoint class="elseBlock" tooltip="Represents the optional 'else' block of an if construct"/>
+
+    <joinpoint class="sectionSubscript" tooltip="Represent a generic subscript for an array"/>
+
+    <joinpoint class="subscript" tooltip="Represent an integer subscript for an array" extends="sectionSubscript"/>
 </joinpoints>
