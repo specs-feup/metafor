@@ -241,6 +241,8 @@ public class FortranNodeFactory {
 
         OmpLoopConstruct newNode = new OmpLoopConstruct(data, clauses);
 
+        newNode.set(DoConstruct.LEADING_COMMENTS, List.of());
+
         newNode.addChild(doConstruct);
 
         return newNode;
@@ -252,6 +254,7 @@ public class FortranNodeFactory {
         OmpLoopConstruct newNode = new OmpLoopConstruct(data, Collections.emptyList());
 
         newNode.set(OmpLoopConstruct.KINDS, OmpDirectiveKind.getKinds("parallel do"));
+        newNode.set(OmpLoopConstruct.LEADING_COMMENTS, List.of());
 
         return newNode;
     }
@@ -292,6 +295,7 @@ public class FortranNodeFactory {
         UseStmt newNode = new UseStmt(data, Collections.emptyList());
 
         newNode.set(UseStmt.NAME, moduleName);
+        newNode.set(UseStmt.LEADING_COMMENTS, List.of());
 
         return newNode;
     }
