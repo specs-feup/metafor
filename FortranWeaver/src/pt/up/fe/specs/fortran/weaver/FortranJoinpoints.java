@@ -104,6 +104,7 @@ public class FortranJoinpoints {
         JOINPOINT_FACTORY.put(ExprInitialization.class, FExprInitialization::new);
         JOINPOINT_FACTORY.put(Subscript.class, FSubscript::new);
         JOINPOINT_FACTORY.put(SectionSubscript.class, FSectionSubscript::new);
+        JOINPOINT_FACTORY.put(Call.class, FCall::new);
         JOINPOINT_FACTORY.put(FortranNode.class, FortranJoinpoints::defaultFactory);
     }
 
