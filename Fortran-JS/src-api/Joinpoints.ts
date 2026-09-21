@@ -42,6 +42,7 @@ type PrivateMapper = {
   "Subscript": typeof Subscript,
   "UseStatement": typeof UseStatement,
   "BinaryOperator": typeof BinaryOperator,
+  "Call": typeof Call,
   "Designator": typeof Designator,
   "EntityDecl": typeof EntityDecl,
   "ExecutableStatement": typeof ExecutableStatement,
@@ -549,6 +550,19 @@ export class BinaryOperator extends Expr {
 }
 
   /**
+   * Represents a call to a function/subroutine.
+   */
+export class Call extends Expr {
+  /**
+   * @internal
+   */
+  static readonly _defaultAttributeInfo: {readonly map?: DefaultAttributeMap, readonly name: string | null, readonly type?: PrivateMapper, readonly jpMapper?: typeof JoinpointMapper} = {
+    name: null,
+  };
+  get callee(): DataRef { return wrapJoinPoint(this._javaObject.getCallee()) }
+}
+
+  /**
    * Represents a designator
    */
 export class Designator extends Expr {
@@ -850,6 +864,7 @@ const JoinpointMapper = {
   subscript: Subscript,
   useStatement: UseStatement,
   binaryOperator: BinaryOperator,
+  call: Call,
   designator: Designator,
   entityDecl: EntityDecl,
   executableStatement: ExecutableStatement,

@@ -468,6 +468,7 @@ public class StmtProcessors extends ANodeProcessor {
     }
 
     public void externalStmt(ExternalStmt externalStmt) {
+        stmt(externalStmt);
         externalStmt.addChildren(getChildren(externalStmt, FlangName.NAME));
     }
 
