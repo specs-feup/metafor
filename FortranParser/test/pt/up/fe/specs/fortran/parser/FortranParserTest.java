@@ -712,6 +712,18 @@ public class FortranParserTest {
     }
 
     @Test
+    void testStructureComponent() {
+        testJson("expr/structure_component.json");
+    }
+
+    @Test
+    void testStructureComponentNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("expr/structure_component.f90");
+        }
+    }
+
+    @Test
     void testFujitsu0000_0000() {
         testJson("fujitsu/0000/0000_0000.json");
     }
