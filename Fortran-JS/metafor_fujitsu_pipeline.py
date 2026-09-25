@@ -133,9 +133,24 @@ class MetaforFujitsuPipeline:
 
     def discover_files(self) -> list[Path]:
         files = sorted(set(self.fortran_root.rglob("*.f90")) | set(self.fortran_root.rglob("*.f")))
+        if self.args.suites:
+            suite_names = {self._normalize_suite_name(s) for s in self.args.suites}
+            available = {p.name for p in self.fortran_root.iterdir() if p.is_dir()}
+            missing = suite_names - available
+            if missing:
+                raise PipelineError(
+                    f"Requested suite(s) not found in {self.fortran_root}: {', '.join(sorted(missing))}"
+                )
+            files = [
+                f for f in files
+                if f.relative_to(self.fortran_root).parts[0] in suite_names
+            ]
         if self.args.limit:
             files = files[: self.args.limit]
         return files
+
+    def _normalize_suite_name(self, name: str) -> str:
+        return Path(name).name
 
     def run(self) -> int:
         log("Starting Metafor Fujitsu pipeline")
@@ -865,6 +880,12 @@ def build_arg_parser() -> argparse.ArgumentParser:
     p.add_argument("--jobs", type=int, default=max(1, (os.cpu_count() or 2) // 2), help="Parallel workers")
     p.add_argument("--timeout", type=int, default=120, help="Per-command timeout in seconds")
     p.add_argument("--limit", type=int, default=0, help="Optional cap on number of Fortran files to process")
+    p.add_argument(
+        "--suites",
+        nargs="+",
+        default=None,
+        help="Optional outer benchmark folder names to run, e.g. 0000 0001 0002",
+    )
     p.add_argument("--node-path", default="", help="Optional NODE_PATH value")
     return p
 
