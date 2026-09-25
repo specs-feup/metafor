@@ -56,7 +56,7 @@ public class StmtProcessors extends ANodeProcessor {
         stmt(executableStmt);
 
         // Uncomment this if we really need the statement source
-        // executableStmt.set(ExecutableStmt.SOURCE, attributes(executableStmt).getString("source"));
+        if (attributes(executableStmt).has("source")) executableStmt.set(ExecutableStmt.SOURCE, attributes(executableStmt).getString("source"));
     }
 
 

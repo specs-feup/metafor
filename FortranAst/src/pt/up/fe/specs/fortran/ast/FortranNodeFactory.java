@@ -265,6 +265,7 @@ public class FortranNodeFactory {
         OmpBlockConstruct newNode = new OmpBlockConstruct(data, Collections.emptyList());
 
         newNode.set(OmpBlockConstruct.KINDS, OmpDirectiveKind.getKinds("parallel"));
+        newNode.set(OmpLoopConstruct.LEADING_COMMENTS, List.of());
 
         return newNode;
     }
