@@ -2,7 +2,7 @@ package pt.up.fe.specs.fortran.ast.nodes.alloc;
 
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
-import pt.up.fe.specs.fortran.ast.nodes.expr.dataref.DataRef;
+import pt.up.fe.specs.fortran.ast.nodes.expr.dataref.AllocObject;
 import pt.up.fe.specs.fortran.ast.nodes.specification.shape.ExplicitShape;
 
 import java.util.Collection;
@@ -14,27 +14,27 @@ public class Allocation extends FortranNode {
         super(data, children);
     }
 
-    public DataRef getRef() {
-        return getChild(DataRef.class);
+    public AllocObject getObject() {
+        return getChild(AllocObject.class);
     }
 
     public List<ExplicitShape> getShapes() {
         return getChildrenOf(ExplicitShape.class);
     }
 
-    public List<AllocOption> getOptions() {
-        return getChildrenOf(AllocOption.class);
+    public List<pt.up.fe.specs.fortran.ast.nodes.alloc.AllocOption> getOptions() {
+        return getChildrenOf(pt.up.fe.specs.fortran.ast.nodes.alloc.AllocOption.class);
     }
 
     @Override
     public String getCode() {
-        var refCode = getRef().getCode();
+        var objectCode = getObject().getCode();
 
         var shapesCode = getShapes()
                 .stream()
                 .map(ExplicitShape::getCode)
                 .collect(Collectors.joining(", "));
 
-        return refCode + "(" + shapesCode + ")";
+        return objectCode + "(" + shapesCode + ")";
     }
 }

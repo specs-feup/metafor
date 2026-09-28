@@ -9,7 +9,7 @@ import pt.up.fe.specs.fortran.ast.nodes.expr.enums.ScopeKind;
 import java.util.Collection;
 import java.util.Optional;
 
-public class NameDataRef extends DataRef {
+public class NameDataRef extends AllocObject {
     public static final DataKey<String> NAME = KeyFactory.string("name");
     public static final DataKey<Optional<ScopeKind>> SCOPE = KeyFactory.optional("scope");
 
