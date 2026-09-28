@@ -194,8 +194,12 @@ public class ExprProcessors extends ANodeProcessor {
         control.addChild(rangeControl);
     }
 
-    public void argument(Argument argument) {
-        argument.addChild(getChild(argument, FlangName.ACTUAL_ARG));
+    public void argumentSpec(ArgumentSpec argumentSpec) {
+        var keyword = attributes().getOptionalString(argumentSpec, "source", FlangName.KEYWORD, FlangName.NAME);
+        argumentSpec.set(ArgumentSpec.KEYWORD, keyword);
+
+        var expr = getChild(argumentSpec, FlangName.ACTUAL_ARG);
+        argumentSpec.addChild(expr);
     }
 
     public void intComplexPart(IntComplexPart intComplexPart) {

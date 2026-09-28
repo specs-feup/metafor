@@ -344,12 +344,12 @@ public class FortranNodeFactory {
         return new DoConstruct(data, List.of(doStmt, body, endDoStmt));
     }
 
-    public Argument argument(Expr expr) {
-        DataStore data = newDataStore(Argument.class);
-        return new Argument(data, Collections.singletonList(expr));
+    public ArgumentSpec argument(Expr expr) {
+        DataStore data = newDataStore(ArgumentSpec.class);
+        return new ArgumentSpec(data, Collections.singletonList(expr));
     }
 
-    public Call functionCall(DataRef callee, List<Argument> args) {
+    public Call functionCall(DataRef callee, List<ArgumentSpec> args) {
         DataStore data = newDataStore(Call.class);
         List<FortranNode> children = new ArrayList<>(args.size() + 1);
         children.add(callee);

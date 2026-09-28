@@ -300,7 +300,7 @@ public class FlangToClass {
         NAME_TO_MAPPER.put(FlangName.SUBSCRIPT, ClassMapper.always(Subscript.class));
         NAME_TO_MAPPER.put(FlangName.SUBSCRIPT_TRIPLET, ClassMapper.always(SubscriptTriplet.class));
         NAME_TO_MAPPER.put(FlangName.CALL, ClassMapper.always(Call.class));
-        NAME_TO_MAPPER.put(FlangName.ACTUAL_ARG_SPEC, ClassMapper.always(Argument.class));
+        NAME_TO_MAPPER.put(FlangName.ACTUAL_ARG_SPEC, ClassMapper.always(ArgumentSpec.class));
         NAME_TO_MAPPER.put(FlangName.AC_IMPLIED_DO, ClassMapper.always(AcImpliedDo.class));
         NAME_TO_MAPPER.put(FlangName.AC_IMPLIED_DO_CONTROL, ClassMapper.always(AcImpliedDoControl.class));
         NAME_TO_MAPPER.put(FlangName.NAMED_CONSTANT, ClassMapper.always(NamedLiteral.class));

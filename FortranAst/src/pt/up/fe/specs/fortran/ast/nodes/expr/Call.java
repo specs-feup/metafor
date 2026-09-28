@@ -16,15 +16,15 @@ public class Call extends Expr {
         return getChild(ProcDesignator.class, 0);
     }
 
-    public List<Argument> getArgs() {
-        return getChildren(Argument.class, 1);
+    public List<ArgumentSpec> getArgs() {
+        return getChildren(ArgumentSpec.class, 1);
     }
 
     @Override
     public String getCode() {
         var calleeCode = getCallee().getCode();
         var argsCode = getArgs().stream()
-                .map(Argument::getCode)
+                .map(ArgumentSpec::getCode)
                 .collect(Collectors.joining(", ", "(", ")"));
 
         return calleeCode + argsCode;
