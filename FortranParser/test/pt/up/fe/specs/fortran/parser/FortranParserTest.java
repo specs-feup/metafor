@@ -724,6 +724,18 @@ public class FortranParserTest {
     }
 
     @Test
+    void testCallWithNamedArgs() {
+        testJson("stmt/call_with_named_args.json");
+    }
+
+    @Test
+    void testCallWithNamedArgsNative() {
+        if (SpecsPlatforms.isLinux()) {
+            testNative("stmt/call_with_named_args.f90");
+        }
+    }
+
+    @Test
     void testFujitsu0000_0000() {
         testJson("fujitsu/0000/0000_0000.json");
     }
