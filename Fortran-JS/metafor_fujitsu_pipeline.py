@@ -115,8 +115,8 @@ class MetaforFujitsuPipeline:
         self.artifacts_dir = self.output_dir / "artifacts"
         self.work_root = self.output_dir / "work"
         self.output_dir.mkdir(parents=True, exist_ok=True)
-        self.logs_dir.mkdir(parents=True, exist_ok=True)
-        self.artifacts_dir.mkdir(parents=True, exist_ok=True)
+        self._reset_output_subdir(self.logs_dir)
+        self._reset_output_subdir(self.artifacts_dir)
         self.work_root.mkdir(parents=True, exist_ok=True)
         self.noop_script_path = self.output_dir / "script.js"
         self.results: dict[str, FileResult] = {}
@@ -132,6 +132,12 @@ class MetaforFujitsuPipeline:
         self.noop_script_path.write_text(DEFAULT_NOOP_SCRIPT, encoding="utf-8")
 
     def discover_files(self) -> list[Path]:
+        if self.args.test:
+            file_path = self._resolve_file_arg(self.args.test)
+            if self.args.suites:
+                raise PipelineError("Cannot combine --test with --suites")
+            return [file_path]
+
         files = sorted(set(self.fortran_root.rglob("*.f90")) | set(self.fortran_root.rglob("*.f")))
         if self.args.suites:
             suite_names = {self._normalize_suite_name(s) for s in self.args.suites}
@@ -151,6 +157,39 @@ class MetaforFujitsuPipeline:
 
     def _normalize_suite_name(self, name: str) -> str:
         return Path(name).name
+
+    def _resolve_file_arg(self, name: str) -> Path:
+        if "_" not in name:
+            raise PipelineError(
+                f"File argument must be a benchmark file name like 0005_0001: {name}"
+            )
+        suite_name = name.split("_", 1)[0]
+        suite_dir = self.fortran_root / suite_name
+        if not suite_dir.is_dir():
+            raise PipelineError(f"Suite directory not found: {suite_dir}")
+
+        if name.lower().endswith((".f90", ".f")):
+            candidate = suite_dir / name
+            if candidate.is_file():
+                return candidate.resolve()
+            raise PipelineError(f"File not found: {candidate}")
+
+        candidates = [suite_dir / f"{name}.f90", suite_dir / f"{name}.f"]
+        found = [c for c in candidates if c.is_file()]
+        if len(found) == 1:
+            return found[0].resolve()
+        if not found:
+            raise PipelineError(
+                f"No file named {name}.f90 or {name}.f found in {suite_dir}"
+            )
+        raise PipelineError(
+            f"Ambiguous file name {name}: both .f90 and .f exist in {suite_dir}"
+        )
+
+    def _reset_output_subdir(self, path: Path) -> None:
+        if path.exists():
+            shutil.rmtree(path)
+        path.mkdir(parents=True, exist_ok=True)
 
     def run(self) -> int:
         log("Starting Metafor Fujitsu pipeline")
@@ -885,6 +924,11 @@ def build_arg_parser() -> argparse.ArgumentParser:
         nargs="+",
         default=None,
         help="Optional outer benchmark folder names to run, e.g. 0000 0001 0002",
+    )
+    p.add_argument(
+        "--test",
+        default=None,
+        help="Run the pipeline on a single benchmark file name like 0005_0001 (cannot be combined with --suites)",
     )
     p.add_argument("--node-path", default="", help="Optional NODE_PATH value")
     return p
