@@ -22,19 +22,20 @@ public class Allocation extends FortranNode {
         return getChildrenOf(ExplicitShape.class);
     }
 
-    public List<pt.up.fe.specs.fortran.ast.nodes.alloc.AllocOption> getOptions() {
-        return getChildrenOf(pt.up.fe.specs.fortran.ast.nodes.alloc.AllocOption.class);
+    public List<AllocOption> getOptions() {
+        return getChildrenOf(AllocOption.class);
     }
 
     @Override
     public String getCode() {
         var objectCode = getObject().getCode();
 
-        var shapesCode = getShapes()
-                .stream()
-                .map(ExplicitShape::getCode)
-                .collect(Collectors.joining(", "));
+        var shapes = getShapes();
+        var shapesCode = shapes.isEmpty() ? ""
+                : shapes.stream()
+                        .map(ExplicitShape::getCode)
+                        .collect(Collectors.joining(", ", "(", ")"));
 
-        return objectCode + "(" + shapesCode + ")";
+        return objectCode + shapesCode;
     }
 }
