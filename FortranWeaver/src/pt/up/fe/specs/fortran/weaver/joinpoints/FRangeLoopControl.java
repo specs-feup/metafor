@@ -28,8 +28,8 @@ public class FRangeLoopControl extends ARangeLoopControl {
     }
 
     @Override
-    public ADataRef getVarImpl() {
-        return FortranJoinpoints.create(rangeLoopControl.getVar(), ADataRef.class);
+    public String getVarImpl() {
+        return rangeLoopControl.getVariable();
     }
 
     @Override
