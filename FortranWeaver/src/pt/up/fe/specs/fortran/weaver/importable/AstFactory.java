@@ -124,7 +124,7 @@ public class AstFactory {
         DataRef callee = FortranWeaver.getFactory().dataRef(name);
         List<ArgSpec> argNodes = SpecsCollections.asListT(AExpr.class, args)
                 .stream()
-                .map(a -> FortranWeaver.getFactory().argument((Expr) a.getNode()))
+                .map(a -> FortranWeaver.getFactory().exprArgSpec((Expr) a.getNode()))
                 .collect(Collectors.toList());
         return FortranJoinpoints.create(
                 FortranWeaver.getFactory().functionCall(callee, argNodes),

@@ -9,6 +9,7 @@ import pt.up.fe.specs.fortran.ast.nodes.decl.init.ExprInitialization;
 import pt.up.fe.specs.fortran.ast.nodes.decl.init.ListInitialization;
 import pt.up.fe.specs.fortran.ast.nodes.expr.*;
 import pt.up.fe.specs.fortran.ast.nodes.expr.args.ArgSpec;
+import pt.up.fe.specs.fortran.ast.nodes.expr.args.ExprArgSpec;
 import pt.up.fe.specs.fortran.ast.nodes.expr.dataref.DataRef;
 import pt.up.fe.specs.fortran.ast.nodes.expr.dataref.NameDataRef;
 import pt.up.fe.specs.fortran.ast.nodes.expr.enums.BinaryOperatorKind;
@@ -345,9 +346,9 @@ public class FortranNodeFactory {
         return new DoConstruct(data, List.of(doStmt, body, endDoStmt));
     }
 
-    public ArgSpec argument(Expr expr) {
-        DataStore data = newDataStore(ArgSpec.class);
-        return new ArgSpec(data, Collections.singletonList(expr));
+    public ExprArgSpec exprArgSpec(Expr expr) {
+        DataStore data = newDataStore(ExprArgSpec.class);
+        return new ExprArgSpec(data, Collections.singletonList(expr));
     }
 
     public Call functionCall(DataRef callee, List<ArgSpec> args) {
