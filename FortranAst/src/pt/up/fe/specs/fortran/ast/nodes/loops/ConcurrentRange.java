@@ -5,6 +5,7 @@ import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 
 import java.util.Collection;
 
+// TODO(Process-ing): Refactor this node to not extend RangeLoopControl
 public class ConcurrentRange extends RangeLoopControl {
 
     public ConcurrentRange(DataStore data, Collection<? extends FortranNode> children) {
@@ -15,7 +16,7 @@ public class ConcurrentRange extends RangeLoopControl {
     public String getCode() {
         StringBuilder code = new StringBuilder();
 
-        code.append(getVar().getCode()).append(" = ")
+        code.append(getVariable()).append(" = ")
                 .append(getLower().getCode()).append(":")
                 .append(getUpper().getCode());
 
