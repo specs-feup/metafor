@@ -13,17 +13,18 @@ public class LoopProcessors extends ANodeProcessor {
     }
 
     public void loopRange(RangeLoopControl rangeLoopControl) {
-        String varName = attributes().getAttrs(attributes().getString(rangeLoopControl, "var")).getString("source");
-        NameDataRef varRef = factory().newNode(NameDataRef.class);
-        varRef.set(NameDataRef.NAME, varName);
-        rangeLoopControl.addChild(varRef);
+        var variableId = attributes().getString(rangeLoopControl, "var");
+        var variable = attributes().getAttrs(variableId).getString("source");
+        rangeLoopControl.set(RangeLoopControl.VARIABLE, variable);
 
-        rangeLoopControl.addChild(getChild(rangeLoopControl, "lower"));
-        rangeLoopControl.addChild(getChild(rangeLoopControl, "upper"));
+        var lower = getChild(rangeLoopControl, "lower");
+        rangeLoopControl.addChild(lower);
 
-        attributes().getOptionalString(rangeLoopControl, "step").ifPresent(
-                s -> rangeLoopControl.addChild(getChild(rangeLoopControl, "step"))
-        );
+        var upper = getChild(rangeLoopControl, "upper");
+        rangeLoopControl.addChild(upper);
+
+        var step = getChildOptional(rangeLoopControl, "step");
+        step.ifPresent(rangeLoopControl::addChild);
     }
 
     public void concurrentRange(ConcurrentRange concurrentRange) {
