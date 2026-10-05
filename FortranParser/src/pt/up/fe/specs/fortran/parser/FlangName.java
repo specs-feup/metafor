@@ -219,6 +219,8 @@ public enum FlangName implements StringProvider {
     SUBSTRING,
     SUBSTRING_RANGE,
     NULL_INIT,
+    STRUCTURE_CONSTRUCTOR,
+    COMPONENT_SPEC,
 
     // ARRAYs
     ARRAY_CONSTRUCTOR,

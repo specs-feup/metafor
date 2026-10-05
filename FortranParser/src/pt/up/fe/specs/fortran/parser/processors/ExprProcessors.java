@@ -253,4 +253,12 @@ public class ExprProcessors extends ANodeProcessor {
         var name = attributes().getString(namedProcDesignator, "source", FlangName.NAME);
         namedProcDesignator.set(NamedProcDesignator.NAME, name);
     }
+
+    public void structureConstructor(StructureConstructor structureConstructor) {
+        var derivedType = getChild(structureConstructor, FlangName.DERIVED_TYPE_SPEC);
+        structureConstructor.addChild(derivedType);
+
+        var argumentSpecs = getChildren(structureConstructor, FlangName.COMPONENT_SPEC);
+        structureConstructor.addChildren(argumentSpecs);
+    }
 }

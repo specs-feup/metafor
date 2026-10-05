@@ -273,6 +273,7 @@ public class Nodes {
         processors.put(Substring.class, e::substring);
         processors.put(NullInit.class, e::nullInit);
         processors.put(NamedProcDesignator.class, e::namedProcDesignator);
+        processors.put(StructureConstructor.class, e::structureConstructor);
 
         var t = new TypeProcessors(data);
         processors.put(IntegerType.class, t::integerType);
