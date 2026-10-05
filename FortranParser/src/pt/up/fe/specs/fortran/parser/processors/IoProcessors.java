@@ -387,7 +387,7 @@ public class IoProcessors extends ANodeProcessor {
     public void starFormat(StarFormat ignoredFormat) {}
 
     public void inputImpliedDoItem(InputImpliedDoItem item) {
-        var items = getChildren(item, FlangName.OUTPUT_ITEM);
+        var items = getChildren(item, FlangName.INPUT_ITEM);
         item.addChildren(items);
 
         var loopControl = getChild(item, FlangName.LOOP_BOUNDS);
@@ -395,7 +395,7 @@ public class IoProcessors extends ANodeProcessor {
     }
 
     public void outputImpliedDoItem(OutputImpliedDoItem item) {
-        var items = getChildren(item, FlangName.INPUT_ITEM);
+        var items = getChildren(item, FlangName.OUTPUT_ITEM);
         item.addChildren(items);
 
         var loopControl = getChild(item, FlangName.LOOP_BOUNDS);
