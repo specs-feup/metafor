@@ -92,34 +92,25 @@ public class ProgramProcessors extends ANodeProcessor {
     public void specification(Specification specification) {
         var attrs = attributes(specification);
 
-        if (attrs.has(FlangName.USE_STMT.getStmtAttr())) {
-            var useStmts = getChildren(specification, FlangName.USE_STMT.getStmtAttr());
-            specification.addChildren(useStmts);
-        }
+        var useStmts = getChildren(specification, FlangName.USE_STMT.getStmtAttr());
+        specification.addChildren(useStmts);
 
-        if (attrs.has(FlangName.IMPORT_STMT.getStmtAttr())) {
-            var importStmts = getChildren(specification, FlangName.IMPORT_STMT.getStmtAttr());
-            specification.addChildren(importStmts);
-        }
+        var importStmts = getChildren(specification, FlangName.IMPORT_STMT.getStmtAttr());
+        specification.addChildren(importStmts);
 
         var implicitPartAttrs = attributes().get(attrs.getString(FlangName.IMPLICIT_PART));
-        if (implicitPartAttrs.has(FlangName.IMPLICIT_PART_STMT)) {
-            var implicitPartIds = implicitPartAttrs.getStringList(FlangName.IMPLICIT_PART_STMT);
-            var implicitPartStmts = implicitPartIds.stream()
-                    .map(this::getChild)
-                    .toList();
-            specification.addChildren(implicitPartStmts);
-        }
+        var implicitPartIds = implicitPartAttrs.getStringList(FlangName.IMPLICIT_PART_STMT);
+        var implicitPartStmts = implicitPartIds.stream()
+                .map(this::getChild)
+                .map(this::toImplicitPartStmt)
+                .toList();
+        specification.addChildren(implicitPartStmts);
 
-        if (attrs.has(FlangName.DECLARATION_CONSTRUCT)) {
-            var rawDeclConstructs = getChildren(specification, FlangName.DECLARATION_CONSTRUCT);
-
-            var declConstructs = rawDeclConstructs.stream()
-                    .map(this::toDeclConstruct)
-                    .toList();
-
-            specification.addChildren(declConstructs);
-        }
+        var rawDeclConstructs = getChildren(specification, FlangName.DECLARATION_CONSTRUCT);
+        var declConstructs = rawDeclConstructs.stream()
+                .map(this::toDeclConstruct)
+                .toList();
+        specification.addChildren(declConstructs);
     }
 
     public void execBlock(ExecBlock execBlock) {

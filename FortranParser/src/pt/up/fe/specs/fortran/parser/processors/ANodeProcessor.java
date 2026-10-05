@@ -5,6 +5,7 @@ import pt.up.fe.specs.fortran.ast.nodes.program.construct.DeclConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.program.construct.ExecPartConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.program.construct.SpecConstruct;
 import pt.up.fe.specs.fortran.ast.nodes.stmt.*;
+import pt.up.fe.specs.fortran.ast.nodes.stmt.implicit.ImplicitPartStmt;
 import pt.up.fe.specs.fortran.parser.FortranJsonResult;
 
 public class ANodeProcessor implements NodeProcessor {
@@ -81,5 +82,21 @@ public class ANodeProcessor implements NodeProcessor {
         }
 
         throw new RuntimeException("Cannot convert node to ExecPartConstruct: " + node);
+    }
+
+    public ImplicitPartStmt toImplicitPartStmt(FortranNode node) {
+        if (node instanceof ImplicitPartStmt implicitPartStmt) {
+            return implicitPartStmt;
+        }
+
+        if (node instanceof IDEStmt ideStmt) {
+            return factory().ideStmtImplicitAdapter(ideStmt);
+        }
+
+        if (node instanceof ISStmt isStmt) {
+            return factory().isStmtImplicitAdapter(isStmt);
+        }
+
+        throw new RuntimeException("Cannot convert node to ImplicitPartStmt: " + node);
     }
 }
