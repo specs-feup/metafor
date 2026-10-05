@@ -19,6 +19,7 @@ import pt.up.fe.specs.fortran.ast.nodes.decl.proc.attr.OtherProcAttr;
 import pt.up.fe.specs.fortran.ast.nodes.decl.proc.interfaces.NamedProcInterface;
 import pt.up.fe.specs.fortran.ast.nodes.decl.proc.interfaces.TypeProcInterface;
 import pt.up.fe.specs.fortran.ast.nodes.expr.*;
+import pt.up.fe.specs.fortran.ast.nodes.expr.args.ArgSpec;
 import pt.up.fe.specs.fortran.ast.nodes.expr.dataref.ArrayElement;
 import pt.up.fe.specs.fortran.ast.nodes.expr.dataref.NameDataRef;
 import pt.up.fe.specs.fortran.ast.nodes.expr.dataref.StructureComponent;
@@ -263,7 +264,7 @@ public class Nodes {
         processors.put(ArrayElement.class, e::arraySubscriptExpr);
         processors.put(SubscriptTriplet.class, e::subscriptTriplet);
         processors.put(Call.class, e::call);
-        processors.put(ArgumentSpec.class, e::argumentSpec);
+        processors.put(ArgSpec.class, e::argumentSpec);
         processors.put(AcImpliedDo.class, e::acImpliedDo);
         processors.put(AcImpliedDoControl.class, e::acImpliedDoControl);
         processors.put(IntComplexPart.class, e::intComplexPart);

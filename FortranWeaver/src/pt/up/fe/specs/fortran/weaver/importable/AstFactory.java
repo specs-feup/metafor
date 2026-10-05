@@ -1,6 +1,6 @@
 package pt.up.fe.specs.fortran.weaver.importable;
 
-import pt.up.fe.specs.fortran.ast.nodes.expr.ArgumentSpec;
+import pt.up.fe.specs.fortran.ast.nodes.expr.args.ArgSpec;
 import pt.up.fe.specs.fortran.ast.nodes.expr.Expr;
 import pt.up.fe.specs.fortran.ast.nodes.expr.dataref.DataRef;
 import pt.up.fe.specs.fortran.ast.nodes.expr.enums.BinaryOperatorKind;
@@ -122,7 +122,7 @@ public class AstFactory {
 
     public static AExpr intrinsicCall(String name, Object[] args) {
         DataRef callee = FortranWeaver.getFactory().dataRef(name);
-        List<ArgumentSpec> argNodes = SpecsCollections.asListT(AExpr.class, args)
+        List<ArgSpec> argNodes = SpecsCollections.asListT(AExpr.class, args)
                 .stream()
                 .map(a -> FortranWeaver.getFactory().argument((Expr) a.getNode()))
                 .collect(Collectors.toList());

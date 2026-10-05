@@ -15,6 +15,7 @@ import pt.up.fe.specs.fortran.ast.nodes.decl.proc.interfaces.NamedProcInterface;
 import pt.up.fe.specs.fortran.ast.nodes.decl.proc.interfaces.ProcInterface;
 import pt.up.fe.specs.fortran.ast.nodes.decl.proc.interfaces.TypeProcInterface;
 import pt.up.fe.specs.fortran.ast.nodes.expr.*;
+import pt.up.fe.specs.fortran.ast.nodes.expr.args.ArgSpec;
 import pt.up.fe.specs.fortran.ast.nodes.expr.dataref.*;
 import pt.up.fe.specs.fortran.ast.nodes.io.*;
 import pt.up.fe.specs.fortran.ast.nodes.loops.ConcurrentLoopControl;
@@ -301,7 +302,7 @@ public class FlangToClass {
         NAME_TO_MAPPER.put(FlangName.SUBSCRIPT, ClassMapper.always(Subscript.class));
         NAME_TO_MAPPER.put(FlangName.SUBSCRIPT_TRIPLET, ClassMapper.always(SubscriptTriplet.class));
         NAME_TO_MAPPER.put(FlangName.CALL, ClassMapper.always(Call.class));
-        NAME_TO_MAPPER.put(FlangName.ACTUAL_ARG_SPEC, ClassMapper.always(ArgumentSpec.class));
+        NAME_TO_MAPPER.put(FlangName.ACTUAL_ARG_SPEC, ClassMapper.always(ArgSpec.class));
         NAME_TO_MAPPER.put(FlangName.AC_IMPLIED_DO, ClassMapper.always(AcImpliedDo.class));
         NAME_TO_MAPPER.put(FlangName.AC_IMPLIED_DO_CONTROL, ClassMapper.always(AcImpliedDoControl.class));
         NAME_TO_MAPPER.put(FlangName.NAMED_CONSTANT, ClassMapper.always(NamedLiteral.class));

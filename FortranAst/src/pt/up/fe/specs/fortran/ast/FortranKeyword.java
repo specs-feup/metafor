@@ -87,6 +87,8 @@ public enum FortranKeyword {
     ABSTRACT,
     INTERFACE,
     PROCEDURE,
+    REF,
+    VAL,
 
     OMP;
 

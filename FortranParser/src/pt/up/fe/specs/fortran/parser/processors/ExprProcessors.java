@@ -1,6 +1,7 @@
 package pt.up.fe.specs.fortran.parser.processors;
 
 import pt.up.fe.specs.fortran.ast.nodes.expr.*;
+import pt.up.fe.specs.fortran.ast.nodes.expr.args.ArgSpec;
 import pt.up.fe.specs.fortran.ast.nodes.expr.dataref.ArrayElement;
 import pt.up.fe.specs.fortran.ast.nodes.expr.enums.BinaryOperatorKind;
 import pt.up.fe.specs.fortran.ast.nodes.expr.enums.UnaryOperatorKind;
@@ -194,9 +195,9 @@ public class ExprProcessors extends ANodeProcessor {
         control.addChild(rangeControl);
     }
 
-    public void argumentSpec(ArgumentSpec argumentSpec) {
+    public void argumentSpec(ArgSpec argumentSpec) {
         var keyword = attributes().getOptionalString(argumentSpec, "source", FlangName.KEYWORD, FlangName.NAME);
-        argumentSpec.set(ArgumentSpec.KEYWORD, keyword);
+        argumentSpec.set(ArgSpec.KEYWORD, keyword);
 
         var expr = getChild(argumentSpec, FlangName.ACTUAL_ARG);
         argumentSpec.addChild(expr);

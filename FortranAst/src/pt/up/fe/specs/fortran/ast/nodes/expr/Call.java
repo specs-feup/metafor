@@ -2,6 +2,7 @@ package pt.up.fe.specs.fortran.ast.nodes.expr;
 
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
+import pt.up.fe.specs.fortran.ast.nodes.expr.args.ArgSpec;
 
 import java.util.Collection;
 import java.util.List;
@@ -16,15 +17,15 @@ public class Call extends Expr {
         return getChild(ProcDesignator.class, 0);
     }
 
-    public List<ArgumentSpec> getArgs() {
-        return getChildren(ArgumentSpec.class, 1);
+    public List<ArgSpec> getArgs() {
+        return getChildren(ArgSpec.class, 1);
     }
 
     @Override
     public String getCode() {
         var calleeCode = getCallee().getCode();
         var argsCode = getArgs().stream()
-                .map(ArgumentSpec::getCode)
+                .map(ArgSpec::getCode)
                 .collect(Collectors.joining(", ", "(", ")"));
 
         return calleeCode + argsCode;
