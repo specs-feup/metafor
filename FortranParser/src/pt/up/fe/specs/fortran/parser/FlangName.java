@@ -221,6 +221,7 @@ public enum FlangName implements StringProvider {
     NULL_INIT,
     STRUCTURE_CONSTRUCTOR,
     COMPONENT_SPEC,
+    COMPONENT_DATA_SOURCE,
 
     // ARRAYs
     ARRAY_CONSTRUCTOR,
