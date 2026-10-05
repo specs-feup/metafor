@@ -352,6 +352,8 @@ public class Nodes {
         processors.put(ExprFormat.class, i::exprFormat);
         processors.put(LabelFormat.class, i::labelFormat);
         processors.put(StarFormat.class, i::starFormat);
+        processors.put(InputImpliedDoItem.class, i::inputImpliedDoItem);
+        processors.put(OutputImpliedDoItem.class, i::outputImpliedDoItem);
 
         var omp = new OmpProcessors(data, s);
         processors.put(OmpBlockConstruct.class, omp::ompBlockConstruct);

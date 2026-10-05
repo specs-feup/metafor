@@ -427,11 +427,13 @@ public class FlangToClass {
         NAME_TO_MAPPER.put(FlangName.READ_STMT, ClassMapper.always(ReadStmt.class));
         NAME_TO_MAPPER.put(FlangName.INPUT_ITEM, ClassMapper.caseFor(InputItem.class)
                 .map(FlangName.VARIABLE, VarInputItem.class)
-                .map(FlangName.INPUT_IMPLIED_DO, InputImpliedDoItem.class));
+                .ignore(FlangName.INPUT_IMPLIED_DO));
+        NAME_TO_MAPPER.put(FlangName.INPUT_IMPLIED_DO, ClassMapper.always(InputImpliedDoItem.class));
         NAME_TO_MAPPER.put(FlangName.WRITE_STMT, ClassMapper.always(WriteStmt.class));
         NAME_TO_MAPPER.put(FlangName.OUTPUT_ITEM, ClassMapper.caseFor(OutputItem.class)
                 .map(FlangName.EXPR, ExprOutputItem.class)
-                .map(FlangName.OUTPUT_IMPLIED_DO, OutputImpliedDoItem.class));
+                .ignore(FlangName.OUTPUT_IMPLIED_DO));
+        NAME_TO_MAPPER.put(FlangName.OUTPUT_IMPLIED_DO, ClassMapper.always(OutputImpliedDoItem.class));
         NAME_TO_MAPPER.put(FlangName.WAIT_STMT, ClassMapper.always(WaitStmt.class));
         NAME_TO_MAPPER.put(FlangName.WAIT_SPEC, ClassMapper.caseFor(WaitSpec.class)
                 .map(FlangName.FILE_UNIT_NUMBER, ExprWaitSpec.class)
