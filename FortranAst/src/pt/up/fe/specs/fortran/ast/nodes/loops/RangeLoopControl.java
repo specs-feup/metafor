@@ -1,5 +1,7 @@
 package pt.up.fe.specs.fortran.ast.nodes.loops;
 
+import org.suikasoft.jOptions.Datakey.DataKey;
+import org.suikasoft.jOptions.Datakey.KeyFactory;
 import org.suikasoft.jOptions.Interfaces.DataStore;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.expr.Expr;
@@ -9,12 +11,14 @@ import java.util.Collection;
 import java.util.Optional;
 
 public class RangeLoopControl extends LoopControl {
+    public static final DataKey<String> VARIABLE = KeyFactory.string("variable");
+
     public RangeLoopControl(DataStore data, Collection<? extends FortranNode> children) {
         super(data, children);
     }
 
-    public DataRef getVar() {
-        return getChild(DataRef.class, 0);
+    public String getVariable() {
+        return get(VARIABLE);
     }
 
     public Expr getLower() {
@@ -43,14 +47,10 @@ public class RangeLoopControl extends LoopControl {
 
     @Override
     public String getCode() {
-        StringBuilder code = new StringBuilder();
+        var lowerCode = getLower().getCode();
+        var upperCode = getUpper().getCode();
+        var stepCode = getStep().map(step -> ", " + step.getCode()).orElse("");
 
-        code.append(getVar().getCode()).append(" = ")
-                .append(getLower().getCode()).append(", ")
-                .append(getUpper().getCode());
-
-        getStep().ifPresent(step -> code.append(", ").append(step.getCode()));
-
-        return code.toString();
+        return getVariable() + " = " + lowerCode + ", " + upperCode + stepCode;
     }
 }
