@@ -21,6 +21,6 @@ public abstract class ArgSpec extends FortranNode {
     }
 
     protected String getKeywordCode() {
-        return getKeyword().map(keyword -> keyword + " = ").orElse("");
+        return getKeyword().map(keyword -> keyword + "=").orElse("");
     }
 }
