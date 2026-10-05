@@ -315,7 +315,7 @@ public class FlangToClass {
         NAME_TO_MAPPER.put(FlangName.PROCEDURE_DESIGNATOR, ClassMapper.caseFor(ProcDesignator.class)
                 .map(FlangName.NAME, NamedProcDesignator.class));
         NAME_TO_MAPPER.put(FlangName.STRUCTURE_CONSTRUCTOR, ClassMapper.always(StructureConstructor.class));
-        NAME_TO_MAPPER.put(FlangName.COMPONENT_SPEC, ClassMapper.always(ArgumentSpec.class));
+        NAME_TO_MAPPER.put(FlangName.COMPONENT_SPEC, ClassMapper.always(ComponentSpec.class));
 
         /// TYPEs
         NAME_TO_MAPPER.put(FlangName.INTEGER_TYPE_SPEC, ClassMapper.always(IntegerType.class));

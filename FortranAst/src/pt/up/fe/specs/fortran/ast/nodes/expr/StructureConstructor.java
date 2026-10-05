@@ -17,15 +17,15 @@ public class StructureConstructor extends Expr {
         return getChild(DerivedType.class, 0);
     }
 
-    public List<ArgumentSpec> getArguments() {
-        return getChildrenOf(ArgumentSpec.class);
+    public List<ComponentSpec> getArguments() {
+        return getChildrenOf(ComponentSpec.class);
     }
 
     @Override
     public String getCode() {
         var typeCode = getStructureType().getCode();
         var argsCode = getArguments().stream()
-                .map(ArgumentSpec::getCode)
+                .map(ComponentSpec::getCode)
                 .collect(Collectors.joining(", ", "(", ")"));
         return typeCode + argsCode;
     }

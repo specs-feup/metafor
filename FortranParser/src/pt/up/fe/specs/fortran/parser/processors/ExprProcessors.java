@@ -261,4 +261,12 @@ public class ExprProcessors extends ANodeProcessor {
         var argumentSpecs = getChildren(structureConstructor, FlangName.COMPONENT_SPEC);
         structureConstructor.addChildren(argumentSpecs);
     }
+
+    public void componentSpec(ComponentSpec componentSpec) {
+        var keyword = attributes().getOptionalString(componentSpec, "source", FlangName.KEYWORD, FlangName.NAME);
+        componentSpec.set(ComponentSpec.KEYWORD, keyword);
+
+        var dataSource = getChild(componentSpec, FlangName.EXPR);
+        componentSpec.addChild(dataSource);
+    }
 }
