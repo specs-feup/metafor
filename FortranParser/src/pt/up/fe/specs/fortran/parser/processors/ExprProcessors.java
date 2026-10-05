@@ -1,7 +1,9 @@
 package pt.up.fe.specs.fortran.parser.processors;
 
 import pt.up.fe.specs.fortran.ast.nodes.expr.*;
+import pt.up.fe.specs.fortran.ast.nodes.expr.args.AltReturnArgSpec;
 import pt.up.fe.specs.fortran.ast.nodes.expr.args.ArgSpec;
+import pt.up.fe.specs.fortran.ast.nodes.expr.args.ExprArgSpec;
 import pt.up.fe.specs.fortran.ast.nodes.expr.dataref.ArrayElement;
 import pt.up.fe.specs.fortran.ast.nodes.expr.enums.BinaryOperatorKind;
 import pt.up.fe.specs.fortran.ast.nodes.expr.enums.UnaryOperatorKind;
@@ -195,12 +197,23 @@ public class ExprProcessors extends ANodeProcessor {
         control.addChild(rangeControl);
     }
 
-    public void argumentSpec(ArgSpec argumentSpec) {
-        var keyword = attributes().getOptionalString(argumentSpec, "source", FlangName.KEYWORD, FlangName.NAME);
-        argumentSpec.set(ArgSpec.KEYWORD, keyword);
+    public void argSpec(ArgSpec argSpec) {
+        var keyword = attributes().getOptionalString(argSpec, "source", FlangName.KEYWORD, FlangName.NAME);
+        argSpec.set(ExprArgSpec.KEYWORD, keyword);
+    }
 
-        var expr = getChild(argumentSpec, FlangName.ACTUAL_ARG);
-        argumentSpec.addChild(expr);
+    public void exprArgSpec(ArgSpec argSpec) {
+        argSpec(argSpec);
+
+        var expr = getChild(argSpec, FlangName.ACTUAL_ARG);
+        argSpec.addChild(expr);
+    }
+
+    public void altReturnArgSpec(AltReturnArgSpec altReturnArgSpec) {
+        argSpec(altReturnArgSpec);
+
+        var label = attributes().getString(altReturnArgSpec, "uint64_t");
+        altReturnArgSpec.set(AltReturnArgSpec.LABEL, Integer.parseInt(label));
     }
 
     public void intComplexPart(IntComplexPart intComplexPart) {
