@@ -137,6 +137,7 @@ public enum FlangName implements StringProvider {
     LOCATION,
     IMPLICIT_NONE_NAME_SPEC,
     EXTERNAL,
+    ENTRY_STMT,
 
     /// Conditional Statements
     IF_CONSTRUCT,

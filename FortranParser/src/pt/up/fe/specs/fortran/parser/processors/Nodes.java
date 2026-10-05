@@ -247,6 +247,7 @@ public class Nodes {
         processors.put(SingleBoundPointerAssignStmt.class, s::singleBoundPointerAssignStmt);
         processors.put(DoubleBoundPointerAssignStmt.class, s::doubleBoundPointerAssignStmt);
         processors.put(DoubleBound.class, s::doubleBound);
+        processors.put(EntryStmt.class, s::entryStmt);
 
         var e = new ExprProcessors(data);
         processors.put(StringLiteral.class, e::stringLiteral);

@@ -1,5 +1,6 @@
 package pt.up.fe.specs.fortran.parser.processors;
 
+import org.suikasoft.jOptions.Datakey.DataKey;
 import pt.up.fe.specs.fortran.ast.nodes.FortranNode;
 import pt.up.fe.specs.fortran.ast.nodes.decl.NamedParameter;
 import pt.up.fe.specs.fortran.ast.nodes.expr.Expr;
@@ -717,18 +718,20 @@ public class StmtProcessors extends ANodeProcessor {
         functionStmt.addChildren(parameters);
 
         var suffixId = attributes(functionStmt).getOptionalString("suffix");
-        suffixId.map(id -> attributes().get(id))
-                .ifPresent(suffixAttrs -> {
-                    var bindingId = suffixAttrs.getOptionalString("binding");
-                    bindingId.ifPresent(id -> {
-                        var binding = getChild(id);
-                        functionStmt.addChild(binding);
-                    });
+        var suffixAttrs = suffixId.map(id -> attributes().get(id));
+        suffixAttrs.ifPresent(attrs -> suffix(attrs, functionStmt, FunctionStmt.RESULT_NAME));
+    }
 
-                    var resultName = suffixAttrs.getOptionalString("resultName")
-                            .map(nameId -> attributes().get(nameId).getString("source"));
-                    functionStmt.set(FunctionStmt.RESULT_NAME, resultName);
-                });
+    public void suffix(FlangAttributes suffixAttrs, Stmt stmt, DataKey<Optional<String>> resultNameKey) {
+        var bindingId = suffixAttrs.getOptionalString("binding");
+        bindingId.ifPresent(id -> {
+            var binding = getChild(id);
+            stmt.addChild(binding);
+        });
+
+        var resultNameId = suffixAttrs.getOptionalString("resultName");
+        var resultName = resultNameId.map(nameId -> attributes().get(nameId).getString("source"));
+        stmt.set(resultNameKey, resultName);
     }
 
     private NamedParameter toNamedParameter(String nameId) {
@@ -902,5 +905,19 @@ public class StmtProcessors extends ANodeProcessor {
 
         var upper = getChild(doubleBound, "upper");
         doubleBound.addChild(upper);
+    }
+
+    public void entryStmt(EntryStmt entryStmt) {
+        stmt(entryStmt);
+
+        var entryName = attributes().getString(entryStmt, "source", FlangName.NAME);
+        entryStmt.set(EntryStmt.ENTRY_NAME, entryName);
+
+        var paramNames = getChildren(entryStmt, FlangName.DUMMY_ARG);
+        entryStmt.addChildren(paramNames);
+
+        var suffixId = attributes(entryStmt).getOptionalString("suffix");
+        var suffixAttrs = suffixId.map(id -> attributes().get(id));
+        suffixAttrs.ifPresent(attrs -> suffix(attrs, entryStmt, EntryStmt.RESULT_NAME));
     }
 }

@@ -252,6 +252,7 @@ public class FlangToClass {
                 .map(FlangName.BOUNDS_SPEC, SingleBoundPointerAssignStmt.class)
                 .map(FlangName.BOUNDS_REMAPPING, DoubleBoundPointerAssignStmt.class));
         NAME_TO_MAPPER.put(FlangName.BOUNDS_REMAPPING, ClassMapper.always(DoubleBound.class));
+        NAME_TO_MAPPER.put(FlangName.ENTRY_STMT, ClassMapper.always(EntryStmt.class));
 
         /// Variables
         NAME_TO_MAPPER.put(FlangName.DATA_REF, ClassMapper.caseFor(DataRef.class)
