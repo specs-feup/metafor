@@ -40,6 +40,7 @@ public enum FortranKeyword {
     READ,
     WAIT,
     CLOSE,
+    ENTRY,
 
     // Conditional statements
     IF,
