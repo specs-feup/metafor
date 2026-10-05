@@ -22,15 +22,15 @@ public class RangeLoopControl extends LoopControl {
     }
 
     public Expr getLower() {
-        return getChild(Expr.class, 1);
+        return getChild(Expr.class, 0);
     }
 
     public Expr getUpper() {
-        return getChild(Expr.class, 2);
+        return getChild(Expr.class, 1);
     }
 
     public Optional<Expr> getStep() {
-        return getChildTry(Expr.class, 3);
+        return getChildTry(Expr.class, 2);
     }
 
     public Expr setUpper(Expr newUpper) {
