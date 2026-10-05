@@ -1,14 +1,14 @@
 PROGRAM ENTRY_STMT
     IMPLICIT NONE
 
-    call step_counter(5)
-    call step_counter(10)
+    CALL step_counter(5)
+    CALL step_counter(10)
 
     ! Call alternate entry point defined via ENTRY statement
-    call reset_counter()
+    CALL reset_counter()
 
     ! Call standard entry point again
-    call step_counter(3)
+    CALL step_counter(3)
 
 END PROGRAM ENTRY_STMT
 
