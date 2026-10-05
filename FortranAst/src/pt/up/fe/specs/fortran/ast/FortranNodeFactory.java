@@ -405,20 +405,18 @@ public class FortranNodeFactory {
         return newNode(ISStmtSpecAdapter.class, List.of(isStmt));
     }
 
-    private <T extends Stmt> T withInfoOf(T dest, Stmt source) {
-        dest.set(Stmt.LEADING_COMMENTS, source.getLeadingComments());
-        dest.set(Stmt.TRAILING_COMMENT, source.getTrailingComment());
-        source.getLabel().ifPresent(label -> dest.addChild(0, label));
-
+    private <T extends Stmt> T withNoInfo(T dest) {
+        dest.set(Stmt.LEADING_COMMENTS, List.of());
+        dest.set(Stmt.TRAILING_COMMENT, Optional.empty());
         return dest;
     }
 
     public IDEStmtImplicitAdapter ideStmtImplicitAdapter(IDEStmt ideStmt) {
-        return withInfoOf(newNode(IDEStmtImplicitAdapter.class, List.of(ideStmt)), ideStmt);
+        return withNoInfo(newNode(IDEStmtImplicitAdapter.class, List.of(ideStmt)));
     }
 
     public ISStmtImplicitAdapter isStmtImplicitAdapter(ISStmt isStmt) {
-        return withInfoOf(newNode(ISStmtImplicitAdapter.class, List.of(isStmt)), isStmt);
+        return withNoInfo(newNode(ISStmtImplicitAdapter.class, List.of(isStmt)));
     }
 
     public ActionStmtAdapter actionStmtAdapter(ActionStmt actionStmt) {

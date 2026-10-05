@@ -17,6 +17,6 @@ public class ISStmtImplicitAdapter extends ImplicitPartStmt {
 
     @Override
     public String getStmtCode() {
-        return getStmt().getStmtCode();
+        return getStmt().getCode();
     }
 }
