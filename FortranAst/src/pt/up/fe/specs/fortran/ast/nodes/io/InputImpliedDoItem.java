@@ -14,7 +14,7 @@ public class InputImpliedDoItem extends InputItem {
     }
 
     public List<InputItem> getItems() {
-        return getChildren(InputItem.class);
+        return getChildrenOf(InputItem.class);
     }
 
     public RangeLoopControl getControl() {

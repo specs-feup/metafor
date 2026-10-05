@@ -14,7 +14,7 @@ public class OutputImpliedDoItem extends OutputItem {
     }
 
     public List<OutputItem> getItems() {
-        return getChildren(OutputItem.class);
+        return getChildrenOf(OutputItem.class);
     }
 
     public RangeLoopControl getControl() {
