@@ -43,3 +43,21 @@ The next steps for the Fortran source-to-source compiler are as follows:
   - Loop strip-mining
   - OpenMP directive transformations. These tranformations should transform code with OpenMP directives not-yet supported by Flang into code with supported directives. The particular transformations to target are dependent of inputs from partners
   
+
+## Native protobuf parity test
+
+The native comparison is opt-in. It needs Flang 22 and JSON and protobuf plugins built for that version. Put the Flang and LLVM shared library directories in `LD_LIBRARY_PATH`. Gradle gets protoc 3.21.12 from Maven by default; set `PROTOC` to use a local executable. The regular `FortranNativeParser` constructor continues to use the JSON dumper.
+
+Run from `FortranParser`:
+
+```sh
+FLANG_NATIVE_PARITY=1 \
+FLANG_EXECUTABLE=/path/to/flang-22 \
+FLANG_JSON_PLUGIN=/path/to/DumpASTPlugin.so \
+FLANG_PROTOBUF_PLUGIN=/path/to/DumpASTProtobufPlugin.so \
+LD_LIBRARY_PATH=/path/to/llvm/lib:/path/to/system/lib \
+SPECS_JAVA_LIBS_HOME=/path/to/specs-java-libs \
+gradle --no-daemon test --tests pt.up.fe.specs.fortran.parser.FortranNativeProtobufParityTest
+```
+
+The test compares normalized generated code from both plugins. It also checks the JSON snapshot when one exists, independently of protobuf generation.

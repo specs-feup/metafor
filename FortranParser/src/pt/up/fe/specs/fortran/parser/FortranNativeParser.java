@@ -10,8 +10,10 @@ import pt.up.fe.specs.util.system.OutputType;
 import pt.up.fe.specs.util.system.StreamToString;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.StringReader;
 import java.util.List;
 import java.util.Optional;
@@ -39,9 +41,54 @@ public class FortranNativeParser {
     private static final Lazy<File> TEMP_FOLDER = Lazy.newInstance(() -> SpecsIo.getTempFolder("metafor"));
 
     private final FortranContext context;
+    private final File localPlugin;
+    private final String localFlangCommand;
+    private final String localPluginAction;
+    private final boolean protobufMode;
 
     public FortranNativeParser(FortranContext context) {
         this.context = context;
+        this.localPlugin = null;
+        this.localFlangCommand = null;
+        this.localPluginAction = null;
+        this.protobufMode = false;
+    }
+
+    /**
+     * Creates an experimental parser that loads a local Flang protobuf plugin.
+     * This constructor bypasses the default remote JSON dumper setup.
+     *
+     * @param context the Fortran parsing context
+     * @param protobufPlugin local binary protobuf plugin file
+     * @param flangCommand Flang command to execute
+     */
+    public FortranNativeParser(FortranContext context, File protobufPlugin, String flangCommand) {
+        this(context, protobufPlugin, flangCommand, "dump-ast-protobuf");
+    }
+
+    /**
+     * Creates a parser for an explicitly selected local dumper action. Package-private so
+     * parity tests can exercise both the JSON and experimental protobuf plugins without
+     * changing the production JSON default.
+     */
+    FortranNativeParser(FortranContext context, File localPlugin, String flangCommand, String pluginAction) {
+        if (localPlugin == null || !localPlugin.exists() || !localPlugin.isFile()) {
+            throw new IllegalArgumentException("The native plugin must be an existing file: " + localPlugin);
+        }
+
+        if (flangCommand == null || flangCommand.isBlank()) {
+            throw new IllegalArgumentException("The Flang command must not be null or blank");
+        }
+
+        if (!"dump-ast".equals(pluginAction) && !"dump-ast-protobuf".equals(pluginAction)) {
+            throw new IllegalArgumentException("Unsupported native dumper action: " + pluginAction);
+        }
+
+        this.context = context;
+        this.localPlugin = localPlugin;
+        this.localFlangCommand = flangCommand;
+        this.localPluginAction = pluginAction;
+        this.protobufMode = "dump-ast-protobuf".equals(pluginAction);
     }
 
     private static String getFlangCommand() {
@@ -52,16 +99,21 @@ public class FortranNativeParser {
 
         context.set(FortranContext.LAST_PARSED_FILE, Optional.of(file));
 
-        var plugin = FLANG_DUMPER.get();
+        var plugin = localPlugin == null ? FLANG_DUMPER.get() : localPlugin;
         System.out.println("PLUGIN : " + plugin.getAbsolutePath());
 
-        // Execute flang to obtain json
-        var command = List.of(getFlangCommand(), "-fc1", "-fopenmp", "-load", plugin.getAbsolutePath(), "-plugin", "dump-ast", file.getAbsolutePath());
+        // Execute flang to obtain JSON or protobuf output.
+        var flangCommand = localFlangCommand == null ? getFlangCommand() : localFlangCommand;
+        var action = localPluginAction == null ? "dump-ast" : localPluginAction;
+        var command = List.of(flangCommand, "-fc1", "-fopenmp", "-load", plugin.getAbsolutePath(), "-plugin", action, file.getAbsolutePath());
 
-        var jsonFile = SAVE_JSON ? new File(file.getAbsoluteFile().getParentFile(), file.getName() + ".json") : null;
+        var jsonFile = protobufMode ? null
+                : (SAVE_JSON ? new File(file.getAbsoluteFile().getParentFile(), file.getName() + ".json") : null);
 
-        // Use runProcess that uses outputProcessor, to process json as a stream
-        Function<InputStream, FortranJsonResult> outputProcessor = (stdout) -> parseStream(stdout, jsonFile);
+        // Use runProcess to process parser output directly from stdout.
+        Function<InputStream, FortranJsonResult> outputProcessor = protobufMode
+                ? stdout -> parseProtobufStream(stdout, context)
+                : stdout -> parseStream(stdout, jsonFile);
         Function<InputStream, String> stderrProcessor = new StreamToString(false, true, OutputType.StdErr);
 
         //var flangExecution = SpecsSystem.runProcess(command, TEMP_FOLDER.get(), true, false);
@@ -77,6 +129,22 @@ public class FortranNativeParser {
 
         return flangExecution.getStdOut();
         //return FortranJsonParser.parse(new StringReader(flangExecution.getOutput()), context);
+    }
+
+    private static FortranJsonResult parseProtobufStream(InputStream stdout, FortranContext context) {
+        try {
+            return FortranProtobufParser.parse(stdout, context);
+        } catch (RuntimeException parseFailure) {
+            // SpecsSystem waits for the process before it observes this parser future. Keep
+            // draining stdout so a producer with more output than the pipe buffer can exit.
+            try {
+                stdout.transferTo(OutputStream.nullOutputStream());
+            } catch (IOException drainFailure) {
+                parseFailure.addSuppressed(drainFailure);
+            }
+
+            throw parseFailure;
+        }
     }
 
     private FortranJsonResult parseStream(InputStream stream, File jsonOutput) {
@@ -131,4 +199,3 @@ public class FortranNativeParser {
         return resource.write(TEMP_FOLDER.get());
     }
 }
-

@@ -26,6 +26,92 @@ dependencies {
     implementation ":CommonsLangPlus"
 
     implementation 'com.google.code.gson:gson:2.13.1'
+    implementation 'com.google.protobuf:protobuf-java:3.21.12'
+}
+
+def protobufSchema = file('src/main/proto/ast_stream.proto')
+def generatedProtobufSources = layout.buildDirectory.dir('generated/sources/proto/main/java')
+def protocVersion = '3.21.12'
+def protocOverride = providers.environmentVariable('PROTOC').map { it.trim() }.getOrNull()
+def osName = System.getProperty('os.name').toLowerCase(Locale.ROOT)
+def osArch = System.getProperty('os.arch').toLowerCase(Locale.ROOT)
+def isWindows = osName.contains('windows')
+def availableProtocClassifiers = [
+        'linux-x86_64', 'linux-aarch_64', 'osx-x86_64', 'osx-aarch_64', 'windows-x86_64'
+]
+
+def protocArchitecture = ['x86_64', 'amd64'].contains(osArch) ? 'x86_64'
+        : ['aarch64', 'arm64'].contains(osArch) ? 'aarch_64'
+        : null
+
+def protocOperatingSystem = isWindows ? 'windows'
+        : (osName.contains('mac') || osName.contains('darwin')) ? 'osx'
+        : osName.contains('linux') ? 'linux'
+        : null
+
+def detectedProtocClassifier = protocOperatingSystem == null || protocArchitecture == null ? null
+        : "${protocOperatingSystem}-${protocArchitecture}".toString()
+def protocClassifier = availableProtocClassifiers.contains(detectedProtocClassifier)
+        ? detectedProtocClassifier
+        : null
+
+configurations {
+    protocExecutable {
+        canBeConsumed = false
+        canBeResolved = true
+        transitive = false
+    }
+}
+
+if (protocOverride == null || protocOverride.isEmpty()) {
+    if (protocClassifier == null) {
+        throw new GradleException("No protoc ${protocVersion} Maven executable is available for " +
+                "operating system '${System.getProperty('os.name')}' and architecture " +
+                "'${System.getProperty('os.arch')}'. Supported classifiers are linux-x86_64, " +
+                'linux-aarch_64, osx-x86_64, osx-aarch_64, and windows-x86_64. ' +
+                "Set PROTOC to use a local executable.")
+    }
+
+    dependencies.add('protocExecutable',
+            "com.google.protobuf:protoc:${protocVersion}:${protocClassifier}@exe")
+}
+
+tasks.register('generateProtoJava', Exec) {
+    inputs.file protobufSchema
+    inputs.property('protocVersion', protocVersion)
+    inputs.property('protocOverride', protocOverride ?: '')
+    if (protocOverride == null || protocOverride.isEmpty()) {
+        inputs.files(configurations.protocExecutable)
+    }
+    outputs.dir generatedProtobufSources
+
+    doFirst {
+        def outputDirectory = generatedProtobufSources.get().asFile
+        outputDirectory.mkdirs()
+
+        def protocExecutable
+        if (protocOverride != null && !protocOverride.isEmpty()) {
+            protocExecutable = protocOverride
+        } else {
+            def downloadedProtoc = configurations.protocExecutable.singleFile
+            def localProtoc = new File(layout.buildDirectory.dir('tools/protoc').get().asFile,
+                    isWindows ? 'protoc.exe' : 'protoc')
+            localProtoc.parentFile.mkdirs()
+            java.nio.file.Files.copy(downloadedProtoc.toPath(), localProtoc.toPath(),
+                    java.nio.file.StandardCopyOption.REPLACE_EXISTING)
+
+            if (!isWindows && !localProtoc.setExecutable(true, true)) {
+                throw new GradleException("Could not make downloaded protoc executable: ${localProtoc}")
+            }
+
+            protocExecutable = localProtoc.absolutePath
+        }
+
+        commandLine protocExecutable,
+                "--proto_path=${protobufSchema.parentFile.absolutePath}",
+                "--java_out=${outputDirectory.absolutePath}",
+                protobufSchema.absolutePath
+    }
 }
 
 // Project sources
@@ -33,6 +119,7 @@ sourceSets {
     main {
         java {
             srcDir 'src'
+            srcDir generatedProtobufSources
         }
         resources {
             srcDir 'resources'
@@ -47,6 +134,10 @@ sourceSets {
             srcDir 'resources-test'
         }
     }
+}
+
+tasks.named('compileJava') {
+    dependsOn tasks.named('generateProtoJava')
 }
 
 test {
