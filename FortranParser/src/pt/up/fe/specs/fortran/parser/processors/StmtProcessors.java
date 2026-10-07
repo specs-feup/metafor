@@ -526,6 +526,11 @@ public class StmtProcessors extends ANodeProcessor {
         namesRename.set(NamesRename.GLOBAL_NAME, globalName);
     }
 
+    public void onlyGenericSpec(OnlyGenericSpec onlyGenericSpec) {
+        var genericSpec = getChild(onlyGenericSpec, FlangName.GENERIC_SPEC);
+        onlyGenericSpec.addChild(genericSpec);
+    }
+
     public void continueStmt(ContinueStmt continueStmt) {
         actionStmt(continueStmt);
     }
