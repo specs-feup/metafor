@@ -1,0 +1,1419 @@
+{
+  "build_output_tail": "To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.\nDaemon will be stopped at the end of the build \n> Task :jOptions:processResources NO-SOURCE\n> Task :XStreamPlus:processResources NO-SOURCE\n> Task :GsonPlus:processResources NO-SOURCE\n> Task :GuiHelper:processResources NO-SOURCE\n> Task :FortranAst:processResources UP-TO-DATE\n> Task :generateProtoJava UP-TO-DATE\n> Task :processResources NO-SOURCE\n> Task :CommonsLangPlus:compileJava UP-TO-DATE\n> Task :CommonsLangPlus:processResources NO-SOURCE\n> Task :CommonsLangPlus:classes UP-TO-DATE\n> Task :CommonsLangPlus:jar UP-TO-DATE\n> Task :SpecsUtils:compileJava UP-TO-DATE\n> Task :SpecsUtils:processResources UP-TO-DATE\n> Task :SpecsUtils:classes UP-TO-DATE\n> Task :SpecsUtils:jar UP-TO-DATE\n> Task :GsonPlus:compileJava UP-TO-DATE\n> Task :GsonPlus:classes UP-TO-DATE\n> Task :GsonPlus:jar UP-TO-DATE\n> Task :XStreamPlus:compileJava UP-TO-DATE\n> Task :XStreamPlus:classes UP-TO-DATE\n> Task :XStreamPlus:jar UP-TO-DATE\n> Task :GuiHelper:compileJava UP-TO-DATE\n> Task :GuiHelper:classes UP-TO-DATE\n> Task :GuiHelper:jar UP-TO-DATE\n> Task :jOptions:compileJava UP-TO-DATE\n> Task :jOptions:classes UP-TO-DATE\n> Task :jOptions:jar UP-TO-DATE\n> Task :FortranAst:compileJava UP-TO-DATE\n> Task :FortranAst:classes UP-TO-DATE\n> Task :FortranAst:jar UP-TO-DATE\n> Task :compileJava UP-TO-DATE\n> Task :classes UP-TO-DATE\n> Task :writeEndToEndBenchmarkClasspath UP-TO-DATE\n\nBUILD SUCCESSFUL in 6s\n19 actionable tasks: 19 up-to-date\nConsider enabling configuration cache to speed up this build: https://docs.gradle.org/9.6.1/userguide/configuration_cache_enabling.html",
+  "commands": {
+    "child_time_invocation_shape": "/usr/bin/time -f '%e\\t%M' -a -o CHILD_TIME FLANG -fc1 -fopenmp -load PLUGIN -plugin ACTION SOURCE",
+    "gradle_classpath_task": [
+      "/home/lmsousa/.sdkman/candidates/gradle/current/bin/gradle",
+      "--no-daemon",
+      "-p",
+      "/home/lmsousa/.t3/worktrees/metafor/flang-protobuf-reader/FortranParser",
+      "writeEndToEndBenchmarkClasspath"
+    ],
+    "java_invocation_shape": [
+      "/usr/bin/time -f '%e\\t%M' -o HOST_TIME java -Xms256m -Xmx1g -cp CLASSPATH",
+      "pt.up.fe.specs.fortran.parser.FortranEndToEndBenchmark",
+      "--mode=json|protobuf --source=SOURCE --plugin=LOCAL_PLUGIN --flang=GNU_TIME_WRAPPER --warmups=1"
+    ]
+  },
+  "configuration": {
+    "heap_arguments": [
+      "-Xms256m",
+      "-Xmx1g"
+    ],
+    "java_process_repetitions": "one fresh JVM for each mode/workload/repeat",
+    "measurement_order": "alternate JSON/protobuf first mode by repeat",
+    "repeats": 5,
+    "within_jvm_warmups_per_process": 1
+  },
+  "finished_utc": "2026-10-13T07:16:57.024708+00:00",
+  "measurement_method": {
+    "ast_build_nanos": "FortranAstBuilder.build",
+    "end_to_end_nanos": "direct nanoTime interval around parse, AST build, and getCode in the same JVM invocation",
+    "get_code_nanos": "returned root FortranNode.getCode",
+    "gnu_time_evidence": {
+      "local_check": {
+        "gnu_time_percent_m_kib": 75264,
+        "parent_vm_hwm_kib": 12072,
+        "timed_parent": "Python process waited for a Python child that allocated 67108864 bytes"
+      },
+      "local_documentation": "GNU time(1) says most reported information comes from wait3(2); Linux wait4(2) returns resource usage about the waited child; getrusage(2) documents RUSAGE_CHILDREN ru_maxrss as the largest child RSS, not a process-tree maximum."
+    },
+    "java_command_gnu_time_wait_rusage_maxrss_kib": "GNU time %M from wait3(2) resource usage for the directly timed Java command. On Linux, this wait usage can include the maximum RSS of a waited child, so it is not a Java-only peak and is not a summed process-tree peak.",
+    "java_process_vm_hwm_kib": "Java reads VmHWM from /proc/self/status after JVM startup, all in-process warmups, and the measured full-pipeline sample. This is the Java process's own high-water RSS and excludes child process RSS. It is null with an unsupported status when Linux /proc is unavailable.",
+    "memory_rule": "Keep Java VmHWM and GNU time wait-rusage values separate. They can describe overlapping work and are never added.",
+    "parse_nanos": "FortranNativeParser.parse: starts before native process launch and ends after JSON/protobuf stream decoding and FortranJsonResult construction",
+    "producer_gnu_time_wait_rusage_maxrss_kib": "GNU time %M from the wait resource usage for the Flang wrapper's command, recorded separately for each Flang invocation.",
+    "standalone_reader_time": "not measured: Java consumes producer stdout while Flang is running, so subtracting producer wall time would not isolate decode work"
+  },
+  "measurements": [
+    {
+      "ast_build_nanos": 2229943,
+      "end_to_end_nanos": 119348280,
+      "generated_code_bytes": 213,
+      "generated_code_sha256": "a2868b254b4221ef8a8b35030e2d85b013f3c44472921b556ed79f92306368a3",
+      "get_code_nanos": 570636,
+      "iteration": 0,
+      "java_command_gnu_time_elapsed_seconds": 0.81,
+      "java_command_gnu_time_wait_rusage_maxrss_kib": 106280,
+      "java_process_vm_hwm_detail": "Read from /proc/self/status after all warmups and the sample",
+      "java_process_vm_hwm_kib": 105576,
+      "java_process_vm_hwm_status": "supported",
+      "mode": "json",
+      "parse_nanos": 116547011,
+      "phase": "sample",
+      "producer_gnu_time_elapsed_seconds": 0.03,
+      "producer_gnu_time_wait_rusage_maxrss_kib": 86028,
+      "repeat": 1,
+      "source_sha256": "193728445b05d50bfa5c103018529d232e2f93905b6e83b7120852708f853f02",
+      "warmup_records": [
+        {
+          "ast_build_nanos": 38832606,
+          "end_to_end_nanos": 262747268,
+          "generated_code_bytes": 213,
+          "generated_code_sha256": "a2868b254b4221ef8a8b35030e2d85b013f3c44472921b556ed79f92306368a3",
+          "get_code_nanos": 8421728,
+          "iteration": 0,
+          "mode": "json",
+          "parse_nanos": 215491723,
+          "phase": "warmup",
+          "producer_gnu_time_elapsed_seconds": 0.03,
+          "producer_gnu_time_wait_rusage_maxrss_kib": 86384
+        }
+      ],
+      "workload": "small"
+    },
+    {
+      "ast_build_nanos": 2110105,
+      "end_to_end_nanos": 117995093,
+      "generated_code_bytes": 213,
+      "generated_code_sha256": "a2868b254b4221ef8a8b35030e2d85b013f3c44472921b556ed79f92306368a3",
+      "get_code_nanos": 585913,
+      "iteration": 0,
+      "java_command_gnu_time_elapsed_seconds": 0.82,
+      "java_command_gnu_time_wait_rusage_maxrss_kib": 111228,
+      "java_process_vm_hwm_detail": "Read from /proc/self/status after all warmups and the sample",
+      "java_process_vm_hwm_kib": 110756,
+      "java_process_vm_hwm_status": "supported",
+      "mode": "protobuf",
+      "parse_nanos": 115298382,
+      "phase": "sample",
+      "producer_gnu_time_elapsed_seconds": 0.03,
+      "producer_gnu_time_wait_rusage_maxrss_kib": 87348,
+      "repeat": 1,
+      "source_sha256": "193728445b05d50bfa5c103018529d232e2f93905b6e83b7120852708f853f02",
+      "warmup_records": [
+        {
+          "ast_build_nanos": 38149822,
+          "end_to_end_nanos": 270605336,
+          "generated_code_bytes": 213,
+          "generated_code_sha256": "a2868b254b4221ef8a8b35030e2d85b013f3c44472921b556ed79f92306368a3",
+          "get_code_nanos": 8688202,
+          "iteration": 0,
+          "mode": "protobuf",
+          "parse_nanos": 223766015,
+          "phase": "warmup",
+          "producer_gnu_time_elapsed_seconds": 0.03,
+          "producer_gnu_time_wait_rusage_maxrss_kib": 87308
+        }
+      ],
+      "workload": "small"
+    },
+    {
+      "ast_build_nanos": 2342429,
+      "end_to_end_nanos": 113289312,
+      "generated_code_bytes": 213,
+      "generated_code_sha256": "a2868b254b4221ef8a8b35030e2d85b013f3c44472921b556ed79f92306368a3",
+      "get_code_nanos": 560076,
+      "iteration": 0,
+      "java_command_gnu_time_elapsed_seconds": 0.89,
+      "java_command_gnu_time_wait_rusage_maxrss_kib": 110480,
+      "java_process_vm_hwm_detail": "Read from /proc/self/status after all warmups and the sample",
+      "java_process_vm_hwm_kib": 109892,
+      "java_process_vm_hwm_status": "supported",
+      "mode": "protobuf",
+      "parse_nanos": 110386023,
+      "phase": "sample",
+      "producer_gnu_time_elapsed_seconds": 0.03,
+      "producer_gnu_time_wait_rusage_maxrss_kib": 86920,
+      "repeat": 2,
+      "source_sha256": "193728445b05d50bfa5c103018529d232e2f93905b6e83b7120852708f853f02",
+      "warmup_records": [
+        {
+          "ast_build_nanos": 44462582,
+          "end_to_end_nanos": 265557233,
+          "generated_code_bytes": 213,
+          "generated_code_sha256": "a2868b254b4221ef8a8b35030e2d85b013f3c44472921b556ed79f92306368a3",
+          "get_code_nanos": 8491493,
+          "iteration": 0,
+          "mode": "protobuf",
+          "parse_nanos": 212601884,
+          "phase": "warmup",
+          "producer_gnu_time_elapsed_seconds": 0.03,
+          "producer_gnu_time_wait_rusage_maxrss_kib": 87364
+        }
+      ],
+      "workload": "small"
+    },
+    {
+      "ast_build_nanos": 2206581,
+      "end_to_end_nanos": 119309373,
+      "generated_code_bytes": 213,
+      "generated_code_sha256": "a2868b254b4221ef8a8b35030e2d85b013f3c44472921b556ed79f92306368a3",
+      "get_code_nanos": 595015,
+      "iteration": 0,
+      "java_command_gnu_time_elapsed_seconds": 0.8,
+      "java_command_gnu_time_wait_rusage_maxrss_kib": 108844,
+      "java_process_vm_hwm_detail": "Read from /proc/self/status after all warmups and the sample",
+      "java_process_vm_hwm_kib": 108348,
+      "java_process_vm_hwm_status": "supported",
+      "mode": "json",
+      "parse_nanos": 116507025,
+      "phase": "sample",
+      "producer_gnu_time_elapsed_seconds": 0.03,
+      "producer_gnu_time_wait_rusage_maxrss_kib": 86292,
+      "repeat": 2,
+      "source_sha256": "193728445b05d50bfa5c103018529d232e2f93905b6e83b7120852708f853f02",
+      "warmup_records": [
+        {
+          "ast_build_nanos": 39451779,
+          "end_to_end_nanos": 248182595,
+          "generated_code_bytes": 213,
+          "generated_code_sha256": "a2868b254b4221ef8a8b35030e2d85b013f3c44472921b556ed79f92306368a3",
+          "get_code_nanos": 8521579,
+          "iteration": 0,
+          "mode": "json",
+          "parse_nanos": 200208156,
+          "phase": "warmup",
+          "producer_gnu_time_elapsed_seconds": 0.03,
+          "producer_gnu_time_wait_rusage_maxrss_kib": 85948
+        }
+      ],
+      "workload": "small"
+    },
+    {
+      "ast_build_nanos": 2116929,
+      "end_to_end_nanos": 116358464,
+      "generated_code_bytes": 213,
+      "generated_code_sha256": "a2868b254b4221ef8a8b35030e2d85b013f3c44472921b556ed79f92306368a3",
+      "get_code_nanos": 558288,
+      "iteration": 0,
+      "java_command_gnu_time_elapsed_seconds": 0.88,
+      "java_command_gnu_time_wait_rusage_maxrss_kib": 106800,
+      "java_process_vm_hwm_detail": "Read from /proc/self/status after all warmups and the sample",
+      "java_process_vm_hwm_kib": 105924,
+      "java_process_vm_hwm_status": "supported",
+      "mode": "json",
+      "parse_nanos": 113682611,
+      "phase": "sample",
+      "producer_gnu_time_elapsed_seconds": 0.03,
+      "producer_gnu_time_wait_rusage_maxrss_kib": 86148,
+      "repeat": 3,
+      "source_sha256": "193728445b05d50bfa5c103018529d232e2f93905b6e83b7120852708f853f02",
+      "warmup_records": [
+        {
+          "ast_build_nanos": 39109812,
+          "end_to_end_nanos": 237739396,
+          "generated_code_bytes": 213,
+          "generated_code_sha256": "a2868b254b4221ef8a8b35030e2d85b013f3c44472921b556ed79f92306368a3",
+          "get_code_nanos": 8891800,
+          "iteration": 0,
+          "mode": "json",
+          "parse_nanos": 189736331,
+          "phase": "warmup",
+          "producer_gnu_time_elapsed_seconds": 0.03,
+          "producer_gnu_time_wait_rusage_maxrss_kib": 86112
+        }
+      ],
+      "workload": "small"
+    },
+    {
+      "ast_build_nanos": 2228014,
+      "end_to_end_nanos": 115014404,
+      "generated_code_bytes": 213,
+      "generated_code_sha256": "a2868b254b4221ef8a8b35030e2d85b013f3c44472921b556ed79f92306368a3",
+      "get_code_nanos": 555159,
+      "iteration": 0,
+      "java_command_gnu_time_elapsed_seconds": 0.76,
+      "java_command_gnu_time_wait_rusage_maxrss_kib": 109392,
+      "java_process_vm_hwm_detail": "Read from /proc/self/status after all warmups and the sample",
+      "java_process_vm_hwm_kib": 108680,
+      "java_process_vm_hwm_status": "supported",
+      "mode": "protobuf",
+      "parse_nanos": 112230672,
+      "phase": "sample",
+      "producer_gnu_time_elapsed_seconds": 0.03,
+      "producer_gnu_time_wait_rusage_maxrss_kib": 87556,
+      "repeat": 3,
+      "source_sha256": "193728445b05d50bfa5c103018529d232e2f93905b6e83b7120852708f853f02",
+      "warmup_records": [
+        {
+          "ast_build_nanos": 38122565,
+          "end_to_end_nanos": 257913887,
+          "generated_code_bytes": 213,
+          "generated_code_sha256": "a2868b254b4221ef8a8b35030e2d85b013f3c44472921b556ed79f92306368a3",
+          "get_code_nanos": 8499433,
+          "iteration": 0,
+          "mode": "protobuf",
+          "parse_nanos": 211290410,
+          "phase": "warmup",
+          "producer_gnu_time_elapsed_seconds": 0.03,
+          "producer_gnu_time_wait_rusage_maxrss_kib": 87420
+        }
+      ],
+      "workload": "small"
+    },
+    {
+      "ast_build_nanos": 2088852,
+      "end_to_end_nanos": 114832714,
+      "generated_code_bytes": 213,
+      "generated_code_sha256": "a2868b254b4221ef8a8b35030e2d85b013f3c44472921b556ed79f92306368a3",
+      "get_code_nanos": 559112,
+      "iteration": 0,
+      "java_command_gnu_time_elapsed_seconds": 0.98,
+      "java_command_gnu_time_wait_rusage_maxrss_kib": 109680,
+      "java_process_vm_hwm_detail": "Read from /proc/self/status after all warmups and the sample",
+      "java_process_vm_hwm_kib": 108968,
+      "java_process_vm_hwm_status": "supported",
+      "mode": "protobuf",
+      "parse_nanos": 112184127,
+      "phase": "sample",
+      "producer_gnu_time_elapsed_seconds": 0.03,
+      "producer_gnu_time_wait_rusage_maxrss_kib": 87276,
+      "repeat": 4,
+      "source_sha256": "193728445b05d50bfa5c103018529d232e2f93905b6e83b7120852708f853f02",
+      "warmup_records": [
+        {
+          "ast_build_nanos": 48269871,
+          "end_to_end_nanos": 273520378,
+          "generated_code_bytes": 213,
+          "generated_code_sha256": "a2868b254b4221ef8a8b35030e2d85b013f3c44472921b556ed79f92306368a3",
+          "get_code_nanos": 9252433,
+          "iteration": 0,
+          "mode": "protobuf",
+          "parse_nanos": 215996603,
+          "phase": "warmup",
+          "producer_gnu_time_elapsed_seconds": 0.03,
+          "producer_gnu_time_wait_rusage_maxrss_kib": 87464
+        }
+      ],
+      "workload": "small"
+    },
+    {
+      "ast_build_nanos": 2167850,
+      "end_to_end_nanos": 120590652,
+      "generated_code_bytes": 213,
+      "generated_code_sha256": "a2868b254b4221ef8a8b35030e2d85b013f3c44472921b556ed79f92306368a3",
+      "get_code_nanos": 660662,
+      "iteration": 0,
+      "java_command_gnu_time_elapsed_seconds": 0.77,
+      "java_command_gnu_time_wait_rusage_maxrss_kib": 106908,
+      "java_process_vm_hwm_detail": "Read from /proc/self/status after all warmups and the sample",
+      "java_process_vm_hwm_kib": 106268,
+      "java_process_vm_hwm_status": "supported",
+      "mode": "json",
+      "parse_nanos": 117761346,
+      "phase": "sample",
+      "producer_gnu_time_elapsed_seconds": 0.03,
+      "producer_gnu_time_wait_rusage_maxrss_kib": 86344,
+      "repeat": 4,
+      "source_sha256": "193728445b05d50bfa5c103018529d232e2f93905b6e83b7120852708f853f02",
+      "warmup_records": [
+        {
+          "ast_build_nanos": 37026803,
+          "end_to_end_nanos": 239930011,
+          "generated_code_bytes": 213,
+          "generated_code_sha256": "a2868b254b4221ef8a8b35030e2d85b013f3c44472921b556ed79f92306368a3",
+          "get_code_nanos": 8046560,
+          "iteration": 0,
+          "mode": "json",
+          "parse_nanos": 194855215,
+          "phase": "warmup",
+          "producer_gnu_time_elapsed_seconds": 0.03,
+          "producer_gnu_time_wait_rusage_maxrss_kib": 86256
+        }
+      ],
+      "workload": "small"
+    },
+    {
+      "ast_build_nanos": 2469155,
+      "end_to_end_nanos": 112702015,
+      "generated_code_bytes": 213,
+      "generated_code_sha256": "a2868b254b4221ef8a8b35030e2d85b013f3c44472921b556ed79f92306368a3",
+      "get_code_nanos": 591594,
+      "iteration": 0,
+      "java_command_gnu_time_elapsed_seconds": 0.83,
+      "java_command_gnu_time_wait_rusage_maxrss_kib": 105756,
+      "java_process_vm_hwm_detail": "Read from /proc/self/status after all warmups and the sample",
+      "java_process_vm_hwm_kib": 105524,
+      "java_process_vm_hwm_status": "supported",
+      "mode": "json",
+      "parse_nanos": 109640646,
+      "phase": "sample",
+      "producer_gnu_time_elapsed_seconds": 0.03,
+      "producer_gnu_time_wait_rusage_maxrss_kib": 86092,
+      "repeat": 5,
+      "source_sha256": "193728445b05d50bfa5c103018529d232e2f93905b6e83b7120852708f853f02",
+      "warmup_records": [
+        {
+          "ast_build_nanos": 39342396,
+          "end_to_end_nanos": 237917969,
+          "generated_code_bytes": 213,
+          "generated_code_sha256": "a2868b254b4221ef8a8b35030e2d85b013f3c44472921b556ed79f92306368a3",
+          "get_code_nanos": 8769031,
+          "iteration": 0,
+          "mode": "json",
+          "parse_nanos": 189805394,
+          "phase": "warmup",
+          "producer_gnu_time_elapsed_seconds": 0.03,
+          "producer_gnu_time_wait_rusage_maxrss_kib": 86408
+        }
+      ],
+      "workload": "small"
+    },
+    {
+      "ast_build_nanos": 1910527,
+      "end_to_end_nanos": 103075468,
+      "generated_code_bytes": 213,
+      "generated_code_sha256": "a2868b254b4221ef8a8b35030e2d85b013f3c44472921b556ed79f92306368a3",
+      "get_code_nanos": 549187,
+      "iteration": 0,
+      "java_command_gnu_time_elapsed_seconds": 0.76,
+      "java_command_gnu_time_wait_rusage_maxrss_kib": 109000,
+      "java_process_vm_hwm_detail": "Read from /proc/self/status after all warmups and the sample",
+      "java_process_vm_hwm_kib": 108768,
+      "java_process_vm_hwm_status": "supported",
+      "mode": "protobuf",
+      "parse_nanos": 100615190,
+      "phase": "sample",
+      "producer_gnu_time_elapsed_seconds": 0.03,
+      "producer_gnu_time_wait_rusage_maxrss_kib": 87036,
+      "repeat": 5,
+      "source_sha256": "193728445b05d50bfa5c103018529d232e2f93905b6e83b7120852708f853f02",
+      "warmup_records": [
+        {
+          "ast_build_nanos": 33362019,
+          "end_to_end_nanos": 239645232,
+          "generated_code_bytes": 213,
+          "generated_code_sha256": "a2868b254b4221ef8a8b35030e2d85b013f3c44472921b556ed79f92306368a3",
+          "get_code_nanos": 7307839,
+          "iteration": 0,
+          "mode": "protobuf",
+          "parse_nanos": 198974096,
+          "phase": "warmup",
+          "producer_gnu_time_elapsed_seconds": 0.03,
+          "producer_gnu_time_wait_rusage_maxrss_kib": 86932
+        }
+      ],
+      "workload": "small"
+    },
+    {
+      "ast_build_nanos": 10501877,
+      "end_to_end_nanos": 142545167,
+      "generated_code_bytes": 4319,
+      "generated_code_sha256": "fb39c231a34ad88d982f0f3f7292eafdcc9cfafd9f9abec0d46bf73c02dd4a19",
+      "get_code_nanos": 5418014,
+      "iteration": 0,
+      "java_command_gnu_time_elapsed_seconds": 0.88,
+      "java_command_gnu_time_wait_rusage_maxrss_kib": 128752,
+      "java_process_vm_hwm_detail": "Read from /proc/self/status after all warmups and the sample",
+      "java_process_vm_hwm_kib": 128504,
+      "java_process_vm_hwm_status": "supported",
+      "mode": "json",
+      "parse_nanos": 126624125,
+      "phase": "sample",
+      "producer_gnu_time_elapsed_seconds": 0.04,
+      "producer_gnu_time_wait_rusage_maxrss_kib": 90024,
+      "repeat": 1,
+      "source_sha256": "2c82759e6ce3123d34e1a678bf2cd842b57ff57207056bbe20aa59f3403f9de0",
+      "warmup_records": [
+        {
+          "ast_build_nanos": 60983765,
+          "end_to_end_nanos": 322987780,
+          "generated_code_bytes": 4319,
+          "generated_code_sha256": "fb39c231a34ad88d982f0f3f7292eafdcc9cfafd9f9abec0d46bf73c02dd4a19",
+          "get_code_nanos": 28927398,
+          "iteration": 0,
+          "mode": "json",
+          "parse_nanos": 233074984,
+          "phase": "warmup",
+          "producer_gnu_time_elapsed_seconds": 0.11,
+          "producer_gnu_time_wait_rusage_maxrss_kib": 89560
+        }
+      ],
+      "workload": "large"
+    },
+    {
+      "ast_build_nanos": 11344964,
+      "end_to_end_nanos": 149602047,
+      "generated_code_bytes": 4319,
+      "generated_code_sha256": "fb39c231a34ad88d982f0f3f7292eafdcc9cfafd9f9abec0d46bf73c02dd4a19",
+      "get_code_nanos": 5414376,
+      "iteration": 0,
+      "java_command_gnu_time_elapsed_seconds": 1.1,
+      "java_command_gnu_time_wait_rusage_maxrss_kib": 140072,
+      "java_process_vm_hwm_detail": "Read from /proc/self/status after all warmups and the sample",
+      "java_process_vm_hwm_kib": 139460,
+      "java_process_vm_hwm_status": "supported",
+      "mode": "protobuf",
+      "parse_nanos": 132841578,
+      "phase": "sample",
+      "producer_gnu_time_elapsed_seconds": 0.04,
+      "producer_gnu_time_wait_rusage_maxrss_kib": 90732,
+      "repeat": 1,
+      "source_sha256": "2c82759e6ce3123d34e1a678bf2cd842b57ff57207056bbe20aa59f3403f9de0",
+      "warmup_records": [
+        {
+          "ast_build_nanos": 60481110,
+          "end_to_end_nanos": 376115688,
+          "generated_code_bytes": 4319,
+          "generated_code_sha256": "fb39c231a34ad88d982f0f3f7292eafdcc9cfafd9f9abec0d46bf73c02dd4a19",
+          "get_code_nanos": 26208257,
+          "iteration": 0,
+          "mode": "protobuf",
+          "parse_nanos": 289424802,
+          "phase": "warmup",
+          "producer_gnu_time_elapsed_seconds": 0.15,
+          "producer_gnu_time_wait_rusage_maxrss_kib": 90056
+        }
+      ],
+      "workload": "large"
+    },
+    {
+      "ast_build_nanos": 12229712,
+      "end_to_end_nanos": 158624539,
+      "generated_code_bytes": 4319,
+      "generated_code_sha256": "fb39c231a34ad88d982f0f3f7292eafdcc9cfafd9f9abec0d46bf73c02dd4a19",
+      "get_code_nanos": 5720768,
+      "iteration": 0,
+      "java_command_gnu_time_elapsed_seconds": 1.02,
+      "java_command_gnu_time_wait_rusage_maxrss_kib": 137480,
+      "java_process_vm_hwm_detail": "Read from /proc/self/status after all warmups and the sample",
+      "java_process_vm_hwm_kib": 137192,
+      "java_process_vm_hwm_status": "supported",
+      "mode": "protobuf",
+      "parse_nanos": 140673029,
+      "phase": "sample",
+      "producer_gnu_time_elapsed_seconds": 0.05,
+      "producer_gnu_time_wait_rusage_maxrss_kib": 90440,
+      "repeat": 2,
+      "source_sha256": "2c82759e6ce3123d34e1a678bf2cd842b57ff57207056bbe20aa59f3403f9de0",
+      "warmup_records": [
+        {
+          "ast_build_nanos": 58474468,
+          "end_to_end_nanos": 372722209,
+          "generated_code_bytes": 4319,
+          "generated_code_sha256": "fb39c231a34ad88d982f0f3f7292eafdcc9cfafd9f9abec0d46bf73c02dd4a19",
+          "get_code_nanos": 26685022,
+          "iteration": 0,
+          "mode": "protobuf",
+          "parse_nanos": 287561574,
+          "phase": "warmup",
+          "producer_gnu_time_elapsed_seconds": 0.15,
+          "producer_gnu_time_wait_rusage_maxrss_kib": 90840
+        }
+      ],
+      "workload": "large"
+    },
+    {
+      "ast_build_nanos": 11505724,
+      "end_to_end_nanos": 139793685,
+      "generated_code_bytes": 4319,
+      "generated_code_sha256": "fb39c231a34ad88d982f0f3f7292eafdcc9cfafd9f9abec0d46bf73c02dd4a19",
+      "get_code_nanos": 5882170,
+      "iteration": 0,
+      "java_command_gnu_time_elapsed_seconds": 0.91,
+      "java_command_gnu_time_wait_rusage_maxrss_kib": 128272,
+      "java_process_vm_hwm_detail": "Read from /proc/self/status after all warmups and the sample",
+      "java_process_vm_hwm_kib": 127856,
+      "java_process_vm_hwm_status": "supported",
+      "mode": "json",
+      "parse_nanos": 122404641,
+      "phase": "sample",
+      "producer_gnu_time_elapsed_seconds": 0.04,
+      "producer_gnu_time_wait_rusage_maxrss_kib": 89924,
+      "repeat": 2,
+      "source_sha256": "2c82759e6ce3123d34e1a678bf2cd842b57ff57207056bbe20aa59f3403f9de0",
+      "warmup_records": [
+        {
+          "ast_build_nanos": 65352968,
+          "end_to_end_nanos": 334043177,
+          "generated_code_bytes": 4319,
+          "generated_code_sha256": "fb39c231a34ad88d982f0f3f7292eafdcc9cfafd9f9abec0d46bf73c02dd4a19",
+          "get_code_nanos": 29145466,
+          "iteration": 0,
+          "mode": "json",
+          "parse_nanos": 239543239,
+          "phase": "warmup",
+          "producer_gnu_time_elapsed_seconds": 0.11,
+          "producer_gnu_time_wait_rusage_maxrss_kib": 90372
+        }
+      ],
+      "workload": "large"
+    },
+    {
+      "ast_build_nanos": 11126749,
+      "end_to_end_nanos": 139518779,
+      "generated_code_bytes": 4319,
+      "generated_code_sha256": "fb39c231a34ad88d982f0f3f7292eafdcc9cfafd9f9abec0d46bf73c02dd4a19",
+      "get_code_nanos": 5508253,
+      "iteration": 0,
+      "java_command_gnu_time_elapsed_seconds": 0.97,
+      "java_command_gnu_time_wait_rusage_maxrss_kib": 125608,
+      "java_process_vm_hwm_detail": "Read from /proc/self/status after all warmups and the sample",
+      "java_process_vm_hwm_kib": 125220,
+      "java_process_vm_hwm_status": "supported",
+      "mode": "json",
+      "parse_nanos": 122882476,
+      "phase": "sample",
+      "producer_gnu_time_elapsed_seconds": 0.04,
+      "producer_gnu_time_wait_rusage_maxrss_kib": 89536,
+      "repeat": 3,
+      "source_sha256": "2c82759e6ce3123d34e1a678bf2cd842b57ff57207056bbe20aa59f3403f9de0",
+      "warmup_records": [
+        {
+          "ast_build_nanos": 59648988,
+          "end_to_end_nanos": 330311531,
+          "generated_code_bytes": 4319,
+          "generated_code_sha256": "fb39c231a34ad88d982f0f3f7292eafdcc9cfafd9f9abec0d46bf73c02dd4a19",
+          "get_code_nanos": 28362783,
+          "iteration": 0,
+          "mode": "json",
+          "parse_nanos": 242298430,
+          "phase": "warmup",
+          "producer_gnu_time_elapsed_seconds": 0.11,
+          "producer_gnu_time_wait_rusage_maxrss_kib": 90364
+        }
+      ],
+      "workload": "large"
+    },
+    {
+      "ast_build_nanos": 10783913,
+      "end_to_end_nanos": 152293600,
+      "generated_code_bytes": 4319,
+      "generated_code_sha256": "fb39c231a34ad88d982f0f3f7292eafdcc9cfafd9f9abec0d46bf73c02dd4a19",
+      "get_code_nanos": 5494194,
+      "iteration": 0,
+      "java_command_gnu_time_elapsed_seconds": 1.02,
+      "java_command_gnu_time_wait_rusage_maxrss_kib": 137008,
+      "java_process_vm_hwm_detail": "Read from /proc/self/status after all warmups and the sample",
+      "java_process_vm_hwm_kib": 136292,
+      "java_process_vm_hwm_status": "supported",
+      "mode": "protobuf",
+      "parse_nanos": 136014188,
+      "phase": "sample",
+      "producer_gnu_time_elapsed_seconds": 0.05,
+      "producer_gnu_time_wait_rusage_maxrss_kib": 90028,
+      "repeat": 3,
+      "source_sha256": "2c82759e6ce3123d34e1a678bf2cd842b57ff57207056bbe20aa59f3403f9de0",
+      "warmup_records": [
+        {
+          "ast_build_nanos": 61761016,
+          "end_to_end_nanos": 379046093,
+          "generated_code_bytes": 4319,
+          "generated_code_sha256": "fb39c231a34ad88d982f0f3f7292eafdcc9cfafd9f9abec0d46bf73c02dd4a19",
+          "get_code_nanos": 25847591,
+          "iteration": 0,
+          "mode": "protobuf",
+          "parse_nanos": 291435713,
+          "phase": "warmup",
+          "producer_gnu_time_elapsed_seconds": 0.15,
+          "producer_gnu_time_wait_rusage_maxrss_kib": 90612
+        }
+      ],
+      "workload": "large"
+    },
+    {
+      "ast_build_nanos": 11167880,
+      "end_to_end_nanos": 154989484,
+      "generated_code_bytes": 4319,
+      "generated_code_sha256": "fb39c231a34ad88d982f0f3f7292eafdcc9cfafd9f9abec0d46bf73c02dd4a19",
+      "get_code_nanos": 5648888,
+      "iteration": 0,
+      "java_command_gnu_time_elapsed_seconds": 1.03,
+      "java_command_gnu_time_wait_rusage_maxrss_kib": 138832,
+      "java_process_vm_hwm_detail": "Read from /proc/self/status after all warmups and the sample",
+      "java_process_vm_hwm_kib": 138532,
+      "java_process_vm_hwm_status": "supported",
+      "mode": "protobuf",
+      "parse_nanos": 138171438,
+      "phase": "sample",
+      "producer_gnu_time_elapsed_seconds": 0.05,
+      "producer_gnu_time_wait_rusage_maxrss_kib": 90136,
+      "repeat": 4,
+      "source_sha256": "2c82759e6ce3123d34e1a678bf2cd842b57ff57207056bbe20aa59f3403f9de0",
+      "warmup_records": [
+        {
+          "ast_build_nanos": 61421770,
+          "end_to_end_nanos": 383965660,
+          "generated_code_bytes": 4319,
+          "generated_code_sha256": "fb39c231a34ad88d982f0f3f7292eafdcc9cfafd9f9abec0d46bf73c02dd4a19",
+          "get_code_nanos": 28336673,
+          "iteration": 0,
+          "mode": "protobuf",
+          "parse_nanos": 294204956,
+          "phase": "warmup",
+          "producer_gnu_time_elapsed_seconds": 0.15,
+          "producer_gnu_time_wait_rusage_maxrss_kib": 90916
+        }
+      ],
+      "workload": "large"
+    },
+    {
+      "ast_build_nanos": 11105733,
+      "end_to_end_nanos": 143670481,
+      "generated_code_bytes": 4319,
+      "generated_code_sha256": "fb39c231a34ad88d982f0f3f7292eafdcc9cfafd9f9abec0d46bf73c02dd4a19",
+      "get_code_nanos": 5387061,
+      "iteration": 0,
+      "java_command_gnu_time_elapsed_seconds": 0.89,
+      "java_command_gnu_time_wait_rusage_maxrss_kib": 129776,
+      "java_process_vm_hwm_detail": "Read from /proc/self/status after all warmups and the sample",
+      "java_process_vm_hwm_kib": 129496,
+      "java_process_vm_hwm_status": "supported",
+      "mode": "json",
+      "parse_nanos": 127176524,
+      "phase": "sample",
+      "producer_gnu_time_elapsed_seconds": 0.04,
+      "producer_gnu_time_wait_rusage_maxrss_kib": 90424,
+      "repeat": 4,
+      "source_sha256": "2c82759e6ce3123d34e1a678bf2cd842b57ff57207056bbe20aa59f3403f9de0",
+      "warmup_records": [
+        {
+          "ast_build_nanos": 65260837,
+          "end_to_end_nanos": 331276795,
+          "generated_code_bytes": 4319,
+          "generated_code_sha256": "fb39c231a34ad88d982f0f3f7292eafdcc9cfafd9f9abec0d46bf73c02dd4a19",
+          "get_code_nanos": 28200742,
+          "iteration": 0,
+          "mode": "json",
+          "parse_nanos": 237812960,
+          "phase": "warmup",
+          "producer_gnu_time_elapsed_seconds": 0.11,
+          "producer_gnu_time_wait_rusage_maxrss_kib": 89700
+        }
+      ],
+      "workload": "large"
+    },
+    {
+      "ast_build_nanos": 11258723,
+      "end_to_end_nanos": 143304328,
+      "generated_code_bytes": 4319,
+      "generated_code_sha256": "fb39c231a34ad88d982f0f3f7292eafdcc9cfafd9f9abec0d46bf73c02dd4a19",
+      "get_code_nanos": 5666400,
+      "iteration": 0,
+      "java_command_gnu_time_elapsed_seconds": 0.97,
+      "java_command_gnu_time_wait_rusage_maxrss_kib": 129508,
+      "java_process_vm_hwm_detail": "Read from /proc/self/status after all warmups and the sample",
+      "java_process_vm_hwm_kib": 128872,
+      "java_process_vm_hwm_status": "supported",
+      "mode": "json",
+      "parse_nanos": 126377948,
+      "phase": "sample",
+      "producer_gnu_time_elapsed_seconds": 0.04,
+      "producer_gnu_time_wait_rusage_maxrss_kib": 90408,
+      "repeat": 5,
+      "source_sha256": "2c82759e6ce3123d34e1a678bf2cd842b57ff57207056bbe20aa59f3403f9de0",
+      "warmup_records": [
+        {
+          "ast_build_nanos": 63142165,
+          "end_to_end_nanos": 332205732,
+          "generated_code_bytes": 4319,
+          "generated_code_sha256": "fb39c231a34ad88d982f0f3f7292eafdcc9cfafd9f9abec0d46bf73c02dd4a19",
+          "get_code_nanos": 30049775,
+          "iteration": 0,
+          "mode": "json",
+          "parse_nanos": 239011895,
+          "phase": "warmup",
+          "producer_gnu_time_elapsed_seconds": 0.11,
+          "producer_gnu_time_wait_rusage_maxrss_kib": 89944
+        }
+      ],
+      "workload": "large"
+    },
+    {
+      "ast_build_nanos": 11464659,
+      "end_to_end_nanos": 156303820,
+      "generated_code_bytes": 4319,
+      "generated_code_sha256": "fb39c231a34ad88d982f0f3f7292eafdcc9cfafd9f9abec0d46bf73c02dd4a19",
+      "get_code_nanos": 5572568,
+      "iteration": 0,
+      "java_command_gnu_time_elapsed_seconds": 1.04,
+      "java_command_gnu_time_wait_rusage_maxrss_kib": 136556,
+      "java_process_vm_hwm_detail": "Read from /proc/self/status after all warmups and the sample",
+      "java_process_vm_hwm_kib": 135948,
+      "java_process_vm_hwm_status": "supported",
+      "mode": "protobuf",
+      "parse_nanos": 139265318,
+      "phase": "sample",
+      "producer_gnu_time_elapsed_seconds": 0.05,
+      "producer_gnu_time_wait_rusage_maxrss_kib": 90580,
+      "repeat": 5,
+      "source_sha256": "2c82759e6ce3123d34e1a678bf2cd842b57ff57207056bbe20aa59f3403f9de0",
+      "warmup_records": [
+        {
+          "ast_build_nanos": 60158251,
+          "end_to_end_nanos": 383695867,
+          "generated_code_bytes": 4319,
+          "generated_code_sha256": "fb39c231a34ad88d982f0f3f7292eafdcc9cfafd9f9abec0d46bf73c02dd4a19",
+          "get_code_nanos": 26746842,
+          "iteration": 0,
+          "mode": "protobuf",
+          "parse_nanos": 296789125,
+          "phase": "warmup",
+          "producer_gnu_time_elapsed_seconds": 0.16,
+          "producer_gnu_time_wait_rusage_maxrss_kib": 90240
+        }
+      ],
+      "workload": "large"
+    },
+    {
+      "ast_build_nanos": 22553699,
+      "end_to_end_nanos": 203253811,
+      "generated_code_bytes": 11321,
+      "generated_code_sha256": "7ec390e819f6dd20f9c5975914666106d6486174f2888dc8ab72c44c9b3f784c",
+      "get_code_nanos": 6119184,
+      "iteration": 0,
+      "java_command_gnu_time_elapsed_seconds": 1.19,
+      "java_command_gnu_time_wait_rusage_maxrss_kib": 219464,
+      "java_process_vm_hwm_detail": "Read from /proc/self/status after all warmups and the sample",
+      "java_process_vm_hwm_kib": 218992,
+      "java_process_vm_hwm_status": "supported",
+      "mode": "json",
+      "parse_nanos": 174579294,
+      "phase": "sample",
+      "producer_gnu_time_elapsed_seconds": 0.06,
+      "producer_gnu_time_wait_rusage_maxrss_kib": 88208,
+      "repeat": 1,
+      "source_sha256": "f78cfb075508355f53a84cfa4140116bf12cd7ed74deb4743896d3bfbe1bf262",
+      "warmup_records": [
+        {
+          "ast_build_nanos": 100302714,
+          "end_to_end_nanos": 433398204,
+          "generated_code_bytes": 11321,
+          "generated_code_sha256": "7ec390e819f6dd20f9c5975914666106d6486174f2888dc8ab72c44c9b3f784c",
+          "get_code_nanos": 19784236,
+          "iteration": 0,
+          "mode": "json",
+          "parse_nanos": 313309047,
+          "phase": "warmup",
+          "producer_gnu_time_elapsed_seconds": 0.13,
+          "producer_gnu_time_wait_rusage_maxrss_kib": 88600
+        }
+      ],
+      "workload": "synthetic/assignment-chain-512"
+    },
+    {
+      "ast_build_nanos": 30848701,
+      "end_to_end_nanos": 246373970,
+      "generated_code_bytes": 11321,
+      "generated_code_sha256": "7ec390e819f6dd20f9c5975914666106d6486174f2888dc8ab72c44c9b3f784c",
+      "get_code_nanos": 6412540,
+      "iteration": 0,
+      "java_command_gnu_time_elapsed_seconds": 1.3,
+      "java_command_gnu_time_wait_rusage_maxrss_kib": 220804,
+      "java_process_vm_hwm_detail": "Read from /proc/self/status after all warmups and the sample",
+      "java_process_vm_hwm_kib": 219356,
+      "java_process_vm_hwm_status": "supported",
+      "mode": "protobuf",
+      "parse_nanos": 209111187,
+      "phase": "sample",
+      "producer_gnu_time_elapsed_seconds": 0.08,
+      "producer_gnu_time_wait_rusage_maxrss_kib": 91052,
+      "repeat": 1,
+      "source_sha256": "f78cfb075508355f53a84cfa4140116bf12cd7ed74deb4743896d3bfbe1bf262",
+      "warmup_records": [
+        {
+          "ast_build_nanos": 76744672,
+          "end_to_end_nanos": 476601615,
+          "generated_code_bytes": 11321,
+          "generated_code_sha256": "7ec390e819f6dd20f9c5975914666106d6486174f2888dc8ab72c44c9b3f784c",
+          "get_code_nanos": 19201794,
+          "iteration": 0,
+          "mode": "protobuf",
+          "parse_nanos": 380653443,
+          "phase": "warmup",
+          "producer_gnu_time_elapsed_seconds": 0.19,
+          "producer_gnu_time_wait_rusage_maxrss_kib": 90324
+        }
+      ],
+      "workload": "synthetic/assignment-chain-512"
+    },
+    {
+      "ast_build_nanos": 26431240,
+      "end_to_end_nanos": 242921992,
+      "generated_code_bytes": 11321,
+      "generated_code_sha256": "7ec390e819f6dd20f9c5975914666106d6486174f2888dc8ab72c44c9b3f784c",
+      "get_code_nanos": 5917290,
+      "iteration": 0,
+      "java_command_gnu_time_elapsed_seconds": 1.1,
+      "java_command_gnu_time_wait_rusage_maxrss_kib": 219464,
+      "java_process_vm_hwm_detail": "Read from /proc/self/status after all warmups and the sample",
+      "java_process_vm_hwm_kib": 218956,
+      "java_process_vm_hwm_status": "supported",
+      "mode": "protobuf",
+      "parse_nanos": 210572255,
+      "phase": "sample",
+      "producer_gnu_time_elapsed_seconds": 0.08,
+      "producer_gnu_time_wait_rusage_maxrss_kib": 91168,
+      "repeat": 2,
+      "source_sha256": "f78cfb075508355f53a84cfa4140116bf12cd7ed74deb4743896d3bfbe1bf262",
+      "warmup_records": [
+        {
+          "ast_build_nanos": 78425005,
+          "end_to_end_nanos": 477245786,
+          "generated_code_bytes": 11321,
+          "generated_code_sha256": "7ec390e819f6dd20f9c5975914666106d6486174f2888dc8ab72c44c9b3f784c",
+          "get_code_nanos": 19614441,
+          "iteration": 0,
+          "mode": "protobuf",
+          "parse_nanos": 379204844,
+          "phase": "warmup",
+          "producer_gnu_time_elapsed_seconds": 0.19,
+          "producer_gnu_time_wait_rusage_maxrss_kib": 90200
+        }
+      ],
+      "workload": "synthetic/assignment-chain-512"
+    },
+    {
+      "ast_build_nanos": 15021062,
+      "end_to_end_nanos": 186218435,
+      "generated_code_bytes": 11321,
+      "generated_code_sha256": "7ec390e819f6dd20f9c5975914666106d6486174f2888dc8ab72c44c9b3f784c",
+      "get_code_nanos": 5588009,
+      "iteration": 0,
+      "java_command_gnu_time_elapsed_seconds": 0.94,
+      "java_command_gnu_time_wait_rusage_maxrss_kib": 207304,
+      "java_process_vm_hwm_detail": "Read from /proc/self/status after all warmups and the sample",
+      "java_process_vm_hwm_kib": 206768,
+      "java_process_vm_hwm_status": "supported",
+      "mode": "json",
+      "parse_nanos": 165608002,
+      "phase": "sample",
+      "producer_gnu_time_elapsed_seconds": 0.06,
+      "producer_gnu_time_wait_rusage_maxrss_kib": 88120,
+      "repeat": 2,
+      "source_sha256": "f78cfb075508355f53a84cfa4140116bf12cd7ed74deb4743896d3bfbe1bf262",
+      "warmup_records": [
+        {
+          "ast_build_nanos": 78495955,
+          "end_to_end_nanos": 387315565,
+          "generated_code_bytes": 11321,
+          "generated_code_sha256": "7ec390e819f6dd20f9c5975914666106d6486174f2888dc8ab72c44c9b3f784c",
+          "get_code_nanos": 19357873,
+          "iteration": 0,
+          "mode": "json",
+          "parse_nanos": 289459672,
+          "phase": "warmup",
+          "producer_gnu_time_elapsed_seconds": 0.12,
+          "producer_gnu_time_wait_rusage_maxrss_kib": 88076
+        }
+      ],
+      "workload": "synthetic/assignment-chain-512"
+    },
+    {
+      "ast_build_nanos": 21892837,
+      "end_to_end_nanos": 189216694,
+      "generated_code_bytes": 11321,
+      "generated_code_sha256": "7ec390e819f6dd20f9c5975914666106d6486174f2888dc8ab72c44c9b3f784c",
+      "get_code_nanos": 5574795,
+      "iteration": 0,
+      "java_command_gnu_time_elapsed_seconds": 1.07,
+      "java_command_gnu_time_wait_rusage_maxrss_kib": 219200,
+      "java_process_vm_hwm_detail": "Read from /proc/self/status after all warmups and the sample",
+      "java_process_vm_hwm_kib": 218648,
+      "java_process_vm_hwm_status": "supported",
+      "mode": "json",
+      "parse_nanos": 161747823,
+      "phase": "sample",
+      "producer_gnu_time_elapsed_seconds": 0.06,
+      "producer_gnu_time_wait_rusage_maxrss_kib": 87944,
+      "repeat": 3,
+      "source_sha256": "f78cfb075508355f53a84cfa4140116bf12cd7ed74deb4743896d3bfbe1bf262",
+      "warmup_records": [
+        {
+          "ast_build_nanos": 80295681,
+          "end_to_end_nanos": 386715937,
+          "generated_code_bytes": 11321,
+          "generated_code_sha256": "7ec390e819f6dd20f9c5975914666106d6486174f2888dc8ab72c44c9b3f784c",
+          "get_code_nanos": 18816534,
+          "iteration": 0,
+          "mode": "json",
+          "parse_nanos": 287602155,
+          "phase": "warmup",
+          "producer_gnu_time_elapsed_seconds": 0.12,
+          "producer_gnu_time_wait_rusage_maxrss_kib": 88164
+        }
+      ],
+      "workload": "synthetic/assignment-chain-512"
+    },
+    {
+      "ast_build_nanos": 26835696,
+      "end_to_end_nanos": 229611157,
+      "generated_code_bytes": 11321,
+      "generated_code_sha256": "7ec390e819f6dd20f9c5975914666106d6486174f2888dc8ab72c44c9b3f784c",
+      "get_code_nanos": 5162023,
+      "iteration": 0,
+      "java_command_gnu_time_elapsed_seconds": 1.15,
+      "java_command_gnu_time_wait_rusage_maxrss_kib": 223396,
+      "java_process_vm_hwm_detail": "Read from /proc/self/status after all warmups and the sample",
+      "java_process_vm_hwm_kib": 223328,
+      "java_process_vm_hwm_status": "supported",
+      "mode": "protobuf",
+      "parse_nanos": 197611956,
+      "phase": "sample",
+      "producer_gnu_time_elapsed_seconds": 0.08,
+      "producer_gnu_time_wait_rusage_maxrss_kib": 90808,
+      "repeat": 3,
+      "source_sha256": "f78cfb075508355f53a84cfa4140116bf12cd7ed74deb4743896d3bfbe1bf262",
+      "warmup_records": [
+        {
+          "ast_build_nanos": 78588003,
+          "end_to_end_nanos": 455278502,
+          "generated_code_bytes": 11321,
+          "generated_code_sha256": "7ec390e819f6dd20f9c5975914666106d6486174f2888dc8ab72c44c9b3f784c",
+          "get_code_nanos": 18275558,
+          "iteration": 0,
+          "mode": "protobuf",
+          "parse_nanos": 358413070,
+          "phase": "warmup",
+          "producer_gnu_time_elapsed_seconds": 0.18,
+          "producer_gnu_time_wait_rusage_maxrss_kib": 91072
+        }
+      ],
+      "workload": "synthetic/assignment-chain-512"
+    },
+    {
+      "ast_build_nanos": 16248703,
+      "end_to_end_nanos": 205271867,
+      "generated_code_bytes": 11321,
+      "generated_code_sha256": "7ec390e819f6dd20f9c5975914666106d6486174f2888dc8ab72c44c9b3f784c",
+      "get_code_nanos": 5479965,
+      "iteration": 0,
+      "java_command_gnu_time_elapsed_seconds": 1.24,
+      "java_command_gnu_time_wait_rusage_maxrss_kib": 218756,
+      "java_process_vm_hwm_detail": "Read from /proc/self/status after all warmups and the sample",
+      "java_process_vm_hwm_kib": 218368,
+      "java_process_vm_hwm_status": "supported",
+      "mode": "protobuf",
+      "parse_nanos": 183541431,
+      "phase": "sample",
+      "producer_gnu_time_elapsed_seconds": 0.07,
+      "producer_gnu_time_wait_rusage_maxrss_kib": 91180,
+      "repeat": 4,
+      "source_sha256": "f78cfb075508355f53a84cfa4140116bf12cd7ed74deb4743896d3bfbe1bf262",
+      "warmup_records": [
+        {
+          "ast_build_nanos": 73534578,
+          "end_to_end_nanos": 460090435,
+          "generated_code_bytes": 11321,
+          "generated_code_sha256": "7ec390e819f6dd20f9c5975914666106d6486174f2888dc8ab72c44c9b3f784c",
+          "get_code_nanos": 17288302,
+          "iteration": 0,
+          "mode": "protobuf",
+          "parse_nanos": 369266152,
+          "phase": "warmup",
+          "producer_gnu_time_elapsed_seconds": 0.19,
+          "producer_gnu_time_wait_rusage_maxrss_kib": 90960
+        }
+      ],
+      "workload": "synthetic/assignment-chain-512"
+    },
+    {
+      "ast_build_nanos": 14366135,
+      "end_to_end_nanos": 178575498,
+      "generated_code_bytes": 11321,
+      "generated_code_sha256": "7ec390e819f6dd20f9c5975914666106d6486174f2888dc8ab72c44c9b3f784c",
+      "get_code_nanos": 5761363,
+      "iteration": 0,
+      "java_command_gnu_time_elapsed_seconds": 0.99,
+      "java_command_gnu_time_wait_rusage_maxrss_kib": 207292,
+      "java_process_vm_hwm_detail": "Read from /proc/self/status after all warmups and the sample",
+      "java_process_vm_hwm_kib": 207008,
+      "java_process_vm_hwm_status": "supported",
+      "mode": "json",
+      "parse_nanos": 158446781,
+      "phase": "sample",
+      "producer_gnu_time_elapsed_seconds": 0.06,
+      "producer_gnu_time_wait_rusage_maxrss_kib": 88608,
+      "repeat": 4,
+      "source_sha256": "f78cfb075508355f53a84cfa4140116bf12cd7ed74deb4743896d3bfbe1bf262",
+      "warmup_records": [
+        {
+          "ast_build_nanos": 86456450,
+          "end_to_end_nanos": 385290661,
+          "generated_code_bytes": 11321,
+          "generated_code_sha256": "7ec390e819f6dd20f9c5975914666106d6486174f2888dc8ab72c44c9b3f784c",
+          "get_code_nanos": 18860011,
+          "iteration": 0,
+          "mode": "json",
+          "parse_nanos": 279972980,
+          "phase": "warmup",
+          "producer_gnu_time_elapsed_seconds": 0.12,
+          "producer_gnu_time_wait_rusage_maxrss_kib": 88224
+        }
+      ],
+      "workload": "synthetic/assignment-chain-512"
+    },
+    {
+      "ast_build_nanos": 14557086,
+      "end_to_end_nanos": 179111520,
+      "generated_code_bytes": 11321,
+      "generated_code_sha256": "7ec390e819f6dd20f9c5975914666106d6486174f2888dc8ab72c44c9b3f784c",
+      "get_code_nanos": 5775768,
+      "iteration": 0,
+      "java_command_gnu_time_elapsed_seconds": 0.98,
+      "java_command_gnu_time_wait_rusage_maxrss_kib": 209280,
+      "java_process_vm_hwm_detail": "Read from /proc/self/status after all warmups and the sample",
+      "java_process_vm_hwm_kib": 209004,
+      "java_process_vm_hwm_status": "supported",
+      "mode": "json",
+      "parse_nanos": 158777311,
+      "phase": "sample",
+      "producer_gnu_time_elapsed_seconds": 0.06,
+      "producer_gnu_time_wait_rusage_maxrss_kib": 88568,
+      "repeat": 5,
+      "source_sha256": "f78cfb075508355f53a84cfa4140116bf12cd7ed74deb4743896d3bfbe1bf262",
+      "warmup_records": [
+        {
+          "ast_build_nanos": 86735478,
+          "end_to_end_nanos": 379476396,
+          "generated_code_bytes": 11321,
+          "generated_code_sha256": "7ec390e819f6dd20f9c5975914666106d6486174f2888dc8ab72c44c9b3f784c",
+          "get_code_nanos": 18280756,
+          "iteration": 0,
+          "mode": "json",
+          "parse_nanos": 274458814,
+          "phase": "warmup",
+          "producer_gnu_time_elapsed_seconds": 0.12,
+          "producer_gnu_time_wait_rusage_maxrss_kib": 87856
+        }
+      ],
+      "workload": "synthetic/assignment-chain-512"
+    },
+    {
+      "ast_build_nanos": 16728371,
+      "end_to_end_nanos": 204499513,
+      "generated_code_bytes": 11321,
+      "generated_code_sha256": "7ec390e819f6dd20f9c5975914666106d6486174f2888dc8ab72c44c9b3f784c",
+      "get_code_nanos": 5609367,
+      "iteration": 0,
+      "java_command_gnu_time_elapsed_seconds": 1.12,
+      "java_command_gnu_time_wait_rusage_maxrss_kib": 221992,
+      "java_process_vm_hwm_detail": "Read from /proc/self/status after all warmups and the sample",
+      "java_process_vm_hwm_kib": 221612,
+      "java_process_vm_hwm_status": "supported",
+      "mode": "protobuf",
+      "parse_nanos": 182160563,
+      "phase": "sample",
+      "producer_gnu_time_elapsed_seconds": 0.07,
+      "producer_gnu_time_wait_rusage_maxrss_kib": 90584,
+      "repeat": 5,
+      "source_sha256": "f78cfb075508355f53a84cfa4140116bf12cd7ed74deb4743896d3bfbe1bf262",
+      "warmup_records": [
+        {
+          "ast_build_nanos": 80756600,
+          "end_to_end_nanos": 455794527,
+          "generated_code_bytes": 11321,
+          "generated_code_sha256": "7ec390e819f6dd20f9c5975914666106d6486174f2888dc8ab72c44c9b3f784c",
+          "get_code_nanos": 18044311,
+          "iteration": 0,
+          "mode": "protobuf",
+          "parse_nanos": 356991757,
+          "phase": "warmup",
+          "producer_gnu_time_elapsed_seconds": 0.18,
+          "producer_gnu_time_wait_rusage_maxrss_kib": 91176
+        }
+      ],
+      "workload": "synthetic/assignment-chain-512"
+    }
+  ],
+  "medians": [
+    {
+      "comparison": {
+        "protobuf_over_json_end_to_end_nanos_ratio": 0.9624785640269855,
+        "protobuf_over_json_java_command_gnu_time_wait_rusage_maxrss_kib_ratio": 1.0269662921348315,
+        "protobuf_over_json_java_process_vm_hwm_kib_ratio": 1.0287375854386163,
+        "protobuf_over_json_producer_gnu_time_elapsed_seconds_ratio": 1.0,
+        "protobuf_over_json_producer_gnu_time_wait_rusage_maxrss_kib_ratio": 1.0130937456470261,
+        "protobuf_vs_json_end_to_end_nanos_percent": -3.7521435973014494,
+        "protobuf_vs_json_java_command_gnu_time_wait_rusage_maxrss_kib_percent": 2.696629213483148,
+        "protobuf_vs_json_java_process_vm_hwm_kib_percent": 2.8737585438616264,
+        "protobuf_vs_json_producer_gnu_time_elapsed_seconds_percent": 0.0,
+        "protobuf_vs_json_producer_gnu_time_wait_rusage_maxrss_kib_percent": 1.3093745647026145
+      },
+      "modes": {
+        "json": {
+          "median_ast_build_nanos": 2206581,
+          "median_end_to_end_nanos": 119309373,
+          "median_get_code_nanos": 591594,
+          "median_java_command_gnu_time_elapsed_seconds": 0.81,
+          "median_java_command_gnu_time_wait_rusage_maxrss_kib": 106800,
+          "median_java_process_vm_hwm_kib": 105924,
+          "median_parse_nanos": 116507025,
+          "median_producer_gnu_time_elapsed_seconds": 0.03,
+          "median_producer_gnu_time_wait_rusage_maxrss_kib": 86148
+        },
+        "protobuf": {
+          "median_ast_build_nanos": 2110105,
+          "median_end_to_end_nanos": 114832714,
+          "median_get_code_nanos": 559112,
+          "median_java_command_gnu_time_elapsed_seconds": 0.82,
+          "median_java_command_gnu_time_wait_rusage_maxrss_kib": 109680,
+          "median_java_process_vm_hwm_kib": 108968,
+          "median_parse_nanos": 112184127,
+          "median_producer_gnu_time_elapsed_seconds": 0.03,
+          "median_producer_gnu_time_wait_rusage_maxrss_kib": 87276
+        }
+      },
+      "repeats": 5,
+      "workload": "small"
+    },
+    {
+      "comparison": {
+        "protobuf_over_json_end_to_end_nanos_ratio": 1.087300869344802,
+        "protobuf_over_json_java_command_gnu_time_wait_rusage_maxrss_kib_ratio": 1.0677892382254257,
+        "protobuf_over_json_java_process_vm_hwm_kib_ratio": 1.067608790387848,
+        "protobuf_over_json_producer_gnu_time_elapsed_seconds_ratio": 1.25,
+        "protobuf_over_json_producer_gnu_time_wait_rusage_maxrss_kib_ratio": 1.0046209899582335,
+        "protobuf_vs_json_end_to_end_nanos_percent": 8.730086934480209,
+        "protobuf_vs_json_java_command_gnu_time_wait_rusage_maxrss_kib_percent": 6.778923822542571,
+        "protobuf_vs_json_java_process_vm_hwm_kib_percent": 6.760879038784795,
+        "protobuf_vs_json_producer_gnu_time_elapsed_seconds_percent": 25.0,
+        "protobuf_vs_json_producer_gnu_time_wait_rusage_maxrss_kib_percent": 0.4620989958233457
+      },
+      "modes": {
+        "json": {
+          "median_ast_build_nanos": 11126749,
+          "median_end_to_end_nanos": 142545167,
+          "median_get_code_nanos": 5508253,
+          "median_java_command_gnu_time_elapsed_seconds": 0.91,
+          "median_java_command_gnu_time_wait_rusage_maxrss_kib": 128752,
+          "median_java_process_vm_hwm_kib": 128504,
+          "median_parse_nanos": 126377948,
+          "median_producer_gnu_time_elapsed_seconds": 0.04,
+          "median_producer_gnu_time_wait_rusage_maxrss_kib": 90024
+        },
+        "protobuf": {
+          "median_ast_build_nanos": 11344964,
+          "median_end_to_end_nanos": 154989484,
+          "median_get_code_nanos": 5572568,
+          "median_java_command_gnu_time_elapsed_seconds": 1.03,
+          "median_java_command_gnu_time_wait_rusage_maxrss_kib": 137480,
+          "median_java_process_vm_hwm_kib": 137192,
+          "median_parse_nanos": 138171438,
+          "median_producer_gnu_time_elapsed_seconds": 0.05,
+          "median_producer_gnu_time_wait_rusage_maxrss_kib": 90440
+        }
+      },
+      "repeats": 5,
+      "workload": "large"
+    },
+    {
+      "comparison": {
+        "protobuf_over_json_end_to_end_nanos_ratio": 1.2330205492275779,
+        "protobuf_over_json_java_command_gnu_time_wait_rusage_maxrss_kib_ratio": 1.0550649847094802,
+        "protobuf_over_json_java_process_vm_hwm_kib_ratio": 1.0495301525329659,
+        "protobuf_over_json_producer_gnu_time_elapsed_seconds_ratio": 1.3333333333333335,
+        "protobuf_over_json_producer_gnu_time_wait_rusage_maxrss_kib_ratio": 1.0322419735171413,
+        "protobuf_vs_json_end_to_end_nanos_percent": 23.302054922757787,
+        "protobuf_vs_json_java_command_gnu_time_wait_rusage_maxrss_kib_percent": 5.506498470948018,
+        "protobuf_vs_json_java_process_vm_hwm_kib_percent": 4.953015253296589,
+        "protobuf_vs_json_producer_gnu_time_elapsed_seconds_percent": 33.33333333333335,
+        "protobuf_vs_json_producer_gnu_time_wait_rusage_maxrss_kib_percent": 3.224197351714131
+      },
+      "modes": {
+        "json": {
+          "median_ast_build_nanos": 15021062,
+          "median_end_to_end_nanos": 186218435,
+          "median_get_code_nanos": 5761363,
+          "median_java_command_gnu_time_elapsed_seconds": 0.99,
+          "median_java_command_gnu_time_wait_rusage_maxrss_kib": 209280,
+          "median_java_process_vm_hwm_kib": 209004,
+          "median_parse_nanos": 161747823,
+          "median_producer_gnu_time_elapsed_seconds": 0.06,
+          "median_producer_gnu_time_wait_rusage_maxrss_kib": 88208
+        },
+        "protobuf": {
+          "median_ast_build_nanos": 26431240,
+          "median_end_to_end_nanos": 229611157,
+          "median_get_code_nanos": 5609367,
+          "median_java_command_gnu_time_elapsed_seconds": 1.15,
+          "median_java_command_gnu_time_wait_rusage_maxrss_kib": 220804,
+          "median_java_process_vm_hwm_kib": 219356,
+          "median_parse_nanos": 197611956,
+          "median_producer_gnu_time_elapsed_seconds": 0.08,
+          "median_producer_gnu_time_wait_rusage_maxrss_kib": 91052
+        }
+      },
+      "repeats": 5,
+      "workload": "synthetic/assignment-chain-512"
+    }
+  ],
+  "parity_preflight": [
+    {
+      "generated_code_equal": true,
+      "json": {
+        "ast_build_nanos": 42994045,
+        "end_to_end_nanos": 236054978,
+        "generated_code_bytes": 213,
+        "generated_code_sha256": "a2868b254b4221ef8a8b35030e2d85b013f3c44472921b556ed79f92306368a3",
+        "get_code_nanos": 8571635,
+        "iteration": 0,
+        "mode": "json",
+        "parse_nanos": 184487913,
+        "phase": "sample",
+        "producer_gnu_time_elapsed_seconds": 0.03,
+        "producer_gnu_time_wait_rusage_maxrss_kib": 85960
+      },
+      "protobuf": {
+        "ast_build_nanos": 39000899,
+        "end_to_end_nanos": 288052680,
+        "generated_code_bytes": 213,
+        "generated_code_sha256": "a2868b254b4221ef8a8b35030e2d85b013f3c44472921b556ed79f92306368a3",
+        "get_code_nanos": 8900119,
+        "iteration": 0,
+        "mode": "protobuf",
+        "parse_nanos": 240150481,
+        "phase": "sample",
+        "producer_gnu_time_elapsed_seconds": 0.03,
+        "producer_gnu_time_wait_rusage_maxrss_kib": 87284
+      },
+      "source": {
+        "label": "small",
+        "path": "/home/lmsousa/.t3/worktrees/metafor/flang-protobuf-reader/FortranParser/resources-test/fortran/parser/hello.f90",
+        "sha256": "193728445b05d50bfa5c103018529d232e2f93905b6e83b7120852708f853f02",
+        "source_bytes": 216
+      },
+      "workload": "small"
+    },
+    {
+      "generated_code_equal": true,
+      "json": {
+        "ast_build_nanos": 89419543,
+        "end_to_end_nanos": 406848554,
+        "generated_code_bytes": 4319,
+        "generated_code_sha256": "fb39c231a34ad88d982f0f3f7292eafdcc9cfafd9f9abec0d46bf73c02dd4a19",
+        "get_code_nanos": 43721997,
+        "iteration": 0,
+        "mode": "json",
+        "parse_nanos": 273705546,
+        "phase": "sample",
+        "producer_gnu_time_elapsed_seconds": 0.13,
+        "producer_gnu_time_wait_rusage_maxrss_kib": 89724
+      },
+      "protobuf": {
+        "ast_build_nanos": 111545206,
+        "end_to_end_nanos": 480295626,
+        "generated_code_bytes": 4319,
+        "generated_code_sha256": "fb39c231a34ad88d982f0f3f7292eafdcc9cfafd9f9abec0d46bf73c02dd4a19",
+        "get_code_nanos": 34174917,
+        "iteration": 0,
+        "mode": "protobuf",
+        "parse_nanos": 334573910,
+        "phase": "sample",
+        "producer_gnu_time_elapsed_seconds": 0.17,
+        "producer_gnu_time_wait_rusage_maxrss_kib": 90820
+      },
+      "source": {
+        "label": "large",
+        "path": "/home/lmsousa/.t3/worktrees/metafor/flang-protobuf-reader/FortranParser/resources-test/fortran/parser/polybench/3mm.f90",
+        "sha256": "2c82759e6ce3123d34e1a678bf2cd842b57ff57207056bbe20aa59f3403f9de0",
+        "source_bytes": 4327
+      },
+      "workload": "large"
+    },
+    {
+      "generated_code_equal": true,
+      "json": {
+        "ast_build_nanos": 174089796,
+        "end_to_end_nanos": 616598787,
+        "generated_code_bytes": 11321,
+        "generated_code_sha256": "7ec390e819f6dd20f9c5975914666106d6486174f2888dc8ab72c44c9b3f784c",
+        "get_code_nanos": 43155072,
+        "iteration": 0,
+        "mode": "json",
+        "parse_nanos": 399351615,
+        "phase": "sample",
+        "producer_gnu_time_elapsed_seconds": 0.16,
+        "producer_gnu_time_wait_rusage_maxrss_kib": 87860
+      },
+      "protobuf": {
+        "ast_build_nanos": 113924088,
+        "end_to_end_nanos": 639409272,
+        "generated_code_bytes": 11321,
+        "generated_code_sha256": "7ec390e819f6dd20f9c5975914666106d6486174f2888dc8ab72c44c9b3f784c",
+        "get_code_nanos": 30523951,
+        "iteration": 0,
+        "mode": "protobuf",
+        "parse_nanos": 494959307,
+        "phase": "sample",
+        "producer_gnu_time_elapsed_seconds": 0.23,
+        "producer_gnu_time_wait_rusage_maxrss_kib": 90516
+      },
+      "source": {
+        "label": "synthetic/assignment-chain-512",
+        "path": "/home/lmsousa/.t3/worktrees/metafor/flang-protobuf-reader/FortranParser/build/benchmark/synthetic-assignment-512.f90",
+        "sha256": "f78cfb075508355f53a84cfa4140116bf12cd7ed74deb4743896d3bfbe1bf262",
+        "source_bytes": 10823
+      },
+      "workload": "synthetic/assignment-chain-512"
+    }
+  ],
+  "provenance": {
+    "classpath_sha256": "a3939884c64e2b8bd81f4874f8acf33db1d90f1eaae2efeda8ea944cbd7eaa15",
+    "environment": {
+      "LD_LIBRARY_PATH": "/tmp/flang22-libflang.woWtRQ/extracted/usr/lib/x86_64-linux-gnu:/tmp/flang22-libflang.woWtRQ/extracted/usr/lib/llvm-22/lib:/usr/lib/x86_64-linux-gnu",
+      "SPECS_JAVA_LIBS_HOME": "/home/lmsousa/Documents/Projects/SPeCS/master/specs-java-libs",
+      "java_heap_arguments": [
+        "-Xms256m",
+        "-Xmx1g"
+      ]
+    },
+    "flang": {
+      "path": "/tmp/flang22-libflang.woWtRQ/extracted/usr/lib/llvm-22/bin/flang-22",
+      "sha256": "b9db3466cfae7ad4feb3f710f60b36e6baa6e6df58bccdd46140754ee5d1b735"
+    },
+    "git_head": "7b98368b9f15ff8f9215b1ad3605e05b06ea0184",
+    "git_status_before_measurements": [
+      "?? FortranParser/scripts/__pycache__/"
+    ],
+    "harness_hashes": {
+      "gradle_build": {
+        "path": "/home/lmsousa/.t3/worktrees/metafor/flang-protobuf-reader/FortranParser/build.gradle",
+        "sha256": "e23e9841bb7a1c75ed7bfc36e338f951dc12fc0cbdaad773482be69716d1bfca"
+      },
+      "java_entrypoint": {
+        "path": "/home/lmsousa/.t3/worktrees/metafor/flang-protobuf-reader/FortranParser/src/pt/up/fe/specs/fortran/parser/FortranEndToEndBenchmark.java",
+        "sha256": "7030b1252d6d3b3a496f002861b15d371ae87bc150c20fda432696662b6cfc04"
+      },
+      "python_driver": {
+        "path": "/home/lmsousa/.t3/worktrees/metafor/flang-protobuf-reader/FortranParser/scripts/benchmark-native-end-to-end.py",
+        "sha256": "14794bea5b6b4ed2ef9fc3b40c543d8f84897a259a09e7e784f5dfdce6b6536f"
+      }
+    },
+    "java_version": "openjdk version \"26.0.1\" 2026-04-21\nOpenJDK Runtime Environment (build 26.0.1+8-2-26.04.2-Ubuntu)\nOpenJDK 64-Bit Server VM (build 26.0.1+8-2-26.04.2-Ubuntu, mixed mode, sharing)",
+    "platform": "Linux-7.0.0-28-generic-x86_64-with-glibc2.43",
+    "plugins": {
+      "json": {
+        "path": "/tmp/flang-workload-adoption-20261013/build-release/DumpASTPlugin.so",
+        "sha256": "4d58de77ce1aac4d6f58af17069f70a46d86ec5ee0ccf31a1b2ae775aa10e0a8"
+      },
+      "protobuf": {
+        "path": "/tmp/flang-workload-adoption-20261013/build-release/DumpASTProtobufPlugin.so",
+        "sha256": "a1166762bea59a0565119d28b3acd65d972116bc06ead88004f17e7062740fc3"
+      }
+    },
+    "python_version": "3.14.4",
+    "schema": {
+      "path": "/home/lmsousa/.t3/worktrees/metafor/flang-protobuf-reader/FortranParser/src/main/proto/ast_stream.proto",
+      "sha256": "a533c631c18b6550ff3956cd038dfcd1c335348ca71fc033e30f10b8bf5bf39b"
+    },
+    "source_hashes": {
+      "hello.f90": "193728445b05d50bfa5c103018529d232e2f93905b6e83b7120852708f853f02",
+      "polybench-3mm.f90": "2c82759e6ce3123d34e1a678bf2cd842b57ff57207056bbe20aa59f3403f9de0",
+      "synthetic-assignment-chain-512.f90": "f78cfb075508355f53a84cfa4140116bf12cd7ed74deb4743896d3bfbe1bf262"
+    }
+  },
+  "started_utc": "2026-10-13T07:16:21.617463+00:00",
+  "status": "complete"
+}
