@@ -10,8 +10,8 @@
         nativeBuildInputs = with pkgs; [ jdk21 gradle nodejs_22 python3 ];
 
         shellHook = ''
-          export LLVM_HOME="$(realpath ../llvm/build)"
-          export PATH="$LLVM_HOME/bin:PATH"
+          export LLVM_HOME="$(realpath ../llvm/install)"
+          export PATH="$LLVM_HOME/bin:$PATH"
         '';
       };
     };
