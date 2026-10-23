@@ -53,9 +53,11 @@ public class FortranNativeParser {
         context.set(FortranContext.LAST_PARSED_FILE, Optional.of(file));
 
         var plugin = FLANG_DUMPER.get();
+        var modulesPath = TEMP_FOLDER.get() + "/modules";
 
         // Execute flang to obtain json
-        var command = List.of(getFlangCommand(), "-fc1", "-fopenmp", "-fintrinsic-modules-path", "/tmp/metafor_brunol/modules", "-load", plugin.getAbsolutePath(), "-plugin", "dump-ast", file.getAbsolutePath());
+        var command = List.of(getFlangCommand(), "-fc1", "-fopenmp", "-fintrinsic-modules-path", modulesPath,
+                "-load", plugin.getAbsolutePath(), "-plugin", "dump-ast", file.getAbsolutePath());
 
         var jsonFile = SAVE_JSON ? new File(file.getAbsoluteFile().getParentFile(), file.getName() + ".json") : null;
 
