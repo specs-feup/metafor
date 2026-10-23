@@ -7,7 +7,7 @@
   outputs = inputs@{ flake-parts, ... }: flake-parts.lib.mkFlake { inherit inputs; } {
     perSystem = { pkgs, ... }: {
       devShells.default = pkgs.mkShell {
-        nativeBuildInputs = with pkgs; [ jdk21 gradle nodejs_22 python3 ];
+        nativeBuildInputs = with pkgs; [ jdk21 gradle nodejs_22 python3 jq ];
 
         shellHook = ''
           export LLVM_HOME="$(realpath ../llvm/install)"

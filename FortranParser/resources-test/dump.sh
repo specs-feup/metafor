@@ -25,7 +25,8 @@ echo "$MATCHING_FILES" | while read -r FORTRAN_FILE; do
 
     echo "Dumping AST for '$FORTRAN_FILE' to '$DUMP_FILE'..."
 
-    flang-22 -fc1 -fopenmp -load "/tmp/metafor_$USER/DumpASTPlugin.so" -plugin dump-ast "$FORTRAN_FILE" > tmp.json || exit 1
+    flang-23 -fc1 -fopenmp -fintrinsic-modules-path "/tmp/metafor_$USER/modules" \
+        -load "/tmp/metafor_$USER/DumpASTPlugin.so" -plugin dump-ast "$FORTRAN_FILE" > tmp.json || exit 1
     jq . tmp.json > "$DUMP_FILE"
     rm tmp.json
 done

@@ -18,7 +18,7 @@ import java.util.Optional;
 import java.util.function.Function;
 
 public class FortranNativeParser {
-    public static final int FLANG_VERSION = 22;
+    public static final int FLANG_VERSION = 23;
 
     private static final boolean USE_RELEASE = false;
 
@@ -55,7 +55,7 @@ public class FortranNativeParser {
         var plugin = FLANG_DUMPER.get();
 
         // Execute flang to obtain json
-        var command = List.of(getFlangCommand(), "-fc1", "-fopenmp", "-load", plugin.getAbsolutePath(), "-plugin", "dump-ast", file.getAbsolutePath());
+        var command = List.of(getFlangCommand(), "-fc1", "-fopenmp", "-fintrinsic-modules-path", "/tmp/metafor_brunol/modules", "-load", plugin.getAbsolutePath(), "-plugin", "dump-ast", file.getAbsolutePath());
 
         var jsonFile = SAVE_JSON ? new File(file.getAbsoluteFile().getParentFile(), file.getName() + ".json") : null;
 
