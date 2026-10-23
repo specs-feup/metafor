@@ -44,9 +44,9 @@ public class OmpProcessors extends ANodeProcessor {
     }
 
     public void ompLoopConstruct(OmpLoopConstruct ompLoopConstruct) {
-        String directive = attributes().getString(ompLoopConstruct, "directive", FlangName.OMP_BEGIN_LOOP_DIRECTIVE, FlangName.OMP_DIRECTIVE_NAME);
-        String clauseList = attributes().getString(ompLoopConstruct, "id", FlangName.OMP_BEGIN_LOOP_DIRECTIVE, FlangName.OMP_CLAUSE_LIST);
-        String endClauseList = attributes().getString(ompLoopConstruct, "id", FlangName.OMP_END_LOOP_DIRECTIVE, FlangName.OMP_CLAUSE_LIST);
+        String directive = attributes().getString(ompLoopConstruct, "directive", FlangName.OMP_BEGIN_DIRECTIVE, FlangName.OMP_DIRECTIVE_NAME);
+        String clauseList = attributes().getString(ompLoopConstruct, "id", FlangName.OMP_BEGIN_DIRECTIVE, FlangName.OMP_CLAUSE_LIST);
+        String endClauseList = attributes().getString(ompLoopConstruct, "id", FlangName.OMP_END_DIRECTIVE, FlangName.OMP_CLAUSE_LIST);
 
         List<OmpDirectiveKind> kinds = OmpDirectiveKind.getKinds(directive);
 
